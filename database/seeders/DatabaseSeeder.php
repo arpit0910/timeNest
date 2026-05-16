@@ -1,25 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Master database seeder — orchestrates all seeders in correct dependency order.
+ */
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            // 1. Geo data (no dependencies)
+            CountrySeeder::class,
+            StateSeeder::class,
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            // 2. RBAC foundation
+            PlatformPermissionsSeeder::class,
+            PlatformRolesSeeder::class,
+            PlatformRolePermissionsSeeder::class,
+
+            // 3. Platform users
+            PlatformUsersSeeder::class,
+
+            // 4. Demo data (dev only)
+            DemoCorporationSeeder::class,
         ]);
     }
 }

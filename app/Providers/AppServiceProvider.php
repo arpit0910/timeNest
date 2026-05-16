@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
-use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,8 +25,38 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
-            return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+        // Strict mode: prevent lazy loading, silently discarded attributes, and invalid access
+        Model::shouldBeStrict(!$this->app->isProduction());
+
+        // Rate limiters
+        $this->configureRateLimiting();
+    }
+
+    /**
+     * Configure rate limiting for different API route groups.
+     *
+     * @return void
+     */
+    private function configureRateLimiting(): void
+    {
+        // Auth endpoints: 5 requests per minute per IP (brute-force protection)
+        RateLimiter::for('auth', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        // Platform admin routes: 120 requests per minute per user
+        RateLimiter::for('platform', function (Request $request) {
+            return Limit::perMinute(120)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // Corporation routes: 60 requests per minute per user
+        RateLimiter::for('corp', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        // General API: 60 requests per minute per IP
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
 }
