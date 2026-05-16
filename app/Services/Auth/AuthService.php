@@ -212,7 +212,10 @@ class AuthService
                 throw new AuthenticationException('Corporation membership is no longer active');
             }
 
-            $roleName = $user->roles()->where('corporation_id', $corporation->id)->first()?->name;
+            $roleName = $user->roles()
+                ->where('model_has_roles.corporation_id', $corporation->id)
+                ->where('roles.corporation_id', $corporation->id)
+                ->first()?->name;
         } elseif ($guard === AuthGuard::Platform) {
             $platformMembership = PlatformMembership::active()
                 ->where('user_id', $user->id)
@@ -223,7 +226,10 @@ class AuthService
                 throw new AuthenticationException('Platform access is no longer active');
             }
 
-            $roleName = $user->roles()->whereNull('corporation_id')->first()?->name;
+            $roleName = $user->roles()
+                ->whereNull('model_has_roles.corporation_id')
+                ->whereNull('roles.corporation_id')
+                ->first()?->name;
         } else {
             $roleName = null;
         }
@@ -270,7 +276,10 @@ class AuthService
             throw new AuthenticationException('You do not have an active membership in this corporation');
         }
 
-        $role = $user->roles()->where('corporation_id', $corporation->id)->first();
+        $role = $user->roles()
+            ->where('model_has_roles.corporation_id', $corporation->id)
+            ->where('roles.corporation_id', $corporation->id)
+            ->first();
 
         if (!$role) {
             throw new AuthenticationException('No role assigned for this corporation');
@@ -325,11 +334,17 @@ class AuthService
             ->where('user_id', $user->id)
             ->first();
 
-        $platformRole = $user->roles()->whereNull('corporation_id')->first();
+        $platformRole = $user->roles()
+            ->whereNull('model_has_roles.corporation_id')
+            ->whereNull('roles.corporation_id')
+            ->first();
 
         return [
             'corporations' => $corpMemberships->map(function ($m) use ($user) {
-                $role = $user->roles()->where('corporation_id', $m->corporation_id)->first();
+                $role = $user->roles()
+                    ->where('model_has_roles.corporation_id', $m->corporation_id)
+                    ->where('roles.corporation_id', $m->corporation_id)
+                    ->first();
                 return [
                     'corporation_uuid' => $m->corporation->uuid,
                     'legal_name'       => $m->corporation->legal_name,
@@ -520,7 +535,10 @@ class AuthService
             ->first();
 
         if ($platformMembership) {
-            $platformRole = $user->roles()->whereNull('corporation_id')->first();
+            $platformRole = $user->roles()
+                ->whereNull('model_has_roles.corporation_id')
+                ->whereNull('roles.corporation_id')
+                ->first();
             $roleName = $platformRole?->name;
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
@@ -561,7 +579,10 @@ class AuthService
         if ($corpMemberships->count() === 1) {
             $membership = $corpMemberships->first();
             $corporation = $membership->corporation;
-            $role = $user->roles()->where('corporation_id', $corporation->id)->first();
+            $role = $user->roles()
+                ->where('model_has_roles.corporation_id', $corporation->id)
+                ->where('roles.corporation_id', $corporation->id)
+                ->first();
             $roleName = $role?->name;
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
@@ -595,7 +616,10 @@ class AuthService
             'requires_workspace_selection'  => true,
             'temp_token'                   => $tempToken,
             'workspaces'                   => $corpMemberships->map(function ($m) use ($user) {
-                $role = $user->roles()->where('corporation_id', $m->corporation_id)->first();
+                $role = $user->roles()
+                    ->where('model_has_roles.corporation_id', $m->corporation_id)
+                    ->where('roles.corporation_id', $m->corporation_id)
+                    ->first();
                 return [
                     'corporation_uuid' => $m->corporation->uuid,
                     'legal_name'       => $m->corporation->legal_name,

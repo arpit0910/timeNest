@@ -19,6 +19,8 @@ class SetSpatieTeamId
 
         if ($corpId) {
             setPermissionsTeamId($corpId);
+        } else {
+            setPermissionsTeamId(null);
         }
 
         return $next($request);
