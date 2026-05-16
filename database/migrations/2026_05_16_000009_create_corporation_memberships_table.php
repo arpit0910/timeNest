@@ -15,7 +15,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id')->comment('FK to users — global identity');
             $table->unsignedBigInteger('corporation_id')->comment('FK to corporations');
-            $table->unsignedBigInteger('role_id')->comment('Active role in this corporation');
             $table->unsignedBigInteger('invited_by')->nullable()->comment('user_id who sent the invitation');
 
             $table->string('status', 20)->default('pending')
@@ -28,13 +27,11 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('invited_by')->references('id')->on('users')->onDelete('set null');
 
             $table->unique(['user_id', 'corporation_id'], 'unique_user_per_corp');
             $table->index(['corporation_id', 'status']);
             $table->index('status');
-            $table->index('role_id');
         });
 
         DB::statement("ALTER TABLE corp_memberships ADD CONSTRAINT chk_membership_status

@@ -16,10 +16,13 @@ class CorpMembershipResource extends JsonResource
             'uuid'       => $this->uuid,
             'status'     => $this->status,
             'joined_at'  => $this->joined_at?->toISOString(),
-            'role'       => [
-                'name'        => $this->role?->name,
-                'description' => $this->role?->description,
-            ],
+            'role'       => $this->whenLoaded('user', function () {
+                $role = $this->user->roles->first();
+                return [
+                    'name'        => $role?->name,
+                    'description' => $role?->description,
+                ];
+            }),
             'user'       => new UserResource($this->whenLoaded('user')),
             'created_at' => $this->created_at?->toISOString(),
         ];

@@ -13,9 +13,9 @@ All routes (except login/register/refresh) require a Bearer token in the `Author
 - **Endpoint**: `POST /login`
 - **Body**: `email`, `password`
 - **Response**: 
-  - If single workspace: Returns `access_token` and `refresh_token` (Corp-guard).
+  - If single workspace: Returns `access_token` and `refresh_token` (Scoped to corporation).
   - If multiple workspaces: Returns `temp_token` and `requires_workspace_selection: true`.
-  - If platform admin: Returns `access_token` and `refresh_token` (Platform-guard).
+  - If platform admin: Returns `access_token` and `refresh_token` (No corporation scope).
 
 ### 3. Refresh Token
 - **Endpoint**: `POST /refresh`
@@ -47,7 +47,7 @@ All routes (except login/register/refresh) require a Bearer token in the `Author
 ---
 
 ## Corporation Workspace (`/api/v1/corp`)
-*Requires corp-guard JWT and appropriate permissions (checked via `rbac:*` middleware).*
+*Requires JWT with corporation scope and appropriate permissions (checked via `permission:*` middleware).*
 
 ### 1. Branches
 *Permissions required: `branches.view`, `branches.create`, etc.*

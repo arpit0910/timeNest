@@ -29,7 +29,7 @@ class MembershipController extends BaseApiController
         $corpId = $request->input('jwt_corporation_id');
         
         $memberships = CorpMembership::where('corporation_id', $corpId)
-            ->with(['user', 'role'])
+            ->with(['user.roles'])
             ->paginate(50);
 
         return $this->success(CorpMembershipResource::collection($memberships)->response()->getData(true));
@@ -60,7 +60,7 @@ class MembershipController extends BaseApiController
             invitedById: $request->user()->id
         );
 
-        return $this->created(new CorpMembershipResource($membership->load(['user', 'role'])), 'Member added successfully');
+        return $this->created(new CorpMembershipResource($membership->load(['user.roles'])), 'Member added successfully');
     }
 
     /**

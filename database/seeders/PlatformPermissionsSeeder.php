@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 /**
- * Seeds all platform permissions using {module}.{action} pattern.
+ * Seeds all platform permissions using {module}.{action} pattern for Spatie.
  */
 class PlatformPermissionsSeeder extends Seeder
 {
@@ -28,6 +28,9 @@ class PlatformPermissionsSeeder extends Seeder
         'settings'      => ['manage'],
         'invoicing'     => ['view', 'create', 'edit', 'delete', 'send', 'approve'],
         'workflows'     => ['view', 'create', 'edit', 'delete', 'trigger'],
+    ];
+
+    private const PLATFORM_PERMISSIONS = [
         'corporations'  => ['manage'],
     ];
 
@@ -38,26 +41,38 @@ class PlatformPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $batch = [];
+        $count = 0;
 
         foreach (self::PERMISSIONS as $module => $actions) {
             foreach ($actions as $action) {
-                $name = "{$module}.{$action}";
-                $batch[] = [
-                    'uuid'        => (string) Str::uuid(),
-                    'name'        => $name,
-                    'module'      => $module,
-                    'action'      => $action,
-                    'description' => ucfirst($action) . ' ' . $module,
-                    'is_active'   => true,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ];
+                Permission::firstOrCreate(
+                    ['name' => "{$module}.{$action}", 'guard_name' => 'api'],
+                    [
+                        'uuid'        => (string) Str::uuid(),
+                        'module'      => $module,
+                        'action'      => $action,
+                        'description' => ucfirst($action) . ' ' . $module,
+                    ]
+                );
+                $count++;
             }
         }
 
-        Permission::insert($batch);
+        foreach (self::PLATFORM_PERMISSIONS as $module => $actions) {
+            foreach ($actions as $action) {
+                Permission::firstOrCreate(
+                    ['name' => "{$module}.{$action}", 'guard_name' => 'api'],
+                    [
+                        'uuid'        => (string) Str::uuid(),
+                        'module'      => $module,
+                        'action'      => $action,
+                        'description' => ucfirst($action) . ' ' . $module,
+                    ]
+                );
+                $count++;
+            }
+        }
 
-        $this->command->info('Seeded ' . count($batch) . ' permissions.');
+        $this->command->info('Seeded ' . $count . ' permissions.');
     }
 }

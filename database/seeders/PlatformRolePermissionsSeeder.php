@@ -6,11 +6,10 @@ namespace Database\Seeders;
 
 use App\Models\Rbac\Permission;
 use App\Models\Rbac\Role;
-use App\Models\Rbac\RolePermission;
 use Illuminate\Database\Seeder;
 
 /**
- * Maps permissions to system roles.
+ * Maps permissions to system roles using Spatie Laravel Permission.
  *
  * Permission assignment per role as defined in the master prompt.
  */
@@ -18,7 +17,7 @@ class PlatformRolePermissionsSeeder extends Seeder
 {
     /**
      * Role → permission mapping.
-     * '*' means all permissions.
+     * '*' means all permissions (scoped to the role's guard).
      */
     private const ROLE_PERMISSIONS = [
         // Platform roles
@@ -79,37 +78,34 @@ class PlatformRolePermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $allPermissions = Permission::pluck('id', 'name');
-        $allPermissionIds = $allPermissions->values()->toArray();
-        $roles = Role::system()->get()->keyBy('name');
+        // Fetch all roles grouped by guard
+        $roles = Role::where('is_system_role', true)->get();
 
-        $batch = [];
+        $count = 0;
 
-        foreach (self::ROLE_PERMISSIONS as $roleName => $permissionNames) {
-            $role = $roles[$roleName] ?? null;
-            if (!$role) {
-                $this->command->warn("Role '{$roleName}' not found. Skipping.");
+        foreach ($roles as $role) {
+            $permissionNames = self::ROLE_PERMISSIONS[$role->name] ?? null;
+
+            if (!$permissionNames) {
                 continue;
             }
 
-            $permIds = $permissionNames === ['*']
-                ? $allPermissionIds
-                : $allPermissions->only($permissionNames)->values()->toArray();
-
-            foreach ($permIds as $permId) {
-                $batch[] = [
-                    'role_id'       => $role->id,
-                    'permission_id' => $permId,
-                    'created_at'    => now(),
-                    'updated_at'    => now(),
-                ];
+            if ($permissionNames === ['*']) {
+                // Get all permissions for this role's guard
+                $permissions = Permission::where('guard_name', $role->guard_name)->get();
+            } else {
+                // Note: some roles might specify permissions that exist in the opposite guard.
+                // But Spatie requires role guard and permission guard to match.
+                // We'll map them strictly by name and role's guard.
+                $permissions = Permission::whereIn('name', $permissionNames)
+                                         ->where('guard_name', $role->guard_name)
+                                         ->get();
             }
+
+            $role->syncPermissions($permissions);
+            $count += $permissions->count();
         }
 
-        foreach (array_chunk($batch, 100) as $chunk) {
-            RolePermission::insert($chunk);
-        }
-
-        $this->command->info('Seeded ' . count($batch) . ' role-permission mappings.');
+        $this->command->info('Seeded ' . $count . ' role-permission assignments via Spatie.');
     }
 }

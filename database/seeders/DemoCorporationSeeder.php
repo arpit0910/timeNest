@@ -113,10 +113,12 @@ class DemoCorporationSeeder extends Seeder
                 'uuid'           => (string) Str::uuid(),
                 'user_id'        => $owner->id,
                 'corporation_id' => $corp->id,
-                'role_id'        => $ownerRole->id,
                 'status'         => MembershipStatus::Active,
                 'joined_at'      => now(),
             ]);
+
+            setPermissionsTeamId($corp->id);
+            $owner->assignRole($ownerRole);
 
             EmployeeProfile::create([
                 'uuid'               => (string) Str::uuid(),
@@ -148,11 +150,12 @@ class DemoCorporationSeeder extends Seeder
                 'uuid'           => (string) Str::uuid(),
                 'user_id'        => $emp->id,
                 'corporation_id' => $corp->id,
-                'role_id'        => $employeeRole->id,
                 'status'         => MembershipStatus::Active,
                 'invited_by'     => $owner->id,
                 'joined_at'      => now(),
             ]);
+
+            $emp->assignRole($employeeRole);
 
             EmployeeProfile::create([
                 'uuid'               => (string) Str::uuid(),

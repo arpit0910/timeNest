@@ -31,7 +31,7 @@ class CorpMembership extends Model
     protected $table = 'corp_memberships';
 
     protected $fillable = [
-        'user_id', 'corporation_id', 'role_id', 'invited_by',
+        'user_id', 'corporation_id', 'invited_by',
         'status', 'joined_at', 'left_at',
     ];
 
@@ -46,7 +46,6 @@ class CorpMembership extends Model
 
     public function user(): BelongsTo { return $this->belongsTo(User::class); }
     public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
-    public function role(): BelongsTo { return $this->belongsTo(Role::class); }
     public function invitedBy(): BelongsTo { return $this->belongsTo(User::class, 'invited_by'); }
     public function employeeProfile(): HasOne { return $this->hasOne(EmployeeProfile::class, 'corp_membership_id'); }
 

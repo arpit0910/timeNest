@@ -67,10 +67,12 @@ class PlatformUsersSeeder extends Seeder
             PlatformMembership::create([
                 'uuid'       => (string) Str::uuid(),
                 'user_id'    => $user->id,
-                'role_id'    => $role->id,
                 'status'     => 'active',
                 'granted_by' => null,
             ]);
+
+            // Assign Spatie platform role
+            $user->assignRole($role);
         }
 
         $this->command->info('Seeded ' . count($platformUsers) . ' platform admin users.');

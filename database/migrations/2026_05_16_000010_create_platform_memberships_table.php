@@ -13,14 +13,12 @@ return new class extends Migration
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
             $table->unsignedBigInteger('user_id')->comment('FK to users');
-            $table->unsignedBigInteger('role_id')->comment('Platform guard role');
             $table->string('status', 20)->default('active')->comment('active | revoked');
             $table->unsignedBigInteger('granted_by')->nullable()->comment('user_id who granted platform access');
 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('granted_by')->references('id')->on('users')->onDelete('set null');
 
             $table->unique('user_id')->comment('One platform role per user');

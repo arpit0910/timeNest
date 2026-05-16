@@ -26,11 +26,10 @@ class PlatformMembership extends Model
     protected $table = 'platform_memberships';
 
     protected $fillable = [
-        'user_id', 'role_id', 'status', 'granted_by',
+        'user_id', 'status', 'granted_by',
     ];
 
     public function user(): BelongsTo { return $this->belongsTo(User::class); }
-    public function role(): BelongsTo { return $this->belongsTo(Role::class); }
     public function grantedBy(): BelongsTo { return $this->belongsTo(User::class, 'granted_by'); }
 
     public function scopeActive($query) { return $query->where('status', 'active'); }

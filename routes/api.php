@@ -69,31 +69,31 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     });
 
     // --- Core Corporation Module ---
-    Route::prefix('corp')->name('corp.')->middleware(['jwt.auth'])->group(function () {
+    Route::prefix('corp')->name('corp.')->middleware(['jwt.auth', 'spatie.team'])->group(function () {
         
         // Branches
         Route::prefix('branches')->name('branches.')->controller(BranchController::class)->group(function () {
-            Route::get('/', 'index')->middleware('rbac:branches.view')->name('index');
-            Route::post('/', 'store')->middleware('rbac:branches.create')->name('store');
-            Route::get('{uuid}', 'show')->middleware('rbac:branches.view')->name('show');
-            Route::put('{uuid}', 'update')->middleware('rbac:branches.edit')->name('update');
-            Route::delete('{uuid}', 'destroy')->middleware('rbac:branches.delete')->name('destroy');
+            Route::get('/', 'index')->middleware('permission:branches.view')->name('index');
+            Route::post('/', 'store')->middleware('permission:branches.create')->name('store');
+            Route::get('{uuid}', 'show')->middleware('permission:branches.view')->name('show');
+            Route::put('{uuid}', 'update')->middleware('permission:branches.edit')->name('update');
+            Route::delete('{uuid}', 'destroy')->middleware('permission:branches.delete')->name('destroy');
         });
 
         // Departments
         Route::prefix('departments')->name('departments.')->controller(DepartmentController::class)->group(function () {
-            Route::get('/', 'index')->middleware('rbac:departments.view')->name('index');
-            Route::post('/', 'store')->middleware('rbac:departments.create')->name('store');
-            Route::get('{uuid}', 'show')->middleware('rbac:departments.view')->name('show');
-            Route::put('{uuid}', 'update')->middleware('rbac:departments.edit')->name('update');
-            Route::delete('{uuid}', 'destroy')->middleware('rbac:departments.delete')->name('destroy');
+            Route::get('/', 'index')->middleware('permission:departments.view')->name('index');
+            Route::post('/', 'store')->middleware('permission:departments.create')->name('store');
+            Route::get('{uuid}', 'show')->middleware('permission:departments.view')->name('show');
+            Route::put('{uuid}', 'update')->middleware('permission:departments.edit')->name('update');
+            Route::delete('{uuid}', 'destroy')->middleware('permission:departments.delete')->name('destroy');
         });
 
         // Memberships / Employees
         Route::prefix('memberships')->name('memberships.')->controller(MembershipController::class)->group(function () {
-            Route::get('/', 'index')->middleware('rbac:users.view')->name('index');
-            Route::post('/', 'store')->middleware('rbac:users.manage')->name('store');
-            Route::delete('{uuid}', 'destroy')->middleware('rbac:users.delete')->name('destroy');
+            Route::get('/', 'index')->middleware('permission:users.view')->name('index');
+            Route::post('/', 'store')->middleware('permission:users.manage')->name('store');
+            Route::delete('{uuid}', 'destroy')->middleware('permission:users.delete')->name('destroy');
         });
     });
 

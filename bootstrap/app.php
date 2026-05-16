@@ -22,7 +22,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'jwt.auth' => \App\Http\Middleware\JwtAuthenticate::class,
             'verified.email' => \App\Http\Middleware\EnsureEmailVerified::class,
-            'rbac' => \App\Http\Middleware\RequirePermission::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            'spatie.team' => \App\Http\Middleware\SetSpatieTeamId::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

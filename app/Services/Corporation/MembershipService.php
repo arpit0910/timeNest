@@ -44,11 +44,14 @@ class MembershipService
             $membership = CorpMembership::create([
                 'user_id'        => $user->id,
                 'corporation_id' => $corp->id,
-                'role_id'        => $role->id,
                 'status'         => MembershipStatus::Active,
                 'invited_by'     => $invitedById,
                 'joined_at'      => now(),
             ]);
+
+            // Assign Spatie Role to the user within the context of this corporation
+            setPermissionsTeamId($corp->id);
+            $user->assignRole($role);
 
             // Create base employee profile
             $profile = EmployeeProfile::create([
@@ -84,14 +87,17 @@ class MembershipService
      */
     public function changeRole(CorpMembership $membership, Role $newRole): CorpMembership
     {
-        app()->instance('current.corporation', $membership->corporation);
+        $corp = $membership->corporation;
+        app()->instance('current.corporation', $corp);
 
-        $old = $membership->toArray();
-        $membership->update(['role_id' => $newRole->id]);
+        setPermissionsTeamId($corp->id);
+        $user = $membership->user;
 
-        $this->logAction('membership.role_changed', $membership, $old, $membership->toArray());
+        // Sync Spatie roles for this team
+        $user->syncRoles([$newRole]);
 
-        // In a real system, you'd invalidate tokens here for this user/corp combo.
+        $this->logAction('membership.role_changed', $membership, [], ['new_role' => $newRole->name]);
+
         return $membership;
     }
 

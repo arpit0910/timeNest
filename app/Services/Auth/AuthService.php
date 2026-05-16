@@ -205,7 +205,6 @@ class AuthService
             $membership = CorpMembership::active()
                 ->where('user_id', $user->id)
                 ->where('corporation_id', $corporation->id)
-                ->with('role')
                 ->first();
 
             if (!$membership) {
@@ -213,11 +212,10 @@ class AuthService
                 throw new AuthenticationException('Corporation membership is no longer active');
             }
 
-            $roleName = $membership->role->name;
+            $roleName = $user->roles()->where('corporation_id', $corporation->id)->first()?->name;
         } elseif ($guard === AuthGuard::Platform) {
             $platformMembership = PlatformMembership::active()
                 ->where('user_id', $user->id)
-                ->with('role')
                 ->first();
 
             if (!$platformMembership) {
@@ -225,7 +223,7 @@ class AuthService
                 throw new AuthenticationException('Platform access is no longer active');
             }
 
-            $roleName = $platformMembership->role->name;
+            $roleName = $user->roles()->whereNull('corporation_id')->first()?->name;
         } else {
             $roleName = null;
         }
@@ -266,14 +264,19 @@ class AuthService
         $membership = CorpMembership::active()
             ->where('user_id', $user->id)
             ->where('corporation_id', $corporation->id)
-            ->with('role')
             ->first();
 
         if (!$membership) {
             throw new AuthenticationException('You do not have an active membership in this corporation');
         }
 
-        if ($membership->role->guard !== AuthGuard::Corp) {
+        $role = $user->roles()->where('corporation_id', $corporation->id)->first();
+
+        if (!$role) {
+            throw new AuthenticationException('No role assigned for this corporation');
+        }
+
+        if ($role->guard_name !== 'api') {
             throw new AuthenticationException('Invalid role guard for corporation access');
         }
 
@@ -287,7 +290,7 @@ class AuthService
         }
 
         $accessToken = $this->issueJwtAction->issueAccessToken(
-            $user, $corporation, AuthGuard::Corp, $membership->role->name
+            $user, $corporation, AuthGuard::Corp, $role->name
         );
         $refreshToken = $this->issueJwtAction->issueRefreshToken(
             $user, $corporation, AuthGuard::Corp
@@ -301,7 +304,7 @@ class AuthService
             'token_type'    => 'bearer',
             'expires_in'    => config('jwt.ttl') * 60,
             'corporation'   => $corporation,
-            'role'          => $membership->role->name,
+            'role'          => $role->name,
         ];
     }
 
@@ -315,26 +318,30 @@ class AuthService
     {
         $corpMemberships = CorpMembership::active()
             ->where('user_id', $user->id)
-            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url', 'role:id,name'])
+            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url'])
             ->get();
 
         $platformMembership = PlatformMembership::active()
             ->where('user_id', $user->id)
-            ->with('role:id,name')
             ->first();
 
+        $platformRole = $user->roles()->whereNull('corporation_id')->first();
+
         return [
-            'corporations' => $corpMemberships->map(fn ($m) => [
-                'corporation_uuid' => $m->corporation->uuid,
-                'legal_name'       => $m->corporation->legal_name,
-                'trading_name'     => $m->corporation->trading_name,
-                'slug'             => $m->corporation->slug,
-                'logo_url'         => $m->corporation->logo_url,
-                'role'             => $m->role->name,
-                'joined_at'        => $m->joined_at?->toISOString(),
-            ]),
+            'corporations' => $corpMemberships->map(function ($m) use ($user) {
+                $role = $user->roles()->where('corporation_id', $m->corporation_id)->first();
+                return [
+                    'corporation_uuid' => $m->corporation->uuid,
+                    'legal_name'       => $m->corporation->legal_name,
+                    'trading_name'     => $m->corporation->trading_name,
+                    'slug'             => $m->corporation->slug,
+                    'logo_url'         => $m->corporation->logo_url,
+                    'role'             => $role?->name,
+                    'joined_at'        => $m->joined_at?->toISOString(),
+                ];
+            }),
             'has_platform_access' => $platformMembership !== null,
-            'platform_role'       => $platformMembership?->role->name,
+            'platform_role'       => $platformRole?->name,
         ];
     }
 
@@ -510,12 +517,14 @@ class AuthService
         // Check platform membership first
         $platformMembership = PlatformMembership::active()
             ->where('user_id', $user->id)
-            ->with('role')
             ->first();
 
         if ($platformMembership) {
+            $platformRole = $user->roles()->whereNull('corporation_id')->first();
+            $roleName = $platformRole?->name;
+
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, null, AuthGuard::Platform, $platformMembership->role->name
+                $user, null, AuthGuard::Platform, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
                 $user, null, AuthGuard::Platform
@@ -530,7 +539,7 @@ class AuthService
                 'token_type'    => 'bearer',
                 'expires_in'    => config('jwt.ttl') * 60,
                 'guard'         => 'platform',
-                'role'          => $platformMembership->role->name,
+                'role'          => $roleName,
                 'user'          => $user,
             ];
         }
@@ -538,7 +547,7 @@ class AuthService
         // Check corp memberships
         $corpMemberships = CorpMembership::active()
             ->where('user_id', $user->id)
-            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url', 'role:id,name'])
+            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url'])
             ->get();
 
         if ($corpMemberships->isEmpty()) {
@@ -552,9 +561,11 @@ class AuthService
         if ($corpMemberships->count() === 1) {
             $membership = $corpMemberships->first();
             $corporation = $membership->corporation;
+            $role = $user->roles()->where('corporation_id', $corporation->id)->first();
+            $roleName = $role?->name;
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, $corporation, AuthGuard::Corp, $membership->role->name
+                $user, $corporation, AuthGuard::Corp, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
                 $user, $corporation, AuthGuard::Corp
@@ -569,7 +580,7 @@ class AuthService
                 'token_type'    => 'bearer',
                 'expires_in'    => config('jwt.ttl') * 60,
                 'guard'         => 'corp',
-                'role'          => $membership->role->name,
+                'role'          => $roleName,
                 'corporation'   => $corporation,
                 'user'          => $user,
             ];
@@ -583,14 +594,17 @@ class AuthService
             'message'                      => 'Please select a corporation to continue',
             'requires_workspace_selection'  => true,
             'temp_token'                   => $tempToken,
-            'workspaces'                   => $corpMemberships->map(fn ($m) => [
-                'corporation_uuid' => $m->corporation->uuid,
-                'legal_name'       => $m->corporation->legal_name,
-                'trading_name'     => $m->corporation->trading_name,
-                'slug'             => $m->corporation->slug,
-                'logo_url'         => $m->corporation->logo_url,
-                'role'             => $m->role->name,
-            ]),
+            'workspaces'                   => $corpMemberships->map(function ($m) use ($user) {
+                $role = $user->roles()->where('corporation_id', $m->corporation_id)->first();
+                return [
+                    'corporation_uuid' => $m->corporation->uuid,
+                    'legal_name'       => $m->corporation->legal_name,
+                    'trading_name'     => $m->corporation->trading_name,
+                    'slug'             => $m->corporation->slug,
+                    'logo_url'         => $m->corporation->logo_url,
+                    'role'             => $role?->name,
+                ];
+            }),
             'user' => $user,
         ];
     }

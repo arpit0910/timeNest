@@ -5,39 +5,33 @@ declare(strict_types=1);
 namespace App\Models\Rbac;
 
 use App\Traits\HasUuid;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
 /**
- * Permission model — dot-notation module.action permissions.
+ * Custom Permission Model extending Spatie's base Permission.
  *
  * @property int $id
  * @property string $uuid
  * @property string $name
- * @property string $module
- * @property string $action
- * @property bool $is_active
+ * @property string $guard_name
+ * @property string|null $module
+ * @property string|null $action
+ * @property string|null $description
  */
-class Permission extends Model
+class Permission extends SpatiePermission
 {
     use HasUuid;
 
-    protected $table = 'permissions';
-
     protected $fillable = [
-        'name', 'module', 'action', 'description', 'is_active',
+        'name',
+        'guard_name',
+        'module',
+        'action',
+        'description',
     ];
 
-    protected function casts(): array
+    public function getRouteKeyName(): string
     {
-        return ['is_active' => 'boolean'];
+        return 'uuid';
     }
-
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class, 'role_permissions')->withTimestamps();
-    }
-
-    public function scopeActive($query) { return $query->where('is_active', true); }
-    public function scopeByModule($query, string $module) { return $query->where('module', $module); }
 }
