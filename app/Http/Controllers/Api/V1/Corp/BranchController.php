@@ -11,8 +11,16 @@ use App\Models\Corporation\Branch;
 use App\Models\Corporation\Corporation;
 use App\Services\Corporation\BranchService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
+/**
+ * Corporation-scoped branch management.
+ *
+ * Authorization: enforced entirely at the route level via middleware.
+ * - jwt.auth → corp.access → tenant.resolve → permission:branches.*
+ *
+ * Tenant context: resolved via app('tenant.corporation') — set by ResolveTenantContext middleware.
+ * This controller contains ZERO authorization or tenant extraction logic.
+ */
 class BranchController extends BaseApiController
 {
     public function __construct(
@@ -20,13 +28,19 @@ class BranchController extends BaseApiController
     ) {}
 
     /**
+     * Resolve the active corporation from the container.
+     */
+    private function tenant(): Corporation
+    {
+        return app('tenant.corporation');
+    }
+
+    /**
      * List all branches for the active corporation.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-        
-        $branches = Branch::where('corporation_id', $corpId)
+        $branches = Branch::where('corporation_id', $this->tenant()->id)
             ->with(['state', 'country'])
             ->get();
 
@@ -38,9 +52,7 @@ class BranchController extends BaseApiController
      */
     public function store(CreateBranchRequest $request): JsonResponse
     {
-        $corp = Corporation::findOrFail($request->input('jwt_corporation_id'));
-
-        $branch = $this->branchService->createBranch($corp, $request->validated());
+        $branch = $this->branchService->createBranch($this->tenant(), $request->validated());
 
         return $this->created(new BranchResource($branch), 'Branch created successfully');
     }
@@ -48,11 +60,9 @@ class BranchController extends BaseApiController
     /**
      * Get a specific branch.
      */
-    public function show(Request $request, string $uuid): JsonResponse
+    public function show(string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $branch = Branch::where('corporation_id', $corpId)
+        $branch = Branch::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 
@@ -61,13 +71,10 @@ class BranchController extends BaseApiController
 
     /**
      * Update a branch.
-     * Reuses CreateBranchRequest for simplicity, in a real app might use UpdateBranchRequest.
      */
     public function update(CreateBranchRequest $request, string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $branch = Branch::where('corporation_id', $corpId)
+        $branch = Branch::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 
@@ -79,11 +86,9 @@ class BranchController extends BaseApiController
     /**
      * Delete a branch.
      */
-    public function destroy(Request $request, string $uuid): JsonResponse
+    public function destroy(string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $branch = Branch::where('corporation_id', $corpId)
+        $branch = Branch::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 

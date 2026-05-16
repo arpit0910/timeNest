@@ -20,12 +20,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'jwt.auth' => \App\Http\Middleware\JwtAuthenticate::class,
-            'verified.email' => \App\Http\Middleware\EnsureEmailVerified::class,
-            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'tm.jwt.auth'        => \App\Http\Middleware\JwtAuthenticate::class,
+            'platform.access'    => \App\Http\Middleware\EnsurePlatformAccess::class,
+            'corp.access'        => \App\Http\Middleware\EnsureCorpAccess::class,
+            'tenant.resolve'     => \App\Http\Middleware\ResolveTenantContext::class,
+            'verified.email'     => \App\Http\Middleware\EnsureEmailVerified::class,
+            'role'               => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission'         => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-            'spatie.team' => \App\Http\Middleware\SetSpatieTeamId::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
@@ -89,6 +91,17 @@ return Application::configure(basePath: dirname(__DIR__))
                 'errors'  => null,
                 'meta'    => null,
             ], 500);
+        });
+
+        // Spatie Permission failure → 403
+        $exceptions->render(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, Request $request): JsonResponse {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data'    => null,
+                'errors'  => null,
+                'meta'    => null,
+            ], 403);
         });
 
         // All other HTTP exceptions (includes our custom ones)

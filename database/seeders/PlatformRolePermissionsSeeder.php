@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\SystemPermission;
+use App\Enums\SystemRole;
 use App\Models\Rbac\Permission;
 use App\Models\Rbac\Role;
 use Illuminate\Database\Seeder;
@@ -11,101 +13,175 @@ use Illuminate\Database\Seeder;
 /**
  * Maps permissions to system roles using Spatie Laravel Permission.
  *
- * Permission assignment per role as defined in the master prompt.
+ * Permission assignment per role as defined in the master architecture.
+ * All references use SystemRole and SystemPermission enums — zero hardcoded strings.
  */
 class PlatformRolePermissionsSeeder extends Seeder
 {
     /**
      * Role → permission mapping.
-     * '*' means all permissions (scoped to the role's guard).
+     * Uses enum references exclusively.
+     * null = all permissions (wildcard).
+     *
+     * @return array<SystemRole, SystemPermission[]|null>
      */
-    private const ROLE_PERMISSIONS = [
-        // Platform roles
-        'app_owner'       => ['*'],
-        'app_super_admin' => ['*'],
-        'app_admin'       => ['corporations.manage', 'users.view', 'users.edit', 'users.manage', 'reports.view', 'attendance.view'],
-        'support_agent'   => ['users.view', 'reports.view'],
-        'auditor'         => [
-            'attendance.view', 'attendance.export',
-            'users.view', 'users.export',
-            'payroll.view', 'payroll.export',
-            'hrms.view', 'hrms.export',
-            'leaves.view', 'leaves.export',
-            'branches.view', 'departments.view',
-            'reports.view', 'reports.export',
-        ],
+    private function rolePermissionMap(): array
+    {
+        return [
+            // Platform roles
+            SystemRole::AppOwner->value       => null, // ALL permissions
+            SystemRole::AppSuperAdmin->value  => null, // ALL permissions
+            SystemRole::AppAdmin->value       => [
+                SystemPermission::CorporationsManage,
+                SystemPermission::UsersView,
+                SystemPermission::UsersEdit,
+                SystemPermission::UsersManage,
+                SystemPermission::ReportsView,
+                SystemPermission::AttendanceView,
+            ],
+            SystemRole::SupportAgent->value   => [
+                SystemPermission::UsersView,
+                SystemPermission::ReportsView,
+            ],
+            SystemRole::Auditor->value        => [
+                SystemPermission::AttendanceView,
+                SystemPermission::AttendanceExport,
+                SystemPermission::UsersView,
+                SystemPermission::UsersExport,
+                SystemPermission::PayrollView,
+                SystemPermission::PayrollExport,
+                SystemPermission::HrmsView,
+                SystemPermission::HrmsExport,
+                SystemPermission::LeavesView,
+                SystemPermission::LeavesExport,
+                SystemPermission::BranchesView,
+                SystemPermission::DepartmentsView,
+                SystemPermission::ReportsView,
+                SystemPermission::ReportsExport,
+            ],
 
-        // Corporation roles
-        'corporation_owner'       => ['*'],
-        'corporation_super_admin' => ['*'],
-        'corporation_admin'       => [
-            'users.view', 'users.invite', 'users.edit', 'users.delete', 'users.manage', 'users.export',
-            'attendance.view', 'attendance.create', 'attendance.edit', 'attendance.delete', 'attendance.approve', 'attendance.export', 'attendance.import',
-            'reports.view', 'reports.export',
-            'branches.view', 'branches.create', 'branches.edit', 'branches.delete', 'branches.manage',
-            'departments.view', 'departments.create', 'departments.edit', 'departments.delete', 'departments.manage',
-            'settings.manage',
-        ],
-        'hr_manager' => [
-            'users.view', 'users.invite',
-            'hrms.view', 'hrms.create', 'hrms.edit', 'hrms.delete', 'hrms.export',
-            'leaves.view', 'leaves.create', 'leaves.edit', 'leaves.delete', 'leaves.approve', 'leaves.export',
-            'attendance.view', 'attendance.create', 'attendance.edit', 'attendance.approve', 'attendance.export',
-            'departments.view',
-        ],
-        'manager' => [
-            'attendance.view', 'attendance.approve',
-            'leaves.view', 'leaves.approve',
-            'reports.view',
-            'users.view',
-        ],
-        'supervisor' => [
-            'attendance.view', 'attendance.approve',
-        ],
-        'employee' => [
-            'attendance.view',
-            'leaves.view', 'leaves.create',
-        ],
-        'contractor' => [
-            'attendance.view',
-        ],
-    ];
+            // Corporation roles
+            SystemRole::CorpOwner->value      => null, // ALL permissions
+            SystemRole::CorpSuperAdmin->value => null, // ALL permissions
+            SystemRole::CorpAdmin->value      => [
+                SystemPermission::UsersView,
+                SystemPermission::UsersInvite,
+                SystemPermission::UsersEdit,
+                SystemPermission::UsersDelete,
+                SystemPermission::UsersManage,
+                SystemPermission::UsersExport,
+                SystemPermission::AttendanceView,
+                SystemPermission::AttendanceCreate,
+                SystemPermission::AttendanceEdit,
+                SystemPermission::AttendanceDelete,
+                SystemPermission::AttendanceApprove,
+                SystemPermission::AttendanceExport,
+                SystemPermission::AttendanceImport,
+                SystemPermission::ReportsView,
+                SystemPermission::ReportsExport,
+                SystemPermission::BranchesView,
+                SystemPermission::BranchesCreate,
+                SystemPermission::BranchesEdit,
+                SystemPermission::BranchesDelete,
+                SystemPermission::BranchesManage,
+                SystemPermission::DepartmentsView,
+                SystemPermission::DepartmentsCreate,
+                SystemPermission::DepartmentsEdit,
+                SystemPermission::DepartmentsDelete,
+                SystemPermission::DepartmentsManage,
+                SystemPermission::SettingsManage,
+            ],
+            SystemRole::HrManager->value      => [
+                SystemPermission::UsersView,
+                SystemPermission::UsersInvite,
+                SystemPermission::HrmsView,
+                SystemPermission::HrmsCreate,
+                SystemPermission::HrmsEdit,
+                SystemPermission::HrmsDelete,
+                SystemPermission::HrmsExport,
+                SystemPermission::LeavesView,
+                SystemPermission::LeavesCreate,
+                SystemPermission::LeavesEdit,
+                SystemPermission::LeavesDelete,
+                SystemPermission::LeavesApprove,
+                SystemPermission::LeavesExport,
+                SystemPermission::AttendanceView,
+                SystemPermission::AttendanceCreate,
+                SystemPermission::AttendanceEdit,
+                SystemPermission::AttendanceApprove,
+                SystemPermission::AttendanceExport,
+                SystemPermission::DepartmentsView,
+            ],
+            SystemRole::Manager->value        => [
+                SystemPermission::AttendanceView,
+                SystemPermission::AttendanceApprove,
+                SystemPermission::LeavesView,
+                SystemPermission::LeavesApprove,
+                SystemPermission::ReportsView,
+                SystemPermission::UsersView,
+            ],
+            SystemRole::Supervisor->value     => [
+                SystemPermission::AttendanceView,
+                SystemPermission::AttendanceApprove,
+            ],
+            SystemRole::Employee->value       => [
+                SystemPermission::AttendanceView,
+                SystemPermission::LeavesView,
+                SystemPermission::LeavesCreate,
+            ],
+            SystemRole::Contractor->value     => [
+                SystemPermission::AttendanceView,
+            ],
+        ];
+    }
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        // Fetch all roles grouped by guard
-        $roles = Role::where('is_system_role', true)->get();
+        $allRoles = SystemRole::cases();
+        $totalAssignments = 0;
 
-        $count = 0;
+        foreach ($allRoles as $systemRole) {
+            $role = Role::where('name', $systemRole->value)
+                ->where('guard_name', 'api')
+                ->whereNull('corporation_id')
+                ->first();
 
-        foreach ($roles as $role) {
-            $permissionNames = self::ROLE_PERMISSIONS[$role->name] ?? null;
-
-            if (!$permissionNames) {
+            if (!$role) {
+                $this->command->warn("System role '{$systemRole->value}' not found in database. Skipping.");
                 continue;
             }
 
-            if ($permissionNames === ['*']) {
-                // Get all permissions for this role's guard
+            $map = $this->rolePermissionMap();
+            if (!array_key_exists($systemRole->value, $map)) {
+                continue;
+            }
+
+            $mapping = $map[$systemRole->value];
+
+            if ($mapping === 'skip') {
+                continue;
+            }
+
+            if ($mapping === null) {
+                // Wildcard: assign ALL permissions for this guard
                 $permissions = Permission::where('guard_name', $role->guard_name)->get();
             } else {
-                // Note: some roles might specify permissions that exist in the opposite guard.
-                // But Spatie requires role guard and permission guard to match.
-                // We'll map them strictly by name and role's guard.
+                // Map enum cases to permission name strings
+                $permissionNames = array_map(fn (SystemPermission $p) => $p->value, $mapping);
                 $permissions = Permission::whereIn('name', $permissionNames)
-                                         ->where('guard_name', $role->guard_name)
-                                         ->get();
+                    ->where('guard_name', $role->guard_name)
+                    ->get();
             }
 
             $role->syncPermissions($permissions);
-            $count += $permissions->count();
+            $totalAssignments += $permissions->count();
+            
+            $this->command->info("Synced {$permissions->count()} permissions to role: {$role->name}");
         }
 
-        $this->command->info('Seeded ' . $count . ' role-permission assignments via Spatie.');
+        $this->command->info("Total: Seeded {$totalAssignments} role-permission assignments via Spatie.");
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Auth;
 
 use App\Actions\IssueJwtAction;
-use App\Enums\AuthGuard;
+use App\Enums\Guard;
 use App\Enums\MembershipStatus;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
@@ -195,13 +195,13 @@ class AuthService
         }
 
         // Determine guard and corporation context from the refresh token
-        $guard = AuthGuard::from($refreshTokenRecord->guard);
+        $guard = Guard::from($refreshTokenRecord->guard);
         $corporation = $refreshTokenRecord->corporation_id
             ? Corporation::find($refreshTokenRecord->corporation_id)
             : null;
 
         // For corp guard, verify membership is still active
-        if ($guard === AuthGuard::Corp && $corporation) {
+        if ($guard === Guard::Corp && $corporation) {
             $membership = CorpMembership::active()
                 ->where('user_id', $user->id)
                 ->where('corporation_id', $corporation->id)
@@ -216,7 +216,7 @@ class AuthService
                 ->where('model_has_roles.corporation_id', $corporation->id)
                 ->where('roles.corporation_id', $corporation->id)
                 ->first()?->name;
-        } elseif ($guard === AuthGuard::Platform) {
+        } elseif ($guard === Guard::Platform) {
             $platformMembership = PlatformMembership::active()
                 ->where('user_id', $user->id)
                 ->first();
@@ -299,10 +299,10 @@ class AuthService
         }
 
         $accessToken = $this->issueJwtAction->issueAccessToken(
-            $user, $corporation, AuthGuard::Corp, $role->name
+            $user, $corporation, Guard::Corp, $role->name
         );
         $refreshToken = $this->issueJwtAction->issueRefreshToken(
-            $user, $corporation, AuthGuard::Corp
+            $user, $corporation, Guard::Corp
         );
 
         $this->logActivity($user, 'corporation_selected', "Selected corporation: {$corporation->legal_name}", $corporation->id);
@@ -542,10 +542,10 @@ class AuthService
             $roleName = $platformRole?->name;
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, null, AuthGuard::Platform, $roleName
+                $user, null, Guard::Platform, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
-                $user, null, AuthGuard::Platform
+                $user, null, Guard::Platform
             );
 
             $this->logActivity($user, 'login', 'Platform admin login');
@@ -556,7 +556,7 @@ class AuthService
                 'refresh_token' => $refreshToken,
                 'token_type'    => 'bearer',
                 'expires_in'    => config('jwt.ttl') * 60,
-                'guard'         => 'platform',
+                'guard'         => Guard::Platform->value,
                 'role'          => $roleName,
                 'user'          => $user,
             ];
@@ -586,10 +586,10 @@ class AuthService
             $roleName = $role?->name;
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, $corporation, AuthGuard::Corp, $roleName
+                $user, $corporation, Guard::Corp, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
-                $user, $corporation, AuthGuard::Corp
+                $user, $corporation, Guard::Corp
             );
 
             $this->logActivity($user, 'login', "Corp login: {$corporation->legal_name}", $corporation->id);
@@ -600,7 +600,7 @@ class AuthService
                 'refresh_token' => $refreshToken,
                 'token_type'    => 'bearer',
                 'expires_in'    => config('jwt.ttl') * 60,
-                'guard'         => 'corp',
+                'guard'         => Guard::Corp->value,
                 'role'          => $roleName,
                 'corporation'   => $corporation,
                 'user'          => $user,

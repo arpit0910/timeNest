@@ -16,6 +16,7 @@ use App\Models\Rbac\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Enums\SystemRole;
 use Illuminate\Support\Str;
 
 /**
@@ -92,8 +93,8 @@ class DemoCorporationSeeder extends Seeder
             ]);
 
             // Create demo users with memberships
-            $ownerRole = Role::where('name', 'corporation_owner')->whereNull('corporation_id')->first();
-            $employeeRole = Role::where('name', 'employee')->whereNull('corporation_id')->first();
+            $ownerRole = Role::where('name', SystemRole::CorpOwner->value)->whereNull('corporation_id')->first();
+            $employeeRole = Role::where('name', SystemRole::Employee->value)->whereNull('corporation_id')->first();
             $password = Hash::make('Demo@1234');
 
             // Corporation owner

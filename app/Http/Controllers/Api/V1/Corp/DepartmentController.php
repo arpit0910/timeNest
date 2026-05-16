@@ -11,8 +11,16 @@ use App\Models\Corporation\Corporation;
 use App\Models\Corporation\Department;
 use App\Services\Corporation\DepartmentService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
+/**
+ * Corporation-scoped department management.
+ *
+ * Authorization: enforced entirely at the route level via middleware.
+ * - jwt.auth → corp.access → tenant.resolve → permission:departments.*
+ *
+ * Tenant context: resolved via app('tenant.corporation') — set by ResolveTenantContext middleware.
+ * This controller contains ZERO authorization or tenant extraction logic.
+ */
 class DepartmentController extends BaseApiController
 {
     public function __construct(
@@ -20,13 +28,19 @@ class DepartmentController extends BaseApiController
     ) {}
 
     /**
+     * Resolve the active corporation from the container.
+     */
+    private function tenant(): Corporation
+    {
+        return app('tenant.corporation');
+    }
+
+    /**
      * List all departments for the active corporation.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-        
-        $departments = Department::where('corporation_id', $corpId)
+        $departments = Department::where('corporation_id', $this->tenant()->id)
             ->with(['branch', 'parentDepartment', 'headUser'])
             ->get();
 
@@ -38,9 +52,7 @@ class DepartmentController extends BaseApiController
      */
     public function store(CreateDepartmentRequest $request): JsonResponse
     {
-        $corp = Corporation::findOrFail($request->input('jwt_corporation_id'));
-
-        $department = $this->departmentService->createDepartment($corp, $request->validated());
+        $department = $this->departmentService->createDepartment($this->tenant(), $request->validated());
 
         return $this->created(new DepartmentResource($department), 'Department created successfully');
     }
@@ -48,11 +60,9 @@ class DepartmentController extends BaseApiController
     /**
      * Get a specific department.
      */
-    public function show(Request $request, string $uuid): JsonResponse
+    public function show(string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $department = Department::where('corporation_id', $corpId)
+        $department = Department::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 
@@ -64,9 +74,7 @@ class DepartmentController extends BaseApiController
      */
     public function update(CreateDepartmentRequest $request, string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $department = Department::where('corporation_id', $corpId)
+        $department = Department::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 
@@ -78,11 +86,9 @@ class DepartmentController extends BaseApiController
     /**
      * Delete a department.
      */
-    public function destroy(Request $request, string $uuid): JsonResponse
+    public function destroy(string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $department = Department::where('corporation_id', $corpId)
+        $department = Department::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 

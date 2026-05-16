@@ -13,6 +13,14 @@ use App\Services\Corporation\CorporationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Platform-level corporation management.
+ *
+ * Authorization: enforced entirely at the route level via middleware.
+ * - jwt.auth → platform.access → permission:corporations.manage
+ *
+ * This controller contains ZERO authorization logic.
+ */
 class CorporationController extends BaseApiController
 {
     public function __construct(
@@ -20,29 +28,20 @@ class CorporationController extends BaseApiController
     ) {}
 
     /**
-     * List all corporations on the platform (Platform Admin only).
+     * List all corporations on the platform.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        // Enforce platform guard
-        if ($request->input('jwt_guard') !== 'platform') {
-            return $this->forbidden('Only platform administrators can perform this action.');
-        }
-
         $corporations = Corporation::with(['country'])->paginate(20);
 
-        return $this->success(CorporationResource::collection($corporations)->response()->getData(true));
+        return $this->paginated(CorporationResource::collection($corporations));
     }
 
     /**
-     * Provision a new corporation (Platform Admin only).
+     * Provision a new corporation.
      */
     public function store(CreateCorporationRequest $request): JsonResponse
     {
-        if ($request->input('jwt_guard') !== 'platform') {
-            return $this->forbidden('Only platform administrators can perform this action.');
-        }
-
         $corporation = $this->corporationService->createCorporation(
             data: $request->validated(),
             creator: $request->user()
@@ -54,12 +53,8 @@ class CorporationController extends BaseApiController
     /**
      * View a specific corporation's details.
      */
-    public function show(Request $request, string $uuid): JsonResponse
+    public function show(string $uuid): JsonResponse
     {
-        if ($request->input('jwt_guard') !== 'platform') {
-            return $this->forbidden('Only platform administrators can perform this action.');
-        }
-
         $corporation = Corporation::where('uuid', $uuid)->firstOrFail();
 
         return $this->success(new CorporationResource($corporation));
@@ -70,10 +65,6 @@ class CorporationController extends BaseApiController
      */
     public function update(UpdateCorporationRequest $request, string $uuid): JsonResponse
     {
-        if ($request->input('jwt_guard') !== 'platform') {
-            return $this->forbidden('Only platform administrators can perform this action.');
-        }
-
         $corporation = Corporation::where('uuid', $uuid)->firstOrFail();
 
         $corporation = $this->corporationService->updateCorporation($corporation, $request->validated());

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\SystemPermission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\GoogleOAuthController;
@@ -16,16 +17,22 @@ use App\Http\Controllers\Api\V1\Platform\CorporationController;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
+| Authorization Strategy:
+|   - Authentication: jwt.auth (validates JWT, binds JwtContext to container)
+|   - Platform guard: platform.access (ensures platform-level JWT context)
+|   - Corp guard:     corp.access (ensures corp-level JWT context)
+|   - Tenant:         tenant.resolve (loads Corporation, sets Spatie team)
+|   - Permissions:    permission:{name} (Spatie permission middleware)
+|
+| Controllers contain ZERO authorization logic. All access control is
+| enforced at the route level through middleware stacks.
 |
 */
 
 // API V1
 Route::prefix('v1')->name('api.v1.')->group(function () {
 
-    // --- Authentication Module ---
+    // ─── Authentication Module ───────────────────────────────────
     Route::prefix('auth')->name('auth.')->group(function () {
 
         // Public Routes (Rate limited via 'auth' throttle)
@@ -45,8 +52,8 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             });
         });
 
-        // Protected Routes (Require valid JWT)
-        Route::middleware(['jwt.auth'])->group(function () {
+        // Protected Routes (Require valid JWT — any guard)
+        Route::middleware(['tm.jwt.auth'])->group(function () {
             
             Route::controller(AuthController::class)->group(function () {
                 // Core Identity
@@ -68,48 +75,98 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         });
     });
 
-    // --- Core Corporation Module ---
-    Route::prefix('corp')->name('corp.')->middleware(['jwt.auth', 'spatie.team'])->group(function () {
+    // ─── Corporation Module (Tenant-Scoped) ──────────────────────
+    // Middleware stack: jwt.auth → corp.access → tenant.resolve
+    // Controllers receive tenant via app('tenant.corporation')
+    Route::prefix('corp')->name('corp.')
+        ->middleware(['tm.jwt.auth', 'corp.access', 'tenant.resolve'])
+        ->group(function () {
         
         // Branches
-        Route::prefix('branches')->name('branches.')->controller(BranchController::class)->group(function () {
-            Route::get('/', 'index')->middleware('permission:branches.view')->name('index');
-            Route::post('/', 'store')->middleware('permission:branches.create')->name('store');
-            Route::get('{uuid}', 'show')->middleware('permission:branches.view')->name('show');
-            Route::put('{uuid}', 'update')->middleware('permission:branches.edit')->name('update');
-            Route::delete('{uuid}', 'destroy')->middleware('permission:branches.delete')->name('destroy');
-        });
+        Route::prefix('branches')->name('branches.')
+            ->controller(BranchController::class)
+            ->group(function () {
+                Route::get('/', 'index')
+                    ->middleware('permission:' . SystemPermission::BranchesView->value)
+                    ->name('index');
+                Route::post('/', 'store')
+                    ->middleware('permission:' . SystemPermission::BranchesCreate->value)
+                    ->name('store');
+                Route::get('{uuid}', 'show')
+                    ->middleware('permission:' . SystemPermission::BranchesView->value)
+                    ->name('show');
+                Route::put('{uuid}', 'update')
+                    ->middleware('permission:' . SystemPermission::BranchesEdit->value)
+                    ->name('update');
+                Route::delete('{uuid}', 'destroy')
+                    ->middleware('permission:' . SystemPermission::BranchesDelete->value)
+                    ->name('destroy');
+            });
 
         // Departments
-        Route::prefix('departments')->name('departments.')->controller(DepartmentController::class)->group(function () {
-            Route::get('/', 'index')->middleware('permission:departments.view')->name('index');
-            Route::post('/', 'store')->middleware('permission:departments.create')->name('store');
-            Route::get('{uuid}', 'show')->middleware('permission:departments.view')->name('show');
-            Route::put('{uuid}', 'update')->middleware('permission:departments.edit')->name('update');
-            Route::delete('{uuid}', 'destroy')->middleware('permission:departments.delete')->name('destroy');
-        });
+        Route::prefix('departments')->name('departments.')
+            ->controller(DepartmentController::class)
+            ->group(function () {
+                Route::get('/', 'index')
+                    ->middleware('permission:' . SystemPermission::DepartmentsView->value)
+                    ->name('index');
+                Route::post('/', 'store')
+                    ->middleware('permission:' . SystemPermission::DepartmentsCreate->value)
+                    ->name('store');
+                Route::get('{uuid}', 'show')
+                    ->middleware('permission:' . SystemPermission::DepartmentsView->value)
+                    ->name('show');
+                Route::put('{uuid}', 'update')
+                    ->middleware('permission:' . SystemPermission::DepartmentsEdit->value)
+                    ->name('update');
+                Route::delete('{uuid}', 'destroy')
+                    ->middleware('permission:' . SystemPermission::DepartmentsDelete->value)
+                    ->name('destroy');
+            });
 
         // Memberships / Employees
-        Route::prefix('memberships')->name('memberships.')->controller(MembershipController::class)->group(function () {
-            Route::get('/', 'index')->middleware('permission:users.view')->name('index');
-            Route::post('/', 'store')->middleware('permission:users.manage')->name('store');
-            Route::delete('{uuid}', 'destroy')->middleware('permission:users.delete')->name('destroy');
-        });
+        Route::prefix('memberships')->name('memberships.')
+            ->controller(MembershipController::class)
+            ->group(function () {
+                Route::get('/', 'index')
+                    ->middleware('permission:' . SystemPermission::UsersView->value)
+                    ->name('index');
+                Route::post('/', 'store')
+                    ->middleware('permission:' . SystemPermission::UsersManage->value)
+                    ->name('store');
+                Route::delete('{uuid}', 'destroy')
+                    ->middleware('permission:' . SystemPermission::UsersDelete->value)
+                    ->name('destroy');
+            });
     });
 
-    // --- Platform Administration Module ---
-    Route::prefix('platform')->name('platform.')->middleware(['jwt.auth'])->group(function () {
+    // ─── Platform Administration Module ──────────────────────────
+    // Middleware stack: jwt.auth → platform.access
+    // Only platform-guard JWT tokens can access these routes.
+    Route::prefix('platform')->name('platform.')
+        ->middleware(['tm.jwt.auth', 'platform.access'])
+        ->group(function () {
         
         // Corporation Management
-        Route::prefix('corporations')->name('corporations.')->controller(CorporationController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::get('{uuid}', 'show')->name('show');
-            Route::put('{uuid}', 'update')->name('update');
-        });
+        Route::prefix('corporations')->name('corporations.')
+            ->controller(CorporationController::class)
+            ->group(function () {
+                Route::get('/', 'index')
+                    ->middleware('permission:' . SystemPermission::CorporationsManage->value)
+                    ->name('index');
+                Route::post('/', 'store')
+                    ->middleware('permission:' . SystemPermission::CorporationsManage->value)
+                    ->name('store');
+                Route::get('{uuid}', 'show')
+                    ->middleware('permission:' . SystemPermission::CorporationsManage->value)
+                    ->name('show');
+                Route::put('{uuid}', 'update')
+                    ->middleware('permission:' . SystemPermission::CorporationsManage->value)
+                    ->name('update');
+            });
     });
 
-    // --- Future Modules (HRMS, Payroll, etc.) ---
+    // ─── Future Modules (HRMS, Payroll, etc.) ────────────────────
     // Will go here in future phases.
 
 });

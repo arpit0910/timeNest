@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Enums\AuthGuard;
+use App\Enums\Guard;
 use App\Models\Auth\RefreshToken;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
@@ -27,14 +27,14 @@ class IssueJwtAction
      *
      * @param User $user
      * @param Corporation|null $corporation
-     * @param AuthGuard $guard
+     * @param Guard $guard
      * @param string|null $roleName
      * @return string The JWT access token string
      */
     public function issueAccessToken(
         User $user,
         ?Corporation $corporation,
-        AuthGuard $guard,
+        Guard $guard,
         ?string $roleName = null,
     ): string {
         $customClaims = [
@@ -62,7 +62,7 @@ class IssueJwtAction
     {
         $customClaims = [
             'user_uuid'     => $user->uuid,
-            'guard'         => 'temp',
+            'guard'         => Guard::Temp->value,
             'purpose'       => $purpose,
             'token_version' => $user->token_version,
         ];
@@ -87,13 +87,13 @@ class IssueJwtAction
      *
      * @param User $user
      * @param Corporation|null $corporation
-     * @param AuthGuard $guard
+     * @param Guard $guard
      * @return string The raw refresh token (send to client, never store raw)
      */
     public function issueRefreshToken(
         User $user,
         ?Corporation $corporation,
-        AuthGuard $guard,
+        Guard $guard,
     ): string {
         $rawToken = Str::random(80);
         $tokenHash = hash('sha256', $rawToken);

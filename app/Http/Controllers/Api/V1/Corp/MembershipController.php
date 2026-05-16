@@ -13,8 +13,16 @@ use App\Models\Membership\CorpMembership;
 use App\Models\Rbac\Role;
 use App\Services\Corporation\MembershipService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
+/**
+ * Corporation-scoped membership management.
+ *
+ * Authorization: enforced entirely at the route level via middleware.
+ * - jwt.auth → corp.access → tenant.resolve → permission:users.*
+ *
+ * Tenant context: resolved via app('tenant.corporation') — set by ResolveTenantContext middleware.
+ * This controller contains ZERO authorization or tenant extraction logic.
+ */
 class MembershipController extends BaseApiController
 {
     public function __construct(
@@ -22,13 +30,19 @@ class MembershipController extends BaseApiController
     ) {}
 
     /**
+     * Resolve the active corporation from the container.
+     */
+    private function tenant(): Corporation
+    {
+        return app('tenant.corporation');
+    }
+
+    /**
      * List all members of the active corporation.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-        
-        $memberships = CorpMembership::where('corporation_id', $corpId)
+        $memberships = CorpMembership::where('corporation_id', $this->tenant()->id)
             ->with(['user.roles'])
             ->paginate(50);
 
@@ -40,7 +54,7 @@ class MembershipController extends BaseApiController
      */
     public function store(AddMemberRequest $request): JsonResponse
     {
-        $corp = Corporation::findOrFail($request->input('jwt_corporation_id'));
+        $corp = $this->tenant();
         $user = User::findOrFail($request->input('user_id'));
         $role = Role::findOrFail($request->input('role_id'));
 
@@ -66,11 +80,9 @@ class MembershipController extends BaseApiController
     /**
      * Deactivate a member.
      */
-    public function destroy(Request $request, string $uuid): JsonResponse
+    public function destroy(string $uuid): JsonResponse
     {
-        $corpId = $request->input('jwt_corporation_id');
-
-        $membership = CorpMembership::where('corporation_id', $corpId)
+        $membership = CorpMembership::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 

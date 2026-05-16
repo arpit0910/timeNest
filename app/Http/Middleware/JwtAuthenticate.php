@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Auth\JwtContext;
 use App\Exceptions\JwtTokenVersionMismatchException;
 use App\Models\Auth\User;
 use Closure;
@@ -24,16 +25,12 @@ use Symfony\Component\HttpFoundation\Response;
  * 4. token_version matches user's current version
  * 5. User is active
  *
- * Binds authenticated user to the request.
+ * Binds authenticated user and JwtContext to the container.
  */
 class JwtAuthenticate
 {
     /**
      * Handle an incoming request.
-     *
-     * @param Request $request
-     * @param Closure $next
-     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -58,9 +55,11 @@ class JwtAuthenticate
             return $this->errorResponse('User not found', 401);
         }
 
+        // Build type-safe JWT context DTO
+        $jwtContext = JwtContext::fromPayload($payload->toArray());
+
         // Verify token_version — mismatch means password changed or forced logout
-        $claimedVersion = (int) $payload->get('token_version', 0);
-        if ($claimedVersion !== $user->token_version) {
+        if ($jwtContext->tokenVersion !== $user->token_version) {
             throw new JwtTokenVersionMismatchException();
         }
 
@@ -69,12 +68,8 @@ class JwtAuthenticate
             return $this->errorResponse('Account has been deactivated', 403);
         }
 
-        // Bind user and payload to request for downstream use
-        $request->merge([
-            'jwt_guard'         => $payload->get('guard'),
-            'jwt_corporation_id' => $payload->get('corporation_id'),
-            'jwt_role'          => $payload->get('role'),
-        ]);
+        // Bind JwtContext to the container as a singleton for the request lifecycle
+        app()->instance(JwtContext::class, $jwtContext);
 
         // Set the authenticated user
         auth()->setUser($user);
