@@ -1,7 +1,7 @@
 {
     "info": {
         "name": "TimeNest API",
-        "description": "TimeNest Enterprise SaaS Platform API Collection - Complete with all endpoints",
+        "description": "TimeNest Enterprise SaaS Platform API Collection - Production-Grade documentation covering authentication, 2FA workflows, tenant switching, global platform administration, and tenant-scoped corporation entities.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "variable": [
@@ -26,7 +26,7 @@
             "type": "string"
         },
         {
-            "key": "corp_uuid",
+            "key": "corporation_uuid",
             "value": "",
             "type": "string"
         },
@@ -49,7 +49,7 @@
     "item": [
         {
             "name": "Auth",
-            "description": "Authentication endpoints for user login, registration, and token management",
+            "description": "Authentication endpoints for user registration, multi-factor validation, token rotation, and workspace context selection.",
             "item": [
                 {
                     "name": "Register",
@@ -67,7 +67,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"Strong@Pass123!\",\n    \"password_confirmation\": \"Strong@Pass123!\"\n}",
+                            "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"TimeNest@Owner#1\",\n    \"password_confirmation\": \"TimeNest@Owner#1\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"phone\": \"+14155552671\",\n    \"timezone\": \"America/New_York\",\n    \"locale\": \"en\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -83,7 +83,8 @@
                                 "auth",
                                 "register"
                             ]
-                        }
+                        },
+                        "description": "Create a new user account.\n\n### Validation Rules:\n* **name**: Required (2-100 characters)\n* **email**: Required, valid email format, unique in users table\n* **password**: Required, min 8 characters, must contain mixed case letters, numbers, and symbols\n* **phone**: Nullable, must match E.164 phone formats (e.g. +14155552671)\n* **timezone**: Nullable, must be a valid system timezone"
                     }
                 },
                 {
@@ -136,7 +137,8 @@
                                 "auth",
                                 "login"
                             ]
-                        }
+                        },
+                        "description": "Authenticate user with email and password.\n\n### Behaviors:\n* Automatically captures issued credentials (`access_token`, `refresh_token`, or short-lived `temp_token` if 2FA or workspace selection is required)."
                     }
                 },
                 {
@@ -155,7 +157,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"user@example.com\",\n    \"code\": \"123456\"\n}",
+                            "raw": "{\n    \"token\": \"45f93b82142e0fa951a37c98031d24c084f3c7e0915d38a2e1cbf946571b0ea1\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -171,7 +173,8 @@
                                 "auth",
                                 "verify-email"
                             ]
-                        }
+                        },
+                        "description": "Verify user account's email using the 64-character verification token.\n\n### Validation Rules:\n* **token**: Required, string, exact size of 64 characters"
                     }
                 },
                 {
@@ -221,7 +224,8 @@
                                 "auth",
                                 "refresh"
                             ]
-                        }
+                        },
+                        "description": "Submit a refresh token to rotate credentials and obtain a new full access/refresh token pair."
                     }
                 },
                 {
@@ -253,7 +257,8 @@
                                 "auth",
                                 "me"
                             ]
-                        }
+                        },
+                        "description": "Fetch active authenticated profile details.\n\n### Guard Requirements:\n* Requires full access platform or corp token (`jwt.full`)."
                     }
                 },
                 {
@@ -282,7 +287,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"current_password\": \"CurrentPass@123!\",\n    \"password\": \"NewPass@123!\",\n    \"password_confirmation\": \"NewPass@123!\"\n}",
+                            "raw": "{\n    \"current_password\": \"TimeNest@Owner#1\",\n    \"password\": \"NewTimeNest@Owner#2\",\n    \"password_confirmation\": \"NewTimeNest@Owner#2\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -298,7 +303,8 @@
                                 "auth",
                                 "change-password"
                             ]
-                        }
+                        },
+                        "description": "Change password for the logged-in user.\n\n### Side Effects:\n* Invalidates all other active login tokens immediately."
                     }
                 },
                 {
@@ -319,8 +325,21 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
                             }
                         ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"refresh_token\": \"{{refresh_token}}\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
                         "url": {
                             "raw": "{{base_url}}/auth/logout",
                             "host": [
@@ -330,7 +349,8 @@
                                 "auth",
                                 "logout"
                             ]
-                        }
+                        },
+                        "description": "Logout the user session and blacklist the current access and refresh tokens."
                     }
                 },
                 {
@@ -362,7 +382,8 @@
                                 "auth",
                                 "logout-all"
                             ]
-                        }
+                        },
+                        "description": "Logout globally from all browsers and systems by incrementing token version claims."
                     }
                 },
                 {
@@ -394,7 +415,8 @@
                                 "auth",
                                 "workspaces"
                             ]
-                        }
+                        },
+                        "description": "Fetch all available corporate workspaces that the user belongs to."
                     }
                 },
                 {
@@ -438,7 +460,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"corporation_uuid\": \"{{corp_uuid}}\"\n}",
+                            "raw": "{\n    \"corporation_uuid\": \"{{corporation_uuid}}\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -454,7 +476,8 @@
                                 "auth",
                                 "switch-corporation"
                             ]
-                        }
+                        },
+                        "description": "Switch from the current corporation workspace to a different one during full authentication mode."
                     }
                 },
                 {
@@ -498,7 +521,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"corporation_uuid\": \"{{corp_uuid}}\"\n}",
+                            "raw": "{\n    \"corporation_uuid\": \"{{corporation_uuid}}\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -514,7 +537,8 @@
                                 "auth",
                                 "select-corporation"
                             ]
-                        }
+                        },
+                        "description": "Select a corporation workspace and obtain a full access token using a short-lived temporary token.\n\n### Guard Requirements:\n* Requires short-lived temp token scoped to workspace selection."
                     }
                 },
                 {
@@ -537,7 +561,8 @@
                                 "google",
                                 "redirect"
                             ]
-                        }
+                        },
+                        "description": "Initialize a secure Google OAuth login redirect flow."
                     }
                 },
                 {
@@ -551,7 +576,7 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/auth/google/callback?code=auth_code_here&state=state_here",
+                            "raw": "{{base_url}}/auth/google/callback?code=4%2F0AfgeXv...&state=random_state_hash",
                             "host": [
                                 "{{base_url}}"
                             ],
@@ -563,14 +588,17 @@
                             "query": [
                                 {
                                     "key": "code",
-                                    "value": "auth_code_here"
+                                    "value": "4%2F0AfgeXv...",
+                                    "description": "Google auth verification code"
                                 },
                                 {
                                     "key": "state",
-                                    "value": "state_here"
+                                    "value": "random_state_hash",
+                                    "description": "OAuth cross-site request validation hash"
                                 }
                             ]
-                        }
+                        },
+                        "description": "Processes Google auth redirection callback credentials to issue platform JWT tokens."
                     }
                 },
                 {
@@ -631,14 +659,15 @@
                                 "2fa",
                                 "verify"
                             ]
-                        }
+                        },
+                        "description": "Submit a 2FA OTP code with a temporary JWT token to complete MFA validation.\n\n### Guard Requirements:\n* Requires short-lived temp token scoped to 2fa verification."
                     }
                 }
             ]
         },
         {
             "name": "Platform - Corporations",
-            "description": "Platform-level endpoints for managing corporations",
+            "description": "Global administration routes to manage workspace corporations.",
             "item": [
                 {
                     "name": "List Corporations",
@@ -661,15 +690,43 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations",
+                            "raw": "{{base_url}}/platform/corporations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
                                 "corporations"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "Pagination page number"
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "15",
+                                    "description": "Pagination items count per page"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "Acme",
+                                    "description": "Filter by legal name or trading name"
+                                },
+                                {
+                                    "key": "sort_by",
+                                    "value": "created_at",
+                                    "description": "Sorting column name"
+                                },
+                                {
+                                    "key": "sort_direction",
+                                    "value": "desc",
+                                    "description": "Sort order direction (asc or desc)"
+                                }
                             ]
-                        }
+                        },
+                        "description": "Retrieve a list of all registered corporations in the system.\n\n### Guard/Permissions:\n* Platform access (`jwt.full` with platform role claims)\n* Permission `corporations.manage` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -698,7 +755,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Acme Corporation\",\n    \"legal_name\": \"Acme Corporation Inc.\",\n    \"registration_number\": \"REG123456\",\n    \"tax_id\": \"TAX123456\",\n    \"country_code\": \"US\",\n    \"timezone\": \"America/New_York\",\n    \"industry\": \"Technology\"\n}",
+                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech\",\n    \"legal_entity_type\": \"Private Limited\",\n    \"industry\": \"Software & Information Technology Services\",\n    \"company_size\": \"50-100\",\n    \"email\": \"corporate@acme-tech.com\",\n    \"phone\": \"+919876543210\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"plan\": \"enterprise\",\n    \"max_users\": 250,\n    \"country_id\": 1,\n    \"hq_name\": \"Acme headquarters\",\n    \"hq_code\": \"HQ-KOL-01\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -714,7 +771,8 @@
                                 "platform",
                                 "corporations"
                             ]
-                        }
+                        },
+                        "description": "Register a new corporation workspace and optionally generate an HQ branch.\n\n### Validation Rules:\n* **legal_name**: Required (max 150 chars)\n* **phone**: Nullable, must match E.164 phone formats (e.g. +919876543210)\n* **plan**: Nullable, enum: free, starter, professional, enterprise\n* **max_users**: Nullable, minimum 1"
                     }
                 },
                 {
@@ -738,16 +796,17 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations/{{corp_uuid}}",
+                            "raw": "{{base_url}}/platform/corporations/{{corporation_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
                                 "corporations",
-                                "{{corp_uuid}}"
+                                "{{corporation_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Fetch details of a specific corporation by its UUID.\n\n### Guard/Permissions:\n* Platform access (`jwt.full` with platform role claims)\n* Permission `corporations.manage` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -776,7 +835,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Acme Corporation Updated\",\n    \"legal_name\": \"Acme Corporation Inc. Updated\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"industry\": \"Technology Services\"\n}",
+                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech Updated\",\n    \"legal_entity_type\": \"Public Limited\",\n    \"industry\": \"SaaS & AI Development Services\",\n    \"company_size\": \"100-250\",\n    \"email\": \"corporate.updated@acme-tech.com\",\n    \"phone\": \"+919876543211\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"country_id\": 1\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -784,23 +843,24 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations/{{corp_uuid}}",
+                            "raw": "{{base_url}}/platform/corporations/{{corporation_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
                                 "corporations",
-                                "{{corp_uuid}}"
+                                "{{corporation_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Update specific configuration and metadata properties of a corporation by UUID.\n\n### Validation Rules:\n* **legal_name**: Sometimes, string (max 150 chars)\n* **phone**: Nullable, must match E.164 phone formats (e.g. +919876543211)"
                     }
                 }
             ]
         },
         {
             "name": "Corporation - Branches",
-            "description": "Manage branches within a corporation",
+            "description": "Manage geographic corporate branches and location boundaries.",
             "item": [
                 {
                     "name": "List Branches",
@@ -820,18 +880,38 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/corp/branches",
+                            "raw": "{{base_url}}/corp/branches?page=1&per_page=15&search=Office",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "corp",
                                 "branches"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "Office"
+                                }
                             ]
-                        }
+                        },
+                        "description": "Retrieve branches registered within the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Platform owner (`AppOwner`) bypasses using the `X-Corporation-Uuid` header context.\n* Permission `branches.view` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -856,11 +936,16 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"New York Office\",\n    \"code\": \"NY-01\",\n    \"is_headquarters\": false,\n    \"timezone\": \"America/New_York\"\n}",
+                            "raw": "{\n    \"name\": \"New York Office branch\",\n    \"code\": \"NY-02\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550199\",\n    \"email\": \"ny-office@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway\",\n    \"address_line_2\": \"Suite 400\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7074,\n    \"longitude\": -74.0112,\n    \"geo_fence_radius\": 150,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -876,7 +961,8 @@
                                 "corp",
                                 "branches"
                             ]
-                        }
+                        },
+                        "description": "Create a new branch under the active tenant corporation.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **phone**: Nullable, matches E.164 phone formats (e.g. +12125550199)\n* **latitude**: Nullable, numeric between -90 and 90\n* **longitude**: Nullable, numeric between -180 and 180\n* **geo_fence_radius**: Nullable, integer, minimum 0"
                     }
                 },
                 {
@@ -897,6 +983,11 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
@@ -909,7 +1000,8 @@
                                 "branches",
                                 "{{branch_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Retrieve details of a specific branch under the corporation by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `branches.view` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -934,11 +1026,16 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"New York Office Updated\",\n    \"code\": \"NY-01\",\n    \"is_headquarters\": false,\n    \"timezone\": \"America/New_York\"\n}",
+                            "raw": "{\n    \"name\": \"New York Office branch Updated\",\n    \"code\": \"NY-02-UPD\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550200\",\n    \"email\": \"ny-office-updated@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway Updated\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7075,\n    \"longitude\": -74.0113,\n    \"geo_fence_radius\": 200,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -955,7 +1052,8 @@
                                 "branches",
                                 "{{branch_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Update specific parameters of a branch under the corporation by UUID.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **phone**: Nullable, matches E.164 phone formats (e.g. +12125550200)"
                     }
                 },
                 {
@@ -976,6 +1074,11 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
@@ -988,14 +1091,15 @@
                                 "branches",
                                 "{{branch_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Soft delete a specific branch from the corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `branches.delete` required (AppOwner bypasses)"
                     }
                 }
             ]
         },
         {
             "name": "Corporation - Departments",
-            "description": "Manage departments within a corporation",
+            "description": "Manage corporate departments, hierarchies, and divisions.",
             "item": [
                 {
                     "name": "List Departments",
@@ -1015,18 +1119,38 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/corp/departments",
+                            "raw": "{{base_url}}/corp/departments?page=1&per_page=15&search=Engineering",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "corp",
                                 "departments"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "Engineering"
+                                }
                             ]
-                        }
+                        },
+                        "description": "Retrieve departments resolved under the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.view` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -1051,11 +1175,16 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Engineering\",\n    \"code\": \"ENG\",\n    \"description\": \"Engineering Department\"\n}",
+                            "raw": "{\n    \"name\": \"Engineering Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1071,7 +1200,8 @@
                                 "corp",
                                 "departments"
                             ]
-                        }
+                        },
+                        "description": "Create a new department within the active corporation.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **branch_id**: Nullable, exists in branches, constrained to this corporation\n* **parent_department_id**: Nullable, exists in departments, constrained to this corporation\n* **head_user_id**: Nullable, exists in corp_memberships active users, constrained to this corporation"
                     }
                 },
                 {
@@ -1092,6 +1222,11 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
@@ -1104,7 +1239,8 @@
                                 "departments",
                                 "{{department_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Retrieve details of a specific department by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.view` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -1129,11 +1265,16 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"Engineering Updated\",\n    \"code\": \"ENG\",\n    \"description\": \"Engineering Department Updated\"\n}",
+                            "raw": "{\n    \"name\": \"Engineering Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1150,7 +1291,8 @@
                                 "departments",
                                 "{{department_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Update specific configuration parameter values of a department by UUID.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **branch_id**: Nullable, exists in branches, constrained to this corporation"
                     }
                 },
                 {
@@ -1171,6 +1313,11 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
@@ -1183,14 +1330,15 @@
                                 "departments",
                                 "{{department_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Soft delete a specific department from the corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.delete` required (AppOwner bypasses)"
                     }
                 }
             ]
         },
         {
             "name": "Corporation - Memberships",
-            "description": "Manage memberships (users) within a corporation",
+            "description": "Manage user accounts, roles, and profiles within a corporation.",
             "item": [
                 {
                     "name": "List Memberships",
@@ -1210,18 +1358,38 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/corp/memberships",
+                            "raw": "{{base_url}}/corp/memberships?page=1&per_page=15&status=active",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "corp",
                                 "memberships"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "active"
+                                }
                             ]
-                        }
+                        },
+                        "description": "Retrieve memberships registered under the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `users.view` required (AppOwner bypasses)"
                     }
                 },
                 {
@@ -1246,11 +1414,16 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"user_email\": \"newuser@example.com\",\n    \"role\": \"member\"\n}",
+                            "raw": "{\n    \"user_id\": 2,\n    \"role_id\": 2,\n    \"employee_code\": \"EMP-ACME-002\",\n    \"designation\": \"Senior Engineer\",\n    \"department_id\": 1,\n    \"branch_id\": 1,\n    \"employment_type\": \"full_time\",\n    \"joining_date\": \"2026-05-17\",\n    \"reports_to\": null\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1266,7 +1439,8 @@
                                 "corp",
                                 "memberships"
                             ]
-                        }
+                        },
+                        "description": "Link a registered user account to this corporation with dynamic workspace roles and profile mappings.\n\n### Validation Rules:\n* **user_id**: Required, exists in users table\n* **role_id**: Required, exists in Spatie roles table (either system or corp role)\n* **employment_type**: Nullable, enum: full_time, part_time, contractor, intern, probation, consultant\n* **joining_date**: Nullable, valid date format (e.g. YYYY-MM-DD)"
                     }
                 },
                 {
@@ -1287,6 +1461,11 @@
                             {
                                 "key": "Accept",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "X-Corporation-Uuid",
+                                "value": "{{corporation_uuid}}",
+                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                             }
                         ],
                         "url": {
@@ -1299,7 +1478,8 @@
                                 "memberships",
                                 "{{membership_uuid}}"
                             ]
-                        }
+                        },
+                        "description": "Soft delete / suspend a user membership under the corporation by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `users.delete` required (AppOwner bypasses)"
                     }
                 }
             ]
