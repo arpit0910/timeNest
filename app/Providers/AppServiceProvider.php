@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Strict mode: prevent lazy loading, silently discarded attributes, and invalid access
-        Model::shouldBeStrict(!$this->app->isProduction());
+        Model::shouldBeStrict(! $this->app->isProduction());
 
         // Rate limiters
         $this->configureRateLimiting();
@@ -34,8 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Configure rate limiting for different API route groups.
-     *
-     * @return void
      */
     private function configureRateLimiting(): void
     {

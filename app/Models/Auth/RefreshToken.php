@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Auth;
 
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -17,8 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $token_hash
  * @property string $guard
  * @property int|null $corporation_id
- * @property \Carbon\Carbon $expires_at
- * @property \Carbon\Carbon|null $revoked_at
+ * @property Carbon $expires_at
+ * @property Carbon|null $revoked_at
  */
 class RefreshToken extends Model
 {

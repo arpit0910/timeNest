@@ -15,7 +15,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class AuthTokenResource extends JsonResource
 {
     /**
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
@@ -26,10 +25,10 @@ class AuthTokenResource extends JsonResource
 
         // Include tokens if authenticated
         if (isset($this->resource['access_token'])) {
-            $data['access_token']  = $this->resource['access_token'];
+            $data['access_token'] = $this->resource['access_token'];
             $data['refresh_token'] = $this->resource['refresh_token'];
-            $data['token_type']    = $this->resource['token_type'] ?? 'bearer';
-            $data['expires_in']    = $this->resource['expires_in'];
+            $data['token_type'] = $this->resource['token_type'] ?? 'bearer';
+            $data['expires_in'] = $this->resource['expires_in'];
         }
 
         // Include temp token if intermediate state
@@ -53,11 +52,11 @@ class AuthTokenResource extends JsonResource
         // Corporation data
         if (isset($this->resource['corporation'])) {
             $data['corporation'] = [
-                'uuid'         => $this->resource['corporation']->uuid,
-                'legal_name'   => $this->resource['corporation']->legal_name,
+                'uuid' => $this->resource['corporation']->uuid,
+                'legal_name' => $this->resource['corporation']->legal_name,
                 'trading_name' => $this->resource['corporation']->trading_name,
-                'slug'         => $this->resource['corporation']->slug,
-                'logo_url'     => $this->resource['corporation']->logo_url,
+                'slug' => $this->resource['corporation']->slug,
+                'logo_url' => $this->resource['corporation']->logo_url,
             ];
         }
 

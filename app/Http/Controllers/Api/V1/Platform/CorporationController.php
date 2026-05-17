@@ -11,7 +11,6 @@ use App\Http\Resources\Corporation\CorporationResource;
 use App\Models\Corporation\Corporation;
 use App\Services\Corporation\CorporationService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * Platform-level corporation management.

@@ -23,25 +23,25 @@ class EnsureCorpAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!app()->bound(JwtContext::class)) {
+        if (! app()->bound(JwtContext::class)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthenticated. JWT context missing.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 401);
         }
 
         $context = app(JwtContext::class);
 
-        if (!$context->isCorp() || !$context->hasCorporationContext()) {
+        if (! $context->isCorp() || ! $context->hasCorporationContext()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Access denied. Corporation-level authorization required.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 403);
         }
 

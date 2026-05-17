@@ -50,9 +50,9 @@ class SocialAccount extends Model
     protected function casts(): array
     {
         return [
-            'provider'         => OAuthProvider::class,
-            'access_token'     => 'encrypted',
-            'refresh_token'    => 'encrypted',
+            'provider' => OAuthProvider::class,
+            'access_token' => 'encrypted',
+            'refresh_token' => 'encrypted',
             'token_expires_at' => 'datetime',
         ];
     }

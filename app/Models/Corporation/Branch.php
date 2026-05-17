@@ -39,18 +39,36 @@ class Branch extends Model
     protected function casts(): array
     {
         return [
-            'is_headquarters'  => 'boolean',
-            'is_active'        => 'boolean',
-            'latitude'         => 'decimal:8',
-            'longitude'        => 'decimal:8',
+            'is_headquarters' => 'boolean',
+            'is_active' => 'boolean',
+            'latitude' => 'decimal:8',
+            'longitude' => 'decimal:8',
             'geo_fence_radius' => 'integer',
         ];
     }
 
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
-    public function country(): BelongsTo { return $this->belongsTo(Country::class); }
-    public function state(): BelongsTo { return $this->belongsTo(State::class); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
 
-    public function scopeActive($query) { return $query->where('is_active', true); }
-    public function scopeHeadquarters($query) { return $query->where('is_headquarters', true); }
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeHeadquarters($query)
+    {
+        return $query->where('is_headquarters', true);
+    }
 }

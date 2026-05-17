@@ -11,38 +11,34 @@ namespace App\Enums;
  */
 enum CorporationPlan: string
 {
-    case Free         = 'free';
-    case Starter      = 'starter';
+    case Free = 'free';
+    case Starter = 'starter';
     case Professional = 'professional';
-    case Enterprise   = 'enterprise';
+    case Enterprise = 'enterprise';
 
     /**
      * Get human-readable label.
-     *
-     * @return string
      */
     public function label(): string
     {
         return match ($this) {
-            self::Free         => 'Free',
-            self::Starter      => 'Starter',
+            self::Free => 'Free',
+            self::Starter => 'Starter',
             self::Professional => 'Professional',
-            self::Enterprise   => 'Enterprise',
+            self::Enterprise => 'Enterprise',
         };
     }
 
     /**
      * Get default user seat limit for the plan.
-     *
-     * @return int
      */
     public function defaultMaxUsers(): int
     {
         return match ($this) {
-            self::Free         => 5,
-            self::Starter      => 25,
+            self::Free => 5,
+            self::Starter => 25,
             self::Professional => 100,
-            self::Enterprise   => 500,
+            self::Enterprise => 500,
         };
     }
 }

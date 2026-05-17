@@ -21,8 +21,6 @@ class StateSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -30,13 +28,14 @@ class StateSeeder extends Seeder
 
         $response = Http::timeout(60)->get(self::DATA_URL);
 
-        if (!$response->successful()) {
-            $this->command->error('Failed to fetch states data. HTTP ' . $response->status());
+        if (! $response->successful()) {
+            $this->command->error('Failed to fetch states data. HTTP '.$response->status());
+
             return;
         }
 
         $states = $response->json();
-        $this->command->info('Processing ' . count($states) . ' states...');
+        $this->command->info('Processing '.count($states).' states...');
 
         // Build country lookup: iso2 → id
         $countryMap = Country::pluck('id', 'iso2')->toArray();
@@ -48,25 +47,27 @@ class StateSeeder extends Seeder
             $countryIso2 = strtoupper(trim($state['country_code'] ?? ''));
             $countryId = $countryMap[$countryIso2] ?? null;
 
-            if (!$countryId) {
+            if (! $countryId) {
                 $skipped++;
+
                 continue;
             }
 
             $name = trim($state['name'] ?? '');
             if (empty($name)) {
                 $skipped++;
+
                 continue;
             }
 
-            $stateCode = !empty($state['state_code'])
+            $stateCode = ! empty($state['state_code'])
                 ? strtoupper(trim($state['state_code']))
                 : null;
 
             $batch[] = [
-                'uuid'       => (string) Str::uuid(),
+                'uuid' => (string) Str::uuid(),
                 'country_id' => $countryId,
-                'name'       => $name,
+                'name' => $name,
                 'state_code' => $stateCode,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -78,6 +79,6 @@ class StateSeeder extends Seeder
             State::insert($chunk);
         }
 
-        $this->command->info("Seeded " . count($batch) . " states. Skipped {$skipped}.");
+        $this->command->info('Seeded '.count($batch)." states. Skipped {$skipped}.");
     }
 }

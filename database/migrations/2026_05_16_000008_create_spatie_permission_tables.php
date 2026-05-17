@@ -127,7 +127,7 @@ return new class extends Migration
             app('cache')
                 ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
                 ->forget(config('permission.cache.key'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Ignore cache exceptions during migration
         }
     }

@@ -17,22 +17,18 @@ class EnsureEmailVerified
 {
     /**
      * Handle an incoming request.
-     *
-     * @param Request $request
-     * @param Closure $next
-     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
 
-        if ($user && !$user->email_verified_at) {
+        if ($user && ! $user->email_verified_at) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email address not verified. Please verify your email before continuing.',
-                'data'    => ['can_resend' => true],
-                'errors'  => null,
-                'meta'    => null,
+                'data' => ['can_resend' => true],
+                'errors' => null,
+                'meta' => null,
             ], 403);
         }
 

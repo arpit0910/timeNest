@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use App\Enums\Guard;
+use App\Http\Middleware\JwtAuthenticate;
 
 /**
  * Immutable DTO holding parsed JWT claims.
@@ -13,24 +14,24 @@ use App\Enums\Guard;
  * by JwtAuthenticate middleware. Provides type-safe access to authorization
  * context without relying on dynamic request properties or magic strings.
  *
- * @see \App\Http\Middleware\JwtAuthenticate
+ * @see JwtAuthenticate
  */
 final readonly class JwtContext
 {
     private function __construct(
-        public Guard   $guard,
-        public ?int    $corporationId,
+        public Guard $guard,
+        public ?int $corporationId,
         public ?string $corporationUuid,
         public ?string $role,
         public ?string $purpose,
-        public string  $userUuid,
-        public int     $tokenVersion,
+        public string $userUuid,
+        public int $tokenVersion,
     ) {}
 
     /**
      * Create from raw JWT payload claims.
      *
-     * @param array<string, mixed> $claims
+     * @param  array<string, mixed>  $claims
      */
     public static function fromPayload(array $claims): self
     {

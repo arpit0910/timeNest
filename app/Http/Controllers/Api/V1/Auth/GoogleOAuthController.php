@@ -45,9 +45,6 @@ class GoogleOAuthController extends BaseApiController
      * GET /api/v1/auth/google/callback
      *
      * Handles the callback from Google, authenticates the user, and issues JWTs.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function callback(Request $request): JsonResponse
     {
@@ -61,11 +58,11 @@ class GoogleOAuthController extends BaseApiController
             );
 
             $status = match ($result['status']) {
-                'authenticated'                  => 200,
-                'requires_2fa'                   => 200,
-                'requires_workspace_selection'    => 200,
-                'no_workspace'                   => 200,
-                default                          => 200,
+                'authenticated' => 200,
+                'requires_2fa' => 200,
+                'requires_workspace_selection' => 200,
+                'no_workspace' => 200,
+                default => 200,
             };
 
             return $this->success(
@@ -77,7 +74,7 @@ class GoogleOAuthController extends BaseApiController
         } catch (AuthenticationException $e) {
             return $this->unauthorized($e->getMessage());
         } catch (\Exception $e) {
-            return $this->error('Authentication failed: ' . $e->getMessage(), status: 400);
+            return $this->error('Authentication failed: '.$e->getMessage(), status: 400);
         }
     }
 }

@@ -29,19 +29,19 @@ class PlatformRolesSeeder extends Seeder
         foreach ($allRoles as $systemRole) {
             Role::firstOrCreate(
                 [
-                    'name'       => $systemRole->value,
+                    'name' => $systemRole->value,
                     'guard_name' => 'api',
                 ],
                 [
-                    'uuid'           => (string) Str::uuid(),
+                    'uuid' => (string) Str::uuid(),
                     'corporation_id' => null,
-                    'description'    => $systemRole->description(),
+                    'description' => $systemRole->description(),
                     'is_system_role' => true,
-                    'sort_order'     => $systemRole->sortOrder(),
+                    'sort_order' => $systemRole->sortOrder(),
                 ]
             );
         }
 
-        $this->command->info('Seeded ' . count($allRoles) . ' system roles (from SystemRole enum).');
+        $this->command->info('Seeded '.count($allRoles).' system roles (from SystemRole enum).');
     }
 }

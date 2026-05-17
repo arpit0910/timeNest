@@ -46,21 +46,47 @@ class EmployeeProfile extends Model
     protected function casts(): array
     {
         return [
-            'employment_type'   => EmploymentType::class,
-            'joining_date'      => 'date',
+            'employment_type' => EmploymentType::class,
+            'joining_date' => 'date',
             'confirmation_date' => 'date',
-            'exit_date'         => 'date',
-            'is_active'         => 'boolean',
-            'documents'         => 'array',
+            'exit_date' => 'date',
+            'is_active' => 'boolean',
+            'documents' => 'array',
         ];
     }
 
-    public function user(): BelongsTo { return $this->belongsTo(User::class); }
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
-    public function membership(): BelongsTo { return $this->belongsTo(CorpMembership::class, 'corp_membership_id'); }
-    public function department(): BelongsTo { return $this->belongsTo(Department::class); }
-    public function branch(): BelongsTo { return $this->belongsTo(Branch::class); }
-    public function reportsTo(): BelongsTo { return $this->belongsTo(User::class, 'reports_to'); }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function scopeActive($query) { return $query->where('is_active', true); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
+
+    public function membership(): BelongsTo
+    {
+        return $this->belongsTo(CorpMembership::class, 'corp_membership_id');
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function reportsTo(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reports_to');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

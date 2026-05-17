@@ -29,9 +29,9 @@ class PlatformPermissionsSeeder extends Seeder
             Permission::firstOrCreate(
                 ['name' => $permission->value, 'guard_name' => 'api'],
                 [
-                    'uuid'        => (string) Str::uuid(),
-                    'module'      => $permission->module(),
-                    'action'      => $permission->action(),
+                    'uuid' => (string) Str::uuid(),
+                    'module' => $permission->module(),
+                    'action' => $permission->action(),
                     'description' => $permission->description(),
                 ]
             );

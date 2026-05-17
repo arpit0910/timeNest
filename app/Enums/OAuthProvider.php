@@ -12,20 +12,18 @@ namespace App\Enums;
  */
 enum OAuthProvider: string
 {
-    case Google    = 'google';
-    case Github    = 'github';
+    case Google = 'google';
+    case Github = 'github';
     case Microsoft = 'microsoft';
 
     /**
      * Get human-readable label.
-     *
-     * @return string
      */
     public function label(): string
     {
         return match ($this) {
-            self::Google    => 'Google',
-            self::Github    => 'GitHub',
+            self::Google => 'Google',
+            self::Github => 'GitHub',
             self::Microsoft => 'Microsoft',
         };
     }

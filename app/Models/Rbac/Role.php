@@ -36,7 +36,7 @@ class Role extends SpatieRole
 
     protected $casts = [
         'is_system_role' => 'boolean',
-        'sort_order'     => 'integer',
+        'sort_order' => 'integer',
     ];
 
     public function getRouteKeyName(): string

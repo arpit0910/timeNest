@@ -51,7 +51,7 @@ class JwtAuthenticate
             return $this->errorResponse('User not found', 401);
         }
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return $this->errorResponse('User not found', 401);
         }
 
@@ -60,11 +60,11 @@ class JwtAuthenticate
 
         // Verify token_version — mismatch means password changed or forced logout
         if ($jwtContext->tokenVersion !== $user->token_version) {
-            throw new JwtTokenVersionMismatchException();
+            throw new JwtTokenVersionMismatchException;
         }
 
         // Verify user is active
-        if (!$user->is_active) {
+        if (! $user->is_active) {
             return $this->errorResponse('Account has been deactivated', 403);
         }
 
@@ -85,9 +85,9 @@ class JwtAuthenticate
         return response()->json([
             'success' => false,
             'message' => $message,
-            'data'    => null,
-            'errors'  => null,
-            'meta'    => null,
+            'data' => null,
+            'errors' => null,
+            'meta' => null,
         ], $status);
     }
 }

@@ -21,81 +21,81 @@ enum SystemPermission: string
     case CorporationsManage = 'corporations.manage';
 
     // ─── Users ───────────────────────────────────────────────────
-    case UsersView   = 'users.view';
+    case UsersView = 'users.view';
     case UsersInvite = 'users.invite';
-    case UsersEdit   = 'users.edit';
+    case UsersEdit = 'users.edit';
     case UsersDelete = 'users.delete';
     case UsersManage = 'users.manage';
     case UsersExport = 'users.export';
 
     // ─── Attendance ──────────────────────────────────────────────
-    case AttendanceView   = 'attendance.view';
+    case AttendanceView = 'attendance.view';
     case AttendanceCreate = 'attendance.create';
-    case AttendanceEdit   = 'attendance.edit';
+    case AttendanceEdit = 'attendance.edit';
     case AttendanceDelete = 'attendance.delete';
     case AttendanceApprove = 'attendance.approve';
     case AttendanceExport = 'attendance.export';
     case AttendanceImport = 'attendance.import';
 
     // ─── Payroll ─────────────────────────────────────────────────
-    case PayrollView    = 'payroll.view';
-    case PayrollCreate  = 'payroll.create';
-    case PayrollEdit    = 'payroll.edit';
-    case PayrollDelete  = 'payroll.delete';
-    case PayrollExport  = 'payroll.export';
+    case PayrollView = 'payroll.view';
+    case PayrollCreate = 'payroll.create';
+    case PayrollEdit = 'payroll.edit';
+    case PayrollDelete = 'payroll.delete';
+    case PayrollExport = 'payroll.export';
     case PayrollApprove = 'payroll.approve';
     case PayrollProcess = 'payroll.process';
 
     // ─── HRMS ────────────────────────────────────────────────────
-    case HrmsView   = 'hrms.view';
+    case HrmsView = 'hrms.view';
     case HrmsCreate = 'hrms.create';
-    case HrmsEdit   = 'hrms.edit';
+    case HrmsEdit = 'hrms.edit';
     case HrmsDelete = 'hrms.delete';
     case HrmsExport = 'hrms.export';
 
     // ─── Leaves ──────────────────────────────────────────────────
-    case LeavesView    = 'leaves.view';
-    case LeavesCreate  = 'leaves.create';
-    case LeavesEdit    = 'leaves.edit';
-    case LeavesDelete  = 'leaves.delete';
+    case LeavesView = 'leaves.view';
+    case LeavesCreate = 'leaves.create';
+    case LeavesEdit = 'leaves.edit';
+    case LeavesDelete = 'leaves.delete';
     case LeavesApprove = 'leaves.approve';
-    case LeavesExport  = 'leaves.export';
+    case LeavesExport = 'leaves.export';
 
     // ─── Branches ────────────────────────────────────────────────
-    case BranchesView   = 'branches.view';
+    case BranchesView = 'branches.view';
     case BranchesCreate = 'branches.create';
-    case BranchesEdit   = 'branches.edit';
+    case BranchesEdit = 'branches.edit';
     case BranchesDelete = 'branches.delete';
     case BranchesManage = 'branches.manage';
 
     // ─── Departments ─────────────────────────────────────────────
-    case DepartmentsView   = 'departments.view';
+    case DepartmentsView = 'departments.view';
     case DepartmentsCreate = 'departments.create';
-    case DepartmentsEdit   = 'departments.edit';
+    case DepartmentsEdit = 'departments.edit';
     case DepartmentsDelete = 'departments.delete';
     case DepartmentsManage = 'departments.manage';
 
     // ─── Reports ─────────────────────────────────────────────────
-    case ReportsView     = 'reports.view';
-    case ReportsExport   = 'reports.export';
+    case ReportsView = 'reports.view';
+    case ReportsExport = 'reports.export';
     case ReportsSchedule = 'reports.schedule';
 
     // ─── Settings ────────────────────────────────────────────────
     case SettingsManage = 'settings.manage';
 
     // ─── Invoicing ───────────────────────────────────────────────
-    case InvoicingView    = 'invoicing.view';
-    case InvoicingCreate  = 'invoicing.create';
-    case InvoicingEdit    = 'invoicing.edit';
-    case InvoicingDelete  = 'invoicing.delete';
-    case InvoicingSend    = 'invoicing.send';
+    case InvoicingView = 'invoicing.view';
+    case InvoicingCreate = 'invoicing.create';
+    case InvoicingEdit = 'invoicing.edit';
+    case InvoicingDelete = 'invoicing.delete';
+    case InvoicingSend = 'invoicing.send';
     case InvoicingApprove = 'invoicing.approve';
 
     // ─── Workflows ───────────────────────────────────────────────
-    case WorkflowsView    = 'workflows.view';
-    case WorkflowsCreate  = 'workflows.create';
-    case WorkflowsEdit    = 'workflows.edit';
-    case WorkflowsDelete  = 'workflows.delete';
+    case WorkflowsView = 'workflows.view';
+    case WorkflowsCreate = 'workflows.create';
+    case WorkflowsEdit = 'workflows.edit';
+    case WorkflowsDelete = 'workflows.delete';
     case WorkflowsTrigger = 'workflows.trigger';
 
     /**
@@ -119,7 +119,7 @@ enum SystemPermission: string
      */
     public function description(): string
     {
-        return ucfirst($this->action()) . ' ' . $this->module();
+        return ucfirst($this->action()).' '.$this->module();
     }
 
     /**

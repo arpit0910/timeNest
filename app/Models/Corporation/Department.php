@@ -38,12 +38,38 @@ class Department extends Model
         return ['is_active' => 'boolean'];
     }
 
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
-    public function branch(): BelongsTo { return $this->belongsTo(Branch::class); }
-    public function parent(): BelongsTo { return $this->belongsTo(self::class, 'parent_department_id'); }
-    public function children(): HasMany { return $this->hasMany(self::class, 'parent_department_id'); }
-    public function head(): BelongsTo { return $this->belongsTo(User::class, 'head_user_id'); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
 
-    public function scopeActive($query) { return $query->where('is_active', true); }
-    public function scopeRoot($query) { return $query->whereNull('parent_department_id'); }
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_department_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_department_id');
+    }
+
+    public function head(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'head_user_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeRoot($query)
+    {
+        return $query->whereNull('parent_department_id');
+    }
 }

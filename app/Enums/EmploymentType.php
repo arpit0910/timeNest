@@ -12,26 +12,24 @@ namespace App\Enums;
  */
 enum EmploymentType: string
 {
-    case FullTime   = 'full_time';
-    case PartTime   = 'part_time';
+    case FullTime = 'full_time';
+    case PartTime = 'part_time';
     case Contractor = 'contractor';
-    case Intern     = 'intern';
-    case Probation  = 'probation';
+    case Intern = 'intern';
+    case Probation = 'probation';
     case Consultant = 'consultant';
 
     /**
      * Get human-readable label.
-     *
-     * @return string
      */
     public function label(): string
     {
         return match ($this) {
-            self::FullTime   => 'Full Time',
-            self::PartTime   => 'Part Time',
+            self::FullTime => 'Full Time',
+            self::PartTime => 'Part Time',
             self::Contractor => 'Contractor',
-            self::Intern     => 'Intern',
-            self::Probation  => 'Probation',
+            self::Intern => 'Intern',
+            self::Probation => 'Probation',
             self::Consultant => 'Consultant',
         };
     }

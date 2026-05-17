@@ -8,6 +8,7 @@ use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Models\Rbac\Role;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,9 +22,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $corporation_id
  * @property string $email
  * @property string $token
- * @property \Carbon\Carbon $expires_at
- * @property \Carbon\Carbon|null $accepted_at
- * @property \Carbon\Carbon|null $revoked_at
+ * @property Carbon $expires_at
+ * @property Carbon|null $accepted_at
+ * @property Carbon|null $revoked_at
  */
 class Invitation extends Model
 {
@@ -42,18 +43,33 @@ class Invitation extends Model
     protected function casts(): array
     {
         return [
-            'expires_at'     => 'datetime',
-            'accepted_at'    => 'datetime',
-            'revoked_at'     => 'datetime',
+            'expires_at' => 'datetime',
+            'accepted_at' => 'datetime',
+            'revoked_at' => 'datetime',
             'last_resent_at' => 'datetime',
-            'resend_count'   => 'integer',
+            'resend_count' => 'integer',
         ];
     }
 
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
-    public function role(): BelongsTo { return $this->belongsTo(Role::class); }
-    public function invitedBy(): BelongsTo { return $this->belongsTo(User::class, 'invited_by'); }
-    public function revokedBy(): BelongsTo { return $this->belongsTo(User::class, 'revoked_by'); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function invitedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'invited_by');
+    }
+
+    public function revokedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'revoked_by');
+    }
 
     public function scopePending($query)
     {
@@ -62,7 +78,18 @@ class Invitation extends Model
             ->where('expires_at', '>', now());
     }
 
-    public function isExpired(): bool { return $this->expires_at->isPast(); }
-    public function isAccepted(): bool { return $this->accepted_at !== null; }
-    public function isRevoked(): bool { return $this->revoked_at !== null; }
+    public function isExpired(): bool
+    {
+        return $this->expires_at->isPast();
+    }
+
+    public function isAccepted(): bool
+    {
+        return $this->accepted_at !== null;
+    }
+
+    public function isRevoked(): bool
+    {
+        return $this->revoked_at !== null;
+    }
 }

@@ -7,6 +7,7 @@ namespace App\Models\Logging;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $uuid
  * @property string $action
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $created_at
  */
 class AuditLog extends Model
 {
@@ -41,14 +42,28 @@ class AuditLog extends Model
         return [
             'old_values' => 'array',
             'new_values' => 'array',
-            'metadata'   => 'array',
+            'metadata' => 'array',
             'created_at' => 'datetime',
         ];
     }
 
-    public function user(): BelongsTo { return $this->belongsTo(User::class); }
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function scopeForCorporation($query, int $corpId) { return $query->where('corporation_id', $corpId); }
-    public function scopeByAction($query, string $action) { return $query->where('action', $action); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
+
+    public function scopeForCorporation($query, int $corpId)
+    {
+        return $query->where('corporation_id', $corpId);
+    }
+
+    public function scopeByAction($query, string $action)
+    {
+        return $query->where('action', $action);
+    }
 }

@@ -34,9 +34,6 @@ class AuthController extends BaseApiController
      *
      * Authenticate with email + password.
      * Returns JWT tokens or intermediate state (2FA, workspace selection).
-     *
-     * @param LoginRequest $request
-     * @return JsonResponse
      */
     public function login(LoginRequest $request): JsonResponse
     {
@@ -49,12 +46,12 @@ class AuthController extends BaseApiController
             );
 
             $status = match ($result['status']) {
-                'authenticated'                  => 200,
-                'requires_2fa'                   => 200,
-                'requires_workspace_selection'    => 200,
-                'email_not_verified'             => 403,
-                'no_workspace'                   => 200,
-                default                          => 200,
+                'authenticated' => 200,
+                'requires_2fa' => 200,
+                'requires_workspace_selection' => 200,
+                'email_not_verified' => 403,
+                'no_workspace' => 200,
+                default => 200,
             };
 
             return $this->success(
@@ -71,9 +68,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/register
      *
      * Create a new user account.
-     *
-     * @param RegisterRequest $request
-     * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -89,9 +83,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/logout
      *
      * Invalidate current JWT and optionally revoke refresh token.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function logout(Request $request): JsonResponse
     {
@@ -107,9 +98,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/logout-all
      *
      * Logout from all devices by incrementing token_version and revoking all refresh tokens.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function logoutAll(Request $request): JsonResponse
     {
@@ -123,9 +111,6 @@ class AuthController extends BaseApiController
      *
      * Refresh access token using a valid refresh token.
      * Implements token rotation: old refresh token is revoked, new pair is issued.
-     *
-     * @param RefreshTokenRequest $request
-     * @return JsonResponse
      */
     public function refresh(RefreshTokenRequest $request): JsonResponse
     {
@@ -144,9 +129,6 @@ class AuthController extends BaseApiController
      * GET /api/v1/auth/me
      *
      * Get the authenticated user's profile.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function me(Request $request): JsonResponse
     {
@@ -160,9 +142,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/select-corporation
      *
      * Select a corporation workspace and receive corp-guard JWT.
-     *
-     * @param SelectCorporationRequest $request
-     * @return JsonResponse
      */
     public function selectCorporation(SelectCorporationRequest $request): JsonResponse
     {
@@ -185,9 +164,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/switch-corporation
      *
      * Switch to a different corporation. Invalidates current JWT first.
-     *
-     * @param SelectCorporationRequest $request
-     * @return JsonResponse
      */
     public function switchCorporation(SelectCorporationRequest $request): JsonResponse
     {
@@ -211,9 +187,6 @@ class AuthController extends BaseApiController
      * GET /api/v1/auth/workspaces
      *
      * Get all available workspaces (corporations) for the authenticated user.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function workspaces(Request $request): JsonResponse
     {
@@ -226,9 +199,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/verify-email
      *
      * Verify email address using the token sent via email.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function verifyEmail(Request $request): JsonResponse
     {
@@ -236,6 +206,7 @@ class AuthController extends BaseApiController
 
         try {
             $user = $this->authService->verifyEmail($request->input('token'));
+
             return $this->success(
                 data: new UserResource($user),
                 message: 'Email verified successfully',
@@ -249,9 +220,6 @@ class AuthController extends BaseApiController
      * POST /api/v1/auth/change-password
      *
      * Change password. Invalidates all existing tokens.
-     *
-     * @param ChangePasswordRequest $request
-     * @return JsonResponse
      */
     public function changePassword(ChangePasswordRequest $request): JsonResponse
     {

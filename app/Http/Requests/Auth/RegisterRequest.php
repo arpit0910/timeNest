@@ -23,14 +23,14 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => ['required', 'string', 'min:2', 'max:100'],
-            'email'      => ['required', 'string', 'email', 'max:191', 'unique:users,email'],
-            'password'   => ['required', 'string', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'name' => ['required', 'string', 'min:2', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users,email'],
+            'password' => ['required', 'string', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
             'first_name' => ['nullable', 'string', 'max:60'],
-            'last_name'  => ['nullable', 'string', 'max:60'],
-            'phone'      => ['nullable', 'string', 'max:20', 'regex:/^\+[1-9][0-9]{6,14}$/'],
-            'timezone'   => ['nullable', 'string', 'max:64', 'timezone:all'],
-            'locale'     => ['nullable', 'string', 'max:10'],
+            'last_name' => ['nullable', 'string', 'max:60'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^\+[1-9][0-9]{6,14}$/'],
+            'timezone' => ['nullable', 'string', 'max:64', 'timezone:all'],
+            'locale' => ['nullable', 'string', 'max:10'],
         ];
     }
 

@@ -21,12 +21,11 @@ trait HasAuditLog
     /**
      * Log an auditable action.
      *
-     * @param string $action Dot-notation action e.g. 'user.created', 'membership.revoked'
-     * @param Model|null $resource The affected resource model
-     * @param array $oldValues State before the action
-     * @param array $newValues State after the action
-     * @param array $metadata Additional structured context
-     * @return void
+     * @param  string  $action  Dot-notation action e.g. 'user.created', 'membership.revoked'
+     * @param  Model|null  $resource  The affected resource model
+     * @param  array  $oldValues  State before the action
+     * @param  array  $newValues  State after the action
+     * @param  array  $metadata  Additional structured context
      */
     protected function logAction(
         string $action,
@@ -36,17 +35,17 @@ trait HasAuditLog
         array $metadata = [],
     ): void {
         AuditLog::create([
-            'user_id'        => Auth::id(),
+            'user_id' => Auth::id(),
             'corporation_id' => $this->resolveAuditCorporationId(),
-            'action'         => $action,
-            'resource_type'  => $resource ? get_class($resource) : null,
-            'resource_id'    => $resource?->id,
-            'resource_uuid'  => $resource?->uuid ?? null,
-            'old_values'     => !empty($oldValues) ? $oldValues : null,
-            'new_values'     => !empty($newValues) ? $newValues : null,
-            'ip_address'     => Request::ip(),
-            'user_agent'     => Request::userAgent(),
-            'metadata'       => !empty($metadata) ? $metadata : null,
+            'action' => $action,
+            'resource_type' => $resource ? get_class($resource) : null,
+            'resource_id' => $resource?->id,
+            'resource_uuid' => $resource?->uuid ?? null,
+            'old_values' => ! empty($oldValues) ? $oldValues : null,
+            'new_values' => ! empty($newValues) ? $newValues : null,
+            'ip_address' => Request::ip(),
+            'user_agent' => Request::userAgent(),
+            'metadata' => ! empty($metadata) ? $metadata : null,
         ]);
     }
 
@@ -55,8 +54,6 @@ trait HasAuditLog
      *
      * Checks the service container for a bound corporation,
      * falls back to null for platform-level actions.
-     *
-     * @return int|null
      */
     private function resolveAuditCorporationId(): ?int
     {

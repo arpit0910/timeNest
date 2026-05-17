@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Membership;
 
 use App\Models\Auth\User;
-use App\Models\Rbac\Role;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,8 +28,18 @@ class PlatformMembership extends Model
         'user_id', 'status', 'granted_by',
     ];
 
-    public function user(): BelongsTo { return $this->belongsTo(User::class); }
-    public function grantedBy(): BelongsTo { return $this->belongsTo(User::class, 'granted_by'); }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function scopeActive($query) { return $query->where('status', 'active'); }
+    public function grantedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'granted_by');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

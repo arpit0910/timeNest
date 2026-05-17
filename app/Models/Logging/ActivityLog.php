@@ -7,6 +7,7 @@ namespace App\Models\Logging;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $uuid
  * @property string $type
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $created_at
  */
 class ActivityLog extends Model
 {
@@ -37,14 +38,28 @@ class ActivityLog extends Model
     protected function casts(): array
     {
         return [
-            'metadata'   => 'array',
+            'metadata' => 'array',
             'created_at' => 'datetime',
         ];
     }
 
-    public function user(): BelongsTo { return $this->belongsTo(User::class); }
-    public function corporation(): BelongsTo { return $this->belongsTo(Corporation::class); }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function scopeForUser($query, int $userId) { return $query->where('user_id', $userId); }
-    public function scopeByType($query, string $type) { return $query->where('type', $type); }
+    public function corporation(): BelongsTo
+    {
+        return $this->belongsTo(Corporation::class);
+    }
+
+    public function scopeForUser($query, int $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    public function scopeByType($query, string $type)
+    {
+        return $query->where('type', $type);
+    }
 }

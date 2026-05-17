@@ -69,7 +69,7 @@ class MembershipController extends BaseApiController
             role: $role,
             employeeData: $request->only([
                 'employee_code', 'designation', 'department_id', 'branch_id',
-                'employment_type', 'joining_date', 'reports_to'
+                'employment_type', 'joining_date', 'reports_to',
             ]),
             invitedById: $request->user()->id
         );

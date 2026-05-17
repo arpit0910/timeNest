@@ -17,23 +17,19 @@ class DepartmentService
 
     /**
      * Create a new department.
-     *
-     * @param Corporation $corp
-     * @param array $data
-     * @return Department
      */
     public function createDepartment(Corporation $corp, array $data): Department
     {
         app()->instance('current.corporation', $corp);
 
         $dept = Department::create([
-            'corporation_id'       => $corp->id,
-            'branch_id'            => $data['branch_id'] ?? null,
+            'corporation_id' => $corp->id,
+            'branch_id' => $data['branch_id'] ?? null,
             'parent_department_id' => $data['parent_department_id'] ?? null,
-            'name'                 => $data['name'],
-            'code'                 => $data['code'] ?? null,
-            'head_user_id'         => $data['head_user_id'] ?? null,
-            'is_active'            => $data['is_active'] ?? true,
+            'name' => $data['name'],
+            'code' => $data['code'] ?? null,
+            'head_user_id' => $data['head_user_id'] ?? null,
+            'is_active' => $data['is_active'] ?? true,
         ]);
 
         $this->logAction('department.created', $dept, [], $dept->toArray());
@@ -43,10 +39,6 @@ class DepartmentService
 
     /**
      * Update an existing department.
-     *
-     * @param Department $dept
-     * @param array $data
-     * @return Department
      */
     public function updateDepartment(Department $dept, array $data): Department
     {
@@ -62,14 +54,11 @@ class DepartmentService
 
     /**
      * Delete (soft) a department.
-     *
-     * @param Department $dept
-     * @return void
      */
     public function deleteDepartment(Department $dept): void
     {
         app()->instance('current.corporation', $dept->corporation);
-        
+
         // Note: In a real system, we'd need to handle sub-departments and employee assignments
         // before deleting.
         $dept->delete();

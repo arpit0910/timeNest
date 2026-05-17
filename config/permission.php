@@ -17,7 +17,7 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => \App\Models\Rbac\Permission::class,
+        'permission' => App\Models\Rbac\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -28,7 +28,7 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => \App\Models\Rbac\Role::class,
+        'role' => App\Models\Rbac\Role::class,
 
         /*
          * When using the "Teams" feature from this package, we need to know which

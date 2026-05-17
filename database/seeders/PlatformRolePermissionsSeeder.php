@@ -29,9 +29,9 @@ class PlatformRolePermissionsSeeder extends Seeder
     {
         return [
             // Platform roles
-            SystemRole::AppOwner->value       => null, // ALL permissions
-            SystemRole::AppSuperAdmin->value  => null, // ALL permissions
-            SystemRole::AppAdmin->value       => [
+            SystemRole::AppOwner->value => null, // ALL permissions
+            SystemRole::AppSuperAdmin->value => null, // ALL permissions
+            SystemRole::AppAdmin->value => [
                 SystemPermission::CorporationsManage,
                 SystemPermission::UsersView,
                 SystemPermission::UsersEdit,
@@ -39,11 +39,11 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::ReportsView,
                 SystemPermission::AttendanceView,
             ],
-            SystemRole::SupportAgent->value   => [
+            SystemRole::SupportAgent->value => [
                 SystemPermission::UsersView,
                 SystemPermission::ReportsView,
             ],
-            SystemRole::Auditor->value        => [
+            SystemRole::Auditor->value => [
                 SystemPermission::AttendanceView,
                 SystemPermission::AttendanceExport,
                 SystemPermission::UsersView,
@@ -61,9 +61,9 @@ class PlatformRolePermissionsSeeder extends Seeder
             ],
 
             // Corporation roles
-            SystemRole::CorpOwner->value      => null, // ALL permissions
+            SystemRole::CorpOwner->value => null, // ALL permissions
             SystemRole::CorpSuperAdmin->value => null, // ALL permissions
-            SystemRole::CorpAdmin->value      => [
+            SystemRole::CorpAdmin->value => [
                 SystemPermission::UsersView,
                 SystemPermission::UsersInvite,
                 SystemPermission::UsersEdit,
@@ -91,7 +91,7 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::DepartmentsManage,
                 SystemPermission::SettingsManage,
             ],
-            SystemRole::HrManager->value      => [
+            SystemRole::HrManager->value => [
                 SystemPermission::UsersView,
                 SystemPermission::UsersInvite,
                 SystemPermission::HrmsView,
@@ -112,7 +112,7 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::AttendanceExport,
                 SystemPermission::DepartmentsView,
             ],
-            SystemRole::Manager->value        => [
+            SystemRole::Manager->value => [
                 SystemPermission::AttendanceView,
                 SystemPermission::AttendanceApprove,
                 SystemPermission::LeavesView,
@@ -120,16 +120,16 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::ReportsView,
                 SystemPermission::UsersView,
             ],
-            SystemRole::Supervisor->value     => [
+            SystemRole::Supervisor->value => [
                 SystemPermission::AttendanceView,
                 SystemPermission::AttendanceApprove,
             ],
-            SystemRole::Employee->value       => [
+            SystemRole::Employee->value => [
                 SystemPermission::AttendanceView,
                 SystemPermission::LeavesView,
                 SystemPermission::LeavesCreate,
             ],
-            SystemRole::Contractor->value     => [
+            SystemRole::Contractor->value => [
                 SystemPermission::AttendanceView,
             ],
         ];
@@ -149,13 +149,14 @@ class PlatformRolePermissionsSeeder extends Seeder
                 ->whereNull('corporation_id')
                 ->first();
 
-            if (!$role) {
+            if (! $role) {
                 $this->command->warn("System role '{$systemRole->value}' not found in database. Skipping.");
+
                 continue;
             }
 
             $map = $this->rolePermissionMap();
-            if (!array_key_exists($systemRole->value, $map)) {
+            if (! array_key_exists($systemRole->value, $map)) {
                 continue;
             }
 
@@ -178,7 +179,7 @@ class PlatformRolePermissionsSeeder extends Seeder
 
             $role->syncPermissions($permissions);
             $totalAssignments += $permissions->count();
-            
+
             $this->command->info("Synced {$permissions->count()} permissions to role: {$role->name}");
         }
 

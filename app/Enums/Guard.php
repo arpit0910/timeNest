@@ -14,8 +14,8 @@ namespace App\Enums;
 enum Guard: string
 {
     case Platform = 'platform';
-    case Corp     = 'corp';
-    case Temp     = 'temp';
+    case Corp = 'corp';
+    case Temp = 'temp';
 
     /**
      * Check if this is a platform-level guard.
@@ -48,8 +48,8 @@ enum Guard: string
     {
         return match ($this) {
             self::Platform => 'Platform',
-            self::Corp     => 'Corporation',
-            self::Temp     => 'Temporary',
+            self::Corp => 'Corporation',
+            self::Temp => 'Temporary',
         };
     }
 }

@@ -21,8 +21,6 @@ trait HasUuid
 {
     /**
      * Boot the trait: auto-generate UUID on creating event.
-     *
-     * @return void
      */
     public static function bootHasUuid(): void
     {
@@ -35,8 +33,6 @@ trait HasUuid
 
     /**
      * Get the route key name for route-model binding.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {
@@ -46,9 +42,8 @@ trait HasUuid
     /**
      * Resolve route binding by UUID.
      *
-     * @param mixed $value
-     * @param string|null $field
-     * @return Model|null
+     * @param  mixed  $value
+     * @param  string|null  $field
      */
     public function resolveRouteBinding($value, $field = null): ?Model
     {
@@ -57,10 +52,6 @@ trait HasUuid
 
     /**
      * Scope: filter by UUID.
-     *
-     * @param Builder $query
-     * @param string $uuid
-     * @return Builder
      */
     public function scopeByUuid(Builder $query, string $uuid): Builder
     {
