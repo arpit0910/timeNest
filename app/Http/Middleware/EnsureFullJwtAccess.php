@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Auth\JwtContext;
 use App\Exceptions\Auth\FullAuthenticationRequiredException;
 use App\Exceptions\Business\JwtContextMissingException;
 use Closure;
@@ -30,11 +29,11 @@ class EnsureFullJwtAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! app()->bound(JwtContext::class)) {
+        if (! jwt_has_context()) {
             throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
-        if (app(JwtContext::class)->isTemp()) {
+        if (jwt_is_temp()) {
             throw new FullAuthenticationRequiredException();
         }
 

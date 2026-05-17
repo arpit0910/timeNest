@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Auth\JwtContext;
 use App\Exceptions\Auth\InvalidTempTokenPurposeException;
 use App\Exceptions\Business\JwtContextMissingException;
 use Closure;
@@ -30,11 +29,11 @@ class EnsureTempTokenPurpose
      */
     public function handle(Request $request, Closure $next, string $purpose): Response
     {
-        if (! app()->bound(JwtContext::class)) {
+        if (! jwt_has_context()) {
             throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
-        $context = app(JwtContext::class);
+        $context = jwt_context();
 
         if (! $context->isTemp() || $context->purpose !== $purpose) {
             throw new InvalidTempTokenPurposeException();

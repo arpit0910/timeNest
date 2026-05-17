@@ -17,6 +17,7 @@ use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Models\Logging\ActivityLog;
+
 use App\Models\Membership\CorpMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
@@ -213,7 +214,7 @@ class AuthService
                 throw new MembershipInactiveException();
             }
 
-            $roleName = $this->resolveCorpRole($user, $corporation->id)?->name;
+            $roleName = resolve_corp_role($user, $corporation->id)?->name;
 
             if (! $roleName) {
                 throw new InvalidRoleGuardException('No role assigned for this corporation');
@@ -228,7 +229,7 @@ class AuthService
                 throw new MembershipInactiveException('Platform access is no longer active');
             }
 
-            $roleName = $this->resolvePlatformRole($user)?->name;
+            $roleName = resolve_platform_role($user)?->name;
 
             if (! $roleName) {
                 throw new InvalidRoleGuardException('No platform role assigned');
@@ -274,7 +275,7 @@ class AuthService
             throw new MembershipInactiveException();
         }
 
-        $role = $this->resolveCorpRole($user, $corporation->id);
+        $role = resolve_corp_role($user, $corporation->id);
 
         if (! $role) {
             throw new InvalidRoleGuardException('No role assigned for this corporation');
@@ -326,11 +327,11 @@ class AuthService
             ->where('user_id', $user->id)
             ->first();
 
-        $platformRole = $this->resolvePlatformRole($user);
+        $platformRole = resolve_platform_role($user);
 
         return [
             'corporations' => $corpMemberships->map(function ($m) use ($user) {
-                $role = $this->resolveCorpRole($user, $m->corporation_id);
+                $role = resolve_corp_role($user, $m->corporation_id);
 
                 return [
                     'corporation_uuid' => $m->corporation->uuid,
@@ -508,7 +509,7 @@ class AuthService
             ->first();
 
         if ($platformMembership) {
-            $platformRole = $this->resolvePlatformRole($user);
+            $platformRole = resolve_platform_role($user);
             $roleName = $platformRole?->name;
 
             if (! $roleName) {
@@ -553,7 +554,7 @@ class AuthService
         if ($corpMemberships->count() === 1) {
             $membership = $corpMemberships->first();
             $corporation = $membership->corporation;
-            $role = $this->resolveCorpRole($user, $corporation->id);
+            $role = resolve_corp_role($user, $corporation->id);
             $roleName = $role?->name;
 
             if (! $roleName) {
@@ -586,7 +587,7 @@ class AuthService
         $tempToken = $this->issueJwtAction->issueTempToken($user, 'workspace_selection');
 
         $workspaces = $corpMemberships->map(function ($m) use ($user) {
-            $role = $this->resolveCorpRole($user, $m->corporation_id);
+            $role = resolve_corp_role($user, $m->corporation_id);
 
             return [
                 'corporation_uuid' => $m->corporation->uuid,
@@ -621,42 +622,4 @@ class AuthService
         ]);
     }
 
-    private function resolvePlatformRole(User $user): ?Role
-    {
-        $rolesTable = config('permission.table_names.roles', 'roles');
-        $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
-        $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
-        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
-        $modelKey = config('permission.column_names.model_morph_key', 'model_id');
-
-        return Role::query()
-            ->select("{$rolesTable}.*")
-            ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
-            ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
-            ->where("{$modelHasRolesTable}.model_type", $user->getMorphClass())
-            ->whereNull("{$modelHasRolesTable}.{$teamColumn}")
-            ->whereNull("{$rolesTable}.{$teamColumn}")
-            ->first();
-    }
-
-    private function resolveCorpRole(User $user, int $corporationId): ?Role
-    {
-        $rolesTable = config('permission.table_names.roles', 'roles');
-        $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
-        $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
-        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
-        $modelKey = config('permission.column_names.model_morph_key', 'model_id');
-
-        return Role::query()
-            ->select("{$rolesTable}.*")
-            ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
-            ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
-            ->where("{$modelHasRolesTable}.model_type", $user->getMorphClass())
-            ->where("{$modelHasRolesTable}.{$teamColumn}", $corporationId)
-            ->where(function ($query) use ($corporationId, $rolesTable, $teamColumn): void {
-                $query->whereNull("{$rolesTable}.{$teamColumn}")
-                    ->orWhere("{$rolesTable}.{$teamColumn}", $corporationId);
-            })
-            ->first();
-    }
 }

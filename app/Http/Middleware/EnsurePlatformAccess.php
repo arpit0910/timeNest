@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Auth\JwtContext;
 use App\Exceptions\Business\InvalidCorporationContextException;
 use App\Exceptions\Business\JwtContextMissingException;
 use App\Exceptions\Business\MembershipInactiveException;
@@ -34,11 +33,11 @@ class EnsurePlatformAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! app()->bound(JwtContext::class)) {
+        if (! jwt_has_context()) {
             throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
-        $context = app(JwtContext::class);
+        $context = jwt_context();
 
         if (! $context->isPlatform()) {
             throw new InvalidCorporationContextException('Access denied. Platform-level authorization required.');

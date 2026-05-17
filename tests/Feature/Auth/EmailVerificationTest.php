@@ -40,7 +40,7 @@ class EmailVerificationTest extends TestCase
         ]);
 
         $response
-            ->assertStatus(400)
+            ->assertStatus(401)
             ->assertJsonPath('success', false);
     }
 }

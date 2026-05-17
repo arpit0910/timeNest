@@ -26,15 +26,7 @@ class CorporationService
     public function createCorporation(array $data, User $creator): Corporation
     {
         return DB::transaction(function () use ($data) {
-            $slug = Str::slug($data['trading_name'] ?? $data['legal_name']);
-
-            // Ensure unique slug
-            $originalSlug = $slug;
-            $counter = 1;
-            while (Corporation::where('slug', $slug)->exists()) {
-                $slug = $originalSlug.'-'.$counter;
-                $counter++;
-            }
+            $slug = generate_unique_slug($data['trading_name'] ?? $data['legal_name'], Corporation::class);
 
             $corp = Corporation::create([
                 'legal_name' => $data['legal_name'],

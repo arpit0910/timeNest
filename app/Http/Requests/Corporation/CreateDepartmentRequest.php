@@ -16,9 +16,7 @@ class CreateDepartmentRequest extends FormRequest
 
     public function rules(): array
     {
-        $corporationId = app()->bound('tenant.corporation')
-            ? app('tenant.corporation')->id
-            : null;
+        $corporationId = tenant_corporation()?->id;
 
         return [
             'name' => ['required', 'string', 'max:100'],

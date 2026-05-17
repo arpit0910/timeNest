@@ -18,9 +18,7 @@ class AddMemberRequest extends FormRequest
 
     public function rules(): array
     {
-        $corporationId = app()->bound('tenant.corporation')
-            ? app('tenant.corporation')->id
-            : null;
+        $corporationId = tenant_corporation()?->id;
 
         return [
             'user_id' => ['required', 'exists:users,id'],

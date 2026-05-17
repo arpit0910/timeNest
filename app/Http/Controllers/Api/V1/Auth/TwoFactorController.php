@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Auth\JwtContext;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Services\Auth\AuthService;
@@ -37,10 +36,10 @@ class TwoFactorController extends BaseApiController
 
         $user = $request->user();
 
-        $context = app(JwtContext::class);
+        $context = jwt_context();
 
         // Ensure user is in 2FA temp state
-        if (! $context->isTemp() || $context->purpose !== '2fa') {
+        if (! $context || ! $context->isTemp() || $context->purpose !== '2fa') {
             throw new InvalidTempTokenPurposeException('Invalid token for 2FA verification');
         }
 

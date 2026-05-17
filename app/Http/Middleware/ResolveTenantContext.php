@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Auth\JwtContext;
 use App\Exceptions\Business\CorporationInactiveException;
 use App\Exceptions\Business\InvalidCorporationContextException;
 use App\Exceptions\Business\JwtContextMissingException;
@@ -45,11 +44,11 @@ class ResolveTenantContext
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! app()->bound(JwtContext::class)) {
+        if (! jwt_has_context()) {
             throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
-        $context = app(JwtContext::class);
+        $context = jwt_context();
 
         if (! $context->hasCorporationContext()) {
             throw new InvalidCorporationContextException('No corporation context available.');
