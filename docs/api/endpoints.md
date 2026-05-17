@@ -1,70 +1,89 @@
 # TimeNest API Documentation
 
-## Authentication (`/api/v1/auth`)
+Base path: `/api/v1`
 
-All routes (except login/register/refresh) require a Bearer token in the `Authorization` header.
+## Authentication (`/auth`)
 
-### 1. Register
-- **Endpoint**: `POST /register`
-- **Body**: `name`, `email`, `password`, `password_confirmation`
-- **Response**: User object with message to verify email.
+Public routes are rate-limited with `throttle:auth`.
 
-### 2. Login
-- **Endpoint**: `POST /login`
-- **Body**: `email`, `password`
-- **Response**: 
-  - If single workspace: Returns `access_token` and `refresh_token` (Scoped to corporation).
-  - If multiple workspaces: Returns `temp_token` and `requires_workspace_selection: true`.
-  - If platform admin: Returns `access_token` and `refresh_token` (No corporation scope).
+### Register
+- `POST /api/v1/auth/register`
+- Body: `name`, `email`, `password`, `password_confirmation`
+- Response: registered user state. Email verification is required before login can continue.
 
-### 3. Refresh Token
-- **Endpoint**: `POST /refresh`
-- **Body**: `refresh_token` (raw string)
-- **Response**: New `access_token` and `refresh_token` pair. (Old refresh token is revoked).
+### Login
+- `POST /api/v1/auth/login`
+- Body: `email`, `password`
+- Response:
+  - `authenticated`: full access and refresh tokens.
+  - `requires_2fa`: temporary token scoped to `2fa`.
+  - `requires_workspace_selection`: temporary token scoped to `workspace_selection`.
+  - `no_workspace`: identity exists but has no active platform/corp workspace.
 
-### 4. Get Profile
-- **Endpoint**: `GET /me`
-- **Requires**: JWT Authentication
-- **Response**: Current authenticated user's profile.
+### Verify 2FA
+- `POST /api/v1/auth/2fa/verify`
+- Requires: Bearer temp token with purpose `2fa`
+- Body: `code`
+- Response: full token pair or workspace-selection state.
 
-### 5. Select Workspace
-- **Endpoint**: `POST /select-corporation`
-- **Requires**: Temp token (from login) or standard access token.
-- **Body**: `corporation_uuid`
-- **Response**: `access_token` and `refresh_token` scoped strictly to that corporation.
+### Select Workspace
+- `POST /api/v1/auth/select-corporation`
+- Requires: Bearer temp token with purpose `workspace_selection`
+- Body: `corporation_uuid`
+- Response: corporation-scoped token pair.
 
----
+### Switch Workspace
+- `POST /api/v1/auth/switch-corporation`
+- Requires: full Bearer token
+- Body: `corporation_uuid`
+- Response: new corporation-scoped token pair.
 
-## Platform Administration (`/api/v1/platform`)
-*Requires platform-guard JWT (e.g., `app_owner`, `app_super_admin`).*
+### Refresh Token
+- `POST /api/v1/auth/refresh`
+- Body: `refresh_token`
+- Response: new access and refresh token pair. The previous refresh token is consumed atomically.
 
-### 1. Corporations
-- **List**: `GET /corporations`
-- **Provision**: `POST /corporations` (requires `legal_name`, optional `hq_name`, etc.)
-- **View**: `GET /corporations/{uuid}`
-- **Update**: `PUT /corporations/{uuid}`
+### Profile And Account
+- `GET /api/v1/auth/me`
+- `GET /api/v1/auth/workspaces`
+- `POST /api/v1/auth/change-password`
+- `POST /api/v1/auth/logout`
+- `POST /api/v1/auth/logout-all`
+- Requires: full Bearer token.
 
----
+### Verify Email
+- `POST /api/v1/auth/verify-email`
+- Body: `token`
 
-## Corporation Workspace (`/api/v1/corp`)
-*Requires JWT with corporation scope and appropriate permissions (checked via `permission:*` middleware).*
+## Platform Administration (`/platform`)
 
-### 1. Branches
-*Permissions required: `branches.view`, `branches.create`, etc.*
-- **List**: `GET /branches`
-- **Create**: `POST /branches` (requires `name`)
-- **Update**: `PUT /branches/{uuid}`
-- **Delete**: `DELETE /branches/{uuid}`
+Requires full platform-guard JWT, active platform membership, and route permission middleware.
 
-### 2. Departments
-*Permissions required: `departments.view`, `departments.create`, etc.*
-- **List**: `GET /departments`
-- **Create**: `POST /departments` (requires `name`)
-- **Update**: `PUT /departments/{uuid}`
-- **Delete**: `DELETE /departments/{uuid}`
+### Corporations
+- `GET /api/v1/platform/corporations`
+- `POST /api/v1/platform/corporations`
+- `GET /api/v1/platform/corporations/{uuid}`
+- `PUT /api/v1/platform/corporations/{uuid}`
 
-### 3. Memberships
-*Permissions required: `users.view`, `users.manage`, `users.delete`.*
-- **List**: `GET /memberships`
-- **Add**: `POST /memberships` (requires `user_id`, `role_id`)
-- **Deactivate**: `DELETE /memberships/{uuid}`
+## Corporation Workspace (`/corp`)
+
+Requires full corp-guard JWT, active corporation membership, resolved tenant context, and route permission middleware.
+
+### Branches
+- `GET /api/v1/corp/branches`
+- `POST /api/v1/corp/branches`
+- `GET /api/v1/corp/branches/{uuid}`
+- `PUT /api/v1/corp/branches/{uuid}`
+- `DELETE /api/v1/corp/branches/{uuid}`
+
+### Departments
+- `GET /api/v1/corp/departments`
+- `POST /api/v1/corp/departments`
+- `GET /api/v1/corp/departments/{uuid}`
+- `PUT /api/v1/corp/departments/{uuid}`
+- `DELETE /api/v1/corp/departments/{uuid}`
+
+### Memberships
+- `GET /api/v1/corp/memberships`
+- `POST /api/v1/corp/memberships`
+- `DELETE /api/v1/corp/memberships/{uuid}`

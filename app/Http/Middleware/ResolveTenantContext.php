@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use App\Auth\JwtContext;
 use App\Models\Corporation\Corporation;
+use App\Models\Membership\CorpMembership;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,53 +30,79 @@ class ResolveTenantContext
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!app()->bound(JwtContext::class)) {
+        if (! app()->bound(JwtContext::class)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthenticated. JWT context missing.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 401);
         }
 
         $context = app(JwtContext::class);
 
-        if (!$context->hasCorporationContext()) {
+        if (! $context->hasCorporationContext()) {
             return response()->json([
                 'success' => false,
                 'message' => 'No corporation context available.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 403);
         }
 
         $corporation = Corporation::find($context->corporationId);
 
-        if (!$corporation) {
+        if (! $corporation) {
             return response()->json([
                 'success' => false,
                 'message' => 'Corporation not found.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 404);
         }
 
-        if (!$corporation->is_active) {
+        if (! $corporation->is_active) {
             return response()->json([
                 'success' => false,
                 'message' => 'Corporation has been deactivated.',
-                'data'    => null,
-                'errors'  => null,
-                'meta'    => null,
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
+            ], 403);
+        }
+
+        if ($context->corporationUuid !== null && $context->corporationUuid !== $corporation->uuid) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid corporation context.',
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
+            ], 403);
+        }
+
+        $membership = CorpMembership::active()
+            ->where('user_id', $request->user()->id)
+            ->where('corporation_id', $corporation->id)
+            ->first();
+
+        if (! $membership) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Corporation membership is not active.',
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
             ], 403);
         }
 
         // Bind to container for downstream access
         app()->instance('tenant.corporation', $corporation);
         app()->instance('current.corporation', $corporation);
+        app()->instance('tenant.membership', $membership);
 
         // Set Spatie team ID for permission resolution
         setPermissionsTeamId($corporation->id);

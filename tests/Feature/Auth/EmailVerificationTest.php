@@ -2,48 +2,45 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
-use Illuminate\Auth\Events\Verified;
+use App\Models\Auth\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class EmailVerificationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_email_can_be_verified(): void
+    public function test_email_can_be_verified_with_api_token(): void
     {
-        $user = User::factory()->unverified()->create();
+        $token = str_repeat('a', 64);
+        $user = User::factory()->unverified()->create([
+            'email_verification_token' => hash('sha256', $token),
+        ]);
 
-        Event::fake();
+        $response = $this->postJson('/api/v1/auth/verify-email', [
+            'token' => $token,
+        ]);
 
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
-        );
+        $response
+            ->assertOk()
+            ->assertJsonPath('success', true);
 
-        $response = $this->actingAs($user)->get($verificationUrl);
-
-        Event::assertDispatched(Verified::class);
-        $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(config('app.frontend_url').'/dashboard?verified=1');
+        $this->assertNotNull($user->fresh()->email_verified_at);
+        $this->assertNull($user->fresh()->email_verification_token);
     }
 
-    public function test_email_is_not_verified_with_invalid_hash(): void
+    public function test_email_is_not_verified_with_invalid_api_token(): void
     {
-        $user = User::factory()->unverified()->create();
+        User::factory()->unverified()->create([
+            'email_verification_token' => hash('sha256', str_repeat('a', 64)),
+        ]);
 
-        $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1('wrong-email')]
-        );
+        $response = $this->postJson('/api/v1/auth/verify-email', [
+            'token' => str_repeat('b', 64),
+        ]);
 
-        $this->actingAs($user)->get($verificationUrl);
-
-        $this->assertFalse($user->fresh()->hasVerifiedEmail());
+        $response
+            ->assertStatus(400)
+            ->assertJsonPath('success', false);
     }
 }

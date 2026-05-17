@@ -26,7 +26,7 @@ return new class extends Migration
 
             // Employment terms
             $table->string('employment_type', 30)->nullable()
-                  ->comment('full_time | part_time | contractor | intern | probation | consultant');
+                ->comment('full_time | part_time | contractor | intern | probation | consultant');
             $table->date('joining_date')->nullable()->comment('Official joining date');
             $table->date('confirmation_date')->nullable()->comment('Probation end / confirmation date');
             $table->date('exit_date')->nullable()->comment('Last working day');
@@ -66,8 +66,10 @@ return new class extends Migration
             $table->index('joining_date');
         });
 
-        DB::statement("ALTER TABLE employee_profiles ADD CONSTRAINT chk_emp_employment_type
-            CHECK (employment_type IN ('full_time','part_time','contractor','intern','probation','consultant'))");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE employee_profiles ADD CONSTRAINT chk_emp_employment_type
+                CHECK (employment_type IN ('full_time','part_time','contractor','intern','probation','consultant'))");
+        }
     }
 
     public function down(): void

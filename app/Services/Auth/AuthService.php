@@ -6,13 +6,13 @@ namespace App\Services\Auth;
 
 use App\Actions\IssueJwtAction;
 use App\Enums\Guard;
-use App\Enums\MembershipStatus;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Models\Logging\ActivityLog;
 use App\Models\Membership\CorpMembership;
 use App\Models\Membership\PlatformMembership;
+use App\Models\Rbac\Role;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -37,10 +37,6 @@ class AuthService
     /**
      * Authenticate a user with email and password.
      *
-     * @param string $email
-     * @param string $password
-     * @param string|null $ip
-     * @param string|null $userAgent
      * @return array Authentication result with tokens or intermediate state
      *
      * @throws AuthenticationException
@@ -49,18 +45,18 @@ class AuthService
     {
         $user = User::where('email', $email)->first();
 
-        if (!$user || !$user->password || !Hash::check($password, $user->password)) {
+        if (! $user || ! $user->password || ! Hash::check($password, $user->password)) {
             throw new AuthenticationException('Invalid credentials');
         }
 
-        if (!$user->is_active) {
+        if (! $user->is_active) {
             throw new AuthenticationException('Account has been deactivated');
         }
 
-        if (!$user->email_verified_at) {
+        if (! $user->email_verified_at) {
             return [
-                'status'            => 'email_not_verified',
-                'message'           => 'Please verify your email address',
+                'status' => 'email_not_verified',
+                'message' => 'Please verify your email address',
                 'requires_verification' => true,
             ];
         }
@@ -68,11 +64,12 @@ class AuthService
         // Check 2FA
         if ($user->two_factor_enabled) {
             $tempToken = $this->issueJwtAction->issueTempToken($user, '2fa');
+
             return [
-                'status'       => 'requires_2fa',
-                'message'      => 'Two-factor authentication required',
+                'status' => 'requires_2fa',
+                'message' => 'Two-factor authentication required',
                 'requires_2fa' => true,
-                'temp_token'   => $tempToken,
+                'temp_token' => $tempToken,
             ];
         }
 
@@ -88,7 +85,7 @@ class AuthService
     /**
      * Register a new user account.
      *
-     * @param array $data Validated registration data
+     * @param  array  $data  Validated registration data
      * @return array Registration result with verification token info
      */
     public function register(array $data): array
@@ -97,18 +94,18 @@ class AuthService
 
         $user = DB::transaction(function () use ($data, $verificationToken) {
             return User::create([
-                'name'                     => $data['name'],
-                'email'                    => $data['email'],
-                'password'                 => $data['password'],
-                'password_set'             => true,
-                'first_name'              => $data['first_name'] ?? null,
-                'last_name'               => $data['last_name'] ?? null,
-                'phone'                    => $data['phone'] ?? null,
-                'timezone'                 => $data['timezone'] ?? 'UTC',
-                'locale'                   => $data['locale'] ?? 'en',
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'password_set' => true,
+                'first_name' => $data['first_name'] ?? null,
+                'last_name' => $data['last_name'] ?? null,
+                'phone' => $data['phone'] ?? null,
+                'timezone' => $data['timezone'] ?? 'UTC',
+                'locale' => $data['locale'] ?? 'en',
                 'email_verification_token' => hash('sha256', $verificationToken),
-                'is_active'                => true,
-                'token_version'            => 1,
+                'is_active' => true,
+                'token_version' => 1,
             ]);
         });
 
@@ -117,9 +114,9 @@ class AuthService
         // TODO: Dispatch email verification job (Phase 5)
 
         return [
-            'status'  => 'registered',
+            'status' => 'registered',
             'message' => 'Registration successful. Please check your email to verify your account.',
-            'user'    => $user,
+            'user' => $user,
         ];
     }
 
@@ -128,9 +125,7 @@ class AuthService
      *
      * Invalidates the current JWT and optionally revokes the refresh token.
      *
-     * @param User $user
-     * @param string|null $refreshToken Raw refresh token to revoke
-     * @return void
+     * @param  string|null  $refreshToken  Raw refresh token to revoke
      */
     public function logout(User $user, ?string $refreshToken = null): void
     {
@@ -151,9 +146,6 @@ class AuthService
 
     /**
      * Logout from all devices by revoking all refresh tokens and incrementing token_version.
-     *
-     * @param User $user
-     * @return void
      */
     public function logoutAllDevices(User $user): void
     {
@@ -174,22 +166,21 @@ class AuthService
     /**
      * Refresh an access token using a valid refresh token.
      *
-     * @param string $rawRefreshToken
      * @return array New access + refresh tokens
      *
      * @throws AuthenticationException
      */
     public function refreshAccessToken(string $rawRefreshToken): array
     {
-        $refreshTokenRecord = $this->issueJwtAction->validateRefreshToken($rawRefreshToken);
+        $refreshTokenRecord = $this->issueJwtAction->consumeRefreshToken($rawRefreshToken);
 
-        if (!$refreshTokenRecord) {
+        if (! $refreshTokenRecord) {
             throw new AuthenticationException('Invalid or expired refresh token');
         }
 
         $user = $refreshTokenRecord->user;
 
-        if (!$user || !$user->is_active) {
+        if (! $user || ! $user->is_active) {
             $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
             throw new AuthenticationException('Account is no longer active');
         }
@@ -207,44 +198,43 @@ class AuthService
                 ->where('corporation_id', $corporation->id)
                 ->first();
 
-            if (!$membership) {
+            if (! $membership) {
                 $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
                 throw new AuthenticationException('Corporation membership is no longer active');
             }
 
-            $roleName = $user->roles()
-                ->where('model_has_roles.corporation_id', $corporation->id)
-                ->where('roles.corporation_id', $corporation->id)
-                ->first()?->name;
+            $roleName = $this->resolveCorpRole($user, $corporation->id)?->name;
+
+            if (! $roleName) {
+                throw new AuthenticationException('No role assigned for this corporation');
+            }
         } elseif ($guard === Guard::Platform) {
             $platformMembership = PlatformMembership::active()
                 ->where('user_id', $user->id)
                 ->first();
 
-            if (!$platformMembership) {
+            if (! $platformMembership) {
                 $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
                 throw new AuthenticationException('Platform access is no longer active');
             }
 
-            $roleName = $user->roles()
-                ->whereNull('model_has_roles.corporation_id')
-                ->whereNull('roles.corporation_id')
-                ->first()?->name;
+            $roleName = $this->resolvePlatformRole($user)?->name;
+
+            if (! $roleName) {
+                throw new AuthenticationException('No platform role assigned');
+            }
         } else {
             $roleName = null;
         }
-
-        // Rotate: revoke old refresh token, issue new pair
-        $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
 
         $accessToken = $this->issueJwtAction->issueAccessToken($user, $corporation, $guard, $roleName);
         $newRefreshToken = $this->issueJwtAction->issueRefreshToken($user, $corporation, $guard);
 
         return [
-            'access_token'  => $accessToken,
+            'access_token' => $accessToken,
             'refresh_token' => $newRefreshToken,
-            'token_type'    => 'bearer',
-            'expires_in'    => config('jwt.ttl') * 60,
+            'token_type' => 'bearer',
+            'expires_in' => config('jwt.ttl') * 60,
         ];
     }
 
@@ -254,9 +244,7 @@ class AuthService
      * Used after login when user has multiple corp memberships,
      * or to switch between corporations.
      *
-     * @param User $user
-     * @param string $corporationUuid
-     * @param bool $switchMode If true, revoke existing tokens for previous corp
+     * @param  bool  $switchMode  If true, revoke existing tokens for previous corp
      * @return array Tokens and corporation info
      *
      * @throws AuthenticationException
@@ -272,16 +260,13 @@ class AuthService
             ->where('corporation_id', $corporation->id)
             ->first();
 
-        if (!$membership) {
+        if (! $membership) {
             throw new AuthenticationException('You do not have an active membership in this corporation');
         }
 
-        $role = $user->roles()
-            ->where('model_has_roles.corporation_id', $corporation->id)
-            ->where('roles.corporation_id', $corporation->id)
-            ->first();
+        $role = $this->resolveCorpRole($user, $corporation->id);
 
-        if (!$role) {
+        if (! $role) {
             throw new AuthenticationException('No role assigned for this corporation');
         }
 
@@ -308,20 +293,17 @@ class AuthService
         $this->logActivity($user, 'corporation_selected', "Selected corporation: {$corporation->legal_name}", $corporation->id);
 
         return [
-            'access_token'  => $accessToken,
+            'access_token' => $accessToken,
             'refresh_token' => $refreshToken,
-            'token_type'    => 'bearer',
-            'expires_in'    => config('jwt.ttl') * 60,
-            'corporation'   => $corporation,
-            'role'          => $role->name,
+            'token_type' => 'bearer',
+            'expires_in' => config('jwt.ttl') * 60,
+            'corporation' => $corporation,
+            'role' => $role->name,
         ];
     }
 
     /**
      * Get all active workspaces (corporations) for a user.
-     *
-     * @param User $user
-     * @return array
      */
     public function getWorkspaces(User $user): array
     {
@@ -334,38 +316,30 @@ class AuthService
             ->where('user_id', $user->id)
             ->first();
 
-        $platformRole = $user->roles()
-            ->whereNull('model_has_roles.corporation_id')
-            ->whereNull('roles.corporation_id')
-            ->first();
+        $platformRole = $this->resolvePlatformRole($user);
 
         return [
             'corporations' => $corpMemberships->map(function ($m) use ($user) {
-                $role = $user->roles()
-                    ->where('model_has_roles.corporation_id', $m->corporation_id)
-                    ->where('roles.corporation_id', $m->corporation_id)
-                    ->first();
+                $role = $this->resolveCorpRole($user, $m->corporation_id);
+
                 return [
                     'corporation_uuid' => $m->corporation->uuid,
-                    'legal_name'       => $m->corporation->legal_name,
-                    'trading_name'     => $m->corporation->trading_name,
-                    'slug'             => $m->corporation->slug,
-                    'logo_url'         => $m->corporation->logo_url,
-                    'role'             => $role?->name,
-                    'joined_at'        => $m->joined_at?->toISOString(),
+                    'legal_name' => $m->corporation->legal_name,
+                    'trading_name' => $m->corporation->trading_name,
+                    'slug' => $m->corporation->slug,
+                    'logo_url' => $m->corporation->logo_url,
+                    'role' => $role?->name,
+                    'joined_at' => $m->joined_at?->toISOString(),
                 ];
             }),
             'has_platform_access' => $platformMembership !== null,
-            'platform_role'       => $platformRole?->name,
+            'platform_role' => $platformRole?->name,
         ];
     }
 
     /**
      * Handle Google OAuth callback — find or create user, link social account.
      *
-     * @param SocialiteUser $socialiteUser
-     * @param string|null $ip
-     * @param string|null $userAgent
      * @return array Authentication result
      */
     public function handleGoogleCallback(SocialiteUser $socialiteUser, ?string $ip = null, ?string $userAgent = null): array
@@ -379,13 +353,13 @@ class AuthService
             if ($socialAccount) {
                 // Update tokens
                 $socialAccount->update([
-                    'access_token'     => $socialiteUser->token,
-                    'refresh_token'    => $socialiteUser->refreshToken,
+                    'access_token' => $socialiteUser->token,
+                    'refresh_token' => $socialiteUser->refreshToken,
                     'token_expires_at' => $socialiteUser->expiresIn
                         ? now()->addSeconds($socialiteUser->expiresIn)
                         : null,
-                    'provider_name'    => $socialiteUser->getName(),
-                    'provider_avatar'  => $socialiteUser->getAvatar(),
+                    'provider_name' => $socialiteUser->getName(),
+                    'provider_avatar' => $socialiteUser->getAvatar(),
                 ]);
 
                 return $socialAccount->user;
@@ -394,30 +368,30 @@ class AuthService
             // 2. Check users by email
             $user = User::where('email', $socialiteUser->getEmail())->first();
 
-            if (!$user) {
+            if (! $user) {
                 // 3. Create new user (OAuth-only, no password)
                 $user = User::create([
-                    'name'              => $socialiteUser->getName() ?? $socialiteUser->getEmail(),
-                    'email'             => $socialiteUser->getEmail(),
-                    'password'          => null,
-                    'password_set'      => false,
+                    'name' => $socialiteUser->getName() ?? $socialiteUser->getEmail(),
+                    'email' => $socialiteUser->getEmail(),
+                    'password' => null,
+                    'password_set' => false,
                     'email_verified_at' => now(), // Google email is pre-verified
-                    'avatar_url'        => $socialiteUser->getAvatar(),
-                    'is_active'         => true,
-                    'token_version'     => 1,
+                    'avatar_url' => $socialiteUser->getAvatar(),
+                    'is_active' => true,
+                    'token_version' => 1,
                 ]);
             }
 
             // Link social account
             SocialAccount::create([
-                'user_id'          => $user->id,
-                'provider'         => 'google',
-                'provider_id'      => $socialiteUser->getId(),
-                'provider_email'   => $socialiteUser->getEmail(),
-                'provider_name'    => $socialiteUser->getName(),
-                'provider_avatar'  => $socialiteUser->getAvatar(),
-                'access_token'     => $socialiteUser->token,
-                'refresh_token'    => $socialiteUser->refreshToken,
+                'user_id' => $user->id,
+                'provider' => 'google',
+                'provider_id' => $socialiteUser->getId(),
+                'provider_email' => $socialiteUser->getEmail(),
+                'provider_name' => $socialiteUser->getName(),
+                'provider_avatar' => $socialiteUser->getAvatar(),
+                'access_token' => $socialiteUser->token,
+                'refresh_token' => $socialiteUser->refreshToken,
                 'token_expires_at' => $socialiteUser->expiresIn
                     ? now()->addSeconds($socialiteUser->expiresIn)
                     : null,
@@ -426,7 +400,7 @@ class AuthService
             return $user;
         });
 
-        if (!$user->is_active) {
+        if (! $user->is_active) {
             throw new AuthenticationException('Account has been deactivated');
         }
 
@@ -443,8 +417,6 @@ class AuthService
     /**
      * Verify email address using the verification token.
      *
-     * @param string $rawToken
-     * @return User
      *
      * @throws AuthenticationException
      */
@@ -456,12 +428,12 @@ class AuthService
             ->whereNull('email_verified_at')
             ->first();
 
-        if (!$user) {
+        if (! $user) {
             throw new AuthenticationException('Invalid or expired verification token');
         }
 
         $user->update([
-            'email_verified_at'        => now(),
+            'email_verified_at' => now(),
             'email_verification_token' => null,
         ]);
 
@@ -473,22 +445,18 @@ class AuthService
     /**
      * Change password and invalidate all existing tokens.
      *
-     * @param User $user
-     * @param string $currentPassword
-     * @param string $newPassword
-     * @return void
      *
      * @throws AuthenticationException
      */
     public function changePassword(User $user, string $currentPassword, string $newPassword): void
     {
-        if (!Hash::check($currentPassword, $user->password)) {
+        if (! Hash::check($currentPassword, $user->password)) {
             throw new AuthenticationException('Current password is incorrect');
         }
 
         DB::transaction(function () use ($user, $newPassword) {
             $user->update([
-                'password'     => $newPassword,
+                'password' => $newPassword,
                 'password_set' => true,
             ]);
             $user->incrementTokenVersion();
@@ -500,11 +468,6 @@ class AuthService
 
     /**
      * Resume the authentication flow after successful 2FA verification.
-     *
-     * @param User $user
-     * @param string|null $ip
-     * @param string|null $userAgent
-     * @return array
      */
     public function issueTokensAfter2FA(User $user, ?string $ip = null, ?string $userAgent = null): array
     {
@@ -535,11 +498,12 @@ class AuthService
             ->first();
 
         if ($platformMembership) {
-            $platformRole = $user->roles()
-                ->whereNull('model_has_roles.corporation_id')
-                ->whereNull('roles.corporation_id')
-                ->first();
+            $platformRole = $this->resolvePlatformRole($user);
             $roleName = $platformRole?->name;
+
+            if (! $roleName) {
+                throw new AuthenticationException('No platform role assigned');
+            }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
                 $user, null, Guard::Platform, $roleName
@@ -551,14 +515,14 @@ class AuthService
             $this->logActivity($user, 'login', 'Platform admin login');
 
             return [
-                'status'        => 'authenticated',
-                'access_token'  => $accessToken,
+                'status' => 'authenticated',
+                'access_token' => $accessToken,
                 'refresh_token' => $refreshToken,
-                'token_type'    => 'bearer',
-                'expires_in'    => config('jwt.ttl') * 60,
-                'guard'         => Guard::Platform->value,
-                'role'          => $roleName,
-                'user'          => $user,
+                'token_type' => 'bearer',
+                'expires_in' => config('jwt.ttl') * 60,
+                'guard' => Guard::Platform->value,
+                'role' => $roleName,
+                'user' => $user,
             ];
         }
 
@@ -570,20 +534,21 @@ class AuthService
 
         if ($corpMemberships->isEmpty()) {
             return [
-                'status'  => 'no_workspace',
+                'status' => 'no_workspace',
                 'message' => 'No active workspace found. You may need an invitation to join a corporation.',
-                'user'    => $user,
+                'user' => $user,
             ];
         }
 
         if ($corpMemberships->count() === 1) {
             $membership = $corpMemberships->first();
             $corporation = $membership->corporation;
-            $role = $user->roles()
-                ->where('model_has_roles.corporation_id', $corporation->id)
-                ->where('roles.corporation_id', $corporation->id)
-                ->first();
+            $role = $this->resolveCorpRole($user, $corporation->id);
             $roleName = $role?->name;
+
+            if (! $roleName) {
+                throw new AuthenticationException('No role assigned for this corporation');
+            }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
                 $user, $corporation, Guard::Corp, $roleName
@@ -595,15 +560,15 @@ class AuthService
             $this->logActivity($user, 'login', "Corp login: {$corporation->legal_name}", $corporation->id);
 
             return [
-                'status'        => 'authenticated',
-                'access_token'  => $accessToken,
+                'status' => 'authenticated',
+                'access_token' => $accessToken,
                 'refresh_token' => $refreshToken,
-                'token_type'    => 'bearer',
-                'expires_in'    => config('jwt.ttl') * 60,
-                'guard'         => Guard::Corp->value,
-                'role'          => $roleName,
-                'corporation'   => $corporation,
-                'user'          => $user,
+                'token_type' => 'bearer',
+                'expires_in' => config('jwt.ttl') * 60,
+                'guard' => Guard::Corp->value,
+                'role' => $roleName,
+                'corporation' => $corporation,
+                'user' => $user,
             ];
         }
 
@@ -611,22 +576,20 @@ class AuthService
         $tempToken = $this->issueJwtAction->issueTempToken($user, 'workspace_selection');
 
         return [
-            'status'                       => 'requires_workspace_selection',
-            'message'                      => 'Please select a corporation to continue',
-            'requires_workspace_selection'  => true,
-            'temp_token'                   => $tempToken,
-            'workspaces'                   => $corpMemberships->map(function ($m) use ($user) {
-                $role = $user->roles()
-                    ->where('model_has_roles.corporation_id', $m->corporation_id)
-                    ->where('roles.corporation_id', $m->corporation_id)
-                    ->first();
+            'status' => 'requires_workspace_selection',
+            'message' => 'Please select a corporation to continue',
+            'requires_workspace_selection' => true,
+            'temp_token' => $tempToken,
+            'workspaces' => $corpMemberships->map(function ($m) use ($user) {
+                $role = $this->resolveCorpRole($user, $m->corporation_id);
+
                 return [
                     'corporation_uuid' => $m->corporation->uuid,
-                    'legal_name'       => $m->corporation->legal_name,
-                    'trading_name'     => $m->corporation->trading_name,
-                    'slug'             => $m->corporation->slug,
-                    'logo_url'         => $m->corporation->logo_url,
-                    'role'             => $role?->name,
+                    'legal_name' => $m->corporation->legal_name,
+                    'trading_name' => $m->corporation->trading_name,
+                    'slug' => $m->corporation->slug,
+                    'logo_url' => $m->corporation->logo_url,
+                    'role' => $role?->name,
                 ];
             }),
             'user' => $user,
@@ -639,12 +602,51 @@ class AuthService
     private function logActivity(User $user, string $type, string $description, ?int $corporationId = null): void
     {
         ActivityLog::create([
-            'user_id'        => $user->id,
+            'user_id' => $user->id,
             'corporation_id' => $corporationId,
-            'type'           => $type,
-            'description'    => $description,
-            'ip_address'     => request()->ip(),
-            'user_agent'     => substr((string) request()->userAgent(), 0, 500),
+            'type' => $type,
+            'description' => $description,
+            'ip_address' => request()->ip(),
+            'user_agent' => substr((string) request()->userAgent(), 0, 500),
         ]);
+    }
+
+    private function resolvePlatformRole(User $user): ?Role
+    {
+        $rolesTable = config('permission.table_names.roles', 'roles');
+        $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
+        $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
+        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
+        $modelKey = config('permission.column_names.model_morph_key', 'model_id');
+
+        return Role::query()
+            ->select("{$rolesTable}.*")
+            ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
+            ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
+            ->where("{$modelHasRolesTable}.model_type", $user->getMorphClass())
+            ->whereNull("{$modelHasRolesTable}.{$teamColumn}")
+            ->whereNull("{$rolesTable}.{$teamColumn}")
+            ->first();
+    }
+
+    private function resolveCorpRole(User $user, int $corporationId): ?Role
+    {
+        $rolesTable = config('permission.table_names.roles', 'roles');
+        $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
+        $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
+        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
+        $modelKey = config('permission.column_names.model_morph_key', 'model_id');
+
+        return Role::query()
+            ->select("{$rolesTable}.*")
+            ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
+            ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
+            ->where("{$modelHasRolesTable}.model_type", $user->getMorphClass())
+            ->where("{$modelHasRolesTable}.{$teamColumn}", $corporationId)
+            ->where(function ($query) use ($corporationId, $rolesTable, $teamColumn): void {
+                $query->whereNull("{$rolesTable}.{$teamColumn}")
+                    ->orWhere("{$rolesTable}.{$teamColumn}", $corporationId);
+            })
+            ->first();
     }
 }

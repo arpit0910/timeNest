@@ -8,6 +8,7 @@ use App\Enums\Guard;
 use App\Models\Auth\RefreshToken;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
@@ -25,10 +26,6 @@ class IssueJwtAction
     /**
      * Issue a JWT access token with custom claims.
      *
-     * @param User $user
-     * @param Corporation|null $corporation
-     * @param Guard $guard
-     * @param string|null $roleName
      * @return string The JWT access token string
      */
     public function issueAccessToken(
@@ -37,13 +34,15 @@ class IssueJwtAction
         Guard $guard,
         ?string $roleName = null,
     ): string {
+        $tokenVersion = $user->token_version ?? $user->fresh()->token_version ?? 1;
+
         $customClaims = [
-            'user_uuid'        => $user->uuid,
-            'guard'            => $guard->value,
-            'corporation_id'   => $corporation?->id,
+            'user_uuid' => $user->uuid,
+            'guard' => $guard->value,
+            'corporation_id' => $corporation?->id,
             'corporation_uuid' => $corporation?->uuid,
-            'role'             => $roleName,
-            'token_version'    => $user->token_version,
+            'role' => $roleName,
+            'token_version' => $tokenVersion,
         ];
 
         return JWTAuth::claims($customClaims)->fromUser($user);
@@ -54,17 +53,17 @@ class IssueJwtAction
      *
      * TTL: 5 minutes. Used as an intermediate token before full authentication.
      *
-     * @param User $user
-     * @param string $purpose '2fa' or 'workspace_selection'
-     * @return string
+     * @param  string  $purpose  '2fa' or 'workspace_selection'
      */
     public function issueTempToken(User $user, string $purpose): string
     {
+        $tokenVersion = $user->token_version ?? $user->fresh()->token_version ?? 1;
+
         $customClaims = [
-            'user_uuid'     => $user->uuid,
-            'guard'         => Guard::Temp->value,
-            'purpose'       => $purpose,
-            'token_version' => $user->token_version,
+            'user_uuid' => $user->uuid,
+            'guard' => Guard::Temp->value,
+            'purpose' => $purpose,
+            'token_version' => $tokenVersion,
         ];
 
         // Override TTL for temp token: 5 minutes
@@ -85,9 +84,6 @@ class IssueJwtAction
      *
      * The raw token is returned to the client ONCE. Only the hash is stored.
      *
-     * @param User $user
-     * @param Corporation|null $corporation
-     * @param Guard $guard
      * @return string The raw refresh token (send to client, never store raw)
      */
     public function issueRefreshToken(
@@ -99,13 +95,13 @@ class IssueJwtAction
         $tokenHash = hash('sha256', $rawToken);
 
         RefreshToken::create([
-            'user_id'        => $user->id,
-            'token_hash'     => $tokenHash,
-            'guard'          => $guard->value,
+            'user_id' => $user->id,
+            'token_hash' => $tokenHash,
+            'guard' => $guard->value,
             'corporation_id' => $corporation?->id,
-            'ip_address'     => request()->ip(),
-            'user_agent'     => substr((string) request()->userAgent(), 0, 500),
-            'expires_at'     => now()->addDays(30),
+            'ip_address' => request()->ip(),
+            'user_agent' => substr((string) request()->userAgent(), 0, 500),
+            'expires_at' => now()->addDays(30),
         ]);
 
         return $rawToken;
@@ -114,7 +110,6 @@ class IssueJwtAction
     /**
      * Revoke a refresh token by its raw value.
      *
-     * @param string $rawToken
      * @return bool Whether a token was found and revoked
      */
     public function revokeRefreshToken(string $rawToken): bool
@@ -133,7 +128,6 @@ class IssueJwtAction
      *
      * Used on password change, forced logout, or account deactivation.
      *
-     * @param int $userId
      * @return int Number of tokens revoked
      */
     public function revokeAllRefreshTokens(int $userId): int
@@ -148,8 +142,6 @@ class IssueJwtAction
      *
      * Used when membership is revoked or suspended.
      *
-     * @param int $userId
-     * @param int $corporationId
      * @return int Number of tokens revoked
      */
     public function revokeCorpRefreshTokens(int $userId, int $corporationId): int
@@ -162,9 +154,6 @@ class IssueJwtAction
 
     /**
      * Validate a raw refresh token and return the record if valid.
-     *
-     * @param string $rawToken
-     * @return RefreshToken|null
      */
     public function validateRefreshToken(string $rawToken): ?RefreshToken
     {
@@ -175,5 +164,27 @@ class IssueJwtAction
             ->where('expires_at', '>', now())
             ->with('user')
             ->first();
+    }
+
+    public function consumeRefreshToken(string $rawToken): ?RefreshToken
+    {
+        $tokenHash = hash('sha256', $rawToken);
+
+        return DB::transaction(function () use ($tokenHash): ?RefreshToken {
+            $refreshToken = RefreshToken::where('token_hash', $tokenHash)
+                ->whereNull('revoked_at')
+                ->where('expires_at', '>', now())
+                ->with('user')
+                ->lockForUpdate()
+                ->first();
+
+            if (! $refreshToken) {
+                return null;
+            }
+
+            $refreshToken->forceFill(['revoked_at' => now()])->save();
+
+            return $refreshToken;
+        });
     }
 }

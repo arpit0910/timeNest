@@ -91,8 +91,10 @@ return new class extends Migration
             $table->index('registration_number');
         });
 
-        DB::statement("ALTER TABLE corporations ADD CONSTRAINT chk_corps_phone
-            CHECK (phone IS NULL OR phone REGEXP '^\\\\+[1-9][0-9]{6,14}$')");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE corporations ADD CONSTRAINT chk_corps_phone
+                CHECK (phone IS NULL OR phone REGEXP '^\\\\+[1-9][0-9]{6,14}$')");
+        }
     }
 
     public function down(): void

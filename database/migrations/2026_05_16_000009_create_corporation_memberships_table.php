@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('invited_by')->nullable()->comment('user_id who sent the invitation');
 
             $table->string('status', 20)->default('pending')
-                  ->comment('pending | active | revoked | suspended | left');
+                ->comment('pending | active | revoked | suspended | left');
             $table->timestamp('joined_at')->nullable()->comment('When user accepted and became active');
             $table->timestamp('left_at')->nullable()->comment('When user exited the corporation');
 
@@ -34,8 +34,10 @@ return new class extends Migration
             $table->index('status');
         });
 
-        DB::statement("ALTER TABLE corp_memberships ADD CONSTRAINT chk_membership_status
-            CHECK (status IN ('pending','active','revoked','suspended','left'))");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE corp_memberships ADD CONSTRAINT chk_membership_status
+                CHECK (status IN ('pending','active','revoked','suspended','left'))");
+        }
     }
 
     public function down(): void

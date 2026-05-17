@@ -41,7 +41,7 @@ class DepartmentController extends BaseApiController
     public function index(): JsonResponse
     {
         $departments = Department::where('corporation_id', $this->tenant()->id)
-            ->with(['branch', 'parentDepartment', 'headUser'])
+            ->with(['branch', 'parent', 'head'])
             ->get();
 
         return $this->success(DepartmentResource::collection($departments));

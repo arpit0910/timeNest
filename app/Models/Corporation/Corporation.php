@@ -8,10 +8,9 @@ use App\Enums\CorporationPlan;
 use App\Models\Auth\User;
 use App\Models\Geo\Country;
 use App\Models\Geo\State;
+use App\Models\Invitation\Invitation;
 use App\Models\Membership\CorpMembership;
 use App\Models\Membership\EmployeeProfile;
-use App\Models\Rbac\CorpRolePermissionOverride;
-use App\Models\Invitation\Invitation;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -55,26 +54,44 @@ class Corporation extends Model
     protected function casts(): array
     {
         return [
-            'plan'              => CorporationPlan::class,
+            'plan' => CorporationPlan::class,
             'legal_identifiers' => 'array',
-            'settings'          => 'array',
-            'feature_flags'     => 'array',
-            'is_active'         => 'boolean',
-            'is_verified'       => 'boolean',
-            'plan_expires_at'   => 'datetime',
-            'verified_at'       => 'datetime',
-            'max_users'         => 'integer',
+            'settings' => 'array',
+            'feature_flags' => 'array',
+            'is_active' => 'boolean',
+            'is_verified' => 'boolean',
+            'plan_expires_at' => 'datetime',
+            'verified_at' => 'datetime',
+            'max_users' => 'integer',
         ];
     }
 
     // ─── Relationships ───────────────────────────────────────────
 
-    public function branches(): HasMany { return $this->hasMany(Branch::class); }
-    public function departments(): HasMany { return $this->hasMany(Department::class); }
-    public function memberships(): HasMany { return $this->hasMany(CorpMembership::class); }
-    public function employeeProfiles(): HasMany { return $this->hasMany(EmployeeProfile::class); }
-    public function invitations(): HasMany { return $this->hasMany(Invitation::class); }
-    public function permissionOverrides(): HasMany { return $this->hasMany(CorpRolePermissionOverride::class); }
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Branch::class);
+    }
+
+    public function departments(): HasMany
+    {
+        return $this->hasMany(Department::class);
+    }
+
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(CorpMembership::class);
+    }
+
+    public function employeeProfiles(): HasMany
+    {
+        return $this->hasMany(EmployeeProfile::class);
+    }
+
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(Invitation::class);
+    }
 
     public function users(): BelongsToMany
     {
@@ -82,15 +99,45 @@ class Corporation extends Model
             ->withPivot('role_id', 'status', 'joined_at')->withTimestamps();
     }
 
-    public function country(): BelongsTo { return $this->belongsTo(Country::class); }
-    public function state(): BelongsTo { return $this->belongsTo(State::class); }
-    public function operationalCountry(): BelongsTo { return $this->belongsTo(Country::class, 'operational_country_id'); }
-    public function operationalState(): BelongsTo { return $this->belongsTo(State::class, 'operational_state_id'); }
-    public function verifiedByUser(): BelongsTo { return $this->belongsTo(User::class, 'verified_by'); }
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function operationalCountry(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'operational_country_id');
+    }
+
+    public function operationalState(): BelongsTo
+    {
+        return $this->belongsTo(State::class, 'operational_state_id');
+    }
+
+    public function verifiedByUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'verified_by');
+    }
 
     // ─── Scopes ──────────────────────────────────────────────────
 
-    public function scopeActive($query) { return $query->where('is_active', true); }
-    public function scopeVerified($query) { return $query->where('is_verified', true); }
-    public function scopeByPlan($query, CorporationPlan $plan) { return $query->where('plan', $plan); }
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeVerified($query)
+    {
+        return $query->where('is_verified', true);
+    }
+
+    public function scopeByPlan($query, CorporationPlan $plan)
+    {
+        return $query->where('plan', $plan);
+    }
 }

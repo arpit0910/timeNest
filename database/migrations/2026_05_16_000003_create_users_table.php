@@ -70,9 +70,10 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        // Phone E.164 CHECK constraint
-        DB::statement("ALTER TABLE users ADD CONSTRAINT chk_users_phone
-            CHECK (phone IS NULL OR phone REGEXP '^\\\\+[1-9][0-9]{6,14}$')");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users ADD CONSTRAINT chk_users_phone
+                CHECK (phone IS NULL OR phone REGEXP '^\\\\+[1-9][0-9]{6,14}$')");
+        }
     }
 
     public function down(): void

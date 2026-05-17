@@ -21,60 +21,68 @@ class PlatformUsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
+        if (app()->isProduction()) {
+            $this->command->warn('Skipping platform seed users in production.');
+
+            return;
+        }
+
         $platformUsers = [
             [
-                'name'  => 'TimeNest Owner',
+                'name' => 'TimeNest Owner',
                 'email' => 'app.owner@timenest.internal',
-                'role'  => 'app_owner',
+                'role' => 'app_owner',
             ],
             [
-                'name'  => 'TimeNest Super Admin',
+                'name' => 'TimeNest Super Admin',
                 'email' => 'app.superadmin@timenest.internal',
-                'role'  => 'app_super_admin',
+                'role' => 'app_super_admin',
             ],
             [
-                'name'  => 'TimeNest Admin',
+                'name' => 'TimeNest Admin',
                 'email' => 'app.admin@timenest.internal',
-                'role'  => 'app_admin',
+                'role' => 'app_admin',
             ],
         ];
 
-        $password = Hash::make('TimeNest@Owner#1');
+        $password = Hash::make((string) env('TIMENEST_PLATFORM_SEED_PASSWORD', 'TimeNest@Owner#1'));
 
         foreach ($platformUsers as $userData) {
             $role = Role::where('name', $userData['role'])
                 ->whereNull('corporation_id')
                 ->firstOrFail();
 
-            $user = User::create([
-                'uuid'              => (string) Str::uuid(),
-                'name'              => $userData['name'],
-                'email'             => $userData['email'],
-                'password'          => $password,
-                'password_set'      => true,
-                'email_verified_at' => now(),
-                'timezone'          => 'UTC',
-                'locale'            => 'en',
-                'is_active'         => true,
-                'token_version'     => 1,
-            ]);
+            $user = User::firstOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'uuid' => (string) Str::uuid(),
+                    'name' => $userData['name'],
+                    'password' => $password,
+                    'password_set' => true,
+                    'email_verified_at' => now(),
+                    'timezone' => 'UTC',
+                    'locale' => 'en',
+                    'is_active' => true,
+                    'token_version' => 1,
+                ]
+            );
 
-            PlatformMembership::create([
-                'uuid'       => (string) Str::uuid(),
-                'user_id'    => $user->id,
-                'status'     => 'active',
-                'granted_by' => null,
-            ]);
+            PlatformMembership::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'uuid' => (string) Str::uuid(),
+                    'status' => 'active',
+                    'granted_by' => null,
+                ]
+            );
 
             // Assign Spatie platform role
             $user->assignRole($role);
         }
 
-        $this->command->info('Seeded ' . count($platformUsers) . ' platform admin users.');
+        $this->command->info('Seeded '.count($platformUsers).' platform admin users.');
     }
 }

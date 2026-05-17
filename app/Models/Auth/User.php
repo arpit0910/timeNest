@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Auth;
 
-use App\Models\Corporation\Branch;
 use App\Models\Corporation\Corporation;
 use App\Models\Geo\Country;
 use App\Models\Geo\State;
@@ -12,6 +11,9 @@ use App\Models\Membership\CorpMembership;
 use App\Models\Membership\EmployeeProfile;
 use App\Models\Membership\PlatformMembership;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -35,13 +37,13 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string $email
  * @property string|null $password
  * @property bool $password_set
- * @property \Carbon\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string|null $phone
  * @property bool $phone_verified
  * @property string|null $avatar_url
- * @property \Carbon\Carbon|null $date_of_birth
+ * @property Carbon|null $date_of_birth
  * @property string|null $gender
  * @property int|null $country_id
  * @property int|null $state_id
@@ -50,14 +52,19 @@ use Spatie\Permission\Traits\HasRoles;
  * @property bool $two_factor_enabled
  * @property bool $is_active
  * @property int $token_version
- * @property \Carbon\Carbon|null $last_login_at
+ * @property Carbon|null $last_login_at
  * @property string|null $last_login_ip
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, HasUuid, Notifiable, SoftDeletes, HasRoles;
+    use HasFactory, HasRoles, HasUuid, Notifiable, SoftDeletes;
 
     protected $table = 'users';
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 
     protected $fillable = [
         'name',
@@ -103,24 +110,22 @@ class User extends Authenticatable implements JWTSubject
     protected function casts(): array
     {
         return [
-            'email_verified_at'        => 'datetime',
-            'password'                 => 'hashed',
-            'password_set'             => 'boolean',
-            'phone_verified'           => 'boolean',
-            'date_of_birth'            => 'date',
-            'two_factor_enabled'       => 'boolean',
-            'two_factor_recovery_codes' => 'array',
-            'is_active'                => 'boolean',
-            'token_version'            => 'integer',
-            'last_login_at'            => 'datetime',
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'password_set' => 'boolean',
+            'phone_verified' => 'boolean',
+            'date_of_birth' => 'date',
+            'two_factor_secret' => 'encrypted',
+            'two_factor_enabled' => 'boolean',
+            'two_factor_recovery_codes' => 'encrypted:array',
+            'is_active' => 'boolean',
+            'token_version' => 'integer',
+            'last_login_at' => 'datetime',
         ];
     }
 
     // ─── JWT Interface ───────────────────────────────────────────
 
-    /**
-     * @return mixed
-     */
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
@@ -205,8 +210,8 @@ class User extends Authenticatable implements JWTSubject
     // ─── Scopes ──────────────────────────────────────────────────
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     public function scopeActive($query)
     {
@@ -214,8 +219,8 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder  $query
+     * @return Builder
      */
     public function scopeVerified($query)
     {
@@ -226,8 +231,6 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Increment token version to invalidate all existing JWTs.
-     *
-     * @return void
      */
     public function incrementTokenVersion(): void
     {
@@ -236,8 +239,6 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Check if user has a platform membership.
-     *
-     * @return bool
      */
     public function isPlatformUser(): bool
     {

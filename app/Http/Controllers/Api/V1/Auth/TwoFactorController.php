@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Auth\JwtContext;
-use App\Enums\Guard;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Services\Auth\AuthService;
+use App\Services\Auth\TwoFactorService;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,20 +20,18 @@ class TwoFactorController extends BaseApiController
 {
     public function __construct(
         private readonly AuthService $authService,
+        private readonly TwoFactorService $twoFactorService,
     ) {}
 
     /**
      * POST /api/v1/auth/2fa/verify
      *
      * Verify the 2FA code during the login flow using the temp token.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function verify(Request $request): JsonResponse
     {
         $request->validate([
-            'code' => ['required', 'string', 'size:6'],
+            'code' => ['required', 'string', 'min:6', 'max:32'],
         ]);
 
         $user = $request->user();
@@ -40,15 +39,11 @@ class TwoFactorController extends BaseApiController
         $context = app(JwtContext::class);
 
         // Ensure user is in 2FA temp state
-        if (!$context->isTemp() || $context->purpose !== '2fa') {
+        if (! $context->isTemp() || $context->purpose !== '2fa') {
             return $this->forbidden('Invalid token for 2FA verification');
         }
 
-        // TODO: Validate against Google2FA or similar using $user->two_factor_secret
-        // For now, this is a placeholder for the actual TOTP validation logic.
-        $isValid = true; // Replace with actual check
-
-        if (!$isValid) {
+        if (! $this->twoFactorService->verify($user, (string) $request->input('code'))) {
             return $this->error('Invalid two-factor code', status: 400);
         }
 
@@ -61,10 +56,10 @@ class TwoFactorController extends BaseApiController
             );
 
             $status = match ($result['status']) {
-                'authenticated'                  => 200,
-                'requires_workspace_selection'    => 200,
-                'no_workspace'                   => 200,
-                default                          => 200,
+                'authenticated' => 200,
+                'requires_workspace_selection' => 200,
+                'no_workspace' => 200,
+                default => 200,
             };
 
             return $this->success(
@@ -72,8 +67,10 @@ class TwoFactorController extends BaseApiController
                 message: '2FA verified successfully',
                 status: $status
             );
-        } catch (\Exception $e) {
-            return $this->error('Failed to issue tokens after 2FA: ' . $e->getMessage(), status: 500);
+        } catch (AuthenticationException $e) {
+            return $this->forbidden($e->getMessage());
+        } catch (\Exception) {
+            return $this->error('Failed to issue tokens after 2FA', status: 500);
         }
     }
 }
