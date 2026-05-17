@@ -9,7 +9,8 @@ use App\Http\Controllers\BaseApiController;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Services\Auth\AuthService;
 use App\Services\Auth\TwoFactorService;
-use Illuminate\Auth\AuthenticationException;
+use App\Exceptions\Auth\InvalidTempTokenPurposeException;
+use App\Exceptions\Auth\InvalidTwoFactorCodeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -40,37 +41,24 @@ class TwoFactorController extends BaseApiController
 
         // Ensure user is in 2FA temp state
         if (! $context->isTemp() || $context->purpose !== '2fa') {
-            return $this->forbidden('Invalid token for 2FA verification');
+            throw new InvalidTempTokenPurposeException('Invalid token for 2FA verification');
         }
 
         if (! $this->twoFactorService->verify($user, (string) $request->input('code'))) {
-            return $this->error('Invalid two-factor code', status: 400);
+            throw new InvalidTwoFactorCodeException();
         }
 
         // Issue real tokens now that 2FA is verified
-        try {
-            $result = $this->authService->issueTokensAfter2FA(
-                user: $user,
-                ip: $request->ip(),
-                userAgent: $request->userAgent()
-            );
+        $result = $this->authService->issueTokensAfter2FA(
+            user: $user,
+            ip: $request->ip(),
+            userAgent: $request->userAgent()
+        );
 
-            $status = match ($result['status']) {
-                'authenticated' => 200,
-                'requires_workspace_selection' => 200,
-                'no_workspace' => 200,
-                default => 200,
-            };
-
-            return $this->success(
-                data: new AuthTokenResource($result),
-                message: '2FA verified successfully',
-                status: $status
-            );
-        } catch (AuthenticationException $e) {
-            return $this->forbidden($e->getMessage());
-        } catch (\Exception) {
-            return $this->error('Failed to issue tokens after 2FA', status: 500);
-        }
+        return $this->success(
+            data: new AuthTokenResource($result),
+            message: '2FA verified successfully',
+            status: 200
+        );
     }
 }

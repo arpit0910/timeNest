@@ -37,31 +37,18 @@ class AuthController extends BaseApiController
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        try {
-            $result = $this->authService->login(
-                email: $request->validated('email'),
-                password: $request->validated('password'),
-                ip: $request->ip(),
-                userAgent: $request->userAgent(),
-            );
+        $result = $this->authService->login(
+            email: $request->validated('email'),
+            password: $request->validated('password'),
+            ip: $request->ip(),
+            userAgent: $request->userAgent(),
+        );
 
-            $status = match ($result['status']) {
-                'authenticated' => 200,
-                'requires_2fa' => 200,
-                'requires_workspace_selection' => 200,
-                'email_not_verified' => 403,
-                'no_workspace' => 200,
-                default => 200,
-            };
-
-            return $this->success(
-                data: new AuthTokenResource($result),
-                message: $result['message'] ?? 'Login successful',
-                status: $status,
-            );
-        } catch (AuthenticationException $e) {
-            return $this->unauthorized($e->getMessage());
-        }
+        return $this->success(
+            data: new AuthTokenResource($result),
+            message: $result['message'] ?? 'Login successful',
+            status: 200,
+        );
     }
 
     /**
@@ -114,15 +101,11 @@ class AuthController extends BaseApiController
      */
     public function refresh(RefreshTokenRequest $request): JsonResponse
     {
-        try {
-            $tokens = $this->authService->refreshAccessToken(
-                rawRefreshToken: $request->validated('refresh_token'),
-            );
+        $tokens = $this->authService->refreshAccessToken(
+            rawRefreshToken: $request->validated('refresh_token'),
+        );
 
-            return $this->success(data: $tokens, message: 'Token refreshed');
-        } catch (AuthenticationException $e) {
-            return $this->unauthorized($e->getMessage());
-        }
+        return $this->success(data: $tokens, message: 'Token refreshed');
     }
 
     /**
@@ -145,19 +128,15 @@ class AuthController extends BaseApiController
      */
     public function selectCorporation(SelectCorporationRequest $request): JsonResponse
     {
-        try {
-            $result = $this->authService->selectCorporation(
-                user: $request->user(),
-                corporationUuid: $request->validated('corporation_uuid'),
-            );
+        $result = $this->authService->selectCorporation(
+            user: $request->user(),
+            corporationUuid: $request->validated('corporation_uuid'),
+        );
 
-            return $this->success(
-                data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
-                message: 'Corporation selected',
-            );
-        } catch (AuthenticationException $e) {
-            return $this->forbidden($e->getMessage());
-        }
+        return $this->success(
+            data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
+            message: 'Corporation selected',
+        );
     }
 
     /**
@@ -167,20 +146,16 @@ class AuthController extends BaseApiController
      */
     public function switchCorporation(SelectCorporationRequest $request): JsonResponse
     {
-        try {
-            $result = $this->authService->selectCorporation(
-                user: $request->user(),
-                corporationUuid: $request->validated('corporation_uuid'),
-                switchMode: true,
-            );
+        $result = $this->authService->selectCorporation(
+            user: $request->user(),
+            corporationUuid: $request->validated('corporation_uuid'),
+            switchMode: true,
+        );
 
-            return $this->success(
-                data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
-                message: 'Corporation switched',
-            );
-        } catch (AuthenticationException $e) {
-            return $this->forbidden($e->getMessage());
-        }
+        return $this->success(
+            data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
+            message: 'Corporation switched',
+        );
     }
 
     /**
@@ -204,16 +179,12 @@ class AuthController extends BaseApiController
     {
         $request->validate(['token' => ['required', 'string', 'size:64']]);
 
-        try {
-            $user = $this->authService->verifyEmail($request->input('token'));
+        $user = $this->authService->verifyEmail($request->input('token'));
 
-            return $this->success(
-                data: new UserResource($user),
-                message: 'Email verified successfully',
-            );
-        } catch (AuthenticationException $e) {
-            return $this->error($e->getMessage(), status: 400);
-        }
+        return $this->success(
+            data: new UserResource($user),
+            message: 'Email verified successfully',
+        );
     }
 
     /**
@@ -223,16 +194,12 @@ class AuthController extends BaseApiController
      */
     public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
-        try {
-            $this->authService->changePassword(
-                user: $request->user(),
-                currentPassword: $request->validated('current_password'),
-                newPassword: $request->validated('password'),
-            );
+        $this->authService->changePassword(
+            user: $request->user(),
+            currentPassword: $request->validated('current_password'),
+            newPassword: $request->validated('password'),
+        );
 
-            return $this->success(message: 'Password changed. All active sessions have been invalidated. Please log in again.');
-        } catch (AuthenticationException $e) {
-            return $this->error($e->getMessage(), status: 400);
-        }
+        return $this->success(message: 'Password changed. All active sessions have been invalidated. Please log in again.');
     }
 }

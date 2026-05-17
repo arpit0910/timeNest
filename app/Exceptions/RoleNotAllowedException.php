@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\Business\InvalidRoleGuardException;
 
 /**
- * Thrown when a role with an invalid guard is used in a context.
- * E.g., assigning a platform-guard role via corporation invitation API.
- * HTTP 422 Unprocessable Entity.
+ * Legacy alias for backwards compatibility.
+ * Use App\Exceptions\Business\InvalidRoleGuardException instead.
+ *
+ * @deprecated Use App\Exceptions\Business\InvalidRoleGuardException
  */
-class RoleNotAllowedException extends HttpException
+class RoleNotAllowedException extends InvalidRoleGuardException
 {
     public function __construct(string $message = 'This role cannot be used in this context')
     {
-        parent::__construct(422, $message);
+        parent::__construct($message);
     }
 }

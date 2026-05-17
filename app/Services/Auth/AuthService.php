@@ -6,6 +6,13 @@ namespace App\Services\Auth;
 
 use App\Actions\IssueJwtAction;
 use App\Enums\Guard;
+use App\Exceptions\Auth\AccountInactiveException;
+use App\Exceptions\Auth\EmailNotVerifiedException;
+use App\Exceptions\Auth\InvalidCredentialsException;
+use App\Exceptions\Auth\TwoFactorRequiredException;
+use App\Exceptions\Auth\WorkspaceSelectionRequiredException;
+use App\Exceptions\Business\InvalidRoleGuardException;
+use App\Exceptions\Business\MembershipInactiveException;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
@@ -13,7 +20,6 @@ use App\Models\Logging\ActivityLog;
 use App\Models\Membership\CorpMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -27,6 +33,12 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
  * workspace selection/switching, Google OAuth, and 2FA orchestration.
  *
  * Controllers NEVER contain business logic — they delegate here.
+ * 
+ * Throws centralized exceptions for all error conditions:
+ * - InvalidCredentialsException (401)
+ * - AccountInactiveException (403)
+ * - InvalidRoleGuardException (403)
+ * - MembershipInactiveException (403)
  */
 class AuthService
 {
@@ -39,38 +51,33 @@ class AuthService
      *
      * @return array Authentication result with tokens or intermediate state
      *
-     * @throws AuthenticationException
+     * @throws InvalidCredentialsException
+     * @throws AccountInactiveException
      */
     public function login(string $email, string $password, ?string $ip = null, ?string $userAgent = null): array
     {
         $user = User::where('email', $email)->first();
 
         if (! $user || ! $user->password || ! Hash::check($password, $user->password)) {
-            throw new AuthenticationException('Invalid credentials');
+            throw new InvalidCredentialsException();
         }
 
         if (! $user->is_active) {
-            throw new AuthenticationException('Account has been deactivated');
+            throw new AccountInactiveException();
         }
 
         if (! $user->email_verified_at) {
-            return [
-                'status' => 'email_not_verified',
-                'message' => 'Please verify your email address',
-                'requires_verification' => true,
-            ];
+            throw new EmailNotVerifiedException('Please verify your email address');
         }
 
         // Check 2FA
         if ($user->two_factor_enabled) {
             $tempToken = $this->issueJwtAction->issueTempToken($user, '2fa');
 
-            return [
-                'status' => 'requires_2fa',
-                'message' => 'Two-factor authentication required',
+            throw new TwoFactorRequiredException('Two-factor authentication required', [
                 'requires_2fa' => true,
                 'temp_token' => $tempToken,
-            ];
+            ]);
         }
 
         // Update login tracking
@@ -168,21 +175,24 @@ class AuthService
      *
      * @return array New access + refresh tokens
      *
-     * @throws AuthenticationException
+     * @throws InvalidCredentialsException
+     * @throws AccountInactiveException
+     * @throws MembershipInactiveException
+     * @throws InvalidRoleGuardException
      */
     public function refreshAccessToken(string $rawRefreshToken): array
     {
         $refreshTokenRecord = $this->issueJwtAction->consumeRefreshToken($rawRefreshToken);
 
         if (! $refreshTokenRecord) {
-            throw new AuthenticationException('Invalid or expired refresh token');
+            throw new InvalidCredentialsException('Invalid or expired refresh token');
         }
 
         $user = $refreshTokenRecord->user;
 
         if (! $user || ! $user->is_active) {
             $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
-            throw new AuthenticationException('Account is no longer active');
+            throw new AccountInactiveException();
         }
 
         // Determine guard and corporation context from the refresh token
@@ -200,13 +210,13 @@ class AuthService
 
             if (! $membership) {
                 $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
-                throw new AuthenticationException('Corporation membership is no longer active');
+                throw new MembershipInactiveException();
             }
 
             $roleName = $this->resolveCorpRole($user, $corporation->id)?->name;
 
             if (! $roleName) {
-                throw new AuthenticationException('No role assigned for this corporation');
+                throw new InvalidRoleGuardException('No role assigned for this corporation');
             }
         } elseif ($guard === Guard::Platform) {
             $platformMembership = PlatformMembership::active()
@@ -215,13 +225,13 @@ class AuthService
 
             if (! $platformMembership) {
                 $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);
-                throw new AuthenticationException('Platform access is no longer active');
+                throw new MembershipInactiveException('Platform access is no longer active');
             }
 
             $roleName = $this->resolvePlatformRole($user)?->name;
 
             if (! $roleName) {
-                throw new AuthenticationException('No platform role assigned');
+                throw new InvalidRoleGuardException('No platform role assigned');
             }
         } else {
             $roleName = null;
@@ -261,17 +271,17 @@ class AuthService
             ->first();
 
         if (! $membership) {
-            throw new AuthenticationException('You do not have an active membership in this corporation');
+            throw new MembershipInactiveException();
         }
 
         $role = $this->resolveCorpRole($user, $corporation->id);
 
         if (! $role) {
-            throw new AuthenticationException('No role assigned for this corporation');
+            throw new InvalidRoleGuardException('No role assigned for this corporation');
         }
 
         if ($role->guard_name !== 'api') {
-            throw new AuthenticationException('Invalid role guard for corporation access');
+            throw new InvalidRoleGuardException();
         }
 
         // If switching, invalidate current JWT
@@ -401,7 +411,7 @@ class AuthService
         });
 
         if (! $user->is_active) {
-            throw new AuthenticationException('Account has been deactivated');
+            throw new AccountInactiveException();
         }
 
         $user->update([
@@ -429,7 +439,7 @@ class AuthService
             ->first();
 
         if (! $user) {
-            throw new AuthenticationException('Invalid or expired verification token');
+            throw new InvalidCredentialsException('Invalid or expired verification token');
         }
 
         $user->update([
@@ -451,7 +461,7 @@ class AuthService
     public function changePassword(User $user, string $currentPassword, string $newPassword): void
     {
         if (! Hash::check($currentPassword, $user->password)) {
-            throw new AuthenticationException('Current password is incorrect');
+            throw new InvalidCredentialsException('Current password is incorrect');
         }
 
         DB::transaction(function () use ($user, $newPassword) {
@@ -502,7 +512,7 @@ class AuthService
             $roleName = $platformRole?->name;
 
             if (! $roleName) {
-                throw new AuthenticationException('No platform role assigned');
+                throw new InvalidRoleGuardException('No platform role assigned');
             }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
@@ -547,7 +557,7 @@ class AuthService
             $roleName = $role?->name;
 
             if (! $roleName) {
-                throw new AuthenticationException('No role assigned for this corporation');
+                throw new InvalidRoleGuardException('No role assigned for this corporation');
             }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
@@ -575,25 +585,25 @@ class AuthService
         // Multiple corp memberships → require workspace selection
         $tempToken = $this->issueJwtAction->issueTempToken($user, 'workspace_selection');
 
-        return [
-            'status' => 'requires_workspace_selection',
-            'message' => 'Please select a corporation to continue',
+        $workspaces = $corpMemberships->map(function ($m) use ($user) {
+            $role = $this->resolveCorpRole($user, $m->corporation_id);
+
+            return [
+                'corporation_uuid' => $m->corporation->uuid,
+                'legal_name' => $m->corporation->legal_name,
+                'trading_name' => $m->corporation->trading_name,
+                'slug' => $m->corporation->slug,
+                'logo_url' => $m->corporation->logo_url,
+                'role' => $role?->name,
+            ];
+        })->toArray();
+
+        throw new WorkspaceSelectionRequiredException('Please select a corporation to continue', [
             'requires_workspace_selection' => true,
             'temp_token' => $tempToken,
-            'workspaces' => $corpMemberships->map(function ($m) use ($user) {
-                $role = $this->resolveCorpRole($user, $m->corporation_id);
-
-                return [
-                    'corporation_uuid' => $m->corporation->uuid,
-                    'legal_name' => $m->corporation->legal_name,
-                    'trading_name' => $m->corporation->trading_name,
-                    'slug' => $m->corporation->slug,
-                    'logo_url' => $m->corporation->logo_url,
-                    'role' => $role?->name,
-                ];
-            }),
+            'workspaces' => $workspaces,
             'user' => $user,
-        ];
+        ]);
     }
 
     /**

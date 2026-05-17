@@ -34,11 +34,7 @@ class GoogleOAuthController extends BaseApiController
      */
     public function redirect()
     {
-        try {
-            return Socialite::driver('google')->stateless()->redirect();
-        } catch (\Exception $e) {
-            return $this->error('Could not initialize Google OAuth flow', status: 500);
-        }
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     /**
@@ -48,33 +44,18 @@ class GoogleOAuthController extends BaseApiController
      */
     public function callback(Request $request): JsonResponse
     {
-        try {
-            $socialiteUser = Socialite::driver('google')->stateless()->user();
+        $socialiteUser = Socialite::driver('google')->stateless()->user();
 
-            $result = $this->authService->handleGoogleCallback(
-                socialiteUser: $socialiteUser,
-                ip: $request->ip(),
-                userAgent: $request->userAgent(),
-            );
+        $result = $this->authService->handleGoogleCallback(
+            socialiteUser: $socialiteUser,
+            ip: $request->ip(),
+            userAgent: $request->userAgent(),
+        );
 
-            $status = match ($result['status']) {
-                'authenticated' => 200,
-                'requires_2fa' => 200,
-                'requires_workspace_selection' => 200,
-                'no_workspace' => 200,
-                default => 200,
-            };
-
-            return $this->success(
-                data: new AuthTokenResource($result),
-                message: 'Google authentication successful',
-                status: $status,
-            );
-
-        } catch (AuthenticationException $e) {
-            return $this->unauthorized($e->getMessage());
-        } catch (\Exception $e) {
-            return $this->error('Authentication failed: '.$e->getMessage(), status: 400);
-        }
+        return $this->success(
+            data: new AuthTokenResource($result),
+            message: 'Google authentication successful',
+            status: 200,
+        );
     }
 }

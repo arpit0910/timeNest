@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Auth\JwtContext;
+use App\Exceptions\Business\CorporationInactiveException;
+use App\Exceptions\Business\InvalidCorporationContextException;
+use App\Exceptions\Business\JwtContextMissingException;
+use App\Exceptions\Business\MembershipInactiveException;
 use App\Models\Corporation\Corporation;
 use App\Models\Membership\CorpMembership;
 use Closure;
@@ -20,6 +24,12 @@ use Symfony\Component\HttpFoundation\Response;
  * 3. Binds the Corporation to the container as 'tenant.corporation'
  * 4. Sets the Spatie team ID for permission resolution
  *
+ * THROWS exceptions for centralized handling:
+ * - JwtContextMissingException (401)
+ * - InvalidCorporationContextException (403)
+ * - CorporationInactiveException (403)
+ * - MembershipInactiveException (403)
+ *
  * Must be placed AFTER jwt.auth and corp.access in the middleware stack.
  * Replaces SetSpatieTeamId and all manual Corporation::findOrFail() calls in controllers.
  */
@@ -27,61 +37,37 @@ class ResolveTenantContext
 {
     /**
      * Handle an incoming request.
+     *
+     * @throws JwtContextMissingException
+     * @throws InvalidCorporationContextException
+     * @throws CorporationInactiveException
+     * @throws MembershipInactiveException
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (! app()->bound(JwtContext::class)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthenticated. JWT context missing.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 401);
+            throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
         $context = app(JwtContext::class);
 
         if (! $context->hasCorporationContext()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No corporation context available.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new InvalidCorporationContextException('No corporation context available.');
         }
 
         $corporation = Corporation::find($context->corporationId);
 
         if (! $corporation) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Corporation not found.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 404);
+            // Don't leak that corporation exists
+            throw new InvalidCorporationContextException('Invalid corporation context.');
         }
 
         if (! $corporation->is_active) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Corporation has been deactivated.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new CorporationInactiveException('Access denied');
         }
 
         if ($context->corporationUuid !== null && $context->corporationUuid !== $corporation->uuid) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid corporation context.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new InvalidCorporationContextException('Invalid corporation context.');
         }
 
         $membership = CorpMembership::active()
@@ -90,13 +76,7 @@ class ResolveTenantContext
             ->first();
 
         if (! $membership) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Corporation membership is not active.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new MembershipInactiveException('Access denied');
         }
 
         // Bind to container for downstream access

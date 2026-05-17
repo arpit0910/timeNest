@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Auth\JwtContext;
+use App\Exceptions\Business\InvalidCorporationContextException;
+use App\Exceptions\Business\JwtContextMissingException;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,36 +15,30 @@ use Symfony\Component\HttpFoundation\Response;
  * Ensures the current request carries a corporation-level JWT guard
  * with a valid corporation_id claim.
  *
+ * THROWS exceptions for centralized handling:
+ * - JwtContextMissingException (401)
+ * - InvalidCorporationContextException (403)
+ *
  * Must be placed AFTER jwt.auth in the middleware stack.
- * Returns 403 Forbidden if the token's guard is not 'corp' or has no corporation context.
  */
 class EnsureCorpAccess
 {
     /**
      * Handle an incoming request.
+     *
+     * @throws JwtContextMissingException
+     * @throws InvalidCorporationContextException
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (! app()->bound(JwtContext::class)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthenticated. JWT context missing.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 401);
+            throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
         $context = app(JwtContext::class);
 
         if (! $context->isCorp() || ! $context->hasCorporationContext()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Access denied. Corporation-level authorization required.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new InvalidCorporationContextException('Access denied. Corporation-level authorization required.');
         }
 
         return $next($request);

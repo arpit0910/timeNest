@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\Business\InvitationRevokedException as BusinessInvitationRevokedException;
 
 /**
- * Thrown when an invitation has been revoked by an admin.
- * HTTP 410 Gone.
+ * Legacy alias for backwards compatibility.
+ * Use App\Exceptions\Business\InvitationRevokedException instead.
+ *
+ * @deprecated Use App\Exceptions\Business\InvitationRevokedException
  */
-class InvitationRevokedException extends HttpException
+class InvitationRevokedException extends BusinessInvitationRevokedException
 {
     public function __construct(string $message = 'This invitation has been revoked')
     {
-        parent::__construct(410, $message);
+        parent::__construct($message);
     }
 }

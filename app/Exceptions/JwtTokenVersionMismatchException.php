@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\Auth\TokenVersionMismatchException;
 
 /**
- * Thrown when JWT token_version claim does not match the user's current token_version.
- * Indicates password change or forced logout since token issuance.
- * HTTP 401 Unauthorized.
+ * Legacy alias for backwards compatibility.
+ * Use App\Exceptions\Auth\TokenVersionMismatchException instead.
+ *
+ * @deprecated Use App\Exceptions\Auth\TokenVersionMismatchException
  */
-class JwtTokenVersionMismatchException extends HttpException
+class JwtTokenVersionMismatchException extends TokenVersionMismatchException
 {
     public function __construct(string $message = 'Token has been invalidated. Please log in again.')
     {
-        parent::__construct(401, $message);
+        parent::__construct($message);
     }
 }

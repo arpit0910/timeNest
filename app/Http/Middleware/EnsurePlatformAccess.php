@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\Auth\JwtContext;
+use App\Exceptions\Business\InvalidCorporationContextException;
+use App\Exceptions\Business\JwtContextMissingException;
+use App\Exceptions\Business\MembershipInactiveException;
 use App\Models\Membership\PlatformMembership;
 use Closure;
 use Illuminate\Http\Request;
@@ -13,36 +16,32 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Ensures the current request carries a platform-level JWT guard.
  *
+ * THROWS exceptions for centralized handling:
+ * - JwtContextMissingException (401)
+ * - InvalidCorporationContextException (403)
+ * - MembershipInactiveException (403)
+ *
  * Must be placed AFTER jwt.auth in the middleware stack.
- * Returns 403 Forbidden if the token's guard is not 'platform'.
  */
 class EnsurePlatformAccess
 {
     /**
      * Handle an incoming request.
+     *
+     * @throws JwtContextMissingException
+     * @throws InvalidCorporationContextException
+     * @throws MembershipInactiveException
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (! app()->bound(JwtContext::class)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthenticated. JWT context missing.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 401);
+            throw new JwtContextMissingException('Unauthenticated. JWT context missing.');
         }
 
         $context = app(JwtContext::class);
 
         if (! $context->isPlatform()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Access denied. Platform-level authorization required.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new InvalidCorporationContextException('Access denied. Platform-level authorization required.');
         }
 
         $membership = PlatformMembership::active()
@@ -50,13 +49,7 @@ class EnsurePlatformAccess
             ->first();
 
         if (! $membership) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Platform access is not active.',
-                'data' => null,
-                'errors' => null,
-                'meta' => null,
-            ], 403);
+            throw new MembershipInactiveException('Access denied');
         }
 
         // Set Spatie team to null for platform context (global permissions)

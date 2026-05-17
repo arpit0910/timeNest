@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use RuntimeException;
+use App\Exceptions\BaseApiException;
 
 /**
  * Thrown when permission resolution fails due to data inconsistency.
  * HTTP 500 Internal Server Error.
  */
-class PermissionResolutionException extends RuntimeException
+class PermissionResolutionException extends BaseApiException
 {
+    protected int $statusCode = 500;
+
     public function __construct(string $message = 'Permission resolution failed')
     {
         parent::__construct($message);

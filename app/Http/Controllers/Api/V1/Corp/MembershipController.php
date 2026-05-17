@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1\Corp;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Corporation\AddMemberRequest;
 use App\Http\Resources\Corporation\CorpMembershipResource;
+use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
 use App\Models\Membership\CorpMembership;
@@ -60,7 +61,7 @@ class MembershipController extends BaseApiController
 
         // Prevent adding a user who is already a member
         if (CorpMembership::where('corporation_id', $corp->id)->where('user_id', $user->id)->exists()) {
-            return $this->error('User is already a member of this corporation', status: 409);
+            throw new BusinessRuleViolationException('User is already a member of this corporation');
         }
 
         $membership = $this->membershipService->addMember(

@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\Business\InvitationExpiredException as BusinessInvitationExpiredException;
 
 /**
- * Thrown when an invitation token has expired.
- * HTTP 410 Gone.
+ * Legacy alias for backwards compatibility.
+ * Use App\Exceptions\Business\InvitationExpiredException instead.
+ *
+ * @deprecated Use App\Exceptions\Business\InvitationExpiredException
  */
-class InvitationExpiredException extends HttpException
+class InvitationExpiredException extends BusinessInvitationExpiredException
 {
     public function __construct(string $message = 'This invitation has expired')
     {
-        parent::__construct(410, $message);
+        parent::__construct($message);
     }
 }

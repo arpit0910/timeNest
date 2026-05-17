@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exceptions\Business\MembershipInactiveException as BusinessMembershipInactiveException;
 
 /**
- * Thrown when a user's corporation membership is not in an active state.
- * HTTP 403 Forbidden.
+ * Legacy alias for backwards compatibility.
+ * Use App\Exceptions\Business\MembershipInactiveException instead.
+ *
+ * @deprecated Use App\Exceptions\Business\MembershipInactiveException
  */
-class MembershipInactiveException extends HttpException
+class MembershipInactiveException extends BusinessMembershipInactiveException
 {
     public function __construct(string $message = 'Corporation membership is not active')
     {
-        parent::__construct(403, $message);
+        parent::__construct($message);
     }
 }
