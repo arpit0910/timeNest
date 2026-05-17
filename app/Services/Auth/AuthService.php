@@ -266,23 +266,32 @@ class AuthService
             ->active()
             ->firstOrFail();
 
-        $membership = CorpMembership::active()
-            ->where('user_id', $user->id)
-            ->where('corporation_id', $corporation->id)
-            ->first();
+        $platformRole = resolve_platform_role($user);
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
 
-        if (! $membership) {
-            throw new MembershipInactiveException();
-        }
+        if (! $isAppOwner) {
+            $membership = CorpMembership::active()
+                ->where('user_id', $user->id)
+                ->where('corporation_id', $corporation->id)
+                ->first();
 
-        $role = resolve_corp_role($user, $corporation->id);
+            if (! $membership) {
+                throw new MembershipInactiveException();
+            }
 
-        if (! $role) {
-            throw new InvalidRoleGuardException('No role assigned for this corporation');
-        }
+            $role = resolve_corp_role($user, $corporation->id);
 
-        if ($role->guard_name !== 'api') {
-            throw new InvalidRoleGuardException();
+            if (! $role) {
+                throw new InvalidRoleGuardException('No role assigned for this corporation');
+            }
+
+            if ($role->guard_name !== 'api') {
+                throw new InvalidRoleGuardException();
+            }
+
+            $roleName = $role->name;
+        } else {
+            $roleName = \App\Enums\SystemRole::AppOwner->value;
         }
 
         // If switching, invalidate current JWT
@@ -295,7 +304,7 @@ class AuthService
         }
 
         $accessToken = $this->issueJwtAction->issueAccessToken(
-            $user, $corporation, Guard::Corp, $role->name
+            $user, $corporation, Guard::Corp, $roleName
         );
         $refreshToken = $this->issueJwtAction->issueRefreshToken(
             $user, $corporation, Guard::Corp
@@ -309,7 +318,7 @@ class AuthService
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60,
             'corporation' => $corporation,
-            'role' => $role->name,
+            'role' => $roleName,
         ];
     }
 

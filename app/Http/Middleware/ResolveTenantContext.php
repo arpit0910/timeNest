@@ -50,11 +50,34 @@ class ResolveTenantContext
 
         $context = jwt_context();
 
-        if (! $context->hasCorporationContext()) {
+        $platformRole = resolve_platform_role($request->user());
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+
+        // Resolve corporation ID and UUID, allowing AppOwner header/request overrides
+        $corpId = $context->corporationId;
+        $corpUuid = $context->corporationUuid;
+
+        if ($isAppOwner) {
+            $corpId = $corpId 
+                ?? $request->header('X-Corporation-Id') 
+                ?? $request->input('corporation_id');
+                
+            $corpUuid = $corpUuid 
+                ?? $request->header('X-Corporation-Uuid') 
+                ?? $request->input('corporation_uuid');
+        }
+
+        if (! $corpId && ! $corpUuid) {
             throw new InvalidCorporationContextException('No corporation context available.');
         }
 
-        $corporation = Corporation::find($context->corporationId);
+        // Find corporation
+        $corporation = null;
+        if ($corpId) {
+            $corporation = Corporation::find($corpId);
+        } elseif ($corpUuid) {
+            $corporation = Corporation::where('uuid', $corpUuid)->first();
+        }
 
         if (! $corporation) {
             // Don't leak that corporation exists
@@ -65,23 +88,29 @@ class ResolveTenantContext
             throw new CorporationInactiveException('Access denied');
         }
 
-        if ($context->corporationUuid !== null && $context->corporationUuid !== $corporation->uuid) {
-            throw new InvalidCorporationContextException('Invalid corporation context.');
-        }
+        if (! $isAppOwner) {
+            if ($context->corporationUuid !== null && $context->corporationUuid !== $corporation->uuid) {
+                throw new InvalidCorporationContextException('Invalid corporation context.');
+            }
 
-        $membership = CorpMembership::active()
-            ->where('user_id', $request->user()->id)
-            ->where('corporation_id', $corporation->id)
-            ->first();
+            $membership = CorpMembership::active()
+                ->where('user_id', $request->user()->id)
+                ->where('corporation_id', $corporation->id)
+                ->first();
 
-        if (! $membership) {
-            throw new MembershipInactiveException('Access denied');
+            if (! $membership) {
+                throw new MembershipInactiveException('Access denied');
+            }
+        } else {
+            $membership = null;
         }
 
         // Bind to container for downstream access
         app()->instance('tenant.corporation', $corporation);
         app()->instance('current.corporation', $corporation);
-        app()->instance('tenant.membership', $membership);
+        if ($membership) {
+            app()->instance('tenant.membership', $membership);
+        }
 
         // Set Spatie team ID for permission resolution
         setPermissionsTeamId($corporation->id);

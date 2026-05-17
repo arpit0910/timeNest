@@ -113,13 +113,19 @@ if (! function_exists('resolve_platform_role')) {
      */
     function resolve_platform_role(User $user): ?Role
     {
+        static $cachedRoles = [];
+
+        if (array_key_exists($user->id, $cachedRoles)) {
+            return $cachedRoles[$user->id];
+        }
+
         $rolesTable = config('permission.table_names.roles', 'roles');
         $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
         $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
         $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
         $modelKey = config('permission.column_names.model_morph_key', 'model_id');
 
-        return Role::query()
+        $role = Role::query()
             ->select("{$rolesTable}.*")
             ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
             ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
@@ -127,6 +133,10 @@ if (! function_exists('resolve_platform_role')) {
             ->whereNull("{$modelHasRolesTable}.{$teamColumn}")
             ->whereNull("{$rolesTable}.{$teamColumn}")
             ->first();
+
+        $cachedRoles[$user->id] = $role;
+
+        return $role;
     }
 }
 
@@ -136,13 +146,20 @@ if (! function_exists('resolve_corp_role')) {
      */
     function resolve_corp_role(User $user, int $corporationId): ?Role
     {
+        static $cachedCorpRoles = [];
+        $cacheKey = "{$user->id}-{$corporationId}";
+
+        if (array_key_exists($cacheKey, $cachedCorpRoles)) {
+            return $cachedCorpRoles[$cacheKey];
+        }
+
         $rolesTable = config('permission.table_names.roles', 'roles');
         $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
         $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
         $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
         $modelKey = config('permission.column_names.model_morph_key', 'model_id');
 
-        return Role::query()
+        $role = Role::query()
             ->select("{$rolesTable}.*")
             ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
             ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
@@ -153,5 +170,9 @@ if (! function_exists('resolve_corp_role')) {
                     ->orWhere("{$rolesTable}.{$teamColumn}", $corporationId);
             })
             ->first();
+
+        $cachedCorpRoles[$cacheKey] = $role;
+
+        return $role;
     }
 }

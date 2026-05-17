@@ -36,8 +36,26 @@ class EnsureCorpAccess
 
         $context = jwt_context();
 
-        if (! $context->isCorp() || ! $context->hasCorporationContext()) {
-            throw new InvalidCorporationContextException('Access denied. Corporation-level authorization required.');
+        $platformRole = resolve_platform_role($request->user());
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+
+        if (! $isAppOwner) {
+            if (! $context->isCorp() || ! $context->hasCorporationContext()) {
+                throw new InvalidCorporationContextException('Access denied. Corporation-level authorization required.');
+            }
+        } else {
+            // AppOwner must have some corporation context resolved (either in JWT or passed via header/request)
+            $corpId = $context->corporationId 
+                ?? $request->header('X-Corporation-Id') 
+                ?? $request->input('corporation_id');
+                
+            $corpUuid = $context->corporationUuid 
+                ?? $request->header('X-Corporation-Uuid') 
+                ?? $request->input('corporation_uuid');
+
+            if (! $corpId && ! $corpUuid) {
+                throw new InvalidCorporationContextException('Access denied. Corporation context (ID or UUID) is required.');
+            }
         }
 
         return $next($request);

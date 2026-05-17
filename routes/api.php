@@ -37,19 +37,19 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::post('switch-corporation', 'switchCorporation')->name('switch-corporation');
         });
 
-        Route::middleware(['tm.jwt.auth'])->group(function (): void {
+        Route::middleware(['api.temp'])->group(function (): void {
             Route::post('select-corporation', [AuthController::class, 'selectCorporation'])
                 ->middleware('jwt.temp:workspace_selection')
                 ->name('select-corporation');
 
             Route::post('2fa/verify', [TwoFactorController::class, 'verify'])
-                ->middleware('jwt.temp:2fa')
+                ->middleware(['jwt.temp:2fa', 'throttle:auth'])
                 ->name('2fa.verify');
         });
     });
 
     Route::prefix('corp')->name('corp.')
-        ->middleware(['tm.jwt.auth', 'jwt.full', 'corp.access', 'tenant.resolve', 'throttle:corp'])
+        ->middleware(['api.corp'])
         ->group(function (): void {
             Route::prefix('branches')->name('branches.')
                 ->controller(BranchController::class)
@@ -107,7 +107,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         });
 
     Route::prefix('platform')->name('platform.')
-        ->middleware(['tm.jwt.auth', 'jwt.full', 'platform.access', 'throttle:platform'])
+        ->middleware(['api.platform'])
         ->group(function (): void {
             Route::prefix('corporations')->name('corporations.')
                 ->controller(CorporationController::class)

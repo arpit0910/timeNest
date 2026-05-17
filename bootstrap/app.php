@@ -49,6 +49,25 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
         ]);
+
+        $middleware->group('api.corp', [
+            'tm.jwt.auth',
+            'jwt.full',
+            'corp.access',
+            'tenant.resolve',
+            'throttle:corp',
+        ]);
+
+        $middleware->group('api.platform', [
+            'tm.jwt.auth',
+            'jwt.full',
+            'platform.access',
+            'throttle:platform',
+        ]);
+
+        $middleware->group('api.temp', [
+            'tm.jwt.auth',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
 
