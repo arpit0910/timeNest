@@ -14,7 +14,7 @@ use App\Exceptions\BaseApiException;
  */
 class BusinessRuleViolationException extends BaseApiException
 {
-    protected int $statusCode = 409;
+    protected int $statusCode = 422;
 
     public function __construct(string $message = 'Business rule violation', ?string $errorCode = null)
     {

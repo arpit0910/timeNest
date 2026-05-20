@@ -113,10 +113,10 @@ if (! function_exists('resolve_platform_role')) {
      */
     function resolve_platform_role(User $user): ?Role
     {
-        static $cachedRoles = [];
+        $cacheKey = 'platform_role_' . $user->id;
 
-        if (array_key_exists($user->id, $cachedRoles)) {
-            return $cachedRoles[$user->id];
+        if (app()->bound($cacheKey)) {
+            return app($cacheKey);
         }
 
         $rolesTable = config('permission.table_names.roles', 'roles');
@@ -134,7 +134,7 @@ if (! function_exists('resolve_platform_role')) {
             ->whereNull("{$rolesTable}.{$teamColumn}")
             ->first();
 
-        $cachedRoles[$user->id] = $role;
+        app()->instance($cacheKey, $role);
 
         return $role;
     }
@@ -146,11 +146,10 @@ if (! function_exists('resolve_corp_role')) {
      */
     function resolve_corp_role(User $user, int $corporationId): ?Role
     {
-        static $cachedCorpRoles = [];
-        $cacheKey = "{$user->id}-{$corporationId}";
+        $cacheKey = "corp_role_{$user->id}_{$corporationId}";
 
-        if (array_key_exists($cacheKey, $cachedCorpRoles)) {
-            return $cachedCorpRoles[$cacheKey];
+        if (app()->bound($cacheKey)) {
+            return app($cacheKey);
         }
 
         $rolesTable = config('permission.table_names.roles', 'roles');
@@ -171,7 +170,7 @@ if (! function_exists('resolve_corp_role')) {
             })
             ->first();
 
-        $cachedCorpRoles[$cacheKey] = $role;
+        app()->instance($cacheKey, $role);
 
         return $role;
     }

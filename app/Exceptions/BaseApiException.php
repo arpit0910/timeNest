@@ -89,6 +89,7 @@ abstract class BaseApiException extends Exception
     {
         return response()->json([
             'success' => false,
+            'error_code' => $this->errorCode,
             'message' => $this->getMessage(),
             'data' => null,
             'errors' => null,
