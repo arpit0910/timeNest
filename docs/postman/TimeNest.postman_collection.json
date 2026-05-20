@@ -44,6 +44,16 @@
             "key": "membership_uuid",
             "value": "",
             "type": "string"
+        },
+        {
+            "key": "leave_uuid",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "adjustment_uuid",
+            "value": "",
+            "type": "string"
         }
     ],
     "item": [
@@ -82,9 +92,10 @@
                             "path": [
                                 "auth",
                                 "register"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Create a new user account.\n\n### Validation Rules:\n* **name**: Required (2-100 characters)\n* **email**: Required, valid email format, unique in users table\n* **password**: Required, min 8 characters, must contain mixed case letters, numbers, and symbols\n* **phone**: Nullable, must match E.164 phone formats (e.g. +14155552671)\n* **timezone**: Nullable, must be a valid system timezone"
+                        "description": "Create a new user account."
                     }
                 },
                 {
@@ -121,7 +132,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"app.owner@timenest.internal\",\n    \"password\": \"TimeNest@Owner#1\"\n}",
+                            "raw": "{\n    \"email\": \"app.owner@timenest.internal\",\n    \"password\": \"TimeNest@Owner#1\",\n    \"device_id\": \"\",\n    \"device_name\": \"\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -136,9 +147,10 @@
                             "path": [
                                 "auth",
                                 "login"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Authenticate user with email and password.\n\n### Behaviors:\n* Automatically captures issued credentials (`access_token`, `refresh_token`, or short-lived `temp_token` if 2FA or workspace selection is required)."
+                        "description": "Authenticate user with email and password."
                     }
                 },
                 {
@@ -172,9 +184,10 @@
                             "path": [
                                 "auth",
                                 "verify-email"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Verify user account's email using the 64-character verification token.\n\n### Validation Rules:\n* **token**: Required, string, exact size of 64 characters"
+                        "description": "Verify user account's email using the 64-character verification token."
                     }
                 },
                 {
@@ -223,9 +236,10 @@
                             "path": [
                                 "auth",
                                 "refresh"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Submit a refresh token to rotate credentials and obtain a new full access/refresh token pair."
+                        "description": "Submit a refresh token to rotate credentials."
                     }
                 },
                 {
@@ -256,9 +270,10 @@
                             "path": [
                                 "auth",
                                 "me"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Fetch active authenticated profile details.\n\n### Guard Requirements:\n* Requires full access platform or corp token (`jwt.full`)."
+                        "description": "Fetch active authenticated profile details."
                     }
                 },
                 {
@@ -302,9 +317,10 @@
                             "path": [
                                 "auth",
                                 "change-password"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Change password for the logged-in user.\n\n### Side Effects:\n* Invalidates all other active login tokens immediately."
+                        "description": "Change password for the logged-in user."
                     }
                 },
                 {
@@ -348,9 +364,10 @@
                             "path": [
                                 "auth",
                                 "logout"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Logout the user session and blacklist the current access and refresh tokens."
+                        "description": "Logout the user session and blacklist tokens."
                     }
                 },
                 {
@@ -381,9 +398,10 @@
                             "path": [
                                 "auth",
                                 "logout-all"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Logout globally from all browsers and systems by incrementing token version claims."
+                        "description": "Logout globally from all devices."
                     }
                 },
                 {
@@ -414,7 +432,8 @@
                             "path": [
                                 "auth",
                                 "workspaces"
-                            ]
+                            ],
+                            "query": []
                         },
                         "description": "Fetch all available corporate workspaces that the user belongs to."
                     }
@@ -475,9 +494,10 @@
                             "path": [
                                 "auth",
                                 "switch-corporation"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Switch from the current corporation workspace to a different one during full authentication mode."
+                        "description": "Switch corporation workspace context."
                     }
                 },
                 {
@@ -536,69 +556,10 @@
                             "path": [
                                 "auth",
                                 "select-corporation"
-                            ]
-                        },
-                        "description": "Select a corporation workspace and obtain a full access token using a short-lived temporary token.\n\n### Guard Requirements:\n* Requires short-lived temp token scoped to workspace selection."
-                    }
-                },
-                {
-                    "name": "Google OAuth Redirect",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/auth/google/redirect",
-                            "host": [
-                                "{{base_url}}"
                             ],
-                            "path": [
-                                "auth",
-                                "google",
-                                "redirect"
-                            ]
+                            "query": []
                         },
-                        "description": "Initialize a secure Google OAuth login redirect flow."
-                    }
-                },
-                {
-                    "name": "Google OAuth Callback",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/auth/google/callback?code=4%2F0AfgeXv...&state=random_state_hash",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "auth",
-                                "google",
-                                "callback"
-                            ],
-                            "query": [
-                                {
-                                    "key": "code",
-                                    "value": "4%2F0AfgeXv...",
-                                    "description": "Google auth verification code"
-                                },
-                                {
-                                    "key": "state",
-                                    "value": "random_state_hash",
-                                    "description": "OAuth cross-site request validation hash"
-                                }
-                            ]
-                        },
-                        "description": "Processes Google auth redirection callback credentials to issue platform JWT tokens."
+                        "description": "Select corporation workspace with temporary token."
                     }
                 },
                 {
@@ -642,7 +603,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"code\": \"123456\"\n}",
+                            "raw": "{\n    \"code\": \"123456\",\n    \"temp_token\": \"\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -658,9 +619,69 @@
                                 "auth",
                                 "2fa",
                                 "verify"
+                            ],
+                            "query": []
+                        },
+                        "description": "Submit 2FA verification code."
+                    }
+                },
+                {
+                    "name": "Google OAuth Redirect",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/google/redirect",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "google",
+                                "redirect"
+                            ],
+                            "query": []
+                        },
+                        "description": "Initiate Google OAuth redirect flow."
+                    }
+                },
+                {
+                    "name": "Google OAuth Callback",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/google/callback?code=4%2F0AfgeXv...&state=random_state_hash",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "google",
+                                "callback"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "4%2F0AfgeXv..."
+                                },
+                                {
+                                    "key": "state",
+                                    "value": "random_state_hash"
+                                }
                             ]
                         },
-                        "description": "Submit a 2FA OTP code with a temporary JWT token to complete MFA validation.\n\n### Guard Requirements:\n* Requires short-lived temp token scoped to 2fa verification."
+                        "description": "Handle Google OAuth callback."
                     }
                 }
             ]
@@ -690,7 +711,7 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc",
+                            "raw": "{{base_url}}/platform/corporations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc&is_active=&plan=",
                             "host": [
                                 "{{base_url}}"
                             ],
@@ -701,32 +722,35 @@
                             "query": [
                                 {
                                     "key": "page",
-                                    "value": "1",
-                                    "description": "Pagination page number"
+                                    "value": "1"
                                 },
                                 {
                                     "key": "per_page",
-                                    "value": "15",
-                                    "description": "Pagination items count per page"
+                                    "value": "15"
                                 },
                                 {
                                     "key": "search",
-                                    "value": "Acme",
-                                    "description": "Filter by legal name or trading name"
+                                    "value": "Acme"
                                 },
                                 {
                                     "key": "sort_by",
-                                    "value": "created_at",
-                                    "description": "Sorting column name"
+                                    "value": "created_at"
                                 },
                                 {
                                     "key": "sort_direction",
-                                    "value": "desc",
-                                    "description": "Sort order direction (asc or desc)"
+                                    "value": "desc"
+                                },
+                                {
+                                    "key": "is_active",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "plan",
+                                    "value": ""
                                 }
                             ]
                         },
-                        "description": "Retrieve a list of all registered corporations in the system.\n\n### Guard/Permissions:\n* Platform access (`jwt.full` with platform role claims)\n* Permission `corporations.manage` required (AppOwner bypasses)"
+                        "description": "Retrieve a list of all registered corporations."
                     }
                 },
                 {
@@ -770,9 +794,10 @@
                             "path": [
                                 "platform",
                                 "corporations"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Register a new corporation workspace and optionally generate an HQ branch.\n\n### Validation Rules:\n* **legal_name**: Required (max 150 chars)\n* **phone**: Nullable, must match E.164 phone formats (e.g. +919876543210)\n* **plan**: Nullable, enum: free, starter, professional, enterprise\n* **max_users**: Nullable, minimum 1"
+                        "description": "Register a new corporation workspace."
                     }
                 },
                 {
@@ -804,9 +829,10 @@
                                 "platform",
                                 "corporations",
                                 "{{corporation_uuid}}"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Fetch details of a specific corporation by its UUID.\n\n### Guard/Permissions:\n* Platform access (`jwt.full` with platform role claims)\n* Permission `corporations.manage` required (AppOwner bypasses)"
+                        "description": "Fetch details of a specific corporation by its UUID."
                     }
                 },
                 {
@@ -835,7 +861,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech Updated\",\n    \"legal_entity_type\": \"Public Limited\",\n    \"industry\": \"SaaS & AI Development Services\",\n    \"company_size\": \"100-250\",\n    \"email\": \"corporate.updated@acme-tech.com\",\n    \"phone\": \"+919876543211\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"country_id\": 1\n}",
+                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech Updated\",\n    \"legal_entity_type\": \"Public Limited\",\n    \"industry\": \"SaaS & AI Development Services\",\n    \"company_size\": \"100-250\",\n    \"email\": \"corporate.updated@acme-tech.com\",\n    \"phone\": \"+919876543211\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"country_id\": 1,\n    \"is_active\": \"\",\n    \"is_verified\": \"\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -851,636 +877,1587 @@
                                 "platform",
                                 "corporations",
                                 "{{corporation_uuid}}"
-                            ]
+                            ],
+                            "query": []
                         },
-                        "description": "Update specific configuration and metadata properties of a corporation by UUID.\n\n### Validation Rules:\n* **legal_name**: Sometimes, string (max 150 chars)\n* **phone**: Nullable, must match E.164 phone formats (e.g. +919876543211)"
+                        "description": "Update specific configuration properties of a corporation by UUID."
                     }
                 }
             ]
         },
         {
-            "name": "Corporation - Branches",
-            "description": "Manage geographic corporate branches and location boundaries.",
+            "name": "Corporation",
+            "description": "Tenant-scoped routes for managing branch entities, departments, staff, policies, and attendance operations.",
             "item": [
                 {
-                    "name": "List Branches",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/branches?page=1&per_page=15&search=Office",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "branches"
-                            ],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
+                    "name": "Branches",
+                    "description": "Manage geographic corporate branches and location boundaries.",
+                    "item": [
+                        {
+                            "name": "List Branches",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
                                 },
-                                {
-                                    "key": "per_page",
-                                    "value": "15"
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/branches?page=1&per_page=15&search=Office&sort_by=&sort_direction=&is_active=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "branches"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "Office"
+                                        },
+                                        {
+                                            "key": "sort_by",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "sort_direction",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": ""
+                                        }
+                                    ]
                                 },
-                                {
-                                    "key": "search",
-                                    "value": "Office"
-                                }
-                            ]
-                        },
-                        "description": "Retrieve branches registered within the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Platform owner (`AppOwner`) bypasses using the `X-Corporation-Uuid` header context.\n* Permission `branches.view` required (AppOwner bypasses)"
-                    }
-                },
-                {
-                    "name": "Create Branch",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"New York Office branch\",\n    \"code\": \"NY-02\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550199\",\n    \"email\": \"ny-office@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway\",\n    \"address_line_2\": \"Suite 400\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7074,\n    \"longitude\": -74.0112,\n    \"geo_fence_radius\": 150,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
+                                "description": "Retrieve branches registered within the active corporation."
                             }
                         },
-                        "url": {
-                            "raw": "{{base_url}}/corp/branches",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "branches"
-                            ]
-                        },
-                        "description": "Create a new branch under the active tenant corporation.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **phone**: Nullable, matches E.164 phone formats (e.g. +12125550199)\n* **latitude**: Nullable, numeric between -90 and 90\n* **longitude**: Nullable, numeric between -180 and 180\n* **geo_fence_radius**: Nullable, integer, minimum 0"
-                    }
-                },
-                {
-                    "name": "Get Branch",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "branches",
-                                "{{branch_uuid}}"
-                            ]
-                        },
-                        "description": "Retrieve details of a specific branch under the corporation by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `branches.view` required (AppOwner bypasses)"
-                    }
-                },
-                {
-                    "name": "Update Branch",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"New York Office branch Updated\",\n    \"code\": \"NY-02-UPD\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550200\",\n    \"email\": \"ny-office-updated@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway Updated\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7075,\n    \"longitude\": -74.0113,\n    \"geo_fence_radius\": 200,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "branches",
-                                "{{branch_uuid}}"
-                            ]
-                        },
-                        "description": "Update specific parameters of a branch under the corporation by UUID.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **phone**: Nullable, matches E.164 phone formats (e.g. +12125550200)"
-                    }
-                },
-                {
-                    "name": "Delete Branch",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "branches",
-                                "{{branch_uuid}}"
-                            ]
-                        },
-                        "description": "Soft delete a specific branch from the corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `branches.delete` required (AppOwner bypasses)"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Corporation - Departments",
-            "description": "Manage corporate departments, hierarchies, and divisions.",
-            "item": [
-                {
-                    "name": "List Departments",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/departments?page=1&per_page=15&search=Engineering",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "departments"
-                            ],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
+                        {
+                            "name": "Create Branch",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
                                 },
-                                {
-                                    "key": "per_page",
-                                    "value": "15"
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"New York Office branch\",\n    \"code\": \"NY-02\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550199\",\n    \"email\": \"ny-office@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway\",\n    \"address_line_2\": \"Suite 400\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7074,\n    \"longitude\": -74.0112,\n    \"geo_fence_radius\": 150,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
                                 },
-                                {
-                                    "key": "search",
-                                    "value": "Engineering"
-                                }
-                            ]
-                        },
-                        "description": "Retrieve departments resolved under the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.view` required (AppOwner bypasses)"
-                    }
-                },
-                {
-                    "name": "Create Department",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"Engineering Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/corp/departments",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "departments"
-                            ]
-                        },
-                        "description": "Create a new department within the active corporation.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **branch_id**: Nullable, exists in branches, constrained to this corporation\n* **parent_department_id**: Nullable, exists in departments, constrained to this corporation\n* **head_user_id**: Nullable, exists in corp_memberships active users, constrained to this corporation"
-                    }
-                },
-                {
-                    "name": "Get Department",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "departments",
-                                "{{department_uuid}}"
-                            ]
-                        },
-                        "description": "Retrieve details of a specific department by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.view` required (AppOwner bypasses)"
-                    }
-                },
-                {
-                    "name": "Update Department",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"Engineering Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "departments",
-                                "{{department_uuid}}"
-                            ]
-                        },
-                        "description": "Update specific configuration parameter values of a department by UUID.\n\n### Validation Rules:\n* **name**: Required (max 100 chars)\n* **branch_id**: Nullable, exists in branches, constrained to this corporation"
-                    }
-                },
-                {
-                    "name": "Delete Department",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "departments",
-                                "{{department_uuid}}"
-                            ]
-                        },
-                        "description": "Soft delete a specific department from the corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `departments.delete` required (AppOwner bypasses)"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Corporation - Memberships",
-            "description": "Manage user accounts, roles, and profiles within a corporation.",
-            "item": [
-                {
-                    "name": "List Memberships",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/memberships?page=1&per_page=15&status=active",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "memberships"
-                            ],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
+                                "url": {
+                                    "raw": "{{base_url}}/corp/branches",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "branches"
+                                    ],
+                                    "query": []
                                 },
-                                {
-                                    "key": "per_page",
-                                    "value": "15"
+                                "description": "Create a new branch under the active tenant corporation."
+                            }
+                        },
+                        {
+                            "name": "Get Branch",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
                                 },
-                                {
-                                    "key": "status",
-                                    "value": "active"
-                                }
-                            ]
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "branches",
+                                        "{{branch_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Retrieve details of a specific branch under the corporation by UUID."
+                            }
                         },
-                        "description": "Retrieve memberships registered under the active corporation.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `users.view` required (AppOwner bypasses)"
-                    }
+                        {
+                            "name": "Update Branch",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"New York Office branch Updated\",\n    \"code\": \"NY-02-UPD\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550200\",\n    \"email\": \"ny-office-updated@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway Updated\",\n    \"address_line_2\": \"\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7075,\n    \"longitude\": -74.0113,\n    \"geo_fence_radius\": 200,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "branches",
+                                        "{{branch_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Update specific parameters of a branch under the corporation by UUID."
+                            }
+                        },
+                        {
+                            "name": "Delete Branch",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "branches",
+                                        "{{branch_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Soft delete a specific branch."
+                            }
+                        }
+                    ]
                 },
                 {
-                    "name": "Add Membership",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                    "name": "Departments",
+                    "description": "Manage corporate departments, hierarchies, and divisions.",
+                    "item": [
+                        {
+                            "name": "List Departments",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/departments?page=1&per_page=15&search=Engineering&sort_by=&sort_direction=&branch_uuid=&is_active=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "departments"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "Engineering"
+                                        },
+                                        {
+                                            "key": "sort_by",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "sort_direction",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "branch_uuid",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve departments resolved under the active corporation."
                             }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"user_id\": 2,\n    \"role_id\": 2,\n    \"employee_code\": \"EMP-ACME-002\",\n    \"designation\": \"Senior Engineer\",\n    \"department_id\": 1,\n    \"branch_id\": 1,\n    \"employment_type\": \"full_time\",\n    \"joining_date\": \"2026-05-17\",\n    \"reports_to\": null\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
+                        },
+                        {
+                            "name": "Create Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/departments",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "departments"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Create a new department within the active corporation."
                             }
                         },
-                        "url": {
-                            "raw": "{{base_url}}/corp/memberships",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "memberships"
-                            ]
+                        {
+                            "name": "Get Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "departments",
+                                        "{{department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Retrieve details of a specific department by UUID."
+                            }
                         },
-                        "description": "Link a registered user account to this corporation with dynamic workspace roles and profile mappings.\n\n### Validation Rules:\n* **user_id**: Required, exists in users table\n* **role_id**: Required, exists in Spatie roles table (either system or corp role)\n* **employment_type**: Nullable, enum: full_time, part_time, contractor, intern, probation, consultant\n* **joining_date**: Nullable, valid date format (e.g. YYYY-MM-DD)"
-                    }
+                        {
+                            "name": "Update Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "departments",
+                                        "{{department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Update specific configuration parameters of a department by UUID."
+                            }
+                        },
+                        {
+                            "name": "Delete Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "departments",
+                                        "{{department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Soft delete a specific department from the corporation."
+                            }
+                        }
+                    ]
                 },
                 {
-                    "name": "Remove Membership",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access_token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Accept",
-                                "value": "application/json"
-                            },
-                            {
-                                "key": "X-Corporation-Uuid",
-                                "value": "{{corporation_uuid}}",
-                                "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                    "name": "Memberships",
+                    "description": "Manage user accounts, roles, and profiles within a corporation.",
+                    "item": [
+                        {
+                            "name": "List Memberships",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/memberships?page=1&per_page=15&search=&status=active&role_id=&branch_id=&department_id=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "memberships"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "status",
+                                            "value": "active"
+                                        },
+                                        {
+                                            "key": "role_id",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "branch_id",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "department_id",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve memberships registered under the active corporation."
                             }
-                        ],
-                        "url": {
-                            "raw": "{{base_url}}/corp/memberships/{{membership_uuid}}",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "corp",
-                                "memberships",
-                                "{{membership_uuid}}"
-                            ]
                         },
-                        "description": "Soft delete / suspend a user membership under the corporation by UUID.\n\n### Guard/Permissions:\n* Corporation access (`jwt.full` with corporation context)\n* Permission `users.delete` required (AppOwner bypasses)"
-                    }
+                        {
+                            "name": "Add Membership",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"user_id\": 2,\n    \"role_id\": 2,\n    \"employee_code\": \"EMP-ACME-002\",\n    \"designation\": \"Senior Engineer\",\n    \"department_id\": 1,\n    \"branch_id\": 1,\n    \"employment_type\": \"full_time\",\n    \"joining_date\": \"2026-05-17\",\n    \"reports_to\": null\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/memberships",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "memberships"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Link a registered user account to this corporation with dynamic workspace roles."
+                            }
+                        },
+                        {
+                            "name": "Remove Membership",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/memberships/{{membership_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "memberships",
+                                        "{{membership_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Deactivate / suspend a user membership under the corporation by UUID."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Attendance",
+                    "description": "Manage employee daily clock-in/out attendance sessions, history, and real-time status summaries.",
+                    "item": [
+                        {
+                            "name": "Clock In",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946,\n    \"accuracy\": 10,\n    \"device_id\": \"device_123\",\n    \"source\": 1\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/clock-in",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "clock-in"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Submit employee clock-in with GPS validation."
+                            }
+                        },
+                        {
+                            "name": "Clock Out",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946,\n    \"accuracy\": 10,\n    \"device_id\": \"device_123\",\n    \"source\": 1\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/clock-out",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "clock-out"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Submit employee clock-out with GPS and duration validation."
+                            }
+                        },
+                        {
+                            "name": "Get Today Summary",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/today",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "today"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Retrieve the authenticated user's attendance status for today."
+                            }
+                        },
+                        {
+                            "name": "Get Attendance History",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/history?page=1&per_page=&start_date=&end_date=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "history"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "start_date",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "end_date",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Fetch paginated daily attendance summaries and session logs for the authenticated user."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Leaves",
+                    "description": "Apply for leaves, view status logs, and manage managerial reviews (approvals/rejections).",
+                    "item": [
+                        {
+                            "name": "List Leaves",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves?page=1&per_page=&status=&leave_type=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "status",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "leave_type",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve a list of leaves requested by the authenticated employee."
+                            }
+                        },
+                        {
+                            "name": "Apply for Leave",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"leave_type\": 1,\n    \"start_date\": \"2026-05-25\",\n    \"end_date\": \"2026-05-29\",\n    \"reason\": \"Family vacation\",\n    \"attachment_path\": \"\",\n    \"metadata\": {}\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Submit a new leave application (e.g. Casual, Sick, WFH, EWD)."
+                            }
+                        },
+                        {
+                            "name": "Get Leave Details",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves",
+                                        "{{leave_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Fetch detailed metadata of a specific leave application using its UUID."
+                            }
+                        },
+                        {
+                            "name": "Cancel Leave Request",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"reason\": \"Plans changed\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/cancel",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves",
+                                        "{{leave_uuid}}",
+                                        "cancel"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Allows an employee to cancel a pending or approved leave request."
+                            }
+                        },
+                        {
+                            "name": "Approve Leave Request",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/approve",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves",
+                                        "{{leave_uuid}}",
+                                        "approve"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Approve a pending leave application."
+                            }
+                        },
+                        {
+                            "name": "Reject Leave Request",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"reason\": \"Not enough coverage\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/reject",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "leaves",
+                                        "{{leave_uuid}}",
+                                        "reject"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Reject a pending leave application."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Adjustments",
+                    "description": "Correct clock-in/out errors and request manual backdated attendance entries.",
+                    "item": [
+                        {
+                            "name": "List Adjustments",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/adjustments?page=1&per_page=&status=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "adjustments"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "status",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Fetch adjustment requests submitted by corporation employees."
+                            }
+                        },
+                        {
+                            "name": "Request Attendance Correction",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"attendance_day_id\": 1,\n    \"attendance_session_id\": 1,\n    \"adjustment_type\": 1,\n    \"clock_in_at\": \"2026-05-20T09:00:00Z\",\n    \"clock_out_at\": \"2026-05-20T17:00:00Z\",\n    \"reason\": \"Forgot to clock out\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/adjustments",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "adjustments"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Submit a correction request for an attendance session."
+                            }
+                        },
+                        {
+                            "name": "Approve Correction Request",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/adjustments/{{adjustment_uuid}}/approve",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "adjustments",
+                                        "{{adjustment_uuid}}",
+                                        "approve"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Approve an attendance correction request."
+                            }
+                        },
+                        {
+                            "name": "Reject Correction Request",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"reason\": \"Invalid adjustment details\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/adjustments/{{adjustment_uuid}}/reject",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "adjustments",
+                                        "{{adjustment_uuid}}",
+                                        "reject"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Reject an attendance correction request."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Policy",
+                    "description": "Configure and retrieve rules for corporate shifts, grace periods, strict mode boundaries, and deduction penalty slabs.",
+                    "item": [
+                        {
+                            "name": "Get Active Policy",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/policy",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "policy"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Fetch the active attendance policy settings."
+                            }
+                        },
+                        {
+                            "name": "Update Policy",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"shift_start_time\": \"09:00:00\",\n    \"shift_end_time\": \"18:00:00\",\n    \"grace_period_minutes\": 15,\n    \"half_day_min_minutes\": 240,\n    \"full_day_min_minutes\": 480,\n    \"is_strict_mode\": true,\n    \"overtime_threshold_minutes\": 480,\n    \"penalty_rules\": []\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/attendance/policy",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "attendance",
+                                        "policy"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Update policy parameters for the active corporation."
+                            }
+                        }
+                    ]
                 }
             ]
         }
