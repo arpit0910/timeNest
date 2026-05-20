@@ -148,3 +148,46 @@ To ensure database consistency and payroll-ready accuracy, Model Observers handl
 - **`AttendanceSessionObserver`**: Listens to changes in sessions. On session creation, update, or deletion, it triggers `RecalculateAttendanceDayJob` asynchronously or inline to compute work durations.
 - **`EmployeeLeaveObserver`**: Triggers audit logging and initiates day recalculations when WFH/EWD requests are approved, rejected, or cancelled.
 - **`AttendanceAdjustmentRequestObserver`**: Triggered when a manager approves an adjustment. Automatically initiates an absolute day aggregate recalculation.
+
+---
+
+## 6. Productivity & Worklog Compliance Architecture (Phase 2)
+
+Phase 2 introduces the productivity tracking and compliance validation engine. It interfaces directly with projects, tasks, and attendance sessions, ensuring time logged matches actual attendance records.
+
+### Mermaid Diagram
+
+```mermaid
+erDiagram
+    AttendanceDay ||--o{ AttendanceWorklog : has
+    AttendanceSession ||--o{ AttendanceWorklog : details
+    AttendancePolicy ||--|| AttendanceWorklogPolicy : configures
+    AttendanceWorklog ||--o{ WorklogStatusHistory : audits
+    AttendanceWorklog ||--o{ AttendanceEscalation : triggers
+    Project ||--o{ Milestone : groups
+    Milestone ||--o{ Task : contains
+    Task ||--o{ TaskTimeConsumption : tracks
+    AttendanceWorklog ||--o{ TaskTimeConsumption : syncs
+```
+
+### Core Architecture Components:
+
+1. **`AttendanceWorklogPolicy`**:
+   - Separated from the core attendance policy.
+   - Enforces rules: `strict_mode_enabled`, `allow_deferred_submission`, `require_project_mapping`, `require_task_mapping`, `require_justification_on_overflow`, `lock_after_days`.
+
+2. **`AttendanceWorklog`**:
+   - Stores time spent on specific tasks, milestones, and projects.
+   - Transitions through `WorkflowStatusEnum` state machine (Draft -> Submitted -> Approved -> Locked, etc.).
+
+3. **`TaskTimeConsumption`**:
+   - Immutable records mapping active minutes spent on each task.
+   - Enforces task overflow validation rules: if logged minutes exceed estimated minutes, requires a justification reason.
+
+4. **`AttendanceEscalation`**:
+   - Automated workflow escalation when worklogs are overdue (e.g. employee clocked out but did not submit worklogs within policy windows).
+   - Escalations transition through `EscalationStatusEnum` (Pending -> Resolved -> Dismissed).
+
+5. **`AttendanceCalculationService` Integration**:
+   - Recalculation logic in strict mode updates daily attendance status to `Incomplete` if the employee failed to log sufficient worklog minutes matching their attendance session minutes.
+

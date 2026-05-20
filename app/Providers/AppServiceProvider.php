@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
         // Rate limiters
         $this->configureRateLimiting();
 
-        // Register Observers
         \App\Models\Attendance\EmployeeLeave::observe(\App\Observers\EmployeeLeaveObserver::class);
+        \App\Models\Attendance\AttendanceWorklog::observe(\App\Observers\AttendanceWorklogObserver::class);
 
         // Centralized AppOwner root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {

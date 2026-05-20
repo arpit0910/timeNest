@@ -215,3 +215,89 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Updates active policy parameters. Future clock-ins will respect updated shifts and slabs.
 
+## Worklog Compliance Policy (`/corp/attendance/worklog-policy`)
+
+- `GET /api/v1/corp/attendance/worklog-policy`
+  - Returns: Current active worklog policy.
+
+- `PATCH /api/v1/corp/attendance/worklog-policy`
+  - Body:
+    - `require_worklog_on_clockout`: Boolean, optional
+    - `allow_deferred_submission`: Boolean, optional
+    - `require_project_mapping`: Boolean, optional
+    - `require_task_mapping`: Boolean, optional
+    - `require_justification_on_overflow`: Boolean, optional
+    - `auto_escalate_overdue_logs`: Boolean, optional
+    - `overdue_after_days`: Integer, optional
+    - `lock_after_days`: Integer, optional
+    - `allow_multiple_worklogs_per_session`: Boolean, optional
+    - `strict_mode_enabled`: Boolean, optional
+    - `flexible_mode_enabled`: Boolean, optional
+    - `hybrid_mode_enabled`: Boolean, optional
+  - Behavior:
+    - Updates active worklog policy fields.
+
+## Attendance Worklogs (`/corp/attendance/worklogs`)
+
+- `GET /api/v1/corp/attendance/worklogs`
+  - Query Params:
+    - `user_uuid`: String, optional. Filter by user (requires manager/admin permission).
+  - Returns: List of worklogs (filtered to active user, or all if manager/admin).
+
+- `POST /api/v1/corp/attendance/worklogs`
+  - Body:
+    - `attendance_day_uuid`: String, required.
+    - `attendance_session_uuid`: String, optional.
+    - `project_uuid`: String, optional.
+    - `milestone_uuid`: String, optional.
+    - `task_uuid`: String, optional.
+    - `logged_minutes`: Integer, required.
+    - `description`: String, required.
+    - `justification`: String, optional.
+    - `metadata`: JSON object, optional.
+  - Behavior:
+    - Submits worklog, allocates task consumption, runs compliance check.
+
+- `GET /api/v1/corp/attendance/worklogs/{uuid}`
+  - Returns: Specific worklog details.
+
+- `PATCH /api/v1/corp/attendance/worklogs/{uuid}`
+  - Body:
+    - `project_uuid`: String, optional.
+    - `milestone_uuid`: String, optional.
+    - `task_uuid`: String, optional.
+    - `logged_minutes`: Integer, optional.
+    - `description`: String, optional.
+    - `justification`: String, optional.
+    - `metadata`: JSON object, optional.
+  - Behavior:
+    - Updates worklog and recalculates/syncs task consumption.
+
+- `PATCH /api/v1/corp/attendance/worklogs/{uuid}/status`
+  - Body:
+    - `status`: Integer, required (WorkflowStatusEnum value).
+    - `remarks`: String, optional.
+    - `metadata`: JSON object, optional.
+  - Behavior:
+    - Performs state transition checks, records status history, adjusts task/day compliance.
+
+- `DELETE /api/v1/corp/attendance/worklogs/{uuid}`
+  - Behavior:
+    - Removes worklog if in editable state, frees up logged task consumption minutes.
+
+## Attendance Escalations (`/corp/attendance/escalations`)
+
+- `GET /api/v1/corp/attendance/escalations`
+  - Returns: Escalation list.
+
+- `GET /api/v1/corp/attendance/escalations/{uuid}`
+  - Returns: Details of the escalation.
+
+- `PATCH /api/v1/corp/attendance/escalations/{uuid}/status`
+  - Body:
+    - `status`: Integer, required (EscalationStatusEnum value: Resolved or Dismissed).
+    - `remarks`: String, optional.
+  - Behavior:
+    - Resolves or dismisses a pending escalation.
+
+

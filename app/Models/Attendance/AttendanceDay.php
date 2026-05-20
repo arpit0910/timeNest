@@ -85,6 +85,16 @@ class AttendanceDay extends Model
         return $this->hasMany(AttendanceAdjustmentRequest::class);
     }
 
+    public function worklogs(): HasMany
+    {
+        return $this->hasMany(AttendanceWorklog::class);
+    }
+
+    public function escalations(): HasMany
+    {
+        return $this->hasMany(AttendanceEscalation::class);
+    }
+
     // ─── Accessors (Appendable attributes) ───────────────────────
 
     public function getStatusLabelAttribute(): string

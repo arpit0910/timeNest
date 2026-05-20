@@ -83,6 +83,11 @@ class AttendancePolicy extends Model
         return $this->hasMany(AttendanceWorkDurationPenaltySlab::class);
     }
 
+    public function worklogPolicy(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(AttendanceWorklogPolicy::class);
+    }
+
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

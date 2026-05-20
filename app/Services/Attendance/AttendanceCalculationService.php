@@ -181,6 +181,52 @@ class AttendanceCalculationService
             'compliance_status' => $complianceStatus->value,
         ]);
 
+        // Integrate Phase 2 Worklog Compliance rules
+        $worklogPolicy = \App\Models\Attendance\AttendanceWorklogPolicy::where('attendance_policy_id', $policy->id)->first();
+        if ($worklogPolicy && $totalSessions > 0) {
+            $hasOpenSession = $sessions->whereNull('clock_out_at')->isNotEmpty();
+            if (! $hasOpenSession) {
+                if ($worklogPolicy->strict_mode_enabled || $worklogPolicy->require_worklog_on_clockout) {
+                    // Check if there is at least one submitted or approved worklog
+                    $hasSubmittedWorklog = $attendanceDay->worklogs()
+                        ->whereIn('worklog_status', [
+                            \App\Enums\WorkflowStatusEnum::Submitted->value,
+                            \App\Enums\WorkflowStatusEnum::Approved->value,
+                            \App\Enums\WorkflowStatusEnum::Locked->value
+                        ])->exists();
+                    
+                    if (! $hasSubmittedWorklog) {
+                        $attendanceDay->update([
+                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                        ]);
+                    }
+                }
+
+                // If project/task mapping is required, verify all worklogs comply
+                if ($worklogPolicy->require_project_mapping) {
+                    $hasMissingProject = $attendanceDay->worklogs()
+                        ->whereNull('project_id')
+                        ->exists();
+                    if ($hasMissingProject) {
+                        $attendanceDay->update([
+                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                        ]);
+                    }
+                }
+
+                if ($worklogPolicy->require_task_mapping) {
+                    $hasMissingTask = $attendanceDay->worklogs()
+                        ->whereNull('task_id')
+                        ->exists();
+                    if ($hasMissingTask) {
+                        $attendanceDay->update([
+                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                        ]);
+                    }
+                }
+            }
+        }
+
         return $attendanceDay;
     }
 
