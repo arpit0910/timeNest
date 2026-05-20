@@ -53,12 +53,17 @@ class AttendanceCoreTest extends TestCase
             'is_verified' => true,
         ]);
 
-        // 2. Create Role
+        // 2. Create Role & Permission
         $role = Role::create([
             'name' => SystemRole::Employee->value,
             'guard_name' => 'api',
             'corporation_id' => null,
             'is_system_role' => true,
+        ]);
+
+        \App\Models\Rbac\Permission::create([
+            'name' => \App\Enums\SystemPermission::LeavesApprove->value,
+            'guard_name' => 'api',
         ]);
 
         // 3. Create User & Membership
@@ -457,6 +462,222 @@ class AttendanceCoreTest extends TestCase
         $this->assertDatabaseHas('attendance_adjustment_requests', [
             'uuid' => $adjustmentUuid,
             'status' => AttendanceAdjustmentStatusEnum::Approved->value,
+        ]);
+    }
+
+    public function test_leave_status_transition_success(): void
+    {
+        // 1. Create a Manager user and assign role with leaves.approve permission
+        $managerUser = User::factory()->create([
+            'email_verified_at' => now(),
+            'is_active' => true,
+        ]);
+
+        $managerMembership = CorpMembership::create([
+            'user_id' => $managerUser->id,
+            'corporation_id' => $this->corporation->id,
+            'status' => MembershipStatus::Active,
+            'joined_at' => now(),
+        ]);
+
+        $managerRole = Role::create([
+            'name' => SystemRole::HrManager->value,
+            'guard_name' => 'api',
+            'corporation_id' => null,
+            'is_system_role' => true,
+        ]);
+
+        $permission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::LeavesApprove->value)->first();
+
+        $managerRole->givePermissionTo($permission);
+
+        setPermissionsTeamId($this->corporation->id);
+        $managerUser->assignRole($managerRole);
+        setPermissionsTeamId(null);
+
+        // Create manager auth token
+        $issueJwtAction = app(IssueJwtAction::class);
+        $managerToken = $issueJwtAction->issueAccessToken(
+            $managerUser,
+            $this->corporation,
+            \App\Enums\Guard::Corp,
+            SystemRole::HrManager->value
+        );
+
+        $managerHeaders = [
+            'Authorization' => "Bearer {$managerToken}",
+            'X-Corporation-Uuid' => $this->corporation->uuid,
+        ];
+
+        // 2. Apply for leave as the regular Employee user
+        $leave = EmployeeLeave::create([
+            'corporation_id' => $this->corporation->id,
+            'user_id' => $this->user->id,
+            'leave_type' => LeaveTypeEnum::Casual->value,
+            'leave_status' => LeaveStatusEnum::Pending->value,
+            'start_date' => now()->addDays(2)->toDateString(),
+            'end_date' => now()->addDays(5)->toDateString(),
+            'total_days' => 4.0,
+            'reason' => 'Need some rest',
+        ]);
+
+        // 3. Manager transitions leave status from Pending to Approved
+        $response = $this->withHeaders($managerHeaders)
+            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+                'status' => LeaveStatusEnum::Approved->value,
+                'remarks' => 'Approved after review',
+            ]);
+
+        $response->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.leave_status.value', LeaveStatusEnum::Approved->value);
+
+        // Verify database and status history table
+        $this->assertDatabaseHas('employee_leaves', [
+            'uuid' => $leave->uuid,
+            'leave_status' => LeaveStatusEnum::Approved->value,
+            'approved_by' => $managerUser->id,
+        ]);
+
+        $this->assertDatabaseHas('leave_status_histories', [
+            'employee_leave_id' => $leave->id,
+            'old_status' => LeaveStatusEnum::Pending->value,
+            'new_status' => LeaveStatusEnum::Approved->value,
+            'changed_by' => $managerUser->id,
+            'remarks' => 'Approved after review',
+        ]);
+    }
+
+    public function test_leave_status_transition_invalid(): void
+    {
+        // 1. Create a Manager user and assign role with leaves.approve permission
+        $managerUser = User::factory()->create([
+            'email_verified_at' => now(),
+            'is_active' => true,
+        ]);
+
+        CorpMembership::create([
+            'user_id' => $managerUser->id,
+            'corporation_id' => $this->corporation->id,
+            'status' => MembershipStatus::Active,
+            'joined_at' => now(),
+        ]);
+
+        $managerRole = Role::create([
+            'name' => SystemRole::HrManager->value,
+            'guard_name' => 'api',
+            'corporation_id' => null,
+            'is_system_role' => true,
+        ]);
+
+        $permission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::LeavesApprove->value)->first();
+
+        $managerRole->givePermissionTo($permission);
+
+        setPermissionsTeamId($this->corporation->id);
+        $managerUser->assignRole($managerRole);
+        setPermissionsTeamId(null);
+
+        $issueJwtAction = app(IssueJwtAction::class);
+        $managerToken = $issueJwtAction->issueAccessToken(
+            $managerUser,
+            $this->corporation,
+            \App\Enums\Guard::Corp,
+            SystemRole::HrManager->value
+        );
+
+        $managerHeaders = [
+            'Authorization' => "Bearer {$managerToken}",
+            'X-Corporation-Uuid' => $this->corporation->uuid,
+        ];
+
+        // 2. Create an Approved leave
+        $leave = EmployeeLeave::create([
+            'corporation_id' => $this->corporation->id,
+            'user_id' => $this->user->id,
+            'leave_type' => LeaveTypeEnum::Casual->value,
+            'leave_status' => LeaveStatusEnum::Approved->value,
+            'start_date' => now()->addDays(2)->toDateString(),
+            'end_date' => now()->addDays(5)->toDateString(),
+            'total_days' => 4.0,
+            'reason' => 'Need some rest',
+        ]);
+
+        // 3. Manager tries to transition from Approved back to Draft (which is invalid)
+        $response = $this->withHeaders($managerHeaders)
+            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+                'status' => LeaveStatusEnum::Draft->value,
+                'remarks' => 'Illegal regression',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error_code', 'INVALID_STATUS_TRANSITION');
+    }
+
+    public function test_leave_status_transition_unauthorized(): void
+    {
+        // 1. Create a Pending leave
+        $leave = EmployeeLeave::create([
+            'corporation_id' => $this->corporation->id,
+            'user_id' => $this->user->id,
+            'leave_type' => LeaveTypeEnum::Casual->value,
+            'leave_status' => LeaveStatusEnum::Pending->value,
+            'start_date' => now()->addDays(2)->toDateString(),
+            'end_date' => now()->addDays(5)->toDateString(),
+            'total_days' => 4.0,
+            'reason' => 'Need some rest',
+        ]);
+
+        // 2. Regular employee tries to approve their own leave (unauthorized)
+        $response = $this->withHeaders($this->authHeaders())
+            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+                'status' => LeaveStatusEnum::Approved->value,
+                'remarks' => 'Self-approving',
+            ]);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error_code', 'UNAUTHORIZED_TRANSITION');
+    }
+
+    public function test_leave_status_self_cancellation(): void
+    {
+        // 1. Create a Pending leave
+        $leave = EmployeeLeave::create([
+            'corporation_id' => $this->corporation->id,
+            'user_id' => $this->user->id,
+            'leave_type' => LeaveTypeEnum::Casual->value,
+            'leave_status' => LeaveStatusEnum::Pending->value,
+            'start_date' => now()->addDays(2)->toDateString(),
+            'end_date' => now()->addDays(5)->toDateString(),
+            'total_days' => 4.0,
+            'reason' => 'Need some rest',
+        ]);
+
+        // 2. Regular employee cancels their own pending leave
+        $response = $this->withHeaders($this->authHeaders())
+            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+                'status' => LeaveStatusEnum::Cancelled->value,
+                'remarks' => 'No longer needed',
+            ]);
+
+        $response->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.leave_status.value', LeaveStatusEnum::Cancelled->value);
+
+        $this->assertDatabaseHas('employee_leaves', [
+            'uuid' => $leave->uuid,
+            'leave_status' => LeaveStatusEnum::Cancelled->value,
+            'cancellation_reason' => 'No longer needed',
+        ]);
+
+        $this->assertDatabaseHas('leave_status_histories', [
+            'employee_leave_id' => $leave->id,
+            'old_status' => LeaveStatusEnum::Pending->value,
+            'new_status' => LeaveStatusEnum::Cancelled->value,
+            'changed_by' => $this->user->id,
+            'remarks' => 'No longer needed',
         ]);
     }
 

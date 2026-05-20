@@ -12,6 +12,7 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -22,6 +23,10 @@ class EmployeeLeave extends Model
     use HasUuid, SoftDeletes;
 
     protected $table = 'employee_leaves';
+
+    protected $appends = [
+        'status_label',
+    ];
 
     protected $fillable = [
         'corporation_id',
@@ -75,6 +80,16 @@ class EmployeeLeave extends Model
     public function rejectedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'rejected_by');
+    }
+
+    public function statusHistories(): HasMany
+    {
+        return $this->hasMany(LeaveStatusHistory::class, 'employee_leave_id');
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return $this->leave_status ? $this->leave_status->label() : '';
     }
 
     // ─── Helpers ─────────────────────────────────────────────────

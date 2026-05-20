@@ -6,10 +6,13 @@ namespace App\Http\Controllers\Api\V1\Corp\Attendance;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Attendance\LeaveRequest;
+use App\Http\Requests\Attendance\UpdateLeaveStatusRequest;
 use App\Http\Resources\Attendance\EmployeeLeaveResource;
 use App\Models\Attendance\EmployeeLeave;
 use App\Models\Corporation\Corporation;
 use App\Services\Attendance\LeaveManagementService;
+use App\Services\Attendance\LeaveStatusTransitionService;
+use App\Enums\LeaveStatusEnum;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,6 +20,7 @@ class LeaveController extends BaseApiController
 {
     public function __construct(
         private readonly LeaveManagementService $leaveService,
+        private readonly LeaveStatusTransitionService $transitionService,
     ) {}
 
     private function tenant(): Corporation
@@ -66,62 +70,25 @@ class LeaveController extends BaseApiController
     }
 
     /**
-     * Cancel leave.
+     * Update leave status via state machine.
      */
-    public function cancel(Request $request, string $uuid): JsonResponse
+    public function updateStatus(UpdateLeaveStatusRequest $request, string $uuid): JsonResponse
     {
-        $request->validate([
-            'reason' => ['required', 'string', 'max:255'],
-        ]);
-
         $leave = EmployeeLeave::where('corporation_id', $this->tenant()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
 
-        $cancelledLeave = $this->leaveService->cancelLeave($leave, $request->input('reason'));
-
-        return $this->success(
-            new EmployeeLeaveResource($cancelledLeave),
-            'Leave request cancelled successfully.'
+        $updatedLeave = $this->transitionService->transition(
+            leave: $leave,
+            newStatus: LeaveStatusEnum::from((int) $request->input('status')),
+            actor: auth()->user(),
+            remarks: $request->input('remarks'),
+            metadata: $request->input('metadata')
         );
-    }
-
-    /**
-     * Approve leave (Admin/Manager only).
-     */
-    public function approve(string $uuid): JsonResponse
-    {
-        // Permission check can be at route middleware, we'll do it or let route handle it
-        $leave = EmployeeLeave::where('corporation_id', $this->tenant()->id)
-            ->where('uuid', $uuid)
-            ->firstOrFail();
-
-        $approvedLeave = $this->leaveService->approveLeave($leave, auth()->user());
 
         return $this->success(
-            new EmployeeLeaveResource($approvedLeave),
-            'Leave request approved successfully.'
-        );
-    }
-
-    /**
-     * Reject leave (Admin/Manager only).
-     */
-    public function reject(Request $request, string $uuid): JsonResponse
-    {
-        $request->validate([
-            'reason' => ['required', 'string', 'max:255'],
-        ]);
-
-        $leave = EmployeeLeave::where('corporation_id', $this->tenant()->id)
-            ->where('uuid', $uuid)
-            ->firstOrFail();
-
-        $rejectedLeave = $this->leaveService->rejectLeave($leave, auth()->user(), $request->input('reason'));
-
-        return $this->success(
-            new EmployeeLeaveResource($rejectedLeave),
-            'Leave request rejected successfully.'
+            new EmployeeLeaveResource($updatedLeave),
+            'Leave status updated successfully.'
         );
     }
 }

@@ -24,6 +24,7 @@ erDiagram
     Branch ||--o{ AttendancePolicy : configures
     User ||--o{ AttendanceDay : records
     User ||--o{ EmployeeLeave : requests
+    EmployeeLeave ||--o{ LeaveStatusHistory : transitions
     AttendanceDay ||--|{ AttendanceSession : contains
     AttendanceDay ||--o{ AttendanceAdjustmentRequest : requests
     AttendanceSession ||--o{ AttendanceAdjustmentRequest : amends
@@ -35,6 +36,7 @@ erDiagram
 * **`AttendanceDay`**: A daily aggregate record for a user. Summarizes total work, break, late, and overtime minutes, along with daily compliance status (`Present`, `HalfDay`, `Absent`).
 * **`AttendanceSession`**: Individual clock-in/out segments within a day. Tracks GPS lat/lng, IP address, device ID, source medium (`Mobile`, `Web`, `AdminPanel`), and suspicious integrity markers.
 * **`EmployeeLeave`**: Tracks absences, standard leaves (Casual, Sick), Work From Home (WFH), and Extra Working Days (EWD).
+* **`LeaveStatusHistory`**: Logs chronological workflow state transitions of an `EmployeeLeave` application, recording who initiated the transition, old/new status, remarks, and metadata.
 * **`CorporationHoliday`**: Standard corporate/branch holidays.
 * **`AttendanceAdjustmentRequest`**: Manual corrections submitted by employees for past clock records, requiring review and approval by an authorized manager.
 * **`AttendanceActivityLog`**: Immutable, append-only logs auditing adjustments, leaves, and session overrides.
@@ -48,6 +50,7 @@ To decouple business logic from the HTTP controllers, the engine is separated in
 ```mermaid
 graph TD
     Controller[AttendanceController] --> AttendanceService[AttendanceService]
+    LeaveController[LeaveController] --> LeaveTransitionService[LeaveStatusTransitionService]
     AttendanceService --> GeofenceService[GeofenceService]
     AttendanceService --> LeaveService[LeaveManagementService]
     AttendanceService --> PolicyService[AttendancePolicyService]
@@ -63,6 +66,12 @@ graph TD
 ### `LeaveManagementService`
 - Validates leave request constraints (e.g. preventing overlapping pending/approved leaves).
 - Resolves if an employee is working under an approved **WFH** leave (bypassing geofencing) or **EWD** leave (allowing holiday/weekend clock-in).
+
+### `LeaveStatusTransitionService`
+- Manages the State Transition Machine for leave applications.
+- Validates valid transitions from the current status (e.g., from `Pending` to `Approved`/`Rejected`/`Cancelled`).
+- Enforces role-based permissions (requiring `leaves.approve` permission for management updates; allows self-cancellation for employees' own pending leaves).
+- Automatically updates database properties (approved_by, approved_at, cancellation reasons) and logs transitions to `LeaveStatusHistory`.
 
 ### `AttendancePolicyService`
 - Resolves the active policy context for a branch or corporation.

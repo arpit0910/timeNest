@@ -1982,7 +1982,7 @@
                             }
                         },
                         {
-                            "name": "Cancel Leave Request",
+                            "name": "Update Leave Status",
                             "request": {
                                 "auth": {
                                     "type": "bearer",
@@ -1994,7 +1994,7 @@
                                         }
                                     ]
                                 },
-                                "method": "PUT",
+                                "method": "PATCH",
                                 "header": [
                                     {
                                         "key": "Accept",
@@ -2012,7 +2012,7 @@
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"reason\": \"Plans changed\"\n}",
+                                    "raw": "{\n    \"status\": 5,\n    \"remarks\": \"Approved after review\",\n    \"metadata\": {}\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -2020,7 +2020,7 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/cancel",
+                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/status",
                                     "host": [
                                         "{{base_url}}"
                                     ],
@@ -2029,112 +2029,11 @@
                                         "attendance",
                                         "leaves",
                                         "{{leave_uuid}}",
-                                        "cancel"
+                                        "status"
                                     ],
                                     "query": []
                                 },
-                                "description": "Allows an employee to cancel a pending or approved leave request."
-                            }
-                        },
-                        {
-                            "name": "Approve Leave Request",
-                            "request": {
-                                "auth": {
-                                    "type": "bearer",
-                                    "bearer": [
-                                        {
-                                            "key": "token",
-                                            "value": "{{access_token}}",
-                                            "type": "string"
-                                        }
-                                    ]
-                                },
-                                "method": "PUT",
-                                "header": [
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
-                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                                    }
-                                ],
-                                "url": {
-                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/approve",
-                                    "host": [
-                                        "{{base_url}}"
-                                    ],
-                                    "path": [
-                                        "corp",
-                                        "attendance",
-                                        "leaves",
-                                        "{{leave_uuid}}",
-                                        "approve"
-                                    ],
-                                    "query": []
-                                },
-                                "description": "Approve a pending leave application."
-                            }
-                        },
-                        {
-                            "name": "Reject Leave Request",
-                            "request": {
-                                "auth": {
-                                    "type": "bearer",
-                                    "bearer": [
-                                        {
-                                            "key": "token",
-                                            "value": "{{access_token}}",
-                                            "type": "string"
-                                        }
-                                    ]
-                                },
-                                "method": "PUT",
-                                "header": [
-                                    {
-                                        "key": "Accept",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    },
-                                    {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
-                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n    \"reason\": \"Not enough coverage\"\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                },
-                                "url": {
-                                    "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/reject",
-                                    "host": [
-                                        "{{base_url}}"
-                                    ],
-                                    "path": [
-                                        "corp",
-                                        "attendance",
-                                        "leaves",
-                                        "{{leave_uuid}}",
-                                        "reject"
-                                    ],
-                                    "query": []
-                                },
-                                "description": "Reject a pending leave application."
+                                "description": "Transition the status of a leave application through the state machine. Supported statuses:\n1: Draft, 2: Pending, 3: ManagerApproved, 4: HRApproved, 5: Approved, 6: Rejected, 7: Cancelled, 8: Expired, 9: AutoApproved, 10: Escalated, 11: OnHold, 12: RevisionRequested, 13: PayrollBlocked, 14: ComplianceReview, 15: PartiallyApproved"
                             }
                         }
                     ]

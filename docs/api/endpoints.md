@@ -128,9 +128,9 @@ All attendance requests require a valid bearer access token and resolved corpora
     - `per_page`: Integer, optional.
   - Returns: Paginated historical attendance days list.
 
-## Employee Leaves (`/corp/leaves`)
+## Employee Leaves (`/corp/attendance/leaves`)
 
-- `GET /api/v1/corp/leaves`
+- `GET /api/v1/corp/attendance/leaves`
   - Query Params:
     - `page`: Integer, optional.
     - `per_page`: Integer, optional.
@@ -138,7 +138,7 @@ All attendance requests require a valid bearer access token and resolved corpora
     - `leave_type`: Integer/String, optional. Filter by leave type.
   - Returns: Paginated list of leave requests for the authenticated user.
 
-- `POST /api/v1/corp/leaves`
+- `POST /api/v1/corp/attendance/leaves`
   - Body:
     - `leave_type`: Integer, required. (`1` = Casual, `2` = Sick, `3` = Casual Unpaid, `4` = Sick Unpaid, `5` = WFH, `6` = EWD, `7` = Maternity/Paternity, `8` = Bereavement).
     - `start_date`: Date (YYYY-MM-DD), required.
@@ -149,24 +149,21 @@ All attendance requests require a valid bearer access token and resolved corpora
   - Validation:
     - Prevents overlapping pending or approved leave requests.
 
-- `GET /api/v1/corp/leaves/{uuid}`
-  - Returns: Detailed model parameters of the leaf by UUID.
+- `GET /api/v1/corp/attendance/leaves/{uuid}`
+  - Returns: Detailed model parameters of the leave by UUID.
 
-- `PUT /api/v1/corp/leaves/{uuid}/cancel`
+- `PATCH /api/v1/corp/attendance/leaves/{uuid}/status`
   - Body:
-    - `reason`: String, required.
+    - `status`: Integer, required. The target LeaveStatusEnum status value (1-15).
+    - `remarks`: String, optional. Remarks/reasoning for the transition (required or recommended for Cancellation, Rejections, etc.).
+    - `metadata`: JSON object, optional. Additional audit context.
   - Behavior:
-    - Cancels a pending/approved leave application. Recalculates affected attendance days if applicable.
-
-- `PUT /api/v1/corp/leaves/{uuid}/approve`
-  - Behavior:
-    - Manager-only endpoint to approve leave request. Triggers audit logging and updates affected days' attendance records.
-
-- `PUT /api/v1/corp/leaves/{uuid}/reject`
-  - Body:
-    - `reason`: String, required.
-  - Behavior:
-    - Manager-only endpoint to reject leave request.
+    - Transition the leave through the workflow state machine.
+    - Authenticated employees can self-cancel their own pending leaves.
+    - Managerial/HR status changes require the `leaves.approve` permission.
+    - Records an audit log entry in the `leave_status_histories` table.
+    - Updates legacy approved_by/rejected_by fields and cancellation reason where applicable.
+    - Triggers recalculation of affected attendance days upon approval/cancellation.
 
 ## Attendance Adjustments (`/corp/adjustments`)
 

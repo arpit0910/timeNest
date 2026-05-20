@@ -8,34 +8,32 @@ use App\Http\Controllers\Api\V1\Corp\Attendance\AttendancePolicyController;
 use App\Http\Controllers\Api\V1\Corp\Attendance\LeaveController;
 use Illuminate\Support\Facades\Route;
 
-// ─── Clock In / Out & Summaries ───────────────────────────────────────
-Route::post('clock-in', [AttendanceController::class, 'clockIn'])->name('clock-in');
-Route::post('clock-out', [AttendanceController::class, 'clockOut'])->name('clock-out');
-Route::get('today', [AttendanceController::class, 'today'])->name('today');
-Route::get('history', [AttendanceController::class, 'history'])->name('history');
-
-// ─── Leave Requests ──────────────────────────────────────────────────
-Route::prefix('leaves')->name('leaves.')->group(function () {
-    Route::get('/', [LeaveController::class, 'index'])->name('index');
-    Route::post('/', [LeaveController::class, 'store'])->name('store');
-    Route::get('{uuid}', [LeaveController::class, 'show'])->name('show');
-    Route::put('{uuid}/cancel', [LeaveController::class, 'cancel'])->name('cancel');
-    
-    // Approval / Rejection (Management level)
-    Route::put('{uuid}/approve', [LeaveController::class, 'approve'])->name('approve');
-    Route::put('{uuid}/reject', [LeaveController::class, 'reject'])->name('reject');
+// ─── Clock In / Out & Summaries (AttendanceController) ──────────────────
+Route::controller(AttendanceController::class)->group(function () {
+    Route::post('clock-in', 'clockIn')->name('clock-in');
+    Route::post('clock-out', 'clockOut')->name('clock-out');
+    Route::get('today', 'today')->name('today');
+    Route::get('history', 'history')->name('history');
 });
 
-// ─── Attendance Adjustments ─────────────────────────────────────────
-Route::prefix('adjustments')->name('adjustments.')->group(function () {
-    Route::get('/', [AttendanceAdjustmentController::class, 'index'])->name('index');
-    Route::post('/', [AttendanceAdjustmentController::class, 'store'])->name('store');
-    Route::put('{uuid}/approve', [AttendanceAdjustmentController::class, 'approve'])->name('approve');
-    Route::put('{uuid}/reject', [AttendanceAdjustmentController::class, 'reject'])->name('reject');
+// ─── Leave Requests (LeaveController) ──────────────────────────────────
+Route::prefix('leaves')->name('leaves.')->controller(LeaveController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::get('{uuid}', 'show')->name('show');
+    Route::patch('{uuid}/status', 'updateStatus')->name('status.update');
 });
 
-// ─── Attendance Policy ───────────────────────────────────────────────
-Route::prefix('policy')->name('policy.')->group(function () {
-    Route::get('/', [AttendancePolicyController::class, 'show'])->name('show');
-    Route::put('/', [AttendancePolicyController::class, 'update'])->name('update');
+// ─── Attendance Adjustments (AttendanceAdjustmentController) ──────────
+Route::prefix('adjustments')->name('adjustments.')->controller(AttendanceAdjustmentController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::put('{uuid}/approve', 'approve')->name('approve');
+    Route::put('{uuid}/reject', 'reject')->name('reject');
+});
+
+// ─── Attendance Policy (AttendancePolicyController) ───────────────────
+Route::prefix('policy')->name('policy.')->controller(AttendancePolicyController::class)->group(function () {
+    Route::get('/', 'show')->name('show');
+    Route::put('/', 'update')->name('update');
 });
