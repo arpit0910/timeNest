@@ -79,6 +79,16 @@
             "key": "task_uuid",
             "value": "",
             "type": "string"
+        },
+        {
+            "key": "invitation_uuid",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "invitation_token",
+            "value": "",
+            "type": "string"
         }
     ],
     "item": [
@@ -707,6 +717,72 @@
                             ]
                         },
                         "description": "Handle Google OAuth callback."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Public Invitations",
+            "description": "Public endpoints to validate and accept corporation invitations.",
+            "item": [
+                {
+                    "name": "Validate Invitation Token",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/invitations/validate/{{invitation_token}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "invitations",
+                                "validate",
+                                "{{invitation_token}}"
+                            ]
+                        },
+                        "description": "Validate the raw invitation token before proceeding to registration or login."
+                    }
+                },
+                {
+                    "name": "Accept Invitation",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"token\": \"{{invitation_token}}\",\n    \"name\": \"John Doe\",\n    \"password\": \"SecurePassword123!\",\n    \"password_confirmation\": \"SecurePassword123!\",\n    \"timezone\": \"Asia/Kolkata\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/invitations/accept",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "invitations",
+                                "accept"
+                            ]
+                        },
+                        "description": "Accept invitation. Registers new user, or associates workspace if user already exists."
                     }
                 }
             ]
@@ -1622,6 +1698,246 @@
                                     "query": []
                                 },
                                 "description": "Deactivate / suspend a user membership under the corporation by UUID."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Invitations",
+                    "description": "Manage corporate tenant invitations for onboarding new employees or admins.",
+                    "item": [
+                        {
+                            "name": "List Invitations",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Workspace context header"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/invitations?page=1&per_page=15&email=&status=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "invitations"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "email",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "status",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve corporate invitations with status/email filters."
+                            }
+                        },
+                        {
+                            "name": "Get Invitation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Workspace context header"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "invitations",
+                                        "{{invitation_uuid}}"
+                                    ]
+                                },
+                                "description": "Retrieve details of a specific invitation by UUID."
+                            }
+                        },
+                        {
+                            "name": "Create Invitation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Workspace context header"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"email\": \"new.hire@example.com\",\n    \"role_uuid\": \"{{role_uuid}}\",\n    \"metadata\": {}\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/corp/invitations",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "invitations"
+                                    ]
+                                },
+                                "description": "Create and send invitation email to a user."
+                            }
+                        },
+                        {
+                            "name": "Revoke Invitation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Workspace context header"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}/revoke",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "invitations",
+                                        "{{invitation_uuid}}",
+                                        "revoke"
+                                    ]
+                                },
+                                "description": "Revoke a pending corporate invitation."
+                            }
+                        },
+                        {
+                            "name": "Resend Invitation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Corporation-Uuid",
+                                        "value": "{{corporation_uuid}}",
+                                        "description": "Workspace context header"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}/resend",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "corp",
+                                        "invitations",
+                                        "{{invitation_uuid}}",
+                                        "resend"
+                                    ]
+                                },
+                                "description": "Generate a new token, reset expiry, and resend the invitation email."
                             }
                         }
                     ]

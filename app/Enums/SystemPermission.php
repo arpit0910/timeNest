@@ -61,6 +61,12 @@ enum SystemPermission: string
     case LeavesApprove = 'leaves.approve';
     case LeavesExport = 'leaves.export';
 
+    // ─── Invitations ─────────────────────────────────────────────
+    case InvitationsView = 'invitations.view';
+    case InvitationsCreate = 'invitations.create';
+    case InvitationsRevoke = 'invitations.revoke';
+    case InvitationsResend = 'invitations.resend';
+
     // ─── Branches ────────────────────────────────────────────────
     case BranchesView = 'branches.view';
     case BranchesCreate = 'branches.create';

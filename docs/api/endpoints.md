@@ -300,4 +300,54 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Resolves or dismisses a pending escalation.
 
+## Corporation Invitations (`/corp/invitations`)
+
+Requires `invitations.view`, `invitations.create`, `invitations.revoke`, `invitations.resend` permissions.
+
+- `GET /api/v1/corp/invitations`
+  - Query Params:
+    - `email`: String, optional. Filter/search by email.
+    - `status`: Integer, optional. Filter by status (InvitationStatusEnum).
+  - Returns: Paginated list of invitations.
+
+- `GET /api/v1/corp/invitations/{uuid}`
+  - Returns: Details of the specific invitation.
+
+- `POST /api/v1/corp/invitations`
+  - Body:
+    - `email`: String, required. Email address of the user to invite.
+    - `role_uuid`: String, required. UUID of the Spatie role to assign.
+    - `metadata`: JSON object, optional. Custom invitation metadata.
+  - Behavior:
+    - Creates invitation, generates hashed token, triggers invitation email.
+
+- `POST /api/v1/corp/invitations/{uuid}/revoke`
+  - Behavior:
+    - Revokes a pending invitation.
+
+- `POST /api/v1/corp/invitations/{uuid}/resend`
+  - Behavior:
+    - Extends the expiration date, updates token and resends invitation email.
+
+## Public Invitations (`/invitations`)
+
+Public endpoints (no headers/authentication required).
+
+- `GET /api/v1/invitations/validate/{token}`
+  - Returns: Details of the invitation (Corporation name, role name, expiry, and whether user already exists).
+
+- `POST /api/v1/invitations/accept`
+  - Body:
+    - `token`: String, required. Raw invitation token.
+    - `name`: String, optional (required for new users). Full name.
+    - `password`: String, optional (required for new users). Setup password.
+    - `password_confirmation`: String, optional (required if password is provided).
+    - `first_name`: String, optional.
+    - `last_name`: String, optional.
+    - `phone`: String, optional.
+    - `timezone`: String, optional.
+  - Behavior:
+    - Accepts invitation, registers new user if they don't exist, attaches membership, assigns role, and returns corporate JWT tokens (or joins existing user if authenticated).
+
+
 

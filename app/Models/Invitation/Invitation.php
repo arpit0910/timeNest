@@ -30,12 +30,12 @@ class Invitation extends Model
 {
     use HasUuid;
 
-    protected $table = 'invitations';
+    protected $table = 'corporation_invitations';
 
     protected $fillable = [
-        'corporation_id', 'email', 'role_id', 'invited_by',
-        'token', 'expires_at', 'accepted_at', 'revoked_at',
-        'revoked_by', 'resend_count', 'last_resent_at',
+        'corporation_id', 'email', 'role_id', 'invited_by_user_id',
+        'token', 'status', 'expires_at', 'accepted_at', 'revoked_at',
+        'revoked_by', 'resend_count', 'last_resent_at', 'metadata',
     ];
 
     protected $hidden = ['token'];
@@ -43,11 +43,13 @@ class Invitation extends Model
     protected function casts(): array
     {
         return [
+            'status' => \App\Enums\InvitationStatusEnum::class,
             'expires_at' => 'datetime',
             'accepted_at' => 'datetime',
             'revoked_at' => 'datetime',
             'last_resent_at' => 'datetime',
             'resend_count' => 'integer',
+            'metadata' => 'array',
         ];
     }
 
@@ -63,7 +65,7 @@ class Invitation extends Model
 
     public function invitedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'invited_by');
+        return $this->belongsTo(User::class, 'invited_by_user_id');
     }
 
     public function revokedBy(): BelongsTo
@@ -73,8 +75,12 @@ class Invitation extends Model
 
     public function scopePending($query)
     {
-        return $query->whereNull('accepted_at')
-            ->whereNull('revoked_at')
+        return $query->where('status', \App\Enums\InvitationStatusEnum::Pending);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', \App\Enums\InvitationStatusEnum::Pending)
             ->where('expires_at', '>', now());
     }
 
@@ -85,11 +91,16 @@ class Invitation extends Model
 
     public function isAccepted(): bool
     {
-        return $this->accepted_at !== null;
+        return $this->status === \App\Enums\InvitationStatusEnum::Accepted;
     }
 
     public function isRevoked(): bool
     {
-        return $this->revoked_at !== null;
+        return $this->status === \App\Enums\InvitationStatusEnum::Revoked;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === \App\Enums\InvitationStatusEnum::Pending;
     }
 }

@@ -30,4 +30,10 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::prefix('corp')->name('corp.')
         ->middleware(['api.corp'])
         ->group(base_path('routes/api/v1/corporation.php'));
+
+    // Public Invitation Flow Endpoints
+    Route::controller(\App\Http\Controllers\Api\V1\Invitation\PublicInvitationController::class)->group(function (): void {
+        Route::get('invitations/validate/{token}', 'validateToken')->name('invitations.validate');
+        Route::post('invitations/accept', 'accept')->name('invitations.accept');
+    });
 });

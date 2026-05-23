@@ -42,6 +42,12 @@ class AppServiceProvider extends ServiceProvider
             }
             return null;
         });
+
+        // Event Listeners
+        \Illuminate\Support\Facades\Event::listen(
+            \App\Events\InvitationCreated::class,
+            \App\Listeners\SendInvitationNotification::class
+        );
     }
 
     /**

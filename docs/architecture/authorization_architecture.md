@@ -77,3 +77,19 @@ if ($user->hasPermissionTo(SystemPermission::UsersInvite->value)) {
     // ...
 }
 ```
+
+---
+
+## Employee & Admin Invitation Flow
+
+TimeNest supports a secure, multi-tenant scoped invitation flow to safely onboard administrators, managers, and employees.
+
+### Architecture Key Aspects:
+
+1.  **Token Security**: Tokens are generated as cryptographically secure random strings (`Str::random(40)`) and stored in the database hashed with `SHA-256`. The raw token is only sent in the email, protecting active invitations against database leaks.
+2.  **Invitation Lifecycle State Machine**: Controlled by `App\Enums\InvitationStatusEnum` (Pending, Accepted, Expired, Revoked).
+3.  **Scope Verification**:
+    - Creation: Enforces `invitations.create` permission, and verifies the requested role is corporate-scoped (not a platform role).
+    - Acceptance (Existing Users): Requires the user to authenticate. Verifies that the authenticated user's email matches the invitation email. If matching, links the existing user to the corporation via `MembershipService` and Spatie teams without creating duplicate users.
+    - Acceptance (New Users): Collects user credentials, creates a pre-verified user, associates corporation membership, assigns the Spatie role, and automatically issues corporate-scoped JWT access and refresh tokens for immediate login.
+

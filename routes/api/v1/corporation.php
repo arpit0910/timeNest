@@ -16,6 +16,10 @@ Route::prefix('departments')->name('departments.')
 Route::prefix('memberships')->name('memberships.')
     ->group(base_path('routes/api/v1/memberships.php'));
 
+// Invitation Management
+Route::prefix('invitations')->name('invitations.')
+    ->group(base_path('routes/api/v1/invitations.php'));
+
 // Future Expansion Modularity
 Route::prefix('payroll')->name('payroll.')
     ->group(base_path('routes/api/v1/payroll.php'));
