@@ -3,10 +3,10 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
             @foreach($stats as $stat)
                 <div class="text-center">
-                    <p class="font-display text-4xl font-bold text-white mb-1">
+                    <p class="font-display text-4xl font-bold text-content-strong mb-1">
                         {{ $stat['value'] }}<span class="text-brand-400">{{ $stat['suffix'] ?? '' }}</span>
                     </p>
-                    <p class="text-slate-400 text-sm">{{ $stat['label'] }}</p>
+                    <p class="text-content-muted text-sm">{{ $stat['label'] }}</p>
                 </div>
             @endforeach
         </div>

@@ -11,10 +11,10 @@
 
             {{-- Feature Comparison --}}
             <div class="mt-20 max-w-5xl mx-auto">
-                <h3 class="font-display text-2xl font-bold text-white text-center mb-8">Feature Comparison</h3>
+                <h3 class="font-display text-2xl font-bold text-content-strong text-center mb-8">Feature Comparison</h3>
                 <div class="rounded-xl border border-surface-border overflow-hidden">
                     <table class="w-full text-sm">
-                        <thead><tr class="bg-surface-card"><th class="text-left p-4 text-slate-400 font-body">Feature</th><th class="p-4 text-slate-400 font-body">Free</th><th class="p-4 text-brand-400 font-body">Pro</th><th class="p-4 text-slate-400 font-body">Organization</th></tr></thead>
+                        <thead><tr class="bg-surface-card"><th class="text-left p-4 text-content-muted font-body">Feature</th><th class="p-4 text-content-muted font-body">Free</th><th class="p-4 text-brand-400 font-body">Pro</th><th class="p-4 text-content-muted font-body">Organization</th></tr></thead>
                         <tbody>
                             @foreach([
                                 ['Client Management', true, true, true],
@@ -29,7 +29,7 @@
                                 ['Dedicated Support', false, true, true],
                             ] as [$feature, $free, $pro, $org])
                                 <tr class="border-t border-surface-border">
-                                    <td class="p-4 text-white">{{ $feature }}</td>
+                                    <td class="p-4 text-content-strong">{{ $feature }}</td>
                                     @foreach([$free, $pro, $org] as $has)
                                         <td class="p-4 text-center">
                                             @if($has)<svg class="w-5 h-5 text-brand-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>@else<span class="text-slate-600">â€”</span>@endif

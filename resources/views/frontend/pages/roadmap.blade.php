@@ -26,13 +26,13 @@
                     <div>
                         <div class="flex items-center gap-2 mb-4">
                             <span class="w-2 h-2 rounded-full {{ $color }}"></span>
-                            <h3 class="font-display text-lg font-semibold text-white">{{ $stage }}</h3>
-                            <span class="text-slate-500 text-xs">({{ count($items) }})</span>
+                            <h3 class="font-display text-lg font-semibold text-content-strong">{{ $stage }}</h3>
+                            <span class="text-content-light text-xs">({{ count($items) }})</span>
                         </div>
                         <div class="space-y-3">
                             @foreach($items as [$title, $category])
                                 <div class="rounded-lg border border-surface-border bg-surface-card p-4">
-                                    <h4 class="font-body text-sm font-medium text-white mb-1">{{ $title }}</h4>
+                                    <h4 class="font-body text-sm font-medium text-content-strong mb-1">{{ $title }}</h4>
                                     <x-frontend-base.badge variant="default" size="xs">{{ $category }}</x-frontend-base.badge>
                                 </div>
                             @endforeach

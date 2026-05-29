@@ -19,8 +19,8 @@
                 ] as [$emoji, $title, $desc])
                     <div class="rounded-xl border border-surface-border bg-surface-card p-6 hover:border-brand-500/30 transition-all">
                         <span class="text-2xl mb-3 block">{{ $emoji }}</span>
-                        <h3 class="font-display text-lg font-semibold text-white mb-2">{{ $title }}</h3>
-                        <p class="text-slate-400 text-sm">{{ $desc }}</p>
+                        <h3 class="font-display text-lg font-semibold text-content-strong mb-2">{{ $title }}</h3>
+                        <p class="text-content-muted text-sm">{{ $desc }}</p>
                     </div>
                 @endforeach
             </div>

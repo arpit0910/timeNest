@@ -11,7 +11,7 @@
                     ['2024-12-20', 'Leave management system overhaul'],
                     ['2024-12-15', 'Initial employee management release'],
                 ] as [$date, $entry])
-                    <div class="flex gap-4 items-start"><span class="text-slate-500 text-xs font-mono shrink-0 mt-1 w-24">{{ $date }}</span><p class="text-slate-300 text-sm">{{ $entry }}</p></div>
+                    <div class="flex gap-4 items-start"><span class="text-content-light text-xs font-mono shrink-0 mt-1 w-24">{{ $date }}</span><p class="text-content text-sm">{{ $entry }}</p></div>
                 @endforeach
             </div>
         </div>

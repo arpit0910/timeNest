@@ -1,234 +1,383 @@
-﻿<x-frontend-layout.app
-    metaTitle="TimeNest â€” The Work Operating System for Modern Teams"
+<x-frontend-layout.app
+    metaTitle="TimeNest — The Work Operating System for Modern Teams"
     metaDescription="Complete workforce management for organizations, freelancer tools, and collaborative workspaces. One platform for every workflow."
 >
     {{-- Section 1: Hero --}}
-    <x-frontend-sections.hero-section
-        headline="The Work Operating System<br><span class='text-gradient'>for Modern Teams</span>"
-        subheadline="Manage employees, freelancers, and collaborative workspaces in one powerful platform. From attendance to AI analytics â€” everything your team needs."
-        primaryCtaText="Book a Demo"
-        primaryCtaUrl="{{ route('frontend.book-demo') }}"
-        secondaryCtaText="Start for Free"
-        secondaryCtaUrl="/register"
-    >
-        {{-- Logo Strip --}}
-        <div class="mt-16">
-            <x-frontend-sections.logo-strip title="Trusted by teams at" />
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-surface-50 to-surface pointer-events-none"></div>
+        
+        {{-- Decorative background elements --}}
+        <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3">
+            <div class="w-96 h-96 bg-brand-200/40 rounded-full blur-3xl opacity-50"></div>
         </div>
-    </x-frontend-sections.hero-section>
+        <div class="absolute top-32 left-0 -translate-x-1/3">
+            <div class="w-72 h-72 bg-indigo-200/40 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <x-frontend-base.badge variant="brand" class="mb-6 animate-fade-in inline-flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+                TimeNest 2.0 is now live
+            </x-frontend-base.badge>
+            
+            <h1 class="font-display text-5xl lg:text-7xl font-bold text-content-strong tracking-tight mb-8 leading-tight animate-slide-up" style="animation-delay: 100ms;">
+                The Work Operating System<br>
+                <span class="text-gradient">for Modern Teams</span>
+            </h1>
+            
+            <p class="text-lg lg:text-xl text-content-muted max-w-3xl mx-auto mb-10 leading-relaxed animate-slide-up font-body" style="animation-delay: 200ms;">
+                Manage employees, freelancers, and collaborative workspaces in one powerful platform. 
+                From automated attendance tracking to AI-powered revenue forecasting — everything your team needs to scale.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 300ms;">
+                <x-frontend-base.button href="/register" variant="primary" color="brand" size="lg" class="w-full sm:w-auto h-14 px-8 text-base shadow-lg shadow-brand-500/20">
+                    Start for Free
+                </x-frontend-base.button>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="surface" size="lg" class="w-full sm:w-auto h-14 px-8 text-base bg-white border-surface-border text-content-strong hover:bg-surface-50">
+                    <svg class="w-5 h-5 mr-2 text-content-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Book a Demo
+                </x-frontend-base.button>
+            </div>
+
+            {{-- Dashboard Mockup --}}
+            <div class="mt-20 relative mx-auto max-w-5xl animate-slide-up" style="animation-delay: 400ms;">
+                <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10 pointer-events-none rounded-2xl h-full"></div>
+                <div class="relative rounded-2xl border border-surface-border bg-white shadow-2xl p-2 lg:p-4 rotate-x-12 transform-gpu">
+                    <div class="rounded-xl overflow-hidden border border-surface-border bg-surface-50 flex items-center justify-center">
+                        <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Platform Dashboard" class="w-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            {{-- Logo Strip --}}
+            <div class="mt-24 pt-10 border-t border-surface-border/50">
+                <x-frontend-sections.logo-strip title="Trusted by forward-thinking teams globally" />
+            </div>
+        </div>
+    </section>
 
     {{-- Section 2: Role-Based Problem Statement --}}
-    <section class="py-20 bg-surface" x-data="{ activeTab: 'founders' }">
+    <section class="py-24 bg-white" x-data="{ activeTab: 'founders' }">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Built for everyone who runs work" subtitle="Whether you're a founder scaling a company or a freelancer managing clients, TimeNest adapts to your workflow." badge="For Every Role" />
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Built for everyone who runs work</h2>
+                <p class="text-content-muted text-lg">Whether you're a founder scaling a company or a freelancer managing clients, TimeNest adapts to your specific workflow.</p>
+            </div>
 
             <div class="flex flex-wrap justify-center gap-2 mb-12">
-                @foreach(['founders' => 'Founders', 'hr' => 'HR Teams', 'operations' => 'Operations', 'freelancers' => 'Freelancers', 'agencies' => 'Agencies'] as $key => $label)
-                    <button @click="activeTab = '{{ $key }}'" :class="activeTab === '{{ $key }}' ? 'bg-brand-500 text-white' : 'bg-surface-card text-slate-400 hover:text-white'" class="px-4 py-2 rounded-lg text-sm font-body transition-all cursor-pointer">{{ $label }}</button>
+                @foreach([
+                    'founders' => ['Founders', 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'], 
+                    'hr' => ['HR Teams', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'], 
+                    'operations' => ['Operations', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'], 
+                    'freelancers' => ['Freelancers', 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'], 
+                    'agencies' => ['Agencies', 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4']
+                ] as $key => [$label, $icon])
+                    <button @click="activeTab = '{{ $key }}'" :class="activeTab === '{{ $key }}' ? 'bg-brand-500 text-white shadow-md shadow-brand-500/20' : 'bg-white border border-surface-border text-content-muted hover:text-content-strong hover:bg-surface-50'" class="px-5 py-3 rounded-xl text-sm font-body font-medium transition-all cursor-pointer flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/></svg>
+                        {{ $label }}
+                    </button>
                 @endforeach
             </div>
 
-            <div class="rounded-xl border border-surface-border bg-surface-card p-8">
-                <div x-show="activeTab === 'founders'" x-transition>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div><h3 class="font-display text-lg font-semibold text-red-400 mb-2">ðŸ˜¤ The Pain</h3><p class="text-slate-400 text-sm">Juggling 5+ tools for HR, attendance, leaves, and payroll. No unified view of workforce health.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-brand-400 mb-2">âœ… TimeNest Solution</h3><p class="text-slate-400 text-sm">One platform to manage your entire workforce. Real-time dashboards, AI-powered insights, and automated workflows.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-white mb-2">ðŸ“¦ Key Modules</h3><ul class="text-slate-400 text-sm space-y-1"><li>â€¢ Employee Management</li><li>â€¢ AI Executive Dashboard</li><li>â€¢ Analytics & Reports</li><li>â€¢ Approvals & Workflows</li></ul></div>
+            <div class="rounded-2xl border border-surface-border bg-white shadow-xl shadow-surface-border/30 overflow-hidden">
+                @php
+                    $roleData = [
+                        'founders' => [
+                            'pain' => 'Juggling 5+ tools for HR, attendance, leaves, and payroll. No unified view of workforce health and ballooning software costs.',
+                            'solution' => 'One platform to manage your entire workforce. Real-time executive dashboards, AI-powered insights, and automated workflows.',
+                            'modules' => ['Employee Management', 'AI Executive Dashboard', 'Analytics & Reports', 'Approvals & Workflows']
+                        ],
+                        'hr' => [
+                            'pain' => 'Manual attendance tracking via spreadsheets, leave conflicts, shift scheduling nightmares, and scary compliance gaps.',
+                            'solution' => 'Automated attendance, smart leave management, visual shift builder, and AI fraud detection to keep everything honest.',
+                            'modules' => ['Attendance & Shifts', 'Leave Management', 'AI Fraud Detection', 'Audit Logs']
+                        ],
+                        'operations' => [
+                            'pain' => 'Department silos, broken manual approval chains via email, and zero visibility into team performance or resource allocation.',
+                            'solution' => 'Centralized department and team management. Custom workflows, role-based granular permissions, and operational analytics.',
+                            'modules' => ['Departments & Teams', 'Workflows & Approvals', 'Roles & Permissions', 'Analytics']
+                        ],
+                        'freelancers' => [
+                            'pain' => 'Scattered client data, manual invoicing processes, no accurate revenue tracking, and zero business intelligence.',
+                            'solution' => 'All-in-one freelancer platform. CRM, invoicing, task management, and AI revenue forecasting — core features forever free.',
+                            'modules' => ['Clients & Leads', 'Invoices & Payments', 'Tasks & Projects', 'Revenue Tracking']
+                        ],
+                        'agencies' => [
+                            'pain' => 'Managing a freelance team without proper tools. No shared projects, no unified invoicing, and no team utilization analytics.',
+                            'solution' => 'Freelance Workspace — a collaborative environment for agencies. Shared projects, shared invoicing, and team analytics.',
+                            'modules' => ['Collaborator Management', 'Shared Projects & Tasks', 'Shared Invoices', 'Workspace Analytics']
+                        ],
+                    ];
+                @endphp
+
+                @foreach($roleData as $key => $data)
+                    <div x-show="activeTab === '{{ $key }}'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-8 lg:p-12">
+                        <div class="grid lg:grid-cols-3 gap-12">
+                            <div class="space-y-4">
+                                <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
+                                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                </div>
+                                <h3 class="font-display text-xl font-bold text-content-strong">The Pain</h3>
+                                <p class="text-content-muted leading-relaxed">{{ $data['pain'] }}</p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center border border-brand-100">
+                                    <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <h3 class="font-display text-xl font-bold text-content-strong">TimeNest Solution</h3>
+                                <p class="text-content-muted leading-relaxed">{{ $data['solution'] }}</p>
+                            </div>
+
+                            <div class="space-y-4 bg-surface-50 p-6 rounded-xl border border-surface-border">
+                                <h3 class="font-display text-lg font-bold text-content-strong flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                    Key Modules
+                                </h3>
+                                <ul class="space-y-3 mt-4">
+                                    @foreach($data['modules'] as $module)
+                                        <li class="flex items-center gap-3 text-content-strong font-medium text-sm">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-brand-500"></div>
+                                            {{ $module }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- Section 3: Deep Dive Features --}}
+    <section class="py-24 bg-surface-50 border-y border-surface-border overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <x-frontend-base.badge variant="accent" class="mb-6">Intelligent Core</x-frontend-base.badge>
+                    <h2 class="font-display text-3xl lg:text-5xl font-bold text-content-strong mb-6 leading-tight">Everything you need to manage work, <span class="text-indigo-600">beautifully designed.</span></h2>
+                    <p class="text-lg text-content-muted mb-8 leading-relaxed">
+                        TimeNest isn't just a collection of tools. It's a deeply integrated ecosystem where attendance data feeds into payroll, project tasks feed into invoices, and AI connects the dots.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        @foreach([
+                            ['Employee Mgmt', 'Maintain a single source of truth for your entire workforce with rich profiles and documentation.'],
+                            ['Smart Attendance', 'Geofenced clock-ins, biometric support, and real-time shift tracking.'],
+                            ['Approval Workflows', 'Build custom multi-step approval chains for leaves, expenses, and operational changes.']
+                        ] as [$title, $desc])
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-white border border-surface-border shadow-sm flex items-center justify-center shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-display font-bold text-content-strong mb-1">{{ $title }}</h4>
+                                    <p class="text-content-muted text-sm">{{ $desc }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <div class="mt-10">
+                        <x-frontend-base.link href="{{ route('frontend.solutions.show', 'workforce-management') }}" class="text-brand-600 font-semibold hover:text-brand-700">Explore all features &rarr;</x-frontend-base.link>
                     </div>
                 </div>
-                <div x-show="activeTab === 'hr'" x-transition>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div><h3 class="font-display text-lg font-semibold text-red-400 mb-2">ðŸ˜¤ The Pain</h3><p class="text-slate-400 text-sm">Manual attendance tracking, leave conflicts, shift scheduling nightmares, and compliance gaps.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-brand-400 mb-2">âœ… TimeNest Solution</h3><p class="text-slate-400 text-sm">Automated attendance, smart leave management, shift builder, and AI fraud detection to keep everything honest.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-white mb-2">ðŸ“¦ Key Modules</h3><ul class="text-slate-400 text-sm space-y-1"><li>â€¢ Attendance & Shifts</li><li>â€¢ Leave Management</li><li>â€¢ AI Fraud Detection</li><li>â€¢ Audit Logs</li></ul></div>
-                    </div>
-                </div>
-                <div x-show="activeTab === 'operations'" x-transition>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div><h3 class="font-display text-lg font-semibold text-red-400 mb-2">ðŸ˜¤ The Pain</h3><p class="text-slate-400 text-sm">Department silos, broken approval chains, and no visibility into team performance or resource allocation.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-brand-400 mb-2">âœ… TimeNest Solution</h3><p class="text-slate-400 text-sm">Centralized department and team management. Custom workflows, role-based permissions, and operational analytics.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-white mb-2">ðŸ“¦ Key Modules</h3><ul class="text-slate-400 text-sm space-y-1"><li>â€¢ Departments & Teams</li><li>â€¢ Workflows & Approvals</li><li>â€¢ Roles & Permissions</li><li>â€¢ Analytics</li></ul></div>
-                    </div>
-                </div>
-                <div x-show="activeTab === 'freelancers'" x-transition>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div><h3 class="font-display text-lg font-semibold text-red-400 mb-2">ðŸ˜¤ The Pain</h3><p class="text-slate-400 text-sm">Scattered client data, manual invoicing, no revenue tracking, and zero business intelligence.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-brand-400 mb-2">âœ… TimeNest Solution</h3><p class="text-slate-400 text-sm">All-in-one freelancer platform. CRM, invoicing, task management, and AI revenue forecasting â€” core features free.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-white mb-2">ðŸ“¦ Key Modules</h3><ul class="text-slate-400 text-sm space-y-1"><li>â€¢ Clients & Leads</li><li>â€¢ Invoices & Payments</li><li>â€¢ Tasks & Projects</li><li>â€¢ Revenue Tracking</li></ul></div>
-                    </div>
-                </div>
-                <div x-show="activeTab === 'agencies'" x-transition>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div><h3 class="font-display text-lg font-semibold text-red-400 mb-2">ðŸ˜¤ The Pain</h3><p class="text-slate-400 text-sm">Managing a freelance team without proper tools. No shared projects, no unified invoicing, no team analytics.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-brand-400 mb-2">âœ… TimeNest Solution</h3><p class="text-slate-400 text-sm">Freelance Workspace â€” a collaborative environment for agencies. Shared projects, shared invoicing, team analytics.</p></div>
-                        <div><h3 class="font-display text-lg font-semibold text-white mb-2">ðŸ“¦ Key Modules</h3><ul class="text-slate-400 text-sm space-y-1"><li>â€¢ Collaborator Management</li><li>â€¢ Shared Projects & Tasks</li><li>â€¢ Shared Invoices</li><li>â€¢ Workspace Analytics</li></ul></div>
+                
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-indigo-500/20 rounded-[2.5rem] transform rotate-3 scale-105"></div>
+                    <div class="relative bg-white rounded-2xl shadow-xl shadow-surface-border/50 border border-surface-border p-2">
+                        <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Dashboard" class="w-full rounded-xl border border-surface-border/50">
+                        
+                        {{-- Floating Element --}}
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border border-surface-border flex items-center gap-4 animate-slide-up" style="animation-delay: 500ms;">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-content-muted font-medium uppercase tracking-wider">Productivity</p>
+                                <p class="font-display font-bold text-content-strong text-xl">+24.5%</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Section 3: Product Lines --}}
-    <section class="py-20 bg-surface-card/30">
+    {{-- Section 4: Product Lines Cards --}}
+    <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Three products, one platform" subtitle="Choose the product that fits your workflow. Scale as you grow." badge="Products" />
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Three products, one platform</h2>
+                <p class="text-content-muted text-lg">Choose the product that fits your workflow right now, and seamlessly scale as your business grows without ever migrating data.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
                 @foreach([
-                    ['title' => 'For Organizations', 'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>', 'desc' => 'Complete workforce and operations management for companies of all sizes.', 'features' => ['Employee Management', 'Attendance & Leaves', 'Shifts & Departments', 'Analytics & Workflows'], 'cta' => 'Book Demo', 'url' => route('frontend.book-demo'), 'color' => 'brand'],
-                    ['title' => 'For Freelancers', 'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>', 'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects.', 'features' => ['Clients & Leads', 'Invoices & Payments', 'Tasks & Projects', 'Revenue Tracking'], 'cta' => 'Start Free', 'url' => '/register', 'color' => 'accent'],
-                    ['title' => 'Freelance Workspace', 'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>', 'desc' => 'Collaborative workspace for freelance teams, agencies, and creative studios.', 'features' => ['Collaborator Management', 'Shared Projects', 'Shared Invoices', 'Team Analytics'], 'cta' => 'Upgrade to Pro', 'url' => route('frontend.pricing'), 'color' => 'amber', 'pro' => true],
+                    ['title' => 'For Organizations', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'desc' => 'Complete workforce and operations management for companies. Unify HR, attendance, shifts, and departmental workflows.', 'features' => ['Employee Directory & Profiles', 'Real-time Attendance & GPS', 'Shift Builder & Leave Rules', 'Multi-level Approvals'], 'cta' => 'Book Demo', 'url' => route('frontend.book-demo'), 'color' => 'brand'],
+                    ['title' => 'For Freelancers', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects. Run your entire freelance business from one dashboard.', 'features' => ['Client CRM & Lead Tracking', 'Professional Invoicing', 'Task & Project Kanban', 'Revenue Forecasting'], 'cta' => 'Start Free', 'url' => '/register', 'color' => 'indigo'],
+                    ['title' => 'Freelance Workspace', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Work together without full corporate overhead.', 'features' => ['Collaborator Management', 'Shared Projects & Files', 'Unified Client Billing', 'Team Utilization Analytics'], 'cta' => 'Upgrade to Pro', 'url' => route('frontend.pricing'), 'color' => 'amber', 'pro' => true],
                 ] as $product)
-                    <div class="group rounded-xl border border-surface-border bg-surface-card p-8 hover:border-{{ $product['color'] }}-500/30 hover:shadow-lg transition-all duration-300 flex flex-col">
-                        <div class="w-12 h-12 rounded-xl bg-{{ $product['color'] }}-500/10 flex items-center justify-center mb-4 text-{{ $product['color'] }}-400">{!! $product['icon'] !!}</div>
-                        <h3 class="font-display text-xl font-bold text-white mb-2">{{ $product['title'] }}</h3>
-                        @if(isset($product['pro']))<x-frontend-base.badge variant="pro" class="mb-3">Requires Pro</x-frontend-base.badge>@endif
-                        <p class="text-slate-400 text-sm mb-4">{{ $product['desc'] }}</p>
-                        <ul class="space-y-2 mb-6 flex-1">
-                            @foreach($product['features'] as $f)
-                                <li class="flex items-center gap-2 text-sm text-slate-300"><svg class="w-4 h-4 text-{{ $product['color'] }}-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>{{ $f }}</li>
-                            @endforeach
-                        </ul>
-                        <x-frontend-base.button :href="$product['url']" variant="outline" color="white" class="w-full">{{ $product['cta'] }}</x-frontend-base.button>
+                    <div class="group rounded-2xl border border-surface-border bg-white p-8 hover:border-{{ $product['color'] }}-300 hover:shadow-xl hover:shadow-{{ $product['color'] }}-500/10 transition-all duration-300 flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <svg class="w-32 h-32 text-{{ $product['color'] }}-600 -mr-10 -mt-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="{{ $product['icon'] }}"/></svg>
+                        </div>
+                        
+                        <div class="w-14 h-14 rounded-xl bg-{{ $product['color'] }}-50 flex items-center justify-center mb-6 text-{{ $product['color'] }}-600 border border-{{ $product['color'] }}-100 relative z-10">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $product['icon'] }}"/></svg>
+                        </div>
+                        
+                        <h3 class="font-display text-2xl font-bold text-content-strong mb-3 relative z-10">{{ $product['title'] }}</h3>
+                        
+                        @if(isset($product['pro']))
+                            <x-frontend-base.badge variant="pro" class="mb-4 self-start relative z-10">Requires Pro</x-frontend-base.badge>
+                        @endif
+                        
+                        <p class="text-content-muted text-base leading-relaxed mb-8 relative z-10">{{ $product['desc'] }}</p>
+                        
+                        <div class="mb-8 flex-1 relative z-10">
+                            <h4 class="text-xs font-semibold text-content-strong uppercase tracking-wider mb-4">Core Features</h4>
+                            <ul class="space-y-3">
+                                @foreach($product['features'] as $f)
+                                    <li class="flex items-start gap-3 text-sm text-content-muted">
+                                        <svg class="w-5 h-5 text-{{ $product['color'] }}-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        {{ $f }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        
+                        <x-frontend-base.button :href="$product['url']" variant="outline" class="w-full relative z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:text-{{ $product['color'] }}-700 hover:border-{{ $product['color'] }}-200">{{ $product['cta'] }}</x-frontend-base.button>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    {{-- Section 4: Core Features Grid --}}
-    <section class="py-20 bg-surface">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Everything you need to manage work" subtitle="Powerful modules designed for real-world workforce operations." badge="Core Features" />
-            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                @foreach([
-                    ['Employee Management', 'Add, organize, and manage your entire workforce'],
-                    ['Attendance Tracking', 'Real-time clock-in/out with GPS support'],
-                    ['Leave Management', 'Automated leave policies and approval workflows'],
-                    ['Shift Scheduling', 'Create rotating shifts and manage schedules'],
-                    ['Departments', 'Organize your organization by departments and teams'],
-                    ['Workflows', 'Custom approval chains and automated processes'],
-                    ['Analytics', 'Real-time dashboards and detailed reports'],
-                    ['Approvals', 'Multi-level approval system for all operations'],
-                    ['Audit Logs', 'Complete activity trail for compliance'],
-                    ['Roles & Permissions', 'Granular role-based access control'],
-                ] as [$title, $desc])
-                    <div class="rounded-lg border border-surface-border bg-surface-card p-4 hover:border-brand-500/20 transition-colors">
-                        <h4 class="font-display text-sm font-semibold text-white mb-1">{{ $title }}</h4>
-                        <p class="text-slate-500 text-xs">{{ $desc }}</p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    {{-- Section 5: AI Teaser --}}
-    <section class="py-20 bg-surface relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 via-transparent to-accent-500/5"></div>
+    {{-- Section 5: AI Platform --}}
+    <section class="py-24 bg-brand-900 relative overflow-hidden text-white">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz48L2c+PC9zdmc+')] opacity-20"></div>
+        <div class="absolute right-0 top-0 w-[800px] h-[800px] bg-brand-500/20 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+        
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="AI that works while you work" subtitle="Intelligent features powered by machine learning, built into every module." badge="TimeNest AI" />
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @foreach([
-                    ['AI Workforce Analyst', 'Detect attendance anomalies, leave abuse patterns, and overtime irregularities automatically.', 'ðŸ”'],
-                    ['AI Fraud Detection', 'Identify fake attendance, suspicious reimbursements, and invoice anomalies in real-time.', 'ðŸ›¡ï¸'],
-                    ['AI Executive Dashboard', 'Ask questions in natural language and get instant business insights from your data.', 'ðŸ“Š'],
-                    ['AI Freelancer Assistant', 'Smart invoice suggestions, revenue forecasting, and client risk assessment.', 'ðŸ¤–'],
-                ] as [$title, $desc, $emoji])
-                    <div class="rounded-xl border border-surface-border bg-surface-card p-6 hover:border-brand-500/30 hover:shadow-lg hover:shadow-brand-500/5 transition-all duration-300">
-                        <span class="text-3xl mb-4 block">{{ $emoji }}</span>
-                        <h3 class="font-display text-lg font-semibold text-white mb-2">{{ $title }}</h3>
-                        <p class="text-slate-400 text-sm">{{ $desc }}</p>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <x-frontend-base.badge variant="accent" class="mb-6 bg-white/10 text-brand-100 border-white/20">TimeNest AI</x-frontend-base.badge>
+                    <h2 class="font-display text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">Intelligence embedded into every workflow.</h2>
+                    <p class="text-lg text-brand-100/80 mb-10 leading-relaxed">
+                        We didn't just bolt on a chatbot. TimeNest AI monitors your operations in the background, surfacing insights, detecting anomalies, and automating routine administrative tasks before you even ask.
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        @foreach([
+                            ['AI Workforce Analyst', 'Detect attendance anomalies, leave abuse patterns, and overtime risks.', 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
+                            ['AI Fraud Detection', 'Identify location spoofing, fake attendance, and suspicious reimbursements.', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
+                            ['AI Executive Dashboards', 'Ask complex business queries in plain English and get visual answers.', 'M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'],
+                            ['AI Freelancer Assistant', 'Smart invoice categorization, payment risk assessment, and revenue prediction.', 'M13 10V3L4 14h7v7l9-11h-7z'],
+                        ] as [$title, $desc, $icon])
+                            <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                                <svg class="w-6 h-6 text-brand-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icon }}"/></svg>
+                                <h3 class="font-display font-semibold text-white mb-2">{{ $title }}</h3>
+                                <p class="text-brand-100/70 text-sm leading-relaxed">{{ $desc }}</p>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-            <div class="text-center mt-10">
-                <x-frontend-base.button href="{{ route('frontend.ai') }}" variant="primary" color="brand" size="lg">Explore TimeNest AI</x-frontend-base.button>
+                </div>
+                
+                <div class="relative hidden lg:block">
+                    <div class="bg-surface/50 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-white font-medium">TimeNest AI Agent</p>
+                                <p class="text-brand-200/60 text-sm">Analyzing current month operations...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white/10 rounded-xl p-4 border border-white/5 animate-pulse">
+                                <div class="h-4 bg-white/20 rounded w-3/4 mb-3"></div>
+                                <div class="h-3 bg-white/10 rounded w-full mb-2"></div>
+                                <div class="h-3 bg-white/10 rounded w-5/6"></div>
+                            </div>
+                            <div class="bg-white/5 rounded-xl p-4 border border-white/5 border-l-4 border-l-amber-500">
+                                <h4 class="text-white font-medium mb-1">Anomaly Detected</h4>
+                                <p class="text-brand-100/70 text-sm">Design team has logged 15% more overtime this week compared to monthly average. Risk of burnout is high.</p>
+                            </div>
+                            <div class="bg-white/5 rounded-xl p-4 border border-white/5 border-l-4 border-l-brand-500">
+                                <h4 class="text-white font-medium mb-1">Revenue Forecast</h4>
+                                <p class="text-brand-100/70 text-sm">Based on current billable hours, Q3 revenue is projected to exceed targets by 8.5%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    {{-- Section 8: Stats Strip --}}
+    {{-- Section 6: Stats Strip --}}
     <x-frontend-sections.stats-strip :stats="$stats" />
 
-    {{-- Section 9: Solutions Teaser --}}
-    <section class="py-20 bg-surface">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Solutions for every operation" subtitle="Purpose-built solutions that map to your organizational needs." badge="Solutions" />
-            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                @foreach([
-                    ['Workforce Management', 'Employees, attendance, leaves, shifts', 'workforce-management'],
-                    ['Operations Management', 'Departments, teams, workflows, approvals', 'operations-management'],
-                    ['Financial Operations', 'Invoices, payments, revenue tracking', 'financial-operations'],
-                    ['Freelancer Management', 'Clients, leads, projects, tasks', 'freelancer-management'],
-                    ['AI Operations', 'Intelligence for every workflow', 'ai-operations'],
-                ] as [$title, $desc, $slug])
-                    <a href="{{ route('frontend.solutions.show', $slug) }}" class="group rounded-xl border border-surface-border bg-surface-card p-5 hover:border-brand-500/30 transition-all">
-                        <h3 class="font-display text-sm font-semibold text-white mb-1 group-hover:text-brand-400 transition-colors">{{ $title }}</h3>
-                        <p class="text-slate-500 text-xs">{{ $desc }}</p>
-                    </a>
-                @endforeach
+    {{-- Section 7: Interactive ROI Calculator --}}
+    <section class="py-24 bg-surface-50 border-y border-surface-border" x-data="{ 
+        employees: 50, 
+        hrSize: 3, 
+        avgSalary: 50000, 
+        get timeSaved() { return Math.round(this.employees * 0.5 + this.hrSize * 8) }, 
+        get moneySaved() { return Math.round((this.timeSaved * 12 * this.avgSalary) / (22 * 8 * 12)) }, 
+        get productivity() { return Math.min(Math.round(this.employees * 0.15 + this.hrSize * 2), 45) } 
+    }">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Calculate your exact ROI</h2>
+                <p class="text-content-muted text-lg">See how much time and money TimeNest can save your organization by eliminating manual tasks and tool sprawl.</p>
             </div>
-        </div>
-    </section>
-
-    {{-- Section 10: Industries --}}
-    <section class="py-20 bg-surface-card/30">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Built for every industry" subtitle="TimeNest adapts to the unique needs of your industry." badge="Industries" />
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                @foreach([
-                    ['Startups', 'Scale your team operations from day one', 'startups'],
-                    ['IT Companies', 'Manage distributed tech teams efficiently', 'it-companies'],
-                    ['Agencies', 'Coordinate freelancers and creative teams', 'agencies'],
-                    ['Consulting Firms', 'Track billable hours and client projects', 'consulting-firms'],
-                    ['Manufacturing', 'Shift management and compliance tracking', 'manufacturing'],
-                    ['Healthcare', 'Staff scheduling and credential management', 'healthcare'],
-                    ['Retail', 'Multi-location workforce coordination', 'retail'],
-                    ['Education', 'Faculty management and scheduling', 'education'],
-                ] as [$title, $desc, $slug])
-                    <a href="{{ route('frontend.industries.show', $slug) }}" class="group rounded-xl border border-surface-border bg-surface-card p-5 hover:border-brand-500/30 transition-all">
-                        <h3 class="font-display text-sm font-semibold text-white mb-1 group-hover:text-brand-400 transition-colors">{{ $title }}</h3>
-                        <p class="text-slate-500 text-xs">{{ $desc }}</p>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    {{-- Section 12: ROI Calculator --}}
-    <section class="py-20 bg-surface" x-data="{ employees: 50, hrSize: 3, avgSalary: 50000, get timeSaved() { return Math.round(this.employees * 0.5 + this.hrSize * 8) }, get moneySaved() { return Math.round((this.timeSaved * 12 * this.avgSalary) / (22 * 8 * 12)) }, get productivity() { return Math.min(Math.round(this.employees * 0.15 + this.hrSize * 2), 45) } }">
-        <div class="max-w-4xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Calculate your ROI" subtitle="See how much time and money TimeNest can save your organization." badge="ROI Calculator" />
-            <div class="rounded-xl border border-surface-border bg-surface-card p-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-6">
+            
+            <div class="rounded-3xl border border-surface-border bg-white shadow-xl p-8 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-10">
                         <div>
-                            <label class="text-sm text-slate-400 block mb-2">Number of Employees</label>
-                            <input type="range" min="10" max="1000" x-model="employees" class="w-full accent-brand-500">
-                            <p class="text-white font-display text-lg mt-1" x-text="employees + ' employees'"></p>
+                            <div class="flex justify-between mb-3">
+                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">Number of Employees</label>
+                                <span class="font-display font-bold text-brand-600" x-text="employees"></span>
+                            </div>
+                            <input type="range" min="10" max="1000" x-model="employees" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
                         </div>
                         <div>
-                            <label class="text-sm text-slate-400 block mb-2">HR Team Size</label>
-                            <input type="range" min="1" max="20" x-model="hrSize" class="w-full accent-brand-500">
-                            <p class="text-white font-display text-lg mt-1" x-text="hrSize + ' people'"></p>
+                            <div class="flex justify-between mb-3">
+                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">HR/Ops Team Size</label>
+                                <span class="font-display font-bold text-brand-600" x-text="hrSize"></span>
+                            </div>
+                            <input type="range" min="1" max="20" x-model="hrSize" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
                         </div>
                         <div>
-                            <label class="text-sm text-slate-400 block mb-2">Average Monthly Salary (â‚¹)</label>
-                            <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" class="w-full accent-brand-500">
-                            <p class="text-white font-display text-lg mt-1" x-text="'â‚¹' + Number(avgSalary).toLocaleString()"></p>
+                            <div class="flex justify-between mb-3">
+                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">Avg Monthly Salary (₹)</label>
+                                <span class="font-display font-bold text-brand-600" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
+                            </div>
+                            <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
                         </div>
                     </div>
-                    <div class="space-y-6">
-                        <div class="rounded-lg bg-surface p-6 border border-surface-border">
-                            <p class="text-slate-400 text-sm mb-1">Time Saved per Month</p>
-                            <p class="font-display text-3xl font-bold text-brand-400" x-text="timeSaved + ' hours'"></p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="rounded-2xl bg-brand-50 p-6 border border-brand-100 flex flex-col justify-center shadow-sm">
+                            <p class="text-brand-700 text-sm font-medium mb-2 uppercase tracking-wider">Time Saved Monthly</p>
+                            <p class="font-display text-4xl font-bold text-brand-600 mb-1" x-text="timeSaved + ' hrs'"></p>
+                            <p class="text-brand-600/70 text-xs">Automating approvals & attendance</p>
                         </div>
-                        <div class="rounded-lg bg-surface p-6 border border-surface-border">
-                            <p class="text-slate-400 text-sm mb-1">Money Saved per Year</p>
-                            <p class="font-display text-3xl font-bold text-green-400" x-text="'â‚¹' + Number(moneySaved).toLocaleString()"></p>
+                        <div class="rounded-2xl bg-indigo-50 p-6 border border-indigo-100 flex flex-col justify-center shadow-sm">
+                            <p class="text-indigo-700 text-sm font-medium mb-2 uppercase tracking-wider">Productivity Boost</p>
+                            <p class="font-display text-4xl font-bold text-indigo-600 mb-1" x-text="'+' + productivity + '%'"></p>
+                            <p class="text-indigo-600/70 text-xs">Due to centralized workflows</p>
                         </div>
-                        <div class="rounded-lg bg-surface p-6 border border-surface-border">
-                            <p class="text-slate-400 text-sm mb-1">Productivity Improvement</p>
-                            <p class="font-display text-3xl font-bold text-accent-400" x-text="productivity + '%'"></p>
+                        <div class="sm:col-span-2 rounded-2xl bg-green-50 p-8 border border-green-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
+                            <svg class="absolute right-0 bottom-0 text-green-200/50 w-32 h-32 -mr-8 -mb-8 transform rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <p class="text-green-700 text-sm font-medium mb-2 uppercase tracking-wider relative z-10">Estimated Annual Savings</p>
+                            <p class="font-display text-5xl font-bold text-green-600 relative z-10" x-text="'₹' + Number(moneySaved).toLocaleString()"></p>
                         </div>
                     </div>
                 </div>
@@ -236,44 +385,85 @@
         </div>
     </section>
 
-    {{-- Section 13: Testimonials --}}
-    <section class="py-20 bg-surface-card/30">
+    {{-- Section 8: Testimonials --}}
+    <section class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="What our users say" subtitle="Real feedback from teams using TimeNest every day." badge="Testimonials" />
-            <div class="grid md:grid-cols-3 gap-6">
+            <x-frontend-sections.section-header title="Loved by forward-thinking teams" subtitle="Don't just take our word for it. Here's what our users have to say about TimeNest." badge="Testimonials" />
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
                 @foreach($testimonials as $t)
-                    <x-frontend-cards.testimonial-card :name="$t['name']" :role="$t['role']" :company="$t['company']" :content="$t['content']" :rating="$t['rating']" />
+                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-surface-border/20 border border-surface-border">
+                        <div class="flex items-center gap-1 mb-6">
+                            @for($i=0; $i<$t['rating']; $i++)
+                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            @endfor
+                        </div>
+                        <p class="text-content-strong text-lg mb-8 leading-relaxed">"{{ $t['content'] }}"</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 font-bold font-display">
+                                {{ substr($t['name'], 0, 1) }}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-content-strong">{{ $t['name'] }}</h4>
+                                <p class="text-sm text-content-muted">{{ $t['role'] }}, {{ $t['company'] }}</p>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    {{-- Section 14: Security Strip --}}
-    <section class="py-12 bg-surface border-y border-surface-border">
+    {{-- Section 9: Security & Compliance --}}
+    <section class="py-16 bg-surface-50 border-y border-surface-border">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                @foreach([['ðŸ”', 'JWT Authentication'], ['ðŸ”’', 'Data Encryption'], ['ðŸ“‹', 'Audit Logs'], ['ðŸŒ', 'GDPR Ready']] as [$icon, $label])
-                    <div><span class="text-2xl block mb-2">{{ $icon }}</span><p class="text-slate-400 text-sm font-body">{{ $label }}</p></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                @foreach([
+                    ['M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'Enterprise Security'], 
+                    ['M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', 'Data Encryption'], 
+                    ['M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', 'Complete Audit Logs'], 
+                    ['M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'GDPR Ready']
+                ] as [$icon, $label])
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-surface-border shadow-sm flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icon }}"/></svg>
+                        </div>
+                        <p class="text-content-strong font-semibold text-sm uppercase tracking-wider">{{ $label }}</p>
+                    </div>
                 @endforeach
             </div>
         </div>
     </section>
 
-    {{-- Section 16: FAQ --}}
-    <section class="py-20 bg-surface">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Frequently Asked Questions" subtitle="Everything you need to know about TimeNest." badge="FAQs" />
+    {{-- Section 10: FAQ --}}
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-3xl font-bold text-content-strong mb-4">Frequently Asked Questions</h2>
+                <p class="text-content-muted text-lg">Everything you need to know about implementing TimeNest for your organization.</p>
+            </div>
+            <x-frontend-sections.faq-block :faqs="$faqs" />
         </div>
-        <x-frontend-sections.faq-block :faqs="$faqs" />
     </section>
 
-    {{-- Section 17: Final CTA --}}
-    <x-frontend-sections.cta-block
-        headline="Stop stitching tools together."
-        subheadline="One platform. Every workflow."
-        primaryCtaText="Book Demo"
-        primaryCtaUrl="{{ route('frontend.book-demo') }}"
-        secondaryCtaText="Start Free"
-        secondaryCtaUrl="/register"
-    />
+    {{-- Section 11: Final CTA --}}
+    <section class="py-24 bg-brand-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-600 to-indigo-600 opacity-90"></div>
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')]"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-6">Stop stitching tools together.</h2>
+            <p class="text-xl text-white/80 mb-10 max-w-2xl mx-auto">Join thousands of teams running their entire workforce, operations, and freelancers on a single, intelligent platform.</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <x-frontend-base.button href="/register" variant="primary" color="white" size="lg" class="w-full sm:w-auto h-14 px-8 text-brand-700 bg-white hover:bg-surface-50 shadow-xl">
+                    Start for Free
+                </x-frontend-base.button>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="white" size="lg" class="w-full sm:w-auto h-14 px-8 text-white border-white/30 hover:bg-white/10">
+                    Book a Demo
+                </x-frontend-base.button>
+            </div>
+            <p class="text-white/60 text-sm mt-6">No credit card required. 14-day free trial on Pro plans.</p>
+        </div>
+    </section>
 </x-frontend-layout.app>

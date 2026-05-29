@@ -13,9 +13,9 @@
                         <div class="h-40 bg-gradient-to-br from-surface to-surface-elevated"></div>
                         <div class="p-6">
                             <x-frontend-base.badge variant="brand" class="mb-3">{{ $category }}</x-frontend-base.badge>
-                            <h3 class="font-display text-base font-semibold text-white mb-2">{{ $title }}</h3>
-                            <p class="text-slate-400 text-sm mb-3">{{ $excerpt }}</p>
-                            <p class="text-slate-500 text-xs">{{ $date }}</p>
+                            <h3 class="font-display text-base font-semibold text-content-strong mb-2">{{ $title }}</h3>
+                            <p class="text-content-muted text-sm mb-3">{{ $excerpt }}</p>
+                            <p class="text-content-light text-xs">{{ $date }}</p>
                         </div>
                     </div>
                 @endforeach

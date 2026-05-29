@@ -33,10 +33,17 @@ export default {
           900: '#312e81',
         },
         surface: {
-          DEFAULT: '#0f172a',
-          card:    '#1e293b',
-          elevated: '#273548',
-          border:  '#334155',
+          DEFAULT: '#ffffff',     /* White background */
+          50:      '#f8fafc',     /* Off-white */
+          100:     '#f1f5f9',     /* Soft gray */
+          card:    '#ffffff',     /* Card background */
+          border:  '#e2e8f0',     /* Borders */
+        },
+        content: {
+          strong:  '#0f172a',     /* text-slate-900 equivalent */
+          DEFAULT: '#334155',     /* text-slate-700 equivalent */
+          muted:   '#64748b',     /* text-slate-500 equivalent */
+          light:   '#94a3b8',     /* text-slate-400 equivalent */
         },
       },
       fontFamily: {

@@ -5,7 +5,7 @@
             <!-- PLACEHOLDER â€” replace with real content -->
             <div class="rounded-xl border border-dashed border-surface-border bg-surface-card/50 p-12 text-center">
                 <span class="text-4xl block mb-4">ðŸ“š</span>
-                <p class="text-slate-400">Documentation is being prepared. Check back soon.</p>
+                <p class="text-content-muted">Documentation is being prepared. Check back soon.</p>
             </div>
         </div>
     </section>

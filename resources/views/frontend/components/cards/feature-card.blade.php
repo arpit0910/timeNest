@@ -4,8 +4,8 @@
             <span class="text-brand-400 w-5 h-5">{!! $icon !!}</span>
         </div>
     @endif
-    <h3 class="font-display text-lg font-semibold text-white mb-2">{{ $title }}</h3>
-    <p class="text-slate-400 text-sm leading-relaxed">{{ $description }}</p>
+    <h3 class="font-display text-lg font-semibold text-content-strong mb-2">{{ $title }}</h3>
+    <p class="text-content-muted text-sm leading-relaxed">{{ $description }}</p>
     @if($href)
         <a href="{{ $href }}" class="inline-flex items-center gap-1 text-brand-400 text-sm mt-3 hover:text-brand-300 transition-colors">
             Learn more

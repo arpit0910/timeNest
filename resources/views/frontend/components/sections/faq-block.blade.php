@@ -7,13 +7,13 @@
                         @click="openIndex = openIndex === {{ $index }} ? null : {{ $index }}"
                         class="w-full flex items-center justify-between px-6 py-4 text-left cursor-pointer"
                     >
-                        <span class="font-body font-medium text-white pr-4">{{ $faq['question'] }}</span>
-                        <svg class="w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200" :class="openIndex === {{ $index }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <span class="font-body font-medium text-content-strong pr-4">{{ $faq['question'] }}</span>
+                        <svg class="w-5 h-5 text-content-muted shrink-0 transition-transform duration-200" :class="openIndex === {{ $index }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div x-show="openIndex === {{ $index }}" x-collapse x-cloak class="px-6 pb-4">
-                        <p class="text-slate-400 text-sm leading-relaxed">{{ $faq['answer'] }}</p>
+                        <p class="text-content-muted text-sm leading-relaxed">{{ $faq['answer'] }}</p>
                     </div>
                 </div>
             @endforeach

@@ -12,13 +12,13 @@ $data = $solutions[$slug] ?? abort(404);
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <x-frontend-base.badge variant="brand" class="mb-4">Solutions</x-frontend-base.badge>
-            <h1 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4">{{ $data['title'] }}</h1>
-            <p class="text-slate-400 text-lg mb-12">{{ $data['desc'] }}</p>
+            <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">{{ $data['title'] }}</h1>
+            <p class="text-content-muted text-lg mb-12">{{ $data['desc'] }}</p>
             <div class="grid sm:grid-cols-2 gap-6">
                 @foreach($data['features'] as $f)
                     <div class="rounded-xl border border-surface-border bg-surface-card p-6">
                         <svg class="w-5 h-5 text-brand-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <h3 class="font-display text-base font-semibold text-white">{{ $f }}</h3>
+                        <h3 class="font-display text-base font-semibold text-content-strong">{{ $f }}</h3>
                     </div>
                 @endforeach
             </div>

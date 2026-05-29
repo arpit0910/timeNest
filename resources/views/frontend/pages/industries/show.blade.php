@@ -15,23 +15,23 @@ $data = $industries[$slug] ?? abort(404);
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <x-frontend-base.badge variant="brand" class="mb-4">Industries</x-frontend-base.badge>
-            <h1 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4">TimeNest for {{ $data['title'] }}</h1>
-            <p class="text-slate-400 text-lg mb-12">{{ $data['tagline'] }}</p>
+            <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">TimeNest for {{ $data['title'] }}</h1>
+            <p class="text-content-muted text-lg mb-12">{{ $data['tagline'] }}</p>
 
             <div class="grid md:grid-cols-2 gap-8 mb-16">
                 <div>
                     <h2 class="font-display text-xl font-semibold text-red-400 mb-4">Industry Challenges</h2>
-                    <ul class="space-y-3">@foreach($data['challenges'] as $c)<li class="flex items-start gap-3 text-slate-300 text-sm"><span class="text-red-400 mt-0.5">âœ•</span>{{ $c }}</li>@endforeach</ul>
+                    <ul class="space-y-3">@foreach($data['challenges'] as $c)<li class="flex items-start gap-3 text-content text-sm"><span class="text-red-400 mt-0.5">âœ•</span>{{ $c }}</li>@endforeach</ul>
                 </div>
                 <div>
                     <h2 class="font-display text-xl font-semibold text-brand-400 mb-4">TimeNest Solution</h2>
-                    <ul class="space-y-3">@foreach($data['benefits'] as $b)<li class="flex items-start gap-3 text-slate-300 text-sm"><svg class="w-4 h-4 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>{{ $b }}</li>@endforeach</ul>
+                    <ul class="space-y-3">@foreach($data['benefits'] as $b)<li class="flex items-start gap-3 text-content text-sm"><svg class="w-4 h-4 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>{{ $b }}</li>@endforeach</ul>
                 </div>
             </div>
 
             <!-- PLACEHOLDER â€” replace with real content -->
             <div class="rounded-xl border border-dashed border-surface-border bg-surface-card/50 p-8 text-center">
-                <p class="text-slate-500 text-sm">ðŸ“– Case study coming soon</p>
+                <p class="text-content-light text-sm">ðŸ“– Case study coming soon</p>
                 <x-frontend-base.button href="{{ route('frontend.contact') }}" variant="outline" color="white" size="sm" class="mt-4">Be Our First Success Story</x-frontend-base.button>
             </div>
         </div>

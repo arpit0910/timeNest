@@ -13,12 +13,12 @@
             </div>
 
             {{-- Headline --}}
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-slide-up">
+            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-content-strong leading-tight mb-6 animate-slide-up">
                 {!! $headline !!}
             </h1>
 
             {{-- Sub-headline --}}
-            <p class="font-body text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style="animation-delay: 0.1s">
+            <p class="font-body text-lg sm:text-xl text-content-muted max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style="animation-delay: 0.1s">
                 {{ $subheadline }}
             </p>
 
@@ -45,21 +45,21 @@
                     <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500/60"></span>
                     <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
-                    <span class="ml-4 text-xs text-slate-500 font-mono">app.timenest.in</span>
+                    <span class="ml-4 text-xs text-content-light font-mono">app.timenest.in</span>
                 </div>
                 <div class="aspect-video bg-gradient-to-br from-surface to-surface-card p-8">
                     {{-- Simulated Dashboard UI --}}
                     <div class="grid grid-cols-4 gap-4 mb-6">
                         @foreach(['Total Employees' => '1,247', 'Present Today' => '1,189', 'On Leave' => '43', 'Active Shifts' => '12'] as $label => $value)
                             <div class="rounded-lg bg-surface border border-surface-border p-4">
-                                <p class="text-xs text-slate-500 mb-1">{{ $label }}</p>
-                                <p class="text-2xl font-display font-bold text-white">{{ $value }}</p>
+                                <p class="text-xs text-content-light mb-1">{{ $label }}</p>
+                                <p class="text-2xl font-display font-bold text-content-strong">{{ $value }}</p>
                             </div>
                         @endforeach
                     </div>
                     <div class="grid grid-cols-3 gap-4">
                         <div class="col-span-2 rounded-lg bg-surface border border-surface-border p-4 h-40">
-                            <p class="text-xs text-slate-500 mb-3">Attendance Overview</p>
+                            <p class="text-xs text-content-light mb-3">Attendance Overview</p>
                             <div class="flex items-end gap-1.5 h-24">
                                 @foreach([65, 80, 55, 90, 75, 85, 70, 95, 60, 88, 72, 92] as $h)
                                     <div class="flex-1 rounded-sm bg-brand-500/30" style="height: {{ $h }}%"></div>
@@ -67,12 +67,12 @@
                             </div>
                         </div>
                         <div class="rounded-lg bg-surface border border-surface-border p-4 h-40">
-                            <p class="text-xs text-slate-500 mb-3">Department Split</p>
+                            <p class="text-xs text-content-light mb-3">Department Split</p>
                             <div class="space-y-2 mt-4">
                                 @foreach(['Engineering' => '35%', 'Design' => '20%', 'Sales' => '25%', 'Operations' => '20%'] as $dept => $pct)
                                     <div class="flex justify-between text-xs">
-                                        <span class="text-slate-400">{{ $dept }}</span>
-                                        <span class="text-white">{{ $pct }}</span>
+                                        <span class="text-content-muted">{{ $dept }}</span>
+                                        <span class="text-content-strong">{{ $pct }}</span>
                                     </div>
                                 @endforeach
                             </div>

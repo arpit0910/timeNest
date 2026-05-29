@@ -3,8 +3,8 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center mb-16">
                 <x-frontend-base.badge variant="brand" class="mb-4">For Organizations</x-frontend-base.badge>
-                <h1 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4">Complete workforce management</h1>
-                <p class="text-slate-400 text-lg">From startups to enterprise â€” manage your entire workforce, operations, and compliance in one platform.</p>
+                <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">Complete workforce management</h1>
+                <p class="text-content-muted text-lg">From startups to enterprise â€” manage your entire workforce, operations, and compliance in one platform.</p>
                 <div class="flex justify-center gap-4 mt-8">
                     <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="primary" color="brand" size="lg">Book a Demo</x-frontend-base.button>
                     <x-frontend-base.button href="{{ route('frontend.pricing') }}" variant="outline" color="white" size="lg">View Pricing</x-frontend-base.button>
@@ -24,8 +24,8 @@
                 ] as [$emoji, $title, $desc])
                     <div class="rounded-xl border border-surface-border bg-surface-card p-6">
                         <span class="text-2xl mb-3 block">{{ $emoji }}</span>
-                        <h3 class="font-display text-base font-semibold text-white mb-1">{{ $title }}</h3>
-                        <p class="text-slate-400 text-sm">{{ $desc }}</p>
+                        <h3 class="font-display text-base font-semibold text-content-strong mb-1">{{ $title }}</h3>
+                        <p class="text-content-muted text-sm">{{ $desc }}</p>
                     </div>
                 @endforeach
             </div>

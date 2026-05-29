@@ -15,8 +15,8 @@
                     <div class="rounded-xl border border-surface-border bg-surface-card p-6 flex gap-4">
                         <span class="text-3xl shrink-0">{{ $icon }}</span>
                         <div>
-                            <h3 class="font-display text-lg font-semibold text-white mb-2">{{ $title }}</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">{{ $desc }}</p>
+                            <h3 class="font-display text-lg font-semibold text-content-strong mb-2">{{ $title }}</h3>
+                            <p class="text-content-muted text-sm leading-relaxed">{{ $desc }}</p>
                         </div>
                     </div>
                 @endforeach
