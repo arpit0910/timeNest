@@ -37,10 +37,14 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-sections-cta-block' => \App\View\Components\Frontend\Sections\CtaBlock::class,
             'frontend-sections-faq-block' => \App\View\Components\Frontend\Sections\FaqBlock::class,
             'frontend-sections-feature-grid' => \App\View\Components\Frontend\Sections\FeatureGrid::class,
+            'frontend-sections-carousel' => \App\View\Components\Frontend\Sections\Carousel::class,
+            'frontend-sections-fingerprint-animation' => \App\View\Components\Frontend\Sections\FingerprintAnimation::class,
+            'frontend-sections-gear-animation' => \App\View\Components\Frontend\Sections\GearAnimation::class,
             'frontend-sections-hero-section' => \App\View\Components\Frontend\Sections\HeroSection::class,
             'frontend-sections-logo-strip' => \App\View\Components\Frontend\Sections\LogoStrip::class,
             'frontend-sections-section-header' => \App\View\Components\Frontend\Sections\SectionHeader::class,
             'frontend-sections-stats-strip' => \App\View\Components\Frontend\Sections\StatsStrip::class,
+            'frontend-sections-ticker' => \App\View\Components\Frontend\Sections\Ticker::class,
             
             // Also register dot notation versions since I modified some files!
             'frontend-base.badge' => \App\View\Components\Frontend\Base\Badge::class,
@@ -57,14 +61,21 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-sections.cta-block' => \App\View\Components\Frontend\Sections\CtaBlock::class,
             'frontend-sections.faq-block' => \App\View\Components\Frontend\Sections\FaqBlock::class,
             'frontend-sections.feature-grid' => \App\View\Components\Frontend\Sections\FeatureGrid::class,
+            'frontend-sections.carousel' => \App\View\Components\Frontend\Sections\Carousel::class,
+            'frontend-sections.fingerprint-animation' => \App\View\Components\Frontend\Sections\FingerprintAnimation::class,
+            'frontend-sections.gear-animation' => \App\View\Components\Frontend\Sections\GearAnimation::class,
             'frontend-sections.hero-section' => \App\View\Components\Frontend\Sections\HeroSection::class,
             'frontend-sections.logo-strip' => \App\View\Components\Frontend\Sections\LogoStrip::class,
             'frontend-sections.section-header' => \App\View\Components\Frontend\Sections\SectionHeader::class,
             'frontend-sections.stats-strip' => \App\View\Components\Frontend\Sections\StatsStrip::class,
+            'frontend-sections.ticker' => \App\View\Components\Frontend\Sections\Ticker::class,
         ];
 
         foreach ($components as $alias => $class) {
             Blade::component($alias, $class);
         }
+
+        // Register anonymous components path for the newly added components
+        Blade::anonymousComponentPath(resource_path('views/frontend/components/sections'), 'frontend-sections');
     }
 }

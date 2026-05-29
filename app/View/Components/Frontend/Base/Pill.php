@@ -13,7 +13,7 @@ class Pill extends Component
 
     public function pillClasses(): string
     {
-        $base = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-body font-medium border';
+        $base = 'inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-body font-medium border';
         $variant = match($this->variant) {
             'brand'  => 'bg-brand-500/10 text-brand-400 border-brand-500/20',
             'accent' => 'bg-accent-500/10 text-accent-400 border-accent-500/20',

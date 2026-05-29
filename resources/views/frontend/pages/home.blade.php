@@ -34,8 +34,8 @@
                 <x-frontend-base.button href="/register" variant="primary" color="brand" size="lg" class="w-full sm:w-auto h-14 px-8 text-base shadow-lg shadow-brand-500/20">
                     Start for Free
                 </x-frontend-base.button>
-                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="surface" size="lg" class="w-full sm:w-auto h-14 px-8 text-base bg-white border-surface-border text-content-strong hover:bg-surface-50">
-                    <svg class="w-5 h-5 mr-2 text-content-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="surface" size="lg" class="w-full sm:w-auto h-14 px-8 text-base bg-white border-2 border-content-strong text-content-strong hover:bg-content-strong hover:text-white transition-all shadow-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Book a Demo
                 </x-frontend-base.button>
             </div>
@@ -50,9 +50,17 @@
                 </div>
             </div>
             
-            {{-- Logo Strip --}}
+            {{-- Ticker Component replacing static logo strip --}}
             <div class="mt-24 pt-10 border-t border-surface-border/50">
-                <x-frontend-sections.logo-strip title="Trusted by forward-thinking teams globally" />
+                <p class="text-center text-sm font-semibold text-content-muted uppercase tracking-wider mb-8">Trusted by forward-thinking teams globally</p>
+                <x-frontend-sections.ticker :items="[
+                    ['name' => 'Acme Corp', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M13 10V3L4 14h7v7l9-11h-7z\'/>'],
+                    ['name' => 'Stark Industries', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4\'/>'],
+                    ['name' => 'Wayne Ent', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3\'/>'],
+                    ['name' => 'Globex', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9\'/>'],
+                    ['name' => 'Soylent', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10\'/>'],
+                    ['name' => 'Initech', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z\'/>'],
+                ]" />
             </div>
         </div>
     </section>
@@ -113,7 +121,7 @@
 
                 @foreach($roleData as $key => $data)
                     <div x-show="activeTab === '{{ $key }}'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-8 lg:p-12">
-                        <div class="grid lg:grid-cols-3 gap-12">
+                        <div class="grid lg:grid-cols-3 gap-12 items-center">
                             <div class="space-y-4">
                                 <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
                                     <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -130,19 +138,27 @@
                                 <p class="text-content-muted leading-relaxed">{{ $data['solution'] }}</p>
                             </div>
 
-                            <div class="space-y-4 bg-surface-50 p-6 rounded-xl border border-surface-border">
-                                <h3 class="font-display text-lg font-bold text-content-strong flex items-center gap-2">
-                                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                                    Key Modules
-                                </h3>
-                                <ul class="space-y-3 mt-4">
-                                    @foreach($data['modules'] as $module)
-                                        <li class="flex items-center gap-3 text-content-strong font-medium text-sm">
-                                            <div class="w-1.5 h-1.5 rounded-full bg-brand-500"></div>
-                                            {{ $module }}
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            <div>
+                                @if($key === 'hr')
+                                    <x-frontend-sections.fingerprint-animation />
+                                @elseif($key === 'operations')
+                                    <x-frontend-sections.gear-animation />
+                                @else
+                                    <div class="space-y-4 bg-surface-50 p-6 rounded-xl border border-surface-border h-full">
+                                        <h3 class="font-display text-lg font-bold text-content-strong flex items-center gap-2">
+                                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                            Key Modules
+                                        </h3>
+                                        <ul class="space-y-3 mt-4">
+                                            @foreach($data['modules'] as $module)
+                                                <li class="flex items-center gap-3 text-content-strong font-medium text-sm">
+                                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500"></div>
+                                                    {{ $module }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -203,6 +219,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="mt-20">
+            <x-frontend-sections.carousel :slides="[
+                ['title' => 'Real-time AI Analytics', 'description' => 'Instantly detect anomalies in attendance data, forecast revenue, and monitor productivity trends without running a single manual report.', 'badge' => 'TimeNest AI', 'image' => '/images/mockups/ai-analytics.png', 'url' => route('frontend.ai')],
+                ['title' => 'Smart Shift Builder', 'description' => 'Drag-and-drop shift scheduling with automated conflict resolution. TimeNest ensures complete compliance with labor laws automatically.', 'badge' => 'Workforce Core', 'image' => '/images/mockups/hero-dashboard.png', 'url' => '#'],
+                ['title' => 'Collaborative Workspaces', 'description' => 'Share projects, manage freelance teams, and consolidate invoicing into one unified platform for your creative agency.', 'badge' => 'Agencies', 'image' => '/images/mockups/ai-analytics.png', 'url' => '#'],
+            ]" />
         </div>
     </section>
 

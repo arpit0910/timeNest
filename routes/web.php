@@ -22,6 +22,7 @@ use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\DemoController;
 use App\Http\Controllers\Frontend\LegalController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\ProductFeatureController;
 
 Route::prefix('')->name('frontend.')->group(function () {
     // Core
@@ -36,6 +37,9 @@ Route::prefix('')->name('frontend.')->group(function () {
     Route::get('/product/organizations', [ProductController::class, 'organizations'])->name('product.organizations');
     Route::get('/product/freelancers', [ProductController::class, 'freelancers'])->name('product.freelancers');
     Route::get('/product/freelance-workspace', [ProductController::class, 'workspace'])->name('product.workspace');
+
+    // Dynamic Features (Workforce, Operations, AI)
+    Route::get('/feature/{category}/{slug}', [ProductFeatureController::class, 'show'])->name('feature.show');
 
     // Solutions
     Route::get('/solutions/{slug}', [SolutionsController::class, 'show'])->name('solutions.show');
