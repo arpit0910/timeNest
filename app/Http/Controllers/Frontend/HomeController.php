@@ -9,10 +9,10 @@ class HomeController extends Controller
     public function index()
     {
         $stats = [
-            ['value' => '500', 'suffix' => '+', 'label' => 'Organizations'],
-            ['value' => '10,000', 'suffix' => '+', 'label' => 'Freelancers'],
-            ['value' => '25', 'suffix' => '+', 'label' => 'Modules'],
-            ['value' => '12', 'suffix' => '+', 'label' => 'Countries'],
+            ['value' => '50000', 'suffix' => '+', 'label' => 'Attendance Records Processed'],
+            ['value' => '1', 'suffix' => 'M+', 'label' => 'Work Hours Tracked'],
+            ['value' => '100', 'prefix' => '₹', 'suffix' => 'M+', 'label' => 'Operational Costs Optimized'],
+            ['value' => '99', 'suffix' => '.9%', 'label' => 'Compliance Accuracy'],
         ];
 
         $faqs = [

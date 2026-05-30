@@ -1820,205 +1820,639 @@
         </div>
     </section>
 
-    {{-- Section 5: AI Platform --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-brand-900 relative overflow-hidden text-white">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz48L2c+PC9zdmc+')] opacity-20"></div>
-        <div class="absolute right-0 top-0 w-[800px] h-[800px] bg-brand-500/20 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+    {{-- Section 5: AI Platform (Refined) --}}
+    <section class="py-16 sm:py-24 lg:py-32 bg-slate-950 relative overflow-hidden text-white border-y border-white/5">
+        
+        <!-- Ambient Deep Background Layering -->
+        <div class="absolute inset-0 bg-slate-950 pointer-events-none">
+            <!-- Core Deep Gradients -->
+            <div class="absolute top-0 right-0 w-[1000px] h-[800px] bg-brand-600/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4"></div>
+            <div class="absolute bottom-0 left-0 w-[800px] h-[600px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/5 rounded-full blur-[120px] mix-blend-screen"></div>
+            
+            <!-- AI Data Visualization SVG Pattern (Very Low Opacity) -->
+            <div class="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwaDQwdjQwSDBWMHptMjAgMjBjNS41MjMgMCAxMC00LjQ3NyAxMC0xMFMzMS41MjMgMCAyNiAwSDB2MjZoMjZ6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=')] mix-blend-overlay"></div>
+        </div>
         
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <x-frontend-base.badge variant="accent" class="mb-6 bg-white/10 text-brand-100 border-white/20">TimeNest AI</x-frontend-base.badge>
-                    <h2 class="font-display text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">Intelligence embedded into every workflow.</h2>
-                    <p class="text-lg text-brand-100/80 mb-10 leading-relaxed">
-                        We didn't just bolt on a chatbot. TimeNest AI monitors your operations in the background, surfacing insights, detecting anomalies, and automating routine administrative tasks before you even ask.
-                    </p>
-                    
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        @foreach([
-                            ['AI Workforce Analyst', 'Detect attendance anomalies, leave abuse patterns, and overtime risks.', 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
-                            ['AI Fraud Detection', 'Identify location spoofing, fake attendance, and suspicious reimbursements.', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
-                            ['AI Executive Dashboards', 'Ask complex business queries in plain English and get visual answers.', 'M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'],
-                            ['AI Freelancer Assistant', 'Smart invoice categorization, payment risk assessment, and revenue prediction.', 'M13 10V3L4 14h7v7l9-11h-7z'],
-                        ] as [$title, $desc, $icon])
-                            <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors">
-                                <svg class="w-6 h-6 text-brand-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icon }}"/></svg>
-                                <h3 class="font-display font-semibold text-white mb-2">{{ $title }}</h3>
-                                <p class="text-brand-100/70 text-sm leading-relaxed">{{ $desc }}</p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+            <!-- Grid container: stacks vertically on mobile/tablet, side-by-side on lg -->
+            <div class="grid lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_480px] gap-12 lg:gap-16 items-start">
                 
-                <div class="relative hidden lg:block">
-                    <div class="bg-surface/50 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-brand-500/20 flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <!-- LEFT CONTENT AREA -->
+                <div class="flex flex-col gap-12">
+                    
+                    <!-- Header Group -->
+                    <div>
+                        <!-- Rebuilt Announcement Pill -->
+                        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/5 border border-brand-500/30 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(14,165,233,0.15)]">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                            </span>
+                            <span class="text-xs font-bold text-white tracking-wide uppercase">TimeNest AI</span>
+                        </div>
+                        
+                        <h2 class="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+                            Intelligence embedded into <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-indigo-300">every workflow.</span>
+                        </h2>
+                        <p class="text-lg lg:text-xl text-slate-300/80 mb-8 leading-relaxed max-w-2xl font-body">
+                            We didn't just bolt on a chatbot. TimeNest AI monitors your operations in the background, surfacing insights, detecting anomalies, and automating routine tasks before you even ask.
+                        </p>
+                    </div>
+                    
+                    <!-- AI Capabilities Grid (Rich Cards) -->
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        
+                        <!-- Card 1: Workforce Analyst -->
+                        <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-brand-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-300 group relative overflow-hidden flex flex-col justify-between h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-brand-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/5">
+                                    <svg class="w-5 h-5 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                </div>
+                                <h3 class="font-display font-semibold text-white mb-2 text-lg">Workforce Analyst</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Detects attendance anomalies, leave abuse patterns, and overtime burnout risks.</p>
+                            </div>
+                                
+                            <!-- Mini UI Element -->
+                            <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-slate-400 uppercase font-bold">Burnout Risk</span>
+                                    <span class="text-[10px] text-rose-400 font-bold bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">High (15% OT)</span>
+                                </div>
+                                <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="w-[85%] h-full bg-rose-500 rounded-full relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Fraud Detection -->
+                        <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-rose-500/50 hover:shadow-[0_0_30px_rgba(244,63,94,0.15)] transition-all duration-300 group relative overflow-hidden flex flex-col justify-between h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-rose-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/5">
+                                    <svg class="w-5 h-5 text-rose-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                </div>
+                                <h3 class="font-display font-semibold text-white mb-2 text-lg">Fraud Detection</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Identifies location spoofing, buddy punching, and suspicious reimbursement claims.</p>
+                            </div>
+                                
+                            <!-- Mini UI Element -->
+                            <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                    <span class="text-[10px] text-slate-300 font-medium font-mono">IP: 192.168.1.1 (VPN)</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Spoof Prob.</span>
+                                    <span class="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">89.2%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Executive Dashboard -->
+                        <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] transition-all duration-300 group relative overflow-hidden flex flex-col justify-between h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/5">
+                                    <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+                                </div>
+                                <h3 class="font-display font-semibold text-white mb-2 text-lg">Executive Intelligence</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Ask complex business queries in plain English and instantly get visual data answers.</p>
+                            </div>
+                                
+                            <!-- Mini UI Element -->
+                            <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 mt-auto">
+                                <p class="text-[10px] text-indigo-300 font-mono mb-2 truncate">> "Compare Q2 vs Q3 spend"</p>
+                                <div class="flex items-end gap-1.5 h-6">
+                                    <div class="w-full bg-indigo-500/40 rounded-t h-[40%] transition-all duration-300 group-hover:h-[45%]"></div>
+                                    <div class="w-full bg-indigo-500/60 rounded-t h-[60%] transition-all duration-300 group-hover:h-[65%]"></div>
+                                    <div class="w-full bg-indigo-400 rounded-t h-[80%] transition-all duration-300 group-hover:h-[85%]"></div>
+                                    <div class="w-full bg-brand-400 rounded-t h-[100%] shadow-[0_0_8px_rgba(56,189,248,0.4)]"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Freelancer Assistant -->
+                        <div class="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] transition-all duration-300 group relative overflow-hidden flex flex-col justify-between h-full">
+                            <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <div class="relative z-10 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/5">
+                                    <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <h3 class="font-display font-semibold text-white mb-2 text-lg">Freelancer Assistant</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Smart invoice categorization, payment risk assessment, and precise revenue prediction.</p>
+                            </div>
+                                
+                            <!-- Mini UI Element -->
+                            <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-slate-400 font-medium">Inv #4092</span>
+                                    <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Categorized</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="w-full h-full bg-emerald-500/60 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Benefits Row (3 Horizontal Cards) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/10 pt-10">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
+                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
                             <div>
-                                <p class="text-white font-medium">TimeNest AI Agent</p>
-                                <p class="text-brand-200/60 text-sm">Analyzing current month operations...</p>
+                                <h4 class="text-sm font-bold text-white">24/7 Monitoring</h4>
+                                <p class="text-[11px] text-slate-400">Processes data continuously</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
+                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Instant Insights</h4>
+                                <p class="text-[11px] text-slate-400">Intelligence in seconds</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
+                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Predictive Analysis</h4>
+                                <p class="text-[11px] text-slate-400">Forecast before problems</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- RIGHT AI AGENT PANEL (LIVE) -->
+                <div class="relative w-full flex flex-col gap-6" x-data="aiLivePanel()" x-init="startEngine()">
+                    <!-- Panel Container -->
+                    <div class="bg-slate-900/80 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden shrink-0">
+                        
+                        <!-- Top Ambient Glow -->
+                        <div class="absolute -top-20 -left-20 w-60 h-60 bg-brand-500/20 rounded-full blur-[60px] pointer-events-none transition-opacity duration-1000"
+                             :class="activeState === 'analyzing' ? 'opacity-100' : 'opacity-40'"></div>
+                        
+                        <!-- Agent Header -->
+                        <div class="flex items-start gap-4 mb-8 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 relative shadow-inner">
+                                <div class="absolute inset-0 rounded-full border-2 border-brand-500/30 animate-ping" style="animation-duration: 3s"></div>
+                                <svg class="w-6 h-6 text-brand-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-white font-bold font-display text-lg">TimeNest Engine</p>
+                                    <span class="text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Online</span>
+                                </div>
+                                <p class="text-brand-300 text-sm font-mono mt-1 transition-all duration-300" x-text="statusMessage"></p>
                             </div>
                         </div>
                         
-                        <div class="space-y-4">
-                            <div class="bg-white/10 rounded-xl p-4 border border-white/5 animate-pulse">
-                                <div class="h-4 bg-white/20 rounded w-3/4 mb-3"></div>
-                                <div class="h-3 bg-white/10 rounded w-full mb-2"></div>
-                                <div class="h-3 bg-white/10 rounded w-5/6"></div>
+                        <!-- Activity Skeleton -->
+                        <div class="space-y-3 mb-6 relative z-10">
+                            <div class="bg-white/5 rounded-xl p-4 border border-white/5 relative overflow-hidden">
+                                <!-- Shimmer Effect -->
+                                <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2s_infinite]"></div>
+                                
+                                <div class="h-3 bg-white/10 rounded w-3/4 mb-4"></div>
+                                <div class="h-2 bg-white/5 rounded w-full mb-2"></div>
+                                <div class="h-2 bg-white/5 rounded w-5/6"></div>
                             </div>
-                            <div class="bg-white/5 rounded-xl p-4 border border-white/5 border-l-4 border-l-amber-500">
-                                <h4 class="text-white font-medium mb-1">Anomaly Detected</h4>
-                                <p class="text-brand-100/70 text-sm">Design team has logged 15% more overtime this week compared to monthly average. Risk of burnout is high.</p>
+                        </div>
+
+                        <!-- Live Insight Cards Stream (Absolute Positioning for Crossfade) -->
+                        <div class="relative h-[180px] sm:h-[160px] z-10">
+                            
+                            <!-- Insight 1: Anomaly -->
+                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-amber-500/30 border-l-4 border-l-amber-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                                 :class="activeInsight === 0 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                    <h4 class="text-white font-bold text-sm">Attendance Anomaly</h4>
+                                </div>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Design team has logged 15% more overtime this week compared to monthly average. Risk of burnout is high.</p>
+                                <div class="mt-4 flex items-center gap-2">
+                                    <span class="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded font-mono">Action Recommended</span>
+                                </div>
                             </div>
-                            <div class="bg-white/5 rounded-xl p-4 border border-white/5 border-l-4 border-l-brand-500">
-                                <h4 class="text-white font-medium mb-1">Revenue Forecast</h4>
-                                <p class="text-brand-100/70 text-sm">Based on current billable hours, Q3 revenue is projected to exceed targets by 8.5%.</p>
+
+                            <!-- Insight 2: Revenue Forecast -->
+                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-brand-500/30 border-l-4 border-l-brand-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                                 :class="activeInsight === 1 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                                    <h4 class="text-white font-bold text-sm">Revenue Projection Up</h4>
+                                </div>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Based on current billable hours across active projects, Q3 revenue is projected to exceed targets by 8.5%.</p>
+                                <div class="mt-4 flex items-center gap-2">
+                                    <span class="text-[10px] text-brand-300 bg-brand-500/10 border border-brand-500/20 px-2 py-1 rounded font-mono">Positive Trend</span>
+                                </div>
+                            </div>
+
+                            <!-- Insight 3: Payroll Risk -->
+                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-rose-500/30 border-l-4 border-l-rose-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                                 :class="activeInsight === 2 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                    <h4 class="text-white font-bold text-sm">Payroll Compliance</h4>
+                                </div>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">2 remote contractors have expiring compliance documents in the next 7 days. Automatic holds have been staged.</p>
+                                <div class="mt-4 flex items-center gap-2">
+                                    <span class="text-[10px] text-rose-300 bg-rose-500/10 border border-rose-500/20 px-2 py-1 rounded font-mono">Review Required</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card 1: AI Actions Today (Timeline) -->
+                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-center gap-3 mb-5 relative z-10">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center border border-brand-500/30">
+                                <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            </div>
+                            <h4 class="text-white font-bold text-sm tracking-wide">AI Actions Executed Today</h4>
+                        </div>
+                        
+                        <div class="relative pl-3 space-y-4 border-l border-white/10 ml-3 z-10">
+                            <div class="relative">
+                                <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(14,165,233,0.8)]"></div>
+                                <p class="text-xs text-white font-medium">Anomaly detected</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5 font-mono">10:42 AM • Attendance</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-brand-500/50"></div>
+                                <p class="text-xs text-slate-200">Manager notified via Slack</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5 font-mono">10:43 AM • Escalation</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full border border-white/30 bg-slate-900"></div>
+                                <p class="text-xs text-slate-400">Resolution generated</p>
+                                <p class="text-[10px] text-slate-500 mt-0.5 font-mono">Pending Approval</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Card 2: Predicted Business Risks -->
+                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="flex items-center gap-3 mb-5 relative z-10">
+                            <div class="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                                <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                            </div>
+                            <h4 class="text-white font-bold text-sm tracking-wide">Predicted Business Risks</h4>
+                        </div>
+                        
+                        <div class="space-y-4 relative z-10">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-slate-300">Expected overtime increase</span>
+                                    <span class="text-rose-400 font-bold">18%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-500 rounded-full w-[18%] shadow-[0_0_8px_rgba(244,63,94,0.5)]"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="text-slate-300">Revenue forecast confidence</span>
+                                    <span class="text-emerald-400 font-bold">97%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full w-[97%] shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Automation Success Rate -->
+                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden flex items-center justify-between group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="relative z-10">
+                            <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mb-1">Automation Success</p>
+                            <div class="flex items-end gap-2">
+                                <span class="text-3xl font-display font-bold text-white">99.9<span class="text-lg text-slate-500">%</span></span>
+                                <span class="flex items-center text-[10px] text-emerald-400 mb-1.5 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded font-mono">
+                                    <svg class="w-3 h-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                                    Reliable
+                                </span>
+                            </div>
+                        </div>
+                        <div class="relative w-12 h-12 z-10">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-white/10" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" />
+                                <path class="text-emerald-500 drop-shadow-[0_0_4px_rgba(16,185,129,0.5)]" stroke-dasharray="99.9, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" />
+                            </svg>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
         </div>
+        
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('aiLivePanel', () => ({
+                    activeState: 'analyzing',
+                    activeInsight: 0,
+                    statusMessages: [
+                        'Analyzing workforce trends...',
+                        'Checking attendance anomalies...',
+                        'Reviewing payroll compliance...',
+                        'Forecasting monthly revenue...',
+                        'Compiling executive summary...'
+                    ],
+                    statusIndex: 0,
+                    
+                    get statusMessage() {
+                        return this.statusMessages[this.statusIndex];
+                    },
+                    
+                    startEngine() {
+                        setInterval(() => {
+                            this.statusIndex = (this.statusIndex + 1) % this.statusMessages.length;
+                            this.activeState = this.statusIndex % 2 === 0 ? 'processing' : 'analyzing';
+                        }, 3000);
+                        
+                        setInterval(() => {
+                            this.activeInsight = (this.activeInsight + 1) % 3;
+                        }, 8000);
+                    }
+                }));
+            });
+        </script>
+        
+        <style>
+            @keyframes shimmer {
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+        </style>
     </section>
 
     {{-- Section 6: Stats Strip --}}
     <x-frontend-sections.stats-strip :stats="$stats" />
 
     {{-- Section 7: AI-Powered ROI Calculator --}}
-    <section class="py-16 sm:py-20 lg:py-24 bg-surface-50 border-y border-surface-border overflow-hidden relative" 
+    <section class="py-20 lg:py-32 bg-slate-50 overflow-hidden relative" 
              x-data="{ 
-                 employees: 50, 
+                 // Inputs
+                 employees: 150, 
                  hrSize: 3, 
-                 avgSalary: 50000, 
+                 avgSalary: 60000, 
+                 manualHrsPerWeek: 12,
+                 approvalsPerMonth: 500,
+                 attendanceProcessingHrs: 24,
+
                  isProcessing: false,
+                 
                  triggerProcess() {
                      if(!this.isProcessing) {
                          this.isProcessing = true;
-                         setTimeout(() => this.isProcessing = false, 500);
+                         setTimeout(() => this.isProcessing = false, 600);
                      }
                  },
-                 get timeSaved() { return Math.round(this.employees * 0.5 + this.hrSize * 8) }, 
-                 get moneySaved() { return Math.round((this.timeSaved * 12 * this.avgSalary) / (22 * 8 * 12)) }, 
-                 get productivity() { return Math.min(Math.round(this.employees * 0.15 + this.hrSize * 2), 45) } 
+
+                 // Calculations
+                 get attendanceSaved() { return Math.round(this.attendanceProcessingHrs * 0.85); }, // 85% reduction
+                 get approvalSaved() { return Math.round((this.approvalsPerMonth * 5) / 60 * 0.9); }, // 5 mins per approval, 90% automation
+                 get manualSaved() { return Math.round(this.manualHrsPerWeek * 4 * this.hrSize * 0.7); }, // 70% reduction in manual work
+
+                 get totalMonthlyHrsSaved() { return this.attendanceSaved + this.approvalSaved + this.manualSaved + Math.round(this.employees * 0.5); },
+                 get annualCapitalSaved() { return Math.round((this.totalMonthlyHrsSaved * 12 * this.avgSalary) / (22 * 8 * 12)); },
+                 get efficiencyGain() { return Math.min(Math.round(this.totalMonthlyHrsSaved / (this.hrSize * 160) * 100), 100); },
+                 
+                 // ROI Breakdown (Percentages)
+                 get breakAttendance() { return Math.round(this.attendanceSaved / this.totalMonthlyHrsSaved * 100) || 35; },
+                 get breakApprovals() { return Math.round(this.approvalSaved / this.totalMonthlyHrsSaved * 100) || 25; },
+                 get breakManual() { return Math.round(this.manualSaved / this.totalMonthlyHrsSaved * 100) || 40; }
              }">
         
-        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/5 to-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Background Ambient Lighting -->
+        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/10 to-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <x-frontend-base.badge variant="accent" class="mb-4">Value Assessment</x-frontend-base.badge>
-                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4 tracking-tight">Calculate your exact ROI</h2>
-                <p class="text-content-muted text-lg font-body">See how much time and capital our automated AI operations can save your organization by eliminating manual tasks and tool sprawl.</p>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Header Group -->
+            <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+                <!-- Value Assessment Pill -->
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6 transition-all hover:shadow-md cursor-default">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                    </span>
+                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">Value Assessment</span>
+                </div>
+                
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Calculate your exact ROI</h2>
+                <p class="text-slate-600 text-lg lg:text-xl font-body leading-relaxed">See exactly how much time, effort and operational cost your organization can recover every month by centralizing attendance, approvals, timelogs, workflows and AI operations.</p>
             </div>
             
-            <div class="rounded-3xl border border-surface-border bg-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 lg:p-12">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <!-- Inputs -->
-                    <div class="space-y-10">
-                        <!-- Slider 1 -->
-                        <div class="relative">
-                            <div class="flex justify-between mb-4 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Total Workforce Size</label>
-                                <span class="font-mono text-xl font-bold text-slate-800" x-text="employees"></span>
+            <div class="rounded-[2.5rem] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 p-6 sm:p-8 lg:p-12 relative overflow-hidden">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start relative z-10">
+                    
+                    <!-- LEFT SIDE: INPUTS -->
+                    <div class="space-y-8 pr-0 lg:pr-8">
+                        <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Organization Metrics</h3>
+                        
+                        <!-- Slider 1: Workforce Size -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Total Workforce Size</label>
+                                <span class="font-mono text-xl font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100 transition-colors" x-text="employees"></span>
                             </div>
-                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + (employees / 1000 * 100) + '%'"></div>
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 to-indigo-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((employees - 10) / 990 * 100) + '%'"></div>
                                 <input type="range" min="10" max="1000" x-model="employees" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
-                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
-                                <span>10</span>
-                                <span>1,000+</span>
-                            </div>
                         </div>
 
-                        <!-- Slider 2 -->
-                        <div class="relative">
-                            <div class="flex justify-between mb-4 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">HR & Ops Team Size</label>
-                                <span class="font-mono text-xl font-bold text-slate-800" x-text="hrSize"></span>
+                        <!-- Slider 2: HR Team Size -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>HR & Ops Team</label>
+                                <span class="font-mono text-xl font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 transition-colors" x-text="hrSize"></span>
                             </div>
-                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + (hrSize / 20 * 100) + '%'"></div>
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((hrSize - 1) / 19 * 100) + '%'"></div>
                                 <input type="range" min="1" max="20" x-model="hrSize" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
-                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
-                                <span>1</span>
-                                <span>20</span>
+                        </div>
+
+                        <!-- Slider 3: Avg Salary -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Avg Monthly Salary</label>
+                                <span class="font-mono text-xl font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded border border-teal-100 transition-colors" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
+                            </div>
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-emerald-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((avgSalary - 15000) / 185000 * 100) + '%'"></div>
+                                <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
                         </div>
 
-                        <!-- Slider 3 -->
-                        <div class="relative">
-                            <div class="flex justify-between mb-4 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Avg Monthly Salary</label>
-                                <span class="font-mono text-xl font-bold text-slate-800" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
+                        <div class="pt-6 border-t border-slate-100">
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Operational Bottlenecks</h3>
+                        </div>
+
+                        <!-- Slider 4: Approvals -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>Approvals / Month</label>
+                                <span class="font-mono text-lg font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-100 transition-colors" x-text="approvalsPerMonth"></span>
                             </div>
-                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + ((avgSalary - 15000) / 185000 * 100) + '%'"></div>
-                                <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 to-orange-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((approvalsPerMonth - 50) / 4950 * 100) + '%'"></div>
+                                <input type="range" min="50" max="5000" step="50" x-model="approvalsPerMonth" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
-                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
-                                <span>₹15K</span>
-                                <span>₹200K</span>
+                        </div>
+
+                        <!-- Slider 5: Attendance Processing -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Attendance Processing (hrs/mo)</label>
+                                <span class="font-mono text-lg font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 transition-colors" x-text="attendanceProcessingHrs"></span>
+                            </div>
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-cyan-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((attendanceProcessingHrs - 2) / 98 * 100) + '%'"></div>
+                                <input type="range" min="2" max="100" x-model="attendanceProcessingHrs" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                        </div>
+
+                        <!-- Slider 6: Manual Workflow -->
+                        <div class="relative group">
+                            <div class="flex justify-between mb-3 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>Manual HR Work (hrs/week)</label>
+                                <span class="font-mono text-lg font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-100 transition-colors" x-text="manualHrsPerWeek"></span>
+                            </div>
+                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-rose-400 to-pink-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((manualHrsPerWeek - 2) / 38 * 100) + '%'"></div>
+                                <input type="range" min="2" max="40" x-model="manualHrsPerWeek" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
                         </div>
                     </div>
                     
-                    <!-- AI Output Display -->
-                    <div class="relative rounded-3xl bg-slate-900 p-8 border border-slate-800 shadow-2xl overflow-hidden group min-h-[340px] flex flex-col justify-center">
-                        <!-- Ambient glowing orb -->
-                        <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full transition-all duration-700 blur-3xl" 
-                             :class="isProcessing ? 'bg-teal-500/40 scale-125' : 'bg-indigo-500/20 scale-100'"></div>
+                    <!-- RIGHT SIDE: IMPACT DASHBOARD -->
+                    <div class="relative rounded-[2rem] bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group flex flex-col justify-between">
                         
-                        <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-8 h-full">
-                            <!-- Time Saved -->
-                            <div class="flex flex-col border-b sm:border-b-0 sm:border-r border-slate-700/50 pb-6 sm:pb-0 sm:pr-6 transition-all duration-300" 
-                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
-                                <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    Time Saved
-                                </p>
-                                <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="timeSaved + ' hrs'"></p>
-                                <p class="text-slate-500 text-[11px] mt-2 font-medium">Monthly automation gains</p>
+                        <!-- Glowing Orbs -->
+                        <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full transition-all duration-1000 blur-[80px]" 
+                             :class="isProcessing ? 'bg-emerald-500/20 scale-125' : 'bg-brand-500/20 scale-100'"></div>
+                        <div class="absolute -left-32 -bottom-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-[80px]"></div>
+                        
+                        <div class="relative z-10 p-8 sm:p-10 flex flex-col gap-8">
+                            
+                            <!-- Header & Before/After Story -->
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-6 transition-all duration-300" :class="isProcessing ? 'opacity-50' : 'opacity-100'">
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded w-max mb-3 border border-emerald-500/20">Monthly Automation Value</span>
+                                    <p class="text-slate-400 text-sm">When moving from manual ops to TimeNest AI</p>
+                                </div>
                             </div>
                             
-                            <!-- Productivity -->
-                            <div class="flex flex-col sm:pl-2 transition-all duration-300 delay-75" 
-                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
-                                <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                                    Efficiency
-                                </p>
-                                <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="'+' + productivity + '%'"></p>
-                                <p class="text-slate-500 text-[11px] mt-2 font-medium">Workforce throughput</p>
+                            <!-- Main 3 Big Metrics -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                
+                                <!-- Annual Savings -->
+                                <div class="sm:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-slate-700/50 shadow-inner transition-all duration-500 relative overflow-hidden" 
+                                     :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
+                                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent pointer-events-none opacity-50"></div>
+                                    <p class="text-emerald-400 text-[10px] font-bold mb-3 uppercase tracking-widest flex items-center gap-2 relative z-10">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        Annual Capital Recovered
+                                    </p>
+                                    <p class="font-display text-5xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight relative z-10" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></p>
+                                </div>
+
+                                <!-- Time Saved -->
+                                <div class="flex flex-col transition-all duration-500 delay-75" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
+                                    <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        Monthly Time Saved
+                                    </p>
+                                    <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="totalMonthlyHrsSaved + ' hrs'"></p>
+                                    <p class="text-slate-500 text-[11px] mt-1 font-medium">Reclaimed operational hours</p>
+                                </div>
+                                
+                                <!-- Efficiency Gain -->
+                                <div class="flex flex-col transition-all duration-500 delay-100" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
+                                    <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                        Efficiency Gain
+                                    </p>
+                                    <p class="font-display text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-brand-300 tracking-tight" x-text="'+' + efficiencyGain + '%'"></p>
+                                    <p class="text-slate-500 text-[11px] mt-1 font-medium">HR workflow acceleration</p>
+                                </div>
                             </div>
                             
-                            <!-- Estimated Savings -->
-                            <div class="sm:col-span-2 bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 transition-all duration-300 delay-150" 
-                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
-                                <p class="text-emerald-400 text-[10px] font-bold mb-3 uppercase tracking-widest flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    Annual Capital Saved
-                                </p>
-                                <p class="font-display text-5xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight" x-text="'₹' + Number(moneySaved).toLocaleString()"></p>
+                            <!-- Granular Breakdown List -->
+                            <div class="bg-black/20 rounded-xl p-5 border border-white/5 transition-all duration-500 delay-150" :class="isProcessing ? 'opacity-30 blur-[4px]' : 'opacity-100 blur-0'">
+                                <h4 class="text-[11px] uppercase tracking-widest font-bold text-white mb-4">Where savings come from</h4>
+                                <div class="space-y-4">
+                                    <!-- Attendance Item -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5">
+                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>Attendance Automation</span>
+                                            <span class="text-white font-bold" x-text="attendanceSaved + ' hrs'"></span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-blue-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakAttendance + '%'"></div></div>
+                                    </div>
+                                    <!-- Approvals Item -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5">
+                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></div>Approvals Processing</span>
+                                            <span class="text-white font-bold" x-text="approvalSaved + ' hrs'"></span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-amber-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakApprovals + '%'"></div></div>
+                                    </div>
+                                    <!-- Manual Workflow Item -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1.5">
+                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]"></div>Manual Workflows Removed</span>
+                                            <span class="text-white font-bold" x-text="manualSaved + ' hrs'"></span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-rose-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakManual + '%'"></div></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- AI processing overlay -->
-                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/60 backdrop-blur-md transition-all duration-300"
+
+                        <!-- Processing State Overlay -->
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/50 backdrop-blur-md transition-all duration-300"
                              :class="isProcessing ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
-                             <div class="flex flex-col items-center gap-4">
-                                <div class="relative flex items-center justify-center w-12 h-12">
-                                    <span class="absolute inset-0 rounded-full border-[3px] border-indigo-500/20"></span>
-                                    <span class="absolute inset-0 rounded-full border-[3px] border-t-teal-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
+                             <div class="flex flex-col items-center gap-5">
+                                <div class="relative flex items-center justify-center w-16 h-16">
+                                    <span class="absolute inset-0 rounded-full border-[3px] border-emerald-500/20"></span>
+                                    <span class="absolute inset-0 rounded-full border-[3px] border-t-emerald-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
+                                    <svg class="w-6 h-6 text-emerald-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                                 </div>
-                                <span class="text-[11px] font-mono text-teal-300 font-bold uppercase tracking-widest animate-pulse">Computing Metrics...</span>
+                                <span class="text-xs font-mono text-emerald-300 font-bold uppercase tracking-widest animate-pulse">Computing Value...</span>
                              </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Social Proof Strip -->
+            <div class="mt-8 text-center bg-white border border-slate-200 rounded-2xl py-4 px-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] inline-flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mx-auto w-full md:w-auto left-1/2 relative md:-translate-x-1/2 hover:-translate-y-1 transition-transform duration-300">
+                <div class="flex -space-x-3">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=33" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=47" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=12" alt="Avatar">
+                </div>
+                <p class="text-sm md:text-base text-slate-600 font-medium font-body">Organizations using TimeNest save an average of <span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">12–18 hours</span> per employee monthly.</p>
             </div>
         </div>
     </section>
