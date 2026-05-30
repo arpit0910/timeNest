@@ -46,18 +46,253 @@
                     Book a Demo
                 </x-frontend-base.button>
             </div>
-            
-            {{-- Ticker Component --}}
-            <div class="mt-24 pt-10 border-t border-surface-border/50 opacity-0 animate-hero-fade-up" style="animation-delay: 1000ms;">
-                <p class="text-center text-sm font-semibold text-content-muted uppercase tracking-wider mb-8">Trusted by forward-thinking teams globally</p>
-                <x-frontend-sections.ticker :items="[
-                    ['name' => 'Acme Corp', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M13 10V3L4 14h7v7l9-11h-7z\'/>'],
-                    ['name' => 'Stark Industries', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4\'/>'],
-                    ['name' => 'Wayne Ent', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3\'/>'],
-                    ['name' => 'Globex', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9\'/>'],
-                    ['name' => 'Soylent', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10\'/>'],
-                    ['name' => 'Initech', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z\'/>'],
-                ]" />
+        </div>
+    </section>
+
+    {{-- Section 1.5: Standalone Premium Showcase (Ecosystem & Trusted Partners Marquee) --}}
+    <section class="py-28 bg-gradient-to-b from-white via-slate-50/40 to-white overflow-hidden relative border-t border-slate-100/80"
+             x-data="{ show: false }"
+             x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
+    >
+        <!-- Ambient background glows -->
+        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-r from-indigo-500/5 to-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-r from-violet-500/5 to-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10 mb-16 transition-all duration-1000 transform"
+             :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+        >
+            <x-frontend-base.badge variant="accent" class="mb-4">Ecosystem Showcase</x-frontend-base.badge>
+            <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4 tracking-tight">
+                Trusted by forward-thinking teams, agencies and growing organizations.
+            </h2>
+            <p class="text-content-muted text-base lg:text-lg max-w-3xl mx-auto font-body">
+                Built for modern workforce operations, attendance, projects, finance and AI-powered workflows.
+            </p>
+        </div>
+
+        <!-- Infinite Scrolling Horizontal Marquee -->
+        <div class="relative w-full overflow-hidden select-none transition-all duration-1000 delay-300 transform pause-hover"
+             :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+        >
+            <!-- Fade overlays to hide edges -->
+            <div class="absolute inset-y-0 left-0 w-32 md:w-48 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+            <div class="absolute inset-y-0 right-0 w-32 md:w-48 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+
+            <div class="flex gap-6 whitespace-nowrap animate-marquee-horizontal p-4">
+                
+                <!-- Group 1 of 8 Cards -->
+                <!-- Card 1: Acme Corp -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Wayne Enterprises -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Initech -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Automation</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Stark Industries -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: Globex Corp -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Operations Management</span>
+                    </div>
+                </div>
+
+                <!-- Card 6: Tyrell Corp -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
+                    </div>
+                </div>
+
+                <!-- Card 7: Hooli -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
+                    </div>
+                </div>
+
+                <!-- Card 8: Cyberdyne Systems -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
+                    </div>
+                </div>
+
+
+                <!-- Group 2 of 8 Cards (Duplicated for seamless loop) -->
+                <!-- Card 1 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Automation</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
+                    </div>
+                </div>
+
+                <!-- Card 5 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Operations Management</span>
+                    </div>
+                </div>
+
+                <!-- Card 6 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
+                    </div>
+                </div>
+
+                <!-- Card 7 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
+                    </div>
+                </div>
+
+                <!-- Card 8 Duplicate -->
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

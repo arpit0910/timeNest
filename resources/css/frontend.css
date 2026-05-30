@@ -732,6 +732,22 @@ html {
 }
 
 
+/* ── Horizontal Marquee Showcase ── */
+@keyframes marquee-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-horizontal {
+  display: inline-flex;
+  animation: marquee-horizontal 38s linear infinite;
+}
+
+.pause-hover:hover .animate-marquee-horizontal {
+  animation-play-state: paused;
+}
+
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
