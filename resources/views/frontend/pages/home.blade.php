@@ -959,13 +959,18 @@
                 <p class="text-content-muted text-lg">Whether you're a founder scaling a company or a freelancer managing clients, TimeNest adapts to your specific workflow.</p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-2 mb-12">
+            <div class="flex flex-wrap justify-center gap-2.5 mb-12">
                 @foreach([
                     'founders' => ['Founders', 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'], 
                     'hr' => ['HR Teams', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'], 
                     'operations' => ['Operations', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'], 
+                    'finance' => ['Finance Teams', 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z'],
+                    'leads' => ['Team Leads', 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z'],
+                    'projects' => ['Project Managers', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'],
                     'freelancers' => ['Freelancers', 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'], 
-                    'agencies' => ['Agencies', 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4']
+                    'agencies' => ['Agencies', 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
+                    'enterprise' => ['Enterprise Teams', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
+                    'ai' => ['AI-Powered Teams', 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z']
                 ] as $key => [$label, $icon])
                     <button @click="activeTab = '{{ $key }}'" :class="activeTab === '{{ $key }}' ? 'bg-brand-500 text-white shadow-md shadow-brand-500/20' : 'bg-white border border-surface-border text-content-muted hover:text-content-strong hover:bg-surface-50'" class="px-5 py-3 rounded-xl text-sm font-body font-medium transition-all cursor-pointer flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/></svg>
@@ -974,57 +979,170 @@
                 @endforeach
             </div>
 
-            <div class="rounded-2xl border border-surface-border bg-white shadow-xl shadow-surface-border/30 overflow-hidden">
+            <div class="relative rounded-2xl border border-surface-border bg-white shadow-xl shadow-surface-border/30 overflow-hidden min-h-[640px] lg:min-h-[500px]">
                 @php
                     $roleData = [
                         'founders' => [
+                            'color' => 'indigo',
                             'pain' => 'Juggling 5+ tools for HR, attendance, leaves, and payroll. No unified view of workforce health and ballooning software costs.',
-                            'solution' => 'One platform to manage your entire workforce. Real-time executive dashboards, AI-powered insights, and automated workflows.',
-                            'modules' => ['Employee Management', 'AI Executive Dashboard', 'Analytics & Reports', 'Approvals & Workflows']
+                            'solution' => 'One platform to manage your entire workforce. Real-time executive dashboards, AI-powered insights, and automated workflows.'
                         ],
                         'hr' => [
+                            'color' => 'emerald',
                             'pain' => 'Manual attendance tracking via spreadsheets, leave conflicts, shift scheduling nightmares, and scary compliance gaps.',
-                            'solution' => 'Automated attendance, smart leave management, visual shift builder, and AI fraud detection to keep everything honest.',
-                            'modules' => ['Attendance & Shifts', 'Leave Management', 'AI Fraud Detection', 'Audit Logs']
+                            'solution' => 'Automated attendance, smart leave management, visual shift builder, and AI fraud detection to keep everything honest.'
                         ],
                         'operations' => [
+                            'color' => 'blue',
                             'pain' => 'Department silos, broken manual approval chains via email, and zero visibility into team performance or resource allocation.',
-                            'solution' => 'Centralized department and team management. Custom workflows, role-based granular permissions, and operational analytics.',
-                            'modules' => ['Departments & Teams', 'Workflows & Approvals', 'Roles & Permissions', 'Analytics']
+                            'solution' => 'Centralized department and team management. Custom workflows, role-based granular permissions, and operational analytics.'
+                        ],
+                        'finance' => [
+                            'color' => 'amber',
+                            'pain' => 'Slow payroll runs, manual expense validation, fragmented invoice processing, and zero automated forecasting.',
+                            'solution' => 'Complete automated financial operations. Instant payroll runs, real-time expense approvals, and auto-matching invoices.'
+                        ],
+                        'leads' => [
+                            'color' => 'violet',
+                            'pain' => 'Overloaded team members, hidden burnout, untracked hours, and chaotic shift handovers.',
+                            'solution' => 'Direct visibility into workload capacity, sprint velocity tracking, and automatic capacity distribution.'
+                        ],
+                        'projects' => [
+                            'color' => 'cyan',
+                            'pain' => 'Missing project milestones, delayed deliverables, untracked time logs, and manually created progress reports.',
+                            'solution' => 'Centralized boards, automatic timeline mapping, live developer time-logs, and instant milestone statuses.'
                         ],
                         'freelancers' => [
+                            'color' => 'teal',
                             'pain' => 'Scattered client data, manual invoicing processes, no accurate revenue tracking, and zero business intelligence.',
-                            'solution' => 'All-in-one freelancer platform. CRM, invoicing, task management, and AI revenue forecasting — core features forever free.',
-                            'modules' => ['Clients & Leads', 'Invoices & Payments', 'Tasks & Projects', 'Revenue Tracking']
+                            'solution' => 'All-in-one freelancer platform. CRM, invoicing, task management, and AI revenue forecasting — core features forever free.'
                         ],
                         'agencies' => [
+                            'color' => 'fuchsia',
                             'pain' => 'Managing a freelance team without proper tools. No shared projects, no unified invoicing, and no team utilization analytics.',
-                            'solution' => 'Freelance Workspace — a collaborative environment for agencies. Shared projects, shared invoicing, and team analytics.',
-                            'modules' => ['Collaborator Management', 'Shared Projects & Tasks', 'Shared Invoices', 'Workspace Analytics']
+                            'solution' => 'Freelance Workspace — a collaborative environment for agencies. Shared projects, shared invoicing, and team analytics.'
+                        ],
+                        'enterprise' => [
+                            'color' => 'slate',
+                            'pain' => 'Regulatory compliance audit anxiety, lack of fine-grained roles, no activity trails, and compromised security logs.',
+                            'solution' => 'Full enterprise governance, comprehensive automated audit trail logs, granular permission matrices, and security analytics.'
+                        ],
+                        'ai' => [
+                            'color' => 'rose',
+                            'pain' => 'Unprocessed operational data, manual schedule creation, slow support resolution, and missed financial trends.',
+                            'solution' => 'Autonomous workforce copilot. Real-time predictive anomaly alerts, automated shift planning, and direct productivity insights.'
+                        ]
+                    ];
+
+                    $colorMaps = [
+                        'indigo' => [
+                            'bg' => 'bg-indigo-50 border-indigo-100',
+                            'border_l' => 'border-l-indigo-500', 
+                            'text' => 'text-indigo-600',
+                            'from' => 'from-indigo-500/[0.015]',
+                            'hover' => 'hover:bg-indigo-500/[0.03] hover:border-indigo-100/40'
+                        ],
+                        'emerald' => [
+                            'bg' => 'bg-emerald-50 border-emerald-100',
+                            'border_l' => 'border-l-emerald-500', 
+                            'text' => 'text-emerald-600',
+                            'from' => 'from-emerald-500/[0.015]',
+                            'hover' => 'hover:bg-emerald-500/[0.03] hover:border-emerald-100/40'
+                        ],
+                        'blue' => [
+                            'bg' => 'bg-blue-50 border-blue-100',
+                            'border_l' => 'border-l-blue-500', 
+                            'text' => 'text-blue-600',
+                            'from' => 'from-blue-500/[0.015]',
+                            'hover' => 'hover:bg-blue-500/[0.03] hover:border-blue-100/40'
+                        ],
+                        'amber' => [
+                            'bg' => 'bg-amber-50 border-amber-100',
+                            'border_l' => 'border-l-amber-500', 
+                            'text' => 'text-amber-600',
+                            'from' => 'from-amber-500/[0.015]',
+                            'hover' => 'hover:bg-amber-500/[0.03] hover:border-amber-100/40'
+                        ],
+                        'violet' => [
+                            'bg' => 'bg-violet-50 border-violet-100',
+                            'border_l' => 'border-l-violet-500', 
+                            'text' => 'text-violet-600',
+                            'from' => 'from-violet-500/[0.015]',
+                            'hover' => 'hover:bg-violet-500/[0.03] hover:border-violet-100/40'
+                        ],
+                        'cyan' => [
+                            'bg' => 'bg-cyan-50 border-cyan-100',
+                            'border_l' => 'border-l-cyan-500', 
+                            'text' => 'text-cyan-600',
+                            'from' => 'from-cyan-500/[0.015]',
+                            'hover' => 'hover:bg-cyan-500/[0.03] hover:border-cyan-100/40'
+                        ],
+                        'teal' => [
+                            'bg' => 'bg-teal-50 border-teal-100',
+                            'border_l' => 'border-l-teal-500', 
+                            'text' => 'text-teal-600',
+                            'from' => 'from-teal-500/[0.015]',
+                            'hover' => 'hover:bg-teal-500/[0.03] hover:border-teal-100/40'
+                        ],
+                        'fuchsia' => [
+                            'bg' => 'bg-fuchsia-50 border-fuchsia-100',
+                            'border_l' => 'border-l-fuchsia-500', 
+                            'text' => 'text-fuchsia-600',
+                            'from' => 'from-fuchsia-500/[0.015]',
+                            'hover' => 'hover:bg-fuchsia-500/[0.03] hover:border-fuchsia-100/40'
+                        ],
+                        'slate' => [
+                            'bg' => 'bg-slate-50 border-slate-200',
+                            'border_l' => 'border-l-slate-500', 
+                            'text' => 'text-slate-600',
+                            'from' => 'from-slate-500/[0.015]',
+                            'hover' => 'hover:bg-slate-500/[0.03] hover:border-slate-200/40'
+                        ],
+                        'rose' => [
+                            'bg' => 'bg-rose-50 border-rose-100',
+                            'border_l' => 'border-l-rose-500', 
+                            'text' => 'text-rose-600',
+                            'from' => 'from-rose-500/[0.015]',
+                            'hover' => 'hover:bg-rose-500/[0.03] hover:border-rose-100/40'
                         ],
                     ];
                 @endphp
 
                 @foreach($roleData as $key => $data)
-                    <div x-show="activeTab === '{{ $key }}'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-8 lg:p-12">
+                    <div x-show="activeTab === '{{ $key }}'" 
+                         x-transition:enter="transition ease-out duration-355 delay-150" 
+                         x-transition:enter-start="opacity-0 scale-98 translate-y-2" 
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0" 
+                         x-transition:leave="transition ease-in duration-150 absolute inset-0 w-full h-full p-8 lg:p-12" 
+                         x-transition:leave-start="opacity-100 scale-100 translate-y-0" 
+                         x-transition:leave-end="opacity-0 scale-98 translate-y-2" 
+                         x-cloak 
+                         class="p-8 lg:p-12"
+                    >
                         <div class="grid lg:grid-cols-12 gap-12 items-center">
                             
                             <!-- Left: Pain & Solution -->
-                            <div class="lg:col-span-5 space-y-8">
-                                <div class="space-y-3">
-                                    <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
-                                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            <div class="lg:col-span-5 space-y-6">
+                                <!-- The Pain Block -->
+                                <div class="border-l-3 border-red-500/60 bg-gradient-to-r from-red-500/[0.015] to-transparent p-5 rounded-r-2xl border border-transparent transition-all duration-300 hover:bg-red-500/[0.03] hover:border-red-100/40">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center border border-red-100">
+                                            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                        </div>
+                                        <h3 class="font-display text-base font-bold text-slate-800 tracking-tight">The Pain</h3>
                                     </div>
-                                    <h3 class="font-display text-lg font-bold text-slate-800">The Pain</h3>
-                                    <p class="text-content-muted text-sm leading-relaxed">{{ $data['pain'] }}</p>
+                                    <p class="text-content-muted text-[13px] leading-relaxed">{{ $data['pain'] }}</p>
                                 </div>
                                 
-                                <div class="space-y-3 border-t border-slate-100 pt-6">
-                                    <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center border border-brand-100">
-                                        <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <!-- The Solution Block -->
+                                <div class="border-l-3 {{ $colorMaps[$data['color']]['border_l'] }}/60 bg-gradient-to-r {{ $colorMaps[$data['color']]['from'] }} to-transparent p-5 rounded-r-2xl border border-transparent transition-all duration-300 {{ $colorMaps[$data['color']]['hover'] }}">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-8 h-8 rounded-lg {{ $colorMaps[$data['color']]['bg'] }} flex items-center justify-center border">
+                                            <svg class="w-4 h-4 {{ $colorMaps[$data['color']]['text'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <h3 class="font-display text-base font-bold text-slate-800 tracking-tight">TimeNest Solution</h3>
                                     </div>
-                                    <h3 class="font-display text-lg font-bold text-slate-800">TimeNest Solution</h3>
-                                    <p class="text-content-muted text-sm leading-relaxed">{{ $data['solution'] }}</p>
+                                    <p class="text-content-muted text-[13px] leading-relaxed">{{ $data['solution'] }}</p>
                                 </div>
                             </div>
 
@@ -1033,33 +1151,53 @@
                                 @if($key === 'founders')
                                     @include('frontend.partials.widgets.cashflow')
                                     @include('frontend.partials.widgets.analytics')
-                                    <div class="sm:col-span-2">
-                                        @include('frontend.partials.widgets.sales')
-                                    </div>
+                                    @include('frontend.partials.widgets.ai-revenue-forecast')
+                                    @include('frontend.partials.widgets.workforce-summary')
                                 @elseif($key === 'hr')
                                     @include('frontend.partials.widgets.attendance')
                                     @include('frontend.partials.widgets.leave-requests')
-                                    <div class="sm:col-span-2">
-                                        @include('frontend.partials.widgets.team-status')
-                                    </div>
+                                    @include('frontend.partials.widgets.shift-schedule')
+                                    @include('frontend.partials.widgets.employee-directory')
                                 @elseif($key === 'operations')
-                                    @include('frontend.partials.widgets.payroll')
+                                    @include('frontend.partials.widgets.approval-workflow')
                                     @include('frontend.partials.widgets.projects')
-                                    <div class="sm:col-span-2">
-                                        @include('frontend.partials.widgets.tasks')
-                                    </div>
+                                    @include('frontend.partials.widgets.tasks')
+                                    @include('frontend.partials.widgets.department-structure')
+                                @elseif($key === 'finance')
+                                    @include('frontend.partials.widgets.payroll')
+                                    @include('frontend.partials.widgets.expense-tracking')
+                                    @include('frontend.partials.widgets.freelancer-invoice')
+                                    @include('frontend.partials.widgets.client-revenue')
+                                @elseif($key === 'leads')
+                                    @include('frontend.partials.widgets.team-capacity')
+                                    @include('frontend.partials.widgets.sprint-tracking')
+                                    @include('frontend.partials.widgets.team-status')
+                                    @include('frontend.partials.widgets.productivity-metrics')
+                                @elseif($key === 'projects')
+                                    @include('frontend.partials.widgets.kanban-board')
+                                    @include('frontend.partials.widgets.milestone-tracker')
+                                    @include('frontend.partials.widgets.projects')
+                                    @include('frontend.partials.widgets.timelogs')
                                 @elseif($key === 'freelancers')
                                     @include('frontend.partials.widgets.freelancer-invoice')
-                                    @include('frontend.partials.widgets.projects')
-                                    <div class="sm:col-span-2">
-                                        @include('frontend.partials.widgets.clients')
-                                    </div>
+                                    @include('frontend.partials.widgets.clients')
+                                    @include('frontend.partials.widgets.tasks')
+                                    @include('frontend.partials.widgets.ai-revenue-forecast')
                                 @elseif($key === 'agencies')
                                     @include('frontend.partials.widgets.workspace-hub')
+                                    @include('frontend.partials.widgets.projects')
+                                    @include('frontend.partials.widgets.freelancer-invoice')
+                                    @include('frontend.partials.widgets.team-status')
+                                @elseif($key === 'enterprise')
+                                    @include('frontend.partials.widgets.audit-trail')
+                                    @include('frontend.partials.widgets.role-matrix')
+                                    @include('frontend.partials.widgets.compliance-tracker')
+                                    @include('frontend.partials.widgets.asset-tracking')
+                                @elseif($key === 'ai')
                                     @include('frontend.partials.widgets.ai-copilot')
-                                    <div class="sm:col-span-2">
-                                        @include('frontend.partials.widgets.team-status')
-                                    </div>
+                                    @include('frontend.partials.widgets.ai-insights')
+                                    @include('frontend.partials.widgets.ai-revenue-forecast')
+                                    @include('frontend.partials.widgets.workforce-heatmap')
                                 @endif
                             </div>
 
