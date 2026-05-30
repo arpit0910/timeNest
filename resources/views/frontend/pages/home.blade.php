@@ -298,71 +298,134 @@
     </section>
 
     {{-- Section 2: How TimeNest Powers Work (Visualization Cards Showcase) --}}
-    <section class="py-24 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden"
+    <section class="py-24 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden relative"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 transform"
+        <!-- Ambient background glows for premium visual context -->
+        <div class="absolute top-0 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 translate-x-1/2 translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-teal-500/5 via-transparent to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-20 transition-all duration-1000 transform"
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
                 <x-frontend-base.badge variant="primary" class="mb-4">Capabilities</x-frontend-base.badge>
                 <h2 class="font-display text-3xl lg:text-5xl font-bold text-content-strong mb-4 tracking-tight">Everything that runs your business. <span class="text-brand-500">In one platform.</span></h2>
                 <p class="text-content-muted text-lg lg:text-xl font-body">Ditch the tool sprawl. TimeNest consolidates your operations, workforce management, and freelancer tools into a single source of truth.</p>
             </div>
 
-            <!-- Bento Showcase Grid with Staggered Viewport Entry -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 content-start transition-all duration-1000 delay-300 transform"
+            <!-- Capabilities Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 transition-all duration-1000 delay-300 transform animate-hero-fade-up"
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
-                
-                {{-- Card 1: Attendance --}}
-                <div class="animate-float-gentle duration-[6s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.attendance')
-                </div>
-                
-                {{-- Card 2: Team Status --}}
-                <div class="animate-float-gentle-reverse duration-[7s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.team-status')
-                </div>
-                
-                {{-- Card 3: Cashflow --}}
-                <div class="animate-float-gentle duration-[8s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.cashflow')
-                </div>
-                
-                {{-- Card 4: Payroll --}}
-                <div class="animate-float-gentle-reverse duration-[9s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.payroll')
-                </div>
-                
-                {{-- Card 5: Sales Pipeline --}}
-                <div class="animate-float-gentle-reverse duration-[6.5s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.sales')
-                </div>
-                
-                {{-- Card 6: Projects --}}
-                <div class="animate-float-gentle duration-[7.5s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.projects')
-                </div>
-                
-                {{-- Card 7: Analytics --}}
-                <div class="animate-float-gentle-reverse duration-[8.5s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.analytics')
-                </div>
-                
-                {{-- Card 8: AI Copilot --}}
-                <div class="animate-float-gentle duration-[9.5s] hover:scale-[1.02] transition-transform duration-300">
-                    @include('frontend.partials.widgets.ai-copilot')
+
+                <!-- Capability 1: Workforce & HR Operations -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100 shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Workforce & HR</span>
+                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Workforce & HR Operations</h3>
+                            <p class="text-content-muted text-xs leading-relaxed mt-2">Manage employees and freelancers in one unified directory. Set shift schedules, approve leaves, and verify logins automatically.</p>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Biometric Clock-ins</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Visual Rostering</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Conflict-Free Leaves</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        @include('frontend.partials.widgets.attendance')
+                        @include('frontend.partials.widgets.team-status')
+                        @include('frontend.partials.widgets.leave-requests')
+                        @include('frontend.partials.widgets.shift-schedule')
+                    </div>
                 </div>
 
-                {{-- Card 9: Freelancer Invoice --}}
-                <div class="animate-float-gentle duration-[7s] hover:scale-[1.02] transition-transform duration-300 lg:col-span-2">
-                    @include('frontend.partials.widgets.freelancer-invoice')
+                <!-- Capability 2: Operations & Project Workflows -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 shrink-0 group-hover:bg-teal-500 group-hover:text-white group-hover:border-teal-500 transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">Operations & Tasks</span>
+                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Operations & Project Workflows</h3>
+                            <p class="text-content-muted text-xs leading-relaxed mt-2">Connect task milestones directly to team capacity. Setup multi-stage approval paths to automate operations and department structures.</p>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Kanban Boards</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Sprint Velocity</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Custom Approval Chains</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        @include('frontend.partials.widgets.approval-workflow')
+                        @include('frontend.partials.widgets.projects')
+                        @include('frontend.partials.widgets.tasks')
+                        @include('frontend.partials.widgets.department-structure')
+                    </div>
                 </div>
 
-                {{-- Card 10: Workspace Hub --}}
-                <div class="animate-float-gentle-reverse duration-[8s] hover:scale-[1.02] transition-transform duration-300 lg:col-span-2">
-                    @include('frontend.partials.widgets.workspace-hub')
+                <!-- Capability 3: Financial Operations & Billing -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shrink-0 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Finance & Billings</span>
+                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Financial Operations & Billing</h3>
+                            <p class="text-content-muted text-xs leading-relaxed mt-2">Run payroll instantly based on tracked hours, authorize employee business expenses, and automate client invoice cycles.</p>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Automated Payroll</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Expense Approvals</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Client Revenue logs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        @include('frontend.partials.widgets.cashflow')
+                        @include('frontend.partials.widgets.payroll')
+                        @include('frontend.partials.widgets.expense-tracking')
+                        @include('frontend.partials.widgets.client-revenue')
+                    </div>
                 </div>
+
+                <!-- Capability 4: AI Insights & Security Governance -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-100 shrink-0 group-hover:bg-violet-500 group-hover:text-white group-hover:border-violet-500 transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-violet-600 uppercase tracking-widest">AI & Governance</span>
+                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">AI Insights & Security Governance</h3>
+                            <p class="text-content-muted text-xs leading-relaxed mt-2">Leverage machine learning to identify burnout, detect attendance fraud, and secure your systems with detailed logs.</p>
+                            <div class="flex flex-wrap gap-1.5 mt-3">
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Predictive Anomaly Scans</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">SOC2 Compliance Auditing</span>
+                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Access Audit Trails</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        @include('frontend.partials.widgets.ai-copilot')
+                        @include('frontend.partials.widgets.ai-insights')
+                        @include('frontend.partials.widgets.audit-trail')
+                        @include('frontend.partials.widgets.compliance-tracker')
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

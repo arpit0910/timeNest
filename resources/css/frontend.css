@@ -738,12 +738,32 @@ html {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-horizontal-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 .animate-marquee-horizontal {
   display: inline-flex;
   animation: marquee-horizontal 38s linear infinite;
 }
 
 .pause-hover:hover .animate-marquee-horizontal {
+  animation-play-state: paused;
+}
+
+.animate-marquee-horizontal-slow {
+  display: inline-flex;
+  animation: marquee-horizontal 85s linear infinite;
+}
+
+.animate-marquee-horizontal-reverse-slow {
+  display: inline-flex;
+  animation: marquee-horizontal-reverse 85s linear infinite;
+}
+
+.pause-hover:hover .animate-marquee-horizontal-slow,
+.pause-hover:hover .animate-marquee-horizontal-reverse-slow {
   animation-play-state: paused;
 }
 
