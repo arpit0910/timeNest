@@ -47,8 +47,8 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Syne"', 'sans-serif'],
-        body:    ['"DM Sans"', 'sans-serif'],
+        display: ['"Poppins"', 'sans-serif'],
+        body:    ['"Poppins"', 'sans-serif'],
         mono:    ['"JetBrains Mono"', 'monospace'],
       },
       animation: {

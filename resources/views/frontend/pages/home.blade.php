@@ -3,7 +3,7 @@
     metaDescription="Complete workforce management for organizations, freelancer tools, and collaborative workspaces. One platform for every workflow."
 >
     {{-- Section 1: Hero --}}
-    <section class="relative pt-24 pb-14 lg:pt-36 lg:pb-20 overflow-hidden" 
+    <section class="relative pt-32 pb-14 lg:pt-48 lg:pb-20 overflow-hidden" 
         x-data="{ mx: 0, my: 0 }" 
         @mousemove.window="mx = ($event.clientX / window.innerWidth - 0.5) * 4; my = ($event.clientY / window.innerHeight - 0.5) * 3"
     >
@@ -15,9 +15,14 @@
         <div class="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 text-center">
             {{-- Announcement Pill --}}
             <div class="opacity-0 animate-hero-fade-up" style="animation-delay: 0ms;">
-                <x-frontend-base.badge color="teal" size="md" :dot="true" :pulse="true" class="mb-8 inline-flex">
-                    TimeNest 2.0 is now live
-                </x-frontend-base.badge>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md border border-slate-200/80 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] mb-8 cursor-pointer hover:border-brand-500/30 hover:shadow-md transition-all duration-300">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    </span>
+                    <span class="text-[13px] font-semibold text-slate-800 tracking-wide">TimeNest 2.0 is now live</span>
+                    <svg class="w-3.5 h-3.5 text-slate-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </div>
             </div>
             
             {{-- Main Heading with mouse parallax --}}
@@ -320,7 +325,7 @@
                  x-data="{ capSlide: 0, capTotal: 4 }">
 
                 {{-- Desktop: Normal 2x2 grid (hidden on mobile) --}}
-                <div class="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="hidden md:grid md:grid-cols-2 gap-8">
 
                     <!-- Capability 1: Workforce & HR Operations -->
                     <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
@@ -341,7 +346,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                             @include('frontend.partials.widgets.attendance')
                             @include('frontend.partials.widgets.team-status')
                             @include('frontend.partials.widgets.leave-requests')
@@ -368,7 +373,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                             @include('frontend.partials.widgets.approval-workflow')
                             @include('frontend.partials.widgets.projects')
                             @include('frontend.partials.widgets.tasks')
@@ -395,7 +400,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                             @include('frontend.partials.widgets.cashflow')
                             @include('frontend.partials.widgets.payroll')
                             @include('frontend.partials.widgets.expense-tracking')
@@ -422,7 +427,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                             @include('frontend.partials.widgets.ai-copilot')
                             @include('frontend.partials.widgets.ai-insights')
                             @include('frontend.partials.widgets.audit-trail')
@@ -646,18 +651,17 @@
             <div class="relative mx-auto max-w-6xl h-[650px] lg:h-[750px] w-full rounded-3xl border border-slate-200/80 bg-slate-50/50 overflow-hidden shadow-inner transition-all duration-1000 delay-400 transform"
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
             >
-                <!-- Fade overlays to blend top and bottom transitions -->
-                <div class="absolute top-0 inset-x-0 h-16 sm:h-20 md:h-28 bg-gradient-to-b from-white to-transparent pointer-events-none z-10"></div>
-                <div class="absolute bottom-0 inset-x-0 h-16 sm:h-20 md:h-28 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
+                <!-- Fade overlays to smooth the scrolling effect -->
+                <div class="absolute top-0 inset-x-0 h-6 sm:h-12 md:h-16 bg-gradient-to-b from-white to-transparent pointer-events-none z-10"></div>
+                <div class="absolute bottom-0 inset-x-0 h-6 sm:h-12 md:h-16 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
                 
                 <!-- Dual Column Layout -->
-                <div class="grid grid-cols-2 gap-4 md:gap-6 h-full p-4 md:p-6 pause-hover">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full p-4 md:p-6 pause-hover">
                     
                     <!-- Left Column: Scrolling Down (Top to Bottom) -->
                     <div class="flex flex-col gap-6 animate-marquee-down">
                         
                         <!-- Cards Set 1 -->
-                        <!-- Card 1: Work OS Dashboard -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -671,20 +675,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Work OS Dashboard</h4>
-                                    <p class="text-[9px] text-slate-400">Central Command Hub</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Work OS Dashboard</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Real-time</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Insights</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 2: Workforce Scheduler -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -698,20 +706,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Workforce Scheduler</h4>
-                                    <p class="text-[9px] text-slate-400">Shift & Roster Manager</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Workforce Scheduler</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Shifts</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Conflicts</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 3: Compliance & Audit -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -725,20 +737,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Compliance & Audit</h4>
-                                    <p class="text-[9px] text-slate-400">Immutable Event Logging</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Compliance & Audit</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">SOC2</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">GDPR</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 4: AI Intelligence Core -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -752,21 +768,57 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">AI Intelligence Core</h4>
-                                    <p class="text-[9px] text-slate-400">Automated Operations Rules</p>
+                                    <h4 class="text-sm font-bold text-slate-800">AI Intelligence Core</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">ML</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Rules</span>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/payroll</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                                <img src="/images/mockups/finance_ledger.png" alt="Payroll Automations" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Payroll Automations</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Payroll</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Sync</span>
+                                        
+                                </div>
                             </div>
                         </div>
 
                         <!-- Cards Set 2 (Duplicated for infinite scroll) -->
-                        <!-- Card 1 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -780,20 +832,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Work OS Dashboard</h4>
-                                    <p class="text-[9px] text-slate-400">Central Command Hub</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Work OS Dashboard</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Real-time</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Insights</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 2 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -807,20 +863,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Workforce Scheduler</h4>
-                                    <p class="text-[9px] text-slate-400">Shift & Roster Manager</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Workforce Scheduler</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Shifts</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Conflicts</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 3 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -834,20 +894,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Compliance & Audit</h4>
-                                    <p class="text-[9px] text-slate-400">Immutable Event Logging</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Compliance & Audit</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">SOC2</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">GDPR</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 4 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -861,26 +925,60 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">AI Intelligence Core</h4>
-                                    <p class="text-[9px] text-slate-400">Automated Operations Rules</p>
+                                    <h4 class="text-sm font-bold text-slate-800">AI Intelligence Core</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">ML</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Rules</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/payroll</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                                <img src="/images/mockups/finance_ledger.png" alt="Payroll Automations" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Payroll Automations</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Payroll</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Sync</span>
+                                        
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <!-- Right Column: Scrolling Up (Bottom to Top) -->
-                    <div class="flex flex-col gap-6 animate-marquee-up">
+                    <div class="hidden md:flex flex-col gap-6 animate-marquee-up">
                         
                         <!-- Cards Set 1 -->
-                        <!-- Card 1: AI Analytics Hub -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -894,20 +992,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">AI Analytics Hub</h4>
-                                    <p class="text-[9px] text-slate-400">Predictive Forecasting</p>
+                                    <h4 class="text-sm font-bold text-slate-800">AI Analytics Hub</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Forecast</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Reports</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 2: Financial Invoicing -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -921,20 +1023,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Financial Invoicing</h4>
-                                    <p class="text-[9px] text-slate-400">Ledger & Payments</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Financial Invoicing</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Invoices</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Billing</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 3: Enterprise Solutions -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -948,20 +1054,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Enterprise Solutions</h4>
-                                    <p class="text-[9px] text-slate-400">Global Scalability</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Enterprise Solutions</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Scale</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">SSO</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 4: Collaborative Workspaces -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -975,21 +1085,57 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Collaborative Workspaces</h4>
-                                    <p class="text-[9px] text-slate-400">Shared Team Portals</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Collaborative Workspaces</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Portals</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Chat</span>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/crm-sync</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                                <img src="/images/mockups/ai-analytics.png" alt="Client CRM Sync" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Client CRM Sync</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">CRM</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Sync</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Sales</span>
+                                        
+                                </div>
                             </div>
                         </div>
 
                         <!-- Cards Set 2 (Duplicated for infinite scroll) -->
-                        <!-- Card 1 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -1003,20 +1149,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">AI Analytics Hub</h4>
-                                    <p class="text-[9px] text-slate-400">Predictive Forecasting</p>
+                                    <h4 class="text-sm font-bold text-slate-800">AI Analytics Hub</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Forecast</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Reports</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 2 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -1030,20 +1180,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Financial Invoicing</h4>
-                                    <p class="text-[9px] text-slate-400">Ledger & Payments</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Financial Invoicing</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Invoices</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Billing</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 3 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -1057,20 +1211,24 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Enterprise Solutions</h4>
-                                    <p class="text-[9px] text-slate-400">Global Scalability</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Enterprise Solutions</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Scale</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">SSO</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Card 4 Duplicate -->
                         <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
                             <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
@@ -1084,25 +1242,61 @@
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
                                 <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-800">Collaborative Workspaces</h4>
-                                    <p class="text-[9px] text-slate-400">Shared Team Portals</p>
+                                    <h4 class="text-sm font-bold text-slate-800">Collaborative Workspaces</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
                                 </div>
-                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Portals</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Chat</span>
+                                        
+                                </div>
                             </div>
                         </div>
-
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/crm-sync</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                                <img src="/images/mockups/ai-analytics.png" alt="Client CRM Sync" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Client CRM Sync</h4>
+                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
+                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">CRM</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Sync</span>
+                                        <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Sales</span>
+                                        
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
+</section>
 
     {{-- Section 4: Role-Based Problem Statement --}}
     <section class="py-12 sm:py-16 lg:py-20 bg-white" x-data="{ activeTab: 'founders' }">
@@ -1112,7 +1306,7 @@
                 <p class="text-content-muted text-lg">Whether you're a founder scaling a company or a freelancer managing clients, TimeNest adapts to your specific workflow.</p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-2.5 mb-12">
+            <div class="flex overflow-x-auto flex-nowrap md:flex-wrap justify-start md:justify-center gap-2.5 mb-12 pb-2 scrollbar-hide">
                 @foreach([
                     'founders' => ['Founders', 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'], 
                     'hr' => ['HR Teams', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'], 
@@ -1125,7 +1319,7 @@
                     'enterprise' => ['Enterprise Teams', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
                     'ai' => ['AI-Powered Teams', 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z']
                 ] as $key => [$label, $icon])
-                    <button @click="activeTab = '{{ $key }}'" :class="activeTab === '{{ $key }}' ? 'bg-brand-500 text-white shadow-md shadow-brand-500/20' : 'bg-white border border-surface-border text-content-muted hover:text-content-strong hover:bg-surface-50'" class="px-5 py-3 rounded-xl text-sm font-body font-medium transition-all cursor-pointer flex items-center gap-2">
+                    <button @click="activeTab = '{{ $key }}'" :class="activeTab === '{{ $key }}' ? 'bg-brand-500 text-white shadow-md shadow-brand-500/20' : 'bg-white border border-surface-border text-content-muted hover:text-content-strong hover:bg-surface-50'" class="px-5 py-3 rounded-xl text-sm font-body font-medium transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/></svg>
                         {{ $label }}
                     </button>
@@ -1428,47 +1622,198 @@
     {{-- Section 4: Product Lines Cards --}}
     <section class="py-12 sm:py-16 lg:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
+                <x-frontend-base.badge variant="primary" class="mb-4">Platform Products</x-frontend-base.badge>
                 <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Three products, one platform</h2>
-                <p class="text-content-muted text-lg">Choose the product that fits your workflow right now, and seamlessly scale as your business grows without ever migrating data.</p>
+                <p class="text-content-muted text-lg">TimeNest isn't one tool — it's three powerful operating systems unified under a single platform. Choose the product that fits your workflow, and scale seamlessly without ever migrating data.</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                @foreach([
-                    ['title' => 'For Organizations', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'desc' => 'Complete workforce and operations management for companies. Unify HR, attendance, shifts, and departmental workflows.', 'features' => ['Employee Directory & Profiles', 'Real-time Attendance & GPS', 'Shift Builder & Leave Rules', 'Multi-level Approvals'], 'cta' => 'Book Demo', 'url' => route('frontend.book-demo'), 'color' => 'brand'],
-                    ['title' => 'For Freelancers', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects. Run your entire freelance business from one dashboard.', 'features' => ['Client CRM & Lead Tracking', 'Professional Invoicing', 'Task & Project Kanban', 'Revenue Forecasting'], 'cta' => 'Start Free', 'url' => '/register', 'color' => 'indigo'],
-                    ['title' => 'Freelance Workspace', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Work together without full corporate overhead.', 'features' => ['Collaborator Management', 'Shared Projects & Files', 'Unified Client Billing', 'Team Utilization Analytics'], 'cta' => 'Upgrade to Pro', 'url' => route('frontend.pricing'), 'color' => 'amber', 'pro' => true],
-                ] as $product)
-                    <div class="group rounded-2xl border border-surface-border bg-white p-6 sm:p-8 hover:border-{{ $product['color'] }}-300 hover:shadow-xl hover:shadow-{{ $product['color'] }}-500/10 transition-all duration-300 flex flex-col relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+            @php
+                $products = [
+                    [
+                        'title' => 'For Organizations',
+                        'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+                        'desc' => 'Complete workforce and operations management for companies of any size. Unify HR, attendance, shifts, approvals, and departmental workflows into a single real-time operating system.',
+                        'audience' => ['Startups', 'SMBs', 'Enterprises', 'Distributed Teams'],
+                        'stats' => [['label' => 'Employees', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z'], ['label' => 'Attendance', 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'], ['label' => 'Approvals', 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z']],
+                        'features' => ['Employee Directory & Profiles', 'Attendance Tracking & GPS', 'Leave Management', 'Shift Scheduling & Rostering', 'Departments & Teams', 'Roles & Permissions', 'Multi-Level Approvals', 'Workforce Analytics', 'Audit Logs', 'Compliance Monitoring'],
+                        'bestFor' => 'Managing Employees',
+                        'basis' => 'Employee-Based',
+                        'cta' => 'Book Organization Demo',
+                        'url' => route('frontend.book-demo'),
+                        'color' => 'brand',
+                        'widgetType' => 'org',
+                    ],
+                    [
+                        'title' => 'For Freelancers',
+                        'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+                        'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects from one dashboard. Run your entire freelance business — CRM, invoicing, tasks, and AI forecasting — forever free.',
+                        'audience' => ['Solo Freelancers', 'Consultants', 'Creators', 'Independent Professionals'],
+                        'stats' => [['label' => 'Clients', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'], ['label' => 'Invoices', 'icon' => 'M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z'], ['label' => 'Projects', 'icon' => 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z']],
+                        'features' => ['Client CRM & Lead Tracking', 'Professional Invoicing', 'Quotations & Proposals', 'Revenue Analytics', 'Project Management', 'Task Tracking & Kanban', 'Document Management', 'Payment Tracking', 'AI Revenue Forecasting', 'Time Logging'],
+                        'bestFor' => 'Running Your Solo Business',
+                        'basis' => 'Individual-Based',
+                        'cta' => 'Start Freelancing Free',
+                        'url' => '/register',
+                        'color' => 'indigo',
+                        'widgetType' => 'freelancer',
+                    ],
+                    [
+                        'title' => 'Freelance Workspace',
+                        'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+                        'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Share projects, consolidate invoicing, and track team utilization — without corporate overhead.',
+                        'audience' => ['Agencies', 'Studios', 'Consulting Teams', 'Collaborative Freelance Groups'],
+                        'stats' => [['label' => 'Collaborators', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z'], ['label' => 'Projects', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'], ['label' => 'Reporting', 'icon' => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z']],
+                        'features' => ['Collaborator Management', 'Shared Projects & Files', 'Shared Client Billing', 'Workspace Analytics', 'Team Utilization Tracking', 'Revenue Visibility', 'Collaborative Reporting', 'Shared Task Management', 'Agency Workflows', 'Shared Documents'],
+                        'bestFor' => 'Managing Collaborative Freelance Teams',
+                        'basis' => 'Collaborator-Based',
+                        'cta' => 'Launch Your Workspace',
+                        'url' => route('frontend.pricing'),
+                        'color' => 'amber',
+                        'pro' => true,
+                        'widgetType' => 'workspace',
+                    ],
+                ];
+            @endphp
+
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                @foreach($products as $product)
+                    <div class="group rounded-2xl border border-surface-border bg-white p-6 sm:p-8 lg:p-9 hover:border-{{ $product['color'] }}-300 hover:shadow-2xl hover:shadow-{{ $product['color'] }}-500/10 hover:-translate-y-1 transition-all duration-400 flex flex-col relative overflow-hidden">
+                        
+                        {{-- Background glow on hover --}}
+                        <div class="absolute inset-0 bg-gradient-to-br from-{{ $product['color'] }}-50/0 via-transparent to-{{ $product['color'] }}-50/0 group-hover:from-{{ $product['color'] }}-50/40 group-hover:to-{{ $product['color'] }}-50/20 transition-all duration-500 pointer-events-none"></div>
+                        
+                        {{-- Ghost icon --}}
+                        <div class="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500">
                             <svg class="w-32 h-32 text-{{ $product['color'] }}-600 -mr-10 -mt-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="{{ $product['icon'] }}"/></svg>
                         </div>
                         
-                        <div class="w-14 h-14 rounded-xl bg-{{ $product['color'] }}-50 flex items-center justify-center mb-6 text-{{ $product['color'] }}-600 border border-{{ $product['color'] }}-100 relative z-10">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $product['icon'] }}"/></svg>
+                        {{-- Icon container with hover animation --}}
+                        <div class="w-14 h-14 rounded-xl bg-{{ $product['color'] }}-50 flex items-center justify-center mb-5 text-{{ $product['color'] }}-600 border border-{{ $product['color'] }}-100 relative z-10 group-hover:bg-{{ $product['color'] }}-500 group-hover:text-white group-hover:border-{{ $product['color'] }}-500 group-hover:shadow-lg group-hover:shadow-{{ $product['color'] }}-500/25 transition-all duration-300">
+                            <svg class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $product['icon'] }}"/></svg>
                         </div>
                         
-                        <h3 class="font-display text-2xl font-bold text-content-strong mb-3 relative z-10">{{ $product['title'] }}</h3>
+                        {{-- Title --}}
+                        <h3 class="font-display text-2xl font-bold text-content-strong mb-2 relative z-10">{{ $product['title'] }}</h3>
+                        
+                        {{-- Audience tag --}}
+                        <div class="flex items-center gap-1.5 mb-4 relative z-10">
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Ideal For:</span>
+                            <span class="text-[10px] font-medium text-slate-500">{{ implode(' • ', $product['audience']) }}</span>
+                        </div>
                         
                         @if(isset($product['pro']))
-                            <x-frontend-base.badge variant="pro" class="mb-4 self-start relative z-10">Requires Pro</x-frontend-base.badge>
+
                         @endif
                         
-                        <p class="text-content-muted text-base leading-relaxed mb-8 relative z-10">{{ $product['desc'] }}</p>
+                        {{-- Description --}}
+                        <p class="text-content-muted text-sm leading-relaxed mb-5 relative z-10">{{ $product['desc'] }}</p>
                         
+                        {{-- Stats micro-badges row --}}
+                        <div class="flex items-center gap-2 mb-6 relative z-10">
+                            @foreach($product['stats'] as $stat)
+                                <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 transition-colors duration-300">
+                                    <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}"/></svg>
+                                    <span class="text-[10px] font-semibold text-slate-600">{{ $stat['label'] }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        {{-- Mini Dashboard Preview Widget --}}
+                        <div class="relative z-10 mb-6 rounded-xl border border-slate-200/60 bg-gradient-to-br from-slate-50 to-white p-3 overflow-hidden">
+                            @if($product['widgetType'] === 'org')
+                                {{-- Organization: Attendance mini-widget --}}
+                                <div x-data="{ present: 47, total: 52, rate: 90.4 }" x-init="setInterval(() => { present = present === 47 ? 50 : present === 50 ? 52 : 47; rate = Math.round(present/total*1000)/10; }, 3000)">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Today's Attendance</span>
+                                        <span class="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse">
+                                            <span class="w-1 h-1 rounded-full bg-emerald-500"></span> Live
+                                        </span>
+                                    </div>
+                                    <div class="flex items-end justify-between">
+                                        <div>
+                                            <span class="text-lg font-bold text-slate-800 transition-all duration-500" x-text="present + '/' + total"></span>
+                                            <span class="text-[9px] text-slate-400 ml-1">employees</span>
+                                        </div>
+                                        <span class="text-xs font-bold transition-all duration-500" :class="rate > 95 ? 'text-emerald-600' : 'text-amber-600'" x-text="rate + '%'"></span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                                        <div class="h-full rounded-full transition-all duration-700 ease-out" :class="rate > 95 ? 'bg-emerald-500' : 'bg-amber-500'" :style="'width: ' + rate + '%'"></div>
+                                    </div>
+                                </div>
+                            @elseif($product['widgetType'] === 'freelancer')
+                                {{-- Freelancer: Revenue mini-widget --}}
+                                <div x-data="{ revenue: 284500, invoices: 12, paid: 9 }" x-init="setInterval(() => { revenue += Math.floor(Math.random() * 15000); paid = Math.min(paid + 1, invoices); }, 4000)">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Revenue This Month</span>
+                                        <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">Tracking</span>
+                                    </div>
+                                    <div class="flex items-end justify-between">
+                                        <div>
+                                            <span class="text-lg font-bold text-slate-800 transition-all duration-500" x-text="'₹' + revenue.toLocaleString()"></span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-[9px] text-slate-400 block" x-text="paid + '/' + invoices + ' paid'"></span>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-1 mt-2">
+                                        <template x-for="i in invoices">
+                                            <div class="flex-1 h-1.5 rounded-full transition-all duration-500" :class="i <= paid ? 'bg-indigo-500' : 'bg-slate-100'"></div>
+                                        </template>
+                                    </div>
+                                </div>
+                            @elseif($product['widgetType'] === 'workspace')
+                                {{-- Workspace: Team utilization mini-widget --}}
+                                <div x-data="{ members: [{n:'Sarah K.', u:92}, {n:'James L.', u:78}, {n:'Maria R.', u:85}] }">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Team Utilization</span>
+                                        <span class="text-[8px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">3 Active</span>
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <template x-for="m in members" :key="m.n">
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-[9px] font-medium text-slate-600 w-14 truncate" x-text="m.n"></span>
+                                                <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-amber-500 rounded-full transition-all duration-700" :style="'width: ' + m.u + '%'"></div>
+                                                </div>
+                                                <span class="text-[9px] font-bold text-slate-500 w-7 text-right" x-text="m.u + '%'"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        {{-- Differentiation block --}}
+                        <div class="relative z-10 mb-6 flex items-center gap-3 px-3.5 py-2.5 rounded-lg bg-{{ $product['color'] }}-50/60 border border-{{ $product['color'] }}-100/60">
+                            <svg class="w-4 h-4 text-{{ $product['color'] }}-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <div>
+                                <span class="text-[9px] font-bold text-{{ $product['color'] }}-500 uppercase tracking-widest">Best For</span>
+                                <p class="text-xs font-bold text-{{ $product['color'] }}-800 leading-tight">{{ $product['bestFor'] }}</p>
+                            </div>
+                        </div>
+                        
+                        {{-- Feature list --}}
                         <div class="mb-8 flex-1 relative z-10">
-                            <h4 class="text-xs font-semibold text-content-strong uppercase tracking-wider mb-4">Core Features</h4>
-                            <ul class="space-y-3">
+                            <h4 class="text-[10px] font-semibold text-content-strong uppercase tracking-widest mb-3">Platform Features</h4>
+                            <ul class="grid grid-cols-1 gap-2">
                                 @foreach($product['features'] as $f)
-                                    <li class="flex items-start gap-3 text-sm text-content-muted">
-                                        <svg class="w-5 h-5 text-{{ $product['color'] }}-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <li class="flex items-center gap-2 text-[13px] text-content-muted">
+                                        <svg class="w-4 h-4 text-{{ $product['color'] }}-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         {{ $f }}
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
                         
-                        <x-frontend-base.button :href="$product['url']" variant="outline" class="w-full relative z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:text-{{ $product['color'] }}-700 hover:border-{{ $product['color'] }}-200">{{ $product['cta'] }}</x-frontend-base.button>
+                        {{-- CTA Button --}}
+                        <x-frontend-base.button :href="$product['url']" variant="outline" class="w-full relative z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:text-{{ $product['color'] }}-700 hover:border-{{ $product['color'] }}-200 transition-all duration-300">{{ $product['cta'] }}</x-frontend-base.button>
+                        
+                        {{-- Product comparison indicator --}}
+                        <div class="relative z-10 mt-4 pt-4 border-t border-slate-100 flex items-center justify-center gap-2">
+                            <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $product['icon'] }}"/></svg>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ $product['basis'] }}</span>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -1541,62 +1886,136 @@
     {{-- Section 6: Stats Strip --}}
     <x-frontend-sections.stats-strip :stats="$stats" />
 
-    {{-- Section 7: Interactive ROI Calculator --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-surface-50 border-y border-surface-border" x-data="{ 
-        employees: 50, 
-        hrSize: 3, 
-        avgSalary: 50000, 
-        get timeSaved() { return Math.round(this.employees * 0.5 + this.hrSize * 8) }, 
-        get moneySaved() { return Math.round((this.timeSaved * 12 * this.avgSalary) / (22 * 8 * 12)) }, 
-        get productivity() { return Math.min(Math.round(this.employees * 0.15 + this.hrSize * 2), 45) } 
-    }">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    {{-- Section 7: AI-Powered ROI Calculator --}}
+    <section class="py-16 sm:py-20 lg:py-24 bg-surface-50 border-y border-surface-border overflow-hidden relative" 
+             x-data="{ 
+                 employees: 50, 
+                 hrSize: 3, 
+                 avgSalary: 50000, 
+                 isProcessing: false,
+                 triggerProcess() {
+                     if(!this.isProcessing) {
+                         this.isProcessing = true;
+                         setTimeout(() => this.isProcessing = false, 500);
+                     }
+                 },
+                 get timeSaved() { return Math.round(this.employees * 0.5 + this.hrSize * 8) }, 
+                 get moneySaved() { return Math.round((this.timeSaved * 12 * this.avgSalary) / (22 * 8 * 12)) }, 
+                 get productivity() { return Math.min(Math.round(this.employees * 0.15 + this.hrSize * 2), 45) } 
+             }">
+        
+        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/5 to-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Calculate your exact ROI</h2>
-                <p class="text-content-muted text-lg">See how much time and money TimeNest can save your organization by eliminating manual tasks and tool sprawl.</p>
+                <x-frontend-base.badge variant="accent" class="mb-4">Value Assessment</x-frontend-base.badge>
+                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4 tracking-tight">Calculate your exact ROI</h2>
+                <p class="text-content-muted text-lg font-body">See how much time and capital our automated AI operations can save your organization by eliminating manual tasks and tool sprawl.</p>
             </div>
             
-            <div class="rounded-3xl border border-surface-border bg-white shadow-xl p-6 sm:p-8 lg:p-12">
-                <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="rounded-3xl border border-surface-border bg-white shadow-xl shadow-slate-200/40 p-6 sm:p-8 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <!-- Inputs -->
                     <div class="space-y-10">
-                        <div>
-                            <div class="flex justify-between mb-3">
-                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">Number of Employees</label>
-                                <span class="font-display font-bold text-brand-600" x-text="employees"></span>
+                        <!-- Slider 1 -->
+                        <div class="relative">
+                            <div class="flex justify-between mb-4 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Total Workforce Size</label>
+                                <span class="font-mono text-xl font-bold text-slate-800" x-text="employees"></span>
                             </div>
-                            <input type="range" min="10" max="1000" x-model="employees" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + (employees / 1000 * 100) + '%'"></div>
+                                <input type="range" min="10" max="1000" x-model="employees" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
+                                <span>10</span>
+                                <span>1,000+</span>
+                            </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-3">
-                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">HR/Ops Team Size</label>
-                                <span class="font-display font-bold text-brand-600" x-text="hrSize"></span>
+
+                        <!-- Slider 2 -->
+                        <div class="relative">
+                            <div class="flex justify-between mb-4 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">HR & Ops Team Size</label>
+                                <span class="font-mono text-xl font-bold text-slate-800" x-text="hrSize"></span>
                             </div>
-                            <input type="range" min="1" max="20" x-model="hrSize" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + (hrSize / 20 * 100) + '%'"></div>
+                                <input type="range" min="1" max="20" x-model="hrSize" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
+                                <span>1</span>
+                                <span>20</span>
+                            </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-3">
-                                <label class="text-sm font-bold text-content-strong uppercase tracking-wider">Avg Monthly Salary (₹)</label>
-                                <span class="font-display font-bold text-brand-600" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
+
+                        <!-- Slider 3 -->
+                        <div class="relative">
+                            <div class="flex justify-between mb-4 items-end">
+                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Avg Monthly Salary</label>
+                                <span class="font-mono text-xl font-bold text-slate-800" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
                             </div>
-                            <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" class="w-full h-2 bg-surface-border rounded-lg appearance-none cursor-pointer accent-brand-500">
+                            <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-teal-400 pointer-events-none" :style="'width: ' + ((avgSalary - 15000) / 185000 * 100) + '%'"></div>
+                                <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                            <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-medium">
+                                <span>₹15K</span>
+                                <span>₹200K</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="rounded-2xl bg-brand-50 p-6 border border-brand-100 flex flex-col justify-center shadow-sm">
-                            <p class="text-brand-700 text-sm font-medium mb-2 uppercase tracking-wider">Time Saved Monthly</p>
-                            <p class="font-display text-4xl font-bold text-brand-600 mb-1" x-text="timeSaved + ' hrs'"></p>
-                            <p class="text-brand-600/70 text-xs">Automating approvals & attendance</p>
+                    <!-- AI Output Display -->
+                    <div class="relative rounded-3xl bg-slate-900 p-8 border border-slate-800 shadow-2xl overflow-hidden group min-h-[340px] flex flex-col justify-center">
+                        <!-- Ambient glowing orb -->
+                        <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full transition-all duration-700 blur-3xl" 
+                             :class="isProcessing ? 'bg-teal-500/40 scale-125' : 'bg-indigo-500/20 scale-100'"></div>
+                        
+                        <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-8 h-full">
+                            <!-- Time Saved -->
+                            <div class="flex flex-col border-b sm:border-b-0 sm:border-r border-slate-700/50 pb-6 sm:pb-0 sm:pr-6 transition-all duration-300" 
+                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
+                                <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    Time Saved
+                                </p>
+                                <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="timeSaved + ' hrs'"></p>
+                                <p class="text-slate-500 text-[11px] mt-2 font-medium">Monthly automation gains</p>
+                            </div>
+                            
+                            <!-- Productivity -->
+                            <div class="flex flex-col sm:pl-2 transition-all duration-300 delay-75" 
+                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
+                                <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                    Efficiency
+                                </p>
+                                <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="'+' + productivity + '%'"></p>
+                                <p class="text-slate-500 text-[11px] mt-2 font-medium">Workforce throughput</p>
+                            </div>
+                            
+                            <!-- Estimated Savings -->
+                            <div class="sm:col-span-2 bg-slate-800/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 transition-all duration-300 delay-150" 
+                                 :class="isProcessing ? 'opacity-30 blur-[4px] scale-95' : 'opacity-100 blur-0 scale-100'">
+                                <p class="text-emerald-400 text-[10px] font-bold mb-3 uppercase tracking-widest flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    Annual Capital Saved
+                                </p>
+                                <p class="font-display text-5xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight" x-text="'₹' + Number(moneySaved).toLocaleString()"></p>
+                            </div>
                         </div>
-                        <div class="rounded-2xl bg-indigo-50 p-6 border border-indigo-100 flex flex-col justify-center shadow-sm">
-                            <p class="text-indigo-700 text-sm font-medium mb-2 uppercase tracking-wider">Productivity Boost</p>
-                            <p class="font-display text-4xl font-bold text-indigo-600 mb-1" x-text="'+' + productivity + '%'"></p>
-                            <p class="text-indigo-600/70 text-xs">Due to centralized workflows</p>
-                        </div>
-                        <div class="sm:col-span-2 rounded-2xl bg-green-50 p-6 sm:p-8 border border-green-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
-                            <svg class="absolute right-0 bottom-0 text-green-200/50 w-32 h-32 -mr-8 -mb-8 transform rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <p class="text-green-700 text-sm font-medium mb-2 uppercase tracking-wider relative z-10">Estimated Annual Savings</p>
-                            <p class="font-display text-5xl font-bold text-green-600 relative z-10" x-text="'₹' + Number(moneySaved).toLocaleString()"></p>
+                        
+                        <!-- AI processing overlay -->
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/60 backdrop-blur-md transition-all duration-300"
+                             :class="isProcessing ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
+                             <div class="flex flex-col items-center gap-4">
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <span class="absolute inset-0 rounded-full border-[3px] border-indigo-500/20"></span>
+                                    <span class="absolute inset-0 rounded-full border-[3px] border-t-teal-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
+                                </div>
+                                <span class="text-[11px] font-mono text-teal-300 font-bold uppercase tracking-widest animate-pulse">Computing Metrics...</span>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -1605,30 +2024,76 @@
     </section>
 
     {{-- Section 8: Testimonials --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <x-frontend-sections.section-header title="Loved by forward-thinking teams" subtitle="Don't just take our word for it. Here's what our users have to say about TimeNest." badge="Testimonials" />
+    <section class="py-16 sm:py-24 lg:py-32 bg-slate-50 relative overflow-hidden">
+        <!-- Background Accents -->
+        <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-brand-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <x-frontend-sections.section-header title="Loved by forward-thinking teams" subtitle="See how organizations are transforming their workforce management with TimeNest." badge="Customer Stories" />
             
-            <div class="grid md:grid-cols-3 gap-6 mt-12">
-                @foreach($testimonials as $t)
-                    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg shadow-surface-border/20 border border-surface-border">
-                        <div class="flex items-center gap-1 mb-6">
-                            @for($i=0; $i<$t['rating']; $i++)
-                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            @endfor
+            <div class="grid md:grid-cols-3 gap-6 mt-16 items-start">
+                <!-- Video Testimonial (Featured) -->
+                <div class="md:col-span-2 group relative rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-800 isolate">
+                    <!-- Placeholder Image for Video -->
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Video Testimonial" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
+                    
+                    <div class="relative p-8 sm:p-12 h-full flex flex-col justify-end min-h-[400px]">
+                        <!-- Play Button -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
-                        <p class="text-content-strong text-lg mb-8 leading-relaxed">"{{ $t['content'] }}"</p>
+                        
+                        <blockquote class="text-xl sm:text-2xl font-display font-medium text-white mb-6 leading-relaxed max-w-2xl">
+                            "TimeNest didn't just replace our HR tools. It completely changed how our entire operations function. We save over 40 hours a week on manual attendance and approvals alone."
+                        </blockquote>
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 font-bold font-display">
-                                {{ substr($t['name'], 0, 1) }}
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Sarah Jenkins" class="w-12 h-12 rounded-full border-2 border-white/20 object-cover">
                             <div>
-                                <h4 class="font-bold text-content-strong">{{ $t['name'] }}</h4>
-                                <p class="text-sm text-content-muted">{{ $t['role'] }}, {{ $t['company'] }}</p>
+                                <h4 class="font-bold text-white text-lg">Sarah Jenkins</h4>
+                                <p class="text-slate-300 text-sm">VP of Operations, TechNova</p>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
+
+                <!-- Text Testimonials Stack -->
+                <div class="flex flex-col gap-6">
+                    <!-- Text Testimonial 1 -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/40 border border-slate-200/60 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="flex gap-1 mb-4">
+                            @for($i=0; $i<5; $i++)
+                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            @endfor
+                        </div>
+                        <p class="text-slate-700 font-body mb-6">"As a freelance designer, tracking hours across 10 clients was a nightmare. TimeNest makes it effortless and the invoicing is magical."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="David Lee" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">David Lee</h4>
+                                <p class="text-slate-500 text-xs">Independent Contractor</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Text Testimonial 2 -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/40 border border-slate-200/60 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="flex gap-1 mb-4">
+                            @for($i=0; $i<5; $i++)
+                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            @endfor
+                        </div>
+                        <p class="text-slate-700 font-body mb-6">"Scaling from 20 to 150 employees broke our processes. TimeNest grew with us perfectly."</p>
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Elena Rodriguez" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Elena Rodriguez</h4>
+                                <p class="text-slate-500 text-xs">Head of HR, Nexus</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1655,13 +2120,67 @@
     </section>
 
     {{-- Section 10: FAQ --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-white">
+    <section class="py-16 sm:py-20 lg:py-24 bg-white">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-display text-3xl font-bold text-content-strong mb-4">Frequently Asked Questions</h2>
-                <p class="text-content-muted text-lg">Everything you need to know about implementing TimeNest for your organization.</p>
+                <x-frontend-base.badge color="slate" size="md" class="mb-6 !bg-slate-900 !text-white !border-slate-800">FAQ</x-frontend-base.badge>
+                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4 tracking-tight">Frequently Asked Questions</h2>
+                <p class="text-content-muted text-lg font-body">Everything you need to know about implementing TimeNest for your organization.</p>
             </div>
-            <x-frontend-sections.faq-block :faqs="$faqs" />
+            
+            <div x-data="{ 
+                activeCategory: 'General', 
+                categories: ['General', 'Pricing', 'Security', 'Onboarding'],
+                faqs: [
+                    { category: 'General', q: 'What makes TimeNest different?', a: 'TimeNest combines HR, attendance, scheduling, and payroll into one unified platform with AI-driven insights.' },
+                    { category: 'General', q: 'Is there a free trial?', a: 'Yes, we offer a 14-day free trial on all Pro plans with no credit card required.' },
+                    { category: 'Pricing', q: 'Do I pay per user or flat fee?', a: 'TimeNest uses a hybrid model. The core platform is a flat fee, with small per-user fees only for active workforce members.' },
+                    { category: 'Pricing', q: 'Can I cancel anytime?', a: 'Absolutely. We believe in earning your business every month. No long-term lock-in.' },
+                    { category: 'Security', q: 'Is my data secure?', a: 'We use bank-grade AES-256 encryption and are fully GDPR & SOC2 compliant.' },
+                    { category: 'Security', q: 'Where is the data hosted?', a: 'Data is hosted on secure AWS servers with multi-region redundancy.' },
+                    { category: 'Onboarding', q: 'How long does implementation take?', a: 'Most teams are up and running within 48 hours thanks to our guided onboarding.' },
+                    { category: 'Onboarding', q: 'Do you offer data migration?', a: 'Yes! Our enterprise plans include white-glove migration from your existing HR/Ops tools.' }
+                ],
+                openIndex: null
+            }">
+                <!-- Tabbed Navigation -->
+                <div class="flex overflow-x-auto scrollbar-hide flex-nowrap gap-2 justify-start sm:justify-center mb-10 pb-2 -mx-6 px-6 sm:mx-0 sm:px-0">
+                    <template x-for="cat in categories" :key="cat">
+                        <button 
+                            @click="activeCategory = cat; openIndex = null" 
+                            class="px-5 py-2.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap border cursor-pointer font-body"
+                            :class="activeCategory === cat ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'"
+                            x-text="cat">
+                        </button>
+                    </template>
+                </div>
+
+                <!-- FAQ Items -->
+                <div class="space-y-4">
+                    <template x-for="(faq, index) in faqs.filter(f => f.category === activeCategory)" :key="faq.q">
+                        <div class="rounded-2xl border border-slate-200/60 bg-white overflow-hidden transition-all hover:border-slate-300 hover:shadow-sm">
+                            <button
+                                @click="openIndex = openIndex === index ? null : index"
+                                class="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer focus:outline-none"
+                            >
+                                <span class="font-body font-semibold text-slate-900 pr-4 text-base sm:text-lg" x-text="faq.q"></span>
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300"
+                                     :class="openIndex === index ? 'bg-slate-100' : 'bg-transparent'">
+                                    <svg class="w-5 h-5 text-slate-500 shrink-0 transition-transform duration-300" 
+                                         :class="openIndex === index ? 'rotate-180 text-slate-900' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </div>
+                            </button>
+                            <div x-show="openIndex === index" x-collapse>
+                                <div class="px-6 pb-6 pt-1 text-slate-600 leading-relaxed text-sm sm:text-base font-body border-t border-slate-100/50 mx-6">
+                                    <p x-text="faq.a"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
         </div>
     </section>
 

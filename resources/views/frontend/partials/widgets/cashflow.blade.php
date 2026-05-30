@@ -48,9 +48,9 @@
                   x-transition:enter-start="opacity-0 -translate-y-2"
                   x-transition:enter-end="opacity-100 translate-y-0"
              >
-                 <div class="truncate max-w-[90px]">
-                     <p class="font-bold truncate" x-text="tx.name"></p>
-                     <span class="text-[7px] opacity-60" x-text="tx.time"></span>
+                 <div class="flex-1 min-w-0 pr-2">
+                     <p class="font-bold truncate leading-tight" x-text="tx.name"></p>
+                     <span class="text-[7px] opacity-70 block" x-text="tx.time"></span>
                  </div>
                  <span class="font-mono font-bold" x-text="tx.amount"></span>
              </div>
