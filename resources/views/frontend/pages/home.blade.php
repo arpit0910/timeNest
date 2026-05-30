@@ -2446,7 +2446,7 @@
             </div>
             
             <!-- Social Proof Strip -->
-            <div class="mt-8 text-center bg-white border border-slate-200 rounded-2xl py-4 px-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] inline-flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mx-auto w-full md:w-auto left-1/2 relative md:-translate-x-1/2 hover:-translate-y-1 transition-transform duration-300">
+            <div class="mt-8 text-center bg-white border border-slate-200 rounded-2xl py-4 px-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mx-auto w-full md:w-max">
                 <div class="flex -space-x-3">
                     <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=33" alt="Avatar">
                     <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=47" alt="Avatar">
@@ -2553,68 +2553,175 @@
         </div>
     </section>
 
-    {{-- Section 10: FAQ --}}
-    <section class="py-16 sm:py-20 lg:py-24 bg-white">
-        <div class="max-w-4xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <x-frontend-base.badge color="slate" size="md" class="mb-6 !bg-slate-900 !text-white !border-slate-800">FAQ</x-frontend-base.badge>
-                <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4 tracking-tight">Frequently Asked Questions</h2>
-                <p class="text-content-muted text-lg font-body">Everything you need to know about implementing TimeNest for your organization.</p>
+    {{-- Section 10: FAQ / Trust Center --}}
+    <section class="py-24 lg:py-32 bg-slate-50 relative border-t border-slate-200/60" id="faq">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+                <x-frontend-base.badge color="brand" size="md" class="mb-6">Knowledge Base</x-frontend-base.badge>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Everything you need to know.</h2>
+                <p class="text-slate-600 text-lg lg:text-xl font-body">Clear answers to help you make an informed decision about migrating your workforce to TimeNest.</p>
             </div>
             
             <div x-data="{ 
                 activeCategory: 'General', 
-                categories: ['General', 'Pricing', 'Security', 'Onboarding'],
-                faqs: [
-                    { category: 'General', q: 'What makes TimeNest different?', a: 'TimeNest combines HR, attendance, scheduling, and payroll into one unified platform with AI-driven insights.' },
-                    { category: 'General', q: 'Is there a free trial?', a: 'Yes, we offer a 14-day free trial on all Pro plans with no credit card required.' },
-                    { category: 'Pricing', q: 'Do I pay per user or flat fee?', a: 'TimeNest uses a hybrid model. The core platform is a flat fee, with small per-user fees only for active workforce members.' },
-                    { category: 'Pricing', q: 'Can I cancel anytime?', a: 'Absolutely. We believe in earning your business every month. No long-term lock-in.' },
-                    { category: 'Security', q: 'Is my data secure?', a: 'We use bank-grade AES-256 encryption and are fully GDPR & SOC2 compliant.' },
-                    { category: 'Security', q: 'Where is the data hosted?', a: 'Data is hosted on secure AWS servers with multi-region redundancy.' },
-                    { category: 'Onboarding', q: 'How long does implementation take?', a: 'Most teams are up and running within 48 hours thanks to our guided onboarding.' },
-                    { category: 'Onboarding', q: 'Do you offer data migration?', a: 'Yes! Our enterprise plans include white-glove migration from your existing HR/Ops tools.' }
-                ],
-                openIndex: null
-            }">
-                <!-- Tabbed Navigation -->
-                <div class="flex overflow-x-auto scrollbar-hide flex-nowrap gap-2 justify-start sm:justify-center mb-10 pb-2 -mx-6 px-6 sm:mx-0 sm:px-0">
-                    <template x-for="cat in categories" :key="cat">
-                        <button 
-                            @click="activeCategory = cat; openIndex = null" 
-                            class="px-5 py-2.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap border cursor-pointer font-body"
-                            :class="activeCategory === cat ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50'"
-                            x-text="cat">
-                        </button>
-                    </template>
+                searchQuery: '',
+                faqData: {{ Js::from($faqs) }},
+                openIndex: null,
+                get filteredFaqs() {
+                    if (this.searchQuery.trim() === '') {
+                        return this.faqData[this.activeCategory] || [];
+                    }
+                    let results = [];
+                    let query = this.searchQuery.toLowerCase();
+                    for (const [cat, questions] of Object.entries(this.faqData)) {
+                        questions.forEach((q, idx) => {
+                            if (q.q.toLowerCase().includes(query) || q.a.toLowerCase().includes(query)) {
+                                results.push({ ...q, category: cat, originalCat: cat, originalIdx: idx });
+                            }
+                        });
+                    }
+                    return results;
+                }
+            }" class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start relative">
+                
+                <!-- Left Sidebar: Category Navigation -->
+                <div class="w-full lg:w-1/4 lg:sticky lg:top-32 shrink-0">
+                    <!-- Search Input -->
+                    <div class="relative mb-8">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <input x-model="searchQuery" type="text" placeholder="Search questions..." 
+                               class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 shadow-sm transition-all text-sm font-body text-slate-900 placeholder-slate-400">
+                    </div>
+
+                    <div class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-4 lg:pb-0 scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0" x-show="searchQuery.trim() === ''">
+                        <template x-for="category in Object.keys(faqData)" :key="category">
+                            <button 
+                                @click="activeCategory = category; openIndex = null; window.scrollTo({top: document.getElementById('faq').offsetTop - 80, behavior: 'smooth'})"
+                                class="text-left px-4 lg:px-5 py-2.5 lg:py-3 rounded-xl text-sm font-medium transition-all whitespace-nowrap lg:whitespace-normal font-body border lg:border-transparent shrink-0"
+                                :class="activeCategory === category 
+                                    ? 'bg-slate-900 text-white shadow-md border-slate-900' 
+                                    : 'text-slate-600 bg-white lg:bg-transparent border-slate-200 hover:bg-slate-50 lg:hover:bg-slate-200/50 hover:text-slate-900'"
+                                x-text="category">
+                            </button>
+                        </template>
+                    </div>
+                    <div x-show="searchQuery.trim() !== ''" class="hidden lg:block text-sm text-slate-500 font-body px-2">
+                        <p>Showing search results.</p>
+                        <button @click="searchQuery = ''" class="text-brand-600 font-medium hover:underline mt-2">Clear search</button>
+                    </div>
                 </div>
 
-                <!-- FAQ Items -->
-                <div class="space-y-4">
-                    <template x-for="(faq, index) in faqs.filter(f => f.category === activeCategory)" :key="faq.q">
-                        <div class="rounded-2xl border border-slate-200/60 bg-white overflow-hidden transition-all hover:border-slate-300 hover:shadow-sm">
-                            <button
-                                @click="openIndex = openIndex === index ? null : index"
-                                class="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer focus:outline-none"
-                            >
-                                <span class="font-body font-semibold text-slate-900 pr-4 text-base sm:text-lg" x-text="faq.q"></span>
-                                <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300"
-                                     :class="openIndex === index ? 'bg-slate-100' : 'bg-transparent'">
-                                    <svg class="w-5 h-5 text-slate-500 shrink-0 transition-transform duration-300" 
-                                         :class="openIndex === index ? 'rotate-180 text-slate-900' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                    </svg>
-                                </div>
-                            </button>
-                            <div x-show="openIndex === index" x-collapse>
-                                <div class="px-6 pb-6 pt-1 text-slate-600 leading-relaxed text-sm sm:text-base font-body border-t border-slate-100/50 mx-6">
-                                    <p x-text="faq.a"></p>
+                <!-- Right Side: FAQ Content Area -->
+                <div class="w-full lg:w-3/4 min-h-[600px]">
+                    
+                    <div x-show="searchQuery.trim() === ''" class="mb-8">
+                        <h3 class="text-2xl font-bold text-slate-900 font-display flex items-center gap-3">
+                            <span x-text="activeCategory"></span>
+                            <span class="text-sm font-medium px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="(faqData[activeCategory] || []).length"></span>
+                        </h3>
+                    </div>
+                    
+                    <div x-show="searchQuery.trim() !== ''" class="mb-8" style="display: none;">
+                        <h3 class="text-xl font-medium text-slate-900 font-body">
+                            Search results for "<span class="font-bold text-brand-600" x-text="searchQuery"></span>"
+                            <span class="text-sm font-medium ml-2 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="filteredFaqs.length"></span>
+                        </h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <template x-for="(faq, index) in filteredFaqs" :key="searchQuery === '' ? activeCategory + index : faq.originalCat + faq.originalIdx">
+                            <div class="rounded-xl border border-slate-200/80 bg-white overflow-hidden transition-all duration-300 shadow-sm"
+                                 :class="openIndex === index ? 'border-brand-300 shadow-md ring-1 ring-brand-500/10 bg-slate-50' : 'hover:border-slate-300 hover:shadow-sm'">
+                                <button
+                                    @click="openIndex = openIndex === index ? null : index"
+                                    class="w-full flex items-start sm:items-center justify-between px-4 sm:px-5 py-3.5 text-left cursor-pointer focus:outline-none group"
+                                >
+                                    <div class="pr-4">
+                                        <div x-show="searchQuery.trim() !== ''" class="mb-1">
+                                            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600 bg-brand-50 px-2 py-0.5 rounded" x-text="faq.category"></span>
+                                        </div>
+                                        <span class="font-display font-semibold text-slate-900 text-base sm:text-[17px] group-hover:text-brand-600 transition-colors duration-200 leading-tight" 
+                                              :class="openIndex === index ? 'text-brand-600' : ''" x-text="faq.q"></span>
+                                    </div>
+                                    <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
+                                         :class="openIndex === index ? 'bg-brand-100 text-brand-600 rotate-180' : 'bg-slate-50 text-slate-400 group-hover:bg-slate-100'">
+                                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                                <div x-show="openIndex === index" x-collapse>
+                                    <div class="px-4 sm:px-5 pb-4 pt-1 text-slate-600 leading-relaxed text-sm sm:text-[15px] font-body">
+                                        <p x-text="faq.a"></p>
+                                    </div>
                                 </div>
                             </div>
+                        </template>
+
+                        <!-- Empty State for Search -->
+                        <div x-show="searchQuery.trim() !== '' && filteredFaqs.length === 0" style="display: none;" class="text-center py-16 bg-white rounded-3xl border border-slate-200 border-dashed">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H13.01" /></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">No questions found</h3>
+                            <p class="text-slate-500 font-body max-w-md mx-auto">We couldn't find any questions matching "<span x-text="searchQuery" class="font-medium text-slate-900"></span>". Try adjusting your search terms.</p>
+                            <button @click="searchQuery = ''" class="mt-6 text-sm font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 px-4 py-2 rounded-full transition-colors">Clear Search</button>
                         </div>
-                    </template>
+                    </div>
                 </div>
             </div>
+
+            <!-- Light Themed Trust & Support Panel -->
+            <div class="mt-20 lg:mt-24 max-w-5xl mx-auto bg-white rounded-[2rem] p-8 sm:p-10 lg:p-12 relative overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200">
+                <!-- Subtle Gradient Accent -->
+                <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-brand-50 rounded-full blur-[60px] pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-50 rounded-full blur-[60px] pointer-events-none"></div>
+                
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+                    <div class="text-center lg:text-left flex-1 max-w-2xl mx-auto lg:mx-0">
+                        <div class="inline-flex items-center justify-center px-3 py-1 mb-5 rounded-full bg-brand-50 border border-brand-100">
+                            <span class="flex w-2 h-2 rounded-full bg-brand-500 mr-2"></span>
+                            <span class="text-[11px] font-bold uppercase tracking-widest text-brand-700">TimeNest Solutions Architecture</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-4 tracking-tight">Design the perfect workflow for your team.</h3>
+                        <p class="text-slate-600 font-body text-base sm:text-lg mb-8">Stop guessing how to map your attendance rules, approval chains, and contractor invoices. Our product architects will design a tailored deployment plan specifically for your organization's operational needs.</p>
+                        
+                        <!-- Trust Row -->
+                        <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-8 pt-6 border-t border-slate-100">
+                            <div class="text-center lg:text-left">
+                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Average Response</p>
+                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">&lt; 2 Hours</p>
+                            </div>
+                            <div class="hidden sm:block w-px h-8 bg-slate-200"></div>
+                            <div class="text-center lg:text-left">
+                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Implementation</p>
+                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">Guided Support</p>
+                            </div>
+                            <div class="hidden sm:block w-px h-8 bg-slate-200"></div>
+                            <div class="text-center lg:text-left">
+                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Enterprise</p>
+                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">Dedicated CSM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3 w-full sm:w-auto shrink-0 min-w-[240px]">
+                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center">
+                            Explore Documentation
+                        </x-frontend-base.button>
+                        <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="primary" color="brand" size="lg" class="w-full shadow-md justify-center">
+                            Schedule Demo
+                        </x-frontend-base.button>
+                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center">
+                            Contact Team
+                        </x-frontend-base.button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
