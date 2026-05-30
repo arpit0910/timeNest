@@ -404,6 +404,282 @@ html {
   animation: terminal-response 4.5s ease-out infinite;
 }
 
+/* ── AI Mega Menu High-Fidelity Icon Animations ── */
+
+/* 1. Analyst: brain ping and sequential impulses along three paths */
+@keyframes ai-analyst-ping-1 {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%, 60% { opacity: 1; }
+  70%, 100% { transform: translate3d(-6px, -6px, 0); opacity: 0; }
+}
+@keyframes ai-analyst-ping-2 {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%, 60% { opacity: 1; }
+  70%, 100% { transform: translate3d(6px, -5px, 0); opacity: 0; }
+}
+@keyframes ai-analyst-ping-3 {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%, 60% { opacity: 1; }
+  70%, 100% { transform: translate3d(0px, 7px, 0); opacity: 0; }
+}
+.anim-ai-analyst-ping-1 {
+  animation: ai-analyst-ping-1 2.5s ease-in-out infinite;
+  transform-origin: 12px 12px;
+}
+.anim-ai-analyst-ping-2 {
+  animation: ai-analyst-ping-2 2.5s ease-in-out infinite 0.8s;
+  transform-origin: 12px 12px;
+}
+.anim-ai-analyst-ping-3 {
+  animation: ai-analyst-ping-3 2.5s ease-in-out infinite 1.6s;
+  transform-origin: 12px 12px;
+}
+
+/* 2. Attendance clock hands + status indicator */
+@keyframes ai-clock-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.anim-ai-clock-hour {
+  animation: ai-clock-spin 8s linear infinite;
+  transform-origin: 12px 12px;
+}
+.anim-ai-clock-min {
+  animation: ai-clock-spin 2s linear infinite;
+  transform-origin: 12px 12px;
+}
+@keyframes ai-clock-dot {
+  0%, 100% { fill: #f59e0b; opacity: 0.8; }
+  50% { fill: #10b981; opacity: 1; filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.5)); }
+}
+.anim-ai-clock-dot {
+  animation: ai-clock-dot 2.5s ease-in-out infinite;
+}
+
+/* 3. Fraud: location radar pings + blinking warning exclamation */
+@keyframes ai-fraud-ripple-1 {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@keyframes ai-fraud-ripple-2 {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.anim-ai-fraud-ripple-1 {
+  animation: ai-fraud-ripple-1 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+  transform-origin: 12px 9px;
+  transform-box: fill-box;
+}
+.anim-ai-fraud-ripple-2 {
+  animation: ai-fraud-ripple-2 2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1s;
+  transform-origin: 12px 9px;
+  transform-box: fill-box;
+}
+@keyframes ai-fraud-alert {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.anim-ai-fraud-alert {
+  animation: ai-fraud-alert 1.2s ease-in-out infinite;
+}
+
+/* 4. Dash chart growth */
+@keyframes ai-dash-bar {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+.anim-ai-dash-bar-1 {
+  animation: ai-dash-bar 1.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.anim-ai-dash-bar-2 {
+  animation: ai-dash-bar 1.6s ease-in-out infinite 0.4s;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.anim-ai-dash-bar-3 {
+  animation: ai-dash-bar 1.6s ease-in-out infinite 0.8s;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+/* 5. Revenue forecast drawing trend line & pulsing target sparkle */
+@keyframes ai-forecast-line {
+  0%, 100% { stroke-dashoffset: 10; }
+  50% { stroke-dashoffset: 0; }
+}
+.anim-ai-forecast-line {
+  stroke-dasharray: 10;
+  animation: ai-forecast-line 3s ease-in-out infinite;
+}
+@keyframes ai-forecast-sparkle {
+  0%, 100% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+.anim-ai-forecast-sparkle {
+  animation: ai-forecast-sparkle 2s ease-in-out infinite;
+  transform-origin: 20px 8px;
+}
+
+/* 6. Robot assistant antenna signal waves & blinking eyes */
+@keyframes ai-assistant-antenna {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.anim-ai-assistant-antenna {
+  animation: ai-assistant-antenna 2s infinite;
+  transform-origin: 12px 4px;
+}
+@keyframes ai-assistant-signal {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.anim-ai-assistant-signal {
+  animation: ai-assistant-signal 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  transform-origin: 12px 4px;
+}
+@keyframes ai-assistant-eye {
+  0%, 45%, 55%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.1); }
+}
+.anim-ai-assistant-eye {
+  animation: ai-assistant-eye 4s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* 7. Gauge needle sweep */
+@keyframes ai-gauge-needle {
+  0%, 100% { transform: rotate(-55deg); }
+  50% { transform: rotate(55deg); }
+}
+.anim-ai-productivity-needle {
+  animation: ai-gauge-needle 3s ease-in-out infinite;
+  transform-origin: 12px 15px;
+}
+@keyframes ai-productivity-spark {
+  0%, 100% { opacity: 0.2; transform: translate3d(0, 0, 0); }
+  50% { opacity: 1; transform: translate3d(1px, -1px, 0); }
+}
+.anim-ai-productivity-spark {
+  animation: ai-productivity-spark 1.5s ease-in-out infinite;
+}
+
+/* 8. Compliance validation shield rotating security gear & laser line */
+@keyframes ai-compliance-gear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.anim-ai-compliance-gear {
+  animation: ai-compliance-gear 12s linear infinite;
+  transform-origin: 12px 11px;
+}
+@keyframes ai-compliance-laser {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.2; }
+  50% { transform: translate3d(0, 6px, 0); opacity: 1; }
+}
+.anim-ai-compliance-laser {
+  animation: ai-compliance-laser 2s ease-in-out infinite;
+}
+
+/* 9. HR chat bubble typing sequence */
+@keyframes ai-hr-dot {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.3; }
+  50% { transform: translate3d(0, -2.5px, 0); opacity: 1; }
+}
+.anim-ai-hr-dot-1 {
+  animation: ai-hr-dot 1.2s ease-in-out infinite;
+}
+.anim-ai-hr-dot-2 {
+  animation: ai-hr-dot 1.2s ease-in-out infinite 0.2s;
+}
+.anim-ai-hr-dot-3 {
+  animation: ai-hr-dot 1.2s ease-in-out infinite 0.4s;
+}
+
+/* 10. Operations loop path assembly */
+@keyframes ai-ops-packet {
+  0% { stroke-dashoffset: 48; }
+  100% { stroke-dashoffset: 0; }
+}
+.anim-ai-ops-packet-path {
+  stroke-dasharray: 6 6;
+  animation: ai-ops-packet 3s linear infinite;
+}
+@keyframes ai-ops-gear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.anim-ai-ops-gear {
+  animation: ai-ops-gear 8s linear infinite;
+  transform-origin: 12px 12px;
+}
+
+/* 11. Finance scanner sweep line */
+@keyframes ai-finance-sweep {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.2; }
+  50% { transform: translate3d(0, 9px, 0); opacity: 1; }
+}
+.anim-ai-finance-sweep {
+  animation: ai-finance-sweep 2.5s ease-in-out infinite;
+}
+
+/* 12. Agent CPU orbit rings & electron spinning */
+@keyframes ai-agents-core {
+  0%, 100% { transform: scale(0.95); opacity: 0.85; filter: drop-shadow(0 0 1px rgba(99, 102, 241, 0.4)); }
+  50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 4px rgba(99, 102, 241, 0.9)); }
+}
+.anim-ai-agents-core {
+  animation: ai-agents-core 2s ease-in-out infinite;
+  transform-origin: 12px 12px;
+}
+@keyframes ai-agents-orbit-spin-1 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes ai-agents-orbit-spin-2 {
+  from { transform: rotate(60deg); }
+  to { transform: rotate(420deg); }
+}
+@keyframes ai-agents-orbit-spin-3 {
+  from { transform: rotate(120deg); }
+  to { transform: rotate(480deg); }
+}
+.anim-ai-agents-electron-1 {
+  animation: ai-agents-orbit-spin-1 4s linear infinite;
+  transform-origin: 12px 12px;
+}
+.anim-ai-agents-electron-2 {
+  animation: ai-agents-orbit-spin-2 4s linear infinite;
+  transform-origin: 12px 12px;
+}
+.anim-ai-agents-electron-3 {
+  animation: ai-agents-orbit-spin-3 4s linear infinite;
+  transform-origin: 12px 12px;
+}
+/* Mega Menu Dynamic Preview Card Background Glow Animation */
+@keyframes mega-bg-glow {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.05) translate3d(2px, -2px, 0);
+  }
+}
+.anim-mega-bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.2), rgba(20, 184, 166, 0.15), transparent 60%);
+  filter: blur(20px);
+  z-index: 1;
+  pointer-events: none;
+  animation: mega-bg-glow 8s ease-in-out infinite;
+}
+
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
