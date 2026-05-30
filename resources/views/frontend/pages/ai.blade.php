@@ -1,10 +1,10 @@
-﻿<x-frontend-layout.app metaTitle="TimeNest AI â€” Intelligence Built Into Every Workflow" metaDescription="Explore TimeNest's AI capabilities: workforce analytics, fraud detection, executive dashboards, and freelancer assistance.">
+<x-frontend-layout.app metaTitle="TimeNest AI â€” Intelligence Built Into Every Workflow" metaDescription="Explore TimeNest's AI capabilities: workforce analytics, fraud detection, executive dashboards, and freelancer assistance.">
     {{-- Hero --}}
     <section class="relative min-h-[60vh] flex items-center overflow-hidden">
         <div class="absolute inset-0 bg-surface hero-grid-bg"></div>
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[128px] animate-glow"></div>
         <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 py-32 text-center">
-            <x-frontend-base.badge variant="brand" class="mb-6">TimeNest AI</x-frontend-base.badge>
+            <x-frontend-base.badge color="teal" class="mb-6">TimeNest AI</x-frontend-base.badge>
             <h1 class="font-display text-5xl lg:text-6xl font-bold text-content-strong mb-6">Intelligence built into<br><span class="text-gradient">every workflow</span></h1>
             <p class="text-content-muted text-lg max-w-2xl mx-auto">From detecting attendance fraud to forecasting freelancer revenue, TimeNest AI works silently in the background to surface insights that matter.</p>
         </div>
@@ -47,7 +47,7 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 @foreach(['AI Agents', 'Automation Workflows', 'AI Operations Manager', 'AI Finance Assistant', 'AI HR Assistant'] as $item)
                     <div class="rounded-xl border border-surface-border bg-surface-card p-5 relative">
-                        <x-frontend-base.badge variant="warning" class="mb-3">Coming Soon</x-frontend-base.badge>
+                        <x-frontend-base.badge color="orange" class="mb-3">Coming Soon</x-frontend-base.badge>
                         <h3 class="font-display text-sm font-semibold text-content-strong">{{ $item }}</h3>
                     </div>
                 @endforeach

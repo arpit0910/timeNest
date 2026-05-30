@@ -1,8 +1,8 @@
-﻿<x-frontend-layout.app metaTitle="TimeNest for Organizations â€” Complete Workforce Management" metaDescription="Manage employees, attendance, leaves, shifts, departments, and more with TimeNest for Organizations.">
+<x-frontend-layout.app metaTitle="TimeNest for Organizations â€” Complete Workforce Management" metaDescription="Manage employees, attendance, leaves, shifts, departments, and more with TimeNest for Organizations.">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center mb-16">
-                <x-frontend-base.badge variant="brand" class="mb-4">For Organizations</x-frontend-base.badge>
+                <x-frontend-base.badge color="teal" class="mb-4">For Organizations</x-frontend-base.badge>
                 <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">Complete workforce management</h1>
                 <p class="text-content-muted text-lg">From startups to enterprise â€” manage your entire workforce, operations, and compliance in one platform.</p>
                 <div class="flex justify-center gap-4 mt-8">

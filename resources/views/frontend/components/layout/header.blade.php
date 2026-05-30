@@ -31,7 +31,7 @@
                 <button @click="$store.search.toggle()" class="p-2 text-content-muted hover:text-content-strong transition-colors cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </button>
-                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="white" size="sm">Book Demo</x-frontend-base.button>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="brand" size="sm">Book Demo</x-frontend-base.button>
                 <x-frontend-base.button href="/register" variant="primary" color="brand" size="sm">Get Started</x-frontend-base.button>
             </div>
 
@@ -63,7 +63,7 @@
                 <a href="{{ route($routeName) }}" class="block text-content hover:text-content-strong text-sm py-2 font-body">{{ $label }}</a>
             @endforeach
             <div class="flex flex-col gap-3 pt-4 border-t border-surface-border">
-                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="white" size="sm" class="w-full">Book Demo</x-frontend-base.button>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="brand" size="sm" class="w-full">Book Demo</x-frontend-base.button>
                 <x-frontend-base.button href="/register" variant="primary" color="brand" size="sm" class="w-full">Get Started</x-frontend-base.button>
             </div>
         </div>

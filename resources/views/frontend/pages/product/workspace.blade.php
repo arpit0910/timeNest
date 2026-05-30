@@ -1,8 +1,8 @@
-﻿<x-frontend-layout.app metaTitle="Freelance Workspace â€” Collaborative Team Management" metaDescription="Create a collaborative workspace for your freelance team. Shared projects, invoices, and analytics.">
+<x-frontend-layout.app metaTitle="Freelance Workspace â€” Collaborative Team Management" metaDescription="Create a collaborative workspace for your freelance team. Shared projects, invoices, and analytics.">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="max-w-3xl mx-auto text-center mb-16">
-                <x-frontend-base.badge variant="pro" class="mb-4">Requires Pro Subscription</x-frontend-base.badge>
+                <x-frontend-base.badge color="orange" variant="pro" class="mb-4">Requires Pro Subscription</x-frontend-base.badge>
                 <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">Freelance Workspace</h1>
                 <p class="text-content-muted text-lg">Not an organization. Not a solo freelancer. A collaborative workspace for freelance teams, agencies, and creative studios.</p>
                 <div class="flex justify-center gap-4 mt-8">

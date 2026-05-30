@@ -1,4 +1,4 @@
-﻿@php
+@php
 $industries = [
     'startups' => ['title' => 'Startups', 'tagline' => 'Scale your team operations from day one', 'challenges' => ['Rapid hiring without proper HR systems', 'No structured attendance or leave policies', 'Manual processes eating into growth time'], 'benefits' => ['Set up HR infrastructure in minutes', 'Automated attendance and leave from day one', 'Scale from 5 to 500 employees seamlessly']],
     'it-companies' => ['title' => 'IT Companies', 'tagline' => 'Manage distributed tech teams efficiently', 'challenges' => ['Remote and hybrid workforce tracking', 'Complex shift schedules across time zones', 'Developer productivity measurement'], 'benefits' => ['GPS and remote attendance tracking', 'Flexible shift management', 'AI-powered productivity insights']],
@@ -14,7 +14,7 @@ $data = $industries[$slug] ?? abort(404);
 <x-frontend-layout.app :metaTitle="$data['title'] . ' â€” TimeNest for ' . $data['title']" :metaDescription="$data['tagline']">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
-            <x-frontend-base.badge variant="brand" class="mb-4">Industries</x-frontend-base.badge>
+            <x-frontend-base.badge color="teal" class="mb-4">Industries</x-frontend-base.badge>
             <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">TimeNest for {{ $data['title'] }}</h1>
             <p class="text-content-muted text-lg mb-12">{{ $data['tagline'] }}</p>
 

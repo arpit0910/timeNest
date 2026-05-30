@@ -52,11 +52,18 @@ export default {
         mono:    ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
-        'fade-in':    'fade-in 0.5s ease-out',
-        'slide-up':   'slide-up 0.5s ease-out',
-        'slide-down': 'slide-down 0.3s ease-out',
-        'scale-in':   'scale-in 0.3s ease-out',
-        'glow':       'glow 3s ease-in-out infinite',
+        'fade-in':       'fade-in 0.6s ease-out both',
+        'slide-up':      'slide-up 0.6s ease-out both',
+        'slide-down':    'slide-down 0.3s ease-out both',
+        'scale-in':      'scale-in 0.3s ease-out both',
+        'glow':          'glow 3s ease-in-out infinite',
+        'hero-fade-up':  'hero-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'float-gentle':  'float-gentle 6s ease-in-out infinite',
+        'float-gentle-reverse': 'float-gentle-reverse 7s ease-in-out infinite',
+        'pulse-ring':    'pulse-ring 3s ease-out infinite',
+        'bar-grow':      'bar-grow 2s ease-out both',
+        'line-draw':     'line-draw 3s ease-in-out both',
+        'gradient-shift':'gradient-shift 8s ease infinite',
       },
       keyframes: {
         'fade-in': {
@@ -78,6 +85,35 @@ export default {
         glow: {
           '0%, 100%': { opacity: '0.4' },
           '50%':      { opacity: '0.8' },
+        },
+        'hero-fade-up': {
+          from: { opacity: '0', transform: 'translateY(30px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+        'float-gentle': {
+          '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
+          '50%':      { transform: 'translate3d(0, -12px, 0)' },
+        },
+        'float-gentle-reverse': {
+          '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
+          '50%':      { transform: 'translate3d(0, 10px, 0)' },
+        },
+        'pulse-ring': {
+          '0%':   { transform: 'scale(0.8)', opacity: '0.6' },
+          '100%': { transform: 'scale(2.2)', opacity: '0' },
+        },
+        'bar-grow': {
+          from: { transform: 'scaleY(0)' },
+          to:   { transform: 'scaleY(1)' },
+        },
+        'line-draw': {
+          from: { 'stroke-dashoffset': '200' },
+          to:   { 'stroke-dashoffset': '0' },
+        },
+        'gradient-shift': {
+          '0%':   { 'background-position': '0% 50%' },
+          '50%':  { 'background-position': '100% 50%' },
+          '100%': { 'background-position': '0% 50%' },
         },
       },
     },

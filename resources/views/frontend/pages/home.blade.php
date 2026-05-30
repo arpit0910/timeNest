@@ -3,55 +3,540 @@
     metaDescription="Complete workforce management for organizations, freelancer tools, and collaborative workspaces. One platform for every workflow."
 >
     {{-- Section 1: Hero --}}
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-surface-50 to-surface pointer-events-none"></div>
-        
-        {{-- Decorative background elements --}}
-        <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3">
-            <div class="w-96 h-96 bg-brand-200/40 rounded-full blur-3xl opacity-50"></div>
-        </div>
-        <div class="absolute top-32 left-0 -translate-x-1/3">
-            <div class="w-72 h-72 bg-indigo-200/40 rounded-full blur-3xl opacity-50"></div>
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" 
+        x-data="{ mx: 0, my: 0 }" 
+        @mousemove.window="mx = ($event.clientX / window.innerWidth - 0.5) * 4; my = ($event.clientY / window.innerHeight - 0.5) * 3"
+    >
+        {{-- Layer 1: Gradient Background --}}
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-white pointer-events-none"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[900px] h-[600px] bg-gradient-to-br from-teal-100/40 via-indigo-100/30 to-purple-100/20 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+        {{-- Layer 2: Micro-Dashboard Visualization Widgets --}}
+        <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+                       {{-- Widget: Attendance — Fingerprint sweep --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20"
+                 style="top: 10%; left: 4%; width: 190px; z-index: 10;"
+                 x-data="{ 
+                     status: 'idle', 
+                     progress: 0, 
+                     user: ''
+                 }"
+                 x-init="
+                     let users = ['Alex M.', 'Sarah K.', 'David L.'];
+                     let idx = 0;
+                     setInterval(() => {
+                         status = 'scanning';
+                         progress = 0;
+                         user = users[idx];
+                         idx = (idx + 1) % users.length;
+                         
+                         let interval = setInterval(() => {
+                             progress += 5;
+                             if (progress >= 100) {
+                                 clearInterval(interval);
+                                 status = 'verified';
+                                 setTimeout(() => {
+                                     status = 'idle';
+                                 }, 1800);
+                             }
+                         }, 80);
+                     }, 4000);
+                 "
+            >
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span x-show="status === 'scanning'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span x-show="status === 'verified'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span :class="'relative inline-flex rounded-full h-2 w-2 transition-colors duration-300 ' + (status === 'scanning' ? 'bg-amber-500' : status === 'verified' ? 'bg-emerald-500' : 'bg-slate-400')"></span>
+                    </span>
+                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Attendance</span>
+                </div>
+                <div class="relative flex items-center justify-center my-2.5 h-[50px] overflow-hidden rounded-lg bg-slate-50/50 border border-slate-100">
+                    <!-- Grey Background Fingerprint -->
+                    <svg class="absolute w-10 h-10 text-slate-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" d="M12 2a10 10 0 0 0-10 10v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1a5 5 0 0 1 10 0v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a10 10 0 0 0-10-10z"/>
+                        <path stroke-linecap="round" d="M8 12v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-8 0z"/>
+                        <path stroke-linecap="round" d="M10 12v1a2 2 0 0 0 4 0v-1a2 2 0 0 0-4 0z"/>
+                    </svg>
+                    <!-- Color Foreground Fingerprint -->
+                    <div class="absolute inset-x-0 bottom-0 flex items-center justify-center overflow-hidden transition-all duration-100 ease-linear"
+                         :style="'height: ' + (status === 'idle' ? '0' : progress) + '%'">
+                        <div class="relative h-[50px] w-full flex items-center justify-center">
+                            <svg :class="'w-10 h-10 transition-colors duration-300 ' + (status === 'scanning' ? 'text-amber-500' : 'text-teal-500')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" d="M12 2a10 10 0 0 0-10 10v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1a5 5 0 0 1 10 0v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a10 10 0 0 0-10-10z"/>
+                                <path stroke-linecap="round" d="M8 12v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-8 0z"/>
+                                <path stroke-linecap="round" d="M10 12v1a2 2 0 0 0 4 0v-1a2 2 0 0 0-4 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Scanner Laser Line -->
+                    <div class="absolute left-0 right-0 h-0.5 shadow-sm transition-all duration-100 ease-linear"
+                         :class="status === 'scanning' ? 'bg-amber-500 shadow-amber-500/50' : status === 'verified' ? 'bg-teal-500 shadow-teal-500/50' : 'hidden'"
+                         :style="'bottom: ' + (status === 'idle' ? '0' : progress) + '%'"></div>
+                </div>
+                <div class="text-center h-4 flex items-center justify-center">
+                    <p x-show="status === 'idle'" class="text-[10px] font-bold text-slate-400">Place Finger</p>
+                    <p x-show="status === 'scanning'" class="text-[10px] font-bold text-amber-600" x-text="'Scanning... ' + progress + '%'"></p>
+                    <p x-show="status === 'verified'" class="text-[10px] font-bold text-emerald-600 animate-pulse" x-text="user + ' Verified'"></p>
+                </div>
+            </div>
+
+            {{-- Widget: Employee Management — Dynamic Team Status list --}}
+            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="top: 8%; right: 4%; width: 200px; z-index: 10;"
+                 x-data="{ 
+                     employees: [
+                         { name: 'Alex M.', status: 'active', initials: 'AM', bg: 'bg-indigo-100', text: 'text-indigo-600' },
+                         { name: 'Sarah K.', status: 'active', initials: 'SK', bg: 'bg-teal-100', text: 'text-teal-600' },
+                         { name: 'David L.', status: 'meeting', initials: 'DL', bg: 'bg-amber-100', text: 'text-amber-600' }
+                     ] 
+                 }"
+                 x-init="setInterval(() => { 
+                     employees[1].status = employees[1].status === 'active' ? 'offline' : 'active'; 
+                     employees[2].status = employees[2].status === 'meeting' ? 'active' : 'meeting'; 
+                 }, 3000)"
+            >
+                <div class="flex items-center justify-between">
+                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Team Status</span>
+                    <span :class="'text-[9px] font-semibold px-2 py-0.5 rounded-full border transition-all duration-500 ' + 
+                          (employees.filter(e => e.status === 'active').length >= 2 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-50 text-slate-600 border-slate-200')" 
+                          x-text="employees.filter(e => e.status === 'active').length + ' Active'"></span>
+                </div>
+                <div class="mt-3 space-y-2">
+                    <template x-for="emp in employees">
+                        <div class="flex items-center justify-between text-xs transition-all duration-300">
+                            <div class="flex items-center gap-2">
+                                <div :class="'w-6 h-6 rounded-full flex items-center justify-center font-bold text-[9px] transition-colors duration-500 ' + emp.bg + ' ' + emp.text" x-text="emp.initials"></div>
+                                <span class="font-semibold text-slate-700" x-text="emp.name"></span>
+                            </div>
+                            <span :class="'px-1.5 py-0.5 rounded text-[8px] font-bold border transition-all duration-500 flex items-center gap-1 ' + 
+                                (emp.status === 'active' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 
+                                 emp.status === 'meeting' ? 'bg-amber-50 border-amber-200 text-amber-700' : 
+                                 'bg-slate-100 border-slate-200 text-slate-500')"
+                            >
+                                <span :class="'w-1 h-1 rounded-full ' + 
+                                    (emp.status === 'active' ? 'bg-emerald-500 animate-pulse' : 
+                                     emp.status === 'meeting' ? 'bg-amber-500' : 
+                                     'bg-slate-400')"></span>
+                                <span x-text="emp.status === 'active' ? 'Active' : emp.status === 'meeting' ? 'Meeting' : 'Offline'"></span>
+                            </span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            {{-- Widget: Finance — Mini cashflow transaction list + revenue increment --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="top: 36%; right: 2%; width: 220px; z-index: 10;"
+                 x-data="{ 
+                     revenue: 842000,
+                     transactions: [
+                         { id: 1, name: 'Acme Corp', amount: '+₹12,500', time: 'Just now', type: 'incoming' },
+                         { id: 2, name: 'Alex M. (Salary)', amount: '-₹45,000', time: '2m ago', type: 'outgoing' },
+                         { id: 3, name: 'David L. (Bonus)', amount: '-₹8,000', time: '1h ago', type: 'outgoing' }
+                     ],
+                     counter: 0
+                 }"
+                 x-init="
+                     setInterval(() => {
+                         counter = (counter + 1) % 3;
+                         if (counter === 0) {
+                             transactions.unshift({ id: Date.now(), name: 'Globex Inc', amount: '+₹18,200', time: 'Just now', type: 'incoming' });
+                             revenue += 18200;
+                         } else if (counter === 1) {
+                             transactions.unshift({ id: Date.now(), name: 'Server Billing', amount: '-₹4,200', time: 'Just now', type: 'outgoing' });
+                             revenue -= 4200;
+                         } else {
+                             transactions.unshift({ id: Date.now(), name: 'Stark Ind.', amount: '+₹25,000', time: 'Just now', type: 'incoming' });
+                             revenue += 25000;
+                         }
+                         if (transactions.length > 3) {
+                             transactions.pop();
+                         }
+                         transactions.forEach((tx, idx) => {
+                             if (idx > 0) tx.time = idx + 'm ago';
+                         });
+                     }, 4000);
+                 "
+            >
+                <div class="flex items-center justify-between">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Cashflow</span>
+                     <span class="text-[9px] font-bold text-emerald-600 flex items-center gap-0.5 animate-pulse bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                         <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
+                         Live
+                     </span>
+                </div>
+                <div class="my-1.5">
+                     <h4 class="text-slate-900 font-bold text-base leading-none transition-all duration-300" x-text="'₹' + revenue.toLocaleString()"></h4>
+                     <span class="text-[9px] text-slate-400 font-semibold">Total Balance</span>
+                </div>
+                <div class="mt-2 space-y-1.5">
+                     <template x-for="tx in transactions" :key="tx.id">
+                         <div class="flex items-center justify-between p-1.5 rounded-lg border text-[9px] transition-all duration-500"
+                              :class="tx.type === 'incoming' ? 'bg-emerald-50/50 border-emerald-100 text-emerald-800' : 'bg-rose-50/50 border-rose-100 text-rose-800'"
+                              x-transition:enter="transition ease-out duration-300"
+                              x-transition:enter-start="opacity-0 -translate-y-2"
+                              x-transition:enter-end="opacity-100 translate-y-0"
+                         >
+                             <div class="truncate max-w-[100px]">
+                                 <p class="font-bold truncate" x-text="tx.name"></p>
+                                 <span class="text-[8px] opacity-60" x-text="tx.time"></span>
+                             </div>
+                             <span class="font-mono font-bold" x-text="tx.amount"></span>
+                         </div>
+                     </template>
+                </div>
+            </div>
+
+            {{-- Widget: Payroll — Payout stages --}}
+            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="bottom: 16%; right: 3%; width: 190px; z-index: 10;"
+                 x-data="{ 
+                     step: 0, 
+                     amount: 1420000, 
+                     steps: [
+                         { name: 'Calculated', status: 'done' },
+                         { name: 'Tax Compliance', status: 'doing' },
+                         { name: 'Disbursement', status: 'todo' }
+                     ]
+                 }"
+                 x-init="
+                     setInterval(() => {
+                         step = (step + 1) % 4;
+                         if (step === 0) {
+                             steps[0].status = 'doing'; steps[1].status = 'todo'; steps[2].status = 'todo';
+                         } else if (step === 1) {
+                             steps[0].status = 'done'; steps[1].status = 'doing'; steps[2].status = 'todo';
+                         } else if (step === 2) {
+                             steps[0].status = 'done'; steps[1].status = 'done'; steps[2].status = 'doing';
+                         } else {
+                             steps[0].status = 'done'; steps[1].status = 'done'; steps[2].status = 'done';
+                         }
+                     }, 3000);
+                 "
+            >
+                 <div class="flex items-center justify-between mb-2">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Payroll</span>
+                     <span :class="'text-[9px] font-bold px-1.5 py-0.5 rounded border transition-colors duration-500 ' + 
+                           (step === 3 ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700')"
+                           x-text="step === 0 ? 'Review' : step === 1 ? 'Taxing' : step === 2 ? 'Sending' : 'Paid'"></span>
+                 </div>
+                 <div class="mb-3">
+                     <p class="text-[8px] text-slate-400 font-bold uppercase leading-none">Payout Total</p>
+                     <p class="text-[13px] font-bold text-slate-800 mt-0.5" x-text="'₹' + amount.toLocaleString()"></p>
+                 </div>
+                 <div class="space-y-1.5">
+                     <template x-for="(s, index) in steps">
+                         <div class="flex items-center justify-between text-[10px] transition-all duration-300">
+                             <span :class="'font-semibold ' + (s.status === 'done' ? 'text-slate-400 line-through' : s.status === 'doing' ? 'text-indigo-600 font-bold' : 'text-slate-400')" x-text="s.name"></span>
+                             <div class="flex items-center">
+                                 <template x-if="s.status === 'done'">
+                                     <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+                                         <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                     </div>
+                                 </template>
+                                 <template x-if="s.status === 'doing'">
+                                     <span class="relative flex h-2 w-2">
+                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                                     </span>
+                                 </template>
+                                 <template x-if="s.status === 'todo'">
+                                     <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+                                 </template>
+                             </div>
+                         </div>
+                     </template>
+                 </div>
+            </div>
+
+            {{-- Widget: Sales — Funnel stage shifting --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="top: 26%; left: 2%; width: 170px; z-index: 10;"
+                 x-data="{ 
+                     stage: 'Leads', 
+                     deals: [
+                         { name: 'Acme Deal', val: '₹1.2L', bg: 'bg-indigo-500' },
+                         { name: 'Wayne Corp', val: '₹3.5L', bg: 'bg-teal-500' },
+                         { name: 'Stark Tech', val: '₹5.0L', bg: 'bg-purple-500' }
+                     ],
+                     idx: 0
+                 }"
+                 x-init="
+                     setInterval(() => {
+                         idx = (idx + 1) % 4;
+                         stage = idx === 0 ? 'Leads' : idx === 1 ? 'Proposal' : idx === 2 ? 'Negotiation' : 'Closed Won';
+                     }, 3500);
+                 "
+            >
+                 <div class="flex items-center justify-between mb-2">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Sales Pipeline</span>
+                     <span :class="'text-[8px] font-bold px-1.5 py-0.5 rounded border transition-all duration-500 ' + 
+                           (stage === 'Closed Won' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-indigo-50 border-indigo-200 text-indigo-700')"
+                           x-text="stage"></span>
+                 </div>
+                 <div class="mt-2 space-y-1.5">
+                     <div class="flex justify-between items-center text-[9px]">
+                         <span class="text-slate-400 font-semibold">Pipeline Value</span>
+                         <span class="font-bold text-slate-800">₹9.7L</span>
+                     </div>
+                     <!-- Funnel Progress Steps -->
+                     <div class="flex gap-1 h-2 my-2">
+                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 0 ? 'bg-indigo-500' : 'bg-slate-200'"></div>
+                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 1 ? 'bg-indigo-400' : 'bg-slate-200'"></div>
+                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 2 ? 'bg-indigo-300' : 'bg-slate-200'"></div>
+                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 3 ? 'bg-emerald-500' : 'bg-slate-200'"></div>
+                     </div>
+                     <div class="bg-slate-50 border border-slate-100 rounded-lg p-1.5 flex flex-col gap-1 transition-all duration-300">
+                         <span class="text-[7px] text-slate-400 font-bold uppercase">Active Deal</span>
+                         <div class="flex justify-between items-center text-[9px]">
+                             <span class="font-bold text-slate-700 truncate max-w-[80px]" x-text="deals[idx % 3].name"></span>
+                             <span class="font-bold text-indigo-600" x-text="deals[idx % 3].val"></span>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            {{-- Widget: Projects — Kanban task progress incrementing --}}
+            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="bottom: 18%; left: 2%; width: 210px; z-index: 10;"
+                 x-data="{ 
+                     progress: 65, 
+                     tasks: [
+                         { name: 'Auth Module', status: 'done' },
+                         { name: 'API Gateway', status: 'doing' },
+                         { name: 'UI Polish', status: 'todo' }
+                     ]
+                 }"
+                 x-init="
+                     setInterval(() => {
+                         if (progress === 65) {
+                             progress = 90;
+                             tasks[1].status = 'done';
+                             tasks[2].status = 'doing';
+                         } else if (progress === 90) {
+                             progress = 100;
+                             tasks[2].status = 'done';
+                         } else {
+                             progress = 40;
+                             tasks[0].status = 'done';
+                             tasks[1].status = 'doing';
+                             tasks[2].status = 'todo';
+                         }
+                     }, 4000);
+                 "
+            >
+                 <div class="flex items-center justify-between mb-2.5">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Project Progress</span>
+                     <span :class="'text-[9px] font-semibold px-2 py-0.5 rounded-full border transition-all duration-300 ' + 
+                           (progress === 100 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-indigo-50 text-indigo-600 border-indigo-100')" 
+                           x-text="progress === 100 ? 'Completed' : 'Active'"></span>
+                 </div>
+                 <div class="space-y-2">
+                     <div class="bg-slate-50 border border-slate-100 p-2 rounded-lg">
+                         <div class="flex justify-between items-center text-[10px] mb-1">
+                             <span class="text-slate-800 font-bold">TimeNest Launch</span>
+                             <span class="text-slate-500 font-bold" x-text="progress + '%'"></span>
+                         </div>
+                         <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                             <div class="bg-indigo-600 h-full rounded-full transition-all duration-1000 ease-out" :style="'width: ' + progress + '%'"></div>
+                         </div>
+                     </div>
+                     <div class="space-y-1">
+                         <template x-for="task in tasks">
+                             <div class="flex items-center justify-between text-[9px]">
+                                 <span class="font-semibold text-slate-600" x-text="task.name"></span>
+                                 <span :class="'text-[8px] font-bold ' + 
+                                       (task.status === 'done' ? 'text-emerald-600' : task.status === 'doing' ? 'text-indigo-600 animate-pulse' : 'text-slate-400')"
+                                       x-text="task.status === 'done' ? '✓ Done' : task.status === 'doing' ? 'Doing' : 'Todo'"></span>
+                             </div>
+                         </template>
+                     </div>
+                 </div>
+            </div>
+
+            {{-- Widget: Analytics — Productivity dynamic counter --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="bottom: 28%; right: 12%; width: 210px; z-index: 10;"
+                 x-data="{ 
+                     value: 94.2, 
+                     points: [
+                         'M0 35 L20 28 L40 32 L60 18 L80 22 L100 12',
+                         'M0 35 L20 30 L40 24 L60 28 L80 14 L100 8',
+                         'M0 35 L20 25 L40 32 L60 16 L80 10 L100 5'
+                     ],
+                     idx: 0
+                 }"
+                 x-init="
+                     setInterval(() => { 
+                         idx = (idx + 1) % points.length; 
+                         value = idx === 0 ? 94.2 : idx === 1 ? 96.5 : 98.1;
+                     }, 2500);
+                 "
+            >
+                 <div class="flex items-center justify-between mb-2">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Productivity</span>
+                     <span class="text-[9px] font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 transition-all duration-300" x-text="value + '%'"></span>
+                 </div>
+                 <div class="relative h-[45px] mt-3">
+                     <svg class="w-full h-full" viewBox="0 0 100 40" fill="none">
+                         <line x1="0" y1="20" x2="100" y2="20" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
+                         <line x1="0" y1="10" x2="100" y2="10" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2" />
+                         <path :d="points[idx]" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" class="transition-all duration-1000 ease-in-out"/>
+                         <circle :cx="100" :cy="idx === 0 ? 12 : idx === 1 ? 8 : 5" r="3" fill="#14b8a6" class="transition-all duration-1000 ease-in-out"/>
+                         <circle :cx="100" :cy="idx === 0 ? 12 : idx === 1 ? 8 : 5" r="6" fill="#14b8a6" class="transition-all duration-1000 ease-in-out animate-ping opacity-30"/>
+                     </svg>
+                 </div>
+            </div>
+
+            {{-- Widget: AI — Rotating insight logs --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="top: 50%; left: 3%; width: 210px; z-index: 10;"
+                 x-data="{ 
+                     insights: [
+                         { text: 'Design team overtime up 15%. Balance recommended.', type: 'warning', color: 'text-amber-700 bg-amber-50 border-amber-100' },
+                         { text: 'Forecast: Revenue projected to hit +12% this Q.', type: 'forecast', color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
+                         { text: 'Anomaly: Developer clocked in outside geofence.', type: 'alert', color: 'text-rose-700 bg-rose-50 border-rose-100' }
+                     ],
+                     active: 0
+                 }"
+                 x-init="setInterval(() => { active = (active + 1) % insights.length; }, 4000)"
+            >
+                 <div class="flex items-center justify-between mb-2">
+                     <div class="flex items-center gap-1.5">
+                         <svg class="w-3.5 h-3.5 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                         <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Copilot</span>
+                     </div>
+                     <span class="text-[8px] bg-indigo-50 text-indigo-600 border border-indigo-100 rounded px-1.5 py-0.5 font-bold uppercase">Realtime</span>
+                 </div>
+                 <div class="mt-2 h-[55px] flex items-center relative">
+                     <template x-for="(ins, idx) in insights">
+                         <div x-show="active === idx" 
+                              x-transition:enter="transition ease-out duration-300"
+                              x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                              x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                              x-transition:leave="transition ease-in duration-200 absolute"
+                              x-transition:leave-start="opacity-100 translate-y-0"
+                              x-transition:leave-end="opacity-0 -translate-y-2"
+                              class="text-[9px] p-2 rounded-lg border font-semibold leading-relaxed w-full"
+                              :class="ins.color"
+                         >
+                             <div class="flex justify-between items-center mb-1 text-[7px] uppercase tracking-wider font-bold opacity-75">
+                                 <span x-text="ins.type"></span>
+                                 <span>Just now</span>
+                             </div>
+                             <span x-text="ins.text"></span>
+                         </div>
+                     </template>
+                 </div>
+            </div>
+
+            {{-- Widget: Freelancers — Checkmark toggling with paid/sent --}}
+            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="top: 22%; right: 18%; width: 190px; z-index: 10;"
+                 x-data="{ paid: false, amount: 24500 }"
+                 x-init="setInterval(() => { paid = !paid; }, 3500)"
+            >
+                 <div class="flex items-center justify-between">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Freelancer Invoice</span>
+                     <span :class="'text-[8px] font-bold px-1.5 py-0.5 rounded border transition-all duration-300 ' + (paid ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700')" x-text="paid ? 'Paid' : 'Pending'"></span>
+                 </div>
+                 <div class="mt-3 flex items-center justify-between text-xs">
+                     <div>
+                         <p class="font-bold text-slate-700 text-[10px]">Client: Acme Corp</p>
+                         <p class="text-[9px] text-slate-500 font-semibold mt-0.5" x-text="'₹' + amount.toLocaleString()"></p>
+                     </div>
+                     <div :class="'flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-500 ' + (paid ? 'bg-emerald-500 border-emerald-500 text-white scale-110 shadow-sm shadow-emerald-500/30' : 'bg-slate-50 border-slate-200 text-slate-400')">
+                         <svg class="w-3.5 h-3.5 transition-transform duration-300" :class="paid ? 'scale-100 rotate-0' : 'scale-50 -rotate-12'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                     </div>
+                 </div>
+            </div>
+
+            {{-- Widget: Workspace — Dynamic collaborator initials --}}
+            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
+                 style="bottom: 6%; left: 16%; width: 190px; z-index: 10;"
+                 x-data="{ 
+                     users: [
+                         { initials: 'AM', color: 'bg-indigo-500', name: 'Alex' },
+                         { initials: 'SK', color: 'bg-teal-500', name: 'Sarah' },
+                         { initials: 'DL', color: 'bg-purple-500', name: 'David' }
+                     ],
+                     activeCount: 2
+                 }"
+                 x-init="setInterval(() => { 
+                     activeCount = activeCount === 3 ? 2 : 3;
+                 }, 3000)"
+            >
+                 <div class="flex items-center justify-between mb-2">
+                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Workspace Hub</span>
+                     <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 rounded px-1.5 py-0.5 animate-pulse" x-text="activeCount + ' Editing'"></span>
+                 </div>
+                 <div class="flex items-center gap-1.5 mt-3">
+                     <!-- Avatars Stack -->
+                     <div class="flex -space-x-1.5 overflow-hidden shrink-0">
+                         <div class="inline-block h-6 w-6 rounded-full border-2 border-white bg-indigo-500 flex items-center justify-center font-bold text-white text-[8px]">AM</div>
+                         <div class="inline-block h-6 w-6 rounded-full border-2 border-white bg-teal-500 flex items-center justify-center font-bold text-white text-[8px]">SK</div>
+                         <div x-show="activeCount === 3" 
+                              x-transition:enter="transition ease-out duration-300 scale-0"
+                              x-transition:enter-start="scale-0"
+                              x-transition:enter-end="scale-100"
+                              x-transition:leave="transition ease-in duration-200"
+                              x-transition:leave-end="scale-0"
+                              class="inline-block h-6 w-6 rounded-full border-2 border-white bg-purple-500 flex items-center justify-center font-bold text-white text-[8px]"
+                         >DL</div>
+                     </div>
+                     <span class="text-[9px] text-slate-500 font-semibold truncate" x-text="activeCount === 3 ? 'David joined' : 'Sarah editing...'"></span>
+                 </div>
+            </div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <x-frontend-base.badge variant="brand" class="mb-6 animate-fade-in inline-flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
-                TimeNest 2.0 is now live
-            </x-frontend-base.badge>
+        {{-- Layer 3: Hero Content --}}
+        <div class="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            {{-- Announcement Pill --}}
+            <div class="opacity-0 animate-hero-fade-up" style="animation-delay: 0ms;">
+                <x-frontend-base.badge color="teal" size="md" :dot="true" :pulse="true" class="mb-8 inline-flex">
+                    TimeNest 2.0 is now live
+                </x-frontend-base.badge>
+            </div>
             
-            <h1 class="font-display text-5xl lg:text-7xl font-bold text-content-strong tracking-tight mb-8 leading-tight animate-slide-up" style="animation-delay: 100ms;">
-                The Work Operating System<br>
-                <span class="text-gradient">for Modern Teams</span>
-            </h1>
+            {{-- Main Heading with mouse parallax --}}
+            <div :style="'transform: translate3d(' + mx + 'px, ' + my + 'px, 0)'" class="transition-transform duration-700 ease-out">
+                <h1 class="font-display text-5xl lg:text-7xl font-bold text-content-strong tracking-tight mb-2 leading-tight">
+                    <span class="block opacity-0 animate-hero-fade-up" style="animation-delay: 200ms;">The Work Operating System</span>
+                    <span class="relative inline-block opacity-0 animate-hero-fade-up" style="animation-delay: 400ms;">
+                        <span class="hero-text-glow"></span>
+                        <span class="relative text-gradient-animated">for Modern Teams</span>
+                    </span>
+                </h1>
+            </div>
             
-            <p class="text-lg lg:text-xl text-content-muted max-w-3xl mx-auto mb-10 leading-relaxed animate-slide-up font-body" style="animation-delay: 200ms;">
+            {{-- Subheading --}}
+            <p class="text-lg lg:text-xl text-content-muted max-w-3xl mx-auto mb-10 leading-relaxed font-body opacity-0 animate-hero-fade-up" style="animation-delay: 600ms;">
                 Manage employees, freelancers, and collaborative workspaces in one powerful platform. 
                 From automated attendance tracking to AI-powered revenue forecasting — everything your team needs to scale.
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 300ms;">
-                <x-frontend-base.button href="/register" variant="primary" color="brand" size="lg" class="w-full sm:w-auto h-14 px-8 text-base shadow-lg shadow-brand-500/20">
+            {{-- CTA Buttons --}}
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-hero-fade-up" style="animation-delay: 800ms;">
+                <x-frontend-base.button href="/register" variant="primary" color="brand" size="lg" class="w-full sm:w-auto h-14 px-8 text-base" iconRight="<svg class='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M9 5l7 7-7 7'/></svg>">
                     Start for Free
                 </x-frontend-base.button>
-                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="surface" size="lg" class="w-full sm:w-auto h-14 px-8 text-base bg-white border-2 border-content-strong text-content-strong hover:bg-content-strong hover:text-white transition-all shadow-sm">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="brand" size="lg" class="w-full sm:w-auto h-14 px-8 text-base">
                     Book a Demo
                 </x-frontend-base.button>
             </div>
 
-            {{-- Dashboard Mockup --}}
-            <div class="mt-20 relative mx-auto max-w-5xl animate-slide-up" style="animation-delay: 400ms;">
-                <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10 pointer-events-none rounded-2xl h-full"></div>
-                <div class="relative rounded-2xl border border-surface-border bg-white shadow-2xl p-2 lg:p-4 rotate-x-12 transform-gpu">
-                    <div class="rounded-xl overflow-hidden border border-surface-border bg-surface-50 flex items-center justify-center">
-                        <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Platform Dashboard" class="w-full object-cover">
-                    </div>
+            {{-- Dashboard Preview --}}
+            <div class="mt-16 relative mx-auto max-w-5xl opacity-0 animate-hero-fade-up" style="animation-delay: 1000ms;">
+                {{-- Decorative Glow behind Dashboard Preview --}}
+                <div class="absolute inset-0 -top-12 bg-gradient-to-tr from-brand-500/10 to-indigo-500/10 rounded-[2.5rem] transform rotate-1 scale-102 blur-2xl pointer-events-none"></div>
+                <div class="relative bg-white/30 backdrop-blur-md rounded-2xl p-2.5 border border-slate-200/50 shadow-2xl">
+                    <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Work OS Dashboard" class="rounded-xl border border-slate-100/50 shadow-sm w-full">
                 </div>
             </div>
             
-            {{-- Ticker Component replacing static logo strip --}}
-            <div class="mt-24 pt-10 border-t border-surface-border/50">
+            {{-- Ticker Component --}}
+            <div class="mt-24 pt-10 border-t border-surface-border/50 opacity-0 animate-hero-fade-up" style="animation-delay: 1200ms;">
                 <p class="text-center text-sm font-semibold text-content-muted uppercase tracking-wider mb-8">Trusted by forward-thinking teams globally</p>
                 <x-frontend-sections.ticker :items="[
                     ['name' => 'Acme Corp', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M13 10V3L4 14h7v7l9-11h-7z\'/>'],

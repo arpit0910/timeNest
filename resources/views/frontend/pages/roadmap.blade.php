@@ -1,4 +1,4 @@
-﻿<x-frontend-layout.app metaTitle="Product Roadmap â€” TimeNest" metaDescription="See what we've built, what we're working on, and where TimeNest is headed.">
+<x-frontend-layout.app metaTitle="Product Roadmap â€” TimeNest" metaDescription="See what we've built, what we're working on, and where TimeNest is headed.">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <x-frontend-sections.section-header title="Product Roadmap" subtitle="Transparency in what we've shipped, what we're building, and what's coming next." badge="Roadmap" />
@@ -33,7 +33,7 @@
                             @foreach($items as [$title, $category])
                                 <div class="rounded-lg border border-surface-border bg-surface-card p-4">
                                     <h4 class="font-body text-sm font-medium text-content-strong mb-1">{{ $title }}</h4>
-                                    <x-frontend-base.badge variant="default" size="xs">{{ $category }}</x-frontend-base.badge>
+                                    <x-frontend-base.badge color="gray" size="xs">{{ $category }}</x-frontend-base.badge>
                                 </div>
                             @endforeach
                         </div>

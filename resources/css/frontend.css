@@ -31,3 +31,222 @@ html {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ── Button Shine Effect ── */
+@keyframes shine-loop {
+  0% {
+    transform: translateX(-100%);
+  }
+  15% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.btn-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 75%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+  animation: shine-loop 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* ── Animated Gradient Text ── */
+.text-gradient-animated {
+  background: linear-gradient(135deg, #14b8a6, #6366f1, #8b5cf6, #14b8a6);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 12s ease-in-out infinite;
+}
+
+/* ── Hero Micro-Visualization Widgets ── */
+.hero-widget {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  will-change: transform, opacity, filter;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .hero-widget {
+    filter: blur(5px) opacity(0.3) !important;
+  }
+}
+
+.hero-widget svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Stagger bar chart animation */
+.hero-bar {
+  transform-origin: bottom;
+  animation: bar-grow 2s ease-out both;
+}
+.hero-bar:nth-child(1) { animation-delay: 0s; }
+.hero-bar:nth-child(2) { animation-delay: 0.15s; }
+.hero-bar:nth-child(3) { animation-delay: 0.3s; }
+.hero-bar:nth-child(4) { animation-delay: 0.45s; }
+.hero-bar:nth-child(5) { animation-delay: 0.6s; }
+
+/* Line draw animation for analytics chart */
+.hero-line-draw {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: line-draw 3s ease-in-out 0.5s both;
+}
+
+/* Pulse ring for attendance */
+.hero-pulse-ring {
+  transform-origin: center;
+  animation: pulse-ring 3s ease-out infinite;
+}
+.hero-pulse-ring:nth-child(2) { animation-delay: 1s; }
+.hero-pulse-ring:nth-child(3) { animation-delay: 2s; }
+
+/* Node connection pulse for AI */
+.hero-node-line {
+  animation: fade-in 0.5s ease-out both;
+}
+.hero-node-line:nth-child(odd) { animation-delay: 0.3s; }
+.hero-node-line:nth-child(even) { animation-delay: 0.8s; }
+
+/* Kanban card slide */
+@keyframes card-slide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+.hero-card-slide {
+  animation: card-slide 5s ease-in-out infinite;
+}
+.hero-card-slide:nth-child(2) { animation-delay: 0.5s; }
+.hero-card-slide:nth-child(3) { animation-delay: 1s; }
+
+/* Progress bar fill */
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.hero-progress-fill {
+  transform-origin: left;
+  animation: progress-fill 2s ease-out both;
+}
+.hero-progress-fill:nth-child(1) { animation-delay: 0.2s; }
+.hero-progress-fill:nth-child(2) { animation-delay: 0.6s; }
+.hero-progress-fill:nth-child(3) { animation-delay: 1s; }
+
+/* Invoice check animation */
+@keyframes check-appear {
+  0% { stroke-dashoffset: 24; opacity: 0; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+.hero-check-mark {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: check-appear 1.5s ease-out 1s both;
+}
+
+/* Funnel layer pulse */
+@keyframes funnel-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+.hero-funnel-layer {
+  animation: funnel-pulse 4s ease-in-out infinite;
+}
+.hero-funnel-layer:nth-child(2) { animation-delay: 0.5s; }
+.hero-funnel-layer:nth-child(3) { animation-delay: 1s; }
+
+/* Workspace merge */
+@keyframes merge-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+@keyframes merge-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+}
+.hero-merge-left { animation: merge-left 5s ease-in-out infinite; }
+.hero-merge-right { animation: merge-right 5s ease-in-out infinite; }
+
+/* Hero text glow */
+.hero-text-glow {
+  position: absolute;
+  width: 350px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(20, 184, 166, 0.08) 50%, transparent 80%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  will-change: filter;
+}
+
+/* Fingerprint scanner sweep animation */
+@keyframes fingerprint-scan {
+  0%, 100% { transform: translate3d(0, 0px, 0); }
+  50% { transform: translate3d(0, 48px, 0); }
+}
+.fingerprint-scanner-line {
+  top: 0;
+  animation: fingerprint-scan 3s ease-in-out infinite;
+}
+
+@keyframes scan-reveal {
+  0%, 100% { height: 0%; }
+  50% { height: 100%; }
+}
+.fingerprint-scanner-reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0%;
+  animation: scan-reveal 3s ease-in-out infinite;
+}
+
+/* AI connection network pulses */
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.8; }
+}
+.hero-node-pulse {
+  animation: pulse-opacity 3.5s ease-in-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .btn-shine { display: none; }
+  .text-gradient-animated {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}

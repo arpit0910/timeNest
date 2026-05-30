@@ -23,7 +23,7 @@
                 </div>
                 
                 <div class="w-full md:w-1/2 p-10 md:p-14 text-left flex flex-col justify-center">
-                    <x-frontend-base.badge variant="brand" class="mb-4 self-start">{{ $slide['badge'] ?? 'Feature' }}</x-frontend-base.badge>
+                    <x-frontend-base.badge color="teal" class="mb-4 self-start">{{ $slide['badge'] ?? 'Feature' }}</x-frontend-base.badge>
                     <h3 class="font-display text-2xl lg:text-3xl font-bold text-content-strong mb-4">{{ $slide['title'] }}</h3>
                     <p class="text-content-muted text-base leading-relaxed mb-8">{{ $slide['description'] }}</p>
                     

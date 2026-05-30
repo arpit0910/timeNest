@@ -6,7 +6,7 @@
     <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 bg-white relative overflow-hidden border-b border-surface-border">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz48L2c+PC9zdmc+')] opacity-50"></div>
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-            <x-frontend-base.badge variant="brand" class="mb-6">{{ $categoryLabel }}</x-frontend-base.badge>
+            <x-frontend-base.badge color="teal" class="mb-6">{{ $categoryLabel }}</x-frontend-base.badge>
             <h1 class="font-display text-5xl lg:text-6xl font-bold text-content-strong tracking-tight mb-8">{{ $title }}</h1>
             <p class="text-xl text-content-muted max-w-3xl mx-auto mb-10">{{ $description }}</p>
             <div class="flex justify-center gap-4">
