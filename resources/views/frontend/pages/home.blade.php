@@ -254,61 +254,463 @@
                 </div>
             </div>
 
-            <!-- Premium Browser Showcase Container with Tilt Parallax -->
-            <div class="relative mx-auto max-w-6xl transition-all duration-1000 delay-400 transform"
+            <!-- Premium Two-Column Vertical Scrolling Showcase (Marquee) -->
+            <div class="relative mx-auto max-w-6xl h-[650px] lg:h-[750px] w-full rounded-3xl border border-slate-200/80 bg-slate-50/50 overflow-hidden shadow-inner transition-all duration-1000 delay-400 transform"
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
-                 x-data="{ rotateX: 0, rotateY: 0, scale: 1, shadow: 12 }"
-                 @mousemove="
-                     const rect = $el.getBoundingClientRect();
-                     const px = ($event.clientX - rect.left) / rect.width - 0.5;
-                     const py = ($event.clientY - rect.top) / rect.height - 0.5;
-                     rotateX = py * -8;
-                     rotateY = px * 8;
-                     scale = 1.015;
-                     shadow = 24;
-                 "
-                 @mouseleave="
-                     rotateX = 0;
-                     rotateY = 0;
-                     scale = 1;
-                     shadow = 12;
-                 "
-                 :style="`transform: perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, 1);`"
             >
-                <!-- Decorative Glow behind Dashboard Preview -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/10 to-indigo-500/10 rounded-[2.5rem] transform rotate-1 scale-102 blur-3xl pointer-events-none"></div>
+                <!-- Fade overlays to blend top and bottom transitions -->
+                <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+                <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10"></div>
                 
-                <!-- Browser Window Container -->
-                <div class="relative rounded-2xl border border-slate-200/80 bg-white overflow-hidden browser-chrome-frame transition-all duration-300"
-                     :style="`box-shadow: 0 ${shadow}px ${shadow * 3}px -${shadow / 2}px rgba(15, 23, 42, 0.12)`"
-                >
-                    <!-- Browser Header Bar -->
-                    <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0 select-none">
-                        <!-- Mac style window controls -->
-                        <div class="flex items-center gap-1.5 w-1/4">
-                            <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                        </div>
-                        <!-- URL address bar -->
-                        <div class="w-2/4 max-w-md bg-white border border-slate-200/50 rounded-lg py-1 px-3 text-[10px] text-slate-400 font-mono text-center flex items-center justify-center gap-1.5 shadow-sm">
-                            <svg class="w-3 h-3 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            <span>timenest.com/dashboard</span>
-                        </div>
-                        <!-- Spacing block -->
-                        <div class="w-1/4 flex justify-end">
-                            <div class="flex gap-1.5">
-                                <span class="w-3.5 h-1 bg-slate-300 rounded-sm"></span>
-                                <span class="w-2 h-2 border border-slate-300 rounded-sm"></span>
+                <!-- Dual Column Layout -->
+                <div class="grid grid-cols-2 gap-4 md:gap-6 h-full p-4 md:p-6 pause-hover">
+                    
+                    <!-- Left Column: Scrolling Down (Top to Bottom) -->
+                    <div class="flex flex-col gap-6 animate-marquee-down">
+                        
+                        <!-- Cards Set 1 -->
+                        <!-- Card 1: Work OS Dashboard -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/dashboard</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Work OS Dashboard</h4>
+                                    <p class="text-[9px] text-slate-400">Central Command Hub</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
                             </div>
                         </div>
+
+                        <!-- Card 2: Workforce Scheduler -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/scheduler</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Workforce Scheduler</h4>
+                                    <p class="text-[9px] text-slate-400">Shift & Roster Manager</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Compliance & Audit -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/compliance</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Compliance & Audit</h4>
+                                    <p class="text-[9px] text-slate-400">Immutable Event Logging</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: AI Intelligence Core -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/ai-core</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">AI Intelligence Core</h4>
+                                    <p class="text-[9px] text-slate-400">Automated Operations Rules</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                            </div>
+                        </div>
+
+                        <!-- Cards Set 2 (Duplicated for infinite scroll) -->
+                        <!-- Card 1 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/dashboard</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Work OS Dashboard</h4>
+                                    <p class="text-[9px] text-slate-400">Central Command Hub</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/scheduler</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Workforce Scheduler</h4>
+                                    <p class="text-[9px] text-slate-400">Shift & Roster Manager</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/compliance</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Compliance & Audit</h4>
+                                    <p class="text-[9px] text-slate-400">Immutable Event Logging</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/ai-core</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">AI Intelligence Core</h4>
+                                    <p class="text-[9px] text-slate-400">Automated Operations Rules</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- Dashboard Image Screen with Reflection Sheen -->
-                    <div class="relative overflow-hidden aspect-[16/10] sm:aspect-[16/9.5] md:aspect-[16/9] lg:max-h-[500px]">
-                        <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Work OS Dashboard" class="w-full h-full object-cover object-top">
-                        <div class="absolute inset-0 browser-sheen"></div>
+                    <!-- Right Column: Scrolling Up (Bottom to Top) -->
+                    <div class="flex flex-col gap-6 animate-marquee-up">
+                        
+                        <!-- Cards Set 1 -->
+                        <!-- Card 1: AI Analytics Hub -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/ai-analytics</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">AI Analytics Hub</h4>
+                                    <p class="text-[9px] text-slate-400">Predictive Forecasting</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Financial Invoicing -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/billing</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Financial Invoicing</h4>
+                                    <p class="text-[9px] text-slate-400">Ledger & Payments</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Enterprise Solutions -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/enterprise</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Enterprise Solutions</h4>
+                                    <p class="text-[9px] text-slate-400">Global Scalability</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Collaborative Workspaces -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/workspaces</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Collaborative Workspaces</h4>
+                                    <p class="text-[9px] text-slate-400">Shared Team Portals</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                            </div>
+                        </div>
+
+                        <!-- Cards Set 2 (Duplicated for infinite scroll) -->
+                        <!-- Card 1 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/ai-analytics</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">AI Analytics Hub</h4>
+                                    <p class="text-[9px] text-slate-400">Predictive Forecasting</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/billing</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Financial Invoicing</h4>
+                                    <p class="text-[9px] text-slate-400">Ledger & Payments</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/enterprise</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Enterprise Solutions</h4>
+                                    <p class="text-[9px] text-slate-400">Global Scalability</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 Duplicate -->
+                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                                <div class="flex items-center gap-1.5 w-1/4">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                    <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    <span class="truncate">timenest.com/workspaces</span>
+                                </div>
+                                <div class="w-1/4"></div>
+                            </div>
+                            <div class="relative overflow-hidden aspect-[16/10] bg-slate-100">
+                                <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
+                                <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
+                            </div>
+                            <div class="px-4 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-800">Collaborative Workspaces</h4>
+                                    <p class="text-[9px] text-slate-400">Shared Team Portals</p>
+                                </div>
+                                <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
