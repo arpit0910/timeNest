@@ -237,6 +237,173 @@ html {
   animation: pulse-opacity 3.5s ease-in-out infinite;
 }
 
+/* ── Solutions Mega Menu High-Fidelity Icon Animations ── */
+
+/* 1. Workforce: checkmark pop and dot color shift */
+@keyframes workforce-dot-color {
+  0%, 100% { fill: #f59e0b; }
+  50% { fill: #10b981; }
+}
+.anim-workforce-dot {
+  animation: workforce-dot-color 3s infinite;
+}
+@keyframes workforce-check-pop {
+  0%, 20%, 100% { transform: scale(0); opacity: 0; }
+  45%, 85% { transform: scale(1); opacity: 1; }
+}
+.anim-workforce-check {
+  animation: workforce-check-pop 3s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: 12px 14px;
+}
+
+/* 2. Operations: sequential connecting flow nodes */
+@keyframes ops-node-a {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  20%, 60% { opacity: 1; transform: scale(1.1); fill: #6366f1; }
+}
+.anim-ops-node-a {
+  animation: ops-node-a 4s ease-in-out infinite;
+  transform-origin: 6px 12px;
+}
+@keyframes ops-line {
+  0%, 20%, 100% { stroke-dashoffset: 12; opacity: 0.2; }
+  40%, 70% { stroke-dashoffset: 0; opacity: 1; stroke: #6366f1; }
+}
+.anim-ops-line {
+  stroke-dasharray: 12;
+  animation: ops-line 4s ease-in-out infinite;
+}
+@keyframes ops-node-b {
+  0%, 40%, 100% { opacity: 0.3; transform: scale(0.9); }
+  60%, 85% { opacity: 1; transform: scale(1.1); fill: #14b8a6; }
+}
+.anim-ops-node-b {
+  animation: ops-node-b 4s ease-in-out infinite;
+  transform-origin: 18px 12px;
+}
+
+/* 3. Financial: document PAID stamp slam down */
+@keyframes finance-stamp {
+  0%, 100% { transform: scale(1.5) rotate(-5deg); opacity: 0; filter: blur(1px); }
+  25%, 80% { transform: scale(1) rotate(-12deg); opacity: 1; filter: blur(0); }
+}
+.anim-finance-stamp {
+  animation: finance-stamp 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  transform-origin: 12px 14px;
+}
+
+/* 4. Freelancer: Kanban card column slide + check icon */
+@keyframes kanban-card-drag {
+  0%, 100% { transform: translate3d(0, 0, 0); fill: #94a3b8; }
+  25%, 75% { transform: translate3d(8px, 0, 0); fill: #14b8a6; }
+}
+.anim-kanban-card {
+  animation: kanban-card-drag 4s ease-in-out infinite;
+}
+@keyframes kanban-check {
+  0%, 30%, 100% { opacity: 0; transform: scale(0.6); }
+  45%, 75% { opacity: 1; transform: scale(1); }
+}
+.anim-kanban-check {
+  animation: kanban-check 4s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  transform-origin: 17px 12px;
+}
+
+/* 5. AI: sparkles rotation + console typing log line */
+@keyframes ai-sparkle-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.anim-ai-sparkle {
+  animation: ai-sparkle-spin 8s linear infinite;
+  transform-origin: 16px 8px;
+}
+@keyframes ai-text-line-1 {
+  0%, 80%, 100% { opacity: 0; }
+  15%, 75% { opacity: 1; }
+}
+@keyframes ai-text-line-2 {
+  0%, 15%, 80%, 100% { opacity: 0; }
+  30%, 75% { opacity: 1; }
+}
+@keyframes ai-text-line-3 {
+  0%, 30%, 80%, 100% { opacity: 0; }
+  45%, 75% { opacity: 1; }
+}
+.anim-ai-l1 { animation: ai-text-line-1 3.5s infinite; }
+.anim-ai-l2 { animation: ai-text-line-2 3.5s infinite; }
+.anim-ai-l3 { animation: ai-text-line-3 3.5s infinite; }
+
+/* 6. Compliance: checklist checked marker */
+@keyframes compliance-check {
+  0%, 20%, 100% { stroke-dashoffset: 10; opacity: 0; }
+  45%, 80% { stroke-dashoffset: 0; opacity: 1; }
+}
+.anim-compliance-check {
+  stroke-dasharray: 10;
+  animation: compliance-check 3s ease-out infinite;
+}
+
+/* 7. Security: laser scanning sweep on shield */
+@keyframes security-sweep {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.3; }
+  50% { transform: translate3d(0, 8px, 0); opacity: 1; }
+}
+.anim-security-sweep {
+  animation: security-sweep 2.5s ease-in-out infinite;
+}
+
+/* 8. Remote: conversation bubble replies */
+@keyframes chat-bubble-left {
+  0%, 80%, 100% { opacity: 0; transform: scale(0.6) translate3d(0, 3px, 0); }
+  15%, 70% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+}
+.anim-chat-left {
+  animation: chat-bubble-left 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  transform-origin: 6px 14px;
+}
+@keyframes chat-bubble-right {
+  0%, 30%, 80%, 100% { opacity: 0; transform: scale(0.6) translate3d(0, 3px, 0); }
+  45%, 70% { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+}
+.anim-chat-right {
+  animation: chat-bubble-right 4s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  transform-origin: 18px 8px;
+}
+
+/* 9. Integrations: plug slides inside center connector socket */
+@keyframes integration-plug {
+  0%, 100% { transform: translate3d(-3px, 0, 0); }
+  35%, 75% { transform: translate3d(0, 0, 0); }
+}
+.anim-integration-plug {
+  animation: integration-plug 3s ease-in-out infinite;
+}
+@keyframes integration-spark {
+  0%, 25%, 80%, 100% { opacity: 0; transform: scale(0.5); }
+  35%, 70% { opacity: 1; transform: scale(1.1); }
+}
+.anim-integration-spark {
+  animation: integration-spark 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  transform-origin: 12px 12px;
+}
+
+/* 10. API: terminal input typing and ok response */
+@keyframes terminal-cmd {
+  0%, 80%, 100% { opacity: 0; }
+  20%, 75% { opacity: 1; }
+}
+.anim-terminal-cmd {
+  animation: terminal-cmd 4.5s ease-out infinite;
+}
+@keyframes terminal-response {
+  0%, 35%, 80%, 100% { opacity: 0; transform: translate3d(0, 2px, 0); }
+  55%, 75% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.anim-terminal-resp {
+  animation: terminal-response 4.5s ease-out infinite;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

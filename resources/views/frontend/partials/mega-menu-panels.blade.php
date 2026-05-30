@@ -136,8 +136,91 @@
         ] as $sol)
             <a href="{{ $sol['slug'] === '#' ? '#' : route('frontend.solutions.show', $sol['slug']) }}" class="{!! $linkClass !!}">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-surface-border group-hover:border-brand-500/50 group-hover:text-brand-500 group-hover:shadow-sm transition-all duration-300">
-                        <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $sol['icon'] }}"/></svg>
+                    <div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-surface-border group-hover:border-brand-500/50 group-hover:text-brand-500 group-hover:shadow-sm transition-all duration-300 overflow-hidden">
+                        @switch($sol['title'])
+                            @case('Workforce Mgmt')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                    <circle cx="8.5" cy="7" r="4" />
+                                    <circle cx="18" cy="8" r="2" class="anim-workforce-dot" fill="#f59e0b" stroke="none" />
+                                    <path class="anim-workforce-check text-emerald-500" stroke-width="2" d="M14 14l2 2 4-4" />
+                                </svg>
+                                @break
+                            @case('Operations Mgmt')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <circle cx="6" cy="12" r="2.5" class="anim-ops-node-a fill-slate-300" />
+                                    <path d="M8.5 12h7" class="anim-ops-line stroke-slate-300" stroke-linecap="round" />
+                                    <circle cx="18" cy="12" r="2.5" class="anim-ops-node-b fill-slate-300" />
+                                    <path d="M12 12v4h3" stroke-dasharray="2" stroke-linecap="round" />
+                                </svg>
+                                @break
+                            @case('Financial Ops')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-emerald-600 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                    <path d="M14 2v6h6" />
+                                    <g class="anim-finance-stamp text-emerald-500" stroke-width="2">
+                                        <rect x="7" y="11" width="10" height="6" rx="1" fill="none" />
+                                        <path d="M9 14l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                </svg>
+                                @break
+                            @case('Freelancer Mgmt')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <line x1="12" y1="4" x2="12" y2="20" stroke-dasharray="2" />
+                                    <rect x="3" y="6" width="6" height="4" rx="1" fill="#e2e8f0" stroke="none" />
+                                    <rect x="3" y="12" width="6" height="4" rx="1" class="anim-kanban-card" stroke="none" />
+                                    <path d="M15 8l2 2 4-4" class="anim-kanban-check text-emerald-500" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                                @break
+                            @case('AI Operations')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path class="anim-ai-sparkle text-indigo-500" d="M12 3l1 2.5L15.5 6 13 7l-1 2.5L11 7 8.5 6 11 5z" />
+                                    <line x1="4" y1="12" x2="18" y2="12" class="anim-ai-l1" />
+                                    <line x1="4" y1="15" x2="14" y2="15" class="anim-ai-l2" />
+                                    <line x1="4" y1="18" x2="10" y2="18" class="anim-ai-l3" />
+                                </svg>
+                                @break
+                            @case('Global Compliance')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" />
+                                    <path d="M9 5a2 2 0 00-2 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                    <circle cx="9" cy="13" r="1.5" />
+                                    <path d="M8.5 13l1 1 2-2" class="anim-compliance-check text-emerald-500" stroke-width="2" stroke-linecap="round" />
+                                    <line x1="13" y1="13" x2="17" y2="13" />
+                                    <line x1="7" y1="17" x2="17" y2="17" />
+                                </svg>
+                                @break
+                            @case('Enterprise Security')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                    <line x1="6" y1="7" x2="18" y2="7" class="anim-security-sweep text-emerald-500" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                                @break
+                            @case('Remote Teams')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path class="anim-chat-left text-brand-500" d="M12 8c0-3.3-2.7-6-6-6S0 4.7 0 8c0 1.8.8 3.5 2.2 4.6L1 16l4-2c.3 0 .7.1 1 .1 3.3 0 6-2.7 6-6z" />
+                                    <path class="anim-chat-right text-indigo-500" d="M24 10c0-2.8-2.2-5-5-5s-5 2.2-5 5c0 1.5.7 2.9 1.8 3.8l-.8 3.2 3.3-1.7c.3 0 .5.1.7.1 2.8 0 5-2.2 5-5z" />
+                                </svg>
+                                @break
+                            @case('Integrations')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <rect x="10" y="8" width="4" height="8" rx="1" />
+                                    <path class="anim-integration-plug" d="M3 12h5m-2-2v4" />
+                                    <circle cx="12" cy="12" r="3" class="anim-integration-spark text-emerald-500 opacity-20" stroke-width="2" />
+                                </svg>
+                                @break
+                            @case('API Access')
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path class="anim-terminal-cmd" d="M3 7l3 3-3 3" />
+                                    <line x1="7" y1="10" x2="11" y2="10" class="anim-terminal-cmd" />
+                                    <g class="anim-terminal-resp text-emerald-500" stroke-linecap="round">
+                                        <path d="M14 6h3l-3 4h3m2-4v4h3v-4zm4 0v4h3v-4z" stroke-width="1.2" />
+                                    </g>
+                                </svg>
+                                @break
+                            @default
+                                <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $sol['icon'] }}"/></svg>
+                        @endswitch
                     </div>
                     <div>
                         <h3 class="font-display font-bold text-content-strong text-sm mb-0.5 group-hover:text-brand-600 transition-colors">{{ $sol['title'] }}</h3>
