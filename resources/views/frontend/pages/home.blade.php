@@ -3,7 +3,7 @@
     metaDescription="Complete workforce management for organizations, freelancer tools, and collaborative workspaces. One platform for every workflow."
 >
     {{-- Section 1: Hero --}}
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" 
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-24 overflow-hidden" 
         x-data="{ mx: 0, my: 0 }" 
         @mousemove.window="mx = ($event.clientX / window.innerWidth - 0.5) * 4; my = ($event.clientY / window.innerHeight - 0.5) * 3"
     >
@@ -11,486 +11,7 @@
         <div class="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-white pointer-events-none"></div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[900px] h-[600px] bg-gradient-to-br from-teal-100/40 via-indigo-100/30 to-purple-100/20 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
 
-        {{-- Layer 2: Micro-Dashboard Visualization Widgets --}}
-        <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                       {{-- Widget: Attendance — Fingerprint sweep --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20"
-                 style="top: 10%; left: 4%; width: 190px; z-index: 10;"
-                 x-data="{ 
-                     status: 'idle', 
-                     progress: 0, 
-                     user: ''
-                 }"
-                 x-init="
-                     let users = ['Alex M.', 'Sarah K.', 'David L.'];
-                     let idx = 0;
-                     setInterval(() => {
-                         status = 'scanning';
-                         progress = 0;
-                         user = users[idx];
-                         idx = (idx + 1) % users.length;
-                         
-                         let interval = setInterval(() => {
-                             progress += 5;
-                             if (progress >= 100) {
-                                 clearInterval(interval);
-                                 status = 'verified';
-                                 setTimeout(() => {
-                                     status = 'idle';
-                                 }, 1800);
-                             }
-                         }, 80);
-                     }, 4000);
-                 "
-            >
-                <div class="flex items-center gap-2">
-                    <span class="relative flex h-2 w-2">
-                        <span x-show="status === 'scanning'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                        <span x-show="status === 'verified'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span :class="'relative inline-flex rounded-full h-2 w-2 transition-colors duration-300 ' + (status === 'scanning' ? 'bg-amber-500' : status === 'verified' ? 'bg-emerald-500' : 'bg-slate-400')"></span>
-                    </span>
-                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Attendance</span>
-                </div>
-                <div class="relative flex items-center justify-center my-2.5 h-[50px] overflow-hidden rounded-lg bg-slate-50/50 border border-slate-100">
-                    <!-- Grey Background Fingerprint -->
-                    <svg class="absolute w-10 h-10 text-slate-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path stroke-linecap="round" d="M12 2a10 10 0 0 0-10 10v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1a5 5 0 0 1 10 0v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a10 10 0 0 0-10-10z"/>
-                        <path stroke-linecap="round" d="M8 12v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-8 0z"/>
-                        <path stroke-linecap="round" d="M10 12v1a2 2 0 0 0 4 0v-1a2 2 0 0 0-4 0z"/>
-                    </svg>
-                    <!-- Color Foreground Fingerprint -->
-                    <div class="absolute inset-x-0 bottom-0 flex items-center justify-center overflow-hidden transition-all duration-100 ease-linear"
-                         :style="'height: ' + (status === 'idle' ? '0' : progress) + '%'">
-                        <div class="relative h-[50px] w-full flex items-center justify-center">
-                            <svg :class="'w-10 h-10 transition-colors duration-300 ' + (status === 'scanning' ? 'text-amber-500' : 'text-teal-500')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" d="M12 2a10 10 0 0 0-10 10v1a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-1a5 5 0 0 1 10 0v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a10 10 0 0 0-10-10z"/>
-                                <path stroke-linecap="round" d="M8 12v3a4 4 0 0 0 8 0v-3a4 4 0 0 0-8 0z"/>
-                                <path stroke-linecap="round" d="M10 12v1a2 2 0 0 0 4 0v-1a2 2 0 0 0-4 0z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- Scanner Laser Line -->
-                    <div class="absolute left-0 right-0 h-0.5 shadow-sm transition-all duration-100 ease-linear"
-                         :class="status === 'scanning' ? 'bg-amber-500 shadow-amber-500/50' : status === 'verified' ? 'bg-teal-500 shadow-teal-500/50' : 'hidden'"
-                         :style="'bottom: ' + (status === 'idle' ? '0' : progress) + '%'"></div>
-                </div>
-                <div class="text-center h-4 flex items-center justify-center">
-                    <p x-show="status === 'idle'" class="text-[10px] font-bold text-slate-400">Place Finger</p>
-                    <p x-show="status === 'scanning'" class="text-[10px] font-bold text-amber-600" x-text="'Scanning... ' + progress + '%'"></p>
-                    <p x-show="status === 'verified'" class="text-[10px] font-bold text-emerald-600 animate-pulse" x-text="user + ' Verified'"></p>
-                </div>
-            </div>
-
-            {{-- Widget: Employee Management — Dynamic Team Status list --}}
-            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="top: 8%; right: 4%; width: 200px; z-index: 10;"
-                 x-data="{ 
-                     employees: [
-                         { name: 'Alex M.', status: 'active', initials: 'AM', bg: 'bg-indigo-100', text: 'text-indigo-600' },
-                         { name: 'Sarah K.', status: 'active', initials: 'SK', bg: 'bg-teal-100', text: 'text-teal-600' },
-                         { name: 'David L.', status: 'meeting', initials: 'DL', bg: 'bg-amber-100', text: 'text-amber-600' }
-                     ] 
-                 }"
-                 x-init="setInterval(() => { 
-                     employees[1].status = employees[1].status === 'active' ? 'offline' : 'active'; 
-                     employees[2].status = employees[2].status === 'meeting' ? 'active' : 'meeting'; 
-                 }, 3000)"
-            >
-                <div class="flex items-center justify-between">
-                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Team Status</span>
-                    <span :class="'text-[9px] font-semibold px-2 py-0.5 rounded-full border transition-all duration-500 ' + 
-                          (employees.filter(e => e.status === 'active').length >= 2 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-50 text-slate-600 border-slate-200')" 
-                          x-text="employees.filter(e => e.status === 'active').length + ' Active'"></span>
-                </div>
-                <div class="mt-3 space-y-2">
-                    <template x-for="emp in employees">
-                        <div class="flex items-center justify-between text-xs transition-all duration-300">
-                            <div class="flex items-center gap-2">
-                                <div :class="'w-6 h-6 rounded-full flex items-center justify-center font-bold text-[9px] transition-colors duration-500 ' + emp.bg + ' ' + emp.text" x-text="emp.initials"></div>
-                                <span class="font-semibold text-slate-700" x-text="emp.name"></span>
-                            </div>
-                            <span :class="'px-1.5 py-0.5 rounded text-[8px] font-bold border transition-all duration-500 flex items-center gap-1 ' + 
-                                (emp.status === 'active' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 
-                                 emp.status === 'meeting' ? 'bg-amber-50 border-amber-200 text-amber-700' : 
-                                 'bg-slate-100 border-slate-200 text-slate-500')"
-                            >
-                                <span :class="'w-1 h-1 rounded-full ' + 
-                                    (emp.status === 'active' ? 'bg-emerald-500 animate-pulse' : 
-                                     emp.status === 'meeting' ? 'bg-amber-500' : 
-                                     'bg-slate-400')"></span>
-                                <span x-text="emp.status === 'active' ? 'Active' : emp.status === 'meeting' ? 'Meeting' : 'Offline'"></span>
-                            </span>
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            {{-- Widget: Finance — Mini cashflow transaction list + revenue increment --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="top: 36%; right: 2%; width: 220px; z-index: 10;"
-                 x-data="{ 
-                     revenue: 842000,
-                     transactions: [
-                         { id: 1, name: 'Acme Corp', amount: '+₹12,500', time: 'Just now', type: 'incoming' },
-                         { id: 2, name: 'Alex M. (Salary)', amount: '-₹45,000', time: '2m ago', type: 'outgoing' },
-                         { id: 3, name: 'David L. (Bonus)', amount: '-₹8,000', time: '1h ago', type: 'outgoing' }
-                     ],
-                     counter: 0
-                 }"
-                 x-init="
-                     setInterval(() => {
-                         counter = (counter + 1) % 3;
-                         if (counter === 0) {
-                             transactions.unshift({ id: Date.now(), name: 'Globex Inc', amount: '+₹18,200', time: 'Just now', type: 'incoming' });
-                             revenue += 18200;
-                         } else if (counter === 1) {
-                             transactions.unshift({ id: Date.now(), name: 'Server Billing', amount: '-₹4,200', time: 'Just now', type: 'outgoing' });
-                             revenue -= 4200;
-                         } else {
-                             transactions.unshift({ id: Date.now(), name: 'Stark Ind.', amount: '+₹25,000', time: 'Just now', type: 'incoming' });
-                             revenue += 25000;
-                         }
-                         if (transactions.length > 3) {
-                             transactions.pop();
-                         }
-                         transactions.forEach((tx, idx) => {
-                             if (idx > 0) tx.time = idx + 'm ago';
-                         });
-                     }, 4000);
-                 "
-            >
-                <div class="flex items-center justify-between">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Cashflow</span>
-                     <span class="text-[9px] font-bold text-emerald-600 flex items-center gap-0.5 animate-pulse bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                         <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
-                         Live
-                     </span>
-                </div>
-                <div class="my-1.5">
-                     <h4 class="text-slate-900 font-bold text-base leading-none transition-all duration-300" x-text="'₹' + revenue.toLocaleString()"></h4>
-                     <span class="text-[9px] text-slate-400 font-semibold">Total Balance</span>
-                </div>
-                <div class="mt-2 space-y-1.5">
-                     <template x-for="tx in transactions" :key="tx.id">
-                         <div class="flex items-center justify-between p-1.5 rounded-lg border text-[9px] transition-all duration-500"
-                              :class="tx.type === 'incoming' ? 'bg-emerald-50/50 border-emerald-100 text-emerald-800' : 'bg-rose-50/50 border-rose-100 text-rose-800'"
-                              x-transition:enter="transition ease-out duration-300"
-                              x-transition:enter-start="opacity-0 -translate-y-2"
-                              x-transition:enter-end="opacity-100 translate-y-0"
-                         >
-                             <div class="truncate max-w-[100px]">
-                                 <p class="font-bold truncate" x-text="tx.name"></p>
-                                 <span class="text-[8px] opacity-60" x-text="tx.time"></span>
-                             </div>
-                             <span class="font-mono font-bold" x-text="tx.amount"></span>
-                         </div>
-                     </template>
-                </div>
-            </div>
-
-            {{-- Widget: Payroll — Payout stages --}}
-            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="bottom: 16%; right: 3%; width: 190px; z-index: 10;"
-                 x-data="{ 
-                     step: 0, 
-                     amount: 1420000, 
-                     steps: [
-                         { name: 'Calculated', status: 'done' },
-                         { name: 'Tax Compliance', status: 'doing' },
-                         { name: 'Disbursement', status: 'todo' }
-                     ]
-                 }"
-                 x-init="
-                     setInterval(() => {
-                         step = (step + 1) % 4;
-                         if (step === 0) {
-                             steps[0].status = 'doing'; steps[1].status = 'todo'; steps[2].status = 'todo';
-                         } else if (step === 1) {
-                             steps[0].status = 'done'; steps[1].status = 'doing'; steps[2].status = 'todo';
-                         } else if (step === 2) {
-                             steps[0].status = 'done'; steps[1].status = 'done'; steps[2].status = 'doing';
-                         } else {
-                             steps[0].status = 'done'; steps[1].status = 'done'; steps[2].status = 'done';
-                         }
-                     }, 3000);
-                 "
-            >
-                 <div class="flex items-center justify-between mb-2">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Payroll</span>
-                     <span :class="'text-[9px] font-bold px-1.5 py-0.5 rounded border transition-colors duration-500 ' + 
-                           (step === 3 ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700')"
-                           x-text="step === 0 ? 'Review' : step === 1 ? 'Taxing' : step === 2 ? 'Sending' : 'Paid'"></span>
-                 </div>
-                 <div class="mb-3">
-                     <p class="text-[8px] text-slate-400 font-bold uppercase leading-none">Payout Total</p>
-                     <p class="text-[13px] font-bold text-slate-800 mt-0.5" x-text="'₹' + amount.toLocaleString()"></p>
-                 </div>
-                 <div class="space-y-1.5">
-                     <template x-for="(s, index) in steps">
-                         <div class="flex items-center justify-between text-[10px] transition-all duration-300">
-                             <span :class="'font-semibold ' + (s.status === 'done' ? 'text-slate-400 line-through' : s.status === 'doing' ? 'text-indigo-600 font-bold' : 'text-slate-400')" x-text="s.name"></span>
-                             <div class="flex items-center">
-                                 <template x-if="s.status === 'done'">
-                                     <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center text-white">
-                                         <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                                     </div>
-                                 </template>
-                                 <template x-if="s.status === 'doing'">
-                                     <span class="relative flex h-2 w-2">
-                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                                     </span>
-                                 </template>
-                                 <template x-if="s.status === 'todo'">
-                                     <span class="w-2 h-2 rounded-full bg-slate-200"></span>
-                                 </template>
-                             </div>
-                         </div>
-                     </template>
-                 </div>
-            </div>
-
-            {{-- Widget: Sales — Funnel stage shifting --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="top: 26%; left: 2%; width: 170px; z-index: 10;"
-                 x-data="{ 
-                     stage: 'Leads', 
-                     deals: [
-                         { name: 'Acme Deal', val: '₹1.2L', bg: 'bg-indigo-500' },
-                         { name: 'Wayne Corp', val: '₹3.5L', bg: 'bg-teal-500' },
-                         { name: 'Stark Tech', val: '₹5.0L', bg: 'bg-purple-500' }
-                     ],
-                     idx: 0
-                 }"
-                 x-init="
-                     setInterval(() => {
-                         idx = (idx + 1) % 4;
-                         stage = idx === 0 ? 'Leads' : idx === 1 ? 'Proposal' : idx === 2 ? 'Negotiation' : 'Closed Won';
-                     }, 3500);
-                 "
-            >
-                 <div class="flex items-center justify-between mb-2">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Sales Pipeline</span>
-                     <span :class="'text-[8px] font-bold px-1.5 py-0.5 rounded border transition-all duration-500 ' + 
-                           (stage === 'Closed Won' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-indigo-50 border-indigo-200 text-indigo-700')"
-                           x-text="stage"></span>
-                 </div>
-                 <div class="mt-2 space-y-1.5">
-                     <div class="flex justify-between items-center text-[9px]">
-                         <span class="text-slate-400 font-semibold">Pipeline Value</span>
-                         <span class="font-bold text-slate-800">₹9.7L</span>
-                     </div>
-                     <!-- Funnel Progress Steps -->
-                     <div class="flex gap-1 h-2 my-2">
-                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 0 ? 'bg-indigo-500' : 'bg-slate-200'"></div>
-                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 1 ? 'bg-indigo-400' : 'bg-slate-200'"></div>
-                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 2 ? 'bg-indigo-300' : 'bg-slate-200'"></div>
-                         <div class="flex-1 rounded-sm transition-all duration-500" :class="idx >= 3 ? 'bg-emerald-500' : 'bg-slate-200'"></div>
-                     </div>
-                     <div class="bg-slate-50 border border-slate-100 rounded-lg p-1.5 flex flex-col gap-1 transition-all duration-300">
-                         <span class="text-[7px] text-slate-400 font-bold uppercase">Active Deal</span>
-                         <div class="flex justify-between items-center text-[9px]">
-                             <span class="font-bold text-slate-700 truncate max-w-[80px]" x-text="deals[idx % 3].name"></span>
-                             <span class="font-bold text-indigo-600" x-text="deals[idx % 3].val"></span>
-                         </div>
-                     </div>
-                 </div>
-            </div>
-
-            {{-- Widget: Projects — Kanban task progress incrementing --}}
-            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="bottom: 18%; left: 2%; width: 210px; z-index: 10;"
-                 x-data="{ 
-                     progress: 65, 
-                     tasks: [
-                         { name: 'Auth Module', status: 'done' },
-                         { name: 'API Gateway', status: 'doing' },
-                         { name: 'UI Polish', status: 'todo' }
-                     ]
-                 }"
-                 x-init="
-                     setInterval(() => {
-                         if (progress === 65) {
-                             progress = 90;
-                             tasks[1].status = 'done';
-                             tasks[2].status = 'doing';
-                         } else if (progress === 90) {
-                             progress = 100;
-                             tasks[2].status = 'done';
-                         } else {
-                             progress = 40;
-                             tasks[0].status = 'done';
-                             tasks[1].status = 'doing';
-                             tasks[2].status = 'todo';
-                         }
-                     }, 4000);
-                 "
-            >
-                 <div class="flex items-center justify-between mb-2.5">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Project Progress</span>
-                     <span :class="'text-[9px] font-semibold px-2 py-0.5 rounded-full border transition-all duration-300 ' + 
-                           (progress === 100 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-indigo-50 text-indigo-600 border-indigo-100')" 
-                           x-text="progress === 100 ? 'Completed' : 'Active'"></span>
-                 </div>
-                 <div class="space-y-2">
-                     <div class="bg-slate-50 border border-slate-100 p-2 rounded-lg">
-                         <div class="flex justify-between items-center text-[10px] mb-1">
-                             <span class="text-slate-800 font-bold">TimeNest Launch</span>
-                             <span class="text-slate-500 font-bold" x-text="progress + '%'"></span>
-                         </div>
-                         <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                             <div class="bg-indigo-600 h-full rounded-full transition-all duration-1000 ease-out" :style="'width: ' + progress + '%'"></div>
-                         </div>
-                     </div>
-                     <div class="space-y-1">
-                         <template x-for="task in tasks">
-                             <div class="flex items-center justify-between text-[9px]">
-                                 <span class="font-semibold text-slate-600" x-text="task.name"></span>
-                                 <span :class="'text-[8px] font-bold ' + 
-                                       (task.status === 'done' ? 'text-emerald-600' : task.status === 'doing' ? 'text-indigo-600 animate-pulse' : 'text-slate-400')"
-                                       x-text="task.status === 'done' ? '✓ Done' : task.status === 'doing' ? 'Doing' : 'Todo'"></span>
-                             </div>
-                         </template>
-                     </div>
-                 </div>
-            </div>
-
-            {{-- Widget: Analytics — Productivity dynamic counter --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="bottom: 28%; right: 12%; width: 210px; z-index: 10;"
-                 x-data="{ 
-                     value: 94.2, 
-                     points: [
-                         'M0 35 L20 28 L40 32 L60 18 L80 22 L100 12',
-                         'M0 35 L20 30 L40 24 L60 28 L80 14 L100 8',
-                         'M0 35 L20 25 L40 32 L60 16 L80 10 L100 5'
-                     ],
-                     idx: 0
-                 }"
-                 x-init="
-                     setInterval(() => { 
-                         idx = (idx + 1) % points.length; 
-                         value = idx === 0 ? 94.2 : idx === 1 ? 96.5 : 98.1;
-                     }, 2500);
-                 "
-            >
-                 <div class="flex items-center justify-between mb-2">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Productivity</span>
-                     <span class="text-[9px] font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 transition-all duration-300" x-text="value + '%'"></span>
-                 </div>
-                 <div class="relative h-[45px] mt-3">
-                     <svg class="w-full h-full" viewBox="0 0 100 40" fill="none">
-                         <line x1="0" y1="20" x2="100" y2="20" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="2 2" />
-                         <line x1="0" y1="10" x2="100" y2="10" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2" />
-                         <path :d="points[idx]" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" class="transition-all duration-1000 ease-in-out"/>
-                         <circle :cx="100" :cy="idx === 0 ? 12 : idx === 1 ? 8 : 5" r="3" fill="#14b8a6" class="transition-all duration-1000 ease-in-out"/>
-                         <circle :cx="100" :cy="idx === 0 ? 12 : idx === 1 ? 8 : 5" r="6" fill="#14b8a6" class="transition-all duration-1000 ease-in-out animate-ping opacity-30"/>
-                     </svg>
-                 </div>
-            </div>
-
-            {{-- Widget: AI — Rotating insight logs --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="top: 50%; left: 3%; width: 210px; z-index: 10;"
-                 x-data="{ 
-                     insights: [
-                         { text: 'Design team overtime up 15%. Balance recommended.', type: 'warning', color: 'text-amber-700 bg-amber-50 border-amber-100' },
-                         { text: 'Forecast: Revenue projected to hit +12% this Q.', type: 'forecast', color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
-                         { text: 'Anomaly: Developer clocked in outside geofence.', type: 'alert', color: 'text-rose-700 bg-rose-50 border-rose-100' }
-                     ],
-                     active: 0
-                 }"
-                 x-init="setInterval(() => { active = (active + 1) % insights.length; }, 4000)"
-            >
-                 <div class="flex items-center justify-between mb-2">
-                     <div class="flex items-center gap-1.5">
-                         <svg class="w-3.5 h-3.5 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                         <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Copilot</span>
-                     </div>
-                     <span class="text-[8px] bg-indigo-50 text-indigo-600 border border-indigo-100 rounded px-1.5 py-0.5 font-bold uppercase">Realtime</span>
-                 </div>
-                 <div class="mt-2 h-[55px] flex items-center relative">
-                     <template x-for="(ins, idx) in insights">
-                         <div x-show="active === idx" 
-                              x-transition:enter="transition ease-out duration-300"
-                              x-transition:enter-start="opacity-0 translate-y-2 scale-95"
-                              x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                              x-transition:leave="transition ease-in duration-200 absolute"
-                              x-transition:leave-start="opacity-100 translate-y-0"
-                              x-transition:leave-end="opacity-0 -translate-y-2"
-                              class="text-[9px] p-2 rounded-lg border font-semibold leading-relaxed w-full"
-                              :class="ins.color"
-                         >
-                             <div class="flex justify-between items-center mb-1 text-[7px] uppercase tracking-wider font-bold opacity-75">
-                                 <span x-text="ins.type"></span>
-                                 <span>Just now</span>
-                             </div>
-                             <span x-text="ins.text"></span>
-                         </div>
-                     </template>
-                 </div>
-            </div>
-
-            {{-- Widget: Freelancers — Checkmark toggling with paid/sent --}}
-            <div class="hero-widget animate-float-gentle-reverse bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="top: 22%; right: 18%; width: 190px; z-index: 10;"
-                 x-data="{ paid: false, amount: 24500 }"
-                 x-init="setInterval(() => { paid = !paid; }, 3500)"
-            >
-                 <div class="flex items-center justify-between">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Freelancer Invoice</span>
-                     <span :class="'text-[8px] font-bold px-1.5 py-0.5 rounded border transition-all duration-300 ' + (paid ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-amber-50 border-amber-200 text-amber-700')" x-text="paid ? 'Paid' : 'Pending'"></span>
-                 </div>
-                 <div class="mt-3 flex items-center justify-between text-xs">
-                     <div>
-                         <p class="font-bold text-slate-700 text-[10px]">Client: Acme Corp</p>
-                         <p class="text-[9px] text-slate-500 font-semibold mt-0.5" x-text="'₹' + amount.toLocaleString()"></p>
-                     </div>
-                     <div :class="'flex items-center justify-center w-6 h-6 rounded-full border transition-all duration-500 ' + (paid ? 'bg-emerald-500 border-emerald-500 text-white scale-110 shadow-sm shadow-emerald-500/30' : 'bg-slate-50 border-slate-200 text-slate-400')">
-                         <svg class="w-3.5 h-3.5 transition-transform duration-300" :class="paid ? 'scale-100 rotate-0' : 'scale-50 -rotate-12'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                     </div>
-                 </div>
-            </div>
-
-            {{-- Widget: Workspace — Dynamic collaborator initials --}}
-            <div class="hero-widget animate-float-gentle bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 p-4 shadow-lg shadow-slate-200/20" 
-                 style="bottom: 6%; left: 16%; width: 190px; z-index: 10;"
-                 x-data="{ 
-                     users: [
-                         { initials: 'AM', color: 'bg-indigo-500', name: 'Alex' },
-                         { initials: 'SK', color: 'bg-teal-500', name: 'Sarah' },
-                         { initials: 'DL', color: 'bg-purple-500', name: 'David' }
-                     ],
-                     activeCount: 2
-                 }"
-                 x-init="setInterval(() => { 
-                     activeCount = activeCount === 3 ? 2 : 3;
-                 }, 3000)"
-            >
-                 <div class="flex items-center justify-between mb-2">
-                     <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Workspace Hub</span>
-                     <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 rounded px-1.5 py-0.5 animate-pulse" x-text="activeCount + ' Editing'"></span>
-                 </div>
-                 <div class="flex items-center gap-1.5 mt-3">
-                     <!-- Avatars Stack -->
-                     <div class="flex -space-x-1.5 overflow-hidden shrink-0">
-                         <div class="inline-block h-6 w-6 rounded-full border-2 border-white bg-indigo-500 flex items-center justify-center font-bold text-white text-[8px]">AM</div>
-                         <div class="inline-block h-6 w-6 rounded-full border-2 border-white bg-teal-500 flex items-center justify-center font-bold text-white text-[8px]">SK</div>
-                         <div x-show="activeCount === 3" 
-                              x-transition:enter="transition ease-out duration-300 scale-0"
-                              x-transition:enter-start="scale-0"
-                              x-transition:enter-end="scale-100"
-                              x-transition:leave="transition ease-in duration-200"
-                              x-transition:leave-end="scale-0"
-                              class="inline-block h-6 w-6 rounded-full border-2 border-white bg-purple-500 flex items-center justify-center font-bold text-white text-[8px]"
-                         >DL</div>
-                     </div>
-                     <span class="text-[9px] text-slate-500 font-semibold truncate" x-text="activeCount === 3 ? 'David joined' : 'Sarah editing...'"></span>
-                 </div>
-            </div>
-        </div>
-
-        {{-- Layer 3: Hero Content --}}
+        {{-- Layer 2: Hero Content --}}
         <div class="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 text-center">
             {{-- Announcement Pill --}}
             <div class="opacity-0 animate-hero-fade-up" style="animation-delay: 0ms;">
@@ -525,18 +46,9 @@
                     Book a Demo
                 </x-frontend-base.button>
             </div>
-
-            {{-- Dashboard Preview --}}
-            <div class="mt-16 relative mx-auto max-w-5xl opacity-0 animate-hero-fade-up" style="animation-delay: 1000ms;">
-                {{-- Decorative Glow behind Dashboard Preview --}}
-                <div class="absolute inset-0 -top-12 bg-gradient-to-tr from-brand-500/10 to-indigo-500/10 rounded-[2.5rem] transform rotate-1 scale-102 blur-2xl pointer-events-none"></div>
-                <div class="relative bg-white/30 backdrop-blur-md rounded-2xl p-2.5 border border-slate-200/50 shadow-2xl">
-                    <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Work OS Dashboard" class="rounded-xl border border-slate-100/50 shadow-sm w-full">
-                </div>
-            </div>
             
             {{-- Ticker Component --}}
-            <div class="mt-24 pt-10 border-t border-surface-border/50 opacity-0 animate-hero-fade-up" style="animation-delay: 1200ms;">
+            <div class="mt-24 pt-10 border-t border-surface-border/50 opacity-0 animate-hero-fade-up" style="animation-delay: 1000ms;">
                 <p class="text-center text-sm font-semibold text-content-muted uppercase tracking-wider mb-8">Trusted by forward-thinking teams globally</p>
                 <x-frontend-sections.ticker :items="[
                     ['name' => 'Acme Corp', 'icon' => '<path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M13 10V3L4 14h7v7l9-11h-7z\'/>'],
@@ -550,7 +62,259 @@
         </div>
     </section>
 
-    {{-- Section 2: Role-Based Problem Statement --}}
+    {{-- Section 2: How TimeNest Powers Work (Visualization Cards Showcase) --}}
+    <section class="py-24 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden"
+             x-data="{ show: false }"
+             x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
+    >
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 transform"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                <x-frontend-base.badge variant="primary" class="mb-4">Capabilities</x-frontend-base.badge>
+                <h2 class="font-display text-3xl lg:text-5xl font-bold text-content-strong mb-4 tracking-tight">Everything that runs your business. <span class="text-brand-500">In one platform.</span></h2>
+                <p class="text-content-muted text-lg lg:text-xl font-body">Ditch the tool sprawl. TimeNest consolidates your operations, workforce management, and freelancer tools into a single source of truth.</p>
+            </div>
+
+            <!-- Bento Showcase Grid with Staggered Viewport Entry -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 content-start transition-all duration-1000 delay-300 transform"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+                
+                {{-- Card 1: Attendance --}}
+                <div class="animate-float-gentle duration-[6s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.attendance')
+                </div>
+                
+                {{-- Card 2: Team Status --}}
+                <div class="animate-float-gentle-reverse duration-[7s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.team-status')
+                </div>
+                
+                {{-- Card 3: Cashflow --}}
+                <div class="animate-float-gentle duration-[8s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.cashflow')
+                </div>
+                
+                {{-- Card 4: Payroll --}}
+                <div class="animate-float-gentle-reverse duration-[9s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.payroll')
+                </div>
+                
+                {{-- Card 5: Sales Pipeline --}}
+                <div class="animate-float-gentle-reverse duration-[6.5s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.sales')
+                </div>
+                
+                {{-- Card 6: Projects --}}
+                <div class="animate-float-gentle duration-[7.5s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.projects')
+                </div>
+                
+                {{-- Card 7: Analytics --}}
+                <div class="animate-float-gentle-reverse duration-[8.5s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.analytics')
+                </div>
+                
+                {{-- Card 8: AI Copilot --}}
+                <div class="animate-float-gentle duration-[9.5s] hover:scale-[1.02] transition-transform duration-300">
+                    @include('frontend.partials.widgets.ai-copilot')
+                </div>
+
+                {{-- Card 9: Freelancer Invoice --}}
+                <div class="animate-float-gentle duration-[7s] hover:scale-[1.02] transition-transform duration-300 lg:col-span-2">
+                    @include('frontend.partials.widgets.freelancer-invoice')
+                </div>
+
+                {{-- Card 10: Workspace Hub --}}
+                <div class="animate-float-gentle-reverse duration-[8s] hover:scale-[1.02] transition-transform duration-300 lg:col-span-2">
+                    @include('frontend.partials.widgets.workspace-hub')
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Section 3: Dashboard Product Showcase --}}
+    <section class="py-24 bg-white overflow-hidden"
+             x-data="{ show: false }"
+             x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
+    >
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 transform"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                <x-frontend-base.badge variant="accent" class="mb-4">Product Showcase</x-frontend-base.badge>
+                <h2 class="font-display text-3xl lg:text-5xl font-bold text-content-strong mb-4 tracking-tight">The visual cockpit of your <span class="text-indigo-600">entire operations.</span></h2>
+                <p class="text-content-muted text-lg lg:text-xl font-body">Get a birds-eye view of active projects, cashflow metrics, contractor invoice progress, and team attendance anomalies in real time.</p>
+            </div>
+
+            <!-- Highlight Cards Stats Strip directly above Dashboard -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-16 transition-all duration-1000 delay-200 transform"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+                
+                <!-- Card 1: Attendance Compliance -->
+                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                     x-data="{ count: 0, target: 99.2 }"
+                     x-init="
+                         const obs = new IntersectionObserver(([entry]) => {
+                             if (entry.isIntersecting) {
+                                 obs.disconnect();
+                                 let start = 0;
+                                 let interval = setInterval(() => {
+                                     start += 1.5;
+                                     if (start >= target) {
+                                         count = target;
+                                         clearInterval(interval);
+                                     } else {
+                                         count = Math.round(start * 10) / 10;
+                                     }
+                                 }, 15);
+                             }
+                         }, { threshold: 0.1 });
+                         obs.observe($el);
+                     "
+                >
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Attendance Compliance</p>
+                    <h3 class="text-3xl lg:text-4xl font-bold text-brand-600 tracking-tight font-display" x-text="count.toFixed(1) + '%'">0%</h3>
+                </div>
+
+                <!-- Card 2: AI Insights Generated -->
+                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                     x-data="{ count: 0, target: 2341 }"
+                     x-init="
+                         const obs = new IntersectionObserver(([entry]) => {
+                             if (entry.isIntersecting) {
+                                 obs.disconnect();
+                                 let start = 0;
+                                 let interval = setInterval(() => {
+                                     start += 45;
+                                     if (start >= target) {
+                                         count = target;
+                                         clearInterval(interval);
+                                     } else {
+                                         count = Math.round(start);
+                                     }
+                                 }, 15);
+                             }
+                         }, { threshold: 0.1 });
+                         obs.observe($el);
+                     "
+                >
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">AI Insights Generated</p>
+                    <h3 class="text-3xl lg:text-4xl font-bold text-indigo-600 tracking-tight font-display" x-text="count.toLocaleString()">0</h3>
+                </div>
+
+                <!-- Card 3: Projects Managed -->
+                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                     x-data="{ count: 0, target: 18400 }"
+                     x-init="
+                         const obs = new IntersectionObserver(([entry]) => {
+                             if (entry.isIntersecting) {
+                                 obs.disconnect();
+                                 let start = 0;
+                                 let interval = setInterval(() => {
+                                     start += 350;
+                                     if (start >= target) {
+                                         count = target;
+                                         clearInterval(interval);
+                                     } else {
+                                         count = Math.round(start);
+                                     }
+                                 }, 15);
+                             }
+                         }, { threshold: 0.1 });
+                         obs.observe($el);
+                     "
+                >
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Projects Managed</p>
+                    <h3 class="text-3xl lg:text-4xl font-bold text-teal-600 tracking-tight font-display" x-text="count.toLocaleString() + '+'">0+</h3>
+                </div>
+
+                <!-- Card 4: Payroll Accuracy -->
+                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                     x-data="{ count: 0, target: 99.99 }"
+                     x-init="
+                         const obs = new IntersectionObserver(([entry]) => {
+                             if (entry.isIntersecting) {
+                                 obs.disconnect();
+                                 let start = 0;
+                                 let interval = setInterval(() => {
+                                     start += 1.6;
+                                     if (start >= target) {
+                                         count = target;
+                                         clearInterval(interval);
+                                     } else {
+                                         count = Math.round(start * 100) / 100;
+                                     }
+                                 }, 15);
+                             }
+                         }, { threshold: 0.1 });
+                         obs.observe($el);
+                     "
+                >
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Payroll Accuracy</p>
+                    <h3 class="text-3xl lg:text-4xl font-bold text-amber-600 tracking-tight font-display" x-text="count.toFixed(2) + '%'">0%</h3>
+                </div>
+            </div>
+
+            <!-- Premium Browser Showcase Container with Tilt Parallax -->
+            <div class="relative mx-auto max-w-6xl transition-all duration-1000 delay-400 transform"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
+                 x-data="{ rotateX: 0, rotateY: 0, scale: 1, shadow: 12 }"
+                 @mousemove="
+                     const rect = $el.getBoundingClientRect();
+                     const px = ($event.clientX - rect.left) / rect.width - 0.5;
+                     const py = ($event.clientY - rect.top) / rect.height - 0.5;
+                     rotateX = py * -8;
+                     rotateY = px * 8;
+                     scale = 1.015;
+                     shadow = 24;
+                 "
+                 @mouseleave="
+                     rotateX = 0;
+                     rotateY = 0;
+                     scale = 1;
+                     shadow = 12;
+                 "
+                 :style="`transform: perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, 1);`"
+            >
+                <!-- Decorative Glow behind Dashboard Preview -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/10 to-indigo-500/10 rounded-[2.5rem] transform rotate-1 scale-102 blur-3xl pointer-events-none"></div>
+                
+                <!-- Browser Window Container -->
+                <div class="relative rounded-2xl border border-slate-200/80 bg-white overflow-hidden browser-chrome-frame transition-all duration-300"
+                     :style="`box-shadow: 0 ${shadow}px ${shadow * 3}px -${shadow / 2}px rgba(15, 23, 42, 0.12)`"
+                >
+                    <!-- Browser Header Bar -->
+                    <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0 select-none">
+                        <!-- Mac style window controls -->
+                        <div class="flex items-center gap-1.5 w-1/4">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                        </div>
+                        <!-- URL address bar -->
+                        <div class="w-2/4 max-w-md bg-white border border-slate-200/50 rounded-lg py-1 px-3 text-[10px] text-slate-400 font-mono text-center flex items-center justify-center gap-1.5 shadow-sm">
+                            <svg class="w-3 h-3 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                            <span>timenest.com/dashboard</span>
+                        </div>
+                        <!-- Spacing block -->
+                        <div class="w-1/4 flex justify-end">
+                            <div class="flex gap-1.5">
+                                <span class="w-3.5 h-1 bg-slate-300 rounded-sm"></span>
+                                <span class="w-2 h-2 border border-slate-300 rounded-sm"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Image Screen with Reflection Sheen -->
+                    <div class="relative overflow-hidden aspect-[16/10] sm:aspect-[16/9.5] md:aspect-[16/9] lg:max-h-[500px]">
+                        <img src="/images/mockups/hero-dashboard.png" alt="TimeNest Work OS Dashboard" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 browser-sheen"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Section 4: Role-Based Problem Statement --}}
     <section class="py-24 bg-white" x-data="{ activeTab: 'founders' }">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -606,45 +370,62 @@
 
                 @foreach($roleData as $key => $data)
                     <div x-show="activeTab === '{{ $key }}'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="p-8 lg:p-12">
-                        <div class="grid lg:grid-cols-3 gap-12 items-center">
-                            <div class="space-y-4">
-                                <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
-                                    <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                </div>
-                                <h3 class="font-display text-xl font-bold text-content-strong">The Pain</h3>
-                                <p class="text-content-muted leading-relaxed">{{ $data['pain'] }}</p>
-                            </div>
+                        <div class="grid lg:grid-cols-12 gap-12 items-center">
                             
-                            <div class="space-y-4">
-                                <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center border border-brand-100">
-                                    <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <!-- Left: Pain & Solution -->
+                            <div class="lg:col-span-5 space-y-8">
+                                <div class="space-y-3">
+                                    <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
+                                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                    </div>
+                                    <h3 class="font-display text-lg font-bold text-slate-800">The Pain</h3>
+                                    <p class="text-content-muted text-sm leading-relaxed">{{ $data['pain'] }}</p>
                                 </div>
-                                <h3 class="font-display text-xl font-bold text-content-strong">TimeNest Solution</h3>
-                                <p class="text-content-muted leading-relaxed">{{ $data['solution'] }}</p>
+                                
+                                <div class="space-y-3 border-t border-slate-100 pt-6">
+                                    <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center border border-brand-100">
+                                        <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <h3 class="font-display text-lg font-bold text-slate-800">TimeNest Solution</h3>
+                                    <p class="text-content-muted text-sm leading-relaxed">{{ $data['solution'] }}</p>
+                                </div>
                             </div>
 
-                            <div>
-                                @if($key === 'hr')
-                                    <x-frontend-sections.fingerprint-animation />
+                            <!-- Right: Replicas Showcase (Operational Cards) -->
+                            <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @if($key === 'founders')
+                                    @include('frontend.partials.widgets.cashflow')
+                                    @include('frontend.partials.widgets.analytics')
+                                    <div class="sm:col-span-2">
+                                        @include('frontend.partials.widgets.sales')
+                                    </div>
+                                @elseif($key === 'hr')
+                                    @include('frontend.partials.widgets.attendance')
+                                    @include('frontend.partials.widgets.leave-requests')
+                                    <div class="sm:col-span-2">
+                                        @include('frontend.partials.widgets.team-status')
+                                    </div>
                                 @elseif($key === 'operations')
-                                    <x-frontend-sections.gear-animation />
-                                @else
-                                    <div class="space-y-4 bg-surface-50 p-6 rounded-xl border border-surface-border h-full">
-                                        <h3 class="font-display text-lg font-bold text-content-strong flex items-center gap-2">
-                                            <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                                            Key Modules
-                                        </h3>
-                                        <ul class="space-y-3 mt-4">
-                                            @foreach($data['modules'] as $module)
-                                                <li class="flex items-center gap-3 text-content-strong font-medium text-sm">
-                                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500"></div>
-                                                    {{ $module }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                    @include('frontend.partials.widgets.payroll')
+                                    @include('frontend.partials.widgets.projects')
+                                    <div class="sm:col-span-2">
+                                        @include('frontend.partials.widgets.tasks')
+                                    </div>
+                                @elseif($key === 'freelancers')
+                                    @include('frontend.partials.widgets.freelancer-invoice')
+                                    @include('frontend.partials.widgets.projects')
+                                    <div class="sm:col-span-2">
+                                        @include('frontend.partials.widgets.clients')
+                                    </div>
+                                @elseif($key === 'agencies')
+                                    @include('frontend.partials.widgets.workspace-hub')
+                                    @include('frontend.partials.widgets.ai-copilot')
+                                    <div class="sm:col-span-2">
+                                        @include('frontend.partials.widgets.team-status')
                                     </div>
                                 @endif
                             </div>
+
                         </div>
                     </div>
                 @endforeach
