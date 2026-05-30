@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-[160px]' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          insights: [
              { text: 'Design team overtime up 15%. Balance recommended.', type: 'warning', color: 'text-amber-700 bg-amber-50 border-amber-100' },

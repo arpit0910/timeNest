@@ -3,7 +3,7 @@
     metaDescription="Complete workforce management for organizations, freelancer tools, and collaborative workspaces. One platform for every workflow."
 >
     {{-- Section 1: Hero --}}
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-24 overflow-hidden" 
+    <section class="relative pt-24 pb-14 lg:pt-36 lg:pb-20 overflow-hidden" 
         x-data="{ mx: 0, my: 0 }" 
         @mousemove.window="mx = ($event.clientX / window.innerWidth - 0.5) * 4; my = ($event.clientY / window.innerHeight - 0.5) * 3"
     >
@@ -50,7 +50,7 @@
     </section>
 
     {{-- Section 1.5: Standalone Premium Showcase (Ecosystem & Trusted Partners Marquee) --}}
-    <section class="py-28 bg-gradient-to-b from-white via-slate-50/40 to-white overflow-hidden relative border-t border-slate-100/80"
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-slate-50/40 to-white overflow-hidden relative border-t border-slate-100/80"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
@@ -75,8 +75,8 @@
              :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         >
             <!-- Fade overlays to hide edges -->
-            <div class="absolute inset-y-0 left-0 w-32 md:w-48 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10"></div>
-            <div class="absolute inset-y-0 right-0 w-32 md:w-48 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+            <div class="absolute inset-y-0 left-0 w-12 sm:w-20 md:w-32 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+            <div class="absolute inset-y-0 right-0 w-12 sm:w-20 md:w-32 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
 
             <div class="flex gap-6 whitespace-nowrap animate-marquee-horizontal p-4">
                 
@@ -298,7 +298,7 @@
     </section>
 
     {{-- Section 2: How TimeNest Powers Work (Visualization Cards Showcase) --}}
-    <section class="py-24 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden relative"
+    <section class="py-12 sm:py-16 lg:py-20 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden relative"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
@@ -314,115 +314,205 @@
                 <p class="text-content-muted text-lg lg:text-xl font-body">Ditch the tool sprawl. TimeNest consolidates your operations, workforce management, and freelancer tools into a single source of truth.</p>
             </div>
 
-            <!-- Capabilities Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 transition-all duration-1000 delay-300 transform animate-hero-fade-up"
-                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'">
+            <!-- Capabilities Grid: Desktop = 2-col grid, Mobile = carousel -->
+            <div class="transition-all duration-1000 delay-300 transform animate-hero-fade-up"
+                 :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
+                 x-data="{ capSlide: 0, capTotal: 4 }">
 
-                <!-- Capability 1: Workforce & HR Operations -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100 shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Workforce & HR</span>
-                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Workforce & HR Operations</h3>
-                            <p class="text-content-muted text-xs leading-relaxed mt-2">Manage employees and freelancers in one unified directory. Set shift schedules, approve leaves, and verify logins automatically.</p>
-                            <div class="flex flex-wrap gap-1.5 mt-3">
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Biometric Clock-ins</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Visual Rostering</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Conflict-Free Leaves</span>
+                {{-- Desktop: Normal 2x2 grid (hidden on mobile) --}}
+                <div class="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                    <!-- Capability 1: Workforce & HR Operations -->
+                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100 shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Workforce & HR</span>
+                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Workforce & HR Operations</h3>
+                                <p class="text-content-muted text-xs leading-relaxed mt-2">Manage employees and freelancers in one unified directory. Set shift schedules, approve leaves, and verify logins automatically.</p>
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Biometric Clock-ins</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Visual Rostering</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Conflict-Free Leaves</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            @include('frontend.partials.widgets.attendance')
+                            @include('frontend.partials.widgets.team-status')
+                            @include('frontend.partials.widgets.leave-requests')
+                            @include('frontend.partials.widgets.shift-schedule')
+                        </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 mt-6">
-                        @include('frontend.partials.widgets.attendance')
-                        @include('frontend.partials.widgets.team-status')
-                        @include('frontend.partials.widgets.leave-requests')
-                        @include('frontend.partials.widgets.shift-schedule')
+
+                    <!-- Capability 2: Operations & Project Workflows -->
+                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 shrink-0 group-hover:bg-teal-500 group-hover:text-white group-hover:border-teal-500 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">Operations & Tasks</span>
+                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Operations & Project Workflows</h3>
+                                <p class="text-content-muted text-xs leading-relaxed mt-2">Connect task milestones directly to team capacity. Setup multi-stage approval paths to automate operations and department structures.</p>
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Kanban Boards</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Sprint Velocity</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Custom Approval Chains</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            @include('frontend.partials.widgets.approval-workflow')
+                            @include('frontend.partials.widgets.projects')
+                            @include('frontend.partials.widgets.tasks')
+                            @include('frontend.partials.widgets.department-structure')
+                        </div>
                     </div>
+
+                    <!-- Capability 3: Financial Operations & Billing -->
+                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shrink-0 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Finance & Billings</span>
+                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Financial Operations & Billing</h3>
+                                <p class="text-content-muted text-xs leading-relaxed mt-2">Run payroll instantly based on tracked hours, authorize employee business expenses, and automate client invoice cycles.</p>
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Automated Payroll</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Expense Approvals</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Client Revenue logs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            @include('frontend.partials.widgets.cashflow')
+                            @include('frontend.partials.widgets.payroll')
+                            @include('frontend.partials.widgets.expense-tracking')
+                            @include('frontend.partials.widgets.client-revenue')
+                        </div>
+                    </div>
+
+                    <!-- Capability 4: AI Insights & Security Governance -->
+                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-100 shrink-0 group-hover:bg-violet-500 group-hover:text-white group-hover:border-violet-500 transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-violet-600 uppercase tracking-widest">AI & Governance</span>
+                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">AI Insights & Security Governance</h3>
+                                <p class="text-content-muted text-xs leading-relaxed mt-2">Leverage machine learning to identify burnout, detect attendance fraud, and secure your systems with detailed logs.</p>
+                                <div class="flex flex-wrap gap-1.5 mt-3">
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Predictive Anomaly Scans</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">SOC2 Compliance Auditing</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Access Audit Trails</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            @include('frontend.partials.widgets.ai-copilot')
+                            @include('frontend.partials.widgets.ai-insights')
+                            @include('frontend.partials.widgets.audit-trail')
+                            @include('frontend.partials.widgets.compliance-tracker')
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Capability 2: Operations & Project Workflows -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 shrink-0 group-hover:bg-teal-500 group-hover:text-white group-hover:border-teal-500 transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">Operations & Tasks</span>
-                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Operations & Project Workflows</h3>
-                            <p class="text-content-muted text-xs leading-relaxed mt-2">Connect task milestones directly to team capacity. Setup multi-stage approval paths to automate operations and department structures.</p>
-                            <div class="flex flex-wrap gap-1.5 mt-3">
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Kanban Boards</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Sprint Velocity</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Custom Approval Chains</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-6">
-                        @include('frontend.partials.widgets.approval-workflow')
-                        @include('frontend.partials.widgets.projects')
-                        @include('frontend.partials.widgets.tasks')
-                        @include('frontend.partials.widgets.department-structure')
-                    </div>
-                </div>
+                {{-- Mobile: Swipeable carousel (shown only on mobile) --}}
+                <div class="md:hidden relative overflow-hidden">
+                    <div class="relative">
+                        @php
+                            $capCards = [
+                                [
+                                    'color' => 'indigo', 'label' => 'Workforce & HR', 'title' => 'Workforce & HR Operations',
+                                    'desc' => 'Manage employees and freelancers in one unified directory. Set shift schedules, approve leaves, and verify logins automatically.',
+                                    'tags' => ['Biometric Clock-ins', 'Visual Rostering', 'Conflict-Free Leaves'],
+                                    'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z',
+                                    'widgets' => ['attendance', 'team-status', 'leave-requests', 'shift-schedule']
+                                ],
+                                [
+                                    'color' => 'teal', 'label' => 'Operations & Tasks', 'title' => 'Operations & Project Workflows',
+                                    'desc' => 'Connect task milestones directly to team capacity. Setup multi-stage approval paths to automate operations.',
+                                    'tags' => ['Kanban Boards', 'Sprint Velocity', 'Custom Approval Chains'],
+                                    'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+                                    'widgets' => ['approval-workflow', 'projects', 'tasks', 'department-structure']
+                                ],
+                                [
+                                    'color' => 'amber', 'label' => 'Finance & Billings', 'title' => 'Financial Operations & Billing',
+                                    'desc' => 'Run payroll instantly based on tracked hours, authorize employee business expenses, and automate client invoice cycles.',
+                                    'tags' => ['Automated Payroll', 'Expense Approvals', 'Client Revenue logs'],
+                                    'icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1',
+                                    'widgets' => ['cashflow', 'payroll', 'expense-tracking', 'client-revenue']
+                                ],
+                                [
+                                    'color' => 'violet', 'label' => 'AI & Governance', 'title' => 'AI Insights & Security Governance',
+                                    'desc' => 'Leverage machine learning to identify burnout, detect attendance fraud, and secure your systems with detailed logs.',
+                                    'tags' => ['Predictive Anomaly Scans', 'SOC2 Compliance Auditing', 'Access Audit Trails'],
+                                    'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+                                    'widgets' => ['ai-copilot', 'ai-insights', 'audit-trail', 'compliance-tracker']
+                                ],
+                            ];
+                        @endphp
 
-                <!-- Capability 3: Financial Operations & Billing -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shrink-0 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Finance & Billings</span>
-                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Financial Operations & Billing</h3>
-                            <p class="text-content-muted text-xs leading-relaxed mt-2">Run payroll instantly based on tracked hours, authorize employee business expenses, and automate client invoice cycles.</p>
-                            <div class="flex flex-wrap gap-1.5 mt-3">
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Automated Payroll</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Expense Approvals</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Client Revenue logs</span>
+                        @foreach($capCards as $ci => $cap)
+                            <div x-show="capSlide === {{ $ci }}"
+                                 x-transition:enter="transition ease-out duration-400"
+                                 x-transition:enter-start="opacity-0 translate-x-8"
+                                 x-transition:enter-end="opacity-100 translate-x-0"
+                                 x-transition:leave="transition ease-in duration-200 absolute inset-0"
+                                 x-transition:leave-start="opacity-100 translate-x-0"
+                                 x-transition:leave-end="opacity-0 -translate-x-8"
+                                 x-cloak
+                                 class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
+                                <div class="flex items-start gap-3 mb-5">
+                                    <div class="w-10 h-10 rounded-xl bg-{{ $cap['color'] }}-50 text-{{ $cap['color'] }}-600 flex items-center justify-center border border-{{ $cap['color'] }}-100 shrink-0">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $cap['icon'] }}" /></svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="text-[9px] font-bold text-{{ $cap['color'] }}-600 uppercase tracking-widest">{{ $cap['label'] }}</span>
+                                        <h3 class="font-display text-lg font-bold text-slate-800 mt-0.5 leading-tight">{{ $cap['title'] }}</h3>
+                                        <p class="text-content-muted text-xs leading-relaxed mt-1.5">{{ $cap['desc'] }}</p>
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            @foreach($cap['tags'] as $tag)
+                                                <span class="text-[8px] font-semibold px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">{{ $tag }}</span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 gap-3">
+                                    @foreach($cap['widgets'] as $w)
+                                        @include('frontend.partials.widgets.' . $w)
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="grid grid-cols-2 gap-4 mt-6">
-                        @include('frontend.partials.widgets.cashflow')
-                        @include('frontend.partials.widgets.payroll')
-                        @include('frontend.partials.widgets.expense-tracking')
-                        @include('frontend.partials.widgets.client-revenue')
-                    </div>
-                </div>
 
-                <!-- Capability 4: AI Insights & Security Governance -->
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-100 shrink-0 group-hover:bg-violet-500 group-hover:text-white group-hover:border-violet-500 transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-violet-600 uppercase tracking-widest">AI & Governance</span>
-                            <h3 class="font-display text-xl font-bold text-slate-800 mt-1">AI Insights & Security Governance</h3>
-                            <p class="text-content-muted text-xs leading-relaxed mt-2">Leverage machine learning to identify burnout, detect attendance fraud, and secure your systems with detailed logs.</p>
-                            <div class="flex flex-wrap gap-1.5 mt-3">
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Predictive Anomaly Scans</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">SOC2 Compliance Auditing</span>
-                                <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Access Audit Trails</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-6">
-                        @include('frontend.partials.widgets.ai-copilot')
-                        @include('frontend.partials.widgets.ai-insights')
-                        @include('frontend.partials.widgets.audit-trail')
-                        @include('frontend.partials.widgets.compliance-tracker')
+                    {{-- Mobile carousel controls --}}
+                    <div class="flex items-center justify-center gap-2 mt-5">
+                        <button @click="capSlide = (capSlide - 1 + capTotal) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <template x-for="i in capTotal">
+                            <button @click="capSlide = i - 1" class="h-1.5 rounded-full transition-all duration-400" :class="capSlide === i - 1 ? 'w-7 bg-gradient-to-r from-brand-500 to-indigo-500' : 'w-1.5 bg-slate-200 hover:bg-slate-400'"></button>
+                        </template>
+                        <button @click="capSlide = (capSlide + 1) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        </button>
                     </div>
                 </div>
 
@@ -431,7 +521,7 @@
     </section>
 
     {{-- Section 3: Dashboard Product Showcase --}}
-    <section class="py-24 bg-white overflow-hidden"
+    <section class="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
@@ -557,8 +647,8 @@
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
             >
                 <!-- Fade overlays to blend top and bottom transitions -->
-                <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-10"></div>
-                <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10"></div>
+                <div class="absolute top-0 inset-x-0 h-16 sm:h-20 md:h-28 bg-gradient-to-b from-white to-transparent pointer-events-none z-10"></div>
+                <div class="absolute bottom-0 inset-x-0 h-16 sm:h-20 md:h-28 bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
                 
                 <!-- Dual Column Layout -->
                 <div class="grid grid-cols-2 gap-4 md:gap-6 h-full p-4 md:p-6 pause-hover">
@@ -1015,7 +1105,7 @@
     </section>
 
     {{-- Section 4: Role-Based Problem Statement --}}
-    <section class="py-24 bg-white" x-data="{ activeTab: 'founders' }">
+    <section class="py-12 sm:py-16 lg:py-20 bg-white" x-data="{ activeTab: 'founders' }">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Built for everyone who runs work</h2>
@@ -1176,11 +1266,11 @@
                          x-transition:enter="transition ease-out duration-355 delay-150" 
                          x-transition:enter-start="opacity-0 scale-98 translate-y-2" 
                          x-transition:enter-end="opacity-100 scale-100 translate-y-0" 
-                         x-transition:leave="transition ease-in duration-150 absolute inset-0 w-full h-full p-8 lg:p-12" 
+                         x-transition:leave="transition ease-in duration-150 absolute inset-0 w-full h-full p-6 sm:p-8 lg:p-12" 
                          x-transition:leave-start="opacity-100 scale-100 translate-y-0" 
                          x-transition:leave-end="opacity-0 scale-98 translate-y-2" 
                          x-cloak 
-                         class="p-8 lg:p-12"
+                         class="p-6 sm:p-8 lg:p-12"
                     >
                         <div class="grid lg:grid-cols-12 gap-12 items-center">
                             
@@ -1272,9 +1362,9 @@
     </section>
 
     {{-- Section 3: Deep Dive Features --}}
-    <section class="py-24 bg-surface-50 border-y border-surface-border overflow-hidden">
+    <section class="py-12 sm:py-16 lg:py-20 bg-surface-50 border-y border-surface-border overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div>
                     <x-frontend-base.badge variant="accent" class="mb-6">Intelligent Core</x-frontend-base.badge>
                     <h2 class="font-display text-3xl lg:text-5xl font-bold text-content-strong mb-6 leading-tight">Everything you need to manage work, <span class="text-indigo-600">beautifully designed.</span></h2>
@@ -1283,21 +1373,21 @@
                     </p>
                     
                     <div class="space-y-6">
-                        @foreach([
-                            ['Employee Mgmt', 'Maintain a single source of truth for your entire workforce with rich profiles and documentation.'],
-                            ['Smart Attendance', 'Geofenced clock-ins, biometric support, and real-time shift tracking.'],
-                            ['Approval Workflows', 'Build custom multi-step approval chains for leaves, expenses, and operational changes.']
-                        ] as [$title, $desc])
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 rounded-lg bg-white border border-surface-border shadow-sm flex items-center justify-center shrink-0 mt-1">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-display font-bold text-content-strong mb-1">{{ $title }}</h4>
-                                    <p class="text-content-muted text-sm">{{ $desc }}</p>
-                                </div>
-                            </div>
-                        @endforeach
+                      @foreach([
+                          ['Employee Mgmt', 'Maintain a single source of truth for your entire workforce with rich profiles and documentation.'],
+                          ['Smart Attendance', 'Geofenced clock-ins, biometric support, and real-time shift tracking.'],
+                          ['Approval Workflows', 'Build custom multi-step approval chains for leaves, expenses, and operational changes.']
+                      ] as [$title, $desc])
+                          <div class="flex items-start gap-4">
+                              <div class="w-8 h-8 rounded-lg bg-white border border-surface-border shadow-sm flex items-center justify-center shrink-0 mt-1">
+                                  <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                              </div>
+                              <div>
+                                  <h4 class="font-display font-bold text-content-strong mb-1">{{ $title }}</h4>
+                                  <p class="text-content-muted text-sm">{{ $desc }}</p>
+                              </div>
+                          </div>
+                      @endforeach
                     </div>
                     
                     <div class="mt-10">
@@ -1305,13 +1395,13 @@
                     </div>
                 </div>
                 
-                <div class="relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-indigo-500/20 rounded-[2.5rem] transform rotate-3 scale-105"></div>
+                <div class="relative mt-8 lg:mt-0">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-indigo-500/20 rounded-[2rem] sm:rounded-[2.5rem] transform rotate-1 sm:rotate-3 scale-102 sm:scale-105"></div>
                     <div class="relative bg-white rounded-2xl shadow-xl shadow-surface-border/50 border border-surface-border p-2">
                         <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Dashboard" class="w-full rounded-xl border border-surface-border/50">
                         
                         {{-- Floating Element --}}
-                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border border-surface-border flex items-center gap-4 animate-slide-up" style="animation-delay: 500ms;">
+                        <div class="absolute -bottom-4 left-4 sm:-bottom-6 sm:-left-6 bg-white p-3.5 sm:p-4 rounded-xl shadow-lg border border-surface-border flex items-center gap-3 sm:gap-4 animate-slide-up" style="animation-delay: 500ms;">
                             <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                                 <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                             </div>
@@ -1324,17 +1414,19 @@
                 </div>
             </div>
         </div>
-        <div class="mt-20">
+        <div class="mt-12 sm:mt-16 lg:mt-20 px-0">
             <x-frontend-sections.carousel :slides="[
-                ['title' => 'Real-time AI Analytics', 'description' => 'Instantly detect anomalies in attendance data, forecast revenue, and monitor productivity trends without running a single manual report.', 'badge' => 'TimeNest AI', 'image' => '/images/mockups/ai-analytics.png', 'url' => route('frontend.ai')],
-                ['title' => 'Smart Shift Builder', 'description' => 'Drag-and-drop shift scheduling with automated conflict resolution. TimeNest ensures complete compliance with labor laws automatically.', 'badge' => 'Workforce Core', 'image' => '/images/mockups/hero-dashboard.png', 'url' => '#'],
-                ['title' => 'Collaborative Workspaces', 'description' => 'Share projects, manage freelance teams, and consolidate invoicing into one unified platform for your creative agency.', 'badge' => 'Agencies', 'image' => '/images/mockups/ai-analytics.png', 'url' => '#'],
+                ['title' => 'Real-time AI Analytics', 'description' => 'Instantly detect anomalies in attendance data, forecast revenue, and monitor productivity trends — all without running a single manual report. TimeNest AI continuously scans your data streams and surfaces actionable insights directly in your dashboard, so you can act on problems before they escalate.', 'badge' => 'TimeNest AI', 'image' => '/images/mockups/ai-analytics.png', 'url' => route('frontend.ai'), 'tags' => ['Anomaly Detection', 'Revenue Forecast', 'Trend Analysis', 'Predictive Alerts']],
+                ['title' => 'Smart Shift Builder', 'description' => 'Drag-and-drop shift scheduling with automated conflict resolution, fatigue-rule checks, and labor law compliance baked in. TimeNest cross-references employee availability, skill matrices, and overtime limits to build optimal rosters in seconds — saving your HR team hours every week.', 'badge' => 'Workforce Core', 'image' => '/images/mockups/hero-dashboard.png', 'url' => '#', 'tags' => ['Drag & Drop', 'Auto-Conflict Resolution', 'Overtime Guards', 'Skill Matching']],
+                ['title' => 'Collaborative Workspaces', 'description' => 'Share projects, manage freelance teams, and consolidate invoicing into one unified platform designed for creative agencies. Assign collaborators, track deliverables across milestones, and generate unified client billing — all from a single workspace without juggling multiple tools.', 'badge' => 'Agencies', 'image' => '/images/mockups/compliance_audit.png', 'url' => '#', 'tags' => ['Shared Projects', 'Freelancer Billing', 'Client Portal', 'Team Analytics']],
+                ['title' => 'Automated Payroll Engine', 'description' => 'Calculate salaries, deductions, bonuses, and tax withholdings automatically based on tracked attendance hours and approved overtime. TimeNest generates payslips, handles multi-currency disbursement for international teams, and keeps a complete audit trail for every pay cycle.', 'badge' => 'Finance Suite', 'image' => '/images/mockups/finance_ledger.png', 'url' => '#', 'tags' => ['Auto Payslips', 'Tax Calculations', 'Multi-Currency', 'Audit Trail']],
+                ['title' => 'Enterprise Compliance Hub', 'description' => 'Stay ahead of regulatory requirements with automated compliance monitoring, immutable audit logs, and SOC2-ready security controls. TimeNest tracks every system action, enforces role-based access policies, and generates compliance reports on demand — giving your security team peace of mind.', 'badge' => 'Enterprise', 'image' => '/images/mockups/workforce_scheduler.png', 'url' => '#', 'tags' => ['SOC2 Ready', 'Immutable Logs', 'RBAC Policies', 'Auto Reports']],
             ]" />
         </div>
     </section>
 
     {{-- Section 4: Product Lines Cards --}}
-    <section class="py-24 bg-white">
+    <section class="py-12 sm:py-16 lg:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Three products, one platform</h2>
@@ -1347,7 +1439,7 @@
                     ['title' => 'For Freelancers', 'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects. Run your entire freelance business from one dashboard.', 'features' => ['Client CRM & Lead Tracking', 'Professional Invoicing', 'Task & Project Kanban', 'Revenue Forecasting'], 'cta' => 'Start Free', 'url' => '/register', 'color' => 'indigo'],
                     ['title' => 'Freelance Workspace', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Work together without full corporate overhead.', 'features' => ['Collaborator Management', 'Shared Projects & Files', 'Unified Client Billing', 'Team Utilization Analytics'], 'cta' => 'Upgrade to Pro', 'url' => route('frontend.pricing'), 'color' => 'amber', 'pro' => true],
                 ] as $product)
-                    <div class="group rounded-2xl border border-surface-border bg-white p-8 hover:border-{{ $product['color'] }}-300 hover:shadow-xl hover:shadow-{{ $product['color'] }}-500/10 transition-all duration-300 flex flex-col relative overflow-hidden">
+                    <div class="group rounded-2xl border border-surface-border bg-white p-6 sm:p-8 hover:border-{{ $product['color'] }}-300 hover:shadow-xl hover:shadow-{{ $product['color'] }}-500/10 transition-all duration-300 flex flex-col relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                             <svg class="w-32 h-32 text-{{ $product['color'] }}-600 -mr-10 -mt-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="{{ $product['icon'] }}"/></svg>
                         </div>
@@ -1384,7 +1476,7 @@
     </section>
 
     {{-- Section 5: AI Platform --}}
-    <section class="py-24 bg-brand-900 relative overflow-hidden text-white">
+    <section class="py-12 sm:py-16 lg:py-20 bg-brand-900 relative overflow-hidden text-white">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiLz48L2c+PC9zdmc+')] opacity-20"></div>
         <div class="absolute right-0 top-0 w-[800px] h-[800px] bg-brand-500/20 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
         
@@ -1404,7 +1496,7 @@
                             ['AI Executive Dashboards', 'Ask complex business queries in plain English and get visual answers.', 'M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'],
                             ['AI Freelancer Assistant', 'Smart invoice categorization, payment risk assessment, and revenue prediction.', 'M13 10V3L4 14h7v7l9-11h-7z'],
                         ] as [$title, $desc, $icon])
-                            <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                            <div class="bg-white/5 border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors">
                                 <svg class="w-6 h-6 text-brand-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $icon }}"/></svg>
                                 <h3 class="font-display font-semibold text-white mb-2">{{ $title }}</h3>
                                 <p class="text-brand-100/70 text-sm leading-relaxed">{{ $desc }}</p>
@@ -1450,7 +1542,7 @@
     <x-frontend-sections.stats-strip :stats="$stats" />
 
     {{-- Section 7: Interactive ROI Calculator --}}
-    <section class="py-24 bg-surface-50 border-y border-surface-border" x-data="{ 
+    <section class="py-12 sm:py-16 lg:py-20 bg-surface-50 border-y border-surface-border" x-data="{ 
         employees: 50, 
         hrSize: 3, 
         avgSalary: 50000, 
@@ -1464,7 +1556,7 @@
                 <p class="text-content-muted text-lg">See how much time and money TimeNest can save your organization by eliminating manual tasks and tool sprawl.</p>
             </div>
             
-            <div class="rounded-3xl border border-surface-border bg-white shadow-xl p-8 lg:p-12">
+            <div class="rounded-3xl border border-surface-border bg-white shadow-xl p-6 sm:p-8 lg:p-12">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <div class="space-y-10">
                         <div>
@@ -1501,7 +1593,7 @@
                             <p class="font-display text-4xl font-bold text-indigo-600 mb-1" x-text="'+' + productivity + '%'"></p>
                             <p class="text-indigo-600/70 text-xs">Due to centralized workflows</p>
                         </div>
-                        <div class="sm:col-span-2 rounded-2xl bg-green-50 p-8 border border-green-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
+                        <div class="sm:col-span-2 rounded-2xl bg-green-50 p-6 sm:p-8 border border-green-100 flex flex-col justify-center shadow-sm relative overflow-hidden">
                             <svg class="absolute right-0 bottom-0 text-green-200/50 w-32 h-32 -mr-8 -mb-8 transform rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <p class="text-green-700 text-sm font-medium mb-2 uppercase tracking-wider relative z-10">Estimated Annual Savings</p>
                             <p class="font-display text-5xl font-bold text-green-600 relative z-10" x-text="'₹' + Number(moneySaved).toLocaleString()"></p>
@@ -1513,13 +1605,13 @@
     </section>
 
     {{-- Section 8: Testimonials --}}
-    <section class="py-24 bg-white">
+    <section class="py-12 sm:py-16 lg:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <x-frontend-sections.section-header title="Loved by forward-thinking teams" subtitle="Don't just take our word for it. Here's what our users have to say about TimeNest." badge="Testimonials" />
             
             <div class="grid md:grid-cols-3 gap-6 mt-12">
                 @foreach($testimonials as $t)
-                    <div class="bg-white rounded-2xl p-8 shadow-lg shadow-surface-border/20 border border-surface-border">
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg shadow-surface-border/20 border border-surface-border">
                         <div class="flex items-center gap-1 mb-6">
                             @for($i=0; $i<$t['rating']; $i++)
                                 <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -1542,7 +1634,7 @@
     </section>
 
     {{-- Section 9: Security & Compliance --}}
-    <section class="py-16 bg-surface-50 border-y border-surface-border">
+    <section class="py-10 sm:py-12 lg:py-14 bg-surface-50 border-y border-surface-border">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 @foreach([
@@ -1563,7 +1655,7 @@
     </section>
 
     {{-- Section 10: FAQ --}}
-    <section class="py-24 bg-white">
+    <section class="py-12 sm:py-16 lg:py-20 bg-white">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="font-display text-3xl font-bold text-content-strong mb-4">Frequently Asked Questions</h2>
@@ -1574,7 +1666,7 @@
     </section>
 
     {{-- Section 11: Final CTA --}}
-    <section class="py-24 bg-brand-900 relative overflow-hidden">
+    <section class="py-12 sm:py-16 lg:py-20 bg-brand-900 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-brand-600 to-indigo-600 opacity-90"></div>
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')]"></div>
         
