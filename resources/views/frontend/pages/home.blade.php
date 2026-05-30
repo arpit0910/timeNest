@@ -2220,11 +2220,27 @@
                  isProcessing: false,
                  
                  triggerProcess() {
+                     // Clamp values
+                     this.employees = Math.min(100000, Math.max(0, this.employees || 0));
+                     this.hrSize = Math.min(100000, Math.max(0, this.hrSize || 0));
+                     this.avgSalary = Math.min(10000000, Math.max(0, this.avgSalary || 0));
+                     this.approvalsPerMonth = Math.min(1000000, Math.max(0, this.approvalsPerMonth || 0));
+                     this.attendanceProcessingHrs = Math.min(1000000, Math.max(0, this.attendanceProcessingHrs || 0));
+                     this.manualHrsPerWeek = Math.min(1000000, Math.max(0, this.manualHrsPerWeek || 0));
+
                      if(!this.isProcessing) {
                          this.isProcessing = true;
-                         setTimeout(() => this.isProcessing = false, 600);
+                         setTimeout(() => this.isProcessing = false, 400); // SPed up for snappier feel
                      }
                  },
+
+                 // Dynamic Max Bounds (Scalable but capped)
+                 get maxEmployees() { return Math.min(100000, Math.max(1000, this.employees)); },
+                 get maxHrSize() { return Math.min(100000, Math.max(20, this.hrSize)); },
+                 get maxSalary() { return Math.min(10000000, Math.max(200000, this.avgSalary)); },
+                 get maxApprovals() { return Math.min(1000000, Math.max(5000, this.approvalsPerMonth)); },
+                 get maxAttendanceHrs() { return Math.min(1000000, Math.max(100, this.attendanceProcessingHrs)); },
+                 get maxManualHrs() { return Math.min(1000000, Math.max(40, this.manualHrsPerWeek)); },
 
                  // Calculations
                  get attendanceSaved() { return Math.round(this.attendanceProcessingHrs * 0.85); }, // 85% reduction
@@ -2233,216 +2249,308 @@
 
                  get totalMonthlyHrsSaved() { return this.attendanceSaved + this.approvalSaved + this.manualSaved + Math.round(this.employees * 0.5); },
                  get annualCapitalSaved() { return Math.round((this.totalMonthlyHrsSaved * 12 * this.avgSalary) / (22 * 8 * 12)); },
-                 get efficiencyGain() { return Math.min(Math.round(this.totalMonthlyHrsSaved / (this.hrSize * 160) * 100), 100); },
+                 get efficiencyGain() { return Math.min(Math.round(this.totalMonthlyHrsSaved / (this.hrSize * 160) * 100), 100) || 0; },
                  
-                 // ROI Breakdown (Percentages)
-                 get breakAttendance() { return Math.round(this.attendanceSaved / this.totalMonthlyHrsSaved * 100) || 35; },
-                 get breakApprovals() { return Math.round(this.approvalSaved / this.totalMonthlyHrsSaved * 100) || 25; },
-                 get breakManual() { return Math.round(this.manualSaved / this.totalMonthlyHrsSaved * 100) || 40; }
+                 // ROI Breakdown (Percentages for progress bars)
+                 get breakAttendance() { return Math.round(this.attendanceSaved / this.totalMonthlyHrsSaved * 100) || 0; },
+                 get breakApprovals() { return Math.round(this.approvalSaved / this.totalMonthlyHrsSaved * 100) || 0; },
+                 get breakManual() { return Math.round(this.manualSaved / this.totalMonthlyHrsSaved * 100) || 0; },
+                 
+                 // Dynamic Storyteller
+                 get dynamicStory() {
+                     if (this.totalMonthlyHrsSaved > 2000) {
+                         return `TimeNest could automate ${Number(this.totalMonthlyHrsSaved).toLocaleString()} hours of operational bottlenecks across your enterprise.`;
+                     } else if (this.annualCapitalSaved > 500000) {
+                         let lakhs = (this.annualCapitalSaved / 100000).toFixed(1);
+                         return `Potential annual savings exceed ₹${lakhs} Lakhs by eliminating manual processing.`;
+                     } else if (this.efficiencyGain > 40) {
+                         return `TimeNest could accelerate your HR workflow efficiency by ${this.efficiencyGain}%.`;
+                     } else {
+                         return `Your team could recover approximately ${Number(this.totalMonthlyHrsSaved).toLocaleString()} hours monthly.`;
+                     }
+                 }
              }">
         
         <!-- Background Ambient Lighting -->
         <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/10 to-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-8 relative z-10">
             <!-- Header Group -->
             <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-                <!-- Value Assessment Pill -->
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6 transition-all hover:shadow-md cursor-default">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6 cursor-default">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
                     </span>
-                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">Value Assessment</span>
+                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">Business Value Assessment</span>
                 </div>
-                
                 <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Calculate your exact ROI</h2>
                 <p class="text-slate-600 text-lg lg:text-xl font-body leading-relaxed">See exactly how much time, effort and operational cost your organization can recover every month by centralizing attendance, approvals, timelogs, workflows and AI operations.</p>
             </div>
             
-            <div class="rounded-[2.5rem] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 p-6 sm:p-8 lg:p-12 relative overflow-hidden">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start relative z-10">
+            <div class="rounded-[2.5rem] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 p-5 sm:p-8 lg:p-12 relative overflow-hidden min-h-[600px]">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start relative z-10">
                     
-                    <!-- LEFT SIDE: INPUTS -->
-                    <div class="space-y-8 pr-0 lg:pr-8">
-                        <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Organization Metrics</h3>
+                    <!-- LEFT SIDE: HYBRID INPUTS -->
+                    <div class="space-y-8 pr-0 lg:pr-4">
                         
-                        <!-- Slider 1: Workforce Size -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Total Workforce Size</label>
-                                <span class="font-mono text-xl font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100 transition-colors" x-text="employees"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 to-indigo-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((employees - 10) / 990 * 100) + '%'"></div>
-                                <input type="range" min="10" max="1000" x-model="employees" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <!-- Organization Metrics -->
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-3">Organization Metrics</h3>
+                            <div class="space-y-7">
+                                <!-- Input: Workforce Size -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Workforce Size</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Number of active employees across your entire organization.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Total active employees</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 to-indigo-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((employees) / (maxEmployees) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxEmployees" x-model.number="employees" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <input type="number" min="0" max="100000" x-model.number="employees" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-brand-50 text-brand-700 border border-brand-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 text-center appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Input: HR Team Size -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>HR & Ops Team</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Number of staff members dedicated to HR, ops, or management.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Managers, admins, HR personnel</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((hrSize) / (maxHrSize) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxHrSize" x-model.number="hrSize" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <input type="number" min="0" max="100000" x-model.number="hrSize" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Input: Avg Salary -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Avg Monthly Salary</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Average monthly salary per employee to calculate capital recovered.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Average salary in INR</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-emerald-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((avgSalary) / (maxSalary) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxSalary" step="1000" x-model.number="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 font-bold font-mono text-sm">₹</span>
+                                            <input type="number" min="0" max="10000000" x-model.number="avgSalary" @input="triggerProcess()" class="w-28 pl-7 pr-3 py-1.5 bg-teal-50 text-teal-700 border border-teal-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 text-right appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Slider 2: HR Team Size -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>HR & Ops Team</label>
-                                <span class="font-mono text-xl font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 transition-colors" x-text="hrSize"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((hrSize - 1) / 19 * 100) + '%'"></div>
-                                <input type="range" min="1" max="20" x-model="hrSize" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                            </div>
-                        </div>
+                        <!-- Operational Bottlenecks -->
+                        <div class="pt-4">
+                            <h3 class="font-display text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-3">Operational Bottlenecks</h3>
+                            <div class="space-y-7">
+                                <!-- Input: Approvals -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>Approvals / Month</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Average number of leave, shift, and expenses approvals requested monthly.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Leave requests, expenses, shifts</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 to-orange-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((approvalsPerMonth) / (maxApprovals) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxApprovals" x-model.number="approvalsPerMonth" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <input type="number" min="0" max="1000000" x-model.number="approvalsPerMonth" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-center appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <!-- Slider 3: Avg Salary -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Avg Monthly Salary</label>
-                                <span class="font-mono text-xl font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded border border-teal-100 transition-colors" x-text="'₹' + Number(avgSalary).toLocaleString()"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-emerald-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((avgSalary - 15000) / 185000 * 100) + '%'"></div>
-                                <input type="range" min="15000" max="200000" step="5000" x-model="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                            </div>
-                        </div>
+                                <!-- Input: Attendance Processing -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Attendance Processing</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Hours spent reconciling attendance, shifts, and anomalies monthly.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Hours spent per month</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-cyan-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((attendanceProcessingHrs) / (maxAttendanceHrs) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxAttendanceHrs" x-model.number="attendanceProcessingHrs" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <input type="number" min="0" max="1000000" x-model.number="attendanceProcessingHrs" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-center appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="pt-6 border-t border-slate-100">
-                            <h3 class="font-display text-xl font-bold text-slate-900 mb-2">Operational Bottlenecks</h3>
-                        </div>
-
-                        <!-- Slider 4: Approvals -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>Approvals / Month</label>
-                                <span class="font-mono text-lg font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-100 transition-colors" x-text="approvalsPerMonth"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 to-orange-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((approvalsPerMonth - 50) / 4950 * 100) + '%'"></div>
-                                <input type="range" min="50" max="5000" step="50" x-model="approvalsPerMonth" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                            </div>
-                        </div>
-
-                        <!-- Slider 5: Attendance Processing -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Attendance Processing (hrs/mo)</label>
-                                <span class="font-mono text-lg font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 transition-colors" x-text="attendanceProcessingHrs"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-cyan-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((attendanceProcessingHrs - 2) / 98 * 100) + '%'"></div>
-                                <input type="range" min="2" max="100" x-model="attendanceProcessingHrs" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                            </div>
-                        </div>
-
-                        <!-- Slider 6: Manual Workflow -->
-                        <div class="relative group">
-                            <div class="flex justify-between mb-3 items-end">
-                                <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>Manual HR Work (hrs/week)</label>
-                                <span class="font-mono text-lg font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-100 transition-colors" x-text="manualHrsPerWeek"></span>
-                            </div>
-                            <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-rose-400 to-pink-500 pointer-events-none transition-all duration-75" :style="'width: ' + ((manualHrsPerWeek - 2) / 38 * 100) + '%'"></div>
-                                <input type="range" min="2" max="40" x-model="manualHrsPerWeek" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                <!-- Input: Manual Workflow -->
+                                <div>
+                                    <div class="flex flex-col mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>Manual HR Work</label>
+                                            <div class="group relative cursor-help">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Hours spent weekly on spreadsheets, reporting, and manual data entry.</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 mt-0.5">Hours spent per week</p>
+                                    </div>
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
+                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-rose-400 to-pink-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((manualHrsPerWeek) / (maxManualHrs) * 100)) + '%'"></div>
+                                            <input type="range" min="0" :max="maxManualHrs" x-model.number="manualHrsPerWeek" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                        </div>
+                                        <div class="shrink-0 relative">
+                                            <input type="number" min="0" max="1000000" x-model.number="manualHrsPerWeek" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 text-center appearance-none">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
                     <!-- RIGHT SIDE: IMPACT DASHBOARD -->
-                    <div class="relative rounded-[2rem] bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group flex flex-col justify-between">
+                    <div class="relative rounded-3xl lg:rounded-[2rem] bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group flex flex-col justify-between h-full min-h-[500px]">
                         
                         <!-- Glowing Orbs -->
                         <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full transition-all duration-1000 blur-[80px]" 
                              :class="isProcessing ? 'bg-emerald-500/20 scale-125' : 'bg-brand-500/20 scale-100'"></div>
                         <div class="absolute -left-32 -bottom-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-[80px]"></div>
                         
-                        <div class="relative z-10 p-8 sm:p-10 flex flex-col gap-8">
+                        <div class="relative z-10 p-6 sm:p-8 flex flex-col gap-6">
                             
-                            <!-- Header & Before/After Story -->
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-6 transition-all duration-300" :class="isProcessing ? 'opacity-50' : 'opacity-100'">
-                                <div class="flex flex-col">
-                                    <span class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded w-max mb-3 border border-emerald-500/20">Monthly Automation Value</span>
-                                    <p class="text-slate-400 text-sm">When moving from manual ops to TimeNest AI</p>
-                                </div>
+                            <!-- Header & Live Story -->
+                            <div class="flex flex-col border-b border-slate-800 pb-5 transition-all duration-300" :class="isProcessing ? 'opacity-50' : 'opacity-100'">
+                                <span class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded w-max mb-3 border border-emerald-500/20">Live ROI Projection</span>
+                                <p class="text-slate-300 text-sm sm:text-base font-body font-medium leading-relaxed" x-text="dynamicStory"></p>
                             </div>
                             
                             <!-- Main 3 Big Metrics -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <div class="flex flex-col gap-4">
                                 
-                                <!-- Annual Savings -->
-                                <div class="sm:col-span-2 bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-slate-700/50 shadow-inner transition-all duration-500 relative overflow-hidden" 
+                                <!-- Annual Savings (Stacked Card) -->
+                                <div class="bg-slate-800/40 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-700/50 shadow-inner transition-all duration-500 relative overflow-hidden" 
                                      :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
                                     <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent pointer-events-none opacity-50"></div>
-                                    <p class="text-emerald-400 text-[10px] font-bold mb-3 uppercase tracking-widest flex items-center gap-2 relative z-10">
+                                    <p class="text-emerald-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2 relative z-10">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                         Annual Capital Recovered
                                     </p>
-                                    <p class="font-display text-5xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight relative z-10" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></p>
+                                    <p class="font-display text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight relative z-10" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></p>
                                 </div>
 
-                                <!-- Time Saved -->
-                                <div class="flex flex-col transition-all duration-500 delay-75" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
-                                    <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                        Monthly Time Saved
-                                    </p>
-                                    <p class="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight" x-text="totalMonthlyHrsSaved + ' hrs'"></p>
-                                    <p class="text-slate-500 text-[11px] mt-1 font-medium">Reclaimed operational hours</p>
-                                </div>
-                                
-                                <!-- Efficiency Gain -->
-                                <div class="flex flex-col transition-all duration-500 delay-100" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
-                                    <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                                        Efficiency Gain
-                                    </p>
-                                    <p class="font-display text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-brand-300 tracking-tight" x-text="'+' + efficiencyGain + '%'"></p>
-                                    <p class="text-slate-500 text-[11px] mt-1 font-medium">HR workflow acceleration</p>
+                                <!-- Time & Efficiency (Stacked Row) -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-slate-800/20 rounded-2xl p-5 border border-slate-700/30 transition-all duration-500 delay-75" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
+                                        <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            Time Saved
+                                        </p>
+                                        <p class="font-display text-3xl font-bold text-white tracking-tight" x-text="Number(totalMonthlyHrsSaved).toLocaleString() + ' hrs'"></p>
+                                    </div>
+                                    
+                                    <div class="bg-slate-800/20 rounded-2xl p-5 border border-slate-700/30 transition-all duration-500 delay-100" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
+                                        <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                            Efficiency
+                                        </p>
+                                        <p class="font-display text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-brand-300 tracking-tight" x-text="'+' + efficiencyGain + '%'"></p>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <!-- Granular Breakdown List -->
-                            <div class="bg-black/20 rounded-xl p-5 border border-white/5 transition-all duration-500 delay-150" :class="isProcessing ? 'opacity-30 blur-[4px]' : 'opacity-100 blur-0'">
-                                <h4 class="text-[11px] uppercase tracking-widest font-bold text-white mb-4">Where savings come from</h4>
-                                <div class="space-y-4">
+                            <!-- Granular Breakdown List (Mini Contribution Bars) -->
+                            <div class="bg-black/20 rounded-2xl p-5 border border-white/5 transition-all duration-500 delay-150 mt-auto" :class="isProcessing ? 'opacity-30 blur-[4px]' : 'opacity-100 blur-0'">
+                                <h4 class="text-[11px] uppercase tracking-widest font-bold text-white mb-4">Savings Breakdown</h4>
+                                <div class="space-y-3">
                                     <!-- Attendance Item -->
                                     <div>
-                                        <div class="flex justify-between text-xs mb-1.5">
-                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>Attendance Automation</span>
-                                            <span class="text-white font-bold" x-text="attendanceSaved + ' hrs'"></span>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-slate-400 font-medium font-body">Attendance Automation</span>
+                                            <span class="text-white font-mono text-[10px]" x-text="Number(attendanceSaved).toLocaleString() + ' hrs'"></span>
                                         </div>
-                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-blue-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakAttendance + '%'"></div></div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-blue-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakAttendance + '%'"></div></div>
+                                            <span class="text-blue-400 font-bold text-xs w-8 text-right" x-text="breakAttendance + '%'"></span>
+                                        </div>
                                     </div>
                                     <!-- Approvals Item -->
                                     <div>
-                                        <div class="flex justify-between text-xs mb-1.5">
-                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></div>Approvals Processing</span>
-                                            <span class="text-white font-bold" x-text="approvalSaved + ' hrs'"></span>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-slate-400 font-medium font-body">Approvals Processing</span>
+                                            <span class="text-white font-mono text-[10px]" x-text="Number(approvalSaved).toLocaleString() + ' hrs'"></span>
                                         </div>
-                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-amber-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakApprovals + '%'"></div></div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-amber-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakApprovals + '%'"></div></div>
+                                            <span class="text-amber-400 font-bold text-xs w-8 text-right" x-text="breakApprovals + '%'"></span>
+                                        </div>
                                     </div>
                                     <!-- Manual Workflow Item -->
                                     <div>
-                                        <div class="flex justify-between text-xs mb-1.5">
-                                            <span class="text-slate-300 font-medium flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]"></div>Manual Workflows Removed</span>
-                                            <span class="text-white font-bold" x-text="manualSaved + ' hrs'"></span>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-slate-400 font-medium font-body">Manual HR Workflows</span>
+                                            <span class="text-white font-mono text-[10px]" x-text="Number(manualSaved).toLocaleString() + ' hrs'"></span>
                                         </div>
-                                        <div class="w-full bg-slate-800 rounded-full h-1"><div class="bg-rose-500 h-1 rounded-full transition-all duration-300" :style="'width: ' + breakManual + '%'"></div></div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-rose-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakManual + '%'"></div></div>
+                                            <span class="text-rose-400 font-bold text-xs w-8 text-right" x-text="breakManual + '%'"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Processing State Overlay -->
-                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/50 backdrop-blur-md transition-all duration-300"
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/60 backdrop-blur-md transition-all duration-300"
                              :class="isProcessing ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
-                             <div class="flex flex-col items-center gap-5">
-                                <div class="relative flex items-center justify-center w-16 h-16">
-                                    <span class="absolute inset-0 rounded-full border-[3px] border-emerald-500/20"></span>
-                                    <span class="absolute inset-0 rounded-full border-[3px] border-t-emerald-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
-                                    <svg class="w-6 h-6 text-emerald-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                             <div class="flex flex-col items-center gap-4">
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <span class="absolute inset-0 rounded-full border-2 border-emerald-500/20"></span>
+                                    <span class="absolute inset-0 rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
                                 </div>
-                                <span class="text-xs font-mono text-emerald-300 font-bold uppercase tracking-widest animate-pulse">Computing Value...</span>
+                                <span class="text-[10px] font-mono text-emerald-300 font-bold uppercase tracking-widest animate-pulse">Recalculating...</span>
                              </div>
                         </div>
                     </div>
                 </div>
+            </div>           </div>
             </div>
             
             <!-- Social Proof Strip -->
@@ -2709,13 +2817,13 @@
                     </div>
 
                     <div class="flex flex-col gap-3 w-full sm:w-auto shrink-0 min-w-[240px]">
-                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center">
+                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center !text-slate-700">
                             Explore Documentation
                         </x-frontend-base.button>
                         <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="primary" color="brand" size="lg" class="w-full shadow-md justify-center">
                             Schedule Demo
                         </x-frontend-base.button>
-                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center">
+                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center !text-slate-700">
                             Contact Team
                         </x-frontend-base.button>
                     </div>
