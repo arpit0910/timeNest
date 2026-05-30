@@ -1,148 +1,236 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] relative' }}" style="perspective: 1000px;"
-     x-data="{ 
-         stage: 'fingerprint_idle',
-         progress: 0, 
-         user: '',
-         isFlipped: false
-     }"
-     x-init="
-         let users = ['Alex M.', 'Sarah K.', 'David L.'];
-         let idx = 0;
-         
-         const runSequence = () => {
-             stage = 'fingerprint_scan';
-             isFlipped = false;
-             progress = 0;
-             user = users[idx];
-             idx = (idx + 1) % users.length;
-             
-             let fpInterval = setInterval(() => {
-                 progress += 4;
-                 if (progress >= 100) {
-                     clearInterval(fpInterval);
-                     stage = 'flipping';
-                     setTimeout(() => {
-                         isFlipped = true;
-                         setTimeout(() => {
-                             stage = 'face_scan';
-                             progress = 0;
-                             let faceInterval = setInterval(() => {
-                                 progress += 5;
-                                 if (progress >= 100) {
-                                     clearInterval(faceInterval);
-                                     stage = 'verified';
-                                     setTimeout(() => {
-                                         isFlipped = false;
-                                         stage = 'fingerprint_idle';
-                                     }, 2000);
-                                 }
-                             }, 50);
-                         }, 600);
-                     }, 200);
-                 }
-             }, 40);
-         };
-
-         setTimeout(() => runSequence(), 1000);
-         setInterval(() => runSequence(), 6000);
-     "
->
-    <!-- Header -->
-    <div class="flex items-center gap-2 mb-2 relative z-10">
-        <span class="relative flex h-2 w-2">
-            <span x-show="stage.includes('scan')" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-            <span x-show="stage === 'verified'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span :class="'relative inline-flex rounded-full h-2 w-2 transition-colors duration-300 ' + (stage.includes('scan') ? 'bg-amber-500' : stage === 'verified' ? 'bg-emerald-500' : 'bg-slate-400')"></span>
-        </span>
-        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Security</span>
-    </div>
-
-    <!-- 3D Flip Container -->
-    <div class="relative w-full h-[60px] my-2 transition-all duration-700"
-         style="transform-style: preserve-3d;"
-         :style="isFlipped ? 'transform: rotateY(180deg);' : 'transform: rotateY(0deg);'">
-        
-        <!-- Front: Fingerprint Scanner -->
-        <div class="absolute inset-0 backface-hidden rounded-lg bg-slate-50 overflow-hidden border border-slate-200/80 flex items-center justify-center shadow-inner" style="-webkit-backface-visibility: hidden; backface-visibility: hidden;">
-            <!-- Base faded icon -->
-            <svg class="w-12 h-12 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10"/>
-                <path d="M5 12c0-3.87 3.13-7 7-7s7 3.13 7 7"/>
-                <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4"/>
-                <path d="M12 10v2"/>
-                <path d="M12 16v.01"/>
-                <path d="M10 18.5a6 6 0 0 1 4 0"/>
-                <path d="M7 21a9 9 0 0 1 10 0"/>
-                <path d="M4 17.5a11 11 0 0 1 16 0"/>
-                <path d="M8 15a4 4 0 0 1 8 0"/>
-            </svg>
-            
-            <!-- Scanned filled icon (revealed as line sweeps up) -->
-            <div class="absolute inset-x-0 bottom-0 overflow-hidden transition-all duration-75 ease-linear flex justify-center items-end"
-                 :style="'height: ' + (!isFlipped && stage.includes('scan') ? progress : 0) + '%'">
-                <div class="relative h-[60px] w-[60px] flex items-center justify-center bg-cyan-100/50">
-                    <svg class="w-12 h-12 text-cyan-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10"/>
-                        <path d="M5 12c0-3.87 3.13-7 7-7s7 3.13 7 7"/>
-                        <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4"/>
-                        <path d="M12 10v2"/>
-                        <path d="M12 16v.01"/>
-                        <path d="M10 18.5a6 6 0 0 1 4 0"/>
-                        <path d="M7 21a9 9 0 0 1 10 0"/>
-                        <path d="M4 17.5a11 11 0 0 1 16 0"/>
-                        <path d="M8 15a4 4 0 0 1 8 0"/>
-                    </svg>
-                </div>
-            </div>
-            
-            <!-- Scanning Line -->
-            <div class="absolute left-0 right-0 h-[2px] bg-cyan-500 shadow-[0_0_12px_3px_rgba(6,182,212,0.5)] transition-all duration-75 ease-linear"
-                 x-show="!isFlipped && stage === 'fingerprint_scan'"
-                 :style="'bottom: ' + progress + '%'"></div>
-        </div>
-        
-        <!-- Back: Face ID Scanner -->
-        <div class="absolute inset-0 backface-hidden rounded-lg bg-slate-50 overflow-hidden border border-slate-200/80 flex items-center justify-center shadow-inner" style="-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: rotateY(180deg);">
-            <!-- Base icon -->
-            <svg class="w-10 h-10 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 9h.01M15 9h.01" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            
-            <!-- Scanned filled icon (revealed as line sweeps down) -->
-            <div class="absolute inset-x-0 top-0 overflow-hidden transition-all duration-75 ease-linear flex justify-center items-start"
-                 :style="'height: ' + (isFlipped && stage.includes('scan') ? progress : 0) + '%'">
-                <div class="relative h-[60px] w-[60px] flex items-center justify-center bg-violet-100/50">
-                    <div class="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.1)_1px,transparent_1px)] bg-[size:8px_8px]"></div>
-                    <svg class="w-10 h-10 text-violet-600 drop-shadow-[0_0_8px_rgba(139,92,246,0.5)] z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M9 9h.01M15 9h.01" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            
-            <!-- Scanning Line (Sweeping down) -->
-            <div class="absolute left-0 right-0 h-[2px] bg-violet-500 shadow-[0_0_12px_3px_rgba(139,92,246,0.5)] transition-all duration-75 ease-linear z-20"
-                 x-show="isFlipped && stage === 'face_scan'"
-                 :style="'top: ' + progress + '%'"></div>
-                 
-            <!-- Verified Overlay -->
-            <div class="absolute inset-0 bg-emerald-100 flex items-center justify-center transition-all duration-300 z-30"
-                 x-show="stage === 'verified'"
-                 x-transition.opacity>
-                <svg class="w-8 h-8 text-emerald-600 drop-shadow-[0_0_8px_rgba(5,150,105,0.4)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>     
-            </div>
-        </div>
-    </div>
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[240px] relative overflow-hidden' }}" 
+     x-data="biometricAttendance()"
+     x-init="initSequence()">
     
-    <!-- Status Text -->
-    <div class="text-center h-4 flex items-center justify-center mt-1">
-        <p x-show="stage === 'fingerprint_idle'" class="text-[10px] font-bold text-slate-400">Ready</p>
-        <p x-show="stage === 'fingerprint_scan'" class="text-[10px] font-bold text-cyan-600">Scanning Print...</p>
-        <p x-show="stage === 'flipping'" class="text-[10px] font-bold text-slate-400">Authenticating...</p>
-        <p x-show="stage === 'face_scan'" class="text-[10px] font-bold text-violet-600">Face ID Match...</p>
-        <p x-show="stage === 'verified'" class="text-[10px] font-bold text-emerald-600 animate-pulse" x-text="user + ' Verified'"></p>
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4 relative z-20">
+        <div class="flex items-center gap-2">
+            <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" :class="statusBgClass"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5" :class="statusBgClass"></span>
+            </span>
+            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Attendance</span>
+        </div>
+        <span class="text-[10px] font-semibold text-slate-400" x-text="currentTime"></span>
+    </div>
+
+    <!-- Central Stage Area -->
+    <div class="relative w-full flex-1 flex items-center justify-center">
+        
+        <!-- ================= STAGE 1: FINGERPRINT ================= -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-700"
+             :class="isFingerprintStage ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0 pointer-events-none'">
+            
+            <!-- Fingerprint Scanner Container -->
+            <div class="relative w-20 h-24 flex items-center justify-center group cursor-pointer" @click="startScan()">
+                <!-- Base Fingerprint (Dim) -->
+                <div class="absolute inset-0 transition-colors duration-500"
+                     style="mask-image: url('/images/mockups/fingerprint.svg'); mask-size: contain; mask-position: center; mask-repeat: no-repeat; -webkit-mask-image: url('/images/mockups/fingerprint.svg'); -webkit-mask-size: contain; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat;"
+                     :class="stage === 'fp_verified' ? 'bg-emerald-500 drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]' : 'bg-slate-200'">
+                </div>
+
+                <!-- Active Fingerprint Glow (Revealed by scanning line) -->
+                <div class="absolute inset-x-0 bottom-0 overflow-hidden transition-all duration-75"
+                     :style="`height: ${fpProgress}%;`"
+                     x-show="stage === 'fp_scan'">
+                    <div class="absolute bottom-0 w-20 h-24 bg-brand-400 drop-shadow-[0_0_8px_rgba(14,165,233,0.5)]"
+                         style="mask-image: url('/images/mockups/fingerprint.svg'); mask-size: contain; mask-position: center; mask-repeat: no-repeat; -webkit-mask-image: url('/images/mockups/fingerprint.svg'); -webkit-mask-size: contain; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat;">
+                    </div>
+                </div>
+
+                <!-- Laser Scanning Line -->
+                <div class="absolute left-[-10%] right-[-10%] h-[2px] bg-brand-400 shadow-[0_0_12px_3px_rgba(14,165,233,0.6)] transition-all duration-75 z-20"
+                     x-show="stage === 'fp_scan'"
+                     :style="`bottom: ${fpProgress}%;`">
+                </div>
+
+                <!-- Checkmark Overlay -->
+                <div class="absolute inset-0 flex items-center justify-center transition-all duration-300 z-30"
+                     :class="stage === 'fp_verified' ? 'opacity-100 scale-100' : 'opacity-0 scale-50'">
+                    <div class="bg-emerald-500 text-white rounded-full p-1.5 shadow-lg shadow-emerald-500/30">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                </div>
+                
+                <!-- Idle Pulse Ring -->
+                <div class="absolute inset-0 rounded-full border-2 border-brand-400/30 animate-ping z-0"
+                     x-show="stage === 'fp_idle'" style="animation-duration: 2s;"></div>
+            </div>
+
+            <!-- Status Text -->
+            <div class="h-6 mt-4 flex items-center justify-center">
+                <span x-show="stage === 'fp_idle'" class="text-[11px] font-semibold text-slate-400">Place finger to scan</span>
+                <span x-show="stage === 'fp_scan'" class="text-[11px] font-bold text-brand-600 animate-pulse">Scanning Print...</span>
+                <span x-show="stage === 'fp_verified'" class="text-[11px] font-bold text-emerald-600">Identity Verified</span>
+            </div>
+        </div>
+
+        <!-- ================= STAGE 2: FACE SCAN ================= -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-700"
+             :class="isFaceStage ? 'opacity-100 scale-100 z-20' : 'opacity-0 scale-105 z-0 pointer-events-none'">
+            
+            <div class="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 shadow-inner group">
+                <!-- Profile Image -->
+                <img src="/images/mockups/employee_portrait.png" class="w-full h-full object-cover transition-transform duration-1000" :class="isFaceStage ? 'scale-100' : 'scale-110'" alt="Sarah K.">
+                
+                <!-- Scanner Bracket Frame -->
+                <div class="absolute inset-2 border-2 border-transparent transition-all duration-300 z-10"
+                     :class="stage === 'face_verified' ? 'border-emerald-400 scale-105 opacity-0' : 'border-white/60'"
+                     style="clip-path: polygon(0 0, 20% 0, 20% 10%, 10% 10%, 10% 20%, 0 20%, 0 0, 100% 0, 100% 20%, 90% 20%, 90% 10%, 80% 10%, 80% 0, 100% 0, 100% 100%, 80% 100%, 80% 90%, 90% 90%, 90% 80%, 100% 80%, 100% 100%, 0 100%, 0 80%, 10% 80%, 10% 90%, 20% 90%, 20% 100%, 0 100%);">
+                </div>
+
+                <!-- Horizontal Scan Line (Sweeping down) -->
+                <div class="absolute left-0 right-0 h-[2px] bg-white shadow-[0_0_12px_4px_rgba(255,255,255,0.7)] transition-all duration-75 z-20"
+                     x-show="stage === 'face_scan'"
+                     :style="`top: ${faceProgress}%;`">
+                </div>
+
+                <!-- Facial Landmarks (Dots) -->
+                <div class="absolute inset-0 z-20 transition-opacity duration-300" x-show="stage === 'face_scan' && faceProgress > 20" x-transition>
+                    <div class="absolute top-[38%] left-[30%] w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                    <div class="absolute top-[38%] right-[30%] w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                    <div class="absolute top-[52%] left-[48%] w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                    <div class="absolute top-[65%] left-[35%] w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                    <div class="absolute top-[65%] right-[35%] w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                </div>
+
+                <!-- Verified Overlay Effect -->
+                <div class="absolute inset-0 bg-emerald-500/20 z-30 transition-opacity duration-300 backdrop-blur-[1px]"
+                     :class="stage === 'face_verified' ? 'opacity-100' : 'opacity-0'">
+                </div>
+            </div>
+
+            <!-- Status Badge -->
+            <div class="h-6 mt-4 flex items-center justify-center relative">
+                <div class="absolute transition-all duration-300 flex items-center justify-center" :class="stage === 'face_scan' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+                    <span class="text-[11px] font-bold text-slate-500 animate-pulse">Running Face Match...</span>
+                </div>
+                <div class="absolute transition-all duration-300 flex items-center justify-center" :class="stage === 'face_verified' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
+                    <div class="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded border border-emerald-100 shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        <span class="text-[10px] font-bold uppercase tracking-wide">Face Match 99.8%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= STAGE 3: SUCCESS STATE ================= -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 z-30 bg-white"
+             :class="stage === 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'">
+            
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            
+            <h4 class="text-[15px] font-display font-bold text-slate-800 tracking-tight">Attendance Marked</h4>
+            
+            <div class="mt-3 w-full bg-slate-50 border border-slate-100 rounded-xl p-3 flex flex-col items-center gap-1">
+                <span class="text-sm font-bold text-slate-800">Sarah K.</span>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider" x-text="currentTime"></span>
+                    <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+                    <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Biometric Verified</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('biometricAttendance', () => ({
+            stage: 'fp_idle',
+            fpProgress: 0,
+            faceProgress: 0,
+            currentTime: '',
+            
+            initSequence() {
+                this.updateTime();
+                setInterval(() => this.updateTime(), 60000);
+                
+                // Auto-run for presentation if not interacted
+                setTimeout(() => {
+                    if (this.stage === 'fp_idle') {
+                        this.startScan();
+                    }
+                }, 1500);
+            },
+            
+            updateTime() {
+                const now = new Date();
+                let hours = now.getHours();
+                let minutes = now.getMinutes();
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; 
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                this.currentTime = hours + ':' + minutes + ' ' + ampm;
+            },
+
+            get statusBgClass() {
+                if (this.stage === 'fp_scan' || this.stage === 'face_scan') return 'bg-brand-400';
+                if (this.stage === 'success') return 'bg-emerald-500';
+                if (this.stage === 'fp_verified' || this.stage === 'face_verified') return 'bg-emerald-400';
+                return 'bg-slate-300';
+            },
+            
+            get isFingerprintStage() {
+                return ['fp_idle', 'fp_scan', 'fp_verified'].includes(this.stage);
+            },
+            
+            get isFaceStage() {
+                return ['face_scan', 'face_verified'].includes(this.stage);
+            },
+
+            startScan() {
+                if (this.stage !== 'fp_idle' && this.stage !== 'success') return;
+                
+                const runSequence = () => {
+                    this.stage = 'fp_scan';
+                    this.fpProgress = 0;
+                    this.faceProgress = 0;
+
+                    let fpInterval = setInterval(() => {
+                        this.fpProgress += 3;
+                        if (this.fpProgress >= 100) {
+                            clearInterval(fpInterval);
+                            this.stage = 'fp_verified';
+                            
+                            setTimeout(() => {
+                                this.stage = 'face_scan';
+                                
+                                let faceInterval = setInterval(() => {
+                                    this.faceProgress += 2.5;
+                                    if (this.faceProgress >= 100) {
+                                        clearInterval(faceInterval);
+                                        this.stage = 'face_verified';
+                                        
+                                        setTimeout(() => {
+                                            this.stage = 'success';
+                                            
+                                            setTimeout(() => {
+                                                // Reset to idle
+                                                this.stage = 'fp_idle';
+                                                
+                                                // Auto-loop for demo purposes
+                                                setTimeout(() => this.startScan(), 4000);
+                                                
+                                            }, 4500);
+                                            
+                                        }, 1200);
+                                    }
+                                }, 40);
+                                
+                            }, 1000);
+                        }
+                    }, 40);
+                };
+                
+                runSequence();
+            }
+        }));
+    });
+</script>
