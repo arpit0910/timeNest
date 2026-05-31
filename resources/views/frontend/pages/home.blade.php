@@ -2589,127 +2589,517 @@
         </div>
     </section>
 
-    {{-- Section 10: FAQ / Trust Center --}}
-    <section class="py-24 lg:py-32 bg-slate-50 relative border-t border-slate-200/60" id="faq">
+    {{-- Section 10: FAQ / Trust Center (Scalable Knowledge Center) --}}
+    @php
+    $getSvg = function($icon) {
+        switch($icon) {
+            case 'sparkles':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l-.813-5.096L3 15l5.187-.813L9 9l.813 5.187L15 15l-5.187.813zM19.07 4.93a10 10 0 010 14.14M4.93 19.07a10 10 0 010-14.14"/></svg>';
+            case 'office-building':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5"/></svg>';
+            case 'user':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>';
+            case 'users':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>';
+            case 'clock':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+            case 'document-text':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>';
+            case 'cpu-chip':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>';
+            case 'credit-card':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>';
+            case 'shield-check':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>';
+            case 'puzzle-piece':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>';
+            case 'rocket':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 00-1 1v1a2 2 0 002 2h1a1 1 0 001-1v-1.586l4.707-4.707C10.923 11.563 11 11.28 11 11V9.586l4.707-4.707C15.823 4.763 16 4.48 16 4.2V2.778M9 9h.01M9 13h.01M9 17h.01"/></svg>';
+            case 'briefcase':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>';
+            case 'light-bulb':
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>';
+            default:
+                return '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        }
+    };
+    @endphp
+
+    <section class="py-24 lg:py-32 bg-slate-50 relative border-t border-slate-200/60" id="faq"
+             x-data="{ 
+                 activeCategory: 'General', 
+                 activeSubcategory: 'All',
+                 searchQuery: '',
+                 sortMethod: 'popular',
+                 currentPage: 1,
+                 itemsPerPage: 10,
+                 expandedIds: [],
+                 faqData: {{ Js::from($faqs) }},
+                 
+                 init() {
+                     // Auto-expand first question of active category
+                     let firstQ = this.faqData.questions.find(q => q.category === this.activeCategory);
+                     if (firstQ) this.expandedIds = [firstQ.id];
+                 },
+
+                 get allSubcategories() {
+                     let qs = this.faqData.questions.filter(q => q.category === this.activeCategory);
+                     let subcats = [...new Set(qs.map(q => q.subcategory).filter(Boolean))];
+                     return ['All', ...subcats];
+                 },
+
+                 get filteredQuestions() {
+                     let qs = [...this.faqData.questions];
+                     
+                     // If no search, filter by category & subcategory
+                     if (this.searchQuery.trim() === '') {
+                         qs = qs.filter(q => q.category === this.activeCategory);
+                         if (this.activeSubcategory !== 'All') {
+                             qs = qs.filter(q => q.subcategory === this.activeSubcategory);
+                         }
+                     } else {
+                         // Global search
+                         let query = this.searchQuery.toLowerCase().trim();
+                         qs = qs.filter(q => 
+                             q.q.toLowerCase().includes(query) || 
+                             q.a.toLowerCase().includes(query) || 
+                             q.category.toLowerCase().includes(query) || 
+                             (q.subcategory && q.subcategory.toLowerCase().includes(query)) ||
+                             (q.tags && q.tags.some(t => t.toLowerCase().includes(query)))
+                         );
+                     }
+
+                     // Apply sorting
+                     if (this.sortMethod === 'popular') {
+                         qs.sort((a, b) => (b.is_popular ? 1 : 0) - (a.is_popular ? 1 : 0));
+                     } else if (this.sortMethod === 'alphabetical') {
+                         qs.sort((a, b) => a.q.localeCompare(b.q));
+                     } else if (this.sortMethod === 'updated') {
+                         qs.sort((a, b) => b.updated_at.localeCompare(a.updated_at));
+                     }
+                     return qs;
+                 },
+
+                 get paginatedQuestions() {
+                     let start = (this.currentPage - 1) * this.itemsPerPage;
+                     return this.filteredQuestions.slice(start, start + this.itemsPerPage);
+                 },
+
+                 get totalPages() {
+                     return Math.ceil(this.filteredQuestions.length / this.itemsPerPage) || 1;
+                 },
+
+                 get searchMatches() {
+                     if (this.searchQuery.trim().length < 2) return [];
+                     let query = this.searchQuery.toLowerCase().trim();
+                     return this.faqData.questions.filter(q => 
+                         q.q.toLowerCase().includes(query) || 
+                         q.category.toLowerCase().includes(query) || 
+                         (q.subcategory && q.subcategory.toLowerCase().includes(query))
+                     ).slice(0, 5);
+                 },
+
+                 toggleQuestion(id) {
+                     if (this.expandedIds.includes(id)) {
+                         this.expandedIds = this.expandedIds.filter(x => x !== id);
+                     } else {
+                         this.expandedIds.push(id);
+                     }
+                 },
+
+                 isExpanded(id) {
+                     return this.expandedIds.includes(id);
+                 },
+
+                 selectSearchResult(result) {
+                     this.activeCategory = result.category;
+                     this.activeSubcategory = 'All';
+                     this.searchQuery = '';
+                     
+                     this.$nextTick(() => {
+                         let idx = this.filteredQuestions.findIndex(q => q.id === result.id);
+                         if (idx !== -1) {
+                             this.currentPage = Math.floor(idx / this.itemsPerPage) + 1;
+                         }
+                         if (!this.expandedIds.includes(result.id)) {
+                             this.expandedIds.push(result.id);
+                         }
+                         
+                         setTimeout(() => {
+                             let el = document.getElementById('faq-' + result.id);
+                             if (el) {
+                                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                             }
+                         }, 100);
+                     });
+                 },
+
+                 navigateToQuestion(id) {
+                     let qObj = this.faqData.questions.find(q => q.id === id);
+                     if (qObj) {
+                         this.selectSearchResult(qObj);
+                     }
+                 },
+
+                 expandAll() {
+                     let visibleIds = this.paginatedQuestions.map(q => q.id);
+                     this.expandedIds = [...new Set([...this.expandedIds, ...visibleIds])];
+                 },
+
+                 collapseAll() {
+                     let visibleIds = this.paginatedQuestions.map(q => q.id);
+                     this.expandedIds = this.expandedIds.filter(id => !visibleIds.includes(id));
+                 },
+
+                 getCategoryCount(cat) {
+                     return this.faqData.questions.filter(q => q.category === cat).length;
+                 }
+             }">
+        
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             
-            <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
                 <x-frontend-base.badge color="brand" size="md" class="mb-6">Knowledge Base</x-frontend-base.badge>
                 <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Everything you need to know.</h2>
                 <p class="text-slate-600 text-lg lg:text-xl font-body">Clear answers to help you make an informed decision about migrating your workforce to TimeNest.</p>
             </div>
-            
-            <div x-data="{ 
-                activeCategory: 'General', 
-                searchQuery: '',
-                faqData: {{ Js::from($faqs) }},
-                openIndex: null,
-                get filteredFaqs() {
-                    if (this.searchQuery.trim() === '') {
-                        return this.faqData[this.activeCategory] || [];
-                    }
-                    let results = [];
-                    let query = this.searchQuery.toLowerCase();
-                    for (const [cat, questions] of Object.entries(this.faqData)) {
-                        questions.forEach((q, idx) => {
-                            if (q.q.toLowerCase().includes(query) || q.a.toLowerCase().includes(query)) {
-                                results.push({ ...q, category: cat, originalCat: cat, originalIdx: idx });
-                            }
-                        });
-                    }
-                    return results;
-                }
-            }" class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start relative">
-                
-                <!-- Left Sidebar: Category Navigation -->
-                <div class="w-full lg:w-1/4 lg:sticky lg:top-32 shrink-0">
-                    <!-- Search Input -->
-                    <div class="relative mb-8">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                        </div>
-                        <input x-model="searchQuery" type="text" placeholder="Search questions..." 
-                               class="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 shadow-sm transition-all text-sm font-body text-slate-900 placeholder-slate-400">
-                    </div>
 
-                    <div class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-4 lg:pb-0 scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0" x-show="searchQuery.trim() === ''">
-                        <template x-for="category in Object.keys(faqData)" :key="category">
-                            <button 
-                                @click="activeCategory = category; openIndex = null; window.scrollTo({top: document.getElementById('faq').offsetTop - 80, behavior: 'smooth'})"
-                                class="text-left px-4 lg:px-5 py-2.5 lg:py-3 rounded-xl text-sm font-medium transition-all whitespace-nowrap lg:whitespace-normal font-body border lg:border-transparent shrink-0"
-                                :class="activeCategory === category 
-                                    ? 'bg-slate-900 text-white shadow-md border-slate-900' 
-                                    : 'text-slate-600 bg-white lg:bg-transparent border-slate-200 hover:bg-slate-50 lg:hover:bg-slate-200/50 hover:text-slate-900'"
-                                x-text="category">
-                            </button>
-                        </template>
+            <!-- Statistics Badge Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0 gap-x-4 max-w-4xl mx-auto mb-16 border-y border-slate-200 py-6 md:py-8">
+                <div class="text-center">
+                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">250+</span>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Knowledge Articles</p>
+                </div>
+                <div class="text-center border-l border-slate-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">35+</span>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Product Features</p>
+                </div>
+                <div class="text-center md:border-l border-slate-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">24/7</span>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Support Coverage</p>
+                </div>
+                <div class="text-center border-l border-slate-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">98%</span>
+                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Questions Answered</p>
+                </div>
+            </div>
+
+            <!-- Most Popular Questions Panel -->
+            <div class="max-w-7xl mx-auto mb-16 p-6 rounded-3xl bg-white border border-slate-200 shadow-sm text-left">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Most Popular Questions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    @foreach(collect($faqs['questions'])->filter(fn($q) => $q['is_popular'])->take(4) as $pQuest)
+                        <button @click="navigateToQuestion('{{ $pQuest['id'] }}')"
+                                class="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-slate-200 hover:shadow-sm text-left group transition-all duration-300 cursor-pointer">
+                            <div>
+                                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded font-mono uppercase tracking-wider">{{ $pQuest['category'] }}</span>
+                                <p class="text-slate-900 font-display font-semibold text-sm sm:text-base mt-2 group-hover:text-indigo-600 transition-colors">{{ $pQuest['q'] }}</p>
+                            </div>
+                            <span class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-200 shrink-0 ml-4 transition-all">
+                                &rarr;
+                            </span>
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Global Search Section -->
+            <div class="max-w-3xl mx-auto mb-16 relative">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                     </div>
-                    <div x-show="searchQuery.trim() !== ''" class="hidden lg:block text-sm text-slate-500 font-body px-2">
-                        <p>Showing search results.</p>
-                        <button @click="searchQuery = ''" class="text-brand-600 font-medium hover:underline mt-2">Clear search</button>
-                    </div>
+                    <input x-model="searchQuery" type="text" placeholder="Search across all categories, subcategories, and answers..." 
+                           class="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 shadow-sm transition-all text-base font-body text-slate-900 placeholder-slate-400">
                 </div>
 
-                <!-- Right Side: FAQ Content Area -->
-                <div class="w-full lg:w-3/4 min-h-[600px]">
+                <!-- Instant Search Dropdown Overlay -->
+                <div x-show="searchQuery.trim().length >= 2" 
+                     x-cloak
+                     class="absolute left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200/80 shadow-2xl z-50 p-2 space-y-1 text-left max-h-96 overflow-y-auto"
+                     @click.away="searchQuery = ''">
                     
-                    <div x-show="searchQuery.trim() === ''" class="mb-8">
-                        <h3 class="text-2xl font-bold text-slate-900 font-display flex items-center gap-3">
-                            <span x-text="activeCategory"></span>
-                            <span class="text-sm font-medium px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="(faqData[activeCategory] || []).length"></span>
-                        </h3>
-                    </div>
-                    
-                    <div x-show="searchQuery.trim() !== ''" class="mb-8" style="display: none;">
-                        <h3 class="text-xl font-medium text-slate-900 font-body">
-                            Search results for "<span class="font-bold text-brand-600" x-text="searchQuery"></span>"
-                            <span class="text-sm font-medium ml-2 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="filteredFaqs.length"></span>
-                        </h3>
+                    <div class="px-3 py-2 border-b border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">Global Search Matches</p>
                     </div>
 
-                    <div class="space-y-4">
-                        <template x-for="(faq, index) in filteredFaqs" :key="searchQuery === '' ? activeCategory + index : faq.originalCat + faq.originalIdx">
-                            <div class="rounded-xl border border-slate-200/80 bg-white overflow-hidden transition-all duration-300 shadow-sm"
-                                 :class="openIndex === index ? 'border-brand-300 shadow-md ring-1 ring-brand-500/10 bg-slate-50' : 'hover:border-slate-300 hover:shadow-sm'">
-                                <button
-                                    @click="openIndex = openIndex === index ? null : index"
-                                    class="w-full flex items-start sm:items-center justify-between px-4 sm:px-5 py-3.5 text-left cursor-pointer focus:outline-none group"
-                                >
-                                    <div class="pr-4">
-                                        <div x-show="searchQuery.trim() !== ''" class="mb-1">
-                                            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600 bg-brand-50 px-2 py-0.5 rounded" x-text="faq.category"></span>
-                                        </div>
-                                        <span class="font-display font-semibold text-slate-900 text-base sm:text-[17px] group-hover:text-brand-600 transition-colors duration-200 leading-tight" 
-                                              :class="openIndex === index ? 'text-brand-600' : ''" x-text="faq.q"></span>
-                                    </div>
-                                    <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
-                                         :class="openIndex === index ? 'bg-brand-100 text-brand-600 rotate-180' : 'bg-slate-50 text-slate-400 group-hover:bg-slate-100'">
-                                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                        </svg>
-                                    </div>
-                                </button>
-                                <div x-show="openIndex === index" x-collapse>
-                                    <div class="px-4 sm:px-5 pb-4 pt-1 text-slate-600 leading-relaxed text-sm sm:text-[15px] font-body">
-                                        <p x-text="faq.a"></p>
-                                    </div>
-                                </div>
+                    <!-- Match list -->
+                    <template x-for="match in searchMatches" :key="match.id">
+                        <button @click="selectSearchResult(match)"
+                                class="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer block border border-transparent hover:border-slate-100 group">
+                            <div class="flex items-center justify-between">
+                                <span class="font-display font-semibold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors" x-text="match.q"></span>
+                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-indigo-500 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                                </svg>
                             </div>
-                        </template>
+                            <div class="flex items-center gap-1.5 mt-1.5">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono" x-text="match.category"></span>
+                                <span class="text-slate-300 text-[9px]">&bull;</span>
+                                <span class="text-[9px] font-bold text-slate-500 font-mono" x-text="match.subcategory"></span>
+                            </div>
+                        </button>
+                    </template>
 
-                        <!-- Empty State for Search -->
-                        <div x-show="searchQuery.trim() !== '' && filteredFaqs.length === 0" style="display: none;" class="text-center py-16 bg-white rounded-3xl border border-slate-200 border-dashed">
-                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H13.01" /></svg>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">No questions found</h3>
-                            <p class="text-slate-500 font-body max-w-md mx-auto">We couldn't find any questions matching "<span x-text="searchQuery" class="font-medium text-slate-900"></span>". Try adjusting your search terms.</p>
-                            <button @click="searchQuery = ''" class="mt-6 text-sm font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 px-4 py-2 rounded-full transition-colors">Clear Search</button>
-                        </div>
+                    <!-- Empty state match -->
+                    <div x-show="searchMatches.length === 0" class="py-6 text-center text-slate-400 text-sm font-body">
+                        No matches found. Try general keywords like "location", "pricing", or "SSO".
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Mobile Category Chips (Horizontal Swipe) -->
+            <div class="lg:hidden flex overflow-x-auto gap-2 pb-6 scrollbar-hide -mx-6 px-6 select-none" x-show="searchQuery.trim() === ''">
+                @foreach($faqs['categories'] as $catName => $catMeta)
+                    <button @click="activeCategory = '{{ $catName }}'; activeSubcategory = 'All'; currentPage = 1; expandedIds = []"
+                            class="px-4 py-2.5 rounded-xl border text-xs font-semibold tracking-tight whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-2"
+                            :class="activeCategory === '{{ $catName }}'
+                                ? 'bg-slate-900 text-white border-slate-900 shadow-md scale-[1.02]'
+                                : 'bg-white text-slate-600 border-slate-200/80 hover:bg-slate-50'">
+                        {!! $getSvg($catMeta['icon']) !!}
+                        <span>{{ $catName }}</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-mono leading-none"
+                              :class="activeCategory === '{{ $catName }}' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'">
+                            {{ count(collect($faqs['questions'])->filter(fn($q) => $q['category'] === $catName)) }}
+                        </span>
+                    </button>
+                @endforeach
+            </div>
+
+            <!-- Core Explorer Grid Layout -->
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start relative">
+                
+                <!-- Left Sidebar (Desktop Categories list) -->
+                <div class="hidden lg:flex w-full lg:w-1/3 flex-col gap-3 sticky top-32 shrink-0 select-none" x-show="searchQuery.trim() === ''">
+                    <div class="px-2 pb-2">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Browse Categories</h4>
+                    </div>
+
+                    @foreach($faqs['categories'] as $catName => $catMeta)
+                        <button @click="activeCategory = '{{ $catName }}'; activeSubcategory = 'All'; currentPage = 1; expandedIds = []"
+                                class="text-left p-4 rounded-2xl border transition-all duration-300 cursor-pointer group flex items-start gap-4"
+                                :class="activeCategory === '{{ $catName }}'
+                                    ? 'bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-900/10 scale-[1.01]'
+                                    : 'bg-white border-slate-200/60 text-slate-700 hover:border-slate-300 hover:bg-slate-50/50 hover:shadow-sm'">
+                            
+                            <!-- Icon wrapper -->
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-colors duration-300"
+                                 :class="activeCategory === '{{ $catName }}' 
+                                     ? 'bg-white/10 border-white/10 text-indigo-400' 
+                                     : 'bg-slate-50 border-slate-100 text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-100'">
+                                {!! $getSvg($catMeta['icon']) !!}
+                            </div>
+
+                            <!-- Details -->
+                            <div class="flex-grow">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-display font-bold text-sm tracking-tight"
+                                          :class="activeCategory === '{{ $catName }}' ? 'text-white' : 'text-slate-950 group-hover:text-indigo-600'">
+                                        {{ $catName }}
+                                    </span>
+                                    <!-- count badge -->
+                                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono leading-none"
+                                          :class="activeCategory === '{{ $catName }}' ? 'bg-white/25 text-white' : 'bg-slate-100 text-slate-500'">
+                                        {{ count(collect($faqs['questions'])->filter(fn($q) => $q['category'] === $catName)) }}
+                                    </span>
+                                </div>
+                                <p class="text-[11px] leading-relaxed mt-1 font-body"
+                                   :class="activeCategory === '{{ $catName }}' ? 'text-slate-400' : 'text-slate-500'">
+                                    {{ $catMeta['description'] }}
+                                </p>
+                            </div>
+                        </button>
+                    @endforeach
+                </div>
+
+                <!-- Right Side: Question Explorer Area -->
+                <div class="w-full lg:w-2/3 min-h-[600px] flex flex-col justify-between space-y-6">
+                    
+                    <!-- Search Mode Header -->
+                    <div x-show="searchQuery.trim() !== ''" class="mb-4 text-left">
+                        <h3 class="text-xl font-bold text-slate-950 font-display">
+                            Search Results for "<span class="text-indigo-600" x-text="searchQuery"></span>"
+                            <span class="text-xs font-semibold ml-2 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="filteredQuestions.length"></span>
+                        </h3>
+                    </div>
+
+                    <!-- Category Mode Filters Bar -->
+                    <div x-show="searchQuery.trim() === ''" class="space-y-4 text-left">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                            <h3 class="text-xl font-bold text-slate-950 font-display flex items-center gap-2">
+                                <span x-text="activeCategory"></span>
+                                <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-600" x-text="filteredQuestions.length"></span>
+                            </h3>
+                        </div>
+
+                        <!-- Subcategory Horizontal Chips Scrollable -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-hide select-none">
+                            <template x-for="subcat in allSubcategories" :key="subcat">
+                                <button @click="activeSubcategory = subcat; currentPage = 1"
+                                        class="px-3.5 py-1.5 rounded-lg border text-xs font-semibold tracking-tight whitespace-nowrap transition-colors duration-200 cursor-pointer"
+                                        :class="activeSubcategory === subcat
+                                            ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm'
+                                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'">
+                                    <span x-text="subcat"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Controls / Sort Bar -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 bg-slate-100/60 p-2.5 rounded-xl border border-slate-200/50">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono"
+                              x-text="'Showing ' + (filteredQuestions.length ? ((currentPage-1)*itemsPerPage + 1) : 0) + '–' + Math.min(currentPage * itemsPerPage, filteredQuestions.length) + ' of ' + filteredQuestions.length + ' questions'">
+                        </span>
+                        
+                        <div class="flex flex-wrap items-center justify-center gap-3">
+                            <!-- Sort -->
+                            <select x-model="sortMethod" 
+                                    class="text-[11px] font-semibold bg-white border border-slate-200 rounded-lg px-2 py-1 text-slate-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-body">
+                                <option value="popular">Sort: Popularity</option>
+                                <option value="alphabetical">Sort: Alphabetical</option>
+                                <option value="updated">Sort: Recently Updated</option>
+                            </select>
+
+                            <!-- Accordion Toggles -->
+                            <div class="flex items-center gap-1">
+                                <button @click="expandAll()" class="text-[10px] font-bold text-slate-500 hover:text-slate-900 border border-slate-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Expand All</button>
+                                <button @click="collapseAll()" class="text-[10px] font-bold text-slate-500 hover:text-slate-900 border border-slate-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Collapse All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Questions Accordion Loop Grid -->
+                    <div class="space-y-4 text-left">
+                        <template x-for="faq in paginatedQuestions" :key="faq.id">
+                            <div :id="'faq-' + faq.id"
+                                 class="rounded-2xl border bg-white overflow-hidden transition-all duration-300 shadow-sm"
+                                 :class="isExpanded(faq.id) ? 'border-indigo-500 ring-1 ring-indigo-500/10 shadow-md bg-slate-50/50' : 'border-slate-200/80 hover:border-slate-300 hover:shadow-sm'">
+                                
+                                <button @click="toggleQuestion(faq.id)"
+                                        class="w-full flex items-start sm:items-center justify-between px-5 py-4 text-left cursor-pointer focus:outline-none group">
+                                    <div class="pr-4 space-y-1.5">
+                                        <!-- badges row -->
+                                        <div class="flex items-center gap-2">
+                                            <template x-if="faq.label">
+                                                <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded font-mono"
+                                                      :class="faq.label === 'Popular' 
+                                                          ? 'bg-amber-100 text-amber-800 border border-amber-200/50' 
+                                                          : 'bg-emerald-100 text-emerald-800 border border-emerald-200/50'"
+                                                      x-text="faq.label"></span>
+                                            </template>
+                                            <template x-if="searchQuery.trim() !== ''">
+                                                <span class="text-[8px] font-black text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded font-mono uppercase tracking-widest"
+                                                      x-text="faq.category + ' > ' + faq.subcategory"></span>
+                                            </template>
+                                        </div>
+                                        <span class="font-display font-bold text-slate-900 text-base sm:text-lg group-hover:text-indigo-600 transition-colors duration-200 leading-tight block"
+                                              :class="isExpanded(faq.id) ? 'text-indigo-600' : ''" 
+                                              x-text="faq.q"></span>
+                                    </div>
+
+                                    <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300"
+                                         :class="isExpanded(faq.id) 
+                                             ? 'bg-indigo-100 border-indigo-200 text-indigo-600 rotate-180 shadow-inner' 
+                                             : 'bg-slate-50 border-slate-100 text-slate-400 group-hover:bg-slate-100'">
+                                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </div>
+                                </button>
+
+                                <!-- Collapsible content -->
+                                <div x-show="isExpanded(faq.id)" x-collapse>
+                                    <div class="px-5 pb-5 pt-1 text-slate-600 leading-relaxed text-sm sm:text-base font-body border-t border-slate-200/40">
+                                        <div class="space-y-4" x-html="faq.a"></div>
+                                        
+                                        <!-- Last Updated timestamp -->
+                                        <div class="text-[10px] text-slate-400 font-mono mt-4 flex items-center gap-1.5 select-none">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span x-text="faq.updated_at"></span>
+                                        </div>
+
+                                        <!-- Related Questions panel -->
+                                        <template x-if="faq.related_questions && faq.related_questions.length > 0">
+                                            <div class="mt-6 pt-4 border-t border-slate-200 select-none">
+                                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono block mb-2.5">Related Questions</span>
+                                                <div class="flex flex-wrap gap-2">
+                                                    <template x-for="reqId in faq.related_questions">
+                                                        <button @click="navigateToQuestion(reqId)" 
+                                                                class="flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/50 px-3 py-1.5 rounded-lg transition-colors cursor-pointer select-none">
+                                                            <span class="max-w-[200px] sm:max-w-xs truncate inline-block" x-text="faqData.questions.find(q => q.id === reqId)?.q"></span> <span>&rarr;</span>
+                                                        </button>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </template>
+
+                        <!-- Empty state questions -->
+                        <div x-show="filteredQuestions.length === 0" 
+                             class="text-center py-16 bg-white rounded-3xl border border-slate-200 border-dashed">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H13.01" /></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">No matches found</h3>
+                            <p class="text-slate-500 font-body max-w-md mx-auto">We couldn't find any questions matching your query. Try searching for other tags, or check other categories.</p>
+                            <button @click="searchQuery = ''; activeSubcategory = 'All'; currentPage = 1" class="mt-6 text-sm font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-4 py-2 rounded-full transition-colors cursor-pointer">Reset Explorer</button>
+                        </div>
+                    </div>
+
+                    <!-- Pagination Navigation footer block -->
+                    <div x-show="totalPages > 1" 
+                         class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200 select-none">
+                        <!-- Left indicator -->
+                        <span class="text-xs text-slate-500 font-body"
+                              x-text="'Page ' + currentPage + ' of ' + totalPages"></span>
+                        
+                        <!-- Nav buttons -->
+                        <div class="flex items-center gap-1">
+                            <!-- Prev -->
+                            <button @click="currentPage = Math.max(currentPage - 1, 1)"
+                                    class="w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                                    :disabled="currentPage === 1">
+                                &larr;
+                            </button>
+                            <!-- Pages Desktop -->
+                            <div class="hidden sm:flex items-center gap-1">
+                                <template x-for="pIdx in totalPages" :key="pIdx">
+                                    <button @click="currentPage = pIdx"
+                                            class="w-10 h-10 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer border"
+                                            :class="currentPage === pIdx
+                                                ? 'bg-slate-900 text-white border-slate-900 shadow-md scale-105'
+                                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'"
+                                            x-text="pIdx">
+                                    </button>
+                                </template>
+                            </div>
+                            
+                            <!-- Page Mobile Status -->
+                            <div class="flex sm:hidden items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white text-xs font-bold font-mono text-slate-600"
+                                 x-text="currentPage + ' / ' + totalPages">
+                            </div>
+
+                            <!-- Next -->
+                            <button @click="currentPage = Math.min(currentPage + 1, totalPages)"
+                                    class="w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                                    :disabled="currentPage === totalPages">
+                                &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     </section>
 
