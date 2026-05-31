@@ -1,7 +1,7 @@
-﻿<div class="relative rounded-xl border {{ $highlighted ? 'border-brand-500 bg-surface-card shadow-xl shadow-brand-500/10' : 'border-surface-border bg-surface-card' }} p-8 flex flex-col {{ $class }}">
+<div class="relative rounded-xl border {{ $highlighted ? 'border-brand-500 bg-surface-card shadow-xl shadow-brand-500/10' : 'border-surface-border bg-surface-card' }} p-8 flex flex-col {{ $class }}">
     @if($badge)
         <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500 text-content-strong">{{ $badge }}</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500 text-content-strong whitespace-nowrap">{{ $badge }}</span>
         </div>
     @endif
 

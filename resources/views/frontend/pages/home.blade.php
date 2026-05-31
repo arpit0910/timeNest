@@ -2206,362 +2206,360 @@
     {{-- Section 6: Stats Strip --}}
     <x-frontend-sections.stats-strip :stats="$stats" />
 
-    {{-- Section 7: AI-Powered ROI Calculator --}}
-    <section class="py-20 lg:py-32 bg-slate-50 overflow-hidden relative" 
+    {{-- Section 7: AI Workforce Assessment --}}
+    <section class="py-20 lg:py-32 bg-slate-50 overflow-hidden relative border-y border-slate-200" id="ai-assessment"
              x-data="{ 
+                 step: 'input', // 'input', 'analyzing', 'report'
+                 
                  // Inputs
                  employees: 150, 
                  hrSize: 3, 
                  avgSalary: 60000, 
-                 manualHrsPerWeek: 12,
                  approvalsPerMonth: 500,
                  attendanceProcessingHrs: 24,
 
-                 isProcessing: false,
+                 // Analysis State
+                 analysisSteps: [
+                     'Reviewing workforce size...',
+                     'Evaluating HR workload...',
+                     'Calculating approval bottlenecks...',
+                     'Analyzing attendance inefficiencies...',
+                     'Estimating payroll overhead...',
+                     'Building optimization model...',
+                     'Generating business report...'
+                 ],
+                 currentStepIndex: -1,
+                 analysisMessages: [],
                  
-                 triggerProcess() {
-                     // Clamp values
-                     this.employees = Math.min(100000, Math.max(0, this.employees || 0));
-                     this.hrSize = Math.min(100000, Math.max(0, this.hrSize || 0));
-                     this.avgSalary = Math.min(10000000, Math.max(0, this.avgSalary || 0));
-                     this.approvalsPerMonth = Math.min(1000000, Math.max(0, this.approvalsPerMonth || 0));
-                     this.attendanceProcessingHrs = Math.min(1000000, Math.max(0, this.attendanceProcessingHrs || 0));
-                     this.manualHrsPerWeek = Math.min(1000000, Math.max(0, this.manualHrsPerWeek || 0));
-
-                     if(!this.isProcessing) {
-                         this.isProcessing = true;
-                         setTimeout(() => this.isProcessing = false, 400); // SPed up for snappier feel
+                 applyPreset(preset) {
+                     if (preset === 'Startup') {
+                         this.employees = 15; this.hrSize = 1; this.approvalsPerMonth = 50; this.attendanceProcessingHrs = 4;
+                     } else if (preset === 'SME') {
+                         this.employees = 80; this.hrSize = 2; this.approvalsPerMonth = 300; this.attendanceProcessingHrs = 16;
+                     } else if (preset === 'Growing Company') {
+                         this.employees = 250; this.hrSize = 5; this.approvalsPerMonth = 800; this.attendanceProcessingHrs = 40;
+                     } else if (preset === 'Enterprise') {
+                         this.employees = 1500; this.hrSize = 25; this.approvalsPerMonth = 5000; this.attendanceProcessingHrs = 120;
                      }
                  },
 
-                 // Dynamic Max Bounds (Scalable but capped)
-                 get maxEmployees() { return Math.min(100000, Math.max(1000, this.employees)); },
-                 get maxHrSize() { return Math.min(100000, Math.max(20, this.hrSize)); },
-                 get maxSalary() { return Math.min(10000000, Math.max(200000, this.avgSalary)); },
-                 get maxApprovals() { return Math.min(1000000, Math.max(5000, this.approvalsPerMonth)); },
-                 get maxAttendanceHrs() { return Math.min(1000000, Math.max(100, this.attendanceProcessingHrs)); },
-                 get maxManualHrs() { return Math.min(1000000, Math.max(40, this.manualHrsPerWeek)); },
+                 async analyze() {
+                     // Basic validation
+                     if(this.employees < 1) this.employees = 1;
+                     
+                     this.step = 'analyzing';
+                     this.currentStepIndex = 0;
+                     this.analysisMessages = [];
+                     
+                     // Simulated intelligence messages
+                     const simulatedMessages = [
+                         'Your HR team appears to spend a significant amount of time on repetitive administrative processes.',
+                         'I found excessive manual approval processing relative to your workforce size.',
+                         'Attendance operations consume approximately ' + this.attendanceProcessingHrs + ' hours monthly.',
+                         'Payroll preparation appears highly repetitive.',
+                         'Potential automation opportunities detected.'
+                     ];
+
+                     for (let i = 0; i < this.analysisSteps.length; i++) {
+                         this.currentStepIndex = i;
+                         
+                         // Add a simulated message occasionally
+                         if (i % 2 === 1 && Math.floor(i/2) < simulatedMessages.length) {
+                             this.analysisMessages.push(simulatedMessages[Math.floor(i/2)]);
+                         }
+                         
+                         // Wait 600-900ms per step to feel like it's thinking
+                         await new Promise(r => setTimeout(r, 600 + Math.random() * 300));
+                     }
+                     
+                     this.step = 'report';
+                 },
+
+                 reset() {
+                     this.step = 'input';
+                     this.currentStepIndex = -1;
+                     this.analysisMessages = [];
+                 },
 
                  // Calculations
-                 get attendanceSaved() { return Math.round(this.attendanceProcessingHrs * 0.85); }, // 85% reduction
-                 get approvalSaved() { return Math.round((this.approvalsPerMonth * 5) / 60 * 0.9); }, // 5 mins per approval, 90% automation
-                 get manualSaved() { return Math.round(this.manualHrsPerWeek * 4 * this.hrSize * 0.7); }, // 70% reduction in manual work
-
-                 get totalMonthlyHrsSaved() { return this.attendanceSaved + this.approvalSaved + this.manualSaved + Math.round(this.employees * 0.5); },
+                 get attendanceSaved() { return Math.round(this.attendanceProcessingHrs * 0.85); },
+                 get approvalSaved() { return Math.round((this.approvalsPerMonth * 5) / 60 * 0.9); },
+                 get payrollSaved() { return Math.round(this.employees * 0.15); }, // estimate
+                 get totalMonthlyHrsSaved() { return this.attendanceSaved + this.approvalSaved + this.payrollSaved; },
                  get annualCapitalSaved() { return Math.round((this.totalMonthlyHrsSaved * 12 * this.avgSalary) / (22 * 8 * 12)); },
-                 get efficiencyGain() { return Math.min(Math.round(this.totalMonthlyHrsSaved / (this.hrSize * 160) * 100), 100) || 0; },
+                 get efficiencyGain() { return Math.min(Math.round(this.totalMonthlyHrsSaved / (this.hrSize * 160) * 100), 95) || 0; },
                  
-                 // ROI Breakdown (Percentages for progress bars)
-                 get breakAttendance() { return Math.round(this.attendanceSaved / this.totalMonthlyHrsSaved * 100) || 0; },
-                 get breakApprovals() { return Math.round(this.approvalSaved / this.totalMonthlyHrsSaved * 100) || 0; },
-                 get breakManual() { return Math.round(this.manualSaved / this.totalMonthlyHrsSaved * 100) || 0; },
-                 
-                 // Dynamic Storyteller
-                 get dynamicStory() {
-                     if (this.totalMonthlyHrsSaved > 2000) {
-                         return `TimeNest could automate ${Number(this.totalMonthlyHrsSaved).toLocaleString()} hours of operational bottlenecks across your enterprise.`;
-                     } else if (this.annualCapitalSaved > 500000) {
-                         let lakhs = (this.annualCapitalSaved / 100000).toFixed(1);
-                         return `Potential annual savings exceed ₹${lakhs} Lakhs by eliminating manual processing.`;
-                     } else if (this.efficiencyGain > 40) {
-                         return `TimeNest could accelerate your HR workflow efficiency by ${this.efficiencyGain}%.`;
-                     } else {
-                         return `Your team could recover approximately ${Number(this.totalMonthlyHrsSaved).toLocaleString()} hours monthly.`;
-                     }
+                 get executiveSummary() {
+                     return `Based on your workforce size of ${this.employees} employees and an HR structure of ${this.hrSize} professionals, TimeNest AI estimates that your organization could reduce administrative effort by approximately ${this.efficiencyGain}%.`;
                  }
              }">
         
         <!-- Background Ambient Lighting -->
-        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/10 to-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-screen-2xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <!-- Header Group -->
-            <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+            <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6 cursor-default">
                     <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                     </span>
-                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">Business Value Assessment</span>
+                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">AI Workforce Assessment</span>
                 </div>
-                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Calculate your exact ROI</h2>
-                <p class="text-slate-600 text-lg lg:text-xl font-body leading-relaxed">See exactly how much time, effort and operational cost your organization can recover every month by centralizing attendance, approvals, timelogs, workflows and AI operations.</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Discover hidden operational costs in under 60 seconds.</h2>
+                <p class="text-slate-600 text-lg font-body leading-relaxed max-w-2xl mx-auto">TimeNest AI analyzes workforce operations, attendance workflows, approval bottlenecks, payroll effort, and administrative overhead to estimate your potential savings.</p>
             </div>
             
-            <div class="rounded-[2.5rem] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 p-5 sm:p-8 lg:p-12 relative overflow-hidden min-h-[600px]">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start relative z-10">
-                    
-                    <!-- LEFT SIDE: HYBRID INPUTS -->
-                    <div class="space-y-8 pr-0 lg:pr-4">
-                        
-                        <!-- Organization Metrics -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+                
+                <!-- LEFT SIDE: INPUTS & PRESETS -->
+                <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm h-max sticky top-32">
+                    <div class="mb-8">
+                        <h3 class="font-display text-lg font-bold text-slate-900 mb-4">Quick Presets</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button @click="applyPreset('Startup')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">Startup</button>
+                            <button @click="applyPreset('SME')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">SME</button>
+                            <button @click="applyPreset('Growing Company')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">Growing Company</button>
+                            <button @click="applyPreset('Enterprise')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-indigo-100 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors">Enterprise</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Employee Size -->
                         <div>
-                            <h3 class="font-display text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-3">Organization Metrics</h3>
-                            <div class="space-y-7">
-                                <!-- Input: Workforce Size -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Workforce Size</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Number of active employees across your entire organization.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Total active employees</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 to-indigo-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((employees) / (maxEmployees) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxEmployees" x-model.number="employees" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <input type="number" min="0" max="100000" x-model.number="employees" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-brand-50 text-brand-700 border border-brand-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 text-center appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-2">How many employees do you have?</label>
+                            <input type="number" x-model.number="employees" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 150">
+                        </div>
+                        
+                        <!-- HR Size -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-2">How many people manage HR operations?</label>
+                            <input type="number" x-model.number="hrSize" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 3">
+                        </div>
 
-                                <!-- Input: HR Team Size -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>HR & Ops Team</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Number of staff members dedicated to HR, ops, or management.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Managers, admins, HR personnel</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((hrSize) / (maxHrSize) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxHrSize" x-model.number="hrSize" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <input type="number" min="0" max="100000" x-model.number="hrSize" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Input: Avg Salary -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Avg Monthly Salary</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Average monthly salary per employee to calculate capital recovered.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Average salary in INR</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-500 to-emerald-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((avgSalary) / (maxSalary) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxSalary" step="1000" x-model.number="avgSalary" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 font-bold font-mono text-sm">₹</span>
-                                            <input type="number" min="0" max="10000000" x-model.number="avgSalary" @input="triggerProcess()" class="w-28 pl-7 pr-3 py-1.5 bg-teal-50 text-teal-700 border border-teal-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 text-right appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Avg Salary -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-2">Average Monthly Salary (₹)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-lg">₹</span>
+                                <input type="number" x-model.number="avgSalary" min="1" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="60000">
                             </div>
                         </div>
 
-                        <!-- Operational Bottlenecks -->
-                        <div class="pt-4">
-                            <h3 class="font-display text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-3">Operational Bottlenecks</h3>
-                            <div class="space-y-7">
-                                <!-- Input: Approvals -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>Approvals / Month</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Average number of leave, shift, and expenses approvals requested monthly.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Leave requests, expenses, shifts</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 to-orange-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((approvalsPerMonth) / (maxApprovals) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxApprovals" x-model.number="approvalsPerMonth" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <input type="number" min="0" max="1000000" x-model.number="approvalsPerMonth" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-center appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Approvals -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-2">Manual Approvals / Month</label>
+                            <input type="number" x-model.number="approvalsPerMonth" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 500">
+                        </div>
 
-                                <!-- Input: Attendance Processing -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>Attendance Processing</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Hours spent reconciling attendance, shifts, and anomalies monthly.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Hours spent per month</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-cyan-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((attendanceProcessingHrs) / (maxAttendanceHrs) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxAttendanceHrs" x-model.number="attendanceProcessingHrs" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <input type="number" min="0" max="1000000" x-model.number="attendanceProcessingHrs" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-center appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Input: Manual Workflow -->
-                                <div>
-                                    <div class="flex flex-col mb-3">
-                                        <div class="flex items-center gap-2">
-                                            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>Manual HR Work</label>
-                                            <div class="group relative cursor-help">
-                                                <svg class="w-3.5 h-3.5 text-slate-400 hover:text-slate-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center font-body">Hours spent weekly on spreadsheets, reporting, and manual data entry.</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-0.5">Hours spent per week</p>
-                                    </div>
-                                    <div class="flex items-center gap-5">
-                                        <div class="relative flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner group">
-                                            <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-rose-400 to-pink-500 pointer-events-none transition-all duration-75" :style="'width: ' + Math.min(100, ((manualHrsPerWeek) / (maxManualHrs) * 100)) + '%'"></div>
-                                            <input type="range" min="0" :max="maxManualHrs" x-model.number="manualHrsPerWeek" @input="triggerProcess()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                        </div>
-                                        <div class="shrink-0 relative">
-                                            <input type="number" min="0" max="1000000" x-model.number="manualHrsPerWeek" @input="triggerProcess()" class="w-24 px-3 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-lg font-bold font-mono text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500 text-center appearance-none">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Attendance Hours -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-2">Attendance Processing Hours / Month</label>
+                            <input type="number" x-model.number="attendanceProcessingHrs" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 24">
                         </div>
                     </div>
+
+                    <button @click="analyze()" :disabled="step === 'analyzing'"
+                            class="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-slate-900/10">
+                        <svg x-show="step !== 'analyzing'" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <svg x-show="step === 'analyzing'" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        <span x-text="step === 'analyzing' ? 'AI is analyzing...' : (step === 'report' ? 'Recalculate Data' : 'Analyze My Organization')"></span>
+                    </button>
+                </div>
+                
+                <!-- RIGHT SIDE: AI WORKSPACE & REPORT -->
+                <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden min-h-[700px] flex flex-col relative">
                     
-                    <!-- RIGHT SIDE: IMPACT DASHBOARD -->
-                    <div class="relative rounded-3xl lg:rounded-[2rem] bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group flex flex-col justify-between h-full min-h-[500px]">
-                        
-                        <!-- Glowing Orbs -->
-                        <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full transition-all duration-1000 blur-[80px]" 
-                             :class="isProcessing ? 'bg-emerald-500/20 scale-125' : 'bg-brand-500/20 scale-100'"></div>
-                        <div class="absolute -left-32 -bottom-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-[80px]"></div>
-                        
-                        <div class="relative z-10 p-6 sm:p-8 flex flex-col gap-6">
-                            
-                            <!-- Header & Live Story -->
-                            <div class="flex flex-col border-b border-slate-800 pb-5 transition-all duration-300" :class="isProcessing ? 'opacity-50' : 'opacity-100'">
-                                <span class="text-[10px] uppercase tracking-widest font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded w-max mb-3 border border-emerald-500/20">Live ROI Projection</span>
-                                <p class="text-slate-300 text-sm sm:text-base font-body font-medium leading-relaxed" x-text="dynamicStory"></p>
+                    <!-- TOP BAR: AI IDENTIFIER -->
+                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 backdrop-blur-sm sticky top-0 z-20">
+                        <div class="flex items-center gap-3">
+                            <div class="relative w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center border border-indigo-200">
+                                <svg class="w-4 h-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                                <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5" x-show="step === 'analyzing'">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border-2 border-white"></span>
+                                </span>
                             </div>
-                            
-                            <!-- Main 3 Big Metrics -->
-                            <div class="flex flex-col gap-4">
-                                
-                                <!-- Annual Savings (Stacked Card) -->
-                                <div class="bg-slate-800/40 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-700/50 shadow-inner transition-all duration-500 relative overflow-hidden" 
-                                     :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent pointer-events-none opacity-50"></div>
-                                    <p class="text-emerald-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-2 relative z-10">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                        Annual Capital Recovered
-                                    </p>
-                                    <p class="font-display text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 tracking-tight relative z-10" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></p>
-                                </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900 leading-tight">TimeNest AI Analyst</h4>
+                                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-mono" x-text="step === 'analyzing' ? 'Processing...' : (step === 'report' ? 'Report Generated' : 'Ready')"></p>
+                            </div>
+                        </div>
+                        <div x-show="step === 'report'" x-cloak>
+                            <button @click="reset()" class="text-xs font-bold text-slate-500 hover:text-slate-900 underline underline-offset-2">Reset Session</button>
+                        </div>
+                    </div>
 
-                                <!-- Time & Efficiency (Stacked Row) -->
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="bg-slate-800/20 rounded-2xl p-5 border border-slate-700/30 transition-all duration-500 delay-75" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
-                                        <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                            Time Saved
-                                        </p>
-                                        <p class="font-display text-3xl font-bold text-white tracking-tight" x-text="Number(totalMonthlyHrsSaved).toLocaleString() + ' hrs'"></p>
-                                    </div>
-                                    
-                                    <div class="bg-slate-800/20 rounded-2xl p-5 border border-slate-700/30 transition-all duration-500 delay-100" :class="isProcessing ? 'opacity-30 blur-[4px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'">
-                                        <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase tracking-widest flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                                            Efficiency
-                                        </p>
-                                        <p class="font-display text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-brand-300 tracking-tight" x-text="'+' + efficiencyGain + '%'"></p>
-                                    </div>
-                                </div>
+                    <div class="flex-grow p-6 sm:p-8 relative overflow-y-auto" style="scroll-behavior: smooth;" x-ref="reportContainer">
+                        
+                        <!-- STATE 1: INITIAL/EMPTY -->
+                        <div x-show="step === 'input'" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-slate-50/50">
+                            <div class="w-20 h-20 rounded-full bg-indigo-50 flex items-center justify-center mb-6">
+                                <svg class="w-10 h-10 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                             </div>
+                            <h3 class="text-xl font-bold font-display text-slate-900 mb-2">Awaiting Organizational Data</h3>
+                            <p class="text-slate-500 text-sm max-w-sm font-body">Provide your company details and click analyze. TimeNest AI will process your operational bottlenecks and generate a customized efficiency report.</p>
+                        </div>
+
+                        <!-- STATE 2: ANALYZING (CONVERSATION/STEPS) -->
+                        <div x-show="step === 'analyzing'" x-cloak class="flex flex-col space-y-6 pb-20">
                             
-                            <!-- Granular Breakdown List (Mini Contribution Bars) -->
-                            <div class="bg-black/20 rounded-2xl p-5 border border-white/5 transition-all duration-500 delay-150 mt-auto" :class="isProcessing ? 'opacity-30 blur-[4px]' : 'opacity-100 blur-0'">
-                                <h4 class="text-[11px] uppercase tracking-widest font-bold text-white mb-4">Savings Breakdown</h4>
-                                <div class="space-y-3">
-                                    <!-- Attendance Item -->
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span class="text-slate-400 font-medium font-body">Attendance Automation</span>
-                                            <span class="text-white font-mono text-[10px]" x-text="Number(attendanceSaved).toLocaleString() + ' hrs'"></span>
+                            <!-- Analysis Progress Steps -->
+                            <div class="space-y-3">
+                                <template x-for="(task, index) in analysisSteps" :key="index">
+                                    <div class="flex items-center gap-3 transition-opacity duration-500" :class="index <= currentStepIndex ? 'opacity-100' : 'opacity-0 hidden'">
+                                        <div class="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                                             :class="index < currentStepIndex ? 'bg-emerald-100 text-emerald-600' : (index === currentStepIndex ? 'bg-indigo-100 text-indigo-600' : '')">
+                                            <!-- Completed Check -->
+                                            <svg x-show="index < currentStepIndex" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                            <!-- Spinner -->
+                                            <svg x-show="index === currentStepIndex" class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                                         </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-blue-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakAttendance + '%'"></div></div>
-                                            <span class="text-blue-400 font-bold text-xs w-8 text-right" x-text="breakAttendance + '%'"></span>
+                                        <span class="text-sm font-semibold font-mono"
+                                              :class="index < currentStepIndex ? 'text-slate-700' : 'text-indigo-600 animate-pulse'" x-text="task"></span>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Simulated Messages Stream -->
+                            <div class="pt-6 border-t border-slate-100 space-y-4" x-effect="$refs.reportContainer.scrollTop = $refs.reportContainer.scrollHeight">
+                                <template x-for="(msg, idx) in analysisMessages" :key="idx">
+                                    <div class="flex gap-4 animate-hero-fade-up">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
+                                            <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                        </div>
+                                        <div class="bg-indigo-50 text-indigo-900 text-sm font-medium font-body p-4 rounded-2xl rounded-tl-sm shadow-sm leading-relaxed max-w-[85%]">
+                                            <span x-text="msg"></span>
                                         </div>
                                     </div>
-                                    <!-- Approvals Item -->
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span class="text-slate-400 font-medium font-body">Approvals Processing</span>
-                                            <span class="text-white font-mono text-[10px]" x-text="Number(approvalSaved).toLocaleString() + ' hrs'"></span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-amber-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakApprovals + '%'"></div></div>
-                                            <span class="text-amber-400 font-bold text-xs w-8 text-right" x-text="breakApprovals + '%'"></span>
-                                        </div>
-                                    </div>
-                                    <!-- Manual Workflow Item -->
-                                    <div>
-                                        <div class="flex justify-between text-xs mb-1">
-                                            <span class="text-slate-400 font-medium font-body">Manual HR Workflows</span>
-                                            <span class="text-white font-mono text-[10px]" x-text="Number(manualSaved).toLocaleString() + ' hrs'"></span>
-                                        </div>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden"><div class="bg-rose-500 h-full rounded-full transition-all duration-500" :style="'width: ' + breakManual + '%'"></div></div>
-                                            <span class="text-rose-400 font-bold text-xs w-8 text-right" x-text="breakManual + '%'"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                </template>
                             </div>
                         </div>
 
-                        <!-- Processing State Overlay -->
-                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/60 backdrop-blur-md transition-all duration-300"
-                             :class="isProcessing ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'">
-                             <div class="flex flex-col items-center gap-4">
-                                <div class="relative flex items-center justify-center w-12 h-12">
-                                    <span class="absolute inset-0 rounded-full border-2 border-emerald-500/20"></span>
-                                    <span class="absolute inset-0 rounded-full border-2 border-t-emerald-400 border-r-transparent border-b-transparent border-l-transparent animate-spin"></span>
+                        <!-- STATE 3: REPORT -->
+                        <div x-show="step === 'report'" x-cloak class="space-y-10 animate-hero-fade-up pb-10" x-effect="if (step === 'report') $refs.reportContainer.scrollTop = 0">
+                            
+                            <!-- Section: Executive Summary -->
+                            <div>
+                                <h3 class="text-2xl font-bold font-display text-slate-900 mb-4 tracking-tight">Business Impact Report</h3>
+                                <div class="bg-indigo-900 rounded-2xl p-6 relative overflow-hidden shadow-lg">
+                                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/30 rounded-full blur-3xl"></div>
+                                    <p class="text-indigo-50 text-base sm:text-lg leading-relaxed relative z-10 font-body" x-text="executiveSummary"></p>
                                 </div>
-                                <span class="text-[10px] font-mono text-emerald-300 font-bold uppercase tracking-widest animate-pulse">Recalculating...</span>
-                             </div>
+                            </div>
+
+                            <!-- Section: Visual AI Insights (Big Metrics) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                    <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Cost Recovery</span>
+                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></span>
+                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Est. Annual</span>
+                                </div>
+                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                    <span class="text-[10px] uppercase font-bold tracking-widest text-indigo-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Time Recovered</span>
+                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="Number(totalMonthlyHrsSaved).toLocaleString()"></span>
+                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Hours / Month</span>
+                                </div>
+                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                    <span class="text-[10px] uppercase font-bold tracking-widest text-brand-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> Efficiency Gain</span>
+                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="'+' + efficiencyGain + '%'"></span>
+                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Ops Capacity</span>
+                                </div>
+                            </div>
+
+                            <!-- Section: Scenario Comparison -->
+                            <div>
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Operations Comparison</h4>
+                                <div class="border border-slate-200 rounded-2xl overflow-x-auto shadow-sm">
+                                    <table class="w-full text-left text-sm font-body min-w-[500px]">
+                                        <thead class="bg-slate-50 border-b border-slate-200">
+                                            <tr>
+                                                <th class="py-3 px-4 font-semibold text-slate-600 text-xs sm:text-sm">Metric</th>
+                                                <th class="py-3 px-4 font-semibold text-slate-600 text-xs sm:text-sm">Current</th>
+                                                <th class="py-3 px-4 font-bold text-indigo-600 bg-indigo-50/50 text-xs sm:text-sm">With TimeNest</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100">
+                                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-slate-900">Attendance Processing</td>
+                                                <td class="py-3 px-4 text-slate-600" x-text="attendanceProcessingHrs + ' hrs'"></td>
+                                                <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30" x-text="(attendanceProcessingHrs - attendanceSaved) + ' hrs'"></td>
+                                            </tr>
+                                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-slate-900">Approval Routing</td>
+                                                <td class="py-3 px-4 text-slate-600">Manual Chains</td>
+                                                <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30">Automated</td>
+                                            </tr>
+                                            <tr class="hover:bg-slate-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-slate-900">Payroll Preparation</td>
+                                                <td class="py-3 px-4 text-slate-600">Spreadsheets</td>
+                                                <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30">One-Click Sync</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Section: Key Findings / Savings Breakdown -->
+                            <div>
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Key Finding Highlights</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="border border-slate-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-slate-300 transition-colors">
+                                        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-bold text-slate-900 text-sm">Attendance Automation</h5>
+                                            <p class="text-xs text-slate-500 mt-1 font-body">High manual effort detected. Automation can save <span x-text="attendanceSaved"></span> hours monthly.</p>
+                                        </div>
+                                    </div>
+                                    <div class="border border-slate-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-slate-300 transition-colors">
+                                        <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center shrink-0 border border-amber-100">
+                                            <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-bold text-slate-900 text-sm">Approval Bottlenecks</h5>
+                                            <p class="text-xs text-slate-500 mt-1 font-body">Routing delays identified. Streamlining can recover <span x-text="approvalSaved"></span> hours monthly.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section: Recommendations -->
+                            <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 shadow-sm">
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-indigo-900 font-mono mb-4">Recommended Actions</h4>
+                                <ul class="space-y-4 font-body">
+                                    <li class="flex items-start gap-3">
+                                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 1</span>
+                                        <span class="text-sm font-medium text-slate-800">Centralize approval workflows across managers to eliminate routing bottlenecks.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="bg-indigo-400 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 2</span>
+                                        <span class="text-sm font-medium text-slate-800">Automate biometric and geofenced attendance tracking to recover <span class="font-bold" x-text="attendanceSaved"></span> hours.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="bg-indigo-300 text-indigo-900 text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 3</span>
+                                        <span class="text-sm font-medium text-slate-800">Enable one-click payroll sync to reduce manual calculations and entry errors.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Export / Next Steps -->
+                            <div class="flex flex-col sm:flex-row items-center gap-4 pt-6 border-t border-slate-200">
+                                <a href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition-colors text-center shadow-md shadow-indigo-600/20">Book a Consultation</a>
+                                <button onclick="alert('PDF generation and Email Export features will be integrated with the backend services.')" class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-sm transition-colors flex items-center justify-center gap-2 bg-white shadow-sm">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                    Download Full Report
+                                </button>
+                            </div>
+                            
                         </div>
+
                     </div>
                 </div>
-            </div>           </div>
             </div>
             
-            <!-- Social Proof Strip -->
-            <div class="mt-8 text-center bg-white border border-slate-200 rounded-2xl py-4 px-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 mx-auto w-full md:w-max">
-                <div class="flex -space-x-3">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=33" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=47" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=12" alt="Avatar">
-                </div>
-                <p class="text-sm md:text-base text-slate-600 font-medium font-body">Organizations using TimeNest save an average of <span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">12–18 hours</span> per employee monthly.</p>
-            </div>
         </div>
     </section>
 

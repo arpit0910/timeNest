@@ -1,4 +1,4 @@
-﻿<x-frontend-layout.app metaTitle="Pricing â€” TimeNest" metaDescription="Simple pricing for freelancers and organizations. Start free, upgrade when you need more power.">
+<x-frontend-layout.app metaTitle="Pricing â€” TimeNest" metaDescription="Simple pricing for freelancers and organizations. Start free, upgrade when you need more power.">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <x-frontend-sections.section-header title="Simple, transparent pricing" subtitle="Start free as a freelancer. Scale to Pro or Organization when you're ready." badge="Pricing" />
@@ -12,8 +12,8 @@
             {{-- Feature Comparison --}}
             <div class="mt-20 max-w-5xl mx-auto">
                 <h3 class="font-display text-2xl font-bold text-content-strong text-center mb-8">Feature Comparison</h3>
-                <div class="rounded-xl border border-surface-border overflow-hidden">
-                    <table class="w-full text-sm">
+                <div class="rounded-xl border border-surface-border overflow-x-auto shadow-sm">
+                    <table class="w-full text-sm min-w-[600px]">
                         <thead><tr class="bg-surface-card"><th class="text-left p-4 text-content-muted font-body">Feature</th><th class="p-4 text-content-muted font-body">Free</th><th class="p-4 text-brand-400 font-body">Pro</th><th class="p-4 text-content-muted font-body">Organization</th></tr></thead>
                         <tbody>
                             @foreach([
