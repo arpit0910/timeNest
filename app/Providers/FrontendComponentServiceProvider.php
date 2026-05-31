@@ -46,18 +46,29 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-sections-stats-strip' => \App\View\Components\Frontend\Sections\StatsStrip::class,
             'frontend-sections-ticker' => \App\View\Components\Frontend\Sections\Ticker::class,
             
+            // New Customer Stories Components
+            'frontend-sections-testimonial-section' => \App\View\Components\Frontend\Sections\TestimonialSection::class,
+            'frontend-sections-company-logo-strip' => \App\View\Components\Frontend\Sections\CompanyLogoStrip::class,
+            'frontend-sections-featured-story' => \App\View\Components\Frontend\Sections\FeaturedStory::class,
+            'frontend-sections-video-testimonials' => \App\View\Components\Frontend\Sections\VideoTestimonials::class,
+            'frontend-sections-video-card' => \App\View\Components\Frontend\Sections\VideoCard::class,
+            'frontend-sections-customer-filters' => \App\View\Components\Frontend\Sections\CustomerFilters::class,
+            'frontend-sections-stats-section' => \App\View\Components\Frontend\Sections\StatsSection::class,
+            'frontend-sections-case-study-carousel' => \App\View\Components\Frontend\Sections\CaseStudyCarousel::class,
+            'frontend-sections-testimonial-wall' => \App\View\Components\Frontend\Sections\TestimonialWall::class,
+            
             // Also register dot notation versions since I modified some files!
             'frontend-base.badge' => \App\View\Components\Frontend\Base\Badge::class,
             'frontend-base.button' => \App\View\Components\Frontend\Base\Button::class,
             'frontend-base.divider' => \App\View\Components\Frontend\Base\Divider::class,
             'frontend-base.link' => \App\View\Components\Frontend\Base\Link::class,
             'frontend-base.pill' => \App\View\Components\Frontend\Base\Pill::class,
-
+ 
             'frontend-cards.card' => \App\View\Components\Frontend\Cards\Card::class,
             'frontend-cards.feature-card' => \App\View\Components\Frontend\Cards\FeatureCard::class,
             'frontend-cards.pricing-card' => \App\View\Components\Frontend\Cards\PricingCard::class,
             'frontend-cards.testimonial-card' => \App\View\Components\Frontend\Cards\TestimonialCard::class,
-
+ 
             'frontend-sections.cta-block' => \App\View\Components\Frontend\Sections\CtaBlock::class,
             'frontend-sections.faq-block' => \App\View\Components\Frontend\Sections\FaqBlock::class,
             'frontend-sections.feature-grid' => \App\View\Components\Frontend\Sections\FeatureGrid::class,
@@ -69,6 +80,17 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-sections.section-header' => \App\View\Components\Frontend\Sections\SectionHeader::class,
             'frontend-sections.stats-strip' => \App\View\Components\Frontend\Sections\StatsStrip::class,
             'frontend-sections.ticker' => \App\View\Components\Frontend\Sections\Ticker::class,
+            
+            // New Customer Stories dot notations
+            'frontend-sections.testimonial-section' => \App\View\Components\Frontend\Sections\TestimonialSection::class,
+            'frontend-sections.company-logo-strip' => \App\View\Components\Frontend\Sections\CompanyLogoStrip::class,
+            'frontend-sections.featured-story' => \App\View\Components\Frontend\Sections\FeaturedStory::class,
+            'frontend-sections.video-testimonials' => \App\View\Components\Frontend\Sections\VideoTestimonials::class,
+            'frontend-sections.video-card' => \App\View\Components\Frontend\Sections\VideoCard::class,
+            'frontend-sections.customer-filters' => \App\View\Components\Frontend\Sections\CustomerFilters::class,
+            'frontend-sections.stats-section' => \App\View\Components\Frontend\Sections\StatsSection::class,
+            'frontend-sections.case-study-carousel' => \App\View\Components\Frontend\Sections\CaseStudyCarousel::class,
+            'frontend-sections.testimonial-wall' => \App\View\Components\Frontend\Sections\TestimonialWall::class,
         ];
 
         foreach ($components as $alias => $class) {

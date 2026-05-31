@@ -2565,80 +2565,8 @@
         </div>
     </section>
 
-    {{-- Section 8: Testimonials --}}
-    <section class="py-16 sm:py-24 lg:py-32 bg-slate-50 relative overflow-hidden">
-        <!-- Background Accents -->
-        <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-brand-100/50 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <x-frontend-sections.section-header title="Loved by forward-thinking teams" subtitle="See how organizations are transforming their workforce management with TimeNest." badge="Customer Stories" />
-            
-            <div class="grid md:grid-cols-3 gap-6 mt-16 items-start">
-                <!-- Video Testimonial (Featured) -->
-                <div class="md:col-span-2 group relative rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-800 isolate">
-                    <!-- Placeholder Image for Video -->
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Video Testimonial" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent"></div>
-                    
-                    <div class="relative p-8 sm:p-12 h-full flex flex-col justify-end min-h-[400px]">
-                        <!-- Play Button -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                        
-                        <blockquote class="text-xl sm:text-2xl font-display font-medium text-white mb-6 leading-relaxed max-w-2xl">
-                            "TimeNest didn't just replace our HR tools. It completely changed how our entire operations function. We save over 40 hours a week on manual attendance and approvals alone."
-                        </blockquote>
-                        <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Sarah Jenkins" class="w-12 h-12 rounded-full border-2 border-white/20 object-cover">
-                            <div>
-                                <h4 class="font-bold text-white text-lg">Sarah Jenkins</h4>
-                                <p class="text-slate-300 text-sm">VP of Operations, TechNova</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text Testimonials Stack -->
-                <div class="flex flex-col gap-6">
-                    <!-- Text Testimonial 1 -->
-                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/40 border border-slate-200/60 hover:-translate-y-1 transition-transform duration-300">
-                        <div class="flex gap-1 mb-4">
-                            @for($i=0; $i<5; $i++)
-                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            @endfor
-                        </div>
-                        <p class="text-slate-700 font-body mb-6">"As a freelance designer, tracking hours across 10 clients was a nightmare. TimeNest makes it effortless and the invoicing is magical."</p>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="David Lee" class="w-10 h-10 rounded-full object-cover">
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-sm">David Lee</h4>
-                                <p class="text-slate-500 text-xs">Independent Contractor</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Text Testimonial 2 -->
-                    <div class="bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/40 border border-slate-200/60 hover:-translate-y-1 transition-transform duration-300">
-                        <div class="flex gap-1 mb-4">
-                            @for($i=0; $i<5; $i++)
-                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            @endfor
-                        </div>
-                        <p class="text-slate-700 font-body mb-6">"Scaling from 20 to 150 employees broke our processes. TimeNest grew with us perfectly."</p>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Elena Rodriguez" class="w-10 h-10 rounded-full object-cover">
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Elena Rodriguez</h4>
-                                <p class="text-slate-500 text-xs">Head of HR, Nexus</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{-- Section 8: Customer Stories Ecosystem (Premium SaaS Level) --}}
+    <x-frontend-sections.testimonial-section :stories="$customerStories" />
 
     {{-- Section 9: Security & Compliance --}}
     <section class="py-10 sm:py-12 lg:py-14 bg-surface-50 border-y border-surface-border">

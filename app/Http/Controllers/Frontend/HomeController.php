@@ -22,6 +22,8 @@ class HomeController extends Controller
             ['name' => 'Rahul Kapoor', 'role' => 'HR Head', 'company' => 'CloudSync India', 'content' => 'The AI fraud detection caught attendance anomalies we never would have found manually. Worth every penny.', 'rating' => 5],
         ];
 
-        return view('frontend.pages.home', compact('stats', 'faqs', 'testimonials'));
+        $customerStories = config('customer_stories', []);
+
+        return view('frontend.pages.home', compact('stats', 'faqs', 'testimonials', 'customerStories'));
     }
 }
