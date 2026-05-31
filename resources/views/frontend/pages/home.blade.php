@@ -2781,76 +2781,213 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Light Themed Trust & Support Panel -->
-            <div class="mt-20 lg:mt-24 max-w-5xl mx-auto bg-white rounded-[2rem] p-8 sm:p-10 lg:p-12 relative overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200">
-                <!-- Subtle Gradient Accent -->
-                <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-brand-50 rounded-full blur-[60px] pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-50 rounded-full blur-[60px] pointer-events-none"></div>
-                
-                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
-                    <div class="text-center lg:text-left flex-1 max-w-2xl mx-auto lg:mx-0">
-                        <div class="inline-flex items-center justify-center px-3 py-1 mb-5 rounded-full bg-brand-50 border border-brand-100">
-                            <span class="flex w-2 h-2 rounded-full bg-brand-500 mr-2"></span>
-                            <span class="text-[11px] font-bold uppercase tracking-widest text-brand-700">TimeNest Solutions Architecture</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-4 tracking-tight">Design the perfect workflow for your team.</h3>
-                        <p class="text-slate-600 font-body text-base sm:text-lg mb-8">Stop guessing how to map your attendance rules, approval chains, and contractor invoices. Our product architects will design a tailored deployment plan specifically for your organization's operational needs.</p>
-                        
-                        <!-- Trust Row -->
-                        <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-8 pt-6 border-t border-slate-100">
-                            <div class="text-center lg:text-left">
-                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Average Response</p>
-                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">&lt; 2 Hours</p>
-                            </div>
-                            <div class="hidden sm:block w-px h-8 bg-slate-200"></div>
-                            <div class="text-center lg:text-left">
-                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Implementation</p>
-                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">Guided Support</p>
-                            </div>
-                            <div class="hidden sm:block w-px h-8 bg-slate-200"></div>
-                            <div class="text-center lg:text-left">
-                                <p class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Enterprise</p>
-                                <p class="text-slate-900 font-semibold font-body text-sm sm:text-base">Dedicated CSM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-3 w-full sm:w-auto shrink-0 min-w-[240px]">
-                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center !text-slate-700">
-                            Explore Documentation
-                        </x-frontend-base.button>
-                        <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="primary" color="brand" size="lg" class="w-full shadow-md justify-center">
-                            Schedule Demo
-                        </x-frontend-base.button>
-                        <x-frontend-base.button href="#" variant="outline" color="slate" size="lg" class="w-full bg-white hover:bg-slate-50 justify-center !text-slate-700">
-                            Contact Team
-                        </x-frontend-base.button>
-                    </div>
-                </div>
-            </div>
-
+            
         </div>
     </section>
 
-    {{-- Section 11: Final CTA --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-brand-900 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-600 to-indigo-600 opacity-90"></div>
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA0MmwxMC0xMGw0IDQgMTItMTJWMTJIMTB2MTZMMjIgMTZsMTAgMTB6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')]"></div>
+    {{-- Section 11: Enterprise CTA (Workforce Operating System) --}}
+    <section class="bg-black relative overflow-hidden py-16 sm:py-20 lg:py-24 border-y border-slate-900">
         
-        <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
-            <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-6">Stop stitching tools together.</h2>
-            <p class="text-xl text-white/80 mb-10 max-w-2xl mx-auto">Join thousands of teams running their entire workforce, operations, and freelancers on a single, intelligent platform.</p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <x-frontend-base.button href="/register" variant="primary" color="white" size="lg" class="w-full sm:w-auto h-14 px-8 text-brand-700 bg-white hover:bg-surface-50 shadow-xl">
-                    Start for Free
-                </x-frontend-base.button>
-                <x-frontend-base.button href="{{ route('frontend.book-demo') }}" variant="outline" color="white" size="lg" class="w-full sm:w-auto h-14 px-8 text-white border-white/30 hover:bg-white/10">
-                    Book a Demo
-                </x-frontend-base.button>
+        {{-- Concentric Gold Rings in Background --}}
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] w-auto opacity-10 pointer-events-none hidden lg:block">
+            <svg class="h-full w-auto" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="400" cy="200" r="80" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="130" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="180" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="230" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="280" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="330" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+                <circle cx="400" cy="200" r="380" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 4"/>
+            </svg>
+        </div>
+
+        {{-- Golden Radial Glow on the Right --}}
+        <div class="absolute right-0 top-0 w-[400px] h-full bg-gradient-to-l from-amber-500/10 via-transparent to-transparent pointer-events-none blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+                
+                <!-- Left: Headline and Paragraph -->
+                <div class="lg:col-span-7 text-left">
+                    {{-- Ready Badge --}}
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
+                        <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-amber-500 font-body">READY TO TRANSFORM YOUR OPERATIONS?</span>
+                    </div>
+
+                    {{-- Headline --}}
+                    <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white mb-6 leading-tight">
+                        See TimeNest in action.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">Tailored for your team.</span>
+                    </h2>
+
+                    {{-- Description --}}
+                    <p class="text-slate-400 text-sm sm:text-base max-w-xl leading-relaxed font-body">
+                        Book a personalized demo and discover how TimeNest can streamline your workforce operations, boost productivity, and drive growth.
+                    </p>
+                </div>
+
+                <!-- Right: CTAs and Trust Items -->
+                <div class="lg:col-span-5 flex flex-col items-stretch lg:items-start w-full">
+                    {{-- Action Buttons --}}
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full justify-start">
+                        <a href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-amber-500/10 shrink-0 group">
+                            <svg class="w-4 h-4 shrink-0 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Book a Personalized Demo</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                        <a href="{{ route('frontend.contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl border border-amber-500/30 hover:border-amber-400 text-slate-200 hover:text-white font-semibold text-sm transition-all bg-transparent hover:bg-white/5 shrink-0 group">
+                            <svg class="w-4 h-4 shrink-0 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M2 12a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm18 0a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H20a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H21a1 1 0 01-1-1v-5z"/>
+                            </svg>
+                            <span>Talk to Solutions Team</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    {{-- Trust Grid --}}
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 items-center border-t border-slate-900/80 pt-8 mt-8 w-full">
+                        <!-- Indicator 1: Enterprise Security -->
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            <div class="flex flex-col text-left">
+                                <span class="text-xs font-semibold text-white leading-tight font-display">Enterprise</span>
+                                <span class="text-[10px] text-slate-400 font-body">Security</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Indicator 2: Dedicated Onboarding -->
+                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <div class="flex flex-col text-left">
+                                <span class="text-xs font-semibold text-white leading-tight font-display">Dedicated</span>
+                                <span class="text-[10px] text-slate-400 font-body">Onboarding</span>
+                            </div>
+                        </div>
+
+                        <!-- Indicator 3: Expert Support -->
+                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M2 12a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm18 0a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H20a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H21a1 1 0 01-1-1v-5z"/>
+                            </svg>
+                            <div class="flex flex-col text-left">
+                                <span class="text-xs font-semibold text-white leading-tight font-display">Expert</span>
+                                <span class="text-[10px] text-slate-400 font-body">Support</span>
+                            </div>
+                        </div>
+
+                        <!-- Indicator 4: Global Scale -->
+                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                            <div class="flex flex-col text-left">
+                                <span class="text-xs font-semibold text-white leading-tight font-display">Global</span>
+                                <span class="text-[10px] text-slate-400 font-body">Scale</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Star Line --}}
+                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 mt-6 pt-4 border-t border-slate-900/40">
+                        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                        <span>Trusted by 1000+ teams across 20+ countries</span>
+                    </div>
+                </div>
             </div>
-            <p class="text-white/60 text-sm mt-6">No credit card required. 14-day free trial on Pro plans.</p>
+        </div>
+    </section>
+
+    {{-- Section 12: Light-Themed Trust & Support Panel --}}
+    <section class="py-20 md:py-28 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Light Themed Trust & Support Panel -->
+            <div class="bg-gradient-to-br from-white to-slate-50 border border-slate-200/60 rounded-3xl p-8 lg:p-12 shadow-xl shadow-slate-200/20 relative overflow-hidden group">
+                <!-- Grid background -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
+                
+                <!-- Ambient blur glows -->
+                <div class="absolute -top-40 -left-40 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none transition-all duration-1000 group-hover:bg-indigo-500/10"></div>
+                <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none transition-all duration-1000 group-hover:bg-amber-500/10"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+                    <!-- Left: Text content -->
+                    <div class="lg:col-span-8 text-left">
+                        <p class="text-slate-600 text-lg sm:text-xl font-body leading-relaxed max-w-3xl">
+                            Stop guessing how to map your attendance rules, approval chains, and contractor invoices. Our product architects will design a <span class="font-semibold text-slate-900 underline decoration-indigo-500/40 decoration-2 underline-offset-4">tailored deployment plan</span> specifically for your organization's operational needs.
+                        </p>
+                    </div>
+
+                    <!-- Right: Stack of Buttons -->
+                    <div class="lg:col-span-4 flex flex-col gap-3 w-full sm:max-w-xs lg:max-w-none lg:ml-auto">
+                        <a href="{{ route('frontend.faqs.index') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
+                            Explore Documentation
+                        </a>
+                        <a href="{{ route('frontend.book-demo') }}" class="flex items-center justify-center h-12 px-6 rounded-xl bg-slate-950 text-white font-semibold text-sm hover:bg-black transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] duration-200">
+                            Schedule Demo
+                        </a>
+                        <a href="{{ route('frontend.contact') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
+                            Contact Team
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bottom: Divider & 3 Stats columns -->
+                <div class="border-t border-slate-200/80 mt-10 pt-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 items-center justify-between text-left">
+                        <!-- Stat 1 -->
+                        <div class="md:pr-8 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">AVERAGE RESPONSE</span>
+                                <span class="text-lg font-bold text-slate-900 font-display">&lt; 2 Hours</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Stat 2 -->
+                        <div class="md:px-8 md:border-l md:border-slate-200 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">IMPLEMENTATION</span>
+                                <span class="text-lg font-bold text-slate-900 font-display">Guided Support</span>
+                            </div>
+                        </div>
+
+                        <!-- Stat 3 -->
+                        <div class="md:pl-8 md:border-l md:border-slate-200 flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">ENTERPRISE</span>
+                                <span class="text-lg font-bold text-slate-900 font-display">Dedicated CSM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </x-frontend-layout.app>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark bg-black">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,10 +46,10 @@
         <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","{{ config('analytics.clarity') }}");</script>
     @endif
 </head>
-<body class="bg-surface text-content-strong font-body antialiased">
+<body class="bg-black text-content-strong font-body antialiased min-h-screen flex flex-col">
     <x-frontend-layout.header />
 
-    <main>
+    <main class="flex-grow bg-surface">
         {{ $slot }}
     </main>
 

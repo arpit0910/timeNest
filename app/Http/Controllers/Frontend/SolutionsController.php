@@ -8,7 +8,10 @@ class SolutionsController extends Controller
 {
     public function show(string $slug)
     {
-        $validSlugs = ['workforce-management', 'operations-management', 'financial-operations', 'freelancer-management', 'ai-operations'];
+        $validSlugs = [
+            'workforce-management', 'operations-management', 'financial-operations', 'freelancer-management', 'ai-operations',
+            'startups', 'smbs', 'enterprise', 'remote-teams', 'contract-workforce'
+        ];
         if (!in_array($slug, $validSlugs)) abort(404);
         return view('frontend.pages.solutions.show', compact('slug'));
     }
