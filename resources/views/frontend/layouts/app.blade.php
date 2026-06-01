@@ -28,8 +28,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    {{-- Vite Assets --}}
-    @vite(['resources/css/frontend.css', 'resources/js/frontend.js'])
+    {{-- Frontend Assets (production-safe: no npm required on server) --}}
+    @if (app()->environment('local') && file_exists(public_path('hot')))
+        @vite(['resources/css/frontend.css', 'resources/js/frontend.js'])
+    @else
+        <link rel="stylesheet" href="{{ asset('assets/frontend.css') }}">
+        <script type="module" src="{{ asset('assets/frontend.js') }}"></script>
+    @endif
 
     {{-- Schema.org --}}
     @if(isset($schemaMarkup))
