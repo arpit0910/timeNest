@@ -72,5 +72,5 @@ Route::prefix('')->name('frontend.')->group(function () {
 
     // Search
     Route::get('/search', [SearchController::class, 'index'])->name('search');
-    Route::get('/api/search', [SearchController::class, 'search'])->name('api.search');
+    Route::get('/search/suggest', [SearchController::class, 'search'])->name('search.suggest');
 });

@@ -37,7 +37,7 @@ Alpine.store('search', {
         this.debounceTimer = setTimeout(async () => {
             this.loading = true;
             try {
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const response = await fetch(`/search/suggest?q=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 this.results = data.results || [];
             } catch (e) {
