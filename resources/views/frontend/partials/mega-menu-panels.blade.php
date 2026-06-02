@@ -2,6 +2,7 @@
 @php
     $linkClass = "group flex items-center justify-between p-3 rounded-xl bg-transparent hover:bg-surface-50 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-transparent hover:border-surface-border transition-all duration-300";
     $arrowSvg = '<svg class="w-4 h-4 text-content-light group-hover:text-brand-500 group-hover:translate-x-1.5 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>';
+    $upcomingLinkClass = "group flex items-center justify-between p-3 rounded-xl bg-transparent hover:bg-surface-50/50 border border-transparent cursor-default transition-all duration-300 opacity-80";
 @endphp
 
 {{-- 1. PRODUCTS MENU --}}
@@ -24,26 +25,26 @@
             </a>
             
             {{-- Freelancers --}}
-            <a href="{{ route('frontend.product.freelancers') }}" class="group block p-4 rounded-xl border border-transparent hover:border-accent-500/20 hover:bg-accent-50/50 hover:shadow-lg hover:shadow-accent-500/5 transition-all duration-300 relative overflow-hidden">
+            <a href="javascript:void(0)" aria-disabled="true" class="group block p-4 rounded-xl border border-transparent hover:border-accent-500/10 hover:bg-accent-50/30 transition-all duration-300 relative overflow-hidden cursor-default">
                 <div class="flex items-start gap-4">
                     <div class="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-accent-500 group-hover:scale-110 group-hover:shadow-md">
                         <svg class="w-6 h-6 text-accent-600 transition-colors duration-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     </div>
                     <div>
-                        <h3 class="font-display font-bold text-content-strong mb-1 group-hover:text-accent-600 flex items-center gap-2 transition-colors">For Freelancers {!! $arrowSvg !!}</h3>
+                        <h3 class="font-display font-bold text-content-strong mb-1 flex items-center gap-2 transition-colors">For Freelancers<x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge></h3>
                         <p class="text-content-muted text-xs leading-relaxed">Manage clients, invoices, tasks, and revenue.</p>
                     </div>
                 </div>
             </a>
             
             {{-- Workspace --}}
-            <a href="{{ route('frontend.product.workspace') }}" class="group block p-4 rounded-xl border border-transparent hover:border-amber-500/20 hover:bg-amber-50/50 hover:shadow-lg hover:shadow-amber-500/5 transition-all duration-300 relative overflow-hidden">
+            <a href="javascript:void(0)" aria-disabled="true" class="group block p-4 rounded-xl border border-transparent hover:border-amber-500/10 hover:bg-amber-50/30 transition-all duration-300 relative overflow-hidden cursor-default">
                 <div class="flex items-start gap-4">
                     <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-amber-500 group-hover:scale-110 group-hover:shadow-md">
                         <svg class="w-6 h-6 text-amber-600 transition-colors duration-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
                     <div>
-                        <h3 class="font-display font-bold text-content-strong mb-1 group-hover:text-amber-600 flex items-center gap-2 transition-colors">Freelance Workspace {!! $arrowSvg !!}</h3>
+                        <h3 class="font-display font-bold text-content-strong mb-1 flex items-center gap-2 transition-colors">Freelance Workspace<x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge></h3>
                         <p class="text-content-muted text-xs leading-relaxed">Collaborative workspace for modern freelance teams.</p>
                     </div>
                 </div>
@@ -76,17 +77,26 @@
             <h4 class="text-xs font-semibold text-content-muted tracking-wider uppercase mb-4 px-3">Operations</h4>
             <ul class="space-y-1">
                 @foreach([
-                    'departments' => 'Departments', 
-                    'teams' => 'Teams', 
-                    'roles-permissions' => 'Roles & Perms', 
-                    'audit-logs' => 'Audit Logs', 
-                    'workforce-analytics' => 'Analytics'
-                ] as $slug => $item)
+                    ['slug' => 'departments', 'title' => 'Departments', 'status' => 'available'], 
+                    ['slug' => 'teams', 'title' => 'Teams', 'status' => 'available'], 
+                    ['slug' => 'roles-permissions', 'title' => 'Roles & Perms', 'status' => 'available'], 
+                    ['slug' => 'audit-logs', 'title' => 'Audit Logs', 'status' => 'available'], 
+                    ['slug' => 'workforce-analytics', 'title' => 'Analytics', 'status' => 'upcoming']
+                ] as $item)
                     <li>
-                        <a href="{{ route('frontend.feature.show', ['category' => 'operations', 'slug' => $slug]) }}" class="{!! $linkClass !!}">
-                            <span class="text-sm font-medium text-content group-hover:text-brand-600 transition-colors">{{ $item }}</span>
-                            {!! $arrowSvg !!}
-                        </a>
+                        @if($item['status'] === 'upcoming')
+                            <a href="javascript:void(0)" aria-disabled="true" class="{!! $upcomingLinkClass !!}">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-content-light">{{ $item['title'] }}</span>
+                                    <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('frontend.feature.show', ['category' => 'operations', 'slug' => $item['slug']]) }}" class="{!! $linkClass !!}">
+                                <span class="text-sm font-medium text-content group-hover:text-brand-600 transition-colors">{{ $item['title'] }}</span>
+                                {!! $arrowSvg !!}
+                            </a>
+                        @endif
                     </li>
                 @endforeach
             </ul>
@@ -96,8 +106,8 @@
             <ul class="space-y-1">
                 @foreach(['Workflows', 'Approvals', 'Payroll Sync', 'ATS', 'Performance'] as $item)
                     <li>
-                        <a href="#" class="{!! $linkClass !!}">
-                            <span class="text-sm font-medium text-content-light group-hover:text-content transition-colors">{{ $item }}</span>
+                        <a href="javascript:void(0)" aria-disabled="true" class="{!! $upcomingLinkClass !!}">
+                            <span class="text-sm font-medium text-content-light">{{ $item }}</span>
                         </a>
                     </li>
                 @endforeach
@@ -149,19 +159,21 @@
     {{-- Right Links Grid --}}
     <div class="w-2/3 pl-10 grid grid-cols-2 gap-x-6 gap-y-2 content-start">
         @foreach([
-            ['slug' => 'workforce-management', 'title' => 'Workforce Mgmt', 'desc' => 'Employees, attendance, leaves, shifts', 'hoverDesc' => 'Optimize employee scheduling, track attendance, and manage leaves in a single, unified database.', 'hoverImg' => '/images/mega-menu/workforce.png', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
-            ['slug' => 'operations-management', 'title' => 'Operations Mgmt', 'desc' => 'Departments, teams, workflows', 'hoverDesc' => 'Structure your organization into departments and teams, and orchestrate smooth operational workflows.', 'hoverImg' => '/images/mega-menu/operations.png', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
-            ['slug' => 'financial-operations', 'title' => 'Financial Ops', 'desc' => 'Invoices, payments, revenue', 'hoverDesc' => 'Streamline client billing, automate invoice follow-ups, and track your cashflow in real-time.', 'hoverImg' => '/images/mega-menu/finance.png', 'icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
-            ['slug' => 'freelancer-management', 'title' => 'Freelancer Mgmt', 'desc' => 'Clients, leads, projects, tasks', 'hoverDesc' => 'Help your freelance contractors track projects, manage client leads, and invoice work seamlessly.', 'hoverImg' => '/images/mega-menu/freelancer.png', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
-            ['slug' => 'ai-operations', 'title' => 'AI Operations', 'desc' => 'Intelligence for workflows', 'hoverDesc' => 'Embed intelligence directly into your daily processes to identify anomalies, predict bottlenecks, and automate routines.', 'hoverImg' => '/images/mega-menu/ai-ops.png', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z'],
-            ['slug' => '#', 'title' => 'Global Compliance', 'desc' => 'GDPR, SOC2, policies', 'hoverDesc' => 'Enforce company-wide policies, ensure audit readiness, and satisfy regional labor compliance regulations.', 'hoverImg' => '/images/mega-menu/compliance.png', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
-            ['slug' => '#', 'title' => 'Enterprise Security', 'desc' => 'Audit logs, role permissions', 'hoverDesc' => 'Secure business access with granular role permissions, strict audit logging, and IP access restrictions.', 'hoverImg' => '/images/mega-menu/security.png', 'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
-            ['slug' => '#', 'title' => 'Remote Teams', 'desc' => 'Async communication, global sync', 'hoverDesc' => 'Bridge timezone gaps with asynchronous project management, global clock sync, and smart collaboration channels.', 'hoverImg' => '/images/mega-menu/remote.png', 'icon' => 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'],
-            ['slug' => '#', 'title' => 'Integrations', 'desc' => 'Connect your tools', 'hoverDesc' => 'Connect TimeNest with your existing stack of communication tools, repositories, and authentication providers.', 'hoverImg' => '/images/mega-menu/integrations.png', 'icon' => 'M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'],
-            ['slug' => '#', 'title' => 'API Access', 'desc' => 'Build on top of TimeNest', 'hoverDesc' => 'Develop custom integrations and build automation scripts on top of the robust TimeNest developer platform.', 'hoverImg' => '/images/mega-menu/api.png', 'icon' => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'],
+            ['slug' => 'workforce-management', 'title' => 'Workforce Mgmt', 'desc' => 'Employees, attendance, leaves, shifts', 'hoverDesc' => 'Optimize employee scheduling, track attendance, and manage leaves in a single, unified database.', 'hoverImg' => '/images/mega-menu/workforce.png', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'status' => 'available'],
+            ['slug' => 'operations-management', 'title' => 'Operations Mgmt', 'desc' => 'Departments, teams, workflows', 'hoverDesc' => 'Structure your organization into departments and teams, and orchestrate smooth operational workflows.', 'hoverImg' => '/images/mega-menu/operations.png', 'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'status' => 'upcoming'],
+            ['slug' => 'financial-operations', 'title' => 'Financial Ops', 'desc' => 'Invoices, payments, revenue', 'hoverDesc' => 'Streamline client billing, automate invoice follow-ups, and track your cashflow in real-time.', 'hoverImg' => '/images/mega-menu/finance.png', 'icon' => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'status' => 'upcoming'],
+            ['slug' => 'freelancer-management', 'title' => 'Freelancer Mgmt', 'desc' => 'Clients, leads, projects, tasks', 'hoverDesc' => 'Help your freelance contractors track projects, manage client leads, and invoice work seamlessly.', 'hoverImg' => '/images/mega-menu/freelancer.png', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'status' => 'upcoming'],
+            ['slug' => 'ai-operations', 'title' => 'AI Operations', 'desc' => 'Intelligence for workflows', 'hoverDesc' => 'Embed intelligence directly into your daily processes to identify anomalies, predict bottlenecks, and automate routines.', 'hoverImg' => '/images/mega-menu/ai-ops.png', 'icon' => 'M13 10V3L4 14h7v7l9-11h-7z', 'status' => 'upcoming'],
+            ['slug' => '#', 'title' => 'Global Compliance', 'desc' => 'GDPR, SOC2, policies', 'hoverDesc' => 'Enforce company-wide policies, ensure audit readiness, and satisfy regional labor compliance regulations.', 'hoverImg' => '/images/mega-menu/compliance.png', 'icon' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'status' => 'upcoming'],
+            ['slug' => '#', 'title' => 'Enterprise Security', 'desc' => 'Audit logs, role permissions', 'hoverDesc' => 'Secure business access with granular role permissions, strict audit logging, and IP access restrictions.', 'hoverImg' => '/images/mega-menu/security.png', 'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'status' => 'upcoming'],
+            ['slug' => '#', 'title' => 'Remote Teams', 'desc' => 'Async communication, global sync', 'hoverDesc' => 'Bridge timezone gaps with asynchronous project management, global clock sync, and smart collaboration channels.', 'hoverImg' => '/images/mega-menu/remote.png', 'icon' => 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9', 'status' => 'upcoming'],
+            ['slug' => '#', 'title' => 'Integrations', 'desc' => 'Connect your tools', 'hoverDesc' => 'Connect TimeNest with your existing stack of communication tools, repositories, and authentication providers.', 'hoverImg' => '/images/mega-menu/integrations.png', 'icon' => 'M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z', 'status' => 'upcoming'],
+            ['slug' => '#', 'title' => 'API Access', 'desc' => 'Build on top of TimeNest', 'hoverDesc' => 'Develop custom integrations and build automation scripts on top of the robust TimeNest developer platform.', 'hoverImg' => '/images/mega-menu/api.png', 'icon' => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', 'status' => 'upcoming'],
         ] as $sol)
-            <a href="{{ $sol['slug'] === '#' ? '#' : route('frontend.solutions.show', $sol['slug']) }}" 
-               class="{!! $linkClass !!}"
+            <a href="{{ $sol['status'] === 'upcoming' ? 'javascript:void(0)' : ($sol['slug'] === '#' ? '#' : route('frontend.solutions.show', $sol['slug'])) }}" 
+               aria-disabled="{{ $sol['status'] === 'upcoming' ? 'true' : 'false' }}"
+               class="{!! $sol['status'] === 'upcoming' ? $upcomingLinkClass : $linkClass !!}"
+               @if($sol['status'] !== 'upcoming')
                @mouseenter="hoveredItem = { 
                    title: '{{ $sol['title'] }}', 
                    desc: '{{ $sol['hoverDesc'] }}', 
@@ -169,6 +181,7 @@
                    link: '{{ $sol['slug'] === '#' ? '#' : route('frontend.solutions.show', $sol['slug']) }}' 
                }"
                @mouseleave="hoveredItem = null"
+               @endif
             >
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-surface-border group-hover:border-brand-500/50 group-hover:text-brand-500 group-hover:shadow-sm transition-all duration-300 overflow-hidden">
@@ -258,11 +271,11 @@
                         @endswitch
                     </div>
                     <div>
-                        <h3 class="font-display font-bold text-content-strong text-sm mb-0.5 group-hover:text-brand-600 transition-colors">{{ $sol['title'] }}</h3>
+                        <h3 class="font-display font-bold text-content-strong text-sm mb-0.5 group-hover:text-brand-600 transition-colors flex items-center gap-2">{{ $sol['title'] }} @if($sol['status'] === 'upcoming') <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge> @endif</h3>
                         <p class="text-content-muted text-xs leading-relaxed line-clamp-1">{{ $sol['desc'] }}</p>
                     </div>
                 </div>
-                {!! $arrowSvg !!}
+                @if($sol['status'] !== 'upcoming') {!! $arrowSvg !!} @endif
             </a>
         @endforeach
     </div>
@@ -284,7 +297,7 @@
         <div class="relative overflow-hidden rounded-2xl border border-surface-border flex-1 flex flex-col min-h-[400px] group shadow-sm hover:shadow-lg transition-all duration-500 bg-white">
             <!-- Top Content Card (thick content box placed at the top with solid white background) -->
             <div class="relative z-20 p-5 bg-white flex flex-col transition-all duration-300">
-                <h3 class="font-display text-base font-bold text-content-strong mb-1" x-text="hoveredItem ? hoveredItem.title : defaultTitle">TimeNest AI</h3>
+                <div class="flex items-center gap-3 mb-1"><h3 class="font-display text-base font-bold text-content-strong" x-text="hoveredItem ? hoveredItem.title : defaultTitle">TimeNest AI</h3><x-frontend-base.badge variant="upcoming">Coming Soon</x-frontend-base.badge></div>
                 <p class="text-content-muted text-[11px] leading-relaxed mb-4 min-h-[48px] line-clamp-3" x-text="hoveredItem ? hoveredItem.desc : defaultDesc">Intelligence built into every module. Automate routine tasks, detect anomalies, and query your business data using natural language.</p>
                 <a :href="hoveredItem ? hoveredItem.link : defaultLink" 
                    class="group relative overflow-hidden inline-flex items-center justify-center gap-2 font-body font-medium rounded-lg transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-1 hover:-translate-y-0.5 hover:scale-[1.015] active:translate-y-0 active:scale-100 shadow-sm w-full py-2.5 text-xs text-white bg-brand-500 hover:bg-white hover:text-brand-500 hover:border-brand-500 border border-transparent"
@@ -324,13 +337,13 @@
             ['finance-assistant', 'AI Finance Assistant', 'Automated expense categorization', 'Scan receipts using optical character recognition to categorize expenses and match them against active budgets.', '/images/mega-menu/ai-finance.png'],
             ['future-agents', 'Future AI Agents', 'Autonomous workflow completion', 'Deploy autonomous AI agents trained to execute multi-step business operations and system workflows.', '/images/mega-menu/ai-agents.png'],
         ] as [$slug, $title, $desc, $hoverDesc, $hoverImg])
-            <a href="{{ route('frontend.feature.show', ['category' => 'ai', 'slug' => $slug]) }}" 
-               class="{!! $linkClass !!}"
+            <a href="javascript:void(0)" aria-disabled="true" 
+               class="{!! $upcomingLinkClass !!}"
                @mouseenter="hoveredItem = { 
                    title: '{{ $title }}', 
                    desc: '{{ $hoverDesc }}', 
                    image: '{{ $hoverImg }}', 
-                   link: '{{ route('frontend.feature.show', ['category' => 'ai', 'slug' => $slug]) }}' 
+                   link: 'javascript:void(0)' 
                }"
                @mouseleave="hoveredItem = null"
             >
@@ -447,12 +460,15 @@
                                 <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         @endswitch
                     </div>
-                    <div>
-                        <h3 class="font-display font-bold text-content-strong text-sm mb-0.5 group-hover:text-brand-600 transition-colors">{{ $title }}</h3>
+                    <div class="flex-1 w-full overflow-hidden">
+                        <div class="flex items-center gap-2 mb-0.5">
+                            <h3 class="font-display font-bold text-content-strong text-sm group-hover:text-brand-600 transition-colors">{{ $title }}</h3>
+                            <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge>
+                        </div>
                         <p class="text-content-muted text-xs leading-relaxed line-clamp-1">{{ $desc }}</p>
                     </div>
                 </div>
-                {!! $arrowSvg !!}
+                @if($sol['status'] !== 'upcoming') {!! $arrowSvg !!} @endif
             </a>
         @endforeach
     </div>
@@ -490,13 +506,17 @@
                     ['Community', 'Join the discussion', '#'], 
                     ['Webinars', 'Live training', '#']
                 ] as [$title, $desc, $routeName])
+                    @php $status = $routeName === '#' ? 'upcoming' : 'available'; @endphp
                     <li>
-                        <a href="{{ $routeName === '#' ? '#' : route($routeName) }}" class="{!! $linkClass !!}">
-                            <div>
-                                <h3 class="font-medium text-sm text-content group-hover:text-brand-600 transition-colors">{{ $title }}</h3>
+                        <a href="{{ $status === 'upcoming' ? 'javascript:void(0)' : route($routeName) }}" aria-disabled="{{ $status === 'upcoming' ? 'true' : 'false' }}" class="{!! $status === 'upcoming' ? $upcomingLinkClass : $linkClass !!}">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-medium text-sm {{ $status === 'upcoming' ? 'text-content-light' : 'text-content group-hover:text-brand-600 transition-colors' }}">{{ $title }}</h3>
+                                    @if($status === 'upcoming') <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge> @endif
+                                </div>
                                 <p class="text-content-muted text-[11px] mt-0.5">{{ $desc }}</p>
                             </div>
-                            {!! $arrowSvg !!}
+                            @if($status !== 'upcoming') {!! $arrowSvg !!} @endif
                         </a>
                     </li>
                 @endforeach
@@ -511,13 +531,17 @@
                     ['Roadmap', 'Future plans', 'frontend.roadmap'], 
                     ['Status', 'System uptime', '#']
                 ] as [$title, $desc, $routeName])
+                    @php $status = $routeName === '#' ? 'upcoming' : 'available'; @endphp
                     <li>
-                        <a href="{{ $routeName === '#' ? '#' : route($routeName) }}" class="{!! $linkClass !!}">
-                            <div>
-                                <h3 class="font-medium text-sm text-content group-hover:text-brand-600 transition-colors">{{ $title }}</h3>
+                        <a href="{{ $status === 'upcoming' ? 'javascript:void(0)' : route($routeName) }}" aria-disabled="{{ $status === 'upcoming' ? 'true' : 'false' }}" class="{!! $status === 'upcoming' ? $upcomingLinkClass : $linkClass !!}">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-medium text-sm {{ $status === 'upcoming' ? 'text-content-light' : 'text-content group-hover:text-brand-600 transition-colors' }}">{{ $title }}</h3>
+                                    @if($status === 'upcoming') <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge> @endif
+                                </div>
                                 <p class="text-content-muted text-[11px] mt-0.5">{{ $desc }}</p>
                             </div>
-                            {!! $arrowSvg !!}
+                            @if($status !== 'upcoming') {!! $arrowSvg !!} @endif
                         </a>
                     </li>
                 @endforeach
@@ -533,13 +557,17 @@
                     ['Partners', 'Partner program', '#'], 
                     ['Security', 'Trust center', 'frontend.security']
                 ] as [$title, $desc, $routeName])
+                    @php $status = $routeName === '#' ? 'upcoming' : 'available'; @endphp
                     <li>
-                        <a href="{{ $routeName === '#' ? '#' : route($routeName) }}" class="{!! $linkClass !!}">
-                            <div>
-                                <h3 class="font-medium text-sm text-content group-hover:text-brand-600 transition-colors">{{ $title }}</h3>
+                        <a href="{{ $status === 'upcoming' ? 'javascript:void(0)' : route($routeName) }}" aria-disabled="{{ $status === 'upcoming' ? 'true' : 'false' }}" class="{!! $status === 'upcoming' ? $upcomingLinkClass : $linkClass !!}">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-medium text-sm {{ $status === 'upcoming' ? 'text-content-light' : 'text-content group-hover:text-brand-600 transition-colors' }}">{{ $title }}</h3>
+                                    @if($status === 'upcoming') <x-frontend-base.badge variant="upcoming">Upcoming</x-frontend-base.badge> @endif
+                                </div>
                                 <p class="text-content-muted text-[11px] mt-0.5">{{ $desc }}</p>
                             </div>
-                            {!! $arrowSvg !!}
+                            @if($status !== 'upcoming') {!! $arrowSvg !!} @endif
                         </a>
                     </li>
                 @endforeach

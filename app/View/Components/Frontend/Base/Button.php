@@ -22,11 +22,16 @@ class Button extends Component
         public string $iconLeft = '',
         public string $iconRight = '',
         public string $class = '',
+        public bool   $fullWidthMobile = false,
     ) {}
 
     public function buttonClasses(): string
     {
-        $base = 'group relative overflow-hidden inline-flex items-center justify-center gap-2 font-body font-medium rounded-lg transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-1 hover:-translate-y-0.5 hover:scale-[1.015] active:translate-y-0 active:scale-100 shadow-sm';
+        $base = 'group relative overflow-hidden inline-flex items-center justify-center gap-2 font-body font-medium rounded-xl transition-all duration-300 ease-out cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:ring-offset-1 hover:-translate-y-0.5 active:scale-[0.98] shadow-sm';
+
+        if ($this->fullWidthMobile) {
+            $base .= ' w-full md:w-auto';
+        }
         $colorClasses = $this->resolveColorClasses($this->color, $this->variant);
         $sizeClasses = $this->resolveSizeClasses($this->size);
         $stateClasses = $this->resolveStateClasses($this->disabled, $this->loading);

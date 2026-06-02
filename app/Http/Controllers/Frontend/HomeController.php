@@ -15,7 +15,7 @@ class HomeController extends Controller
             ['value' => '99', 'suffix' => '.9%', 'label' => 'Compliance Accuracy'],
         ];
 
-        $faqs = config('faqs', []);
+        $faqs = config('faqs.questions', []);
         $testimonials = [
             ['name' => 'Arjun Mehta', 'role' => 'CEO', 'company' => 'TechVista Solutions', 'content' => 'TimeNest transformed how we manage our 200+ employees. The attendance and shift management alone saved us 40 hours per month.', 'rating' => 5],
             ['name' => 'Priya Sharma', 'role' => 'Freelance Designer', 'company' => 'Independent', 'content' => 'Finally a tool that understands freelancers. I manage all my clients, invoices, and projects in one place. And the free tier is genuinely useful.', 'rating' => 5],

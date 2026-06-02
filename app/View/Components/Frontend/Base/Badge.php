@@ -43,6 +43,12 @@ class Badge extends Component
         if ($this->variant === 'pro') {
             $color = 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300 text-amber-950';
         }
+        
+        // Upcoming variant override
+        if ($this->variant === 'upcoming') {
+            $color = 'bg-slate-100 border-slate-200 text-slate-500 shadow-none';
+            $size = 'px-2 py-0.5 text-[10px] uppercase font-bold tracking-widest';
+        }
 
         return trim("$base $size $color {$this->class}");
     }

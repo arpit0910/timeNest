@@ -91,6 +91,18 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-sections.stats-section' => \App\View\Components\Frontend\Sections\StatsSection::class,
             'frontend-sections.case-study-carousel' => \App\View\Components\Frontend\Sections\CaseStudyCarousel::class,
             'frontend-sections.testimonial-wall' => \App\View\Components\Frontend\Sections\TestimonialWall::class,
+
+            // New Homepage Refactor Components
+            'frontend-sections.hero' => \App\View\Components\Frontend\Sections\Hero::class,
+            'frontend-sections.cta' => \App\View\Components\Frontend\Sections\Cta::class,
+            'frontend-sections.testimonials.index' => \App\View\Components\Frontend\Sections\Testimonials\Index::class,
+            'frontend-sections.faq.index' => \App\View\Components\Frontend\Sections\Faq\Index::class,
+            
+            'frontend-widgets.attendance.engine' => \App\View\Components\Frontend\Widgets\Attendance\Engine::class,
+            'frontend-widgets.timelog.productivity' => \App\View\Components\Frontend\Widgets\Timelog\Productivity::class,
+            'frontend-widgets.leave.workflow' => \App\View\Components\Frontend\Widgets\Leave\Workflow::class,
+            
+            'frontend-modals.book-demo' => \App\View\Components\Frontend\Modals\BookDemo::class,
         ];
 
         foreach ($components as $alias => $class) {

@@ -8,9 +8,9 @@ trait HasColor
     {
         $map = [
             'primary' => [
-                'brand'  => 'bg-brand-500 border border-brand-500 text-white shadow-md shadow-brand-500/10 hover:bg-white hover:text-brand-600 hover:border-brand-500 hover:shadow-xl hover:shadow-brand-500/20',
-                'accent' => 'bg-accent-500 border border-accent-500 text-white shadow-md shadow-accent-500/10 hover:bg-white hover:text-accent-600 hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20',
-                'white'  => 'bg-white border border-slate-200 text-content-strong shadow-md hover:bg-brand-500 hover:text-white hover:border-brand-500 hover:shadow-xl',
+                'brand'  => 'bg-slate-900 border border-slate-800 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_1px_2px_rgba(0,0,0,0.1)] hover:bg-slate-800 hover:border-slate-700 transition-all duration-200',
+                'accent' => 'bg-brand-900 border border-brand-800 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_1px_2px_rgba(0,0,0,0.1)] hover:bg-brand-800 hover:border-brand-700 transition-all duration-200',
+                'white'  => 'bg-white border border-slate-200 text-slate-900 shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:bg-slate-50 hover:border-slate-300 transition-all duration-200',
             ],
             'secondary' => [
                 'brand'  => 'bg-brand-500/10 border border-transparent text-brand-600 hover:bg-brand-500 hover:text-white hover:border-brand-500 hover:shadow-md hover:shadow-brand-500/5',
