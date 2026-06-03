@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class AttendancePolicy extends Model
 {
+
+// ***************** Need one important variable too here: office working days (will be input)
     use HasUuid, SoftDeletes;
 
     protected $table = 'attendance_policies';
