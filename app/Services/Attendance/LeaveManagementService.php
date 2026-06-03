@@ -105,6 +105,7 @@ class LeaveManagementService
     {
         return EmployeeLeave::where('user_id', $userId)
             ->where('leave_type', LeaveTypeEnum::ExtraWorkingDay->value)
+            // Need to change the status comparison as can't only allow fully apprved leaves
             ->whereIn('leave_status', [LeaveStatusEnum::Approved->value, LeaveStatusEnum::AutoApproved->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
