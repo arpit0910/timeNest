@@ -778,6 +778,38 @@ html {
 }
 
 
+/* ── Attendance Engine Workflow Animations ── */
+
+/* GPS scanning sweep — moves a highlight bar left-to-right repeatedly */
+@keyframes att-gps-scan {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.att-gps-scan {
+  background: linear-gradient(90deg, #818cf8 0%, #6366f1 40%, #a5b4fc 60%, #818cf8 100%);
+  background-size: 200% 100%;
+  animation: att-gps-scan 1.5s ease-in-out infinite;
+}
+
+/* Geo-fence radius pulse — expanding ring for location verification */
+@keyframes att-radius-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.att-radius-pulse {
+  animation: att-radius-pulse 1.5s ease-out infinite;
+}
+
+/* Timeline active dot — soft breathing pulse */
+@keyframes att-timeline-dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(2.2); opacity: 0; }
+}
+.att-timeline-dot-pulse {
+  animation: att-timeline-dot-pulse 1.5s ease-out infinite;
+}
+
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

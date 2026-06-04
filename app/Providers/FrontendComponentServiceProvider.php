@@ -101,6 +101,8 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-widgets.attendance.engine' => \App\View\Components\Frontend\Widgets\Attendance\Engine::class,
             'frontend-widgets.timelog.productivity' => \App\View\Components\Frontend\Widgets\Timelog\Productivity::class,
             'frontend-widgets.leave.workflow' => \App\View\Components\Frontend\Widgets\Leave\Workflow::class,
+            'frontend-widgets.project.tasks' => \App\View\Components\Frontend\Widgets\Project\Tasks::class,
+            'frontend-sections.product-carousel' => \App\View\Components\Frontend\Sections\ProductCarousel::class,
             
             'frontend-modals.book-demo' => \App\View\Components\Frontend\Modals\BookDemo::class,
         ];
