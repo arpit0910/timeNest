@@ -310,6 +310,7 @@ class AttendanceService
         return DB::transaction(function () use ($request, $resolver, $reason) {
             $request->update([
                 'status' => AttendanceAdjustmentStatusEnum::Rejected->value,
+                //TODO: Need rejected at time too
                 'resolved_by' => $resolver->id,
                 'resolved_at' => now(),
                 'rejection_reason' => $reason,
@@ -328,6 +329,7 @@ class AttendanceService
      */
     private function logActivity(int $corporationId, int $userId, int $actorId, string $action, ?array $old, ?array $new): void
     {
+        // TODO: Fifure out the actual usecase of this, if no usecase then remove this.
         AttendanceActivityLog::create([
             'corporation_id' => $corporationId,
             'user_id' => $userId,
