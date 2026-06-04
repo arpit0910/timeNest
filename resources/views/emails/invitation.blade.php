@@ -109,7 +109,7 @@
             </div>
             <div class="content">
                 <h2>Hello!</h2>
-                <p>You have been invited to join <strong>{{ $invitation->corporation->legal_name }}</strong> on TimeNest as a <strong>{{ $invitation->role->description() ?? $invitation->role->name }}</strong>.</p>
+                <p>You have been invited to join <strong>{{ $invitation->corporation->legal_name }}</strong> on TimeNest as a <strong>{{ $invitation->role->description ?? $invitation->role->name }}</strong>.</p>
                 
                 <div class="highlight-box">
                     <p><strong>Invited by:</strong> {{ $invitation->invitedBy->name }} ({{ $invitation->invitedBy->email }})</p>

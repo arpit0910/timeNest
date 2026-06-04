@@ -24,9 +24,12 @@ use App\Http\Controllers\Frontend\LegalController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\ProductFeatureController;
 use App\Http\Controllers\Frontend\EmailVerificationController;
+use App\Http\Controllers\Frontend\InvitationAcceptController;
 
-// Email Verification (browser click from email)
+// Email link handlers (browser click from emails)
 Route::get('/verify-email', [EmailVerificationController::class, 'verify'])->name('verify-email');
+Route::get('/invitations/accept', [InvitationAcceptController::class, 'show'])->name('invitations.accept.web');
+Route::post('/invitations/accept', [InvitationAcceptController::class, 'accept']);
 
 Route::prefix('')->name('frontend.')->group(function () {
     // Core

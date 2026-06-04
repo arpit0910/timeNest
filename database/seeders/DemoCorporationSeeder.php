@@ -92,8 +92,10 @@ class DemoCorporationSeeder extends Seeder
             ]);
 
             // Create demo users with memberships
+            // Use platform roles (corporation_id = null), scope via team permissions
             $ownerRole = Role::where('name', SystemRole::CorpOwner->value)->whereNull('corporation_id')->first();
             $employeeRole = Role::where('name', SystemRole::Employee->value)->whereNull('corporation_id')->first();
+
             $password = Hash::make('Demo@1234');
 
             // Corporation owner
