@@ -23,6 +23,10 @@ use App\Http\Controllers\Frontend\DemoController;
 use App\Http\Controllers\Frontend\LegalController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\ProductFeatureController;
+use App\Http\Controllers\Frontend\EmailVerificationController;
+
+// Email Verification (browser click from email)
+Route::get('/verify-email', [EmailVerificationController::class, 'verify'])->name('verify-email');
 
 Route::prefix('')->name('frontend.')->group(function () {
     // Core
