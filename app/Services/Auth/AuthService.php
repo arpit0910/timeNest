@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
+use App\Actions\Auth\SendEmailVerificationAction;
 use App\Actions\IssueJwtAction;
 use App\Enums\Guard;
 use App\Exceptions\Auth\AccountInactiveException;
@@ -45,6 +46,7 @@ class AuthService
 {
     public function __construct(
         private readonly IssueJwtAction $issueJwtAction,
+        private readonly SendEmailVerificationAction $sendEmailVerificationAction,
     ) {}
 
     /**
@@ -112,14 +114,19 @@ class AuthService
                 'timezone' => $data['timezone'] ?? 'UTC',
                 'locale' => $data['locale'] ?? 'en',
                 'email_verification_token' => hash('sha256', $verificationToken),
+                'email_verification_token_expires_at' => now()->addMinutes(
+                    (int) config('timenest.verification.expire', 60)
+                ),
                 'is_active' => true,
                 'token_version' => 1,
             ]);
         });
 
-        $this->logActivity($user, 'registered', 'User account created');
+        // Dispatch verification email AFTER transaction commit
+        // so the email is never sent if user creation fails.
+        $this->sendEmailVerificationAction->execute($user, $verificationToken);
 
-        // TODO: Dispatch email verification job (Phase 5)
+        $this->logActivity($user, 'registered', 'User account created');
 
         return [
             'status' => 'registered',
@@ -446,6 +453,7 @@ class AuthService
 
         $user = User::where('email_verification_token', $hashedToken)
             ->whereNull('email_verified_at')
+            ->where('email_verification_token_expires_at', '>=', now())
             ->first();
 
         if (! $user) {
@@ -455,11 +463,44 @@ class AuthService
         $user->update([
             'email_verified_at' => now(),
             'email_verification_token' => null,
+            'email_verification_token_expires_at' => null,
         ]);
 
         $this->logActivity($user, 'email_verified', 'Email address verified');
 
         return $user;
+    }
+
+    /**
+     * Resend email verification to a user.
+     *
+     * Always returns void regardless of whether the email exists.
+     * This prevents user enumeration attacks.
+     */
+    public function resendVerificationEmail(string $email): void
+    {
+        $user = User::where('email', $email)
+            ->whereNull('email_verified_at')
+            ->where('is_active', true)
+            ->first();
+
+        if (! $user) {
+            // Silently return — do NOT reveal whether the email exists
+            return;
+        }
+
+        $verificationToken = Str::random(64);
+
+        $user->update([
+            'email_verification_token' => hash('sha256', $verificationToken),
+            'email_verification_token_expires_at' => now()->addMinutes(
+                (int) config('timenest.verification.expire', 60)
+            ),
+        ]);
+
+        $this->sendEmailVerificationAction->execute($user, $verificationToken);
+
+        $this->logActivity($user, 'verification_email_resent', 'Verification email resent');
     }
 
     /**

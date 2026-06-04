@@ -14,6 +14,7 @@ Route::middleware(['throttle:auth'])->group(function (): void {
         Route::post('register', 'register')->name('register');
         Route::post('refresh', 'refresh')->name('refresh');
         Route::post('verify-email', 'verifyEmail')->name('verify-email');
+        Route::post('resend-verification-email', 'resendVerificationEmail')->name('resend-verification-email');
     });
 
     Route::prefix('google')->name('google.')->controller(GoogleOAuthController::class)->group(function (): void {

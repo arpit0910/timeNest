@@ -9,6 +9,7 @@ use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RefreshTokenRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ResendVerificationRequest;
 use App\Http\Requests\Auth\SelectCorporationRequest;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Http\Resources\Auth\UserResource;
@@ -201,5 +202,22 @@ class AuthController extends BaseApiController
         );
 
         return $this->success(message: 'Password changed. All active sessions have been invalidated. Please log in again.');
+    }
+
+    /**
+     * POST /api/v1/auth/resend-verification-email
+     *
+     * Resend the email verification link.
+     * Always returns a constant message to prevent user enumeration.
+     */
+    public function resendVerificationEmail(ResendVerificationRequest $request): JsonResponse
+    {
+        $this->authService->resendVerificationEmail(
+            email: $request->validated('email'),
+        );
+
+        return $this->success(
+            message: 'If your account exists, a verification email has been sent.',
+        );
     }
 }

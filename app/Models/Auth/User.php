@@ -73,6 +73,7 @@ class User extends Authenticatable implements JWTSubject
         'password_set',
         'email_verified_at',
         'email_verification_token',
+        'email_verification_token_expires_at',
         'first_name',
         'last_name',
         'phone',
@@ -102,6 +103,7 @@ class User extends Authenticatable implements JWTSubject
         'two_factor_secret',
         'two_factor_recovery_codes',
         'email_verification_token',
+        'email_verification_token_expires_at',
     ];
 
     /**
@@ -111,6 +113,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return [
             'email_verified_at' => 'datetime',
+            'email_verification_token_expires_at' => 'datetime',
             'password' => 'hashed',
             'password_set' => 'boolean',
             'phone_verified' => 'boolean',
