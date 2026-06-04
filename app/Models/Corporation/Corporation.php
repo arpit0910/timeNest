@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 //TODO: Corporation creation flow: A user will register and will login, then he will purchase a organization plan and then a subscription record will be created in subscriptions table against a plan and creted by that user. Then only a user can create a corporation unless no one except app owners can perform this creation action.
 
+//TODO: Need to change or add columns ad per the actual requirements
+
 /**
  * Corporation model — tenant registry.
  *
