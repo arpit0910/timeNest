@@ -14,6 +14,7 @@ use App\Exceptions\Auth\TwoFactorRequiredException;
 use App\Exceptions\Auth\WorkspaceSelectionRequiredException;
 use App\Exceptions\Business\InvalidRoleGuardException;
 use App\Exceptions\Business\MembershipInactiveException;
+use App\Enums\UserStatus;
 use App\Models\Auth\SocialAccount;
 use App\Models\Auth\User;
 use App\Models\Corporation\Corporation;
@@ -117,7 +118,8 @@ class AuthService
                 'email_verification_token_expires_at' => now()->addMinutes(
                     (int) config('timenest.verification.expire', 60)
                 ),
-                'is_active' => true,
+                'is_active' => false,
+                'status' => UserStatus::PendingVerification,
                 'token_version' => 1,
             ]);
         });
@@ -464,6 +466,8 @@ class AuthService
             'email_verified_at' => now(),
             'email_verification_token' => null,
             'email_verification_token_expires_at' => null,
+            'is_active' => true,
+            'status' => UserStatus::Active,
         ]);
 
         $this->logActivity($user, 'email_verified', 'Email address verified');

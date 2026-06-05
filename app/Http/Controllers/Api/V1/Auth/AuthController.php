@@ -110,11 +110,11 @@ class AuthController extends BaseApiController
     }
 
     /**
-     * GET /api/v1/auth/me
+     * GET /api/v1/auth/user/profile
      *
      * Get the authenticated user's profile.
      */
-    public function me(Request $request): JsonResponse
+    public function profile(Request $request): JsonResponse
     {
         return $this->success(
             data: new UserResource($request->user()),

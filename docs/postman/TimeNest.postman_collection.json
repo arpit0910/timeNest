@@ -278,7 +278,7 @@
                     }
                 },
                 {
-                    "name": "Get Profile (Me)",
+                    "name": "Get Authenticated User Profile",
                     "request": {
                         "auth": {
                             "type": "bearer",
@@ -298,17 +298,18 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/auth/me",
+                            "raw": "{{base_url}}/auth/user/profile",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "auth",
-                                "me"
+                                "user",
+                                "profile"
                             ],
                             "query": []
                         },
-                        "description": "Fetch active authenticated profile details."
+                        "description": "Fetch the authenticated user's profile details. Requires a valid JWT access token."
                     }
                 },
                 {

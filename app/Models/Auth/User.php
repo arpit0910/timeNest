@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Auth;
 
+use App\Enums\UserStatus;
 use App\Models\Corporation\Corporation;
 use App\Models\Geo\Country;
 use App\Models\Geo\State;
@@ -41,7 +42,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string|null $phone
- * @property bool $phone_verified
+ * @property Carbon|null $phone_verified_at
  * @property string|null $avatar_url
  * @property Carbon|null $date_of_birth
  * @property string|null $gender
@@ -49,11 +50,16 @@ use Spatie\Permission\Traits\HasRoles;
  * @property int|null $state_id
  * @property string $timezone
  * @property string $locale
- * @property bool $two_factor_enabled
+ * @property Carbon|null $profile_completed_at
+ * @property Carbon|null $two_factor_enabled_at
+ * @property UserStatus $status
  * @property bool $is_active
  * @property int $token_version
  * @property Carbon|null $last_login_at
  * @property string|null $last_login_ip
+ *
+ * @property-read bool $phone_verified      Computed: phone_verified_at !== null
+ * @property-read bool $two_factor_enabled   Computed: two_factor_enabled_at !== null
  */
 class User extends Authenticatable implements JWTSubject
 {
@@ -77,7 +83,7 @@ class User extends Authenticatable implements JWTSubject
         'first_name',
         'last_name',
         'phone',
-        'phone_verified',
+        'phone_verified_at',
         'avatar_url',
         'date_of_birth',
         'gender',
@@ -89,9 +95,11 @@ class User extends Authenticatable implements JWTSubject
         'postal_code',
         'timezone',
         'locale',
+        'profile_completed_at',
         'two_factor_secret',
-        'two_factor_enabled',
+        'two_factor_enabled_at',
         'two_factor_recovery_codes',
+        'status',
         'is_active',
         'token_version',
         'last_login_at',
@@ -107,6 +115,17 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * Accessors appended to JSON — backward-compatible booleans
+     * derived from timestamp columns.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'phone_verified',
+        'two_factor_enabled',
+    ];
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
@@ -116,12 +135,14 @@ class User extends Authenticatable implements JWTSubject
             'email_verification_token_expires_at' => 'datetime',
             'password' => 'hashed',
             'password_set' => 'boolean',
-            'phone_verified' => 'boolean',
+            'phone_verified_at' => 'datetime',
             'date_of_birth' => 'date',
+            'profile_completed_at' => 'datetime',
             'two_factor_secret' => 'encrypted',
-            'two_factor_enabled' => 'boolean',
+            'two_factor_enabled_at' => 'datetime',
             'two_factor_recovery_codes' => 'encrypted:array',
             'is_active' => 'boolean',
+            'status' => UserStatus::class,
             'token_version' => 'integer',
             'last_login_at' => 'datetime',
         ];
@@ -228,6 +249,24 @@ class User extends Authenticatable implements JWTSubject
     public function scopeVerified($query)
     {
         return $query->whereNotNull('email_verified_at');
+    }
+
+    // ─── Computed Accessors ────────────────────────────────────────
+
+    /**
+     * Backward-compatible boolean: true when phone has been OTP-verified.
+     */
+    public function getPhoneVerifiedAttribute(): bool
+    {
+        return $this->phone_verified_at !== null;
+    }
+
+    /**
+     * Backward-compatible boolean: true when 2FA is active.
+     */
+    public function getTwoFactorEnabledAttribute(): bool
+    {
+        return $this->two_factor_enabled_at !== null;
     }
 
     // ─── Helpers ─────────────────────────────────────────────────
