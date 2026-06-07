@@ -5,50 +5,141 @@ declare(strict_types=1);
 namespace App\Services\Auth;
 
 use App\Models\Auth\User;
-use App\Support\Security\Totp;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\ValidationException;
+use PragmaRX\Google2FALaravel\Facade as Google2FA;
 
 class TwoFactorService
 {
+    public function initiateSetup(User $user): array
+    {
+        $secret = Google2FA::generateSecretKey();
+        
+        $qrUrl = Google2FA::getQRCodeUrl(
+            config('app.name'),
+            $user->email,
+            $secret
+        );
+        
+        Cache::put("2fa_setup_secret_{$user->id}", $secret, now()->addMinutes(10));
+        
+        return [
+            'secret'           => $secret,
+            'qr_code_url'      => $qrUrl,
+            'manual_entry_key' => $secret,
+        ];
+    }
+
+    public function confirmSetup(User $user, string $code): array
+    {
+        $secret = Cache::get("2fa_setup_secret_{$user->id}");
+        
+        if (! $secret) {
+            throw ValidationException::withMessages([
+                'code' => ['Setup session expired. Please reinitiate setup.'],
+            ]);
+        }
+
+        $valid = Google2FA::verifyKey($secret, $code);
+        
+        if (! $valid) {
+            throw ValidationException::withMessages([
+                'code' => ['Invalid two-factor code.'],
+            ]);
+        }
+        
+        $recoveryCodes = $this->generateRecoveryCodes();
+        
+        $user->update([
+            'two_factor_secret'         => $secret,
+            'two_factor_recovery_codes' => $recoveryCodes['hashed'],
+            'two_factor_enabled_at'     => now(),
+        ]);
+        
+        Cache::forget("2fa_setup_secret_{$user->id}");
+        
+        return ['recovery_codes' => $recoveryCodes['plain']];
+    }
+
     public function verify(User $user, string $code): bool
     {
-        $code = preg_replace('/\s+/', '', $code) ?? '';
-
-        if ($code === '') {
+        if (! $user->two_factor_enabled_at || ! $user->two_factor_secret) {
             return false;
         }
 
-        if (preg_match('/^\d{6}$/', $code) === 1 && $this->verifyTotp($user, $code)) {
-            return true;
-        }
-
-        return $this->consumeRecoveryCode($user, $code);
+        return Google2FA::verifyKey($user->two_factor_secret, $code);
     }
 
-    private function verifyTotp(User $user, string $code): bool
+    public function disable(User $user, string $code): void
     {
-        if (! $user->two_factor_enabled || ! $user->two_factor_secret) {
-            return false;
+        if (! $this->verify($user, $code)) {
+            throw ValidationException::withMessages([
+                'code' => ['Invalid two-factor code.'],
+            ]);
         }
-
-        return Totp::verify($user->two_factor_secret, $code);
+        
+        $user->update([
+            'two_factor_secret'         => null,
+            'two_factor_recovery_codes' => null,
+            'two_factor_enabled_at'     => null,
+        ]);
     }
 
-    private function consumeRecoveryCode(User $user, string $code): bool
+    public function generateRecoveryCodes(): array
+    {
+        $plain = [];
+        $hashed = [];
+
+        for ($i = 0; $i < 8; $i++) {
+            $code = bin2hex(random_bytes(5)) . '-' . bin2hex(random_bytes(5));
+            $plain[] = $code;
+            $hashed[] = hash('sha256', $code);
+        }
+
+        return [
+            'plain'  => $plain,
+            'hashed' => $hashed,
+        ];
+    }
+
+    public function regenerateRecoveryCodes(User $user, string $code): array
+    {
+        if (! $this->verify($user, $code)) {
+            throw ValidationException::withMessages([
+                'code' => ['Invalid two-factor code.'],
+            ]);
+        }
+        
+        $recoveryCodes = $this->generateRecoveryCodes();
+        
+        $user->update([
+            'two_factor_recovery_codes' => $recoveryCodes['hashed'],
+        ]);
+        
+        return ['recovery_codes' => $recoveryCodes['plain']];
+    }
+
+    public function useRecoveryCode(User $user, string $inputCode): bool
     {
         $recoveryCodes = $user->two_factor_recovery_codes ?? [];
-
-        foreach ($recoveryCodes as $index => $hashedCode) {
-            if (is_string($hashedCode) && Hash::check($code, $hashedCode)) {
+        
+        if (empty($recoveryCodes)) {
+            return false;
+        }
+        
+        $inputHash = hash('sha256', $inputCode);
+        
+        foreach ($recoveryCodes as $index => $storedHashedCode) {
+            if (is_string($storedHashedCode) && hash_equals($inputHash, $storedHashedCode)) {
                 unset($recoveryCodes[$index]);
                 $user->forceFill([
                     'two_factor_recovery_codes' => array_values($recoveryCodes),
                 ])->save();
-
+                
                 return true;
             }
         }
-
+        
         return false;
     }
 }

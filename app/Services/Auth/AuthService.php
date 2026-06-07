@@ -78,10 +78,12 @@ class AuthService
         if ($user->two_factor_enabled) {
             $tempToken = $this->issueJwtAction->issueTempToken($user, '2fa');
 
-            throw new TwoFactorRequiredException('Two-factor authentication required', [
-                'requires_2fa' => true,
+            return [
+                'status' => '2fa_required',
+                'message' => 'Please complete two-factor authentication to continue.',
                 'temp_token' => $tempToken,
-            ]);
+                'requires_2fa' => true,
+            ];
         }
 
         // Update login tracking

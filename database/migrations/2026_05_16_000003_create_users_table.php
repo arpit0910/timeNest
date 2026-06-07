@@ -45,7 +45,7 @@ return new class extends Migration
             // 2FA
             $table->string('two_factor_secret', 255)->nullable()->comment('TOTP secret — global across all corporations');
             $table->boolean('two_factor_enabled')->default(false)->comment('Whether 2FA is active');
-            $table->json('two_factor_recovery_codes')->nullable()->comment('Hashed recovery codes');
+            $table->text('two_factor_recovery_codes')->nullable()->comment('Hashed recovery codes');
 
             // Account state
             $table->boolean('is_active')->default(true)->comment('Global kill switch');

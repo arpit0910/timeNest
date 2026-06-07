@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\BaseApiController;
+use App\Http\Requests\Auth\TwoFactor\ConfirmSetupRequest;
+use App\Http\Requests\Auth\TwoFactor\DisableRequest;
+use App\Http\Requests\Auth\TwoFactor\InitiateSetupRequest;
+use App\Http\Requests\Auth\TwoFactor\RegenerateRecoveryCodesRequest;
+use App\Http\Requests\Auth\TwoFactor\VerifyRequest;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Services\Auth\AuthService;
 use App\Services\Auth\TwoFactorService;
 use App\Exceptions\Auth\InvalidTempTokenPurposeException;
-use App\Exceptions\Auth\InvalidTwoFactorCodeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -23,19 +27,57 @@ class TwoFactorController extends BaseApiController
         private readonly TwoFactorService $twoFactorService,
     ) {}
 
+    public function status(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        
+        return $this->success([
+            'enabled'    => (bool) $user->two_factor_enabled_at,
+            'enabled_at' => $user->two_factor_enabled_at,
+        ]);
+    }
+
+    public function initiateSetup(InitiateSetupRequest $request): JsonResponse
+    {
+        $data = $this->twoFactorService->initiateSetup($request->user());
+        return $this->success($data);
+    }
+
+    public function confirmSetup(ConfirmSetupRequest $request): JsonResponse
+    {
+        $data = $this->twoFactorService->confirmSetup($request->user(), $request->input('code'));
+        
+        return $this->success(
+            $data,
+            'Two-factor authentication has been enabled. Store your recovery codes in a safe place. They will not be shown again.'
+        );
+    }
+
+    public function disable(DisableRequest $request): JsonResponse
+    {
+        $this->twoFactorService->disable($request->user(), $request->input('code'));
+        
+        return $this->success(null, 'Two-factor authentication has been disabled.');
+    }
+
+    public function regenerateRecoveryCodes(RegenerateRecoveryCodesRequest $request): JsonResponse
+    {
+        $data = $this->twoFactorService->regenerateRecoveryCodes($request->user(), $request->input('code'));
+        
+        return $this->success(
+            $data,
+            'Recovery codes regenerated. Your previous codes are now invalid.'
+        );
+    }
+
     /**
      * POST /api/v1/auth/2fa/verify
      *
      * Verify the 2FA code during the login flow using the temp token.
      */
-    public function verify(Request $request): JsonResponse
+    public function verify(VerifyRequest $request): JsonResponse
     {
-        $request->validate([
-            'code' => ['required', 'string', 'min:6', 'max:32'],
-        ]);
-
         $user = $request->user();
-
         $context = jwt_context();
 
         // Ensure user is in 2FA temp state
@@ -43,8 +85,14 @@ class TwoFactorController extends BaseApiController
             throw new InvalidTempTokenPurposeException('Invalid token for 2FA verification');
         }
 
-        if (! $this->twoFactorService->verify($user, (string) $request->input('code'))) {
-            throw new InvalidTwoFactorCodeException();
+        $code = (string) $request->input('code');
+        $usedRecoveryCode = false;
+
+        if (! $this->twoFactorService->verify($user, $code)) {
+            if (! $this->twoFactorService->useRecoveryCode($user, $code)) {
+                return $this->error('Invalid authentication code', [], 422);
+            }
+            $usedRecoveryCode = true;
         }
 
         // Issue real tokens now that 2FA is verified
@@ -54,10 +102,15 @@ class TwoFactorController extends BaseApiController
             userAgent: $request->userAgent()
         );
 
+        $message = '2FA verified successfully';
+        if ($usedRecoveryCode) {
+            $message = 'You used a recovery code. Please regenerate your codes or reconfigure 2FA.';
+        }
+
         return $this->success(
-            data: new AuthTokenResource($result),
-            message: '2FA verified successfully',
-            status: 200
+            new AuthTokenResource($result),
+            $message,
+            200
         );
     }
 }

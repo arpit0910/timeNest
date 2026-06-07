@@ -45,6 +45,14 @@ class AuthController extends BaseApiController
             userAgent: $request->userAgent(),
         );
 
+        if (isset($result['status']) && $result['status'] === '2fa_required') {
+            return response()->json([
+                'status' => '2fa_required',
+                'message' => $result['message'],
+                'token' => $result['temp_token'],
+            ]);
+        }
+
         return $this->success(
             data: new AuthTokenResource($result),
             message: $result['message'] ?? 'Login successful',

@@ -33,6 +33,18 @@ Route::middleware(['tm.jwt.auth', 'jwt.full'])->controller(AuthController::class
     Route::post('switch-corporation', 'switchCorporation')->name('switch-corporation');
 });
 
+Route::middleware(['tm.jwt.auth', 'jwt.full'])
+    ->prefix('user/2fa')
+    ->name('user.2fa.')
+    ->controller(TwoFactorController::class)
+    ->group(function (): void {
+        Route::get('status', 'status')->name('status');
+        Route::post('setup/initiate', 'initiateSetup')->name('setup.initiate');
+        Route::post('setup/confirm', 'confirmSetup')->name('setup.confirm');
+        Route::post('disable', 'disable')->name('disable');
+        Route::post('recovery-codes/regenerate', 'regenerateRecoveryCodes')->name('recovery-codes.regenerate');
+    });
+
 // Temporary token / 2FA routes
 Route::middleware(['api.temp'])->group(function (): void {
     Route::post('select-corporation', [AuthController::class, 'selectCorporation'])
