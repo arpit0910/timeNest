@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             // 4. Demo data (dev only)
             DemoCorporationSeeder::class,
             CorporationRolePermissionsSeeder::class,
+            RealisticCorporationsSeeder::class,
         ]);
     }
 }

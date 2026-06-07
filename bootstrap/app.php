@@ -28,7 +28,7 @@ use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\ThrottleRequestsException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -166,6 +166,21 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // ========== RATE LIMITING (429) ==========
         $exceptions->render(function (ThrottleRequestsException $e, Request $request): JsonResponse {
+            if ($request->routeIs('*2fa.verify')) {
+                try {
+                    $user = \PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::parseToken()->authenticate();
+                    if ($user) {
+                        $user->notify(new \App\Notifications\Auth\TwoFactorBruteForceWarningNotification(
+                            $user,
+                            $request->ip() ?? '',
+                            $request->userAgent() ?? ''
+                        ));
+                    }
+                } catch (\Exception $ex) {
+                    \Illuminate\Support\Facades\Log::error('Throttle exception 2FA: ' . $ex->getMessage(), ['trace' => $ex->getTraceAsString()]);
+                }
+            }
+
             $retryAfter = $e->getHeaders()['Retry-After'] ?? null;
 
             return response()->json([

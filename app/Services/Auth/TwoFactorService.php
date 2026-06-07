@@ -56,6 +56,8 @@ class TwoFactorService
             'two_factor_enabled_at'     => now(),
         ]);
         
+        $user->notify(new \App\Notifications\Auth\TwoFactorEnabledNotification($user));
+        
         Cache::forget("2fa_setup_secret_{$user->id}");
         
         return ['recovery_codes' => $recoveryCodes['plain']];
@@ -83,6 +85,12 @@ class TwoFactorService
             'two_factor_recovery_codes' => null,
             'two_factor_enabled_at'     => null,
         ]);
+        
+        $user->notify(new \App\Notifications\Auth\TwoFactorDisabledNotification(
+            $user,
+            request()->ip() ?? '',
+            request()->userAgent() ?? ''
+        ));
     }
 
     public function generateRecoveryCodes(): array
@@ -132,9 +140,23 @@ class TwoFactorService
         foreach ($recoveryCodes as $index => $storedHashedCode) {
             if (is_string($storedHashedCode) && hash_equals($inputHash, $storedHashedCode)) {
                 unset($recoveryCodes[$index]);
+                $remainingCodesArray = array_values($recoveryCodes);
                 $user->forceFill([
-                    'two_factor_recovery_codes' => array_values($recoveryCodes),
+                    'two_factor_recovery_codes' => $remainingCodesArray,
                 ])->save();
+                
+                $remainingCount = count($remainingCodesArray);
+                
+                $user->notify(new \App\Notifications\Auth\RecoveryCodeUsedNotification(
+                    $user,
+                    request()->ip() ?? '',
+                    request()->userAgent() ?? '',
+                    $remainingCount
+                ));
+                
+                if ($remainingCount === 0) {
+                    $user->notify(new \App\Notifications\Auth\RecoveryCodesDepletedNotification($user));
+                }
                 
                 return true;
             }

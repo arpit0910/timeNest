@@ -47,4 +47,17 @@ return [
         'expire' => (int) env('PASSWORD_RESET_EXPIRE_MINUTES', 60),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Security Alerts
+    |--------------------------------------------------------------------------
+    |
+    | Controls security-related notification thresholds.
+    |
+    */
+
+    'security' => [
+        'recovery_codes_low_threshold' => env('RECOVERY_CODES_LOW_THRESHOLD', 2),
+    ],
+
 ];

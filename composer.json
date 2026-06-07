@@ -8,12 +8,15 @@
     "require": {
         "php": "^8.2",
         "bacon/bacon-qr-code": "*",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^12.0",
         "laravel/socialite": "^5.27",
         "laravel/tinker": "^2.10.1",
         "php-open-source-saver/jwt-auth": "^2.9",
         "pragmarx/google2fa-laravel": "^3.0",
-        "spatie/laravel-permission": "^7.4"
+        "spatie/laravel-permission": "^7.4",
+        "stevebauman/location": "^7.6",
+        "whichbrowser/parser": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

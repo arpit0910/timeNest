@@ -63,6 +63,7 @@ class AuthService
         $user = User::where('email', $email)->first();
 
         if (! $user || ! $user->password || ! Hash::check($password, $user->password)) {
+            // TODO: Implement failed login tracking and dispatch AccountLockedNotification if threshold exceeded
             throw new InvalidCredentialsException();
         }
 
@@ -91,6 +92,13 @@ class AuthService
             'last_login_at' => now(),
             'last_login_ip' => $ip,
         ]);
+
+        $user->notify(new \App\Notifications\Auth\NewLoginNotification(
+            $user,
+            $ip ?? '',
+            $userAgent ?? '',
+            now()
+        ));
 
         return $this->resolveWorkspaceAndIssueTokens($user, $ip, $userAgent);
     }
