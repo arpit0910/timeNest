@@ -12,7 +12,6 @@ class AttendanceSessionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'uuid' => $this->uuid,
             'clock_in_at' => $this->clock_in_at?->toIso8601String(),
             'clock_out_at' => $this->clock_out_at?->toIso8601String(),

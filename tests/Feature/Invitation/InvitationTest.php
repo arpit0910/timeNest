@@ -13,9 +13,9 @@ use App\Events\InvitationAccepted;
 use App\Events\InvitationRevoked;
 use App\Mail\InvitationMail;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Invitation\Invitation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Rbac\Role;
 use Database\Seeders\PlatformPermissionsSeeder;
 use Database\Seeders\PlatformRolePermissionsSeeder;
@@ -29,8 +29,8 @@ class InvitationTest extends TestCase
 {
     use RefreshDatabase;
 
-    private Corporation $corpA;
-    private Corporation $corpB;
+    private Organization $organizationA;
+    private Organization $organizationB;
     private User $adminA;
     private User $adminB;
     private Role $adminRole;
@@ -48,71 +48,71 @@ class InvitationTest extends TestCase
         $this->seed(PlatformRolePermissionsSeeder::class);
 
         // 2. Resolve roles
-        $this->adminRole = Role::where('name', SystemRole::CorpAdmin->value)->firstOrFail();
+        $this->adminRole = Role::where('name', SystemRole::OrganizationAdmin->value)->firstOrFail();
         $this->employeeRole = Role::where('name', SystemRole::Employee->value)->firstOrFail();
 
-        // 3. Create Corporations
-        $this->corpA = Corporation::create([
-            'legal_name' => 'Corp A Inc',
-            'slug' => 'corp-a',
+        // 3. Create organizations
+        $this->organizationA = Organization::create([
+            'legal_name' => 'Organization A Inc',
+            'slug' => 'organization-a',
             'is_active' => true,
             'is_verified' => true,
         ]);
 
-        $this->corpB = Corporation::create([
-            'legal_name' => 'Corp B Inc',
-            'slug' => 'corp-b',
+        $this->organizationB = Organization::create([
+            'legal_name' => 'Organization B Inc',
+            'slug' => 'organization-b',
             'is_active' => true,
             'is_verified' => true,
         ]);
 
-        // 4. Create Corp Admins
+        // 4. Create organization Admins
         $this->adminA = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
         $this->adminB = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
 
-        // 5. Attach Admin A to Corp A
-        CorpMembership::create([
+        // 5. Attach Admin A to organization A
+        OrganizationMembership::create([
             'user_id' => $this->adminA->id,
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
-        setPermissionsTeamId($this->corpA->id);
+        setPermissionsTeamId($this->organizationA->id);
         $this->adminA->assignRole($this->adminRole);
 
-        // 6. Attach Admin B to Corp B
-        CorpMembership::create([
+        // 6. Attach Admin B to organization B
+        OrganizationMembership::create([
             'user_id' => $this->adminB->id,
-            'corporation_id' => $this->corpB->id,
+            'organization_id' => $this->organizationB->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
-        setPermissionsTeamId($this->corpB->id);
+        setPermissionsTeamId($this->organizationB->id);
         $this->adminB->assignRole($this->adminRole);
 
         setPermissionsTeamId(null);
 
         // 7. Issue Auth Tokens
         $issueJwtAction = app(IssueJwtAction::class);
-        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->corpA, \App\Enums\Guard::Corp, SystemRole::CorpAdmin->value);
-        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->corpB, \App\Enums\Guard::Corp, SystemRole::CorpAdmin->value);
+        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->organizationA, \App\Enums\Guard::Organization, SystemRole::OrganizationAdmin->value);
+        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->organizationB, \App\Enums\Guard::Organization, SystemRole::OrganizationAdmin->value);
     }
 
-    private function headers(string $token, Corporation $corp): array
+    private function headers(string $token, Organization $organization): array
     {
         return [
             'Authorization' => "Bearer {$token}",
-            'X-Corporation-Uuid' => $corp->uuid,
+            'X-Organization-Uuid' => $organization->uuid,
         ];
     }
 
-    public function test_corp_admin_can_create_invitation(): void
+    public function test_organization_admin_can_create_invitation(): void
     {
         Mail::fake();
         Event::fake([InvitationCreated::class]);
 
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson('/api/v1/corp/invitations', [
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson('/api/v1/organization/invitations', [
                 'email' => 'new.employee@example.com',
                 'role_uuid' => $this->employeeRole->uuid,
             ]);
@@ -124,8 +124,8 @@ class InvitationTest extends TestCase
                 'data' => ['uuid', 'email', 'status', 'status_label', 'role']
             ]);
 
-        $this->assertDatabaseHas('corporation_invitations', [
-            'corporation_id' => $this->corpA->id,
+        $this->assertDatabaseHas('organization_invitations', [
+            'organization_id' => $this->organizationA->id,
             'email' => 'new.employee@example.com',
             'role_id' => $this->employeeRole->id,
             'status' => InvitationStatusEnum::Pending->value,
@@ -139,8 +139,8 @@ class InvitationTest extends TestCase
         // Try creating with a platform-only role (e.g. AppOwner)
         $platformRole = Role::where('name', SystemRole::AppOwner->value)->firstOrFail();
 
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson('/api/v1/corp/invitations', [
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson('/api/v1/organization/invitations', [
                 'email' => 'new.employee@example.com',
                 'role_uuid' => $platformRole->uuid,
             ]);
@@ -154,7 +154,7 @@ class InvitationTest extends TestCase
     {
         // Create first invitation
         Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'duplicate@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -164,8 +164,8 @@ class InvitationTest extends TestCase
         ]);
 
         // Attempt duplicate
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson('/api/v1/corp/invitations', [
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson('/api/v1/organization/invitations', [
                 'email' => 'duplicate@example.com',
                 'role_uuid' => $this->employeeRole->uuid,
             ]);
@@ -179,7 +179,7 @@ class InvitationTest extends TestCase
     {
         // Create pending invite
         Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'pending@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -190,7 +190,7 @@ class InvitationTest extends TestCase
 
         // Create revoked invite
         Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'revoked@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -200,15 +200,15 @@ class InvitationTest extends TestCase
         ]);
 
         // List all
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->getJson('/api/v1/corp/invitations');
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->getJson('/api/v1/organization/invitations');
 
         $response->assertOk()
             ->assertJsonCount(2, 'data.data');
 
         // Filter by status (Revoked = 4)
-        $responseFiltered = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->getJson('/api/v1/corp/invitations?status=4');
+        $responseFiltered = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->getJson('/api/v1/organization/invitations?status=4');
 
         $responseFiltered->assertOk()
             ->assertJsonCount(1, 'data.data')
@@ -218,7 +218,7 @@ class InvitationTest extends TestCase
     public function test_show_invitation(): void
     {
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'show@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -227,8 +227,8 @@ class InvitationTest extends TestCase
             'expires_at' => now()->addDays(7),
         ]);
 
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->getJson("/api/v1/corp/invitations/{$invite->uuid}");
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->getJson("/api/v1/organization/invitations/{$invite->uuid}");
 
         $response->assertOk()
             ->assertJsonPath('data.email', 'show@example.com');
@@ -239,7 +239,7 @@ class InvitationTest extends TestCase
         Event::fake([InvitationRevoked::class]);
 
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'revoke.me@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -248,13 +248,13 @@ class InvitationTest extends TestCase
             'expires_at' => now()->addDays(7),
         ]);
 
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson("/api/v1/corp/invitations/{$invite->uuid}/revoke");
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson("/api/v1/organization/invitations/{$invite->uuid}/revoke");
 
         $response->assertOk()
             ->assertJsonPath('data.status', InvitationStatusEnum::Revoked->value);
 
-        $this->assertDatabaseHas('corporation_invitations', [
+        $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
             'status' => InvitationStatusEnum::Revoked->value,
             'revoked_by' => $this->adminA->id,
@@ -268,7 +268,7 @@ class InvitationTest extends TestCase
         Event::fake([InvitationCreated::class]);
 
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'resend.me@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -278,8 +278,8 @@ class InvitationTest extends TestCase
             'resend_count' => 0,
         ]);
 
-        $response = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson("/api/v1/corp/invitations/{$invite->uuid}/resend");
+        $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson("/api/v1/organization/invitations/{$invite->uuid}/resend");
 
         $response->assertOk()
             ->assertJsonPath('data.resend_count', 1);
@@ -295,7 +295,7 @@ class InvitationTest extends TestCase
     public function test_validate_token_endpoint(): void
     {
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'validate@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -321,7 +321,7 @@ class InvitationTest extends TestCase
         Event::fake([InvitationAccepted::class]);
 
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'new.onboard@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -361,19 +361,19 @@ class InvitationTest extends TestCase
         $this->assertNotNull($newUser->email_verified_at);
 
         // Assert membership attached
-        $this->assertDatabaseHas('corp_memberships', [
+        $this->assertDatabaseHas('organization_memberships', [
             'user_id' => $newUser->id,
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'status' => MembershipStatus::Active->value,
         ]);
 
         // Assert role assigned
-        setPermissionsTeamId($this->corpA->id);
+        setPermissionsTeamId($this->organizationA->id);
         $this->assertTrue($newUser->hasRole(SystemRole::Employee->value));
         setPermissionsTeamId(null);
 
         // Assert invitation marked accepted
-        $this->assertDatabaseHas('corporation_invitations', [
+        $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
             'status' => InvitationStatusEnum::Accepted->value,
         ]);
@@ -392,7 +392,7 @@ class InvitationTest extends TestCase
         ]);
 
         $invite = Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'existing@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -414,19 +414,19 @@ class InvitationTest extends TestCase
             ->assertJsonPath('data.status', 'accepted');
 
         // Assert membership attached
-        $this->assertDatabaseHas('corp_memberships', [
+        $this->assertDatabaseHas('organization_memberships', [
             'user_id' => $existingUser->id,
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'status' => MembershipStatus::Active->value,
         ]);
 
         // Assert role assigned
-        setPermissionsTeamId($this->corpA->id);
+        setPermissionsTeamId($this->organizationA->id);
         $this->assertTrue($existingUser->hasRole(SystemRole::Employee->value));
         setPermissionsTeamId(null);
 
         // Assert invitation accepted
-        $this->assertDatabaseHas('corporation_invitations', [
+        $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
             'status' => InvitationStatusEnum::Accepted->value,
         ]);
@@ -442,7 +442,7 @@ class InvitationTest extends TestCase
         ]);
 
         Invitation::create([
-            'corporation_id' => $this->corpA->id,
+            'organization_id' => $this->organizationA->id,
             'email' => 'existing2@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
@@ -459,10 +459,10 @@ class InvitationTest extends TestCase
             ->assertJsonPath('error_code', 'AUTHENTICATION_REQUIRED');
     }
 
-    public function test_security_cross_corporation_isolation(): void
+    public function test_security_cross_organization_isolation(): void
     {
         $inviteB = Invitation::create([
-            'corporation_id' => $this->corpB->id,
+            'organization_id' => $this->organizationB->id,
             'email' => 'isolated@example.com',
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminB->id,
@@ -471,21 +471,21 @@ class InvitationTest extends TestCase
             'expires_at' => now()->addDays(7),
         ]);
 
-        // Admin A (of Corp A) tries to view Corp B invite
-        $responseShow = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->getJson("/api/v1/corp/invitations/{$inviteB->uuid}");
+        // Admin A (of organization A) tries to view organization B invite
+        $responseShow = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->getJson("/api/v1/organization/invitations/{$inviteB->uuid}");
 
         $responseShow->assertStatus(404);
 
-        // Admin A tries to revoke Corp B invite
-        $responseRevoke = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson("/api/v1/corp/invitations/{$inviteB->uuid}/revoke");
+        // Admin A tries to revoke organization B invite
+        $responseRevoke = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson("/api/v1/organization/invitations/{$inviteB->uuid}/revoke");
 
         $responseRevoke->assertStatus(404);
 
-        // Admin A tries to resend Corp B invite
-        $responseResend = $this->withHeaders($this->headers($this->tokenA, $this->corpA))
-            ->postJson("/api/v1/corp/invitations/{$inviteB->uuid}/resend");
+        // Admin A tries to resend organization B invite
+        $responseResend = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
+            ->postJson("/api/v1/organization/invitations/{$inviteB->uuid}/resend");
 
         $responseResend->assertStatus(404);
     }

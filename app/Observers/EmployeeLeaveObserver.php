@@ -18,7 +18,7 @@ class EmployeeLeaveObserver
         $actorId = auth()->id() ?? $leave->user_id;
 
         AttendanceActivityLog::create([
-            'corporation_id' => $leave->corporation_id,
+            'organization_id' => $leave->organization_id,
             'user_id' => $leave->user_id,
             'actor_id' => $actorId,
             'action' => 'leave_created',
@@ -52,7 +52,7 @@ class EmployeeLeaveObserver
             $newVal = $newStatus instanceof \BackedEnum ? $newStatus->value : $newStatus;
 
             AttendanceActivityLog::create([
-                'corporation_id' => $leave->corporation_id,
+                'organization_id' => $leave->organization_id,
                 'user_id' => $leave->user_id,
                 'actor_id' => $actorId,
                 'action' => 'leave_status_changed',

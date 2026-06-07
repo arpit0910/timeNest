@@ -7,7 +7,7 @@ namespace App\Models\Attendance;
 use App\Enums\AttendanceComplianceStatusEnum;
 use App\Enums\AttendanceStatusEnum;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +26,7 @@ class AttendanceDay extends Model
 
     protected $fillable = [
         'user_id',
-        'corporation_id',
+        'organization_id',
         'attendance_date',
         'attendance_status',
         'compliance_status',
@@ -65,9 +65,9 @@ class AttendanceDay extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function attendanceSessions(): HasMany
@@ -136,8 +136,8 @@ class AttendanceDay extends Model
         return $query->where('user_id', $userId);
     }
 
-    public function scopeForCorporation(Builder $query, int $corpId): Builder
+    public function scopeForOrganization(Builder $query, int $orgId): Builder
     {
-        return $query->where('corporation_id', $corpId);
+        return $query->where('organization_id', $orgId);
     }
 }

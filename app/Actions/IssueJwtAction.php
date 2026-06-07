@@ -7,7 +7,7 @@ namespace App\Actions;
 use App\Enums\Guard;
 use App\Models\Auth\RefreshToken;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
@@ -15,7 +15,7 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 /**
  * Issues JWT access tokens and refresh tokens.
  *
- * Access tokens carry custom claims: guard, corporation context, role, and token_version.
+ * Access tokens carry custom claims: guard, organization context, role, and token_version.
  * Refresh tokens are stored hashed (SHA-256) in the database for revocation support.
  *
  * This is a single-purpose Action class — called by AuthService and other services
@@ -30,7 +30,7 @@ class IssueJwtAction
      */
     public function issueAccessToken(
         User $user,
-        ?Corporation $corporation,
+        ?Organization $organization,
         Guard $guard,
         ?string $roleName = null,
     ): string {
@@ -39,8 +39,7 @@ class IssueJwtAction
         $customClaims = [
             'user_uuid' => $user->uuid,
             'guard' => $guard->value,
-            'corporation_id' => $corporation?->id,
-            'corporation_uuid' => $corporation?->uuid,
+            'organization_uuid' => $organization?->uuid,
             'role' => $roleName,
             'token_version' => $tokenVersion,
         ];
@@ -88,7 +87,7 @@ class IssueJwtAction
      */
     public function issueRefreshToken(
         User $user,
-        ?Corporation $corporation,
+        ?Organization $organization,
         Guard $guard,
     ): string {
         $rawToken = Str::random(80);
@@ -98,7 +97,7 @@ class IssueJwtAction
             'user_id' => $user->id,
             'token_hash' => $tokenHash,
             'guard' => $guard->value,
-            'corporation_id' => $corporation?->id,
+            'organization_id' => $organization?->id,
             'ip_address' => request()->ip(),
             'user_agent' => substr((string) request()->userAgent(), 0, 500),
             'expires_at' => now()->addDays(30),
@@ -138,16 +137,16 @@ class IssueJwtAction
     }
 
     /**
-     * Revoke all refresh tokens for a user in a specific corporation.
+     * Revoke all refresh tokens for a user in a specific organization.
      *
      * Used when membership is revoked or suspended.
      *
      * @return int Number of tokens revoked
      */
-    public function revokeCorpRefreshTokens(int $userId, int $corporationId): int
+    public function revokeOrganizationRefreshTokens(int $userId, int $organizationId): int
     {
         return RefreshToken::where('user_id', $userId)
-            ->where('corporation_id', $corporationId)
+            ->where('organization_id', $organizationId)
             ->whereNull('revoked_at')
             ->update(['revoked_at' => now()]);
     }

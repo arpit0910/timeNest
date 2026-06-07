@@ -15,12 +15,12 @@ use App\Enums\SystemRole;
 use App\Models\Attendance\AttendanceAdjustmentRequest;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendancePolicy;
-use App\Models\Attendance\CorporationHoliday;
+use App\Models\Attendance\OrganizationHoliday;
 use App\Models\Attendance\EmployeeLeave;
 use App\Models\Auth\User;
-use App\Models\Corporation\Branch;
-use App\Models\Corporation\Corporation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\Branch;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\EmployeeProfile;
 use App\Models\Rbac\Role;
 use App\Services\Attendance\AttendancePolicyService;
@@ -34,8 +34,8 @@ class AttendanceCoreTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
-    private Corporation $corporation;
-    private CorpMembership $membership;
+    private Organization $organization;
+    private OrganizationMembership $membership;
     private EmployeeProfile $employeeProfile;
     private Branch $branch;
     private string $token;
@@ -44,11 +44,14 @@ class AttendanceCoreTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        
+        // Freeze time to a Monday so tests don't fail when run on weekends
+        Carbon::setTestNow(Carbon::parse('2026-06-08 09:00:00', 'Asia/Kolkata')->tz('UTC'));
 
-        // 1. Create Corporation
-        $this->corporation = Corporation::create([
-            'legal_name' => 'Test Corp',
-            'slug' => 'test-corp',
+        // 1. Create organization
+        $this->organization = Organization::create([
+            'legal_name' => 'Test Organization',
+            'slug' => 'test-organization',
             'is_active' => true,
             'is_verified' => true,
         ]);
@@ -57,7 +60,7 @@ class AttendanceCoreTest extends TestCase
         $role = Role::create([
             'name' => SystemRole::Employee->value,
             'guard_name' => 'api',
-            'corporation_id' => null,
+            'organization_id' => null,
             'is_system_role' => true,
         ]);
 
@@ -73,20 +76,20 @@ class AttendanceCoreTest extends TestCase
             'timezone' => 'Asia/Kolkata',
         ]);
 
-        $this->membership = CorpMembership::create([
+        $this->membership = OrganizationMembership::create([
             'user_id' => $this->user->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
 
-        setPermissionsTeamId($this->corporation->id);
+        setPermissionsTeamId($this->organization->id);
         $this->user->assignRole($role);
         setPermissionsTeamId(null);
 
         // 4. Create Branch (Bangalore: 12.9716, 77.5946)
         $this->branch = Branch::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'name' => 'Bangalore HQ',
             'code' => 'BLR01',
             'latitude' => 12.9716,
@@ -99,8 +102,8 @@ class AttendanceCoreTest extends TestCase
         // 5. Create Employee Profile
         $this->employeeProfile = EmployeeProfile::create([
             'user_id' => $this->user->id,
-            'corporation_id' => $this->corporation->id,
-            'corp_membership_id' => $this->membership->id,
+            'organization_id' => $this->organization->id,
+            'organization_membership_id' => $this->membership->id,
             'employee_code' => 'EMP001',
             'branch_id' => $this->branch->id,
             'is_active' => true,
@@ -108,14 +111,14 @@ class AttendanceCoreTest extends TestCase
 
         // 6. Create Policy using service
         $policyService = app(AttendancePolicyService::class);
-        $this->policy = $policyService->createDefaultPolicy($this->corporation, $this->user);
+        $this->policy = $policyService->createDefaultPolicy($this->organization, $this->user);
 
         // 7. Issue Auth Token
         $issueJwtAction = app(IssueJwtAction::class);
         $this->token = $issueJwtAction->issueAccessToken(
             $this->user,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::Employee->value
         );
     }
@@ -127,7 +130,7 @@ class AttendanceCoreTest extends TestCase
     {
         return [
             'Authorization' => "Bearer {$this->token}",
-            'X-Corporation-Uuid' => $this->corporation->uuid,
+            'X-Organization-Uuid' => $this->organization->uuid,
         ];
     }
 
@@ -137,7 +140,7 @@ class AttendanceCoreTest extends TestCase
     public function test_successful_clock_in(): void
     {
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9717, // ~15 meters away
                 'longitude' => 77.5947,
                 'accuracy' => 10.0,
@@ -170,7 +173,7 @@ class AttendanceCoreTest extends TestCase
     public function test_geofence_rejection(): void
     {
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 13.0353, // ~7 km away
                 'longitude' => 77.5988,
                 'accuracy' => 10.0,
@@ -190,7 +193,7 @@ class AttendanceCoreTest extends TestCase
     {
         // Apply and approve WFH leave for today
         $leave = EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::WorkFromHome->value,
             'leave_status' => LeaveStatusEnum::Approved->value,
@@ -204,7 +207,7 @@ class AttendanceCoreTest extends TestCase
 
         // Clock in from far away coordinates (outside geofence)
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 13.0353,
                 'longitude' => 77.5988,
                 'accuracy' => 10.0,
@@ -223,8 +226,8 @@ class AttendanceCoreTest extends TestCase
     public function test_holiday_rejection(): void
     {
         // 1. Create a holiday for today
-        CorporationHoliday::create([
-            'corporation_id' => $this->corporation->id,
+        OrganizationHoliday::create([
+            'organization_id' => $this->organization->id,
             'branch_id' => $this->branch->id,
             'name' => 'Independence Day',
             'holiday_date' => now()->toDateString(),
@@ -233,10 +236,10 @@ class AttendanceCoreTest extends TestCase
 
         // 2. Make sure policy blocks clocking in on holiday
         $this->policy->update(['allow_clock_in_on_holidays' => false]);
-        app(AttendancePolicyService::class)->invalidateCache($this->corporation->id);
+        app(AttendancePolicyService::class)->invalidateCache($this->organization->id);
 
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
@@ -253,8 +256,8 @@ class AttendanceCoreTest extends TestCase
     public function test_ewd_allowance(): void
     {
         // Create holiday
-        CorporationHoliday::create([
-            'corporation_id' => $this->corporation->id,
+        OrganizationHoliday::create([
+            'organization_id' => $this->organization->id,
             'branch_id' => $this->branch->id,
             'name' => 'Labor Day',
             'holiday_date' => now()->toDateString(),
@@ -263,11 +266,11 @@ class AttendanceCoreTest extends TestCase
 
         // Block holiday clock-ins
         $this->policy->update(['allow_clock_in_on_holidays' => false]);
-        app(AttendancePolicyService::class)->invalidateCache($this->corporation->id);
+        app(AttendancePolicyService::class)->invalidateCache($this->organization->id);
 
         // Approve EWD leave for today
         EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::ExtraWorkingDay->value,
             'leave_status' => LeaveStatusEnum::Approved->value,
@@ -280,7 +283,7 @@ class AttendanceCoreTest extends TestCase
         ]);
 
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
@@ -298,7 +301,7 @@ class AttendanceCoreTest extends TestCase
     {
         // First clock-in
         $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
@@ -307,7 +310,7 @@ class AttendanceCoreTest extends TestCase
 
         // Duplicate clock-in
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
@@ -323,25 +326,27 @@ class AttendanceCoreTest extends TestCase
      */
     public function test_clock_out_calculates_duration_and_late(): void
     {
-        // Freeze time so we can simulate clock-in at 09:30:00 (which is 30 mins late in strict mode)
-        Carbon::setTestNow(Carbon::parse(now()->toDateString() . ' 09:30:00', 'Asia/Kolkata')->tz('UTC'));
+        // Freeze time so we can simulate clock-in at 09:30:00 on a Monday (2026-06-08)
+        Carbon::setTestNow(Carbon::parse('2026-06-08 09:30:00', 'Asia/Kolkata')->tz('UTC'));
 
         // Regenerate token to prevent expiration error due to frozen past time
         $issueJwtAction = app(IssueJwtAction::class);
         $this->token = $issueJwtAction->issueAccessToken(
             $this->user,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::Employee->value
         );
 
-        $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-in', [
+        $response = $this->withHeaders($this->authHeaders())
+            ->postJson('/api/v1/organization/attendance/clock-in', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
                 'source' => AttendanceSessionSourceEnum::Mobile->value,
             ]);
+            
+        $response->assertCreated();
 
         // Advance time by 5 hours (300 minutes) to clock out
         Carbon::setTestNow(Carbon::now()->addHours(5));
@@ -349,13 +354,13 @@ class AttendanceCoreTest extends TestCase
         // Regenerate token to prevent expiration error for the clock-out request
         $this->token = $issueJwtAction->issueAccessToken(
             $this->user,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::Employee->value
         );
 
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/clock-out', [
+            ->postJson('/api/v1/organization/attendance/clock-out', [
                 'latitude' => 12.9716,
                 'longitude' => 77.5946,
                 'accuracy' => 5.0,
@@ -386,7 +391,7 @@ class AttendanceCoreTest extends TestCase
         $nextFridayStr = $nextFriday->toDateString();
 
         EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::Casual->value,
             'leave_status' => LeaveStatusEnum::Approved->value,
@@ -398,7 +403,7 @@ class AttendanceCoreTest extends TestCase
 
         // Request overlapping leave
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/leaves', [
+            ->postJson('/api/v1/organization/attendance/leaves', [
                 'leave_type' => LeaveTypeEnum::Sick->value,
                 'start_date' => $nextMondayStr,
                 'end_date' => $nextMondayStr, // Overlaps
@@ -417,7 +422,7 @@ class AttendanceCoreTest extends TestCase
         // 1. Create a dummy attendance day and session
         $day = AttendanceDay::create([
             'user_id' => $this->user->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'attendance_date' => now()->toDateString(),
             'attendance_status' => \App\Enums\AttendanceStatusEnum::Incomplete->value,
             'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Pending->value,
@@ -431,9 +436,9 @@ class AttendanceCoreTest extends TestCase
 
         // 2. Submit adjustment request for clock_out correction to make it 4 hours
         $response = $this->withHeaders($this->authHeaders())
-            ->postJson('/api/v1/corp/attendance/adjustments', [
-                'attendance_day_id' => $day->id,
-                'attendance_session_id' => $session->id,
+            ->postJson('/api/v1/organization/attendance/adjustments', [
+                'attendance_day_uuid' => $day->uuid,
+                'attendance_session_uuid' => $session->uuid,
                 'adjustment_type' => AttendanceAdjustmentTypeEnum::ClockOutCorrection->value,
                 'clock_in_at' => $session->clock_in_at->toIso8601String(),
                 'clock_out_at' => Carbon::now()->toIso8601String(), // corrected clock out
@@ -451,7 +456,7 @@ class AttendanceCoreTest extends TestCase
 
         // 3. Approve adjustment
         $approveResponse = $this->withHeaders($this->authHeaders())
-            ->putJson("/api/v1/corp/attendance/adjustments/{$adjustmentUuid}/approve");
+            ->putJson("/api/v1/organization/attendance/adjustments/{$adjustmentUuid}/approve");
 
         $approveResponse->assertOk();
 
@@ -473,9 +478,9 @@ class AttendanceCoreTest extends TestCase
             'is_active' => true,
         ]);
 
-        $managerMembership = CorpMembership::create([
+        $managerMembership = OrganizationMembership::create([
             'user_id' => $managerUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
@@ -483,7 +488,7 @@ class AttendanceCoreTest extends TestCase
         $managerRole = Role::create([
             'name' => SystemRole::HrManager->value,
             'guard_name' => 'api',
-            'corporation_id' => null,
+            'organization_id' => null,
             'is_system_role' => true,
         ]);
 
@@ -491,7 +496,7 @@ class AttendanceCoreTest extends TestCase
 
         $managerRole->givePermissionTo($permission);
 
-        setPermissionsTeamId($this->corporation->id);
+        setPermissionsTeamId($this->organization->id);
         $managerUser->assignRole($managerRole);
         setPermissionsTeamId(null);
 
@@ -499,19 +504,19 @@ class AttendanceCoreTest extends TestCase
         $issueJwtAction = app(IssueJwtAction::class);
         $managerToken = $issueJwtAction->issueAccessToken(
             $managerUser,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::HrManager->value
         );
 
         $managerHeaders = [
             'Authorization' => "Bearer {$managerToken}",
-            'X-Corporation-Uuid' => $this->corporation->uuid,
+            'X-Organization-Uuid' => $this->organization->uuid,
         ];
 
         // 2. Apply for leave as the regular Employee user
         $leave = EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::Casual->value,
             'leave_status' => LeaveStatusEnum::Pending->value,
@@ -523,7 +528,7 @@ class AttendanceCoreTest extends TestCase
 
         // 3. Manager transitions leave status from Pending to Approved
         $response = $this->withHeaders($managerHeaders)
-            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/leaves/{$leave->uuid}/status", [
                 'status' => LeaveStatusEnum::Approved->value,
                 'remarks' => 'Approved after review',
             ]);
@@ -556,9 +561,9 @@ class AttendanceCoreTest extends TestCase
             'is_active' => true,
         ]);
 
-        CorpMembership::create([
+        OrganizationMembership::create([
             'user_id' => $managerUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
@@ -566,7 +571,7 @@ class AttendanceCoreTest extends TestCase
         $managerRole = Role::create([
             'name' => SystemRole::HrManager->value,
             'guard_name' => 'api',
-            'corporation_id' => null,
+            'organization_id' => null,
             'is_system_role' => true,
         ]);
 
@@ -574,26 +579,26 @@ class AttendanceCoreTest extends TestCase
 
         $managerRole->givePermissionTo($permission);
 
-        setPermissionsTeamId($this->corporation->id);
+        setPermissionsTeamId($this->organization->id);
         $managerUser->assignRole($managerRole);
         setPermissionsTeamId(null);
 
         $issueJwtAction = app(IssueJwtAction::class);
         $managerToken = $issueJwtAction->issueAccessToken(
             $managerUser,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::HrManager->value
         );
 
         $managerHeaders = [
             'Authorization' => "Bearer {$managerToken}",
-            'X-Corporation-Uuid' => $this->corporation->uuid,
+            'X-Organization-Uuid' => $this->organization->uuid,
         ];
 
         // 2. Create an Approved leave
         $leave = EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::Casual->value,
             'leave_status' => LeaveStatusEnum::Approved->value,
@@ -605,7 +610,7 @@ class AttendanceCoreTest extends TestCase
 
         // 3. Manager tries to transition from Approved back to Draft (which is invalid)
         $response = $this->withHeaders($managerHeaders)
-            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/leaves/{$leave->uuid}/status", [
                 'status' => LeaveStatusEnum::Draft->value,
                 'remarks' => 'Illegal regression',
             ]);
@@ -619,7 +624,7 @@ class AttendanceCoreTest extends TestCase
     {
         // 1. Create a Pending leave
         $leave = EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::Casual->value,
             'leave_status' => LeaveStatusEnum::Pending->value,
@@ -631,7 +636,7 @@ class AttendanceCoreTest extends TestCase
 
         // 2. Regular employee tries to approve their own leave (unauthorized)
         $response = $this->withHeaders($this->authHeaders())
-            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/leaves/{$leave->uuid}/status", [
                 'status' => LeaveStatusEnum::Approved->value,
                 'remarks' => 'Self-approving',
             ]);
@@ -645,7 +650,7 @@ class AttendanceCoreTest extends TestCase
     {
         // 1. Create a Pending leave
         $leave = EmployeeLeave::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'user_id' => $this->user->id,
             'leave_type' => LeaveTypeEnum::Casual->value,
             'leave_status' => LeaveStatusEnum::Pending->value,
@@ -657,7 +662,7 @@ class AttendanceCoreTest extends TestCase
 
         // 2. Regular employee cancels their own pending leave
         $response = $this->withHeaders($this->authHeaders())
-            ->patchJson("/api/v1/corp/attendance/leaves/{$leave->uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/leaves/{$leave->uuid}/status", [
                 'status' => LeaveStatusEnum::Cancelled->value,
                 'remarks' => 'No longer needed',
             ]);

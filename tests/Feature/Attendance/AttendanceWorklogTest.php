@@ -15,11 +15,11 @@ use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendancePolicy;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Attendance\AttendanceWorklog;
-use App\Models\Attendance\AttendanceWorklogPolicy;
+use App\Models\Attendance\WorklogPolicy;
 use App\Models\Auth\User;
-use App\Models\Corporation\Branch;
-use App\Models\Corporation\Corporation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\Branch;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\EmployeeProfile;
 use App\Models\Project\Project;
 use App\Models\Project\Milestone;
@@ -38,7 +38,7 @@ class AttendanceWorklogTest extends TestCase
 
     private User $employeeUser;
     private User $managerUser;
-    private Corporation $corporation;
+    private Organization $organization;
     private string $employeeToken;
     private string $managerToken;
     private AttendancePolicy $policy;
@@ -47,10 +47,10 @@ class AttendanceWorklogTest extends TestCase
     {
         parent::setUp();
 
-        // 1. Create Corporation
-        $this->corporation = Corporation::create([
-            'legal_name' => 'Tech Corp',
-            'slug' => 'tech-corp',
+        // 1. Create organization
+        $this->organization = Organization::create([
+            'legal_name' => 'Tech Organization',
+            'slug' => 'tech-organization',
             'is_active' => true,
             'is_verified' => true,
         ]);
@@ -95,28 +95,28 @@ class AttendanceWorklogTest extends TestCase
         ]);
 
         // 4. Create Memberships
-        $empMem = CorpMembership::create([
+        $empMem = OrganizationMembership::create([
             'user_id' => $this->employeeUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
 
-        $mgrMem = CorpMembership::create([
+        $mgrMem = OrganizationMembership::create([
             'user_id' => $this->managerUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
 
-        setPermissionsTeamId($this->corporation->id);
+        setPermissionsTeamId($this->organization->id);
         $this->employeeUser->assignRole($employeeRole);
         $this->managerUser->assignRole($managerRole);
         setPermissionsTeamId(null);
 
         // 5. Create Branch
         $branch = Branch::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'name' => 'HQ branch',
             'code' => 'HQ001',
             'latitude' => 12.9716,
@@ -129,8 +129,8 @@ class AttendanceWorklogTest extends TestCase
         // 6. Create Employee Profiles
         EmployeeProfile::create([
             'user_id' => $this->employeeUser->id,
-            'corporation_id' => $this->corporation->id,
-            'corp_membership_id' => $empMem->id,
+            'organization_id' => $this->organization->id,
+            'organization_membership_id' => $empMem->id,
             'employee_code' => 'EMP001',
             'branch_id' => $branch->id,
             'is_active' => true,
@@ -138,8 +138,8 @@ class AttendanceWorklogTest extends TestCase
 
         EmployeeProfile::create([
             'user_id' => $this->managerUser->id,
-            'corporation_id' => $this->corporation->id,
-            'corp_membership_id' => $mgrMem->id,
+            'organization_id' => $this->organization->id,
+            'organization_membership_id' => $mgrMem->id,
             'employee_code' => 'MGR001',
             'branch_id' => $branch->id,
             'is_active' => true,
@@ -147,21 +147,21 @@ class AttendanceWorklogTest extends TestCase
 
         // 7. Create Default Policy
         $policyService = app(AttendancePolicyService::class);
-        $this->policy = $policyService->createDefaultPolicy($this->corporation, $this->managerUser);
+        $this->policy = $policyService->createDefaultPolicy($this->organization, $this->managerUser);
 
         // 8. Issue JWT Tokens
         $issueJwtAction = app(IssueJwtAction::class);
         $this->employeeToken = $issueJwtAction->issueAccessToken(
             $this->employeeUser,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::Employee->value
         );
 
         $this->managerToken = $issueJwtAction->issueAccessToken(
             $this->managerUser,
-            $this->corporation,
-            \App\Enums\Guard::Corp,
+            $this->organization,
+            \App\Enums\Guard::Organization,
             SystemRole::Manager->value
         );
     }
@@ -170,7 +170,7 @@ class AttendanceWorklogTest extends TestCase
     {
         return [
             'Authorization' => "Bearer {$this->employeeToken}",
-            'X-Corporation-Uuid' => $this->corporation->uuid,
+            'X-Organization-Uuid' => $this->organization->uuid,
         ];
     }
 
@@ -178,7 +178,7 @@ class AttendanceWorklogTest extends TestCase
     {
         return [
             'Authorization' => "Bearer {$this->managerToken}",
-            'X-Corporation-Uuid' => $this->corporation->uuid,
+            'X-Organization-Uuid' => $this->organization->uuid,
         ];
     }
 
@@ -186,14 +186,14 @@ class AttendanceWorklogTest extends TestCase
     {
         // 1. Get current worklog policy
         $response = $this->withHeaders($this->managerHeaders())
-            ->getJson('/api/v1/corp/attendance/worklog-policy');
+            ->getJson('/api/v1/organization/attendance/worklog-policy');
 
         $response->assertStatus(200)
             ->assertJsonPath('data.allow_deferred_submission', true);
 
         // 2. Update worklog policy
         $response = $this->withHeaders($this->managerHeaders())
-            ->patchJson('/api/v1/corp/attendance/worklog-policy', [
+            ->patchJson('/api/v1/organization/attendance/worklog-policy', [
                 'strict_mode_enabled' => true,
                 'require_project_mapping' => true,
             ]);
@@ -207,7 +207,7 @@ class AttendanceWorklogTest extends TestCase
     {
         // Create Mock Project, Milestone, Task
         $project = Project::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'name' => 'Project Alpha',
             'is_active' => true,
         ]);
@@ -227,7 +227,7 @@ class AttendanceWorklogTest extends TestCase
         // Create Attendance Day
         $day = AttendanceDay::create([
             'user_id' => $this->employeeUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'attendance_date' => Carbon::today()->toDateString(),
             'attendance_status' => \App\Enums\AttendanceStatusEnum::Present->value,
             'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Compliant->value,
@@ -244,7 +244,7 @@ class AttendanceWorklogTest extends TestCase
 
         // Store Worklog
         $response = $this->withHeaders($this->employeeHeaders())
-            ->postJson('/api/v1/corp/attendance/worklogs', [
+            ->postJson('/api/v1/organization/attendance/worklogs', [
                 'attendance_day_uuid' => $day->uuid,
                 'attendance_session_uuid' => $session->uuid,
                 'project_uuid' => $project->uuid,
@@ -261,7 +261,7 @@ class AttendanceWorklogTest extends TestCase
 
         // Update Worklog
         $response = $this->withHeaders($this->employeeHeaders())
-            ->patchJson("/api/v1/corp/attendance/worklogs/{$worklogUuid}", [
+            ->patchJson("/api/v1/organization/attendance/worklogs/{$worklogUuid}", [
                 'logged_minutes' => 90,
                 'description' => 'Updated task coding time',
             ]);
@@ -273,7 +273,7 @@ class AttendanceWorklogTest extends TestCase
     public function test_worklog_task_overflow_compliance(): void
     {
         $project = Project::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'name' => 'Project Alpha',
             'is_active' => true,
         ]);
@@ -292,7 +292,7 @@ class AttendanceWorklogTest extends TestCase
 
         $day = AttendanceDay::create([
             'user_id' => $this->employeeUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'attendance_date' => Carbon::today()->toDateString(),
             'attendance_status' => \App\Enums\AttendanceStatusEnum::Present->value,
             'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Compliant->value,
@@ -300,7 +300,7 @@ class AttendanceWorklogTest extends TestCase
 
         // Attempting to log 120 minutes without justification (Overflow should fail if required)
         $response = $this->withHeaders($this->employeeHeaders())
-            ->postJson('/api/v1/corp/attendance/worklogs', [
+            ->postJson('/api/v1/organization/attendance/worklogs', [
                 'attendance_day_uuid' => $day->uuid,
                 'project_uuid' => $project->uuid,
                 'milestone_uuid' => $milestone->uuid,
@@ -314,7 +314,7 @@ class AttendanceWorklogTest extends TestCase
 
         // Correctly log with justification
         $response = $this->withHeaders($this->employeeHeaders())
-            ->postJson('/api/v1/corp/attendance/worklogs', [
+            ->postJson('/api/v1/organization/attendance/worklogs', [
                 'attendance_day_uuid' => $day->uuid,
                 'project_uuid' => $project->uuid,
                 'milestone_uuid' => $milestone->uuid,
@@ -331,7 +331,7 @@ class AttendanceWorklogTest extends TestCase
     public function test_workflow_state_transitions_and_permissions(): void
     {
         $project = Project::create([
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'name' => 'Project Alpha',
             'is_active' => true,
         ]);
@@ -339,7 +339,7 @@ class AttendanceWorklogTest extends TestCase
 
         $day = AttendanceDay::create([
             'user_id' => $this->employeeUser->id,
-            'corporation_id' => $this->corporation->id,
+            'organization_id' => $this->organization->id,
             'attendance_date' => Carbon::today()->toDateString(),
             'attendance_status' => \App\Enums\AttendanceStatusEnum::Present->value,
             'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Compliant->value,
@@ -347,7 +347,7 @@ class AttendanceWorklogTest extends TestCase
 
         // 1. Employee creates a draft worklog
         $response = $this->withHeaders($this->employeeHeaders())
-            ->postJson('/api/v1/corp/attendance/worklogs', [
+            ->postJson('/api/v1/organization/attendance/worklogs', [
                 'attendance_day_uuid' => $day->uuid,
                 'project_uuid' => $project->uuid,
                 'logged_minutes' => 60,
@@ -359,7 +359,7 @@ class AttendanceWorklogTest extends TestCase
 
         // 2. Employee submits the worklog
         $response = $this->withHeaders($this->employeeHeaders())
-            ->patchJson("/api/v1/corp/attendance/worklogs/{$uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/worklogs/{$uuid}/status", [
                 'status' => WorkflowStatusEnum::Submitted->value,
                 'remarks' => 'Submitting my draft worklog',
             ]);
@@ -369,7 +369,7 @@ class AttendanceWorklogTest extends TestCase
 
         // 3. Employee attempts to approve the worklog (should fail - no permission)
         $response = $this->withHeaders($this->employeeHeaders())
-            ->patchJson("/api/v1/corp/attendance/worklogs/{$uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/worklogs/{$uuid}/status", [
                 'status' => WorkflowStatusEnum::Approved->value,
             ]);
 
@@ -377,7 +377,7 @@ class AttendanceWorklogTest extends TestCase
 
         // 4. Manager approves the worklog
         $response = $this->withHeaders($this->managerHeaders())
-            ->patchJson("/api/v1/corp/attendance/worklogs/{$uuid}/status", [
+            ->patchJson("/api/v1/organization/attendance/worklogs/{$uuid}/status", [
                 'status' => WorkflowStatusEnum::Approved->value,
                 'remarks' => 'Looks good, approved.',
             ]);

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Enums;
 
 /**
- * Corporation membership lifecycle states.
+ * Organization membership lifecycle states.
  *
- * Tracks the relationship between a user and a corporation
+ * Tracks the relationship between a user and an organization
  * from invitation acceptance through active membership to separation.
  */
 enum MembershipStatus: string

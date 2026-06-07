@@ -12,7 +12,7 @@ return new class extends Migration
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
-            $table->unsignedBigInteger('corporation_id')->comment('Which corporation is sending the invite');
+            $table->unsignedBigInteger('organization_id')->comment('Which organization is sending the invite');
             $table->string('email', 191)->comment('Invitee email address');
             $table->unsignedBigInteger('role_id')->comment('Role to assign on acceptance');
             $table->unsignedBigInteger('invited_by')->comment('user_id of the admin sending the invite');
@@ -26,14 +26,14 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('invited_by')->references('id')->on('users');
             $table->foreign('revoked_by')->references('id')->on('users')->onDelete('set null');
 
             $table->index('token');
             $table->index('email');
-            $table->index(['corporation_id', 'email']);
+            $table->index(['organization_id', 'email']);
             $table->index('expires_at');
         });
     }

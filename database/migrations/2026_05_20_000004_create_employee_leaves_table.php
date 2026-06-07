@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('employee_leaves', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
-            $table->unsignedBigInteger('corporation_id')->comment('FK to corporations');
+            $table->unsignedBigInteger('organization_id')->comment('FK to organizations');
             $table->unsignedBigInteger('user_id')->comment('FK to users');
             
             $table->unsignedTinyInteger('leave_type')->comment('Casual=1, Sick=2, Paid=3, Unpaid=4, WorkFromHome=5, ExtraWorkingDay=6, etc.');
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->timestampsTz();
             $table->softDeletesTz();
 
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('rejected_by')->references('id')->on('users')->onDelete('set null');
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->index('leave_status');
             $table->index('start_date');
             $table->index('end_date');
-            $table->index(['user_id', 'start_date', 'end_date'], 'idx_user_leave_dates');
+            $table->index(['user_id', 'start_date', 'end_date'], 'employee_leaves_user_id_start_date_end_date_index');
         });
     }
 

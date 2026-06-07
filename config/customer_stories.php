@@ -10,7 +10,7 @@ return [
         'FinEdge',
         'ScaleFlow',
         'CloudSync',
-        'Acme Corp',
+        'Acme Inc',
         'Stellar Inc',
         'NovaTech',
         'QuantumHR',

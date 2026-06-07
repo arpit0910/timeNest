@@ -17,7 +17,7 @@ class AttendanceWorklogObserver
         $actorId = auth()->id() ?? $worklog->user_id;
 
         AttendanceActivityLog::create([
-            'corporation_id' => $worklog->corporation_id,
+            'organization_id' => $worklog->organization_id,
             'user_id' => $worklog->user_id,
             'actor_id' => $actorId,
             'action' => 'worklog_created',
@@ -49,7 +49,7 @@ class AttendanceWorklogObserver
             $newVal = $newStatus instanceof \BackedEnum ? $newStatus->value : $newStatus;
 
             AttendanceActivityLog::create([
-                'corporation_id' => $worklog->corporation_id,
+                'organization_id' => $worklog->organization_id,
                 'user_id' => $worklog->user_id,
                 'actor_id' => $actorId,
                 'action' => 'worklog_status_changed',
@@ -70,7 +70,7 @@ class AttendanceWorklogObserver
         $actorId = auth()->id() ?? $worklog->user_id;
 
         AttendanceActivityLog::create([
-            'corporation_id' => $worklog->corporation_id,
+            'organization_id' => $worklog->organization_id,
             'user_id' => $worklog->user_id,
             'actor_id' => $actorId,
             'action' => 'worklog_deleted',

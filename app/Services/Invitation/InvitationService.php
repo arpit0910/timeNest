@@ -9,7 +9,7 @@ use App\Events\InvitationCreated;
 use App\Events\InvitationRevoked;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Invitation\Invitation;
 use App\Models\Rbac\Role;
 use Illuminate\Support\Carbon;
@@ -22,26 +22,26 @@ class InvitationService
      * Create a new invitation.
      */
     public function createInvitation(
-        Corporation $corporation,
+        Organization $organization,
         string $email,
         int $roleId,
         User $invitedByUser,
         array $metadata = []
     ): Invitation {
-        // 1. Verify role belongs to this corporation (or is a valid system corp role)
+        // 1. Verify role belongs to this organization (or is a valid system org role)
         $role = Role::findOrFail($roleId);
-        if ($role->corporation_id !== null && (int) $role->corporation_id !== $corporation->id) {
-            throw new BusinessRuleViolationException('The selected role is not valid for this corporation.', 'INVALID_ROLE');
+        if ($role->organization_id !== null && (int) $role->organization_id !== $organization->id) {
+            throw new BusinessRuleViolationException('The selected role is not valid for this organization.', 'INVALID_ROLE');
         }
-        if ($role->corporation_id === null) {
+        if ($role->organization_id === null) {
             $systemRole = \App\Enums\SystemRole::tryFrom($role->name);
-            if (!$systemRole || !$systemRole->isCorpRole()) {
-                throw new BusinessRuleViolationException('Platform roles cannot be assigned to corporation members.', 'INVALID_ROLE');
+            if (!$systemRole || !$systemRole->isOrganizationRole()) {
+                throw new BusinessRuleViolationException('Platform roles cannot be assigned to organization members.', 'INVALID_ROLE');
             }
         }
 
-        // 2. Prevent duplicate active invitations for the same email inside the same corporation
-        $existing = Invitation::where('corporation_id', $corporation->id)
+        // 2. Prevent duplicate active invitations for the same email inside the same organization
+        $existing = Invitation::where('organization_id', $organization->id)
             ->where('email', $email)
             ->where('status', InvitationStatusEnum::Pending)
             ->where('expires_at', '>', now())
@@ -55,9 +55,9 @@ class InvitationService
         $rawToken = Str::random(40);
         $hashedToken = hash('sha256', $rawToken);
 
-        return DB::transaction(function () use ($corporation, $email, $roleId, $invitedByUser, $hashedToken, $rawToken, $metadata) {
+        return DB::transaction(function () use ($organization, $email, $roleId, $invitedByUser, $hashedToken, $rawToken, $metadata) {
             $invitation = Invitation::create([
-                'corporation_id' => $corporation->id,
+                'organization_id' => $organization->id,
                 'email' => $email,
                 'role_id' => $roleId,
                 'invited_by_user_id' => $invitedByUser->id,

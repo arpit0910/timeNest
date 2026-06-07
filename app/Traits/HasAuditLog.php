@@ -36,7 +36,7 @@ trait HasAuditLog
     ): void {
         AuditLog::create([
             'user_id' => Auth::id(),
-            'corporation_id' => $this->resolveAuditCorporationId(),
+            'organization_id' => $this->resolveAuditOrganizationId(),
             'action' => $action,
             'resource_type' => $resource ? get_class($resource) : null,
             'resource_id' => $resource?->id,
@@ -50,15 +50,15 @@ trait HasAuditLog
     }
 
     /**
-     * Resolve the corporation ID for audit context.
+     * Resolve the organization ID for audit context.
      *
-     * Checks the service container for a bound corporation,
+     * Checks the service container for a bound organization,
      * falls back to null for platform-level actions.
      */
-    private function resolveAuditCorporationId(): ?int
+    private function resolveAuditOrganizationId(): ?int
     {
-        if (app()->bound('current.corporation')) {
-            return app('current.corporation')->id;
+        if (app()->bound('current.organization')) {
+            return app('current.organization')->id;
         }
 
         return null;

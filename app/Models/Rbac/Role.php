@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Rbac;
 
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Permission\Models\Role as SpatieRole;
@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role as SpatieRole;
  *
  * @property int $id
  * @property string $uuid
- * @property int|null $corporation_id
+ * @property int|null $organization_id
  * @property string $name
  * @property string $guard_name
  * @property string|null $description
@@ -28,7 +28,7 @@ class Role extends SpatieRole
     protected $fillable = [
         'name',
         'guard_name',
-        'corporation_id',
+        'organization_id',
         'description',
         'is_system_role',
         'sort_order',
@@ -45,10 +45,10 @@ class Role extends SpatieRole
     }
 
     /**
-     * The corporation this role belongs to. NULL means it's a global/platform role.
+     * The organization this role belongs to. NULL means it's a global/platform role.
      */
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class, 'corporation_id');
+        return $this->belongsTo(Organization::class, 'organization_id');
     }
 }

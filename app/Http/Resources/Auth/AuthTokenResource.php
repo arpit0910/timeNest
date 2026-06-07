@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * Auth Token Resource — wraps authentication response with tokens.
  *
- * Used for login, register, refresh, and corporation selection responses.
+ * Used for login, register, refresh, and organization selection responses.
  */
 class AuthTokenResource extends JsonResource
 {
@@ -20,7 +20,7 @@ class AuthTokenResource extends JsonResource
     public function toArray(Request $request): array
     {
         $data = [
-            'status' => $this->resource['status'],
+            'status' => $this->resource['status'] ?? 'authenticated',
         ];
 
         // Include tokens if authenticated
@@ -49,14 +49,14 @@ class AuthTokenResource extends JsonResource
             $data['user'] = new UserResource($this->resource['user']);
         }
 
-        // Corporation data
-        if (isset($this->resource['corporation'])) {
-            $data['corporation'] = [
-                'uuid' => $this->resource['corporation']->uuid,
-                'legal_name' => $this->resource['corporation']->legal_name,
-                'trading_name' => $this->resource['corporation']->trading_name,
-                'slug' => $this->resource['corporation']->slug,
-                'logo_url' => $this->resource['corporation']->logo_url,
+        // Organization data
+        if (isset($this->resource['organization'])) {
+            $data['organization'] = [
+                'uuid' => $this->resource['organization']->uuid,
+                'legal_name' => $this->resource['organization']->legal_name,
+                'trading_name' => $this->resource['organization']->trading_name,
+                'slug' => $this->resource['organization']->slug,
+                'logo_url' => $this->resource['organization']->logo_url,
             ];
         }
 

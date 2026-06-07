@@ -14,7 +14,7 @@ use App\Exceptions\Business\MembershipInactiveException as BusinessMembershipIna
  */
 class MembershipInactiveException extends BusinessMembershipInactiveException
 {
-    public function __construct(string $message = 'Corporation membership is not active')
+    public function __construct(string $message = 'Organization membership is not active')
     {
         parent::__construct($message);
     }

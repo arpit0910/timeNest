@@ -6,7 +6,7 @@ namespace App\Models\Attendance;
 
 use App\Enums\AttendanceModeEnum;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * AttendancePolicy model — corporation specific policy setup.
+ * AttendancePolicy model — organization specific policy setup.
  */
 class AttendancePolicy extends Model
 {
@@ -25,7 +25,7 @@ class AttendancePolicy extends Model
     protected $table = 'attendance_policies';
 
     protected $fillable = [
-        'corporation_id',
+        'organization_id',
         'attendance_mode',
         'required_daily_minutes',
         'minimum_session_minutes',
@@ -65,9 +65,9 @@ class AttendancePolicy extends Model
         ];
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function policyVersions(): HasMany
@@ -87,7 +87,7 @@ class AttendancePolicy extends Model
 
     public function worklogPolicy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(AttendanceWorklogPolicy::class);
+        return $this->hasOne(WorklogPolicy::class);
     }
 
     public function createdBy(): BelongsTo

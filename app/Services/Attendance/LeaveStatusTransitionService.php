@@ -158,8 +158,8 @@ class LeaveStatusTransitionService
             return;
         }
 
-        // 3. Managerial/HR transitions require permission check scoped to tenant corporation
-        setPermissionsTeamId($leave->corporation_id);
+        // 3. Managerial/HR transitions require permission check scoped to tenant organization
+        setPermissionsTeamId($leave->organization_id);
         $hasPermission = $actor->hasPermissionTo(SystemPermission::LeavesApprove->value);
         setPermissionsTeamId(null);
 

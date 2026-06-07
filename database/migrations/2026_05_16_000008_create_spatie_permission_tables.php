@@ -45,7 +45,7 @@ return new class extends Migration
             if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
-                $table->foreign($columnNames['team_foreign_key'])->references('id')->on('corporations')->onDelete('cascade');
+                $table->foreign($columnNames['team_foreign_key'])->references('id')->on('organizations')->onDelete('cascade');
             }
             $table->string('name');
             $table->string('guard_name');

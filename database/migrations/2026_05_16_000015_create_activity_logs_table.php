@@ -13,7 +13,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
             $table->unsignedBigInteger('user_id')->comment('FK to users — who did the action');
-            $table->unsignedBigInteger('corporation_id')->nullable()->comment('Corporation context');
+            $table->unsignedBigInteger('organization_id')->nullable()->comment('Organization context');
             $table->string('type', 50)->comment('Activity type: login, logout, profile_updated, etc.');
             $table->text('description')->nullable()->comment('Human-readable description');
             $table->string('ip_address', 45)->nullable()->comment('IP address');
@@ -22,10 +22,10 @@ return new class extends Migration
             $table->timestamp('created_at')->comment('Immutable timestamp');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('set null');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
 
             $table->index(['user_id', 'created_at']);
-            $table->index(['corporation_id', 'type']);
+            $table->index(['organization_id', 'type']);
         });
 
         // Also create cache + jobs tables for framework support

@@ -36,7 +36,7 @@ Route::middleware(['tm.jwt.auth', 'jwt.full'])->controller(AuthController::class
     Route::post('logout', 'logout')->name('logout');
     Route::post('logout-all', 'logoutAll')->name('logout-all');
     Route::get('workspaces', 'workspaces')->name('workspaces');
-    Route::post('switch-corporation', 'switchCorporation')->name('switch-corporation');
+    Route::post('switch-organization', 'switchorganization')->name('switch-organization');
 });
 
 Route::middleware(['tm.jwt.auth', 'jwt.full'])
@@ -53,9 +53,9 @@ Route::middleware(['tm.jwt.auth', 'jwt.full'])
 
 // Temporary token / 2FA routes
 Route::middleware(['api.temp'])->group(function (): void {
-    Route::post('select-corporation', [AuthController::class, 'selectCorporation'])
+    Route::post('select-organization', [AuthController::class, 'selectorganization'])
         ->middleware('jwt.temp:workspace_selection')
-        ->name('select-corporation');
+        ->name('select-organization');
 
     Route::post('2fa/verify', [TwoFactorController::class, 'verify'])
         ->middleware(['jwt.temp:2fa', 'throttle:auth'])

@@ -43,7 +43,7 @@ return new class extends Migration
             $table->string('locale', 10)->default('en')->comment('BCP 47 locale');
 
             // 2FA
-            $table->string('two_factor_secret', 255)->nullable()->comment('TOTP secret — global across all corporations');
+            $table->string('two_factor_secret', 255)->nullable()->comment('TOTP secret — global across all organizations');
             $table->boolean('two_factor_enabled')->default(false)->comment('Whether 2FA is active');
             $table->text('two_factor_recovery_codes')->nullable()->comment('Hashed recovery codes');
 

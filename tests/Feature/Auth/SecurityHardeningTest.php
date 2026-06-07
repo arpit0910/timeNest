@@ -7,8 +7,8 @@ namespace Tests\Feature\Auth;
 use App\Enums\MembershipStatus;
 use App\Enums\SystemRole;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
 use App\Actions\IssueJwtAction;
@@ -21,8 +21,8 @@ class SecurityHardeningTest extends TestCase
     use RefreshDatabase;
 
     private User $appOwner;
-    private Corporation $corp1;
-    private Corporation $corp2;
+    private Organization $organization1;
+    private Organization $organization2;
     private Role $appOwnerRole;
     private IssueJwtAction $issueJwtAction;
 
@@ -32,17 +32,17 @@ class SecurityHardeningTest extends TestCase
 
         $this->issueJwtAction = app(IssueJwtAction::class);
 
-        // 1. Create Corporations
-        $this->corp1 = Corporation::create([
-            'legal_name' => 'First Corp Ltd',
-            'slug' => 'first-corp',
+        // 1. Create organizations
+        $this->organization1 = Organization::create([
+            'legal_name' => 'First Organization Ltd',
+            'slug' => 'first-organization',
             'is_active' => true,
             'is_verified' => true,
         ]);
 
-        $this->corp2 = Corporation::create([
-            'legal_name' => 'Second Corp Ltd',
-            'slug' => 'second-corp',
+        $this->organization2 = Organization::create([
+            'legal_name' => 'Second Organization Ltd',
+            'slug' => 'second-organization',
             'is_active' => true,
             'is_verified' => true,
         ]);
@@ -51,7 +51,7 @@ class SecurityHardeningTest extends TestCase
         $this->appOwnerRole = Role::create([
             'name' => SystemRole::AppOwner->value,
             'guard_name' => 'api',
-            'corporation_id' => null,
+            'organization_id' => null,
             'is_system_role' => true,
         ]);
 
@@ -71,15 +71,15 @@ class SecurityHardeningTest extends TestCase
     }
 
     /**
-     * Verify that AppOwner can select any active corporation workspace without physical membership.
+     * Verify that AppOwner can select any active organization workspace without physical membership.
      */
-    public function test_app_owner_can_select_any_corporation_without_membership(): void
+    public function test_app_owner_can_select_any_organization_without_membership(): void
     {
         $token = $this->issueJwtAction->issueTempToken($this->appOwner, 'workspace_selection');
 
         $response = $this->withHeader('Authorization', "Bearer {$token}")
-            ->postJson('/api/v1/auth/select-corporation', [
-                'corporation_uuid' => $this->corp1->uuid,
+            ->postJson('/api/v1/auth/select-organization', [
+                'organization_uuid' => $this->organization1->uuid,
             ]);
 
         $response->assertOk()
@@ -98,9 +98,9 @@ class SecurityHardeningTest extends TestCase
     }
 
     /**
-     * Verify that regular users cannot select a corporation they are not members of.
+     * Verify that regular users cannot select a organization they are not members of.
      */
-    public function test_regular_user_cannot_select_corporation_without_membership(): void
+    public function test_regular_user_cannot_select_organization_without_membership(): void
     {
         $regularUser = User::factory()->create([
             'email_verified_at' => now(),
@@ -110,8 +110,8 @@ class SecurityHardeningTest extends TestCase
         $token = $this->issueJwtAction->issueTempToken($regularUser, 'workspace_selection');
 
         $response = $this->withHeader('Authorization', "Bearer {$token}")
-            ->postJson('/api/v1/auth/select-corporation', [
-                'corporation_uuid' => $this->corp1->uuid,
+            ->postJson('/api/v1/auth/select-organization', [
+                'organization_uuid' => $this->organization1->uuid,
             ]);
 
         $response->assertForbidden();
@@ -140,18 +140,18 @@ class SecurityHardeningTest extends TestCase
     }
 
     /**
-     * Verify that AppOwner can call corporation APIs directly using their platform token
-     * by supplying the X-Corporation-Uuid header context.
+     * Verify that AppOwner can call organization APIs directly using their platform token
+     * by supplying the X-Organization-Uuid header context.
      */
-    public function test_app_owner_can_access_corp_apis_directly_with_platform_token_via_header(): void
+    public function test_app_owner_can_access_organization_apis_directly_with_platform_token_via_header(): void
     {
         // Issue platform access token
         $token = $this->issueJwtAction->issueAccessToken($this->appOwner, null, \App\Enums\Guard::Platform, SystemRole::AppOwner->value);
 
-        // Call corporation branch list API directly with platform token + X-Corporation-Uuid header
+        // Call organization branch list API directly with platform token + X-Organization-Uuid header
         $response = $this->withHeader('Authorization', "Bearer {$token}")
-            ->withHeader('X-Corporation-Uuid', $this->corp1->uuid)
-            ->getJson('/api/v1/corp/branches');
+            ->withHeader('X-Organization-Uuid', $this->organization1->uuid)
+            ->getJson('/api/v1/organization/branches');
 
         $response->assertOk()
             ->assertJsonPath('success', true);

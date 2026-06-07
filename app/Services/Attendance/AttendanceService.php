@@ -15,7 +15,7 @@ use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceActivityLog;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Membership\EmployeeProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -33,14 +33,14 @@ class AttendanceService
     /**
      * Clock-In Employee.
      */
-    public function clockIn(User $user, Corporation $corporation, array $data): AttendanceSession
+    public function clockIn(User $user, Organization $organization, array $data): AttendanceSession
     {
-        return DB::transaction(function () use ($user, $corporation, $data) {
+        return DB::transaction(function () use ($user, $organization, $data) {
             $todayDate = now()->toDateString();
 
             // Fetch profile for branch timezone & branch assignment
             $profile = EmployeeProfile::where('user_id', $user->id)
-                ->where('corporation_id', $corporation->id)
+                ->where('organization_id', $organization->id)
                 ->with('branch')
                 ->first();
 
@@ -51,15 +51,15 @@ class AttendanceService
             $timezone = $profile->branch?->timezone ?? $user->timezone ?? 'UTC';
 
             // Get policy
-            $policy = $this->policyService->getActivePolicy($corporation);
+            $policy = $this->policyService->getActivePolicy($organization);
             if (! $policy) {
-                throw new BusinessRuleViolationException('No attendance policy configured for this corporation.', 'NO_POLICY_CONFIGURED');
+                throw new BusinessRuleViolationException('No attendance policy configured for this organization.', 'NO_POLICY_CONFIGURED');
             }
 
             // Create or get daily attendance record
             $day = AttendanceDay::firstOrCreate([
                 'user_id' => $user->id,
-                'corporation_id' => $corporation->id,
+                'organization_id' => $organization->id,
                 'attendance_date' => $todayDate,
             ], [
                 'attendance_status' => AttendanceStatusEnum::Incomplete->value,
@@ -86,7 +86,7 @@ class AttendanceService
             }
 
             // 3. Holiday and Weekend Rules
-            $isHoliday = $this->calculationService->isHoliday($corporation->id, $profile->branch_id, $todayDate);
+            $isHoliday = $this->calculationService->isHoliday($organization->id, $profile->branch_id, $todayDate);
             $isWeekend = $this->calculationService->isWeekend($todayDate, $timezone);
             $hasEWD = $this->leaveManagementService->hasApprovedEWD($user->id, $todayDate);
 
@@ -119,7 +119,7 @@ class AttendanceService
                 $accuracy = (float) ($data['accuracy'] ?? 0);
 
                 try {
-                    $this->geofenceService->validateAndFindBranch($corporation, $latitude, $longitude, $accuracy);
+                    $this->geofenceService->validateAndFindBranch($organization, $latitude, $longitude, $accuracy);
                 } catch (BusinessRuleViolationException $e) {
                     // Let's check if the policy allows hybrid/flexible clock-in with warning or blocks.
                     // For Phase 1, we block if they are outside geofence.
@@ -144,7 +144,7 @@ class AttendanceService
             $this->calculationService->recalculateDay($day);
 
             // Audit Trail Log
-            $this->logActivity($corporation->id, $user->id, $user->id, 'clock_in', null, $session->toArray());
+            $this->logActivity($organization->id, $user->id, $user->id, 'clock_in', null, $session->toArray());
 
             return $session;
         });
@@ -153,14 +153,14 @@ class AttendanceService
     /**
      * Clock-Out Employee.
      */
-    public function clockOut(User $user, Corporation $corporation, array $data): AttendanceSession
+    public function clockOut(User $user, Organization $organization, array $data): AttendanceSession
     {
-        return DB::transaction(function () use ($user, $corporation, $data) {
+        return DB::transaction(function () use ($user, $organization, $data) {
             $todayDate = now()->toDateString();
 
             // Find current AttendanceDay
             $day = AttendanceDay::where('user_id', $user->id)
-                ->where('corporation_id', $corporation->id)
+                ->where('organization_id', $organization->id)
                 ->where('attendance_date', $todayDate)
                 ->first();
 
@@ -191,7 +191,7 @@ class AttendanceService
             $this->calculationService->recalculateDay($day);
 
             // Audit Trail Log
-            $this->logActivity($corporation->id, $user->id, $user->id, 'clock_out', $oldSessionValues, $session->fresh()->toArray());
+            $this->logActivity($organization->id, $user->id, $user->id, 'clock_out', $oldSessionValues, $session->fresh()->toArray());
 
             return $session;
         });
@@ -203,17 +203,19 @@ class AttendanceService
     public function submitAdjustment(User $user, AttendanceDay $day, array $data): AttendanceAdjustmentRequest
     {
         return DB::transaction(function () use ($user, $day, $data) {
-            $sessionId = $data['attendance_session_id'] ?? null;
+            $sessionUuid = $data['attendance_session_uuid'] ?? null;
+            $sessionId = null;
             $type = AttendanceAdjustmentTypeEnum::from((int) $data['adjustment_type']);
 
             // Validate session belongs to day if provided
-            if ($sessionId) {
-                $sessionExists = AttendanceSession::where('id', $sessionId)
+            if ($sessionUuid) {
+                $sessionExists = AttendanceSession::where('uuid', $sessionUuid)
                     ->where('attendance_day_id', $day->id)
-                    ->exists();
+                    ->first();
                 if (! $sessionExists) {
                     throw new BusinessRuleViolationException('The session does not belong to the selected attendance day.', 'INVALID_SESSION_DAY');
                 }
+                $sessionId = $sessionExists->id;
             }
 
             return AttendanceAdjustmentRequest::create([
@@ -292,7 +294,7 @@ class AttendanceService
             $this->calculationService->recalculateDay($day);
 
             // Audit activity log
-            $this->logActivity($day->corporation_id, $day->user_id, $resolver->id, 'adjustment_approved', $oldDayValues, $day->fresh()->toArray());
+            $this->logActivity($day->organization_id, $day->user_id, $resolver->id, 'adjustment_approved', $oldDayValues, $day->fresh()->toArray());
 
             return $request;
         });
@@ -318,7 +320,7 @@ class AttendanceService
 
             // Audit activity log
             $day = $request->attendanceDay;
-            $this->logActivity($day->corporation_id, $day->user_id, $resolver->id, 'adjustment_rejected', null, $request->toArray());
+            $this->logActivity($day->organization_id, $day->user_id, $resolver->id, 'adjustment_rejected', null, $request->toArray());
 
             return $request;
         });
@@ -327,11 +329,11 @@ class AttendanceService
     /**
      * Create an activity/audit log entry.
      */
-    private function logActivity(int $corporationId, int $userId, int $actorId, string $action, ?array $old, ?array $new): void
+    private function logActivity(int $organizationId, int $userId, int $actorId, string $action, ?array $old, ?array $new): void
     {
         // TODO: Fifure out the actual usecase of this, if no usecase then remove this.
         AttendanceActivityLog::create([
-            'corporation_id' => $corporationId,
+            'organization_id' => $organizationId,
             'user_id' => $userId,
             'actor_id' => $actorId,
             'action' => $action,

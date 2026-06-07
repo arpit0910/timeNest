@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\SystemPermission;
-use App\Http\Controllers\Api\V1\Corp\MembershipController;
+use App\Http\Controllers\Api\V1\Organization\MembershipController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MembershipController::class)->group(function (): void {

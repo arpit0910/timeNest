@@ -12,10 +12,10 @@ class AttendanceAdjustmentRequestResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            
             'uuid' => $this->uuid,
-            'attendance_day_id' => $this->attendance_day_id,
-            'attendance_session_id' => $this->attendance_session_id,
+            'attendance_day_uuid' => $this->attendanceDay?->uuid,
+            'attendance_session_uuid' => $this->attendanceSession?->uuid,
             'adjustment_type' => [
                 'value' => $this->adjustment_type?->value,
                 'label' => $this->adjustment_type?->label(),

@@ -13,7 +13,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
             $table->unsignedBigInteger('user_id')->nullable()->comment('Actor. NULL = system-triggered.');
-            $table->unsignedBigInteger('corporation_id')->nullable()->comment('Corporation context. NULL = platform-level.');
+            $table->unsignedBigInteger('organization_id')->nullable()->comment('Organization context. NULL = platform-level.');
             $table->string('action', 100)->comment('Dot-notation: user.created, membership.revoked');
             $table->string('resource_type', 100)->nullable()->comment('Eloquent model class');
             $table->unsignedBigInteger('resource_id')->nullable()->comment('Integer ID of affected resource');
@@ -28,9 +28,9 @@ return new class extends Migration
             $table->timestamp('created_at')->comment('Immutable. No updated_at.');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('set null');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('set null');
 
-            $table->index(['corporation_id', 'action']);
+            $table->index(['organization_id', 'action']);
             $table->index(['user_id', 'created_at']);
             $table->index('action');
             $table->index('created_at');

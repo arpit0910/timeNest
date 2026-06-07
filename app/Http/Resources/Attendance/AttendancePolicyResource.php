@@ -12,7 +12,6 @@ class AttendancePolicyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'uuid' => $this->uuid,
             'attendance_mode' => [
                 'value' => $this->attendance_mode?->value,

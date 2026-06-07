@@ -12,24 +12,24 @@ class AttendanceWorklogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            
             'uuid' => $this->uuid,
-            'corporation_id' => $this->corporation_id,
-            'user_id' => $this->user_id,
-            'attendance_day_id' => $this->attendance_day_id,
-            'attendance_session_id' => $this->attendance_session_id,
+            'organization_uuid' => $this->organization?->uuid,
+            'user_uuid' => $this->user?->uuid,
+            'attendance_day_uuid' => $this->attendanceDay?->uuid,
+            'attendance_session_uuid' => $this->attendanceSession?->uuid,
             'project' => $this->project ? [
-                'id' => $this->project->id,
+                
                 'uuid' => $this->project->uuid,
                 'name' => $this->project->name,
             ] : null,
             'milestone' => $this->milestone ? [
-                'id' => $this->milestone->id,
+                
                 'uuid' => $this->milestone->uuid,
                 'name' => $this->milestone->name,
             ] : null,
             'task' => $this->task ? [
-                'id' => $this->task->id,
+                
                 'uuid' => $this->task->uuid,
                 'name' => $this->task->name,
                 'estimated_minutes' => $this->task->estimated_minutes,

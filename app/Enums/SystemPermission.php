@@ -17,8 +17,8 @@ namespace App\Enums;
  */
 enum SystemPermission: string
 {
-    // ─── Corporations (Platform-level) ───────────────────────────
-    case CorporationsManage = 'corporations.manage';
+    // ─── Organizations (Platform-level) ───────────────────────────
+    case OrganizationsManage = 'organizations.manage';
 
     // ─── Users ───────────────────────────────────────────────────
     case UsersView = 'users.view';
@@ -139,13 +139,13 @@ enum SystemPermission: string
     }
 
     /**
-     * Get all platform-only permissions (corporations module).
+     * Get all platform-only permissions (organizations module).
      *
      * @return self[]
      */
     public static function platformPermissions(): array
     {
-        return self::forModule(SystemModule::Corporations->value);
+        return self::forModule(SystemModule::Organizations->value);
     }
 
     /**

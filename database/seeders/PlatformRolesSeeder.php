@@ -10,9 +10,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 /**
- * Seeds all system roles — platform guard and corporation guard.
+ * Seeds all system roles — platform guard and organization guard.
  *
- * System roles: is_system_role=true, corporation_id=null.
+ * System roles: is_system_role=true, organization_id=null.
  * Cannot be deleted or renamed by anyone.
  *
  * All role names are derived from the SystemRole enum — zero hardcoded strings.
@@ -34,7 +34,7 @@ class PlatformRolesSeeder extends Seeder
                 ],
                 [
                     'uuid' => (string) Str::uuid(),
-                    'corporation_id' => null,
+                    'organization_id' => null,
                     'description' => $systemRole->description(),
                     'is_system_role' => true,
                     'sort_order' => $systemRole->sortOrder(),

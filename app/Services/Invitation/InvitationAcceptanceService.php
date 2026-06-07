@@ -11,7 +11,7 @@ use App\Events\InvitationAccepted;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Auth\User;
 use App\Models\Invitation\Invitation;
-use App\Services\Corporation\MembershipService;
+use App\Services\Organization\MembershipService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,9 +53,15 @@ class InvitationAcceptanceService
 
         $existingUser = User::where('email', $invitation->email)->first();
 
-        // Flow for existing user
         if ($existingUser) {
             $currentUser = auth()->user();
+            if (! $currentUser && request()->bearerToken()) {
+                try {
+                    $currentUser = \PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::parseToken()->authenticate();
+                } catch (\Exception $e) {
+                    // Ignore parsing errors for public routes
+                }
+            }
 
             if (!$currentUser) {
                 throw new BusinessRuleViolationException(
@@ -71,10 +77,10 @@ class InvitationAcceptanceService
                 );
             }
 
-            // Check if user is already a member of this corporation
-            $isAlreadyMember = DB::table('corp_memberships')
+            // Check if user is already a member of this organization
+            $isAlreadyMember = DB::table('organization_memberships')
                 ->where('user_id', $currentUser->id)
-                ->where('corporation_id', $invitation->corporation_id)
+                ->where('organization_id', $invitation->organization_id)
                 ->exists();
 
             if ($isAlreadyMember) {
@@ -89,16 +95,16 @@ class InvitationAcceptanceService
 
                 return [
                     'status' => 'accepted',
-                    'message' => 'You are already a member of this corporation.',
+                    'message' => 'You are already a member of this organization.',
                     'user' => $currentUser,
-                    'corporation' => $invitation->corporation,
+                    'organization' => $invitation->organization,
                 ];
             }
 
             return DB::transaction(function () use ($invitation, $currentUser) {
-                // Attach to corporation
+                // Attach to organization
                 $this->membershipService->addMember(
-                    $invitation->corporation,
+                    $invitation->organization,
                     $currentUser,
                     $invitation->role,
                     [],
@@ -113,12 +119,12 @@ class InvitationAcceptanceService
                 InvitationAccepted::dispatch($invitation);
 
                 // For existing users already logged in, we return success.
-                // If they want corporate tokens, they switch workspace or select corporation.
+                // If they want organization tokens, they switch workspace or select organization.
                 return [
                     'status' => 'accepted',
                     'message' => 'Invitation accepted successfully.',
                     'user' => $currentUser,
-                    'corporation' => $invitation->corporation,
+                    'organization' => $invitation->organization,
                 ];
             });
         }
@@ -144,11 +150,12 @@ class InvitationAcceptanceService
                 'is_active' => true,
                 'token_version' => 1,
                 'timezone' => $profileData['timezone'] ?? 'UTC',
+                'status' => \App\Enums\UserStatus::Active->value,
             ]);
 
-            // 2. Attach to corporation
+            // 2. Attach to organization
             $this->membershipService->addMember(
-                $invitation->corporation,
+                $invitation->organization,
                 $user,
                 $invitation->role,
                 [],
@@ -165,8 +172,8 @@ class InvitationAcceptanceService
 
             // 4. Generate JWT tokens for immediate login
             $roleName = $invitation->role->name;
-            $accessToken = $this->issueJwtAction->issueAccessToken($user, $invitation->corporation, Guard::Corp, $roleName);
-            $refreshToken = $this->issueJwtAction->issueRefreshToken($user, $invitation->corporation, Guard::Corp);
+            $accessToken = $this->issueJwtAction->issueAccessToken($user, $invitation->organization, Guard::Organization, $roleName);
+            $refreshToken = $this->issueJwtAction->issueRefreshToken($user, $invitation->organization, Guard::Organization);
 
             return [
                 'status' => 'accepted',
@@ -176,7 +183,7 @@ class InvitationAcceptanceService
                 'token_type' => 'bearer',
                 'expires_in' => config('jwt.ttl') * 60,
                 'user' => $user,
-                'corporation' => $invitation->corporation,
+                'organization' => $invitation->organization,
                 'role' => $roleName,
             ];
         });

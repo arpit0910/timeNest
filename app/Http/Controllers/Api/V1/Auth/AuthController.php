@@ -10,7 +10,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RefreshTokenRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendVerificationRequest;
-use App\Http\Requests\Auth\SelectCorporationRequest;
+use App\Http\Requests\Auth\SelectOrganizationRequest;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Http\Resources\Auth\UserResource;
 use App\Services\Auth\AuthService;
@@ -131,46 +131,46 @@ class AuthController extends BaseApiController
     }
 
     /**
-     * POST /api/v1/auth/select-corporation
+     * POST /api/v1/auth/select-organization
      *
-     * Select a corporation workspace and receive corp-guard JWT.
+     * Select a organization workspace and receive organization-guard JWT.
      */
-    public function selectCorporation(SelectCorporationRequest $request): JsonResponse
+    public function selectOrganization(SelectOrganizationRequest $request): JsonResponse
     {
-        $result = $this->authService->selectCorporation(
+        $result = $this->authService->selectOrganization(
             user: $request->user(),
-            corporationUuid: $request->validated('corporation_uuid'),
+            organizationUuid: $request->validated('organization_uuid'),
         );
 
         return $this->success(
-            data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
-            message: 'Corporation selected',
+            data: new AuthTokenResource($result),
+            message: 'Organization selected',
         );
     }
 
     /**
-     * POST /api/v1/auth/switch-corporation
+     * POST /api/v1/auth/switch-organization
      *
-     * Switch to a different corporation. Invalidates current JWT first.
+     * Switch to a different organization. Invalidates current JWT first.
      */
-    public function switchCorporation(SelectCorporationRequest $request): JsonResponse
+    public function switchOrganization(SelectOrganizationRequest $request): JsonResponse
     {
-        $result = $this->authService->selectCorporation(
+        $result = $this->authService->selectOrganization(
             user: $request->user(),
-            corporationUuid: $request->validated('corporation_uuid'),
+            organizationUuid: $request->validated('organization_uuid'),
             switchMode: true,
         );
 
         return $this->success(
-            data: new AuthTokenResource(array_merge($result, ['status' => 'authenticated'])),
-            message: 'Corporation switched',
+            data: new AuthTokenResource($result),
+            message: 'Organization switched',
         );
     }
 
     /**
      * GET /api/v1/auth/workspaces
      *
-     * Get all available workspaces (corporations) for the authenticated user.
+     * Get all available workspaces (organizations) for the authenticated user.
      */
     public function workspaces(Request $request): JsonResponse
     {

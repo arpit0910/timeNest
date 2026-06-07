@@ -28,7 +28,7 @@ class PublicInvitationController extends BaseApiController
         $hashedToken = hash('sha256', $token);
 
         $invitation = Invitation::where('token', $hashedToken)
-            ->with(['corporation', 'role'])
+            ->with(['organization', 'role'])
             ->first();
 
         if (!$invitation) {
@@ -57,12 +57,12 @@ class PublicInvitationController extends BaseApiController
             'email' => $invitation->email,
             'user_exists' => $userExists,
             'expires_at' => $invitation->expires_at->toISOString(),
-            'corporation' => [
-                'uuid' => $invitation->corporation->uuid,
-                'legal_name' => $invitation->corporation->legal_name,
-                'trading_name' => $invitation->corporation->trading_name,
-                'slug' => $invitation->corporation->slug,
-                'logo_url' => $invitation->corporation->logo_url,
+            'organization' => [
+                'uuid' => $invitation->organization->uuid,
+                'legal_name' => $invitation->organization->legal_name,
+                'trading_name' => $invitation->organization->trading_name,
+                'slug' => $invitation->organization->slug,
+                'logo_url' => $invitation->organization->logo_url,
             ],
             'role' => [
                 'uuid' => $invitation->role->uuid,
@@ -100,9 +100,9 @@ class PublicInvitationController extends BaseApiController
                     'name' => $result['user']->name,
                     'email' => $result['user']->email,
                 ],
-                'corporation' => [
-                    'uuid' => $result['corporation']->uuid,
-                    'legal_name' => $result['corporation']->legal_name,
+                'organization' => [
+                    'uuid' => $result['organization']->uuid,
+                    'legal_name' => $result['organization']->legal_name,
                 ],
             ],
             message: $result['message']

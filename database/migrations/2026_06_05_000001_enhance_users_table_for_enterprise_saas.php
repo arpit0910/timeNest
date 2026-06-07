@@ -42,11 +42,11 @@ return new class extends Migration
 
             // ── Indexes ──────────────────────────────────────────
 
-            $table->index('status', 'idx_users_status');
-            $table->index('last_login_at', 'idx_users_last_login_at');
+            $table->index('status', 'users_status_index');
+            $table->index('last_login_at', 'users_last_login_at_index');
             // deleted_at index — softDeletes already exists on the table,
             // but no explicit index was created for it in the original migration.
-            $table->index('deleted_at', 'idx_users_deleted_at');
+            $table->index('deleted_at', 'users_deleted_at_index');
         });
 
         // ── PostgreSQL check constraint for status values ────────
@@ -64,9 +64,9 @@ return new class extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             // ── Drop indexes ─────────────────────────────────────
-            $table->dropIndex('idx_users_status');
-            $table->dropIndex('idx_users_last_login_at');
-            $table->dropIndex('idx_users_deleted_at');
+            $table->dropIndex('users_status_index');
+            $table->dropIndex('users_last_login_at_index');
+            $table->dropIndex('users_deleted_at_index');
 
             // ── Drop added columns ───────────────────────────────
             $table->dropColumn([

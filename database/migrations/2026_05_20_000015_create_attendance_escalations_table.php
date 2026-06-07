@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('attendance_escalations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('corporation_id')->constrained('corporations')->cascadeOnDelete();
+            $table->foreignId('organization_id')->constrained('organizations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('attendance_day_id')->nullable()->constrained('attendance_days')->cascadeOnDelete();
             $table->foreignId('attendance_worklog_id')->nullable()->constrained('attendance_worklogs')->cascadeOnDelete();

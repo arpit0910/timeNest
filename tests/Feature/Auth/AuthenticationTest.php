@@ -5,8 +5,8 @@ namespace Tests\Feature\Auth;
 use App\Enums\MembershipStatus;
 use App\Enums\SystemRole;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Rbac\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -51,14 +51,14 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('success', false);
     }
 
-    public function test_corporation_member_can_authenticate_without_global_spatie_team_context(): void
+    public function test_organization_member_can_authenticate_without_global_spatie_team_context(): void
     {
         $user = User::factory()->create([
             'password' => Hash::make('Password1!'),
             'email_verified_at' => now(),
         ]);
 
-        $corporation = Corporation::create([
+        $organization = Organization::create([
             'legal_name' => 'Acme Technologies Private Limited',
             'slug' => 'acme-tech',
             'is_active' => true,
@@ -66,20 +66,20 @@ class AuthenticationTest extends TestCase
         ]);
 
         $role = Role::create([
-            'name' => SystemRole::CorpOwner->value,
+            'name' => SystemRole::OrganizationOwner->value,
             'guard_name' => 'api',
-            'corporation_id' => null,
+            'organization_id' => null,
             'is_system_role' => true,
         ]);
 
-        CorpMembership::create([
+        OrganizationMembership::create([
             'user_id' => $user->id,
-            'corporation_id' => $corporation->id,
+            'organization_id' => $organization->id,
             'status' => MembershipStatus::Active,
             'joined_at' => now(),
         ]);
 
-        setPermissionsTeamId($corporation->id);
+        setPermissionsTeamId($organization->id);
         $user->assignRole($role);
         setPermissionsTeamId(null);
 
@@ -92,7 +92,7 @@ class AuthenticationTest extends TestCase
             ->assertOk()
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.status', 'authenticated')
-            ->assertJsonPath('data.guard', 'corp')
-            ->assertJsonPath('data.role', SystemRole::CorpOwner->value);
+            ->assertJsonPath('data.guard', 'organization')
+            ->assertJsonPath('data.role', SystemRole::OrganizationOwner->value);
     }
 }

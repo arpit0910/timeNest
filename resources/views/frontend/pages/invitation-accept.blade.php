@@ -47,11 +47,12 @@
 
                     <div style="padding: 32px;">
 
-                        {{-- Corporation Info --}}
-                        <div style="text-align: center; margin-bottom: 24px;">
-                            <h2 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px;">
-                                {{ $invitation->corporation->legal_name }}
-                            </h2>
+                        {{-- Organization Info --}}
+                        <div class="mb-6 flex flex-col items-center justify-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
+                            <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Inviting Organization</div>
+                            <div class="text-lg font-bold text-gray-900 dark:text-white text-center">
+                                {{ $invitation->organization->legal_name }}
+                            </div>
                             <p style="font-size: 15px; color: #64748b; margin: 0;">
                                 Join as <span style="font-weight: 600; color: #0f172a;">{{ $invitation->role->description ?? $invitation->role->name }}</span>
                             </p>

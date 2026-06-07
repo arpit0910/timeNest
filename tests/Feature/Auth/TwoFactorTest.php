@@ -26,11 +26,11 @@ class TwoFactorTest extends TestCase
             'email_verified_at' => now(),
         ]);
 
-        $corpId = \Illuminate\Support\Facades\DB::table('corporations')->insertGetId([
+        $organizationId = \Illuminate\Support\Facades\DB::table('organizations')->insertGetId([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
-            'legal_name' => 'Test Corp',
-            'trading_name' => 'Test Corp',
-            'slug' => 'test-corp',
+            'legal_name' => 'Test Organization',
+            'trading_name' => 'Test Organization',
+            'slug' => 'test-organization',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -39,7 +39,7 @@ class TwoFactorTest extends TestCase
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
             'name' => 'Owner',
             'guard_name' => 'api',
-            'corporation_id' => $corpId,
+            'organization_id' => $organizationId,
             'is_system_role' => true,
             'created_at' => now(),
             'updated_at' => now(),
@@ -49,12 +49,12 @@ class TwoFactorTest extends TestCase
             'role_id' => $roleId,
             'model_type' => \App\Models\Auth\User::class,
             'model_id' => $this->user->id,
-            'corporation_id' => $corpId,
+            'organization_id' => $organizationId,
         ]);
 
-        \Illuminate\Support\Facades\DB::table('corp_memberships')->insert([
+        \Illuminate\Support\Facades\DB::table('organization_memberships')->insert([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
-            'corporation_id' => $corpId,
+            'organization_id' => $organizationId,
             'user_id' => $this->user->id,
             'status' => 'active',
             'joined_at' => now(),

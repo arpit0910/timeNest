@@ -37,23 +37,23 @@ if (! function_exists('jwt_user_uuid')) {
     }
 }
 
-if (! function_exists('jwt_corporation_id')) {
+if (! function_exists('current_organization_id')) {
     /**
-     * Get the active corporation ID from the JWT claims.
+     * Get the active organization ID from the JWT claims.
      */
-    function jwt_corporation_id(): ?int
+    function current_organization_id(): ?int
     {
-        return jwt_context()?->corporationId;
+        return jwt_context()?->organizationId;
     }
 }
 
-if (! function_exists('jwt_corporation_uuid')) {
+if (! function_exists('current_organization_uuid')) {
     /**
-     * Get the active corporation UUID from the JWT claims.
+     * Get the active organization UUID from the JWT claims.
      */
-    function jwt_corporation_uuid(): ?string
+    function current_organization_uuid(): ?string
     {
-        return jwt_context()?->corporationUuid;
+        return jwt_context()?->organizationUuid;
     }
 }
 
@@ -87,13 +87,13 @@ if (! function_exists('jwt_is_platform')) {
     }
 }
 
-if (! function_exists('jwt_is_corp')) {
+if (! function_exists('is_organization_context')) {
     /**
-     * Check if the current context is corporation-level.
+     * Check if the current context is organization-level.
      */
-    function jwt_is_corp(): bool
+    function is_organization_context(): bool
     {
-        return (bool) jwt_context()?->isCorp();
+        return (bool) jwt_context()?->isOrganization();
     }
 }
 
@@ -122,7 +122,7 @@ if (! function_exists('resolve_platform_role')) {
         $rolesTable = config('permission.table_names.roles', 'roles');
         $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
         $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
-        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
+        $teamColumn = config('permission.column_names.team_foreign_key', 'organization_id');
         $modelKey = config('permission.column_names.model_morph_key', 'model_id');
 
         $role = Role::query()
@@ -140,13 +140,13 @@ if (! function_exists('resolve_platform_role')) {
     }
 }
 
-if (! function_exists('resolve_corp_role')) {
+if (! function_exists('resolve_organization_role')) {
     /**
-     * Resolve the user's role within a specific corporation.
+     * Resolve the user's role within a specific organization.
      */
-    function resolve_corp_role(User $user, int $corporationId): ?Role
+    function resolve_organization_role(User $user, int $organizationId): ?Role
     {
-        $cacheKey = "corp_role_{$user->id}_{$corporationId}";
+        $cacheKey = "org_role_{$user->id}_{$organizationId}";
 
         if (app()->bound($cacheKey)) {
             return app($cacheKey);
@@ -155,7 +155,7 @@ if (! function_exists('resolve_corp_role')) {
         $rolesTable = config('permission.table_names.roles', 'roles');
         $modelHasRolesTable = config('permission.table_names.model_has_roles', 'model_has_roles');
         $pivotRole = config('permission.column_names.role_pivot_key') ?? 'role_id';
-        $teamColumn = config('permission.column_names.team_foreign_key', 'corporation_id');
+        $teamColumn = config('permission.column_names.team_foreign_key', 'organization_id');
         $modelKey = config('permission.column_names.model_morph_key', 'model_id');
 
         $role = Role::query()
@@ -163,10 +163,10 @@ if (! function_exists('resolve_corp_role')) {
             ->join($modelHasRolesTable, "{$rolesTable}.id", '=', "{$modelHasRolesTable}.{$pivotRole}")
             ->where("{$modelHasRolesTable}.{$modelKey}", $user->getKey())
             ->where("{$modelHasRolesTable}.model_type", $user->getMorphClass())
-            ->where("{$modelHasRolesTable}.{$teamColumn}", $corporationId)
-            ->where(function ($query) use ($corporationId, $rolesTable, $teamColumn): void {
+            ->where("{$modelHasRolesTable}.{$teamColumn}", $organizationId)
+            ->where(function ($query) use ($organizationId, $rolesTable, $teamColumn): void {
                 $query->whereNull("{$rolesTable}.{$teamColumn}")
-                    ->orWhere("{$rolesTable}.{$teamColumn}", $corporationId);
+                    ->orWhere("{$rolesTable}.{$teamColumn}", $organizationId);
             })
             ->first();
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Attendance;
 
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Auth\User;
 use App\Models\Project\Project;
 use App\Models\Project\Milestone;
@@ -23,7 +23,7 @@ class AttendanceWorklog extends Model
     protected $table = 'attendance_worklogs';
 
     protected $fillable = [
-        'corporation_id',
+        'organization_id',
         'user_id',
         'attendance_day_id',
         'attendance_session_id',
@@ -63,9 +63,9 @@ class AttendanceWorklog extends Model
         ];
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo

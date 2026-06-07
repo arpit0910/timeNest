@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\SystemPermission;
-use App\Http\Controllers\Api\V1\Corp\DepartmentController;
+use App\Http\Controllers\Api\V1\Organization\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(DepartmentController::class)->group(function (): void {

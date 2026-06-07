@@ -15,12 +15,12 @@ use App\Exceptions\Auth\WorkspaceSelectionRequiredException;
 use App\Exceptions\Business\InvalidRoleGuardException;
 use App\Exceptions\Business\MembershipInactiveException;
 use App\Enums\UserStatus;
-use App\Models\Auth\SocialAccount;
+use App\Models\Auth\OAuthAccount;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Logging\ActivityLog;
 
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
 use Illuminate\Support\Facades\DB;
@@ -215,17 +215,17 @@ class AuthService
             throw new AccountInactiveException();
         }
 
-        // Determine guard and corporation context from the refresh token
+        // Determine guard and organization context from the refresh token
         $guard = Guard::from($refreshTokenRecord->guard);
-        $corporation = $refreshTokenRecord->corporation_id
-            ? Corporation::find($refreshTokenRecord->corporation_id)
+        $organization = $refreshTokenRecord->organization_id
+            ? Organization::find($refreshTokenRecord->organization_id)
             : null;
 
-        // For corp guard, verify membership is still active
-        if ($guard === Guard::Corp && $corporation) {
-            $membership = CorpMembership::active()
+        // For org guard, verify membership is still active
+        if ($guard === Guard::Organization && $organization) {
+            $membership = OrganizationMembership::active()
                 ->where('user_id', $user->id)
-                ->where('corporation_id', $corporation->id)
+                ->where('organization_id', $organization->id)
                 ->first();
 
             if (! $membership) {
@@ -233,10 +233,10 @@ class AuthService
                 throw new MembershipInactiveException();
             }
 
-            $roleName = resolve_corp_role($user, $corporation->id)?->name;
+            $roleName = resolve_organization_role($user, $organization->id)?->name;
 
             if (! $roleName) {
-                throw new InvalidRoleGuardException('No role assigned for this corporation');
+                throw new InvalidRoleGuardException('No role assigned for this organization');
             }
         } elseif ($guard === Guard::Platform) {
             $platformMembership = PlatformMembership::active()
@@ -257,8 +257,8 @@ class AuthService
             $roleName = null;
         }
 
-        $accessToken = $this->issueJwtAction->issueAccessToken($user, $corporation, $guard, $roleName);
-        $newRefreshToken = $this->issueJwtAction->issueRefreshToken($user, $corporation, $guard);
+        $accessToken = $this->issueJwtAction->issueAccessToken($user, $organization, $guard, $roleName);
+        $newRefreshToken = $this->issueJwtAction->issueRefreshToken($user, $organization, $guard);
 
         return [
             'access_token' => $accessToken,
@@ -269,19 +269,19 @@ class AuthService
     }
 
     /**
-     * Select a corporation workspace and issue corp-guard tokens.
+     * Select an organization workspace and issue org-guard tokens.
      *
-     * Used after login when user has multiple corp memberships,
-     * or to switch between corporations.
+     * Used after login when user has multiple org memberships,
+     * or to switch between organizations.
      *
-     * @param  bool  $switchMode  If true, revoke existing tokens for previous corp
-     * @return array Tokens and corporation info
+     * @param  bool  $switchMode  If true, revoke existing tokens for previous org
+     * @return array Tokens and organization info
      *
      * @throws AuthenticationException
      */
-    public function selectCorporation(User $user, string $corporationUuid, bool $switchMode = false): array
+    public function selectOrganization(User $user, string $organizationUuid, bool $switchMode = false): array
     {
-        $corporation = Corporation::where('uuid', $corporationUuid)
+        $organization = Organization::where('uuid', $organizationUuid)
             ->active()
             ->firstOrFail();
 
@@ -289,19 +289,19 @@ class AuthService
         $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
 
         if (! $isAppOwner) {
-            $membership = CorpMembership::active()
+            $membership = OrganizationMembership::active()
                 ->where('user_id', $user->id)
-                ->where('corporation_id', $corporation->id)
+                ->where('organization_id', $organization->id)
                 ->first();
 
             if (! $membership) {
                 throw new MembershipInactiveException();
             }
 
-            $role = resolve_corp_role($user, $corporation->id);
+            $role = resolve_organization_role($user, $organization->id);
 
             if (! $role) {
-                throw new InvalidRoleGuardException('No role assigned for this corporation');
+                throw new InvalidRoleGuardException('No role assigned for this organization');
             }
 
             if ($role->guard_name !== 'api') {
@@ -323,32 +323,32 @@ class AuthService
         }
 
         $accessToken = $this->issueJwtAction->issueAccessToken(
-            $user, $corporation, Guard::Corp, $roleName
+            $user, $organization, Guard::Organization, $roleName
         );
         $refreshToken = $this->issueJwtAction->issueRefreshToken(
-            $user, $corporation, Guard::Corp
+            $user, $organization, Guard::Organization
         );
 
-        $this->logActivity($user, 'corporation_selected', "Selected corporation: {$corporation->legal_name}", $corporation->id);
+        $this->logActivity($user, 'organization_selected', "Selected organization: {$organization->legal_name}", $organization->id);
 
         return [
             'access_token' => $accessToken,
             'refresh_token' => $refreshToken,
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60,
-            'corporation' => $corporation,
+            'organization' => $organization,
             'role' => $roleName,
         ];
     }
 
     /**
-     * Get all active workspaces (corporations) for a user.
+     * Get all active workspaces (organizations) for a user.
      */
     public function getWorkspaces(User $user): array
     {
-        $corpMemberships = CorpMembership::active()
+        $orgMemberships = OrganizationMembership::active()
             ->where('user_id', $user->id)
-            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url'])
+            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url'])
             ->get();
 
         $platformMembership = PlatformMembership::active()
@@ -358,15 +358,15 @@ class AuthService
         $platformRole = resolve_platform_role($user);
 
         return [
-            'corporations' => $corpMemberships->map(function ($m) use ($user) {
-                $role = resolve_corp_role($user, $m->corporation_id);
+            'organizations' => $orgMemberships->map(function ($m) use ($user) {
+                $role = resolve_organization_role($user, $m->organization_id);
 
                 return [
-                    'corporation_uuid' => $m->corporation->uuid,
-                    'legal_name' => $m->corporation->legal_name,
-                    'trading_name' => $m->corporation->trading_name,
-                    'slug' => $m->corporation->slug,
-                    'logo_url' => $m->corporation->logo_url,
+                    'organization_uuid' => $m->organization->uuid,
+                    'legal_name' => $m->organization->legal_name,
+                    'trading_name' => $m->organization->trading_name,
+                    'slug' => $m->organization->slug,
+                    'logo_url' => $m->organization->logo_url,
                     'role' => $role?->name,
                     'joined_at' => $m->joined_at?->toISOString(),
                 ];
@@ -384,14 +384,14 @@ class AuthService
     public function handleGoogleCallback(SocialiteUser $socialiteUser, ?string $ip = null, ?string $userAgent = null): array
     {
         $user = DB::transaction(function () use ($socialiteUser) {
-            // 1. Check social_accounts by provider + provider_id
-            $socialAccount = SocialAccount::where('provider', 'google')
+            // 1. Check oauth_accounts by provider + provider_id
+            $oauthAccount = OAuthAccount::where('provider', $provider)
                 ->where('provider_id', $socialiteUser->getId())
                 ->first();
 
-            if ($socialAccount) {
+            if ($oauthAccount) {
                 // Update tokens
-                $socialAccount->update([
+                $oauthAccount->update([
                     'access_token' => $socialiteUser->token,
                     'refresh_token' => $socialiteUser->refreshToken,
                     'token_expires_at' => $socialiteUser->expiresIn
@@ -401,7 +401,7 @@ class AuthService
                     'provider_avatar' => $socialiteUser->getAvatar(),
                 ]);
 
-                return $socialAccount->user;
+                return $oauthAccount->user;
             }
 
             // 2. Check users by email
@@ -422,7 +422,7 @@ class AuthService
             }
 
             // Link social account
-            SocialAccount::create([
+            OAuthAccount::create([
                 'user_id' => $user->id,
                 'provider' => 'google',
                 'provider_id' => $socialiteUser->getId(),
@@ -563,8 +563,8 @@ class AuthService
      *
      * Decision tree:
      * - Platform user → issue platform-guard JWT
-     * - 1 corp membership → auto-issue corp-guard JWT
-     * - 2+ corp memberships → return workspace selection required
+     * - 1 org membership → auto-issue org-guard JWT
+     * - 2+ org memberships → return workspace selection required
      * - 0 memberships → return no workspace
      */
     private function resolveWorkspaceAndIssueTokens(User $user, ?string $ip, ?string $userAgent): array
@@ -603,38 +603,38 @@ class AuthService
             ];
         }
 
-        // Check corp memberships
-        $corpMemberships = CorpMembership::active()
+        // Check org memberships
+        $orgMemberships = OrganizationMembership::active()
             ->where('user_id', $user->id)
-            ->with(['corporation:id,uuid,legal_name,trading_name,slug,logo_url'])
+            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url'])
             ->get();
 
-        if ($corpMemberships->isEmpty()) {
+        if ($orgMemberships->isEmpty()) {
             return [
                 'status' => 'no_workspace',
-                'message' => 'No active workspace found. You may need an invitation to join a corporation.',
+                'message' => 'No active workspace found. You may need an invitation to join an organization.',
                 'user' => $user,
             ];
         }
 
-        if ($corpMemberships->count() === 1) {
-            $membership = $corpMemberships->first();
-            $corporation = $membership->corporation;
-            $role = resolve_corp_role($user, $corporation->id);
+        if ($orgMemberships->count() === 1) {
+            $membership = $orgMemberships->first();
+            $organization = $membership->organization;
+            $role = resolve_organization_role($user, $organization->id);
             $roleName = $role?->name;
 
             if (! $roleName) {
-                throw new InvalidRoleGuardException('No role assigned for this corporation');
+                throw new InvalidRoleGuardException('No role assigned for this organization');
             }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, $corporation, Guard::Corp, $roleName
+                $user, $organization, Guard::Organization, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
-                $user, $corporation, Guard::Corp
+                $user, $organization, Guard::Organization
             );
 
-            $this->logActivity($user, 'login', "Corp login: {$corporation->legal_name}", $corporation->id);
+            $this->logActivity($user, 'login', "Org login: {$organization->legal_name}", $organization->id);
 
             return [
                 'status' => 'authenticated',
@@ -642,30 +642,30 @@ class AuthService
                 'refresh_token' => $refreshToken,
                 'token_type' => 'bearer',
                 'expires_in' => config('jwt.ttl') * 60,
-                'guard' => Guard::Corp->value,
+                'guard' => Guard::Organization->value,
                 'role' => $roleName,
-                'corporation' => $corporation,
+                'organization' => $organization,
                 'user' => $user,
             ];
         }
 
-        // Multiple corp memberships → require workspace selection
+        // Multiple org memberships → require workspace selection
         $tempToken = $this->issueJwtAction->issueTempToken($user, 'workspace_selection');
 
-        $workspaces = $corpMemberships->map(function ($m) use ($user) {
-            $role = resolve_corp_role($user, $m->corporation_id);
+        $workspaces = $orgMemberships->map(function ($m) use ($user) {
+            $role = resolve_organization_role($user, $m->organization_id);
 
             return [
-                'corporation_uuid' => $m->corporation->uuid,
-                'legal_name' => $m->corporation->legal_name,
-                'trading_name' => $m->corporation->trading_name,
-                'slug' => $m->corporation->slug,
-                'logo_url' => $m->corporation->logo_url,
+                'organization_uuid' => $m->organization->uuid,
+                'legal_name' => $m->organization->legal_name,
+                'trading_name' => $m->organization->trading_name,
+                'slug' => $m->organization->slug,
+                'logo_url' => $m->organization->logo_url,
                 'role' => $role?->name,
             ];
         })->toArray();
 
-        throw new WorkspaceSelectionRequiredException('Please select a corporation to continue', [
+        throw new WorkspaceSelectionRequiredException('Please select an organization to continue', [
             'requires_workspace_selection' => true,
             'temp_token' => $tempToken,
             'workspaces' => $workspaces,
@@ -676,11 +676,11 @@ class AuthService
     /**
      * Log user activity.
      */
-    private function logActivity(User $user, string $type, string $description, ?int $corporationId = null): void
+    private function logActivity(User $user, string $type, string $description, ?int $organizationId = null): void
     {
         ActivityLog::create([
             'user_id' => $user->id,
-            'corporation_id' => $corporationId,
+            'organization_id' => $organizationId,
             'type' => $type,
             'description' => $description,
             'ip_address' => request()->ip(),

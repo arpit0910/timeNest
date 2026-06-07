@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Logging;
 
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * ActivityLog — user activity stream (softer than audit).
  *
- * Tracks: login, logout, profile updates, corporation switches, etc.
+ * Tracks: login, logout, profile updates, organization switches, etc.
  * Append-only: only created_at, no updated_at.
  *
  * @property int $id
@@ -31,7 +31,7 @@ class ActivityLog extends Model
     const UPDATED_AT = null;
 
     protected $fillable = [
-        'user_id', 'corporation_id', 'type',
+        'user_id', 'organization_id', 'type',
         'description', 'ip_address', 'user_agent', 'metadata',
     ];
 
@@ -48,9 +48,9 @@ class ActivityLog extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function scopeForUser($query, int $userId)

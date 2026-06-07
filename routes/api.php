@@ -26,10 +26,10 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         ->middleware(['api.platform'])
         ->group(base_path('routes/api/v1/platform.php'));
 
-    // Corporation Module Loader
-    Route::prefix('corp')->name('corp.')
-        ->middleware(['api.corp'])
-        ->group(base_path('routes/api/v1/corporation.php'));
+    // Organization Routes
+    Route::prefix('organization')
+        ->middleware(['api.organization'])
+        ->group(base_path('routes/api/v1/organization.php'));
 
     // Public Invitation Flow Endpoints
     Route::controller(\App\Http\Controllers\Api\V1\Invitation\PublicInvitationController::class)->group(function (): void {

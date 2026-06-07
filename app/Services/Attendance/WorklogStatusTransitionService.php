@@ -136,7 +136,7 @@ class WorklogStatusTransitionService
         }
 
         // Manager / Admin transitions require permission checks under Spatie Team scoping
-        setPermissionsTeamId($worklog->corporation_id);
+        setPermissionsTeamId($worklog->organization_id);
 
         try {
             // Check platform bypass

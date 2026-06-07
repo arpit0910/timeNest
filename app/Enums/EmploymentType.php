@@ -8,7 +8,7 @@ namespace App\Enums;
  * Employment type classifications for employee profiles.
  *
  * Determines the nature of employment relationship between
- * a user and a corporation.
+ * a user and an organization.
  */
 enum EmploymentType: string
 {

@@ -19,7 +19,7 @@ class AttendanceEscalationService
      * Trigger/Create a new escalation.
      */
     public function triggerEscalation(
-        int $corporationId,
+        int $organizationId,
         int $userId,
         EscalationTypeEnum $type,
         ?int $dayId = null,
@@ -27,7 +27,7 @@ class AttendanceEscalationService
         ?string $remarks = null,
         array $metadata = []
     ): AttendanceEscalation {
-        return DB::transaction(function () use ($corporationId, $userId, $type, $dayId, $worklogId, $remarks, $metadata) {
+        return DB::transaction(function () use ($organizationId, $userId, $type, $dayId, $worklogId, $remarks, $metadata) {
             // Check if there is an active pending escalation of this type for this worklog/day
             $existing = AttendanceEscalation::where('user_id', $userId)
                 ->where('escalation_type', $type->value)
@@ -52,8 +52,7 @@ class AttendanceEscalationService
             }
 
             return AttendanceEscalation::create([
-                'uuid' => (string) Str::uuid(),
-                'corporation_id' => $corporationId,
+                'organization_id' => $organizationId,
                 'user_id' => $userId,
                 'attendance_day_id' => $dayId,
                 'attendance_worklog_id' => $worklogId,

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('attendance_worklogs', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('corporation_id')->constrained('corporations')->cascadeOnDelete();
+            $table->foreignId('organization_id')->constrained('organizations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('attendance_day_id')->constrained('attendance_days')->cascadeOnDelete();
             $table->foreignId('attendance_session_id')->nullable()->constrained('attendance_sessions')->nullOnDelete();
@@ -55,7 +55,7 @@ return new class extends Migration
 
             // Indexes
             $table->index(['user_id', 'attendance_day_id']);
-            $table->index(['corporation_id', 'worklog_status']);
+            $table->index(['organization_id', 'worklog_status']);
             $table->index(['task_id', 'worklog_status']);
         });
     }

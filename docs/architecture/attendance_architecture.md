@@ -19,7 +19,7 @@ The Attendance Core Engine is a highly optimized, transaction-safe service-orien
 
 ```mermaid
 erDiagram
-    Corporation ||--o{ Branch : has
+    Organization ||--o{ Branch : has
     Branch ||--o{ AttendanceDay : logs
     Branch ||--o{ AttendancePolicy : configures
     User ||--o{ AttendanceDay : records
@@ -37,7 +37,7 @@ erDiagram
 * **`AttendanceSession`**: Individual clock-in/out segments within a day. Tracks GPS lat/lng, IP address, device ID, source medium (`Mobile`, `Web`, `AdminPanel`), and suspicious integrity markers.
 * **`EmployeeLeave`**: Tracks absences, standard leaves (Casual, Sick), Work From Home (WFH), and Extra Working Days (EWD).
 * **`LeaveStatusHistory`**: Logs chronological workflow state transitions of an `EmployeeLeave` application, recording who initiated the transition, old/new status, remarks, and metadata.
-* **`CorporationHoliday`**: Standard corporate/branch holidays.
+* **`OrganizationHoliday`**: Standard corporate/branch holidays.
 * **`AttendanceAdjustmentRequest`**: Manual corrections submitted by employees for past clock records, requiring review and approval by an authorized manager.
 * **`AttendanceActivityLog`**: Immutable, append-only logs auditing adjustments, leaves, and session overrides.
 
@@ -74,7 +74,7 @@ graph TD
 - Automatically updates database properties (approved_by, approved_at, cancellation reasons) and logs transitions to `LeaveStatusHistory`.
 
 ### `AttendancePolicyService`
-- Resolves the active policy context for a branch or corporation.
+- Resolves the active policy context for a branch or Organization.
 - Handles rule configuration, validation, and historical versioning.
 
 ### `AttendanceCalculationService`
@@ -104,10 +104,10 @@ sequenceDiagram
     participant Leave as LeaveManagementService
     participant DB as Database
 
-    Employee->>Route: POST /corp/attendance/clock-in
+    Employee->>Route: POST /organization/attendance/clock-in
     Route->>Middleware: Authenticate JWT & Resolve Tenant Context
     Middleware->>Controller: Route Request to Controller
-    Controller->>Service: clockIn(User, Corporation, data)
+    Controller->>Service: clockIn(User, Organization, data)
     
     rect rgb(240, 240, 240)
         note right of Service: Phase 1: Context Checks

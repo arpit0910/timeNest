@@ -104,7 +104,7 @@ class InvitationAcceptController extends Controller
                 return view('frontend.pages.invitation-accept', [
                     'success' => true,
                     'heading' => 'Invitation Accepted!',
-                    'message' => "You've joined {$invitation->corporation->legal_name}. Log in to your timeNest account to access your new workspace.",
+                    'message' => "You've joined {$invitation->organization->legal_name}. Log in to your timeNest account to access your new workspace.",
                 ]);
             } else {
                 // New user: needs name + password
@@ -121,7 +121,7 @@ class InvitationAcceptController extends Controller
                 return view('frontend.pages.invitation-accept', [
                     'success' => true,
                     'heading' => 'Welcome to TimeNest!',
-                    'message' => "Your account has been created and you've joined {$invitation->corporation->legal_name}. You can now log in.",
+                    'message' => "Your account has been created and you've joined {$invitation->organization->legal_name}. You can now log in.",
                 ]);
             }
         } catch (\Exception $e) {
@@ -143,7 +143,7 @@ class InvitationAcceptController extends Controller
         $hashedToken = hash('sha256', $rawToken);
 
         $invitation = Invitation::where('token', $hashedToken)
-            ->with(['corporation', 'role'])
+            ->with(['organization', 'role'])
             ->first();
 
         if (! $invitation) {

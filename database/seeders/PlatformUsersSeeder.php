@@ -52,7 +52,7 @@ class PlatformUsersSeeder extends Seeder
 
         foreach ($platformUsers as $userData) {
             $role = Role::where('name', $userData['role'])
-                ->whereNull('corporation_id')
+                ->whereNull('organization_id')
                 ->firstOrFail();
 
             $user = User::firstOrCreate(

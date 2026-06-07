@@ -9,7 +9,7 @@ use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
 use App\Services\Attendance\AttendanceWorklogCalculationService;
-use App\Services\Attendance\AttendanceWorklogPolicyService;
+use App\Services\Attendance\WorklogPolicyService;
 use App\Services\Attendance\AttendanceWorklogValidationService;
 use App\Services\Attendance\TaskConsumptionService;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 class CreateAttendanceWorklogAction
 {
     public function __construct(
-        private readonly AttendanceWorklogPolicyService $policyService,
+        private readonly WorklogPolicyService $policyService,
         private readonly AttendanceWorklogValidationService $validationService,
         private readonly AttendanceWorklogCalculationService $calculationService,
         private readonly TaskConsumptionService $consumptionService
@@ -28,7 +28,7 @@ class CreateAttendanceWorklogAction
     {
         return DB::transaction(function () use ($user, $day, $data) {
             // 1. Get worklog policy
-            $worklogPolicy = $this->policyService->getWorklogPolicyForCorporation($day->corporation);
+            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization);
 
             // 2. Validate payload details
             $this->validationService->validate($user, $day, $worklogPolicy, $data);
@@ -39,7 +39,7 @@ class CreateAttendanceWorklogAction
             // 4. Create the worklog
             $worklog = new AttendanceWorklog();
             $worklog->uuid = (string) Str::uuid();
-            $worklog->corporation_id = $day->corporation_id;
+            $worklog->organization_id = $day->organization_id;
             $worklog->user_id = $user->id;
             $worklog->attendance_day_id = $day->id;
             $worklog->attendance_session_id = $data['attendance_session_id'] ?? null;

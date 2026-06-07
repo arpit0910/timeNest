@@ -7,14 +7,14 @@ namespace App\Enums;
 /**
  * JWT Guard scopes — defines the authorization context of a token.
  *
- * Platform: internal platform administrators (no corporation context).
- * Corp:     corporation-level users with tenant-scoped access.
+ * Platform: internal platform administrators (no organization context).
+ * Organization: organization-level users with tenant-scoped access.
  * Temp:     short-lived tokens for 2FA or workspace selection flows.
  */
 enum Guard: string
 {
     case Platform = 'platform';
-    case Corp = 'corp';
+    case Organization = 'organization';
     case Temp = 'temp';
 
     /**
@@ -26,11 +26,11 @@ enum Guard: string
     }
 
     /**
-     * Check if this is a corporation-level guard.
+     * Check if this is an organization-level guard.
      */
-    public function isCorp(): bool
+    public function isOrganization(): bool
     {
-        return $this === self::Corp;
+        return $this === self::Organization;
     }
 
     /**
@@ -48,7 +48,7 @@ enum Guard: string
     {
         return match ($this) {
             self::Platform => 'Platform',
-            self::Corp => 'Corporation',
+            self::Organization => 'Organization',
             self::Temp => 'Temporary',
         };
     }

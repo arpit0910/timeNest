@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->index('country_id');
             $table->index('name');
-            $table->unique(['country_id', 'state_code'], 'unique_state_code_per_country');
+            $table->unique(['country_id', 'state_code'], 'states_country_id_state_code_unique');
         });
     }
 

@@ -18,7 +18,7 @@ Public routes are rate-limited with `throttle:auth`.
   - `authenticated`: full access and refresh tokens.
   - `requires_2fa`: temporary token scoped to `2fa`.
   - `requires_workspace_selection`: temporary token scoped to `workspace_selection`.
-  - `no_workspace`: identity exists but has no active platform/corp workspace.
+  - `no_workspace`: identity exists but has no active platform/organization workspace.
 
 ### Verify 2FA
 - `POST /api/v1/auth/2fa/verify`
@@ -27,16 +27,16 @@ Public routes are rate-limited with `throttle:auth`.
 - Response: full token pair or workspace-selection state.
 
 ### Select Workspace
-- `POST /api/v1/auth/select-corporation`
+- `POST /api/v1/auth/select-Organization`
 - Requires: Bearer temp token with purpose `workspace_selection`
-- Body: `corporation_uuid`
-- Response: corporation-scoped token pair.
+- Body: `Organization_uuid`
+- Response: Organization-scoped token pair.
 
 ### Switch Workspace
-- `POST /api/v1/auth/switch-corporation`
+- `POST /api/v1/auth/switch-Organization`
 - Requires: full Bearer token
-- Body: `corporation_uuid`
-- Response: new corporation-scoped token pair.
+- Body: `Organization_uuid`
+- Response: new Organization-scoped token pair.
 
 ### Refresh Token
 - `POST /api/v1/auth/refresh`
@@ -59,41 +59,41 @@ Public routes are rate-limited with `throttle:auth`.
 
 Requires full platform-guard JWT, active platform membership, and route permission middleware.
 
-### Corporations
-- `GET /api/v1/platform/corporations`
-- `POST /api/v1/platform/corporations`
-- `GET /api/v1/platform/corporations/{uuid}`
-- `PUT /api/v1/platform/corporations/{uuid}`
+### organizations
+- `GET /api/v1/platform/organizations`
+- `POST /api/v1/platform/organizations`
+- `GET /api/v1/platform/organizations/{uuid}`
+- `PUT /api/v1/platform/organizations/{uuid}`
 
-## Corporation Workspace (`/corp`)
+## Organization Workspace (`/organization`)
 
-Requires full corp-guard JWT, active corporation membership, resolved tenant context, and route permission middleware.
+Requires full organization-guard JWT, active Organization membership, resolved tenant context, and route permission middleware.
 
 ### Branches
-- `GET /api/v1/corp/branches`
-- `POST /api/v1/corp/branches`
-- `GET /api/v1/corp/branches/{uuid}`
-- `PUT /api/v1/corp/branches/{uuid}`
-- `DELETE /api/v1/corp/branches/{uuid}`
+- `GET /api/v1/organization/branches`
+- `POST /api/v1/organization/branches`
+- `GET /api/v1/organization/branches/{uuid}`
+- `PUT /api/v1/organization/branches/{uuid}`
+- `DELETE /api/v1/organization/branches/{uuid}`
 
 ### Departments
-- `GET /api/v1/corp/departments`
-- `POST /api/v1/corp/departments`
-- `GET /api/v1/corp/departments/{uuid}`
-- `PUT /api/v1/corp/departments/{uuid}`
-- `DELETE /api/v1/corp/departments/{uuid}`
+- `GET /api/v1/organization/departments`
+- `POST /api/v1/organization/departments`
+- `GET /api/v1/organization/departments/{uuid}`
+- `PUT /api/v1/organization/departments/{uuid}`
+- `DELETE /api/v1/organization/departments/{uuid}`
 
 ### Memberships
-- `GET /api/v1/corp/memberships`
-- `POST /api/v1/corp/memberships`
-- `DELETE /api/v1/corp/memberships/{uuid}`
+- `GET /api/v1/organization/memberships`
+- `POST /api/v1/organization/memberships`
+- `DELETE /api/v1/organization/memberships/{uuid}`
 
-## Attendance Workspace (`/corp/attendance`)
+## Attendance Workspace (`/organization/attendance`)
 
-All attendance requests require a valid bearer access token and resolved corporation tenant context.
+All attendance requests require a valid bearer access token and resolved Organization tenant context.
 
 ### Daily Attendance
-- `POST /api/v1/corp/attendance/clock-in`
+- `POST /api/v1/organization/attendance/clock-in`
   - Body:
     - `latitude`: Float, required. GPS latitude of the user's device.
     - `longitude`: Float, required. GPS longitude of the user's device.
@@ -107,7 +107,7 @@ All attendance requests require a valid bearer access token and resolved corpora
     - Rejects clock-in on active holidays unless user has an approved Extra Working Day (`LeaveTypeEnum::ExtraWorkingDay`) leave.
     - Rejects concurrent active clock-ins.
 
-- `POST /api/v1/corp/attendance/clock-out`
+- `POST /api/v1/organization/attendance/clock-out`
   - Body:
     - `latitude`: Float, required.
     - `longitude`: Float, required.
@@ -116,21 +116,21 @@ All attendance requests require a valid bearer access token and resolved corpora
     - `source`: Integer, required.
   - Behavior:
     - Ends the active clock-in session.
-    - Calculates total work duration, break durations, and late minutes based on corporation policy thresholds.
+    - Calculates total work duration, break durations, and late minutes based on Organization policy thresholds.
     - Recalculates daily compliance status (`Present`, `HalfDay`, `Absent`) and deducts status based on policy rules.
 
-- `GET /api/v1/corp/attendance/today`
+- `GET /api/v1/organization/attendance/today`
   - Returns: Today's active attendance session details and day summary parameters.
 
-- `GET /api/v1/corp/attendance/history`
+- `GET /api/v1/organization/attendance/history`
   - Query Params:
     - `page`: Integer, optional (Default `1`).
     - `per_page`: Integer, optional.
   - Returns: Paginated historical attendance days list.
 
-## Employee Leaves (`/corp/attendance/leaves`)
+## Employee Leaves (`/organization/attendance/leaves`)
 
-- `GET /api/v1/corp/attendance/leaves`
+- `GET /api/v1/organization/attendance/leaves`
   - Query Params:
     - `page`: Integer, optional.
     - `per_page`: Integer, optional.
@@ -138,7 +138,7 @@ All attendance requests require a valid bearer access token and resolved corpora
     - `leave_type`: Integer/String, optional. Filter by leave type.
   - Returns: Paginated list of leave requests for the authenticated user.
 
-- `POST /api/v1/corp/attendance/leaves`
+- `POST /api/v1/organization/attendance/leaves`
   - Body:
     - `leave_type`: Integer, required. (`1` = Casual, `2` = Sick, `3` = Casual Unpaid, `4` = Sick Unpaid, `5` = WFH, `6` = EWD, `7` = Maternity/Paternity, `8` = Bereavement).
     - `start_date`: Date (YYYY-MM-DD), required.
@@ -149,10 +149,10 @@ All attendance requests require a valid bearer access token and resolved corpora
   - Validation:
     - Prevents overlapping pending or approved leave requests.
 
-- `GET /api/v1/corp/attendance/leaves/{uuid}`
+- `GET /api/v1/organization/attendance/leaves/{uuid}`
   - Returns: Detailed model parameters of the leave by UUID.
 
-- `PATCH /api/v1/corp/attendance/leaves/{uuid}/status`
+- `PATCH /api/v1/organization/attendance/leaves/{uuid}/status`
   - Body:
     - `status`: Integer, required. The target LeaveStatusEnum status value (1-15).
     - `remarks`: String, optional. Remarks/reasoning for the transition (required or recommended for Cancellation, Rejections, etc.).
@@ -165,18 +165,18 @@ All attendance requests require a valid bearer access token and resolved corpora
     - Updates legacy approved_by/rejected_by fields and cancellation reason where applicable.
     - Triggers recalculation of affected attendance days upon approval/cancellation.
 
-## Attendance Adjustments (`/corp/adjustments`)
+## Attendance Adjustments (`/organization/adjustments`)
 
 Allows correction of erroneous clock-in/out records.
 
-- `GET /api/v1/corp/adjustments`
+- `GET /api/v1/organization/adjustments`
   - Query Params:
     - `page`: Integer, optional.
     - `per_page`: Integer, optional.
     - `status`: Integer, optional.
   - Returns: Paginated list of adjustment requests.
 
-- `POST /api/v1/corp/adjustments`
+- `POST /api/v1/organization/adjustments`
   - Body:
     - `attendance_day_id`: Integer, required.
     - `attendance_session_id`: Integer, optional.
@@ -187,22 +187,22 @@ Allows correction of erroneous clock-in/out records.
   - Validation:
     - Validates datetime ranges and checks consistency.
 
-- `PUT /api/v1/corp/adjustments/{uuid}/approve`
+- `PUT /api/v1/organization/adjustments/{uuid}/approve`
   - Behavior:
     - Manager-only endpoint to approve the correction. recalculates day totals, duration, and compliance status.
 
-- `PUT /api/v1/corp/adjustments/{uuid}/reject`
+- `PUT /api/v1/organization/adjustments/{uuid}/reject`
   - Body:
     - `reason`: String, required.
   - Behavior:
     - Manager-only endpoint to reject the correction.
 
-## Attendance Policy (`/corp/policy`)
+## Attendance Policy (`/organization/policy`)
 
-- `GET /api/v1/corp/policy`
-  - Returns: Active attendance policy parameters for the corporation.
+- `GET /api/v1/organization/policy`
+  - Returns: Active attendance policy parameters for the Organization.
 
-- `PUT /api/v1/corp/policy`
+- `PUT /api/v1/organization/policy`
   - Body:
     - `shift_start_time`: Time (HH:MM:SS), required.
     - `shift_end_time`: Time (HH:MM:SS), required.
@@ -215,12 +215,12 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Updates active policy parameters. Future clock-ins will respect updated shifts and slabs.
 
-## Worklog Compliance Policy (`/corp/attendance/worklog-policy`)
+## Worklog Compliance Policy (`/organization/attendance/worklog-policy`)
 
-- `GET /api/v1/corp/attendance/worklog-policy`
+- `GET /api/v1/organization/attendance/worklog-policy`
   - Returns: Current active worklog policy.
 
-- `PATCH /api/v1/corp/attendance/worklog-policy`
+- `PATCH /api/v1/organization/attendance/worklog-policy`
   - Body:
     - `require_worklog_on_clockout`: Boolean, optional
     - `allow_deferred_submission`: Boolean, optional
@@ -237,14 +237,14 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Updates active worklog policy fields.
 
-## Attendance Worklogs (`/corp/attendance/worklogs`)
+## Attendance Worklogs (`/organization/attendance/worklogs`)
 
-- `GET /api/v1/corp/attendance/worklogs`
+- `GET /api/v1/organization/attendance/worklogs`
   - Query Params:
     - `user_uuid`: String, optional. Filter by user (requires manager/admin permission).
   - Returns: List of worklogs (filtered to active user, or all if manager/admin).
 
-- `POST /api/v1/corp/attendance/worklogs`
+- `POST /api/v1/organization/attendance/worklogs`
   - Body:
     - `attendance_day_uuid`: String, required.
     - `attendance_session_uuid`: String, optional.
@@ -258,10 +258,10 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Submits worklog, allocates task consumption, runs compliance check.
 
-- `GET /api/v1/corp/attendance/worklogs/{uuid}`
+- `GET /api/v1/organization/attendance/worklogs/{uuid}`
   - Returns: Specific worklog details.
 
-- `PATCH /api/v1/corp/attendance/worklogs/{uuid}`
+- `PATCH /api/v1/organization/attendance/worklogs/{uuid}`
   - Body:
     - `project_uuid`: String, optional.
     - `milestone_uuid`: String, optional.
@@ -273,7 +273,7 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Updates worklog and recalculates/syncs task consumption.
 
-- `PATCH /api/v1/corp/attendance/worklogs/{uuid}/status`
+- `PATCH /api/v1/organization/attendance/worklogs/{uuid}/status`
   - Body:
     - `status`: Integer, required (WorkflowStatusEnum value).
     - `remarks`: String, optional.
@@ -281,39 +281,39 @@ Allows correction of erroneous clock-in/out records.
   - Behavior:
     - Performs state transition checks, records status history, adjusts task/day compliance.
 
-- `DELETE /api/v1/corp/attendance/worklogs/{uuid}`
+- `DELETE /api/v1/organization/attendance/worklogs/{uuid}`
   - Behavior:
     - Removes worklog if in editable state, frees up logged task consumption minutes.
 
-## Attendance Escalations (`/corp/attendance/escalations`)
+## Attendance Escalations (`/organization/attendance/escalations`)
 
-- `GET /api/v1/corp/attendance/escalations`
+- `GET /api/v1/organization/attendance/escalations`
   - Returns: Escalation list.
 
-- `GET /api/v1/corp/attendance/escalations/{uuid}`
+- `GET /api/v1/organization/attendance/escalations/{uuid}`
   - Returns: Details of the escalation.
 
-- `PATCH /api/v1/corp/attendance/escalations/{uuid}/status`
+- `PATCH /api/v1/organization/attendance/escalations/{uuid}/status`
   - Body:
     - `status`: Integer, required (EscalationStatusEnum value: Resolved or Dismissed).
     - `remarks`: String, optional.
   - Behavior:
     - Resolves or dismisses a pending escalation.
 
-## Corporation Invitations (`/corp/invitations`)
+## Organization Invitations (`/organization/invitations`)
 
 Requires `invitations.view`, `invitations.create`, `invitations.revoke`, `invitations.resend` permissions.
 
-- `GET /api/v1/corp/invitations`
+- `GET /api/v1/organization/invitations`
   - Query Params:
     - `email`: String, optional. Filter/search by email.
     - `status`: Integer, optional. Filter by status (InvitationStatusEnum).
   - Returns: Paginated list of invitations.
 
-- `GET /api/v1/corp/invitations/{uuid}`
+- `GET /api/v1/organization/invitations/{uuid}`
   - Returns: Details of the specific invitation.
 
-- `POST /api/v1/corp/invitations`
+- `POST /api/v1/organization/invitations`
   - Body:
     - `email`: String, required. Email address of the user to invite.
     - `role_uuid`: String, required. UUID of the Spatie role to assign.
@@ -321,11 +321,11 @@ Requires `invitations.view`, `invitations.create`, `invitations.revoke`, `invita
   - Behavior:
     - Creates invitation, generates hashed token, triggers invitation email.
 
-- `POST /api/v1/corp/invitations/{uuid}/revoke`
+- `POST /api/v1/organization/invitations/{uuid}/revoke`
   - Behavior:
     - Revokes a pending invitation.
 
-- `POST /api/v1/corp/invitations/{uuid}/resend`
+- `POST /api/v1/organization/invitations/{uuid}/resend`
   - Behavior:
     - Extends the expiration date, updates token and resends invitation email.
 
@@ -334,7 +334,7 @@ Requires `invitations.view`, `invitations.create`, `invitations.revoke`, `invita
 Public endpoints (no headers/authentication required).
 
 - `GET /api/v1/invitations/validate/{token}`
-  - Returns: Details of the invitation (Corporation name, role name, expiry, and whether user already exists).
+  - Returns: Details of the invitation (Organization name, role name, expiry, and whether user already exists).
 
 - `POST /api/v1/invitations/accept`
   - Body:

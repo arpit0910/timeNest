@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Invitation;
 
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Rbac\Role;
 use App\Traits\HasUuid;
 use Carbon\Carbon;
@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Invitation model — corporation user invitations.
+ * Invitation model — organization user invitations.
  *
  * Token is stored as SHA-256 hash. Raw token is sent to user only once.
  *
  * @property int $id
  * @property string $uuid
- * @property int $corporation_id
+ * @property int $organization_id
  * @property string $email
  * @property string $token
  * @property Carbon $expires_at
@@ -30,10 +30,10 @@ class Invitation extends Model
 {
     use HasUuid;
 
-    protected $table = 'corporation_invitations';
+    protected $table = 'organization_invitations';
 
     protected $fillable = [
-        'corporation_id', 'email', 'role_id', 'invited_by_user_id',
+        'organization_id', 'email', 'role_id', 'invited_by_user_id',
         'token', 'status', 'expires_at', 'accepted_at', 'revoked_at',
         'revoked_by', 'resend_count', 'last_resent_at', 'metadata',
     ];
@@ -53,9 +53,9 @@ class Invitation extends Model
         ];
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function role(): BelongsTo

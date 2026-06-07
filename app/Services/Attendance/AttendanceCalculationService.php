@@ -9,7 +9,7 @@ use App\Enums\AttendanceModeEnum;
 use App\Enums\AttendanceStatusEnum;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendancePolicy;
-use App\Models\Attendance\CorporationHoliday;
+use App\Models\Attendance\OrganizationHoliday;
 use App\Models\Attendance\EmployeeLeave;
 use App\Models\Auth\User;
 use App\Models\Membership\EmployeeProfile;
@@ -28,11 +28,11 @@ class AttendanceCalculationService
     public function recalculateDay(AttendanceDay $attendanceDay): AttendanceDay
     {
         $user = $attendanceDay->user;
-        $corp = $attendanceDay->corporation;
+        $organization = $attendanceDay->organization;
         $dateStr = $attendanceDay->attendance_date->toDateString();
 
         // Get policy active at the time
-        $policy = $this->policyService->getActivePolicy($corp);
+        $policy = $this->policyService->getActivePolicy($organization);
         if (! $policy) {
             return $attendanceDay; // No policy, cannot compute
         }
@@ -51,7 +51,7 @@ class AttendanceCalculationService
 
         // Fetch user timezone (fallback to UTC)
         $profile = EmployeeProfile::where('user_id', $user->id)
-            ->where('corporation_id', $corp->id)
+            ->where('organization_id', $organization->id)
             ->with('branch')
             ->first();
         $timezone = $profile?->branch?->timezone ?? $user->timezone ?? 'UTC';
@@ -101,7 +101,7 @@ class AttendanceCalculationService
         // Check if there is an approved leave
         $isLeave = $this->leaveManagementService->hasApprovedLeave($user->id, $dateStr);
         // Check if it's a holiday
-        $isHoliday = $this->isHoliday($corp->id, $profile?->branch_id, $dateStr);
+        $isHoliday = $this->isHoliday($organization->id, $profile?->branch_id, $dateStr);
         // Check if it's a weekend
         $isWeekend = $this->isWeekend($dateStr, $timezone);
 
@@ -157,7 +157,7 @@ class AttendanceCalculationService
 
                 // If late, check compliance and monthly limits
                 if ($lateMinutes > 0) {
-                    $monthlyLateCount = $this->getMonthlyLateCount($user->id, $corp->id, $attendanceDay->attendance_date);
+                    $monthlyLateCount = $this->getMonthlyLateCount($user->id, $organization->id, $attendanceDay->attendance_date);
                     if ($monthlyLateCount > $policy->allowed_monthly_late_count) {
                         $complianceStatus = AttendanceComplianceStatusEnum::PayrollRisk;
                     } else {
@@ -182,7 +182,7 @@ class AttendanceCalculationService
         ]);
 
         // Integrate Phase 2 Worklog Compliance rules
-        $worklogPolicy = \App\Models\Attendance\AttendanceWorklogPolicy::where('attendance_policy_id', $policy->id)->first();
+        $worklogPolicy = \App\Models\Attendance\WorklogPolicy::where('attendance_policy_id', $policy->id)->first();
         if ($worklogPolicy && $totalSessions > 0) {
             $hasOpenSession = $sessions->whereNull('clock_out_at')->isNotEmpty();
             if (! $hasOpenSession) {
@@ -231,12 +231,12 @@ class AttendanceCalculationService
     }
 
     /**
-     * Check if a date is a holiday for the corporation or branch.
+     * Check if a date is a holiday for the organization or branch.
      */
-    public function isHoliday(int $corporationId, ?int $branchId, string $date): bool
+    public function isHoliday(int $organizationId, ?int $branchId, string $date): bool
     {
-        $query = CorporationHoliday::active()
-            ->where('corporation_id', $corporationId)
+        $query = OrganizationHoliday::active()
+            ->where('organization_id', $organizationId)
             ->where('holiday_date', $date);
 
         if ($branchId) {
@@ -263,13 +263,13 @@ class AttendanceCalculationService
     /**
      * Count the number of late arrivals for the user in the given month.
      */
-    private function getMonthlyLateCount(int $userId, int $corpId, Carbon $date): int
+    private function getMonthlyLateCount(int $userId, int $organizationId, Carbon $date): int
     {
         $startOfMonth = $date->copy()->startOfMonth()->toDateString();
         $endOfMonth = $date->copy()->endOfMonth()->toDateString();
 
         return (int) AttendanceDay::where('user_id', $userId)
-            ->where('corporation_id', $corpId)
+            ->where('organization_id', $organizationId)
             ->whereBetween('attendance_date', [$startOfMonth, $endOfMonth])
             ->where('late_minutes', '>', 0)
             ->count();

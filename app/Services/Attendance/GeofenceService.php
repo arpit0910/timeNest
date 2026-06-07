@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Attendance;
 
 use App\Exceptions\Business\BusinessRuleViolationException;
-use App\Models\Corporation\Branch;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Branch;
+use App\Models\Organization\Organization;
 
 class GeofenceService
 {
@@ -31,10 +31,10 @@ class GeofenceService
     }
 
     /**
-     * Find an active branch of a corporation that matches the user's coordinates.
+     * Find an active branch of an organization that matches the user's coordinates.
      * Throws an exception if no matching branch is found within geofence radius.
      */
-    public function validateAndFindBranch(Corporation $corporation, float $latitude, float $longitude, float $accuracy): Branch
+    public function validateAndFindBranch(Organization $organization, float $latitude, float $longitude, float $accuracy): Branch
     {
         // Accuracy threshold check (e.g. reject GPS accuracy worse than 100 meters)
         if ($accuracy > 100.0) {
@@ -44,8 +44,8 @@ class GeofenceService
             );
         }
 
-        // Fetch all active branches for this corporation
-        $branches = Branch::where('corporation_id', $corporation->id)
+        // Fetch all active branches for this organization
+        $branches = Branch::where('organization_id', $organization->id)
             ->where('is_active', true)
             ->whereNotNull('latitude')
             ->whereNotNull('longitude')

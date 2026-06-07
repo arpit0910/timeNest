@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\Business\InvalidCorporationContextException;
+use App\Exceptions\Business\InvalidOrganizationContextException;
 use App\Exceptions\Business\JwtContextMissingException;
 use App\Exceptions\Business\MembershipInactiveException;
 use App\Models\Membership\PlatformMembership;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * THROWS exceptions for centralized handling:
  * - JwtContextMissingException (401)
- * - InvalidCorporationContextException (403)
+ * - InvalidOrganizationContextException (403)
  * - MembershipInactiveException (403)
  *
  * Must be placed AFTER jwt.auth in the middleware stack.
@@ -28,7 +28,7 @@ class EnsurePlatformAccess
      * Handle an incoming request.
      *
      * @throws JwtContextMissingException
-     * @throws InvalidCorporationContextException
+     * @throws InvalidOrganizationContextException
      * @throws MembershipInactiveException
      */
     public function handle(Request $request, Closure $next): Response
@@ -40,7 +40,7 @@ class EnsurePlatformAccess
         $context = jwt_context();
 
         if (! $context->isPlatform()) {
-            throw new InvalidCorporationContextException('Access denied. Platform-level authorization required.');
+            throw new InvalidOrganizationContextException('Access denied. Platform-level authorization required.');
         }
 
         $membership = PlatformMembership::active()

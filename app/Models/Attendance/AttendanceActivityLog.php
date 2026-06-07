@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Attendance;
 
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,7 +24,7 @@ class AttendanceActivityLog extends Model
     const UPDATED_AT = null;
 
     protected $fillable = [
-        'corporation_id',
+        'organization_id',
         'user_id',
         'actor_id',
         'action',
@@ -44,9 +44,9 @@ class AttendanceActivityLog extends Model
         ];
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo

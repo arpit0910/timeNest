@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Enums;
 
 /**
- * Permission override types for corporation-level role customization.
+ * Permission override types for organization-level role customization.
  *
- * Allows corporations to grant additional permissions beyond the base role
+ * Allows organizations to grant additional permissions beyond the base role
  * or revoke specific permissions from the base role without modifying the
  * global role definition.
  */

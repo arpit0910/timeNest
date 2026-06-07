@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('attendance_policies', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
-            $table->unsignedBigInteger('corporation_id')->unique()->comment('FK to corporations, unique');
+            $table->unsignedBigInteger('organization_id')->unique()->comment('FK to organizations, unique');
             
             $table->unsignedTinyInteger('attendance_mode')->comment('Strict=1, Flexible=2, Hybrid=3');
             $table->unsignedInteger('required_daily_minutes')->comment('Required daily work duration');
@@ -36,11 +36,11 @@ return new class extends Migration
             $table->timestampsTz();
             $table->softDeletesTz();
 
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
-            $table->foreign('created_by', 'fk_att_policies_created_by')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('updated_by', 'fk_att_policies_updated_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('created_by', 'attendance_policies_created_by_foreign')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('updated_by', 'attendance_policies_updated_by_foreign')->references('id')->on('users')->onDelete('set null');
 
-            $table->index(['corporation_id', 'attendance_mode']);
+            $table->index(['organization_id', 'attendance_mode']);
         });
 
         Schema::create('attendance_policy_versions', function (Blueprint $table) {
@@ -68,10 +68,10 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestampsTz();
 
-            $table->foreign('attendance_policy_id', 'fk_att_policy_ver_policy_id')->references('id')->on('attendance_policies')->onDelete('cascade');
-            $table->foreign('created_by', 'fk_att_policy_ver_created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('attendance_policy_id', 'attendance_policy_versions_attendance_policy_id_foreign')->references('id')->on('attendance_policies')->onDelete('cascade');
+            $table->foreign('created_by', 'attendance_policy_versions_created_by_foreign')->references('id')->on('users')->onDelete('set null');
 
-            $table->unique(['attendance_policy_id', 'version'], 'unique_policy_version');
+            $table->unique(['attendance_policy_id', 'version'], 'attendance_policy_versions_attendance_policy_id_version_unique');
         });
 
         Schema::create('attendance_late_penalty_slabs', function (Blueprint $table) {
@@ -82,8 +82,8 @@ return new class extends Migration
             $table->decimal('deduction_percentage', 5, 2)->comment('Deduction percentage');
             $table->timestampsTz();
 
-            $table->foreign('attendance_policy_id', 'fk_att_late_slabs_policy_id')->references('id')->on('attendance_policies')->onDelete('cascade');
-            $table->unique(['attendance_policy_id', 'late_count_threshold'], 'unique_late_slab_threshold');
+            $table->foreign('attendance_policy_id', 'attendance_late_penalty_slabs_attendance_policy_id_foreign')->references('id')->on('attendance_policies')->onDelete('cascade');
+            $table->unique(['attendance_policy_id', 'late_count_threshold'], 'att_late_slabs_policy_id_threshold_unique');
         });
 
         Schema::create('attendance_work_duration_penalty_slabs', function (Blueprint $table) {
@@ -95,7 +95,7 @@ return new class extends Migration
             $table->decimal('deduction_percentage', 5, 2)->comment('Deduction percentage');
             $table->timestampsTz();
 
-            $table->foreign('attendance_policy_id', 'fk_att_work_slabs_policy_id')->references('id')->on('attendance_policies')->onDelete('cascade');
+            $table->foreign('attendance_policy_id', 'att_work_slabs_policy_id_foreign')->references('id')->on('attendance_policies')->onDelete('cascade');
         });
     }
 

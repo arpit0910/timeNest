@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('attendance_activity_logs', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
-            $table->unsignedBigInteger('corporation_id')->comment('FK to corporations');
+            $table->unsignedBigInteger('organization_id')->comment('FK to organizations');
             $table->unsignedBigInteger('user_id')->comment('FK to users — employee subject of the log');
             $table->unsignedBigInteger('actor_id')->comment('FK to users — who performed the action');
             
@@ -26,11 +26,11 @@ return new class extends Migration
             
             $table->timestampTz('created_at')->comment('Timestamp of event in UTC');
 
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('actor_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->index(['corporation_id', 'created_at']);
+            $table->index(['organization_id', 'created_at']);
             $table->index(['user_id', 'created_at']);
         });
     }

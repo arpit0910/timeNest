@@ -8,7 +8,7 @@ use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Attendance\AttendanceWorklog;
-use App\Models\Attendance\AttendanceWorklogPolicy;
+use App\Models\Attendance\WorklogPolicy;
 use App\Models\Auth\User;
 use App\Models\Project\Project;
 use App\Models\Project\Milestone;
@@ -27,7 +27,7 @@ class AttendanceWorklogValidationService
     public function validate(
         User $user,
         AttendanceDay $day,
-        AttendanceWorklogPolicy $policy,
+        WorklogPolicy $policy,
         array $data,
         ?AttendanceWorklog $existingWorklog = null
     ): void {

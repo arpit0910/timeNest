@@ -6,7 +6,7 @@ namespace App\Services\Attendance;
 
 use App\Enums\WorklogComplianceStatusEnum;
 use App\Models\Attendance\AttendanceWorklog;
-use App\Models\Attendance\AttendanceWorklogPolicy;
+use App\Models\Attendance\WorklogPolicy;
 use App\Models\Project\TaskTimeConsumption;
 use Carbon\Carbon;
 
@@ -35,7 +35,7 @@ class AttendanceWorklogCalculationService
      */
     public function determineComplianceStatus(
         AttendanceWorklog $worklog,
-        AttendanceWorklogPolicy $policy
+        WorklogPolicy $policy
     ): WorklogComplianceStatusEnum {
         if (! $worklog->task_id) {
             return WorklogComplianceStatusEnum::Compliant;

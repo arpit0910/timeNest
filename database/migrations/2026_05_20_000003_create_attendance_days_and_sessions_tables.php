@@ -14,7 +14,7 @@ return new class extends Migration
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
             $table->unsignedBigInteger('user_id')->comment('FK to users');
-            $table->unsignedBigInteger('corporation_id')->comment('FK to corporations');
+            $table->unsignedBigInteger('organization_id')->comment('FK to organizations');
             $table->date('attendance_date')->comment('The working date of attendance');
             
             $table->unsignedTinyInteger('attendance_status')->comment('Absent=1, Present=2, HalfDay=3, Leave=4, Holiday=5, Weekend=6, Incomplete=7');
@@ -32,11 +32,11 @@ return new class extends Migration
             $table->softDeletesTz();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('attendance_policy_version_id')->references('id')->on('attendance_policy_versions')->onDelete('set null');
 
-            $table->unique(['user_id', 'attendance_date'], 'unique_user_daily_attendance');
-            $table->index(['corporation_id', 'attendance_date']);
+            $table->unique(['user_id', 'attendance_date'], 'attendance_days_user_id_attendance_date_unique');
+            $table->index(['organization_id', 'attendance_date']);
             $table->index('attendance_status');
             $table->index('compliance_status');
         });

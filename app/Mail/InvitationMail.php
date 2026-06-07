@@ -27,9 +27,10 @@ class InvitationMail extends Mailable
 
     public function envelope(): Envelope
     {
-        $corpName = $this->invitation->corporation->legal_name;
+        $orgName = $this->invitation->organization->legal_name;
+
         return new Envelope(
-            subject: "Invitation to join {$corpName} on TimeNest",
+            subject: "Invitation to join {$orgName} on TimeNest",
         );
     }
 

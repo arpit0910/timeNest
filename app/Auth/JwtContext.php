@@ -20,8 +20,7 @@ final readonly class JwtContext
 {
     private function __construct(
         public Guard $guard,
-        public ?int $corporationId,
-        public ?string $corporationUuid,
+        public ?string $organizationUuid,
         public ?string $role,
         public ?string $purpose,
         public string $userUuid,
@@ -37,8 +36,7 @@ final readonly class JwtContext
     {
         return new self(
             guard: Guard::tryFrom($claims['guard'] ?? '') ?? Guard::Temp,
-            corporationId: isset($claims['corporation_id']) ? (int) $claims['corporation_id'] : null,
-            corporationUuid: $claims['corporation_uuid'] ?? null,
+            organizationUuid: $claims['organization_uuid'] ?? null,
             role: $claims['role'] ?? null,
             purpose: $claims['purpose'] ?? null,
             userUuid: $claims['user_uuid'] ?? '',
@@ -55,11 +53,11 @@ final readonly class JwtContext
     }
 
     /**
-     * Check if current context is corporation-level.
+     * Check if current context is organization-level.
      */
-    public function isCorp(): bool
+    public function isOrganization(): bool
     {
-        return $this->guard->isCorp();
+        return $this->guard->isOrganization();
     }
 
     /**
@@ -71,10 +69,10 @@ final readonly class JwtContext
     }
 
     /**
-     * Check if a corporation context is available.
+     * Check if a organization context is available.
      */
-    public function hasCorporationContext(): bool
+    public function hasOrganizationContext(): bool
     {
-        return $this->corporationId !== null;
+        return $this->organizationUuid !== null;
     }
 }

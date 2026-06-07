@@ -2,7 +2,7 @@
 
 use App\Exceptions\BaseApiException;
 use App\Exceptions\PermissionResolutionException;
-use App\Http\Middleware\EnsureCorpAccess;
+use App\Http\Middleware\EnsureOrganizationAccess;
 use App\Http\Middleware\EnsureEmailVerified;
 use App\Http\Middleware\EnsureFullJwtAccess;
 use App\Http\Middleware\EnsurePlatformAccess;
@@ -41,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tm.jwt.auth' => JwtAuthenticate::class,
             'platform.access' => EnsurePlatformAccess::class,
-            'corp.access' => EnsureCorpAccess::class,
+            'organization.access' => EnsureOrganizationAccess::class,
             'tenant.resolve' => ResolveTenantContext::class,
             'jwt.full' => EnsureFullJwtAccess::class,
             'jwt.temp' => EnsureTempTokenPurpose::class,
@@ -51,12 +51,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => RoleOrPermissionMiddleware::class,
         ]);
 
-        $middleware->group('api.corp', [
+        $middleware->group('api.organization', [
             'tm.jwt.auth',
             'jwt.full',
-            'corp.access',
+            'organization.access',
             'tenant.resolve',
-            'throttle:corp',
+            'throttle:organization',
         ]);
 
         $middleware->group('api.platform', [

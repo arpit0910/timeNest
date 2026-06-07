@@ -9,7 +9,7 @@ use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
 use App\Services\Attendance\AttendanceWorklogCalculationService;
-use App\Services\Attendance\AttendanceWorklogPolicyService;
+use App\Services\Attendance\WorklogPolicyService;
 use App\Services\Attendance\AttendanceWorklogValidationService;
 use App\Services\Attendance\TaskConsumptionService;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class UpdateAttendanceWorklogAction
 {
     public function __construct(
-        private readonly AttendanceWorklogPolicyService $policyService,
+        private readonly WorklogPolicyService $policyService,
         private readonly AttendanceWorklogValidationService $validationService,
         private readonly AttendanceWorklogCalculationService $calculationService,
         private readonly TaskConsumptionService $consumptionService
@@ -33,7 +33,7 @@ class UpdateAttendanceWorklogAction
 
             // 2. Validate details
             $day = $worklog->attendanceDay;
-            $worklogPolicy = $this->policyService->getWorklogPolicyForCorporation($day->corporation);
+            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization);
 
             $this->validationService->validate($actor, $day, $worklogPolicy, $data, $worklog);
 

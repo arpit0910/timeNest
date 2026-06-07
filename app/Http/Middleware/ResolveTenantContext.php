@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\Business\CorporationInactiveException;
-use App\Exceptions\Business\InvalidCorporationContextException;
+use App\Exceptions\Business\OrganizationInactiveException;
+use App\Exceptions\Business\InvalidOrganizationContextException;
 use App\Exceptions\Business\JwtContextMissingException;
 use App\Exceptions\Business\MembershipInactiveException;
-use App\Models\Corporation\Corporation;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\Organization;
+use App\Models\Organization\OrganizationMembership;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Resolves the tenant (Corporation) context from the JWT claims.
+ * Resolves the tenant (Organization) context from the JWT claims.
  *
  * Responsibilities:
- * 1. Loads the Corporation model from the JWT's corporation_id
- * 2. Validates the corporation is active
- * 3. Binds the Corporation to the container as 'tenant.corporation'
+ * 1. Loads the Organization model from the JWT's organization_id
+ * 2. Validates the organization is active
+ * 3. Binds the Organization to the container as 'tenant.organization'
  * 4. Sets the Spatie team ID for permission resolution
  *
  * THROWS exceptions for centralized handling:
  * - JwtContextMissingException (401)
- * - InvalidCorporationContextException (403)
- * - CorporationInactiveException (403)
+ * - InvalidOrganizationContextException (403)
+ * - OrganizationInactiveException (403)
  * - MembershipInactiveException (403)
  *
- * Must be placed AFTER jwt.auth and corp.access in the middleware stack.
- * Replaces SetSpatieTeamId and all manual Corporation::findOrFail() calls in controllers.
+ * Must be placed AFTER jwt.auth and organization.access in the middleware stack.
+ * Replaces SetSpatieTeamId and all manual Organization::findOrFail() calls in controllers.
  */
 class ResolveTenantContext
 {
@@ -38,8 +38,8 @@ class ResolveTenantContext
      * Handle an incoming request.
      *
      * @throws JwtContextMissingException
-     * @throws InvalidCorporationContextException
-     * @throws CorporationInactiveException
+     * @throws InvalidOrganizationContextException
+     * @throws OrganizationInactiveException
      * @throws MembershipInactiveException
      */
     public function handle(Request $request, Closure $next): Response
@@ -53,49 +53,39 @@ class ResolveTenantContext
         $platformRole = resolve_platform_role($request->user());
         $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
 
-        // Resolve corporation ID and UUID, allowing AppOwner header/request overrides
-        $corpId = $context->corporationId;
-        $corpUuid = $context->corporationUuid;
+        // Resolve organization UUID, allowing AppOwner header/request overrides
+        $organizationUuid = $context->organizationUuid;
 
         if ($isAppOwner) {
-            $corpId = $corpId 
-                ?? $request->header('X-Corporation-Id') 
-                ?? $request->input('corporation_id');
-                
-            $corpUuid = $corpUuid 
-                ?? $request->header('X-Corporation-Uuid') 
-                ?? $request->input('corporation_uuid');
+            $organizationUuid = $organizationUuid 
+                ?? $request->header('X-Organization-Uuid') 
+                ?? $request->input('organization_uuid');
         }
 
-        if (! $corpId && ! $corpUuid) {
-            throw new InvalidCorporationContextException('No corporation context available.');
+        if (! $organizationUuid) {
+            throw new InvalidOrganizationContextException('No organization context available.');
         }
 
-        // Find corporation
-        $corporation = null;
-        if ($corpId) {
-            $corporation = Corporation::find($corpId);
-        } elseif ($corpUuid) {
-            $corporation = Corporation::where('uuid', $corpUuid)->first();
+        // Find organization
+        $organization = Organization::where('uuid', $organizationUuid)->first();
+
+        if (! $organization) {
+            // Don't leak that organization exists
+            throw new InvalidOrganizationContextException('Invalid organization context.');
         }
 
-        if (! $corporation) {
-            // Don't leak that corporation exists
-            throw new InvalidCorporationContextException('Invalid corporation context.');
-        }
-
-        if (! $corporation->is_active) {
-            throw new CorporationInactiveException('Access denied');
+        if (! $organization->is_active) {
+            throw new OrganizationInactiveException('Access denied');
         }
 
         if (! $isAppOwner) {
-            if ($context->corporationUuid !== null && $context->corporationUuid !== $corporation->uuid) {
-                throw new InvalidCorporationContextException('Invalid corporation context.');
+            if ($context->organizationUuid !== null && $context->organizationUuid !== $organization->uuid) {
+                throw new InvalidOrganizationContextException('Invalid organization context.');
             }
 
-            $membership = CorpMembership::active()
+            $membership = OrganizationMembership::active()
                 ->where('user_id', $request->user()->id)
-                ->where('corporation_id', $corporation->id)
+                ->where('organization_id', $organization->id)
                 ->first();
 
             if (! $membership) {
@@ -106,14 +96,14 @@ class ResolveTenantContext
         }
 
         // Bind to container for downstream access
-        app()->instance('tenant.corporation', $corporation);
-        app()->instance('current.corporation', $corporation);
+        app()->instance('tenant.organization', $organization);
+        app()->instance('current.organization', $organization);
         if ($membership) {
             app()->instance('tenant.membership', $membership);
         }
 
         // Set Spatie team ID for permission resolution
-        setPermissionsTeamId($corporation->id);
+        setPermissionsTeamId($organization->id);
 
         return $next($request);
     }

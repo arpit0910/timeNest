@@ -110,7 +110,7 @@ return [
          * foreign key is other than `team_id`.
          */
 
-        'team_foreign_key' => 'corporation_id',
+        'team_foreign_key' => 'organization_id',
     ],
 
     /*

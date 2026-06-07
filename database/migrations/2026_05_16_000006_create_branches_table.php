@@ -12,7 +12,7 @@ return new class extends Migration
             $table->bigIncrements('id')->comment('Internal PK');
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
-            $table->unsignedBigInteger('corporation_id')->comment('FK to corporations');
+            $table->unsignedBigInteger('organization_id')->comment('FK to organizations');
             $table->string('name', 150)->comment('Branch name e.g. Mumbai HQ');
             $table->string('code', 30)->nullable()->comment('Short branch code e.g. MUM-HQ');
             $table->boolean('is_headquarters')->default(false)->comment('Whether this is the main/HQ branch');
@@ -36,12 +36,12 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
 
-            $table->unique(['corporation_id', 'code'], 'unique_branch_code_per_corp');
-            $table->index(['corporation_id', 'is_active']);
+            $table->unique(['organization_id', 'code'], 'branches_organization_id_code_unique');
+            $table->index(['organization_id', 'is_active']);
         });
     }
 

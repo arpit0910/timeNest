@@ -1,7 +1,7 @@
 {
     "info": {
         "name": "TimeNest API",
-        "description": "TimeNest Enterprise SaaS Platform API Collection - Production-Grade documentation covering authentication, 2FA workflows, tenant switching, global platform administration, and tenant-scoped corporation entities.",
+        "description": "TimeNest Enterprise SaaS Platform API Collection - Production-Grade documentation covering authentication, 2FA workflows, tenant switching, global platform administration, and tenant-scoped Organization entities.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "variable": [
@@ -26,7 +26,7 @@
             "type": "string"
         },
         {
-            "key": "corporation_uuid",
+            "key": "organization_uuid",
             "value": "",
             "type": "string"
         },
@@ -475,7 +475,7 @@
                     }
                 },
                 {
-                    "name": "Switch Corporation",
+                    "name": "Switch Organization",
                     "event": [
                         {
                             "listen": "test",
@@ -515,7 +515,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"corporation_uuid\": \"{{corporation_uuid}}\"\n}",
+                            "raw": "{\n    \"organization_uuid\": \"{{organization_uuid}}\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -523,21 +523,21 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/auth/switch-corporation",
+                            "raw": "{{base_url}}/auth/switch-Organization",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "auth",
-                                "switch-corporation"
+                                "switch-Organization"
                             ],
                             "query": []
                         },
-                        "description": "Switch corporation workspace context."
+                        "description": "Switch Organization workspace context."
                     }
                 },
                 {
-                    "name": "Select Corporation (Temporary Token)",
+                    "name": "Select Organization (Temporary Token)",
                     "event": [
                         {
                             "listen": "test",
@@ -577,7 +577,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"corporation_uuid\": \"{{corporation_uuid}}\"\n}",
+                            "raw": "{\n    \"organization_uuid\": \"{{organization_uuid}}\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -585,17 +585,17 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/auth/select-corporation",
+                            "raw": "{{base_url}}/auth/select-Organization",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "auth",
-                                "select-corporation"
+                                "select-Organization"
                             ],
                             "query": []
                         },
-                        "description": "Select corporation workspace with temporary token."
+                        "description": "Select Organization workspace with temporary token."
                     }
                 },
                 {
@@ -1017,7 +1017,7 @@
         },
         {
             "name": "Public Invitations",
-            "description": "Public endpoints to validate and accept corporation invitations.",
+            "description": "Public endpoints to validate and accept Organization invitations.",
             "item": [
                 {
                     "name": "Validate Invitation Token",
@@ -1082,11 +1082,11 @@
             ]
         },
         {
-            "name": "Platform - Corporations",
-            "description": "Global administration routes to manage workspace corporations.",
+            "name": "Platform - Organizations",
+            "description": "Global administration routes to manage workspace Organizations.",
             "item": [
                 {
-                    "name": "List Corporations",
+                    "name": "List Organizations",
                     "request": {
                         "auth": {
                             "type": "bearer",
@@ -1106,13 +1106,13 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc&is_active=&plan=",
+                            "raw": "{{base_url}}/platform/Organizations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc&is_active=&plan=",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "corporations"
+                                "Organizations"
                             ],
                             "query": [
                                 {
@@ -1145,11 +1145,11 @@
                                 }
                             ]
                         },
-                        "description": "Retrieve a list of all registered corporations."
+                        "description": "Retrieve a list of all registered Organizations."
                     }
                 },
                 {
-                    "name": "Create Corporation",
+                    "name": "Create Organization",
                     "request": {
                         "auth": {
                             "type": "bearer",
@@ -1174,7 +1174,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech\",\n    \"legal_entity_type\": \"Private Limited\",\n    \"industry\": \"Software & Information Technology Services\",\n    \"company_size\": \"50-100\",\n    \"email\": \"corporate@acme-tech.com\",\n    \"phone\": \"+919876543210\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"plan\": \"enterprise\",\n    \"max_users\": 250,\n    \"country_id\": 1,\n    \"hq_name\": \"Acme headquarters\",\n    \"hq_code\": \"HQ-KOL-01\"\n}",
+                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech\",\n    \"legal_entity_type\": \"Private Limited\",\n    \"industry\": \"Software & Information Technology Services\",\n    \"company_size\": \"50-100\",\n    \"email\": \"corporate@acme-tech.com\",\n    \"phone\": \"+919876543210\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"plan\": \"enterprise\",\n    \"max_users\": 250,\n    \"country_uuid\": 1,\n    \"hq_name\": \"Acme headquarters\",\n    \"hq_code\": \"HQ-KOL-01\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1182,21 +1182,21 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations",
+                            "raw": "{{base_url}}/platform/Organizations",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "corporations"
+                                "Organizations"
                             ],
                             "query": []
                         },
-                        "description": "Register a new corporation workspace."
+                        "description": "Register a new Organization workspace."
                     }
                 },
                 {
-                    "name": "Get Corporation",
+                    "name": "Get Organization",
                     "request": {
                         "auth": {
                             "type": "bearer",
@@ -1216,22 +1216,22 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations/{{corporation_uuid}}",
+                            "raw": "{{base_url}}/platform/Organizations/{{organization_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "corporations",
-                                "{{corporation_uuid}}"
+                                "Organizations",
+                                "{{organization_uuid}}"
                             ],
                             "query": []
                         },
-                        "description": "Fetch details of a specific corporation by its UUID."
+                        "description": "Fetch details of a specific Organization by its UUID."
                     }
                 },
                 {
-                    "name": "Update Corporation",
+                    "name": "Update Organization",
                     "request": {
                         "auth": {
                             "type": "bearer",
@@ -1256,7 +1256,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech Updated\",\n    \"legal_entity_type\": \"Public Limited\",\n    \"industry\": \"SaaS & AI Development Services\",\n    \"company_size\": \"100-250\",\n    \"email\": \"corporate.updated@acme-tech.com\",\n    \"phone\": \"+919876543211\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"country_id\": 1,\n    \"is_active\": \"\",\n    \"is_verified\": \"\"\n}",
+                            "raw": "{\n    \"legal_name\": \"Acme Technologies Private Limited\",\n    \"trading_name\": \"Acme Tech Updated\",\n    \"legal_entity_type\": \"Public Limited\",\n    \"industry\": \"SaaS & AI Development Services\",\n    \"company_size\": \"100-250\",\n    \"email\": \"corporate.updated@acme-tech.com\",\n    \"phone\": \"+919876543211\",\n    \"timezone\": \"Asia/Kolkata\",\n    \"locale\": \"en\",\n    \"currency_code\": \"INR\",\n    \"country_uuid\": 1,\n    \"is_active\": \"\",\n    \"is_verified\": \"\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1264,24 +1264,24 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/platform/corporations/{{corporation_uuid}}",
+                            "raw": "{{base_url}}/platform/Organizations/{{organization_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "corporations",
-                                "{{corporation_uuid}}"
+                                "Organizations",
+                                "{{organization_uuid}}"
                             ],
                             "query": []
                         },
-                        "description": "Update specific configuration properties of a corporation by UUID."
+                        "description": "Update specific configuration properties of a Organization by UUID."
                     }
                 }
             ]
         },
         {
-            "name": "Corporation",
+            "name": "Organization",
             "description": "Tenant-scoped routes for managing branch entities, departments, staff, policies, and attendance operations.",
             "item": [
                 {
@@ -1312,18 +1312,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/branches?page=1&per_page=15&search=Office&sort_by=&sort_direction=&is_active=",
+                                    "raw": "{{base_url}}/organization/branches?page=1&per_page=15&search=Office&sort_by=&sort_direction=&is_active=",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "branches"
                                     ],
                                     "query": [
@@ -1353,7 +1353,7 @@
                                         }
                                     ]
                                 },
-                                "description": "Retrieve branches registered within the active corporation."
+                                "description": "Retrieve branches registered within the active Organization."
                             }
                         },
                         {
@@ -1380,14 +1380,14 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"name\": \"New York Office branch\",\n    \"code\": \"NY-02\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550199\",\n    \"email\": \"ny-office@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway\",\n    \"address_line_2\": \"Suite 400\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7074,\n    \"longitude\": -74.0112,\n    \"geo_fence_radius\": 150,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
+                                    "raw": "{\n    \"name\": \"New York Office branch\",\n    \"code\": \"NY-02\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550199\",\n    \"email\": \"ny-office@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway\",\n    \"address_line_2\": \"Suite 400\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_uuid\": 1,\n    \"country_uuid\": 1,\n    \"latitude\": 40.7074,\n    \"longitude\": -74.0112,\n    \"geo_fence_radius\": 150,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -1395,17 +1395,17 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/branches",
+                                    "raw": "{{base_url}}/organization/branches",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "branches"
                                     ],
                                     "query": []
                                 },
-                                "description": "Create a new branch under the active tenant corporation."
+                                "description": "Create a new branch under the active tenant Organization."
                             }
                         },
                         {
@@ -1432,24 +1432,24 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "raw": "{{base_url}}/organization/branches/{{branch_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "branches",
                                         "{{branch_uuid}}"
                                     ],
                                     "query": []
                                 },
-                                "description": "Retrieve details of a specific branch under the corporation by UUID."
+                                "description": "Retrieve details of a specific branch under the Organization by UUID."
                             }
                         },
                         {
@@ -1476,14 +1476,14 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"name\": \"New York Office branch Updated\",\n    \"code\": \"NY-02-UPD\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550200\",\n    \"email\": \"ny-office-updated@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway Updated\",\n    \"address_line_2\": \"\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_id\": 1,\n    \"country_id\": 1,\n    \"latitude\": 40.7075,\n    \"longitude\": -74.0113,\n    \"geo_fence_radius\": 200,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
+                                    "raw": "{\n    \"name\": \"New York Office branch Updated\",\n    \"code\": \"NY-02-UPD\",\n    \"is_headquarters\": false,\n    \"phone\": \"+12125550200\",\n    \"email\": \"ny-office-updated@acme-tech.com\",\n    \"address_line_1\": \"120 Broadway Updated\",\n    \"address_line_2\": \"\",\n    \"city\": \"New York\",\n    \"postal_code\": \"10271\",\n    \"state_uuid\": 1,\n    \"country_uuid\": 1,\n    \"latitude\": 40.7075,\n    \"longitude\": -74.0113,\n    \"geo_fence_radius\": 200,\n    \"timezone\": \"America/New_York\",\n    \"is_active\": true\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -1491,18 +1491,18 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "raw": "{{base_url}}/organization/branches/{{branch_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "branches",
                                         "{{branch_uuid}}"
                                     ],
                                     "query": []
                                 },
-                                "description": "Update specific parameters of a branch under the corporation by UUID."
+                                "description": "Update specific parameters of a branch under the Organization by UUID."
                             }
                         },
                         {
@@ -1529,18 +1529,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/branches/{{branch_uuid}}",
+                                    "raw": "{{base_url}}/organization/branches/{{branch_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "branches",
                                         "{{branch_uuid}}"
                                     ],
@@ -1579,18 +1579,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/departments?page=1&per_page=15&search=Engineering&sort_by=&sort_direction=&branch_uuid=&is_active=",
+                                    "raw": "{{base_url}}/organization/departments?page=1&per_page=15&search=Engineering&sort_by=&sort_direction=&branch_uuid=&is_active=",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "departments"
                                     ],
                                     "query": [
@@ -1624,7 +1624,7 @@
                                         }
                                     ]
                                 },
-                                "description": "Retrieve departments resolved under the active corporation."
+                                "description": "Retrieve departments resolved under the active Organization."
                             }
                         },
                         {
@@ -1651,14 +1651,14 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"name\": \"Engineering Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "raw": "{\n    \"name\": \"Engineering Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_uuid\": 1,\n    \"parent_department_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -1666,17 +1666,17 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/departments",
+                                    "raw": "{{base_url}}/organization/departments",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "departments"
                                     ],
                                     "query": []
                                 },
-                                "description": "Create a new department within the active corporation."
+                                "description": "Create a new department within the active Organization."
                             }
                         },
                         {
@@ -1703,18 +1703,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "raw": "{{base_url}}/organization/departments/{{department_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "departments",
                                         "{{department_uuid}}"
                                     ],
@@ -1747,14 +1747,14 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"name\": \"Engineering Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_id\": 1,\n    \"parent_department_id\": null,\n    \"head_user_id\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "raw": "{\n    \"name\": \"Engineering Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_uuid\": 1,\n    \"parent_department_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -1762,12 +1762,12 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "raw": "{{base_url}}/organization/departments/{{department_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "departments",
                                         "{{department_uuid}}"
                                     ],
@@ -1800,31 +1800,31 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/departments/{{department_uuid}}",
+                                    "raw": "{{base_url}}/organization/departments/{{department_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "departments",
                                         "{{department_uuid}}"
                                     ],
                                     "query": []
                                 },
-                                "description": "Soft delete a specific department from the corporation."
+                                "description": "Soft delete a specific department from the Organization."
                             }
                         }
                     ]
                 },
                 {
                     "name": "Memberships",
-                    "description": "Manage user accounts, roles, and profiles within a corporation.",
+                    "description": "Manage user accounts, roles, and profiles within a Organization.",
                     "item": [
                         {
                             "name": "List Memberships",
@@ -1850,18 +1850,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/memberships?page=1&per_page=15&search=&status=active&role_id=&branch_id=&department_id=",
+                                    "raw": "{{base_url}}/organization/memberships?page=1&per_page=15&search=&status=active&role_uuid=&branch_uuid=&department_uuid=",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "memberships"
                                     ],
                                     "query": [
@@ -1882,20 +1882,20 @@
                                             "value": "active"
                                         },
                                         {
-                                            "key": "role_id",
+                                            "key": "role_uuid",
                                             "value": ""
                                         },
                                         {
-                                            "key": "branch_id",
+                                            "key": "branch_uuid",
                                             "value": ""
                                         },
                                         {
-                                            "key": "department_id",
+                                            "key": "department_uuid",
                                             "value": ""
                                         }
                                     ]
                                 },
-                                "description": "Retrieve memberships registered under the active corporation."
+                                "description": "Retrieve memberships registered under the active Organization."
                             }
                         },
                         {
@@ -1922,14 +1922,14 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "body": {
                                     "mode": "raw",
-                                    "raw": "{\n    \"user_id\": 2,\n    \"role_id\": 2,\n    \"employee_code\": \"EMP-ACME-002\",\n    \"designation\": \"Senior Engineer\",\n    \"department_id\": 1,\n    \"branch_id\": 1,\n    \"employment_type\": \"full_time\",\n    \"joining_date\": \"2026-05-17\",\n    \"reports_to\": null\n}",
+                                    "raw": "{\n    \"user_uuid\": 2,\n    \"role_uuid\": 2,\n    \"employee_code\": \"EMP-ACME-002\",\n    \"designation\": \"Senior Engineer\",\n    \"department_uuid\": 1,\n    \"branch_uuid\": 1,\n    \"employment_type\": \"full_time\",\n    \"joining_date\": \"2026-05-17\",\n    \"reports_to_uuid\": null\n}",
                                     "options": {
                                         "raw": {
                                             "language": "json"
@@ -1937,17 +1937,17 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/memberships",
+                                    "raw": "{{base_url}}/organization/memberships",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "memberships"
                                     ],
                                     "query": []
                                 },
-                                "description": "Link a registered user account to this corporation with dynamic workspace roles."
+                                "description": "Link a registered user account to this Organization with dynamic workspace roles."
                             }
                         },
                         {
@@ -1974,24 +1974,24 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/memberships/{{membership_uuid}}",
+                                    "raw": "{{base_url}}/organization/memberships/{{membership_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "memberships",
                                         "{{membership_uuid}}"
                                     ],
                                     "query": []
                                 },
-                                "description": "Deactivate / suspend a user membership under the corporation by UUID."
+                                "description": "Deactivate / suspend a user membership under the Organization by UUID."
                             }
                         }
                     ]
@@ -2020,18 +2020,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Workspace context header"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/invitations?page=1&per_page=15&email=&status=",
+                                    "raw": "{{base_url}}/organization/invitations?page=1&per_page=15&email=&status=",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "invitations"
                                     ],
                                     "query": [
@@ -2076,18 +2076,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Workspace context header"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}",
+                                    "raw": "{{base_url}}/organization/invitations/{{invitation_uuid}}",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "invitations",
                                         "{{invitation_uuid}}"
                                     ]
@@ -2119,8 +2119,8 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Workspace context header"
                                     }
                                 ],
@@ -2134,12 +2134,12 @@
                                     }
                                 },
                                 "url": {
-                                    "raw": "{{base_url}}/corp/invitations",
+                                    "raw": "{{base_url}}/organization/invitations",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "invitations"
                                     ]
                                 },
@@ -2170,18 +2170,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Workspace context header"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}/revoke",
+                                    "raw": "{{base_url}}/organization/invitations/{{invitation_uuid}}/revoke",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "invitations",
                                         "{{invitation_uuid}}",
                                         "revoke"
@@ -2214,18 +2214,18 @@
                                         "value": "application/json"
                                     },
                                     {
-                                        "key": "X-Corporation-Uuid",
-                                        "value": "{{corporation_uuid}}",
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
                                         "description": "Workspace context header"
                                     }
                                 ],
                                 "url": {
-                                    "raw": "{{base_url}}/corp/invitations/{{invitation_uuid}}/resend",
+                                    "raw": "{{base_url}}/organization/invitations/{{invitation_uuid}}/resend",
                                     "host": [
                                         "{{base_url}}"
                                     ],
                                     "path": [
-                                        "corp",
+                                        "organization",
                                         "invitations",
                                         "{{invitation_uuid}}",
                                         "resend"
@@ -2255,7 +2255,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2263,9 +2263,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/clock-in",
+                                            "raw": "{{base_url}}/organization/attendance/clock-in",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance clock-in"
+                                            "path": "organization attendance clock-in"
                                         },
                                         "description": "Clock in for the day."
                                     }
@@ -2281,7 +2281,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2289,9 +2289,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/clock-out",
+                                            "raw": "{{base_url}}/organization/attendance/clock-out",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance clock-out"
+                                            "path": "organization attendance clock-out"
                                         },
                                         "description": "Clock out for the day."
                                     }
@@ -2307,12 +2307,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/today",
+                                            "raw": "{{base_url}}/organization/attendance/today",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance today"
+                                            "path": "organization attendance today"
                                         },
                                         "description": "Retrieve today's attendance stats."
                                     }
@@ -2328,12 +2328,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/history?page=1&per_page=15",
+                                            "raw": "{{base_url}}/organization/attendance/history?page=1&per_page=15",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance history",
+                                            "path": "organization attendance history",
                                             "query": " "
                                         },
                                         "description": "Fetch paginated historical attendance days."
@@ -2356,12 +2356,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/leaves?page=1&per_page=15&status=&leave_type=",
+                                            "raw": "{{base_url}}/organization/attendance/leaves?page=1&per_page=15&status=&leave_type=",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance leaves",
+                                            "path": "organization attendance leaves",
                                             "query": "   "
                                         },
                                         "description": "List requested leaves."
@@ -2378,7 +2378,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2386,9 +2386,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/leaves",
+                                            "raw": "{{base_url}}/organization/attendance/leaves",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance leaves"
+                                            "path": "organization attendance leaves"
                                         },
                                         "description": "Apply for casual, sick, WFH, or EWD leaves."
                                     }
@@ -2404,12 +2404,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}",
+                                            "raw": "{{base_url}}/organization/attendance/leaves/{{leave_uuid}}",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance leaves {{leave_uuid}}"
+                                            "path": "organization attendance leaves {{leave_uuid}}"
                                         },
                                         "description": "Retrieve leave request details by UUID."
                                     }
@@ -2425,7 +2425,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2433,9 +2433,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/leaves/{{leave_uuid}}/status",
+                                            "raw": "{{base_url}}/organization/attendance/leaves/{{leave_uuid}}/status",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance leaves {{leave_uuid}} status"
+                                            "path": "organization attendance leaves {{leave_uuid}} status"
                                         },
                                         "description": "Transition leave request status."
                                     }
@@ -2457,12 +2457,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/adjustments?page=1&per_page=15&status=",
+                                            "raw": "{{base_url}}/organization/attendance/adjustments?page=1&per_page=15&status=",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance adjustments",
+                                            "path": "organization attendance adjustments",
                                             "query": "  "
                                         },
                                         "description": "List adjustment requests."
@@ -2479,17 +2479,17 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
-                                            "raw": "{\n    \"attendance_day_id\": 1,\n    \"attendance_session_id\": 1,\n    \"adjustment_type\": 1,\n    \"clock_in_at\": \"2026-05-20T09:00:00Z\",\n    \"clock_out_at\": \"2026-05-20T17:00:00Z\",\n    \"reason\": \"Forgot to clock out\"\n}",
+                                            "raw": "{\n    \"attendance_day_uuid\": 1,\n    \"attendance_session_uuid\": 1,\n    \"adjustment_type\": 1,\n    \"clock_in_at\": \"2026-05-20T09:00:00Z\",\n    \"clock_out_at\": \"2026-05-20T17:00:00Z\",\n    \"reason\": \"Forgot to clock out\"\n}",
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/adjustments",
+                                            "raw": "{{base_url}}/organization/attendance/adjustments",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance adjustments"
+                                            "path": "organization attendance adjustments"
                                         },
                                         "description": "Submit correction request."
                                     }
@@ -2505,12 +2505,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/adjustments/{{adjustment_uuid}}/approve",
+                                            "raw": "{{base_url}}/organization/attendance/adjustments/{{adjustment_uuid}}/approve",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance adjustments {{adjustment_uuid}} approve"
+                                            "path": "organization attendance adjustments {{adjustment_uuid}} approve"
                                         },
                                         "description": "Approve correction request (manager only)."
                                     }
@@ -2526,7 +2526,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2534,9 +2534,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/adjustments/{{adjustment_uuid}}/reject",
+                                            "raw": "{{base_url}}/organization/attendance/adjustments/{{adjustment_uuid}}/reject",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance adjustments {{adjustment_uuid}} reject"
+                                            "path": "organization attendance adjustments {{adjustment_uuid}} reject"
                                         },
                                         "description": "Reject correction request (manager only)."
                                     }
@@ -2558,12 +2558,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/policy",
+                                            "raw": "{{base_url}}/organization/attendance/policy",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance policy"
+                                            "path": "organization attendance policy"
                                         },
                                         "description": "Get active policy."
                                     }
@@ -2579,7 +2579,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2587,9 +2587,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/policy",
+                                            "raw": "{{base_url}}/organization/attendance/policy",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance policy"
+                                            "path": "organization attendance policy"
                                         },
                                         "description": "Update attendance policy."
                                     }
@@ -2611,12 +2611,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs?user_uuid=",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs?user_uuid=",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs",
+                                            "path": "organization attendance worklogs",
                                             "query": ""
                                         },
                                         "description": "List logged productivity minutes."
@@ -2633,7 +2633,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2641,9 +2641,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs"
+                                            "path": "organization attendance worklogs"
                                         },
                                         "description": "Create a worklog segment."
                                     }
@@ -2659,12 +2659,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs/{{worklog_uuid}}",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs {{worklog_uuid}}"
+                                            "path": "organization attendance worklogs {{worklog_uuid}}"
                                         },
                                         "description": "Retrieve details of a single worklog."
                                     }
@@ -2680,7 +2680,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2688,9 +2688,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs/{{worklog_uuid}}",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs {{worklog_uuid}}"
+                                            "path": "organization attendance worklogs {{worklog_uuid}}"
                                         },
                                         "description": "Update worklog parameters."
                                     }
@@ -2706,7 +2706,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2714,9 +2714,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs/{{worklog_uuid}}/status",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}/status",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs {{worklog_uuid}} status"
+                                            "path": "organization attendance worklogs {{worklog_uuid}} status"
                                         },
                                         "description": "Transition the workflow status of a worklog."
                                     }
@@ -2732,12 +2732,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklogs/{{worklog_uuid}}",
+                                            "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklogs {{worklog_uuid}}"
+                                            "path": "organization attendance worklogs {{worklog_uuid}}"
                                         },
                                         "description": "Delete draft worklog."
                                     }
@@ -2759,12 +2759,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklog-policy",
+                                            "raw": "{{base_url}}/organization/attendance/worklog-policy",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklog-policy"
+                                            "path": "organization attendance worklog-policy"
                                         },
                                         "description": "Get current worklog policy."
                                     }
@@ -2780,7 +2780,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2788,9 +2788,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/worklog-policy",
+                                            "raw": "{{base_url}}/organization/attendance/worklog-policy",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance worklog-policy"
+                                            "path": "organization attendance worklog-policy"
                                         },
                                         "description": "Update worklog policy."
                                     }
@@ -2812,12 +2812,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/escalations",
+                                            "raw": "{{base_url}}/organization/attendance/escalations",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance escalations"
+                                            "path": "organization attendance escalations"
                                         },
                                         "description": "Get compliance escalations list."
                                     }
@@ -2833,12 +2833,12 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/escalations/{{escalation_uuid}}",
+                                            "raw": "{{base_url}}/organization/attendance/escalations/{{escalation_uuid}}",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance escalations {{escalation_uuid}}"
+                                            "path": "organization attendance escalations {{escalation_uuid}}"
                                         },
                                         "description": "Retrieve escalation details."
                                     }
@@ -2854,7 +2854,7 @@
                                         "header": [
                                             "@{key=Accept; value=application/json}",
                                             "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Corporation-Uuid; value={{corporation_uuid}}; description=Tenant context identifier}"
+                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
                                         ],
                                         "body": {
                                             "mode": "raw",
@@ -2862,9 +2862,9 @@
                                             "options": "@{raw=}"
                                         },
                                         "url": {
-                                            "raw": "{{base_url}}/corp/attendance/escalations/{{escalation_uuid}}/status",
+                                            "raw": "{{base_url}}/organization/attendance/escalations/{{escalation_uuid}}/status",
                                             "host": "{{base_url}}",
-                                            "path": "corp attendance escalations {{escalation_uuid}} status"
+                                            "path": "organization attendance escalations {{escalation_uuid}} status"
                                         },
                                         "description": "Resolve or dismiss escalation."
                                     }

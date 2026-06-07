@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendanceController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendanceAdjustmentController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendancePolicyController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendanceWorklogPolicyController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendanceWorklogController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\AttendanceEscalationController;
-use App\Http\Controllers\Api\V1\Corp\Attendance\LeaveController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceAdjustmentController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendancePolicyController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\WorklogPolicyController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceWorklogController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceEscalationController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\LeaveController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Clock In / Out & Summaries (AttendanceController) ──────────────────
@@ -41,8 +41,8 @@ Route::prefix('policy')->name('policy.')->controller(AttendancePolicyController:
     Route::put('/', 'update')->name('update');
 });
 
-// ─── Worklog Compliance Policy (AttendanceWorklogPolicyController) ───
-Route::prefix('worklog-policy')->name('worklog-policy.')->controller(AttendanceWorklogPolicyController::class)->group(function () {
+// ─── Worklog Compliance Policy (WorklogPolicyController) ───
+Route::prefix('worklog-policy')->name('worklog-policy.')->controller(WorklogPolicyController::class)->group(function () {
     Route::get('/', 'show')->name('show');
     Route::patch('/', 'update')->name('update');
 });

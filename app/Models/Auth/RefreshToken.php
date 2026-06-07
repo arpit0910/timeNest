@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property string $token_hash
  * @property string $guard
- * @property int|null $corporation_id
+ * @property int|null $organization_id
  * @property Carbon $expires_at
  * @property Carbon|null $revoked_at
  */
@@ -31,7 +31,7 @@ class RefreshToken extends Model
         'user_id',
         'token_hash',
         'guard',
-        'corporation_id',
+        'organization_id',
         'ip_address',
         'user_agent',
         'expires_at',

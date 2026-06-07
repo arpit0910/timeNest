@@ -7,7 +7,7 @@ namespace App\Models\Attendance;
 use App\Enums\LeaveStatusEnum;
 use App\Enums\LeaveTypeEnum;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +29,7 @@ class EmployeeLeave extends Model
     ];
 
     protected $fillable = [
-        'corporation_id',
+        'organization_id',
         'user_id',
         'leave_type',
         'leave_status',
@@ -62,9 +62,9 @@ class EmployeeLeave extends Model
 
     // ─── Relationships ───────────────────────────────────────────
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo

@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Models\Auth;
 
 use App\Enums\UserStatus;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Geo\Country;
 use App\Models\Geo\State;
-use App\Models\Membership\CorpMembership;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\EmployeeProfile;
 use App\Models\Membership\PlatformMembership;
+use App\Models\Auth\OAuthAccount;
 use App\Traits\HasUuid;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
@@ -29,8 +30,8 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * User model — global identity layer.
  *
- * One record per human. Owns authentication. Never corporation-specific.
- * Employment data lives in EmployeeProfile (corporation-scoped).
+ * One record per human. Owns authentication. Never organization-specific.
+ * Employment data lives in EmployeeProfile (organization-scoped).
  *
  * @property int $id
  * @property string $uuid
@@ -60,6 +61,7 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @property-read bool $phone_verified      Computed: phone_verified_at !== null
  * @property-read bool $two_factor_enabled   Computed: two_factor_enabled_at !== null
+ * @property \Illuminate\Database\Eloquent\Collection<int, OAuthAccount> $oauthAccounts
  */
 class User extends Authenticatable implements JWTSubject
 {
@@ -166,11 +168,11 @@ class User extends Authenticatable implements JWTSubject
     // ─── Relationships ───────────────────────────────────────────
 
     /**
-     * @return HasMany<SocialAccount>
+     * @return HasMany<OAuthAccount, self>
      */
-    public function socialAccounts(): HasMany
+    public function oauthAccounts(): HasMany
     {
-        return $this->hasMany(SocialAccount::class);
+        return $this->hasMany(OAuthAccount::class);
     }
 
     /**
@@ -182,11 +184,11 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @return HasMany<CorpMembership>
+     * @return HasMany<OrganizationMembership>
      */
-    public function corpMemberships(): HasMany
+    public function organizationMemberships(): HasMany
     {
-        return $this->hasMany(CorpMembership::class);
+        return $this->hasMany(OrganizationMembership::class);
     }
 
     /**
@@ -206,12 +208,12 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @return BelongsToMany<Corporation>
+     * @return BelongsToMany<Organization>
      */
-    public function corporations(): BelongsToMany
+    public function organizations(): BelongsToMany
     {
-        return $this->belongsToMany(Corporation::class, 'corp_memberships')
-            ->withPivot('role_id', 'status', 'joined_at')
+        return $this->belongsToMany(Organization::class, 'organization_memberships')
+            ->withPivot('status', 'joined_at')
             ->withTimestamps();
     }
 

@@ -7,7 +7,7 @@ namespace App\Services\Attendance;
 use App\Models\Attendance\AttendancePolicy;
 use App\Models\Attendance\AttendancePolicyVersion;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,35 +15,35 @@ use Illuminate\Support\Str;
 class AttendancePolicyService
 {
     /**
-     * Get the active policy for the corporation, utilizing cache.
+     * Get the active policy for the organization, utilizing cache.
      */
-    public function getActivePolicy(Corporation $corporation): ?AttendancePolicy
+    public function getActivePolicy(Organization $organization): ?AttendancePolicy
     {
-        $cacheKey = "corp_{$corporation->id}_attendance_policy";
+        $cacheKey = "org_{$organization->id}_attendance_policy";
 
-        return Cache::remember($cacheKey, 86400, function () use ($corporation) {
-            return AttendancePolicy::where('corporation_id', $corporation->id)
+        return Cache::remember($cacheKey, 86400, function () use ($organization) {
+            return AttendancePolicy::where('organization_id', $organization->id)
                 ->with(['latePenaltySlabs', 'workDurationPenaltySlabs'])
                 ->first();
         });
     }
 
     /**
-     * Invalidate the policy cache for the corporation.
+     * Invalidate the policy cache for the organization.
      */
-    public function invalidateCache(int $corporationId): void
+    public function invalidateCache(int $organizationId): void
     {
-        Cache::forget("corp_{$corporationId}_attendance_policy");
+        Cache::forget("org_{$organizationId}_attendance_policy");
     }
 
     /**
-     * Create default policy for a corporation.
+     * Create default policy for an organization.
      */
-    public function createDefaultPolicy(Corporation $corporation, ?User $actor = null): AttendancePolicy
+    public function createDefaultPolicy(Organization $organization, ?User $actor = null): AttendancePolicy
     {
-        return DB::transaction(function () use ($corporation, $actor) {
+        return DB::transaction(function () use ($organization, $actor) {
             $policy = AttendancePolicy::create([
-                'corporation_id' => $corporation->id,
+                'organization_id' => $organization->id,
                 'attendance_mode' => \App\Enums\AttendanceModeEnum::Strict->value,
                 'required_daily_minutes' => 480, // 8 hours
                 'minimum_session_minutes' => 15,
@@ -82,7 +82,6 @@ class AttendancePolicyService
                 $policy->latePenaltySlabs()->delete();
                 foreach ($data['late_penalty_slabs'] as $slab) {
                     $policy->latePenaltySlabs()->create([
-                        'uuid' => (string) Str::uuid(),
                         'late_count_threshold' => $slab['late_count_threshold'],
                         'deduction_percentage' => $slab['deduction_percentage'],
                     ]);
@@ -93,7 +92,6 @@ class AttendancePolicyService
                 $policy->workDurationPenaltySlabs()->delete();
                 foreach ($data['work_duration_penalty_slabs'] as $slab) {
                     $policy->workDurationPenaltySlabs()->create([
-                        'uuid' => (string) Str::uuid(),
                         'min_work_minutes' => $slab['min_work_minutes'],
                         'max_work_minutes' => $slab['max_work_minutes'],
                         'deduction_percentage' => $slab['deduction_percentage'],
@@ -102,7 +100,7 @@ class AttendancePolicyService
             }
 
             // Invalidate cache
-            $this->invalidateCache($policy->corporation_id);
+            $this->invalidateCache($policy->organization_id);
 
             // Increment and save a version snapshot
             $this->createVersionSnapshot($policy, $actor);

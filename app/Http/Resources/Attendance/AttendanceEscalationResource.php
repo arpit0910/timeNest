@@ -12,12 +12,12 @@ class AttendanceEscalationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            
             'uuid' => $this->uuid,
-            'corporation_id' => $this->corporation_id,
-            'user_id' => $this->user_id,
-            'attendance_day_id' => $this->attendance_day_id,
-            'attendance_worklog_id' => $this->attendance_worklog_id,
+            'organization_uuid' => $this->organization?->uuid,
+            'user_uuid' => $this->user?->uuid,
+            'attendance_day_uuid' => $this->attendanceDay?->uuid,
+            'attendance_worklog_uuid' => $this->attendanceWorklog?->uuid,
             'escalation_type' => [
                 'value' => $this->escalation_type?->value,
                 'label' => $this->escalation_type?->label(),

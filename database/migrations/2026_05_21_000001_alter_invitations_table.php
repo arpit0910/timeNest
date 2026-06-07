@@ -19,17 +19,17 @@ return new class extends Migration
          });
 
          // 2. Rename the table
-         Schema::rename('invitations', 'corporation_invitations');
+         Schema::rename('invitations', 'organization_invitations');
 
          // 3. Alter table structure
-         Schema::table('corporation_invitations', function (Blueprint $table) {
+         Schema::table('organization_invitations', function (Blueprint $table) {
              $table->renameColumn('invited_by', 'invited_by_user_id');
              $table->unsignedTinyInteger('status')->default(1)->after('token')->comment('InvitationStatusEnum');
              $table->json('metadata')->nullable()->after('last_resent_at');
          });
 
          // 4. Re-add foreign key constraint
-         Schema::table('corporation_invitations', function (Blueprint $table) {
+         Schema::table('organization_invitations', function (Blueprint $table) {
              $table->foreign('invited_by_user_id')->references('id')->on('users')->onDelete('cascade');
          });
      }
@@ -39,16 +39,16 @@ return new class extends Migration
       */
      public function down(): void
      {
-         Schema::table('corporation_invitations', function (Blueprint $table) {
+         Schema::table('organization_invitations', function (Blueprint $table) {
              $table->dropForeign(['invited_by_user_id']);
          });
 
-         Schema::table('corporation_invitations', function (Blueprint $table) {
+         Schema::table('organization_invitations', function (Blueprint $table) {
              $table->renameColumn('invited_by_user_id', 'invited_by');
              $table->dropColumn(['status', 'metadata']);
          });
 
-         Schema::rename('corporation_invitations', 'invitations');
+         Schema::rename('organization_invitations', 'invitations');
 
          Schema::table('invitations', function (Blueprint $table) {
              $table->foreign('invited_by')->references('id')->on('users')->onDelete('cascade');

@@ -6,17 +6,21 @@ namespace App\Models\Attendance;
 
 use App\Enums\LeaveStatusEnum;
 use App\Models\Auth\User;
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LeaveStatusHistory extends Model
 {
+    use HasUuid;
+
     protected $table = 'leave_status_histories';
 
     // No default updated_at column in our migration (only created_at as timestamp)
     public $timestamps = false;
 
     protected $fillable = [
+        'uuid',
         'employee_leave_id',
         'old_status',
         'new_status',

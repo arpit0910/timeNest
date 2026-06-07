@@ -32,7 +32,7 @@ class PlatformRolePermissionsSeeder extends Seeder
             SystemRole::AppOwner->value => null, // ALL permissions
             SystemRole::AppSuperAdmin->value => null, // ALL permissions
             SystemRole::AppAdmin->value => [
-                SystemPermission::CorporationsManage,
+                SystemPermission::OrganizationsManage,
                 SystemPermission::UsersView,
                 SystemPermission::UsersEdit,
                 SystemPermission::UsersManage,
@@ -60,10 +60,10 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::ReportsExport,
             ],
 
-            // Corporation roles
-            SystemRole::CorpOwner->value => null, // ALL permissions
-            SystemRole::CorpSuperAdmin->value => null, // ALL permissions
-            SystemRole::CorpAdmin->value => [
+            // Organization roles
+            SystemRole::OrganizationOwner->value => null, // ALL permissions
+            SystemRole::OrganizationSuperAdmin->value => null, // ALL permissions
+            SystemRole::OrganizationAdmin->value => [
                 SystemPermission::UsersView,
                 SystemPermission::UsersInvite,
                 SystemPermission::UsersEdit,
@@ -153,7 +153,7 @@ class PlatformRolePermissionsSeeder extends Seeder
         foreach ($allRoles as $systemRole) {
             $role = Role::where('name', $systemRole->value)
                 ->where('guard_name', 'api')
-                ->whereNull('corporation_id')
+                ->whereNull('organization_id')
                 ->first();
 
             if (! $role) {

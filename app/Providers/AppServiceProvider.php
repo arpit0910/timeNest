@@ -65,8 +65,8 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(120)->by($request->user()?->id ?: $request->ip());
         });
 
-        // Corporation routes: 60 requests per minute per user
-        RateLimiter::for('corp', function (Request $request) {
+        // Organization routes: 60 requests per minute per user
+        RateLimiter::for('organization', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 

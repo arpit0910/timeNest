@@ -28,14 +28,14 @@ return new class extends Migration
         });
 
         Schema::table('employee_leaves', function (Blueprint $table) {
-            $table->index(['user_id', 'leave_status'], 'idx_user_leave_status');
+            $table->index(['user_id', 'leave_status'], 'employee_leaves_user_id_leave_status_index');
         });
     }
 
     public function down(): void
     {
         Schema::table('employee_leaves', function (Blueprint $table) {
-            $table->dropIndex('idx_user_leave_status');
+            $table->dropIndex('employee_leaves_user_id_leave_status_index');
         });
 
         Schema::dropIfExists('leave_status_histories');

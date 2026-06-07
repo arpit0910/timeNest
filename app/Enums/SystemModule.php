@@ -12,7 +12,7 @@ namespace App\Enums;
  */
 enum SystemModule: string
 {
-    case Corporations = 'corporations';
+    case Organizations = 'organizations';
     case Users = 'users';
     case Branches = 'branches';
     case Departments = 'departments';
@@ -31,7 +31,7 @@ enum SystemModule: string
     public function label(): string
     {
         return match ($this) {
-            self::Corporations => 'Corporation Management',
+            self::Organizations => 'Organization Management',
             self::Users => 'User Management',
             self::Branches => 'Branch Management',
             self::Departments => 'Department Management',

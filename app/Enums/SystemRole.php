@@ -8,10 +8,10 @@ namespace App\Enums;
  * All system-defined roles.
  *
  * Platform roles: global administrators managing the SaaS platform itself.
- * Corporation roles: tenant-scoped roles within a specific corporation.
+ * Organization roles: tenant-scoped roles within a specific organization.
  *
- * These are system roles (is_system_role=true, corporation_id=null).
- * Corporations cannot delete or rename system roles.
+ * These are system roles (is_system_role=true, organization_id=null).
+ * Organizations cannot delete or rename system roles.
  */
 enum SystemRole: string
 {
@@ -22,10 +22,10 @@ enum SystemRole: string
     case SupportAgent = 'support_agent';
     case Auditor = 'auditor';
 
-    // ─── Corporation Roles ───────────────────────────────────────
-    case CorpOwner = 'corporation_owner';
-    case CorpSuperAdmin = 'corporation_super_admin';
-    case CorpAdmin = 'corporation_admin';
+    // ─── Organization Roles ───────────────────────────────────────
+    case OrganizationOwner = 'organization_owner';
+    case OrganizationSuperAdmin = 'organization_super_admin';
+    case OrganizationAdmin = 'organization_admin';
     case HrManager = 'hr_manager';
     case Manager = 'manager';
     case Supervisor = 'supervisor';
@@ -41,11 +41,11 @@ enum SystemRole: string
     }
 
     /**
-     * Check if this is a corporation-level role.
+     * Check if this is an organization-level role.
      */
-    public function isCorpRole(): bool
+    public function isOrganizationRole(): bool
     {
-        return in_array($this, self::corpRoles(), true);
+        return in_array($this, self::organizationRoles(), true);
     }
 
     /**
@@ -65,16 +65,16 @@ enum SystemRole: string
     }
 
     /**
-     * Get all corporation roles.
+     * Get all organization roles.
      *
      * @return self[]
      */
-    public static function corpRoles(): array
+    public static function organizationRoles(): array
     {
         return [
-            self::CorpOwner,
-            self::CorpSuperAdmin,
-            self::CorpAdmin,
+            self::OrganizationOwner,
+            self::OrganizationSuperAdmin,
+            self::OrganizationAdmin,
             self::HrManager,
             self::Manager,
             self::Supervisor,
@@ -90,13 +90,13 @@ enum SystemRole: string
     {
         return match ($this) {
             self::AppOwner => 'Absolute platform owner. No restrictions.',
-            self::AppSuperAdmin => 'Platform super admin. Manages corporations, billing, platform config.',
+            self::AppSuperAdmin => 'Platform super admin. Manages organizations, billing, platform config.',
             self::AppAdmin => 'Platform admin. Daily operations, support escalations.',
-            self::SupportAgent => 'Read-only access to corporation data for support.',
+            self::SupportAgent => 'Read-only access to organization data for support.',
             self::Auditor => 'Read-only audit access across platform.',
-            self::CorpOwner => 'Absolute owner of the corporation. Cannot be revoked by corp admins.',
-            self::CorpSuperAdmin => 'Full corp access. Can manage all settings, users, billing.',
-            self::CorpAdmin => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
+            self::OrganizationOwner => 'Absolute owner of the organization. Cannot be revoked by org admins.',
+            self::OrganizationSuperAdmin => 'Full org access. Can manage all settings, users, billing.',
+            self::OrganizationAdmin => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
             self::HrManager => 'HR operations: employee records, leave, attendance, onboarding.',
             self::Manager => 'Team-level management. Approve leaves and attendance for team.',
             self::Supervisor => 'Limited oversight. Attendance review only.',
@@ -117,10 +117,10 @@ enum SystemRole: string
             self::AppAdmin => 3,
             self::SupportAgent => 4,
             self::Auditor => 5,
-            // Corporation
-            self::CorpOwner => 1,
-            self::CorpSuperAdmin => 2,
-            self::CorpAdmin => 3,
+            // Organization
+            self::OrganizationOwner => 1,
+            self::OrganizationSuperAdmin => 2,
+            self::OrganizationAdmin => 3,
             self::HrManager => 4,
             self::Manager => 5,
             self::Supervisor => 6,

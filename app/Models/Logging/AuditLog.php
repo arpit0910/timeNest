@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Logging;
 
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +31,7 @@ class AuditLog extends Model
     const UPDATED_AT = null;
 
     protected $fillable = [
-        'user_id', 'corporation_id', 'action',
+        'user_id', 'organization_id', 'action',
         'resource_type', 'resource_id', 'resource_uuid',
         'old_values', 'new_values',
         'ip_address', 'user_agent', 'metadata',
@@ -52,14 +52,14 @@ class AuditLog extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
-    public function scopeForCorporation($query, int $corpId)
+    public function scopeForOrganization($query, int $orgId)
     {
-        return $query->where('corporation_id', $corpId);
+        return $query->where('organization_id', $orgId);
     }
 
     public function scopeByAction($query, string $action)

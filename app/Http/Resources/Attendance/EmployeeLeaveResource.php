@@ -12,7 +12,6 @@ class EmployeeLeaveResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'uuid' => $this->uuid,
             'leave_type' => [
                 'value' => $this->leave_type?->value,

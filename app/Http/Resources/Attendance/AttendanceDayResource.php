@@ -12,7 +12,6 @@ class AttendanceDayResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'uuid' => $this->uuid,
             'attendance_date' => $this->attendance_date->toDateString(),
             'attendance_status' => [

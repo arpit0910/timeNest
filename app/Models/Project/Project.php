@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Project;
 
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use App\Models\Auth\User;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +21,7 @@ class Project extends Model
 
     protected $fillable = [
         'uuid',
-        'corporation_id',
+        'organization_id',
         'name',
         'is_active',
     ];
@@ -33,9 +33,9 @@ class Project extends Model
         ];
     }
 
-    public function corporation(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Corporation::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function users(): BelongsToMany

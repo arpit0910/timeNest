@@ -38,7 +38,7 @@ class EscalateAttendanceWorklogAction
 
             // 2. Trigger the escalation entry
             $this->escalationService->triggerEscalation(
-                $worklog->corporation_id,
+                $worklog->organization_id,
                 $worklog->user_id,
                 $escalationType,
                 $worklog->attendance_day_id,

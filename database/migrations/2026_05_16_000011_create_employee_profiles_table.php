@@ -14,11 +14,11 @@ return new class extends Migration
             $table->uuid('uuid')->unique()->comment('Public UUID');
 
             $table->unsignedBigInteger('user_id')->comment('FK to users — the person');
-            $table->unsignedBigInteger('corporation_id')->comment('FK to corporations — their employer');
-            $table->unsignedBigInteger('corp_membership_id')->comment('FK to corp_memberships');
+            $table->unsignedBigInteger('organization_id')->comment('FK to organizations — their employer');
+            $table->unsignedBigInteger('organization_membership_id')->comment('FK to organization_memberships');
 
             // Employment identity
-            $table->string('employee_code', 50)->nullable()->comment('Corp-assigned employee ID');
+            $table->string('employee_code', 50)->nullable()->comment('Organization-assigned employee ID');
             $table->string('designation', 100)->nullable()->comment('Job title/designation');
             $table->unsignedBigInteger('department_id')->nullable()->comment('FK to departments');
             $table->unsignedBigInteger('branch_id')->nullable()->comment('FK to branches');
@@ -52,14 +52,14 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('corporation_id')->references('id')->on('corporations')->onDelete('cascade');
-            $table->foreign('corp_membership_id')->references('id')->on('corp_memberships')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('organization_membership_id')->references('id')->on('organization_memberships')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('set null');
             $table->foreign('reports_to')->references('id')->on('users')->onDelete('set null');
 
-            $table->unique(['user_id', 'corporation_id'], 'unique_employee_per_corp');
-            $table->index(['corporation_id', 'is_active']);
+            $table->unique(['user_id', 'organization_id'], 'employee_profiles_user_id_organization_id_unique');
+            $table->index(['organization_id', 'is_active']);
             $table->index('department_id');
             $table->index('branch_id');
             $table->index('employee_code');

@@ -9,7 +9,7 @@ use App\Enums\LeaveTypeEnum;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\EmployeeLeave;
 use App\Models\Auth\User;
-use App\Models\Corporation\Corporation;
+use App\Models\Organization\Organization;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +18,7 @@ class LeaveManagementService
     /**
      * Create a new leave request after validation.
      */
-    public function applyForLeave(User $user, Corporation $corporation, array $data): EmployeeLeave
+    public function applyForLeave(User $user, Organization $organization, array $data): EmployeeLeave
     {
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
@@ -42,7 +42,7 @@ class LeaveManagementService
         }
 
         return EmployeeLeave::create([
-            'corporation_id' => $corporation->id,
+            'organization_id' => $organization->id,
             'user_id' => $user->id,
             'leave_type' => $leaveType->value,
             'leave_status' => LeaveStatusEnum::Pending->value,
