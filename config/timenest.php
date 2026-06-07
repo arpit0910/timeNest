@@ -32,4 +32,19 @@ return [
         'expire' => (int) env('VERIFICATION_TOKEN_EXPIRE_MINUTES', 60),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset
+    |--------------------------------------------------------------------------
+    |
+    | Controls password reset token behaviour.
+    |
+    | expire: Number of minutes before a password reset token expires.
+    |
+    */
+
+    'password_reset' => [
+        'expire' => (int) env('PASSWORD_RESET_EXPIRE_MINUTES', 60),
+    ],
+
 ];

@@ -63,13 +63,6 @@ return new class extends Migration
             $table->index('country_id');
         });
 
-        // Password reset tokens
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email', 191)->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
         if (DB::getDriverName() === 'mysql') {
             DB::statement("ALTER TABLE users ADD CONSTRAINT chk_users_phone
                 CHECK (phone IS NULL OR phone REGEXP '^\\\\+[1-9][0-9]{6,14}$')");
@@ -78,7 +71,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
     }
 };

@@ -30,6 +30,7 @@ use App\Http\Controllers\Frontend\InvitationAcceptController;
 Route::get('/verify-email', [EmailVerificationController::class, 'verify'])->name('verify-email');
 Route::get('/invitations/accept', [InvitationAcceptController::class, 'show'])->name('invitations.accept.web');
 Route::post('/invitations/accept', [InvitationAcceptController::class, 'accept']);
+Route::get('/reset-password', [\App\Http\Controllers\Frontend\PasswordResetWebController::class, 'show'])->name('password.reset.web');
 
 Route::prefix('')->name('frontend.')->group(function () {
     // Core

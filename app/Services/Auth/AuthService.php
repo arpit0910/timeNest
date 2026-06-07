@@ -530,6 +530,8 @@ class AuthService
             $this->issueJwtAction->revokeAllRefreshTokens($user->id);
         });
 
+        $user->notify(new \App\Notifications\Auth\PasswordChangedNotification($user));
+
         $this->logActivity($user, 'password_changed', 'Password changed — all tokens invalidated');
     }
 

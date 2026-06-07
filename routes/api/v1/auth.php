@@ -21,6 +21,12 @@ Route::middleware(['throttle:auth'])->group(function (): void {
         Route::get('redirect', 'redirect')->name('redirect');
         Route::get('callback', 'callback')->name('callback');
     });
+
+    Route::controller(\App\Http\Controllers\Api\V1\Auth\PasswordResetController::class)
+        ->group(function (): void {
+            Route::post('forgot-password', 'forgotPassword')->name('password.forgot');
+            Route::post('reset-password', 'resetPassword')->name('password.reset');
+        });
 });
 
 // Full JWT authenticated routes
