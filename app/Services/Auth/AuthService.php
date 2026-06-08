@@ -24,6 +24,7 @@ use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
 use App\Services\Auth\TempTokenService;
+use App\Exceptions\Auth\UnauthorizedException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -212,6 +213,14 @@ class AuthService
         }
 
         $user = $refreshTokenRecord->user;
+
+        // If caller is authenticated, ensure the refresh token 
+        // belongs to them and not another user
+        if (auth()->check() && auth()->id() !== $refreshTokenRecord->user_id) {
+            throw new UnauthorizedException(
+                'Refresh token does not belong to the authenticated user.'
+            );
+        }
 
         if (! $user || ! $user->is_active) {
             $this->issueJwtAction->revokeRefreshToken($rawRefreshToken);

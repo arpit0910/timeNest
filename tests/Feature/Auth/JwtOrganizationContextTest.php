@@ -775,32 +775,71 @@ class JwtOrganizationContextTest extends TestCase
      * @group jwt
      * Security Property: Only token owner can refresh.
      */
+    #[Group('jwt')]
+    #[Group('security')]
     public function test_6_4_refresh_token_belonging_to_different_user_cannot_be_used()
     {
+        // Login singleOrgUser on device 1
         $res1 = $this->loginUser($this->singleOrgUser);
-        $res2 = $this->postJson('/api/v1/auth/login', [
+
+        // Login multiOrgUser separately and get their refresh token
+        $loginRes = $this->postJson('/api/v1/auth/login', [
             'email' => $this->multiOrgUser->email,
             'password' => 'Password123!',
         ]);
-        $tempToken = $res2->json('meta.temp_token') ?? $res2->json('data.temp_token') ?? $res2->json('temp_token') ?? $res2->json('token');
-        
+        $tempToken = $loginRes->json('data.temp_token') 
+            ?? $loginRes->json('meta.temp_token');
+
         $selectRes = $this->withHeader('Authorization', "Bearer {$tempToken}")
             ->postJson('/api/v1/auth/select-organization', [
                 'organization_uuid' => $this->orgB->uuid
             ]);
-            
-        $refreshRes = $this->withHeader('Authorization', "Bearer {$res1['access_token']}")
+        $multiOrgRefreshToken = $selectRes->json('data.refresh_token');
+
+        // singleOrgUser attempts to refresh using multiOrgUser's refresh token
+        // while sending their own access token in the Authorization header
+        $refreshRes = $this->withHeader(
+                'Authorization', "Bearer {$res1['access_token']}"
+            )
             ->postJson('/api/v1/auth/refresh', [
-                'refresh_token' => $selectRes->json('data.refresh_token')
+                'refresh_token' => $multiOrgRefreshToken
             ]);
-        
+
+        // The refresh endpoint must either:
+        // A) Return 401 because the token owner does not match the 
+        //    authenticated user (if the endpoint validates ownership)
+        // OR
+        // B) Return 200 but the resulting token belongs to multiOrgUser,
+        //    NOT singleOrgUser — proving the refresh token is bound to 
+        //    its owner and cannot be hijacked
+
         if ($refreshRes->status() === 200) {
-            $decoded = $this->decodeToken($refreshRes->json('data.access_token'));
-            $this->assertEquals($this->multiOrgUser->uuid, $decoded->get('user_uuid'));
-            $this->assertNotEquals($this->singleOrgUser->uuid, $decoded->get('user_uuid'));
+            // If it succeeds, the resulting access_token MUST belong to 
+            // multiOrgUser. If it belongs to singleOrgUser, that is a 
+            // security bug — stop immediately and report it.
+            $decoded = $this->decodeToken(
+                $refreshRes->json('data.access_token')
+            );
+            $this->assertEquals(
+                $this->multiOrgUser->uuid,
+                $decoded->get('user_uuid'),
+                'SECURITY BUG: refresh token was hijacked — returned token 
+                 belongs to wrong user'
+            );
+            $this->assertNotEquals(
+                $this->singleOrgUser->uuid,
+                $decoded->get('user_uuid'),
+                'SECURITY BUG: singleOrgUser hijacked multiOrgUser refresh token'
+            );
         } else {
-            $this->assertTrue(in_array($refreshRes->status(), [401, 403]));
+            // If it rejects, it must be 401 — not 200, not 403, not 500
+            $refreshRes->assertStatus(401);
         }
+
+        // Either outcome is acceptable security behavior.
+        // What is NOT acceptable is a 200 response with singleOrgUser's 
+        // identity in the token — that would be a hijack.
+        // The assertions above enforce this guarantee.
     }
 
     /**
