@@ -25,6 +25,7 @@ class TwoFactorController extends BaseApiController
     public function __construct(
         private readonly AuthService $authService,
         private readonly TwoFactorService $twoFactorService,
+        private readonly \App\Services\Auth\TempTokenService $tempTokenService,
     ) {}
 
     public function status(Request $request): JsonResponse
@@ -84,6 +85,11 @@ class TwoFactorController extends BaseApiController
         if (! $context || ! $context->isTemp() || $context->purpose !== '2fa') {
             throw new InvalidTempTokenPurposeException('Invalid token for 2FA verification');
         }
+
+        $this->tempTokenService->consume(
+            $request->bearerToken(),
+            '2fa'
+        );
 
         $code = (string) $request->input('code');
         $usedRecoveryCode = false;

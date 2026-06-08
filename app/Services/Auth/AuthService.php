@@ -23,6 +23,8 @@ use App\Models\Logging\ActivityLog;
 use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
+use App\Services\Auth\TempTokenService;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -46,8 +48,9 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 class AuthService
 {
     public function __construct(
-        private readonly IssueJwtAction $issueJwtAction,
         private readonly SendEmailVerificationAction $sendEmailVerificationAction,
+        private readonly IssueJwtAction $issueJwtAction,
+        private readonly TempTokenService $tempTokenService,
     ) {}
 
     /**
@@ -275,12 +278,25 @@ class AuthService
      * or to switch between organizations.
      *
      * @param  bool  $switchMode  If true, revoke existing tokens for previous org
+     * @param  string|null  $rawTempToken  The raw temporary JWT used for initial selection
      * @return array Tokens and organization info
      *
      * @throws AuthenticationException
      */
-    public function selectOrganization(User $user, string $organizationUuid, bool $switchMode = false): array
+    public function selectOrganization(User $user, string $organizationUuid, bool $switchMode = false, ?string $rawTempToken = null): array
     {
+        if (!$switchMode && $rawTempToken) {
+            $tempTokenRecord = $this->tempTokenService->consume(
+                $rawTempToken, 
+                'workspace_selection'
+            );
+            
+            // Ensure the user ID matches the token's user ID
+            if ($tempTokenRecord->user_id !== $user->id) {
+                throw new \App\Exceptions\Auth\InvalidTempTokenException();
+            }
+        }
+
         $organization = Organization::where('uuid', $organizationUuid)
             ->active()
             ->firstOrFail();

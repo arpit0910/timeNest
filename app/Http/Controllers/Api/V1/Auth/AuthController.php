@@ -140,6 +140,8 @@ class AuthController extends BaseApiController
         $result = $this->authService->selectOrganization(
             user: $request->user(),
             organizationUuid: $request->validated('organization_uuid'),
+            switchMode: false,
+            rawTempToken: $request->bearerToken(),
         );
 
         return $this->success(

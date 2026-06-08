@@ -50,30 +50,41 @@ class IssueJwtAction
     /**
      * Issue a temporary JWT (short-lived) for 2FA or workspace selection.
      *
-     * TTL: 5 minutes. Used as an intermediate token before full authentication.
+     * TTL: Configured via temp_token_ttl (default 10 minutes). Used as an intermediate token before full authentication.
      *
      * @param  string  $purpose  '2fa' or 'workspace_selection'
      */
     public function issueTempToken(User $user, string $purpose): string
     {
         $tokenVersion = $user->token_version ?? $user->fresh()->token_version ?? 1;
+        $jti = (string) Str::uuid();
 
         $customClaims = [
             'user_uuid' => $user->uuid,
             'guard' => Guard::Temp->value,
             'purpose' => $purpose,
             'token_version' => $tokenVersion,
+            'jti' => $jti,
         ];
 
-        // Override TTL for temp token: 5 minutes
+        $ttlMinutes = config('timenest.temp_token_ttl', 10);
+
+        // Override TTL for temp token
         $factory = JWTAuth::factory();
         $originalTtl = $factory->getTTL();
-        $factory->setTTL(5);
+        $factory->setTTL($ttlMinutes);
 
         $token = JWTAuth::claims($customClaims)->fromUser($user);
 
         // Restore original TTL
         $factory->setTTL($originalTtl);
+
+        \App\Models\Auth\TempToken::create([
+            'jti' => $jti,
+            'user_id' => $user->id,
+            'purpose' => $purpose,
+            'expires_at' => now()->addMinutes($ttlMinutes),
+        ]);
 
         return $token;
     }

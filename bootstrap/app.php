@@ -131,6 +131,16 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 401);
         });
 
+        $exceptions->render(function (\App\Exceptions\Auth\InvalidTempTokenException $e, Request $request): JsonResponse {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null,
+                'errors' => null,
+                'meta' => null,
+            ], 401);
+        });
+
         // ========== AUTHENTICATION FAILURES (401) ==========
         $exceptions->render(function (AuthenticationException $e, Request $request): JsonResponse {
             return response()->json([
