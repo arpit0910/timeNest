@@ -46,7 +46,7 @@ class AttendanceClockService
         $policyVersion = $this->policyService->resolveCurrentVersion($policy);
         $today = Carbon::today();
 
-        $this->validateClockIn($organization, $user, $policy, $policyVersion, $today);
+        $this->validateClockIn($organization, $user, $policy, $policyVersion, $today, $data);
 
         return DB::transaction(function () use ($organization, $user, $data, $policyVersion, $today) {
             // Find or create attendance_day for today
@@ -73,18 +73,6 @@ class AttendanceClockService
                 ]);
             }
 
-            // Determine geo-fence suspicion
-            $isSuspicious = false;
-            $suspiciousReason = null;
-
-            if (
-                $policyVersion->geo_fencing_enabled &&
-                (empty($data['clock_in_latitude']) || empty($data['clock_in_longitude']))
-            ) {
-                $isSuspicious = true;
-                $suspiciousReason = 'Location not provided but geo-fencing is enabled';
-            }
-
             // Create the session
             $session = AttendanceSession::create([
                 'attendance_day_id' => $day->id,
@@ -95,8 +83,8 @@ class AttendanceClockService
                 'clock_in_latitude' => $data['clock_in_latitude'] ?? null,
                 'clock_in_longitude' => $data['clock_in_longitude'] ?? null,
                 'clock_in_accuracy' => $data['clock_in_accuracy'] ?? null,
-                'is_suspicious' => $isSuspicious,
-                'suspicious_reason' => $suspiciousReason,
+                'is_suspicious' => $data['_suspicious'] ?? false,
+                'suspicious_reason' => $data['_suspicious_reason'] ?? null,
             ]);
 
             return $session->load('attendanceDay');
@@ -213,9 +201,58 @@ class AttendanceClockService
         User $user,
         AttendancePolicy $policy,
         AttendancePolicyVersion $policyVersion,
-        Carbon $today
+        Carbon $today,
+        array &$data
     ): void {
         $todayDate = $today->toDateString();
+
+        // Geo-fencing check
+        if ($policyVersion->geo_fencing_enabled) {
+            $branches = \App\Models\Organization\Branch::where('organization_id', $organization->id)
+                ->where('is_active', true)
+                ->get();
+
+            if ($branches->isNotEmpty()) {
+                $empLat = $data['clock_in_latitude'] ?? null;
+                $empLng = $data['clock_in_longitude'] ?? null;
+
+                if ($empLat === null || $empLng === null) {
+                    // No coordinates provided
+                    if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::Strict) {
+                        throw new \App\Exceptions\Attendance\ClockInOutsideGeofenceException();
+                    }
+                    // Flexible and Hybrid: allow but flag suspicious
+                    $data['_suspicious'] = true;
+                    $data['_suspicious_reason'] = 'Location not provided but geo-fencing is enabled.';
+                } else {
+                    $isWithin = $this->isWithinAnyBranchGeofence(
+                        $organization,
+                        (float) $empLat,
+                        (float) $empLng,
+                        $policyVersion->geo_fence_radius_meters
+                    );
+
+                    if (!$isWithin) {
+                        if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::Strict) {
+                            throw new \App\Exceptions\Attendance\ClockInOutsideGeofenceException();
+                        }
+                        
+                        $nearest = $this->getNearestBranchDistance($organization, (float) $empLat, (float) $empLng);
+                        $distanceMsg = $nearest 
+                            ? sprintf('%.0f meters from nearest branch (%s)', $nearest['distance'], $nearest['branch_name'])
+                            : 'unknown distance';
+
+                        // Flexible and Hybrid: allow but flag suspicious
+                        $data['_suspicious'] = true;
+                        $data['_suspicious_reason'] = sprintf(
+                            'Location is %s. Closest allowed radius is %d meters.',
+                            $distanceMsg,
+                            $policyVersion->geo_fence_radius_meters
+                        );
+                    }
+                }
+            }
+        }
 
         // 1. Open session check
         $hasOpenSession = AttendanceSession::whereHas('attendanceDay', function ($query) use ($user, $organization, $todayDate) {
@@ -349,5 +386,104 @@ class AttendanceClockService
         if (!$hasSubmittedWorklog) {
             throw new WorklogEnforcementBlockException();
         }
+    }
+
+    /**
+     * Calculate Haversine distance between two coordinates in meters.
+     */
+    private function haversineDistance(
+        float $lat1,
+        float $lon1,
+        float $lat2,
+        float $lon2
+    ): float {
+        $earthRadius = 6371000; // meters
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+        $a = sin($dLat / 2) * sin($dLat / 2)
+            + cos(deg2rad($lat1)) * cos(deg2rad($lat2))
+            * sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return $earthRadius * $c;
+    }
+
+    /**
+     * Check if employee is within the allowed radius of ANY active branch.
+     */
+    private function isWithinAnyBranchGeofence(
+        Organization $organization,
+        float $empLat,
+        float $empLng,
+        int $fallbackRadiusMeters
+    ): bool {
+        $branches = \App\Models\Organization\Branch::where('organization_id', $organization->id)
+            ->where('is_active', true)
+            ->get();
+
+        if ($branches->isEmpty()) {
+            return false;
+        }
+
+        foreach ($branches as $branch) {
+            if ($branch->latitude !== null && $branch->longitude !== null) {
+                $distance = $this->haversineDistance(
+                    (float) $branch->latitude,
+                    (float) $branch->longitude,
+                    $empLat,
+                    $empLng
+                );
+
+                $radius = $branch->geo_fence_radius > 0 
+                    ? $branch->geo_fence_radius 
+                    : $fallbackRadiusMeters;
+
+                if ($distance <= $radius) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the nearest active branch and its distance.
+     */
+    private function getNearestBranchDistance(
+        Organization $organization,
+        float $empLat,
+        float $empLng
+    ): ?array {
+        $branches = \App\Models\Organization\Branch::where('organization_id', $organization->id)
+            ->where('is_active', true)
+            ->get();
+
+        if ($branches->isEmpty()) {
+            return null;
+        }
+
+        $nearest = null;
+        $minDistance = PHP_FLOAT_MAX;
+
+        foreach ($branches as $branch) {
+            if ($branch->latitude !== null && $branch->longitude !== null) {
+                $distance = $this->haversineDistance(
+                    (float) $branch->latitude,
+                    (float) $branch->longitude,
+                    $empLat,
+                    $empLng
+                );
+
+                if ($distance < $minDistance) {
+                    $minDistance = $distance;
+                    $nearest = [
+                        'distance' => $distance,
+                        'branch_name' => $branch->name,
+                    ];
+                }
+            }
+        }
+
+        return $nearest;
     }
 }

@@ -95,4 +95,18 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::get('/today', 'today');
             Route::get('/history', 'history');
         });
+
+    // Leave Request Routes
+    Route::prefix('leave-requests')
+        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\V1\Organization\Leave\LeaveRequestController::class)
+        ->group(function (): void {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::get('/balances', 'balances');
+            Route::get('/{uuid}', 'show');
+            Route::post('/{uuid}/approve', 'approve');
+            Route::post('/{uuid}/reject', 'reject');
+            Route::post('/{uuid}/cancel', 'cancel');
+        });
 });

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Attendance;
 
-use App\Enums\LeaveStatusEnum;
-use App\Enums\LeaveTypeEnum;
+use App\Enums\Leave\LeaveStatus;
+use App\Enums\Leave\LeaveType;
 use App\Exceptions\Business\BusinessRuleViolationException;
-use App\Models\Attendance\EmployeeLeave;
+use App\Models\Leave\EmployeeLeave;
 use App\Models\Auth\User;
 use App\Models\Organization\Organization;
 use Carbon\Carbon;
@@ -34,8 +34,8 @@ class LeaveManagementService
         $start = Carbon::parse($startDate);
         $end = Carbon::parse($endDate);
         
-        $leaveType = LeaveTypeEnum::from((int) $data['leave_type']);
-        if ($leaveType === LeaveTypeEnum::HalfDay) {
+        $leaveType = LeaveType::from((int) $data['leave_type']);
+        if ($leaveType === LeaveType::HalfDay) {
             $totalDays = 0.5;
         } else {
             $totalDays = $start->diffInDays($end) + 1.0;
@@ -45,7 +45,7 @@ class LeaveManagementService
             'organization_id' => $organization->id,
             'user_id' => $user->id,
             'leave_type' => $leaveType->value,
-            'leave_status' => LeaveStatusEnum::Pending->value,
+            'leave_status' => LeaveStatus::Pending->value,
             'start_date' => $startDate,
             'end_date' => $endDate,
             'total_days' => $totalDays,
@@ -62,9 +62,9 @@ class LeaveManagementService
     {
         $query = EmployeeLeave::where('user_id', $userId)
             ->whereIn('leave_status', [
-                LeaveStatusEnum::Pending->value,
-                LeaveStatusEnum::Approved->value,
-                LeaveStatusEnum::AutoApproved->value
+                LeaveStatus::Pending->value,
+                LeaveStatus::Approved->value,
+                LeaveStatus::AutoApproved->value
             ])
             ->where(function ($q) use ($startDate, $endDate) {
                 $q->where(function ($sub) use ($startDate, $endDate) {
@@ -91,8 +91,8 @@ class LeaveManagementService
     public function hasApprovedWFH(int $userId, string $date): bool
     {
         return EmployeeLeave::where('user_id', $userId)
-            ->where('leave_type', LeaveTypeEnum::WorkFromHome->value)
-            ->whereIn('leave_status', [LeaveStatusEnum::Approved->value, LeaveStatusEnum::AutoApproved->value])
+            ->where('leave_type', LeaveType::WorkFromHome->value)
+            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();
@@ -104,9 +104,9 @@ class LeaveManagementService
     public function hasApprovedEWD(int $userId, string $date): bool
     {
         return EmployeeLeave::where('user_id', $userId)
-            ->where('leave_type', LeaveTypeEnum::ExtraWorkingDay->value)
+            ->where('leave_type', LeaveType::ExtraWorkingDay->value)
             // Need to change the status comparison as can't only allow fully apprved leaves
-            ->whereIn('leave_status', [LeaveStatusEnum::Approved->value, LeaveStatusEnum::AutoApproved->value])
+            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();
@@ -120,10 +120,10 @@ class LeaveManagementService
         // Don't treat WFH/EWD as standard leaves that prevent clocking in
         return EmployeeLeave::where('user_id', $userId)
             ->whereNotIn('leave_type', [
-                LeaveTypeEnum::WorkFromHome->value,
-                LeaveTypeEnum::ExtraWorkingDay->value
+                LeaveType::WorkFromHome->value,
+                LeaveType::ExtraWorkingDay->value
             ])
-            ->whereIn('leave_status', [LeaveStatusEnum::Approved->value, LeaveStatusEnum::AutoApproved->value])
+            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();

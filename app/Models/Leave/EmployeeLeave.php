@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Attendance;
+namespace App\Models\Leave;
 
-use App\Enums\LeaveStatusEnum;
-use App\Enums\LeaveTypeEnum;
+use App\Enums\Leave\ApprovalFlow;
+use App\Enums\Leave\LeaveStatus;
+use App\Enums\Leave\LeaveType as LeaveTypeEnum;
 use App\Models\Auth\User;
+use App\Models\Leave\LeaveType;
 use App\Models\Organization\Organization;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,9 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * EmployeeLeave model — WFH, EWD, and standard leaves.
- */
 class EmployeeLeave extends Model
 {
     use HasUuid, SoftDeletes;
@@ -32,30 +31,45 @@ class EmployeeLeave extends Model
         'organization_id',
         'user_id',
         'leave_type',
+        'leave_type_id',
+        'leave_policy_version_id',
+        'approval_flow_snapshot',
         'leave_status',
         'start_date',
         'end_date',
         'total_days',
+        'is_carry_forward',
         'reason',
         'attachment_path',
         'approved_by',
         'approved_at',
+        'auto_approved_at',
+        'second_approver_id',
+        'second_approved_at',
         'rejected_by',
         'rejected_at',
+        'second_rejected_by',
+        'second_rejected_at',
         'cancellation_reason',
         'metadata',
+        'created_at',
     ];
 
     protected function casts(): array
     {
         return [
             'leave_type' => LeaveTypeEnum::class,
-            'leave_status' => LeaveStatusEnum::class,
+            'leave_status' => LeaveStatus::class,
+            'approval_flow_snapshot' => ApprovalFlow::class,
             'start_date' => 'date:Y-m-d',
             'end_date' => 'date:Y-m-d',
             'total_days' => 'decimal:2',
+            'is_carry_forward' => 'boolean',
             'approved_at' => 'datetime',
+            'auto_approved_at' => 'datetime',
+            'second_approved_at' => 'datetime',
             'rejected_at' => 'datetime',
+            'second_rejected_at' => 'datetime',
             'metadata' => 'array',
         ];
     }
@@ -72,6 +86,16 @@ class EmployeeLeave extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function leaveType(): BelongsTo
+    {
+        return $this->belongsTo(LeaveType::class, 'leave_type_id');
+    }
+
+    public function policyVersion(): BelongsTo
+    {
+        return $this->belongsTo(LeavePolicyVersion::class, 'leave_policy_version_id');
+    }
+
     public function approvedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
@@ -80,6 +104,16 @@ class EmployeeLeave extends Model
     public function rejectedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'rejected_by');
+    }
+
+    public function secondApprover(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'second_approver_id');
+    }
+
+    public function secondRejectedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'second_rejected_by');
     }
 
     public function statusHistories(): HasMany
@@ -94,36 +128,51 @@ class EmployeeLeave extends Model
 
     // ─── Helpers ─────────────────────────────────────────────────
 
+    public function isPending(): bool
+    {
+        return $this->leave_status === LeaveStatus::Pending;
+    }
+
     public function isApproved(): bool
     {
-        return $this->leave_status ? $this->leave_status->isApproved() : false;
+        return in_array($this->leave_status, [LeaveStatus::Approved, LeaveStatus::AutoApproved], true);
     }
 
     public function isRejected(): bool
     {
-        return $this->leave_status ? $this->leave_status->isRejected() : false;
+        return $this->leave_status === LeaveStatus::Rejected;
+    }
+
+    public function isCancelled(): bool
+    {
+        return $this->leave_status === LeaveStatus::Cancelled;
+    }
+
+    public function hasFirstLevelApproval(): bool
+    {
+        return $this->approved_by !== null;
     }
 
     public function isWFH(): bool
     {
-        return $this->leave_type ? $this->leave_type->isWFH() : false;
+        return $this->leave_type === LeaveTypeEnum::WorkFromHome;
     }
 
     public function isEWD(): bool
     {
-        return $this->leave_type ? $this->leave_type->isEWD() : false;
+        return $this->leave_type === LeaveTypeEnum::ExtraWorkingDay;
     }
 
     // ─── Scopes ──────────────────────────────────────────────────
 
     public function scopeApproved(Builder $query): Builder
     {
-        return $query->whereIn('leave_status', [LeaveStatusEnum::Approved, LeaveStatusEnum::AutoApproved]);
+        return $query->whereIn('leave_status', [LeaveStatus::Approved, LeaveStatus::AutoApproved]);
     }
 
     public function scopePending(Builder $query): Builder
     {
-        return $query->where('leave_status', LeaveStatusEnum::Pending);
+        return $query->where('leave_status', LeaveStatus::Pending);
     }
 
     public function scopeToday(Builder $query): Builder

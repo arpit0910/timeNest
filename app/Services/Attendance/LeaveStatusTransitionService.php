@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Attendance;
 
-use App\Enums\LeaveStatusEnum;
+use App\Enums\Leave\LeaveStatus;
 use App\Enums\SystemPermission;
 use App\Exceptions\Business\BusinessRuleViolationException;
-use App\Models\Attendance\EmployeeLeave;
-use App\Models\Attendance\LeaveStatusHistory;
+use App\Models\Leave\EmployeeLeave;
+use App\Models\Leave\LeaveStatusHistory;
 use App\Models\Auth\User;
 use Illuminate\Support\Facades\DB;
 
@@ -20,70 +20,25 @@ class LeaveStatusTransitionService
      * value: array of allowed target statuses (int)
      */
     private const ALLOWED_TRANSITIONS = [
-        LeaveStatusEnum::Draft->value => [
-            LeaveStatusEnum::Pending->value,
-            LeaveStatusEnum::Cancelled->value,
+        LeaveStatus::Draft->value => [
+            LeaveStatus::Pending->value,
+            LeaveStatus::Cancelled->value,
         ],
-        LeaveStatusEnum::Pending->value => [
-            LeaveStatusEnum::ManagerApproved->value,
-            LeaveStatusEnum::HRApproved->value,
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-            LeaveStatusEnum::OnHold->value,
-            LeaveStatusEnum::RevisionRequested->value,
-            LeaveStatusEnum::ComplianceReview->value,
-            LeaveStatusEnum::PartiallyApproved->value,
-            LeaveStatusEnum::Escalated->value,
+        LeaveStatus::Pending->value => [
+            LeaveStatus::Approved->value,
+            LeaveStatus::Rejected->value,
+            LeaveStatus::Cancelled->value,
+            LeaveStatus::AutoApproved->value,
         ],
-        LeaveStatusEnum::ManagerApproved->value => [
-            LeaveStatusEnum::HRApproved->value,
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-            LeaveStatusEnum::Escalated->value,
-            LeaveStatusEnum::RevisionRequested->value,
-        ],
-        LeaveStatusEnum::HRApproved->value => [
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-            LeaveStatusEnum::RevisionRequested->value,
-        ],
-        LeaveStatusEnum::OnHold->value => [
-            LeaveStatusEnum::Pending->value,
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-        ],
-        LeaveStatusEnum::RevisionRequested->value => [
-            LeaveStatusEnum::Draft->value,
-            LeaveStatusEnum::Pending->value,
-            LeaveStatusEnum::Cancelled->value,
-        ],
-        LeaveStatusEnum::ComplianceReview->value => [
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-            LeaveStatusEnum::OnHold->value,
-        ],
-        LeaveStatusEnum::PartiallyApproved->value => [
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-        ],
-        LeaveStatusEnum::Escalated->value => [
-            LeaveStatusEnum::Approved->value,
-            LeaveStatusEnum::Rejected->value,
-            LeaveStatusEnum::Cancelled->value,
-            LeaveStatusEnum::OnHold->value,
+        LeaveStatus::Approved->value => [
+            LeaveStatus::Cancelled->value,
         ],
     ];
 
     /**
      * Transition the status of an employee leave.
      */
-    public function transition(EmployeeLeave $leave, LeaveStatusEnum $newStatus, User $actor, ?string $remarks = null, ?array $metadata = null): EmployeeLeave
+    public function transition(EmployeeLeave $leave, LeaveStatus $newStatus, User $actor, ?string $remarks = null, ?array $metadata = null): EmployeeLeave
     {
         $oldStatus = $leave->leave_status;
 
@@ -113,14 +68,14 @@ class LeaveStatusTransitionService
             ];
 
             // Maintain legacy approved_by/rejected_by fields for compatibility
-            if ($newStatus === LeaveStatusEnum::Approved) {
+            if ($newStatus === LeaveStatus::Approved) {
                 $updates['approved_by'] = $actor->id;
                 $updates['approved_at'] = now();
-            } elseif ($newStatus === LeaveStatusEnum::Rejected) {
+            } elseif ($newStatus === LeaveStatus::Rejected) {
                 $updates['rejected_by'] = $actor->id;
                 $updates['rejected_at'] = now();
                 $updates['cancellation_reason'] = $remarks;
-            } elseif ($newStatus === LeaveStatusEnum::Cancelled) {
+            } elseif ($newStatus === LeaveStatus::Cancelled) {
                 $updates['cancellation_reason'] = $remarks;
             }
 
@@ -143,10 +98,10 @@ class LeaveStatusTransitionService
     /**
      * Check if the actor has permission to trigger the state transition.
      */
-    private function validatePermissions(EmployeeLeave $leave, LeaveStatusEnum $newStatus, User $actor): void
+    private function validatePermissions(EmployeeLeave $leave, LeaveStatus $newStatus, User $actor): void
     {
         // 1. Employee Self-cancellation Check
-        if ($newStatus === LeaveStatusEnum::Cancelled) {
+        if ($newStatus === LeaveStatus::Cancelled) {
             // Employee can cancel their own leave if it is not already approved/processed (or they can do it anytime if it's pending)
             if ($leave->user_id === $actor->id) {
                 return;
@@ -154,7 +109,7 @@ class LeaveStatusTransitionService
         }
 
         // 2. Draft/Pending submittals by Employee
-        if ($leave->user_id === $actor->id && in_array($newStatus, [LeaveStatusEnum::Draft, LeaveStatusEnum::Pending], true)) {
+        if ($leave->user_id === $actor->id && in_array($newStatus, [LeaveStatus::Draft, LeaveStatus::Pending], true)) {
             return;
         }
 

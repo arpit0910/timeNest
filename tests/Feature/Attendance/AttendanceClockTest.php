@@ -518,4 +518,82 @@ class AttendanceClockTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonPath('data', null);
     }
+
+    /**
+     * Proves that Strict mode blocks clock-in when employee is outside
+     * the geo-fence radius.
+     */
+    public function test_clock_in_blocked_outside_geofence_in_strict_mode(): void
+    {
+        [$user, $org, $policy, $policyVersion] = $this->createOrgWithAttendancePolicy([
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Strict->value,
+            'geo_fencing_enabled' => true,
+            'geo_fence_radius_meters' => 100,
+        ]);
+
+        // Create a branch for the org with known coordinates (Jaipur, India)
+        \App\Models\Organization\Branch::create([
+            'organization_id' => $org->id,
+            'name' => 'Jaipur HQ',
+            'code' => 'JAI-01',
+            'is_headquarters' => true,
+            'latitude' => 26.9124,
+            'longitude' => 75.7873,
+            'geo_fence_radius' => 100,
+            'is_active' => true,
+        ]);
+
+        $this->actingAsTenant($user, $org);
+
+        // Employee clocks in from London — very far outside radius
+        $payload = array_merge($this->getClockInPayload(), [
+            'clock_in_latitude'  => 51.5074,
+            'clock_in_longitude' => -0.1278,
+        ]);
+
+        $response = $this->postJson('/api/v1/attendance/clock-in', $payload);
+
+        $response->assertStatus(422)
+            ->assertJsonPath('error_code', 'CLOCK_IN_OUTSIDE_GEOFENCE');
+    }
+
+    /**
+     * Proves that Flexible mode allows clock-in outside the geo-fence
+     * but marks the session as suspicious — the core hybrid enforcement rule.
+     */
+    public function test_clock_in_outside_geofence_allowed_but_flagged_in_flexible_mode(): void
+    {
+        [$user, $org, $policy, $policyVersion] = $this->createOrgWithAttendancePolicy([
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Flexible->value,
+            'geo_fencing_enabled' => true,
+            'geo_fence_radius_meters' => 100,
+        ]);
+
+        // Create a branch for the org with known coordinates (Jaipur, India)
+        \App\Models\Organization\Branch::create([
+            'organization_id' => $org->id,
+            'name' => 'Jaipur HQ',
+            'code' => 'JAI-01',
+            'is_headquarters' => true,
+            'latitude' => 26.9124,
+            'longitude' => 75.7873,
+            'geo_fence_radius' => 100,
+            'is_active' => true,
+        ]);
+
+        $this->actingAsTenant($user, $org);
+
+        $payload = array_merge($this->getClockInPayload(), [
+            'clock_in_latitude'  => 51.5074,
+            'clock_in_longitude' => -0.1278,
+        ]);
+
+        $response = $this->postJson('/api/v1/attendance/clock-in', $payload);
+
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('attendance_sessions', [
+            'is_suspicious' => true,
+        ]);
+    }
 }

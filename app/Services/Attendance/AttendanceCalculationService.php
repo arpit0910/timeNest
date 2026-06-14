@@ -10,7 +10,7 @@ use App\Enums\AttendanceStatusEnum;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendancePolicy;
 use App\Models\Attendance\OrganizationHoliday;
-use App\Models\Attendance\EmployeeLeave;
+use App\Models\Leave\EmployeeLeave;
 use App\Models\Auth\User;
 use App\Models\Membership\EmployeeProfile;
 use Carbon\Carbon;

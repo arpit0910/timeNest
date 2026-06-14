@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Attendance;
 
-use App\Enums\LeaveStatusEnum;
+use App\Enums\Leave\LeaveStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -18,7 +18,7 @@ class UpdateLeaveStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', 'integer', new Enum(LeaveStatusEnum::class)],
+            'status' => ['required', 'integer', new Enum(LeaveStatus::class)],
             'remarks' => ['nullable', 'string', 'max:255'],
             'metadata' => ['nullable', 'array'],
         ];

@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Requests\Leave;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ApproveLeaveRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()->can('leave.request.approve');
+    }
+
+    public function rules(): array
+    {
+        return [
+            'remarks' => 'nullable|string|max:500',
+        ];
+    }
+}

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
-use App\Models\Attendance\EmployeeLeave;
+use App\Models\Leave\EmployeeLeave;
 use App\Models\Attendance\AttendanceActivityLog;
 use Illuminate\Support\Str;
 
