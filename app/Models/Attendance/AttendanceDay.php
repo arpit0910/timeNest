@@ -34,8 +34,12 @@ class AttendanceDay extends Model
         'total_break_minutes',
         'total_sessions',
         'late_minutes',
+        'early_exit_minutes',
         'overtime_minutes',
         'attendance_policy_version_id',
+        'approval_flow_snapshot',
+        'approved_by',
+        'approved_at',
     ];
 
     protected $appends = [
@@ -53,8 +57,11 @@ class AttendanceDay extends Model
             'total_break_minutes' => 'integer',
             'total_sessions' => 'integer',
             'late_minutes' => 'integer',
+            'early_exit_minutes' => 'integer',
             'overtime_minutes' => 'integer',
             'attendance_policy_version_id' => 'integer',
+            'approval_flow_snapshot' => 'integer',
+            'approved_at' => 'datetime',
         ];
     }
 

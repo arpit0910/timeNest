@@ -27,14 +27,17 @@ class OrganizationHoliday extends Model
         'branch_id',
         'name',
         'holiday_date',
+        'is_recurring',
         'is_active',
         'created_by',
+        'updated_by',
     ];
 
     protected function casts(): array
     {
         return [
             'holiday_date' => 'date:Y-m-d',
+            'is_recurring' => 'boolean',
             'is_active' => 'boolean',
             'created_by' => 'integer',
         ];
@@ -55,6 +58,11 @@ class OrganizationHoliday extends Model
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 
     // ─── Scopes ──────────────────────────────────────────────────

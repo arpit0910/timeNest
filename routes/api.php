@@ -84,4 +84,15 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::put('/{uuid}', 'update');
             Route::get('/{uuid}/versions', 'versions');
         });
+
+    // Attendance Clock Routes
+    Route::prefix('attendance')
+        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\Attendance\AttendanceController::class)
+        ->group(function (): void {
+            Route::post('/clock-in', 'clockIn');
+            Route::post('/clock-out', 'clockOut');
+            Route::get('/today', 'today');
+            Route::get('/history', 'history');
+        });
 });
