@@ -20,9 +20,11 @@ return new class extends Migration
         });
 
         // Step B: Add uuid
-        Schema::table('worklog_status_histories', function (Blueprint $table) {
-            $table->uuid('uuid')->unique()->comment('Public UUID');
-        });
+        if (!Schema::hasColumn('worklog_status_histories', 'uuid')) {
+            Schema::table('worklog_status_histories', function (Blueprint $table) {
+                $table->uuid('uuid')->unique()->comment('Public UUID');
+            });
+        }
 
         // Step C: Fix foreignId constraints
         Schema::table('worklog_status_histories', function (Blueprint $table) {
@@ -40,8 +42,10 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('worklog_status_histories', function (Blueprint $table) {
-            $table->dropColumn('uuid');
-        });
+        if (Schema::hasColumn('worklog_status_histories', 'uuid')) {
+            Schema::table('worklog_status_histories', function (Blueprint $table) {
+                $table->dropColumn('uuid');
+            });
+        }
     }
 };

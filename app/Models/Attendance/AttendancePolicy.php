@@ -4,90 +4,98 @@ declare(strict_types=1);
 
 namespace App\Models\Attendance;
 
-use App\Enums\AttendanceModeEnum;
+use App\Enums\Attendance\ApprovalFlow;
+use App\Enums\Attendance\AttendanceMode;
 use App\Models\Auth\User;
 use App\Models\Organization\Organization;
-use App\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
-/**
- * AttendancePolicy model — organization specific policy setup.
- */
 class AttendancePolicy extends Model
 {
-
-// ***************** Need one important variable too here: office working days (will be input)
-    use HasUuid, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'attendance_policies';
 
     protected $fillable = [
         'organization_id',
         'attendance_mode',
+        'approval_flow',
+        'shift_start_time',
+        'shift_end_time',
         'required_daily_minutes',
         'minimum_session_minutes',
         'grace_late_minutes',
         'allowed_monthly_late_count',
+        'allow_early_exit',
+        'grace_early_exit_minutes',
         'default_break_minutes',
-        'worklog_submission_window_days',
-        'worklog_edit_grace_days',
+        'max_break_minutes',
         'allow_multiple_sessions',
         'allow_clock_in_on_holidays',
         'auto_clock_out_enabled',
-        'auto_clock_out_minutes',
+        'auto_clock_out_after_minutes',
+        'overtime_enabled',
+        'overtime_starts_after_minutes',
+        'max_daily_overtime_minutes',
+        'overtime_requires_approval',
+        'weekend_days',
+        'geo_fencing_enabled',
+        'geo_fence_radius_meters',
+        'ip_restriction_enabled',
         'strict_worklog_enforcement',
-        'shift_start_time',
         'created_by',
         'updated_by',
     ];
 
-    protected function casts(): array
+    protected $casts = [
+        'attendance_mode' => AttendanceMode::class,
+        'approval_flow' => ApprovalFlow::class,
+        'weekend_days' => 'array',
+        'allow_early_exit' => 'boolean',
+        'allow_multiple_sessions' => 'boolean',
+        'allow_clock_in_on_holidays' => 'boolean',
+        'auto_clock_out_enabled' => 'boolean',
+        'overtime_enabled' => 'boolean',
+        'overtime_requires_approval' => 'boolean',
+        'geo_fencing_enabled' => 'boolean',
+        'ip_restriction_enabled' => 'boolean',
+        'strict_worklog_enforcement' => 'boolean',
+    ];
+
+    protected static function boot()
     {
-        return [
-            'attendance_mode' => AttendanceModeEnum::class,
-            'required_daily_minutes' => 'integer',
-            'minimum_session_minutes' => 'integer',
-            'grace_late_minutes' => 'integer',
-            'allowed_monthly_late_count' => 'integer',
-            'default_break_minutes' => 'integer',
-            'worklog_submission_window_days' => 'integer',
-            'worklog_edit_grace_days' => 'integer',
-            'allow_multiple_sessions' => 'boolean',
-            'allow_clock_in_on_holidays' => 'boolean',
-            'auto_clock_out_enabled' => 'boolean',
-            'auto_clock_out_minutes' => 'integer',
-            'strict_worklog_enforcement' => 'boolean',
-            'created_by' => 'integer',
-            'updated_by' => 'integer',
-        ];
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
     }
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-    public function policyVersions(): HasMany
+    public function versions(): HasMany
     {
-        return $this->hasMany(AttendancePolicyVersion::class);
+        return $this->hasMany(AttendancePolicyVersion::class, 'attendance_policy_id');
     }
 
     public function latePenaltySlabs(): HasMany
     {
-        return $this->hasMany(AttendanceLatePenaltySlab::class);
+        return $this->hasMany(AttendanceLatePenaltySlab::class, 'attendance_policy_id');
     }
 
     public function workDurationPenaltySlabs(): HasMany
     {
-        return $this->hasMany(AttendanceWorkDurationPenaltySlab::class);
-    }
-
-    public function worklogPolicy(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(WorklogPolicy::class);
+        return $this->hasMany(AttendanceWorkDurationPenaltySlab::class, 'attendance_policy_id');
     }
 
     public function createdBy(): BelongsTo

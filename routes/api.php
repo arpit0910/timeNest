@@ -36,4 +36,16 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         Route::get('invitations/validate/{token}', 'validateToken')->name('invitations.validate');
         Route::post('invitations/accept', 'accept')->name('invitations.accept');
     });
+
+    // Attendance Policy Routes
+    Route::prefix('attendance/policy')
+        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\Attendance\AttendancePolicyController::class)
+        ->group(function (): void {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::get('/{uuid}', 'show');
+            Route::put('/{uuid}', 'update');
+            Route::get('/{uuid}/versions', 'versions');
+        });
 });

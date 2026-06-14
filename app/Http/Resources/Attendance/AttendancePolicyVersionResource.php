@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Attendance;
 
-use App\Models\Attendance\AttendancePolicyVersion;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AttendancePolicyResource extends JsonResource
+class AttendancePolicyVersionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,8 +18,9 @@ class AttendancePolicyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'uuid' => $this->uuid,
-            'organization_id' => $this->organization->uuid ?? null, // Expose organization uuid
+            'id' => $this->version, // Export version number as 'id' per specs
+            'version' => $this->version,
+            'attendance_policy_uuid' => $this->policy->uuid ?? null,
             'attendance_mode' => [
                 'value' => $this->attendance_mode->value,
                 'label' => $this->attendance_mode->label(),
@@ -56,18 +56,8 @@ class AttendancePolicyResource extends JsonResource
             'geo_fence_radius_meters' => $this->geo_fence_radius_meters,
             'ip_restriction_enabled' => $this->ip_restriction_enabled,
             'strict_worklog_enforcement' => $this->strict_worklog_enforcement,
-            'current_version' => $this->whenLoaded('versions', function () {
-                $latest = $this->versions->sortByDesc('version')->first();
-                return $latest ? $latest->version : 1;
-            }, function () {
-                // Fallback query if not eager loaded (though standard says to eager load)
-                $latest = AttendancePolicyVersion::where('attendance_policy_id', $this->id)->max('version');
-                return $latest ? (int)$latest : 1;
-            }),
-            'late_penalty_slabs' => AttendanceLatePenaltySlabResource::collection($this->whenLoaded('latePenaltySlabs')),
-            'work_duration_penalty_slabs' => AttendanceWorkDurationPenaltySlabResource::collection($this->whenLoaded('workDurationPenaltySlabs')),
+            'created_by_uuid' => $this->createdBy->uuid ?? null,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

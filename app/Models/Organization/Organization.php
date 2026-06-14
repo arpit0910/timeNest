@@ -40,7 +40,7 @@ class Organization extends Model
     protected $table = 'organizations';
 
     protected $fillable = [
-        'legal_name', 'trading_name', 'slug',
+        'legal_name', 'trading_name', 'slug', 'type',
         'legal_entity_type', 'industry', 'company_size',
         'registration_number', 'tax_id', 'legal_identifiers',
         'email', 'phone', 'website',
