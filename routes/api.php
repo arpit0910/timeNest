@@ -48,4 +48,40 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::put('/{uuid}', 'update');
             Route::get('/{uuid}/versions', 'versions');
         });
+
+    // Leave Policy Routes
+    Route::prefix('leave/policy')
+        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\Leave\LeavePolicyController::class)
+        ->group(function (): void {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::get('/{uuid}', 'show');
+            Route::put('/{uuid}', 'update');
+            Route::get('/{uuid}/versions', 'versions');
+        });
+
+    // Leave Type Routes
+    Route::middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\Leave\LeaveTypeController::class)
+        ->group(function (): void {
+            Route::get('leave/policy/{policyUuid}/types', 'index');
+            Route::post('leave/policy/{policyUuid}/types', 'store');
+            Route::get('leave/types/{uuid}', 'show');
+            Route::put('leave/types/{uuid}', 'update');
+            Route::patch('leave/types/{uuid}/deactivate', 'deactivate');
+            Route::delete('leave/types/{uuid}', 'destroy');
+        });
+
+    // Worklog Policy Routes
+    Route::prefix('worklog/policy')
+        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->controller(\App\Http\Controllers\Api\Worklog\WorklogPolicyController::class)
+        ->group(function (): void {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::get('/{uuid}', 'show');
+            Route::put('/{uuid}', 'update');
+            Route::get('/{uuid}/versions', 'versions');
+        });
 });
