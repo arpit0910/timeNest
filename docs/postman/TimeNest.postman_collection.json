@@ -89,6 +89,21 @@
             "key": "invitation_token",
             "value": "",
             "type": "string"
+        },
+        {
+            "key": "leave_type_uuid",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "leave_request_uuid",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "policy_uuid",
+            "value": "",
+            "type": "string"
         }
     ],
     "item": [
@@ -523,13 +538,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/auth/switch-Organization",
+                            "raw": "{{base_url}}/auth/switch-organization",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "auth",
-                                "switch-Organization"
+                                "switch-organization"
                             ],
                             "query": []
                         },
@@ -585,13 +600,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/auth/select-Organization",
+                            "raw": "{{base_url}}/auth/select-organization",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "auth",
-                                "select-Organization"
+                                "select-organization"
                             ],
                             "query": []
                         },
@@ -1012,6 +1027,45 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "Resend Verification Email",
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"user@example.com\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/resend-verification-email",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "resend-verification-email"
+                            ]
+                        },
+                        "description": "Resend the email verification link."
+                    }
                 }
             ]
         },
@@ -1106,13 +1160,13 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/Organizations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc&is_active=&plan=",
+                            "raw": "{{base_url}}/platform/organizations?page=1&per_page=15&search=Acme&sort_by=created_at&sort_direction=desc&is_active=&plan=",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "Organizations"
+                                "organizations"
                             ],
                             "query": [
                                 {
@@ -1182,13 +1236,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/platform/Organizations",
+                            "raw": "{{base_url}}/platform/organizations",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "Organizations"
+                                "organizations"
                             ],
                             "query": []
                         },
@@ -1216,13 +1270,13 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{base_url}}/platform/Organizations/{{organization_uuid}}",
+                            "raw": "{{base_url}}/platform/organizations/{{organization_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "Organizations",
+                                "organizations",
                                 "{{organization_uuid}}"
                             ],
                             "query": []
@@ -1264,13 +1318,13 @@
                             }
                         },
                         "url": {
-                            "raw": "{{base_url}}/platform/Organizations/{{organization_uuid}}",
+                            "raw": "{{base_url}}/platform/organizations/{{organization_uuid}}",
                             "host": [
                                 "{{base_url}}"
                             ],
                             "path": [
                                 "platform",
-                                "Organizations",
+                                "organizations",
                                 "{{organization_uuid}}"
                             ],
                             "query": []
@@ -2249,23 +2303,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "POST",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946,\n    \"accuracy\": 10,\n    \"device_id\": \"device_123\",\n    \"source\": 1\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/clock-in",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance clock-in"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "clock-in"
+                                            ]
                                         },
                                         "description": "Clock in for the day."
                                     }
@@ -2275,23 +2354,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "POST",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"latitude\": 12.9716,\n    \"longitude\": 77.5946,\n    \"accuracy\": 10,\n    \"device_id\": \"device_123\",\n    \"source\": 1\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/clock-out",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance clock-out"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "clock-out"
+                                            ]
                                         },
                                         "description": "Clock out for the day."
                                     }
@@ -2301,18 +2405,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/today",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance today"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "today"
+                                            ]
                                         },
                                         "description": "Retrieve today's attendance stats."
                                     }
@@ -2322,18 +2447,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/history?page=1&per_page=15",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance history",
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "history"
+                                            ],
                                             "query": " "
                                         },
                                         "description": "Fetch paginated historical attendance days."
@@ -2350,18 +2496,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/leaves?page=1&per_page=15&status=&leave_type=",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance leaves",
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "leaves"
+                                            ],
                                             "query": "   "
                                         },
                                         "description": "List requested leaves."
@@ -2372,23 +2539,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "POST",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"leave_type\": 1,\n    \"start_date\": \"2026-05-25\",\n    \"end_date\": \"2026-05-29\",\n    \"reason\": \"Family vacation\",\n    \"attachment_path\": \"\",\n    \"metadata\": {}\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/leaves",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance leaves"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "leaves"
+                                            ]
                                         },
                                         "description": "Apply for casual, sick, WFH, or EWD leaves."
                                     }
@@ -2398,18 +2590,40 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/leaves/{{leave_uuid}}",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance leaves {{leave_uuid}}"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "leaves",
+                                                "{{leave_uuid}}"
+                                            ]
                                         },
                                         "description": "Retrieve leave request details by UUID."
                                     }
@@ -2419,23 +2633,50 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PATCH",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"status\": 5,\n    \"remarks\": \"Approved after verification\",\n    \"metadata\": {}\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/leaves/{{leave_uuid}}/status",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance leaves {{leave_uuid}} status"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "leaves",
+                                                "{{leave_uuid}}",
+                                                "status"
+                                            ]
                                         },
                                         "description": "Transition leave request status."
                                     }
@@ -2451,18 +2692,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/adjustments?page=1&per_page=15&status=",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance adjustments",
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "adjustments"
+                                            ],
                                             "query": "  "
                                         },
                                         "description": "List adjustment requests."
@@ -2473,23 +2735,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "POST",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"attendance_day_uuid\": 1,\n    \"attendance_session_uuid\": 1,\n    \"adjustment_type\": 1,\n    \"clock_in_at\": \"2026-05-20T09:00:00Z\",\n    \"clock_out_at\": \"2026-05-20T17:00:00Z\",\n    \"reason\": \"Forgot to clock out\"\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/adjustments",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance adjustments"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "adjustments"
+                                            ]
                                         },
                                         "description": "Submit correction request."
                                     }
@@ -2499,18 +2786,41 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PUT",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/adjustments/{{adjustment_uuid}}/approve",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance adjustments {{adjustment_uuid}} approve"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "adjustments",
+                                                "{{adjustment_uuid}}",
+                                                "approve"
+                                            ]
                                         },
                                         "description": "Approve correction request (manager only)."
                                     }
@@ -2520,23 +2830,50 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PUT",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"reason\": \"Invalid adjustment details\"\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/adjustments/{{adjustment_uuid}}/reject",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance adjustments {{adjustment_uuid}} reject"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "adjustments",
+                                                "{{adjustment_uuid}}",
+                                                "reject"
+                                            ]
                                         },
                                         "description": "Reject correction request (manager only)."
                                     }
@@ -2552,18 +2889,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/policy",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance policy"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "policy"
+                                            ]
                                         },
                                         "description": "Get active policy."
                                     }
@@ -2573,23 +2931,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PUT",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"shift_start_time\": \"09:00:00\",\n    \"shift_end_time\": \"18:00:00\",\n    \"grace_period_minutes\": 15,\n    \"half_day_min_minutes\": 240,\n    \"full_day_min_minutes\": 480,\n    \"is_strict_mode\": true,\n    \"overtime_threshold_minutes\": 480,\n    \"penalty_rules\": []\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/policy",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance policy"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "policy"
+                                            ]
                                         },
                                         "description": "Update attendance policy."
                                     }
@@ -2605,18 +2988,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs?user_uuid=",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs",
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs"
+                                            ],
                                             "query": ""
                                         },
                                         "description": "List logged productivity minutes."
@@ -2627,23 +3031,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "POST",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"attendance_day_uuid\": \"\",\n    \"attendance_session_uuid\": \"\",\n    \"project_uuid\": \"\",\n    \"milestone_uuid\": \"\",\n    \"task_uuid\": \"\",\n    \"logged_minutes\": 60,\n    \"description\": \"Coding some feature components\",\n    \"justification\": \"\",\n    \"metadata\": {}\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs"
+                                            ]
                                         },
                                         "description": "Create a worklog segment."
                                     }
@@ -2653,18 +3082,40 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs {{worklog_uuid}}"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs",
+                                                "{{worklog_uuid}}"
+                                            ]
                                         },
                                         "description": "Retrieve details of a single worklog."
                                     }
@@ -2674,23 +3125,49 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PATCH",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"project_uuid\": \"\",\n    \"milestone_uuid\": \"\",\n    \"task_uuid\": \"\",\n    \"logged_minutes\": 90,\n    \"description\": \"Updated task description\",\n    \"justification\": \"\",\n    \"metadata\": {}\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs {{worklog_uuid}}"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs",
+                                                "{{worklog_uuid}}"
+                                            ]
                                         },
                                         "description": "Update worklog parameters."
                                     }
@@ -2700,23 +3177,50 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PATCH",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"status\": 2,\n    \"remarks\": \"Submitting my draft worklog\",\n    \"metadata\": {}\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}/status",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs {{worklog_uuid}} status"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs",
+                                                "{{worklog_uuid}}",
+                                                "status"
+                                            ]
                                         },
                                         "description": "Transition the workflow status of a worklog."
                                     }
@@ -2726,18 +3230,40 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "DELETE",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklogs/{{worklog_uuid}}",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklogs {{worklog_uuid}}"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklogs",
+                                                "{{worklog_uuid}}"
+                                            ]
                                         },
                                         "description": "Delete draft worklog."
                                     }
@@ -2753,18 +3279,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklog-policy",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklog-policy"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklog-policy"
+                                            ]
                                         },
                                         "description": "Get current worklog policy."
                                     }
@@ -2774,23 +3321,48 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PATCH",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"require_worklog_on_clockout\": true,\n    \"allow_deferred_submission\": true,\n    \"require_project_mapping\": true,\n    \"require_task_mapping\": false,\n    \"require_justification_on_overflow\": true,\n    \"auto_escalate_overdue_logs\": true,\n    \"overdue_after_days\": 1,\n    \"lock_after_days\": 7,\n    \"allow_multiple_worklogs_per_session\": true,\n    \"strict_mode_enabled\": false,\n    \"flexible_mode_enabled\": true,\n    \"hybrid_mode_enabled\": false\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/worklog-policy",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance worklog-policy"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "worklog-policy"
+                                            ]
                                         },
                                         "description": "Update worklog policy."
                                     }
@@ -2806,18 +3378,39 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/escalations",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance escalations"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "escalations"
+                                            ]
                                         },
                                         "description": "Get compliance escalations list."
                                     }
@@ -2827,18 +3420,40 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "GET",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/escalations/{{escalation_uuid}}",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance escalations {{escalation_uuid}}"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "escalations",
+                                                "{{escalation_uuid}}"
+                                            ]
                                         },
                                         "description": "Retrieve escalation details."
                                     }
@@ -2848,23 +3463,50 @@
                                     "request": {
                                         "auth": {
                                             "type": "bearer",
-                                            "bearer": ""
+                                            "bearer": [
+                                                {
+                                                    "key": "token",
+                                                    "value": "{{access_token}}",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         },
                                         "method": "PATCH",
                                         "header": [
-                                            "@{key=Accept; value=application/json}",
-                                            "@{key=Content-Type; value=application/json}",
-                                            "@{key=X-Organization-Uuid; value={{organization_uuid}}; description=Tenant context identifier}"
+                                            {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                            },
+                                            {
+                                                "key": "X-Organization-Uuid",
+                                                "value": "{{organization_uuid"
+                                            }
                                         ],
                                         "body": {
                                             "mode": "raw",
                                             "raw": "{\n    \"status\": 2,\n    \"remarks\": \"Employee submitted late worklog.\"\n}",
-                                            "options": "@{raw=}"
+                                            "options": {
+                                                "raw": {
+                                                    "language": "json"
+                                                }
+                                            }
                                         },
                                         "url": {
                                             "raw": "{{base_url}}/organization/attendance/escalations/{{escalation_uuid}}/status",
-                                            "host": "{{base_url}}",
-                                            "path": "organization attendance escalations {{escalation_uuid}} status"
+                                            "host": [
+                                                "{{base_url}}"
+                                            ],
+                                            "path": [
+                                                "organization",
+                                                "attendance",
+                                                "escalations",
+                                                "{{escalation_uuid}}",
+                                                "status"
+                                            ]
                                         },
                                         "description": "Resolve or dismiss escalation."
                                     }
@@ -2872,6 +3514,1508 @@
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name": "Versioned Attendance Policy",
+            "item": [
+                {
+                    "name": "Get Current Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"attendance_mode\": 1,\n    \"approval_flow\": 1,\n    \"shift_start_time\": \"09:00:00\",\n    \"shift_end_time\": \"17:00:00\",\n    \"required_daily_minutes\": 480,\n    \"minimum_session_minutes\": 60,\n    \"grace_late_minutes\": 15,\n    \"allowed_monthly_late_count\": 3,\n    \"allow_early_exit\": false,\n    \"default_break_minutes\": 60,\n    \"max_break_minutes\": 60,\n    \"allow_multiple_sessions\": true,\n    \"allow_clock_in_on_holidays\": false,\n    \"auto_clock_out_enabled\": false,\n    \"overtime_enabled\": false,\n    \"weekend_days\": [\n        6,\n        7\n    ],\n    \"geo_fencing_enabled\": false,\n    \"ip_restriction_enabled\": false,\n    \"strict_worklog_enforcement\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy by UUID",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"attendance_mode\": 1,\n    \"approval_flow\": 2\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy Versions",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/policy/{{policy_uuid}}/versions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "policy",
+                                "{{policy_uuid}}",
+                                "versions"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Leave Policy",
+            "item": [
+                {
+                    "name": "Get Current Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"approval_flow\": 1,\n    \"allow_half_day_leaves\": true,\n    \"allow_leave_on_weekends\": false,\n    \"allow_leave_on_holidays\": false,\n    \"advance_notice_required_days\": 0,\n    \"max_advance_application_days\": 365,\n    \"document_required_after_days\": 3,\n    \"allow_leave_cancellation\": true,\n    \"cancellation_before_hours\": 24,\n    \"carry_forward_enabled\": false,\n    \"accrual_enabled\": false,\n    \"negative_balance_allowed\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy by UUID",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"allow_half_day_leaves\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy Versions",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy/{{policy_uuid}}/versions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy",
+                                "{{policy_uuid}}",
+                                "versions"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Leave Types",
+            "item": [
+                {
+                    "name": "List Types",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy/{{policy_uuid}}/types",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy",
+                                "{{policy_uuid}}",
+                                "types"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Type",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Annual Leave\",\n    \"code\": \"AL\",\n    \"is_paid\": true,\n    \"requires_document\": false,\n    \"allow_half_day\": true,\n    \"annual_allocation_days\": 20,\n    \"min_per_request_days\": 0.5,\n    \"is_active\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave/policy/{{policy_uuid}}/types",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "policy",
+                                "{{policy_uuid}}",
+                                "types"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Type",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/types/{{leave_type_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "types",
+                                "{{leave_type_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Type",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Updated Annual Leave\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave/types/{{leave_type_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "types",
+                                "{{leave_type_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Deactivate Type",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/types/{{leave_type_uuid}}/deactivate",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "types",
+                                "{{leave_type_uuid}}",
+                                "deactivate"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Type",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave/types/{{leave_type_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave",
+                                "types",
+                                "{{leave_type_uuid}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Versioned Worklog Policy",
+            "item": [
+                {
+                    "name": "Get Current Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/worklog/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "worklog",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"worklog_mode\": 1,\n    \"approval_flow\": 1,\n    \"require_worklog_on_clockout\": false,\n    \"allow_deferred_submission\": true,\n    \"submission_window_days\": 1,\n    \"edit_grace_days\": 1,\n    \"lock_after_days\": 7,\n    \"require_description\": true,\n    \"min_description_length\": 10,\n    \"require_justification_on_overflow\": false,\n    \"require_project_mapping\": false,\n    \"require_task_mapping\": false,\n    \"allow_multiple_worklogs_per_session\": true,\n    \"auto_escalate_overdue_logs\": false,\n    \"billable_tracking_enabled\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/worklog/policy",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "worklog",
+                                "policy"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy by UUID",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/worklog/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "worklog",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Policy",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"require_description\": false\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/worklog/policy/{{policy_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "worklog",
+                                "policy",
+                                "{{policy_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Policy Versions",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/worklog/policy/{{policy_uuid}}/versions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "worklog",
+                                "policy",
+                                "{{policy_uuid}}",
+                                "versions"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Standalone Attendance",
+            "item": [
+                {
+                    "name": "Clock In",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"clock_in_at\": \"2026-06-14T09:00:00Z\",\n    \"clock_in_location\": {\n        \"latitude\": 37.7749,\n        \"longitude\": -122.4194\n    },\n    \"clock_in_ip\": \"192.168.1.1\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/clock-in",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "clock-in"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Clock Out",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"clock_out_at\": \"2026-06-14T17:00:00Z\",\n    \"clock_out_location\": {\n        \"latitude\": 37.7749,\n        \"longitude\": -122.4194\n    },\n    \"clock_out_ip\": \"192.168.1.1\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/clock-out",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "clock-out"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Today",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/today",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "today"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "History",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/history?per_page=30",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "history"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "30"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Leave Requests",
+            "item": [
+                {
+                    "name": "List Requests",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests?per_page=15",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Submit Request",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"leave_type_id\": \"{{leave_type_uuid}}\",\n    \"start_date\": \"2026-06-20\",\n    \"end_date\": \"2026-06-22\",\n    \"reason\": \"Annual vacation trip\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Balances",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests/balances",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests",
+                                "balances"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Request",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests/{{leave_request_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests",
+                                "{{leave_request_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Approve Request",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"remarks\": \"Approved, have a good trip\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests/{{leave_request_uuid}}/approve",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests",
+                                "{{leave_request_uuid}}",
+                                "approve"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Reject Request",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"rejection_reason\": \"Not enough leave balance\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests/{{leave_request_uuid}}/reject",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests",
+                                "{{leave_request_uuid}}",
+                                "reject"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Cancel Request",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"reason\": \"No longer going on trip\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/leave-requests/{{leave_request_uuid}}/cancel",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "leave-requests",
+                                "{{leave_request_uuid}}",
+                                "cancel"
+                            ]
+                        }
+                    }
                 }
             ]
         }
