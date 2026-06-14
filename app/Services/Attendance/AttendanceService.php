@@ -51,7 +51,7 @@ class AttendanceService
             $timezone = $profile->branch?->timezone ?? $user->timezone ?? 'UTC';
 
             // Get policy
-            $policy = $this->policyService->getActivePolicy($organization);
+            $policy = $this->policyService->getPolicy($organization);
             if (! $policy) {
                 throw new BusinessRuleViolationException('No attendance policy configured for this organization.', 'NO_POLICY_CONFIGURED');
             }

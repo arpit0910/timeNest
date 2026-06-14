@@ -32,7 +32,7 @@ class AttendanceCalculationService
         $dateStr = $attendanceDay->attendance_date->toDateString();
 
         // Get policy active at the time
-        $policy = $this->policyService->getActivePolicy($organization);
+        $policy = $this->policyService->getPolicy($organization);
         if (! $policy) {
             return $attendanceDay; // No policy, cannot compute
         }

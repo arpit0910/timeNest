@@ -19,7 +19,7 @@ class WorklogPolicyService
      */
     public function getWorklogPolicyForOrganization(Organization $organization): WorklogPolicy
     {
-        $policy = $this->policyService->getActivePolicy($organization);
+        $policy = $this->policyService->getPolicy($organization);
         if (! $policy) {
             throw new \RuntimeException('Active attendance policy not configured.');
         }

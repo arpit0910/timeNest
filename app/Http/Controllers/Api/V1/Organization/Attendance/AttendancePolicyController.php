@@ -27,7 +27,7 @@ class AttendancePolicyController extends BaseApiController
      */
     public function show(): JsonResponse
     {
-        $policy = $this->policyService->getActivePolicy($this->getOrganization());
+        $policy = $this->policyService->getPolicy($this->getOrganization());
 
         if (! $policy) {
             $policy = $this->policyService->createDefaultPolicy($this->getOrganization(), auth()->user());
@@ -41,7 +41,7 @@ class AttendancePolicyController extends BaseApiController
      */
     public function update(UpdatePolicyRequest $request): JsonResponse
     {
-        $policy = $this->policyService->getActivePolicy($this->getOrganization());
+        $policy = $this->policyService->getPolicy($this->getOrganization());
 
         if (! $policy) {
             $policy = $this->policyService->createDefaultPolicy($this->getOrganization(), auth()->user());
