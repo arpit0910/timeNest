@@ -104,6 +104,11 @@
             "key": "policy_uuid",
             "value": "",
             "type": "string"
+        },
+        {
+            "key": "attendance_day_uuid",
+            "value": "",
+            "type": "string"
         }
     ],
     "item": [
@@ -5013,6 +5018,307 @@
                                 "leave-requests",
                                 "{{leave_request_uuid}}",
                                 "cancel"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Attendance Worklogs",
+            "item": [
+                {
+                    "name": "List Worklogs",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/worklogs?per_page=15",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "worklogs"
+                            ],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Submit Worklog",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"logged_minutes\": 120,\n    \"description\": \"Implemented Phase 4 authentication\",\n    \"justification\": \"Additional testing required\",\n    \"billable\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/days/{{attendance_day_uuid}}/worklogs",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "days",
+                                "{{attendance_day_uuid}}",
+                                "worklogs"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Worklog Details",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/attendance/worklogs/{{worklog_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "worklogs",
+                                "{{worklog_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Worklog",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"logged_minutes\": 180,\n    \"description\": \"Updated: Implemented Phase 4 auth and fixed tests\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/worklogs/{{worklog_uuid}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "worklogs",
+                                "{{worklog_uuid}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Approve Worklog",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"remarks\": \"Good job!\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/worklogs/{{worklog_uuid}}/approve",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "worklogs",
+                                "{{worklog_uuid}}",
+                                "approve"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Reject Worklog",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{access_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "X-Organization-Uuid",
+                                "value": "{{organization_uuid}}",
+                                "description": "Tenant context identifier"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"rejection_reason\": \"Description is too brief\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/attendance/worklogs/{{worklog_uuid}}/reject",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "attendance",
+                                "worklogs",
+                                "{{worklog_uuid}}",
+                                "reject"
                             ]
                         }
                     }

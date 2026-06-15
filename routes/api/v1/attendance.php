@@ -47,14 +47,14 @@ Route::prefix('worklog-policy')->name('worklog-policy.')->controller(WorklogPoli
     Route::patch('/', 'update')->name('update');
 });
 
-// ─── Attendance Worklogs (AttendanceWorklogController) ─────────────────
-Route::prefix('worklogs')->name('worklogs.')->controller(AttendanceWorklogController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
-    Route::get('{uuid}', 'show')->name('show');
-    Route::patch('{uuid}', 'update')->name('update');
-    Route::patch('{uuid}/status', 'updateStatus')->name('status.update');
-    Route::delete('{uuid}', 'destroy')->name('destroy');
+// ─── Attendance Worklogs (WorklogController) ─────────────────
+Route::controller(\App\Http\Controllers\Api\Attendance\WorklogController::class)->group(function () {
+    Route::post('days/{dayUuid}/worklogs', 'storeForDay')->name('days.worklogs.store');
+    Route::get('days/{dayUuid}/worklogs', 'forDay')->name('days.worklogs.index');
+    Route::get('worklogs', 'index')->name('worklogs.index');
+    Route::get('worklogs/{uuid}', 'show')->name('worklogs.show');
+    Route::post('worklogs/{uuid}/approve', 'approve')->name('worklogs.approve');
+    Route::post('worklogs/{uuid}/reject', 'reject')->name('worklogs.reject');
 });
 
 // ─── Attendance Escalations (AttendanceEscalationController) ───────────

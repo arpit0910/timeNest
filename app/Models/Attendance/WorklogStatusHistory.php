@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Attendance;
 
+use App\Enums\Attendance\WorklogStatus;
 use App\Models\Auth\User;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,6 @@ class WorklogStatusHistory extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'uuid',
         'attendance_worklog_id',
         'old_status',
         'new_status',
@@ -31,8 +31,8 @@ class WorklogStatusHistory extends Model
     protected function casts(): array
     {
         return [
-            'old_status' => \App\Enums\WorkflowStatusEnum::class,
-            'new_status' => \App\Enums\WorkflowStatusEnum::class,
+            'old_status' => WorklogStatus::class,
+            'new_status' => WorklogStatus::class,
             'metadata' => 'array',
             'created_at' => 'datetime',
         ];
