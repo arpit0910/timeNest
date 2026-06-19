@@ -104,6 +104,19 @@ class AttendancePolicyService
     }
 
     /**
+     * Find the active policy for an organization or return null if not found.
+     *
+     * @param Organization $organization
+     * @return AttendancePolicy|null
+     */
+    public function findPolicy(Organization $organization): ?AttendancePolicy
+    {
+        return AttendancePolicy::where('organization_id', $organization->id)
+            ->with(['versions', 'latePenaltySlabs', 'workDurationPenaltySlabs'])
+            ->first();
+    }
+
+    /**
      * Get the active policy for an organization.
      *
      * @param Organization $organization
@@ -111,15 +124,53 @@ class AttendancePolicyService
      */
     public function getPolicy(Organization $organization): AttendancePolicy
     {
-        $policy = AttendancePolicy::where('organization_id', $organization->id)
-            ->with(['versions', 'latePenaltySlabs', 'workDurationPenaltySlabs'])
-            ->first();
+        $policy = $this->findPolicy($organization);
 
         if (!$policy) {
             throw new AttendancePolicyNotFoundException();
         }
 
         return $policy;
+    }
+
+    /**
+     * Create a default attendance policy for the organization.
+     *
+     * @param Organization $organization
+     * @param User $createdBy
+     * @return AttendancePolicy
+     */
+    public function createDefaultPolicy(Organization $organization, User $createdBy): AttendancePolicy
+    {
+        $defaultData = [
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Flexible->value,
+            'approval_flow' => \App\Enums\Attendance\ApprovalFlow::Auto->value,
+            'shift_start_time' => '09:00:00',
+            'shift_end_time' => '17:00:00',
+            'required_daily_minutes' => 480,
+            'minimum_session_minutes' => 60,
+            'grace_late_minutes' => 15,
+            'allowed_monthly_late_count' => 3,
+            'allow_early_exit' => false,
+            'grace_early_exit_minutes' => 0,
+            'default_break_minutes' => 60,
+            'max_break_minutes' => 60,
+            'allow_multiple_sessions' => true,
+            'allow_clock_in_on_holidays' => false,
+            'auto_clock_out_enabled' => false,
+            'auto_clock_out_after_minutes' => 120,
+            'overtime_enabled' => false,
+            'overtime_starts_after_minutes' => 60,
+            'max_daily_overtime_minutes' => 240,
+            'overtime_requires_approval' => true,
+            'weekend_days' => ['Saturday', 'Sunday'],
+            'geo_fencing_enabled' => false,
+            'geo_fence_radius_meters' => 100,
+            'ip_restriction_enabled' => false,
+            'strict_worklog_enforcement' => false,
+        ];
+
+        return $this->createPolicy($organization, $defaultData, $createdBy);
     }
 
     /**

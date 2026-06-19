@@ -29,7 +29,7 @@ class WorklogPolicyController extends BaseApiController
      */
     public function show(): JsonResponse
     {
-        $policy = $this->policyService->getPolicy($this->getOrganization());
+        $policy = $this->policyService->findPolicy($this->getOrganization());
         if (! $policy) {
             $policy = $this->policyService->createDefaultPolicy($this->getOrganization(), auth()->user());
         }
@@ -44,7 +44,7 @@ class WorklogPolicyController extends BaseApiController
      */
     public function update(UpdateWorklogPolicyRequest $request): JsonResponse
     {
-        $policy = $this->policyService->getPolicy($this->getOrganization());
+        $policy = $this->policyService->findPolicy($this->getOrganization());
         if (! $policy) {
             $policy = $this->policyService->createDefaultPolicy($this->getOrganization(), auth()->user());
         }
