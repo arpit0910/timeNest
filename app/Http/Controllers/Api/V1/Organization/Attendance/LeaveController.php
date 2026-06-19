@@ -66,6 +66,8 @@ class LeaveController extends BaseApiController
             ->where('uuid', $uuid)
             ->firstOrFail();
 
+        $this->authorize('view', $leave);
+
         return $this->success(new EmployeeLeaveResource($leave));
     }
 
@@ -77,6 +79,8 @@ class LeaveController extends BaseApiController
         $leave = EmployeeLeave::where('organization_id', $this->getOrganization()->id)
             ->where('uuid', $uuid)
             ->firstOrFail();
+
+        $this->authorize('approve', $leave);
 
         $updatedLeave = $this->transitionService->transition(
             leave: $leave,

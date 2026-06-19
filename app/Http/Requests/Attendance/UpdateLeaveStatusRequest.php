@@ -12,6 +12,8 @@ class UpdateLeaveStatusRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        // Authorization handled by route 'permission:' middleware + 
+        // $this->authorize() in the controller — not duplicated here.
         return true;
     }
 

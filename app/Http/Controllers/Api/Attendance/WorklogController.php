@@ -75,6 +75,8 @@ class WorklogController extends Controller
 
         $worklog = $this->worklogSubmissionService->getWorklog($uuid, $organization, $viewer);
 
+        $this->authorize('view', $worklog);
+
         return $this->success(
             data: new WorklogResource($worklog),
             message: 'Worklog retrieved successfully.'
@@ -87,6 +89,8 @@ class WorklogController extends Controller
         $approver = auth()->user();
 
         $worklog = $this->worklogSubmissionService->getWorklog($uuid, $organization, $approver);
+
+        $this->authorize('approve', $worklog);
 
         $approvedWorklog = $this->worklogSubmissionService->approveWorklog(
             $worklog,
@@ -110,6 +114,8 @@ class WorklogController extends Controller
         $rejector = auth()->user();
 
         $worklog = $this->worklogSubmissionService->getWorklog($uuid, $organization, $rejector);
+
+        $this->authorize('approve', $worklog);
 
         $rejectedWorklog = $this->worklogSubmissionService->rejectWorklog(
             $worklog,

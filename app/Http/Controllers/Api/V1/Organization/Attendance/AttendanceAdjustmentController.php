@@ -75,6 +75,8 @@ class AttendanceAdjustmentController extends BaseApiController
             })
             ->firstOrFail();
 
+        $this->authorize('approve', $adjustment);
+
         $approvedAdjustment = $this->attendanceService->approveAdjustment($adjustment, auth()->user());
 
         return $this->success(
@@ -97,6 +99,8 @@ class AttendanceAdjustmentController extends BaseApiController
                 $query->where('organization_id', $this->getOrganization()->id);
             })
             ->firstOrFail();
+
+        $this->authorize('approve', $adjustment);
 
         $rejectedAdjustment = $this->attendanceService->rejectAdjustment($adjustment, auth()->user(), $request->input('reason'));
 

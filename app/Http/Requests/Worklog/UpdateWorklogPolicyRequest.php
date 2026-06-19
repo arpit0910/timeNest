@@ -10,7 +10,9 @@ class UpdateWorklogPolicyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('worklog.policy.update');
+        // Authorization handled by route 'permission:' middleware + 
+        // $this->authorize() in the controller — not duplicated here.
+        return true;
     }
 
     public function rules(): array

@@ -40,8 +40,8 @@ class AttendanceEscalationController extends BaseApiController
             $platformRole = resolve_platform_role($user);
             $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
 
-            // Check if manager/admin permission exists
-            $canViewAll = $isAppOwner || $user->hasPermissionTo('attendance_escalations_resolve');
+            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::AttendanceEscalationsView->value) 
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::AttendanceEscalationsResolve->value);
 
             $query = AttendanceEscalation::where('organization_id', $organization->id);
 
@@ -66,20 +66,7 @@ class AttendanceEscalationController extends BaseApiController
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
 
-        $user = auth()->user();
-        if ($escalation->user_id !== $user->id) {
-            setPermissionsTeamId($this->getOrganization()->id);
-            try {
-                $platformRole = resolve_platform_role($user);
-                $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
-
-                if (! $isAppOwner && ! $user->hasPermissionTo('attendance_escalations_resolve')) {
-                    throw new BusinessRuleViolationException('Access denied.', 'UNAUTHORIZED');
-                }
-            } finally {
-                setPermissionsTeamId(null);
-            }
-        }
+        $this->authorize('view', $escalation);
 
         return $this->success(new AttendanceEscalationResource($escalation));
     }
@@ -89,23 +76,11 @@ class AttendanceEscalationController extends BaseApiController
      */
     public function updateStatus(UpdateAttendanceEscalationStatusRequest $request, string $uuid): JsonResponse
     {
-        $user = auth()->user();
-        setPermissionsTeamId($this->getOrganization()->id);
-
-        try {
-            $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
-
-            if (! $isAppOwner && ! $user->hasPermissionTo('attendance_escalations_resolve')) {
-                throw new UnauthorizedException(403, 'You do not have permission to resolve escalations.');
-            }
-        } finally {
-            setPermissionsTeamId(null);
-        }
-
         $escalation = AttendanceEscalation::where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
+
+        $this->authorize('resolve', $escalation);
 
         if ($escalation->escalation_status !== EscalationStatusEnum::Pending) {
             throw new BusinessRuleViolationException('This escalation is already resolved or dismissed.', 'ESCALATION_ALREADY_FINALIZED');

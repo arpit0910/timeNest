@@ -34,8 +34,23 @@ enum SystemPermission: string
     case AttendanceEdit = 'attendance.edit';
     case AttendanceDelete = 'attendance.delete';
     case AttendanceApprove = 'attendance.approve';
+    case AttendanceApproveAny = 'attendance.approve_any';
     case AttendanceExport = 'attendance.export';
     case AttendanceImport = 'attendance.import';
+    case AttendancePolicyView = 'attendance_policy.view';
+    case AttendancePolicyManage = 'attendance_policy.manage';
+    case AttendanceAdjustmentsView = 'attendance_adjustments.view';
+    case AttendanceAdjustmentsCreate = 'attendance_adjustments.create';
+    case AttendanceEscalationsView = 'attendance_escalations.view';
+    case AttendanceEscalationsResolve = 'attendance_escalations.resolve';
+    case WorklogView = 'worklog.view';
+    case WorklogCreate = 'worklog.create';
+    case WorklogApprove = 'worklog.approve';
+    case WorklogApproveAny = 'worklog.approve_any';
+    case WorklogPolicyView = 'worklog_policy.view';
+    case WorklogPolicyManage = 'worklog_policy.manage';
+    case LeavePolicyView = 'leave_policy.view';
+    case LeavePolicyManage = 'leave_policy.manage';
 
     // ─── Payroll ─────────────────────────────────────────────────
     case PayrollView = 'payroll.view';
@@ -59,6 +74,7 @@ enum SystemPermission: string
     case LeavesEdit = 'leaves.edit';
     case LeavesDelete = 'leaves.delete';
     case LeavesApprove = 'leaves.approve';
+    case LeavesApproveAny = 'leaves.approve_any';
     case LeavesExport = 'leaves.export';
 
     // ─── Invitations ─────────────────────────────────────────────

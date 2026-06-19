@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Leave\EmployeeLeave::observe(\App\Observers\EmployeeLeaveObserver::class);
         \App\Models\Attendance\AttendanceWorklog::observe(\App\Observers\AttendanceWorklogObserver::class);
 
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Leave\EmployeeLeave::class, \App\Policies\EmployeeLeavePolicy::class);
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceWorklog::class, \App\Policies\AttendanceWorklogPolicy::class);
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceAdjustmentRequest::class, \App\Policies\AttendanceAdjustmentPolicy::class);
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceEscalation::class, \App\Policies\AttendanceEscalationPolicy::class);
+
         // Centralized AppOwner root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
             $platformRole = resolve_platform_role($user);

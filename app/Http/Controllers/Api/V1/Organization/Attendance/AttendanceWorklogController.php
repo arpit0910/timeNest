@@ -52,7 +52,8 @@ class AttendanceWorklogController extends BaseApiController
             $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
 
             // Check if manager or app owner
-            $canViewAll = $isAppOwner || $user->hasPermissionTo('attendance_worklogs_update_status');
+            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WorklogView->value) 
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::WorklogApprove->value);
 
             $query = AttendanceWorklog::where('organization_id', $this->getOrganization()->id)
                 ->with(['project', 'milestone', 'task', 'statusHistories']);
@@ -84,20 +85,7 @@ class AttendanceWorklogController extends BaseApiController
             ->firstOrFail();
 
         // Check authorization
-        $user = auth()->user();
-        if ($worklog->user_id !== $user->id) {
-            setPermissionsTeamId($this->getOrganization()->id);
-            try {
-                $platformRole = resolve_platform_role($user);
-                $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
-
-                if (! $isAppOwner && ! $user->hasPermissionTo('attendance_worklogs_update_status')) {
-                    throw new BusinessRuleViolationException('Access denied.', 'UNAUTHORIZED');
-                }
-            } finally {
-                setPermissionsTeamId(null);
-            }
-        }
+        $this->authorize('view', $worklog);
 
         return $this->success(new AttendanceWorklogResource($worklog));
     }
@@ -197,6 +185,8 @@ class AttendanceWorklogController extends BaseApiController
         $worklog = AttendanceWorklog::where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
+
+        $this->authorize('approve', $worklog);
 
         $validated = $request->validated();
         $targetStatus = WorkflowStatusEnum::from((int) $validated['status']);
