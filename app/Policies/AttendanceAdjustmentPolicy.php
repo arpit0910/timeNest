@@ -49,7 +49,8 @@ final class AttendanceAdjustmentPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::AttendanceApprove->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::AttendanceApprove->value)
+            && ! $user->hasPermissionTo(SystemPermission::AttendanceApproveAny->value)) {
             return false;
         }
 

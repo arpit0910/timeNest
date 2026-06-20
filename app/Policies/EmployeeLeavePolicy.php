@@ -43,7 +43,8 @@ final class EmployeeLeavePolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::LeavesApprove->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::LeavesApprove->value)
+            && ! $user->hasPermissionTo(SystemPermission::LeavesApproveAny->value)) {
             return false;
         }
 

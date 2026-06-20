@@ -43,7 +43,8 @@ final class AttendanceWorklogPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::WorklogApprove->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::WorklogApprove->value)
+            && ! $user->hasPermissionTo(SystemPermission::WorklogApproveAny->value)) {
             return false;
         }
 

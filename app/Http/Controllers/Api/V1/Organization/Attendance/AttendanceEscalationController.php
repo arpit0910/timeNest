@@ -80,6 +80,7 @@ class AttendanceEscalationController extends BaseApiController
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
 
+        $user = auth()->user();
         $this->authorize('resolve', $escalation);
 
         if ($escalation->escalation_status !== EscalationStatusEnum::Pending) {
