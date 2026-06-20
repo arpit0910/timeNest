@@ -68,7 +68,7 @@ class AttendanceService
 
             // Track active policy version snapshot on first clock-in of the day
             if (! $day->attendance_policy_version_id) {
-                $latestVersion = $policy->policyVersions()->orderBy('version', 'desc')->first();
+                $latestVersion = $policy->versions()->orderBy('version', 'desc')->first();
                 if ($latestVersion) {
                     $day->update(['attendance_policy_version_id' => $latestVersion->id]);
                 }

@@ -15,7 +15,7 @@ class UpdateAttendancePolicyRequest extends FormRequest
             return false;
         }
 
-        return $user->can('attendance.policy.update');
+        return $user->can('attendance_policy.manage');
     }
 
     public function rules(): array

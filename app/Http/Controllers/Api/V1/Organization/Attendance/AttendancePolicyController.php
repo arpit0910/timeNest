@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Organization\Attendance;
 
 use App\Http\Controllers\BaseApiController;
-use App\Http\Requests\Attendance\UpdatePolicyRequest;
+use App\Http\Requests\Attendance\UpdateAttendancePolicyRequest;
 use App\Http\Resources\Attendance\AttendancePolicyResource;
 use App\Models\Organization\Organization;
 use App\Services\Attendance\AttendancePolicyService;
@@ -39,7 +39,7 @@ class AttendancePolicyController extends BaseApiController
     /**
      * Update the active policy.
      */
-    public function update(UpdatePolicyRequest $request): JsonResponse
+    public function update(UpdateAttendancePolicyRequest $request): JsonResponse
     {
         $policy = $this->policyService->findPolicy($this->getOrganization());
 
@@ -49,9 +49,7 @@ class AttendancePolicyController extends BaseApiController
 
         $updatedPolicy = $this->policyService->updatePolicy($policy, $request->validated(), auth()->user());
 
-        $organization = $this->getOrganization();
 
-        $policies = AttendancePolicy::where('organization_id', $organization->id)->get();
 
         return $this->success(
             new AttendancePolicyResource($updatedPolicy),
