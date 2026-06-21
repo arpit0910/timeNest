@@ -200,6 +200,42 @@ class AttendanceService
 
             $oldSessionValues = $session->toArray();
 
+            // Geofence check on clock-out (flag only, never block)
+            $isSuspicious = (bool) $session->is_suspicious;
+            $suspiciousReason = $session->suspicious_reason;
+
+            $policy = $this->policyService->getPolicy($organization);
+            $isWFH = $this->leaveManagementService->hasApprovedWFH($user->id, $todayDate);
+
+            if (! $isWFH && $policy && $policy->geo_fencing_enabled) {
+                $latitude = $data['latitude'] ?? null;
+                $longitude = $data['longitude'] ?? null;
+                $accuracy = (float) ($data['accuracy'] ?? 0);
+
+                if ($latitude === null || $longitude === null) {
+                    $isSuspicious = true;
+                    $clockOutReason = 'Clock-out location not provided but geo-fencing is enabled.';
+                    $suspiciousReason = $suspiciousReason
+                        ? $suspiciousReason . ' | ' . $clockOutReason
+                        : $clockOutReason;
+                } else {
+                    try {
+                        $this->geofenceService->validateAndFindBranch(
+                            $organization,
+                            (float) $latitude,
+                            (float) $longitude,
+                            $accuracy
+                        );
+                    } catch (BusinessRuleViolationException $e) {
+                        $isSuspicious = true;
+                        $clockOutReason = 'Clock-out: ' . $e->getMessage();
+                        $suspiciousReason = $suspiciousReason
+                            ? $suspiciousReason . ' | ' . $clockOutReason
+                            : $clockOutReason;
+                    }
+                }
+            }
+
             // Update session clock-out details
             $session->update([
                 'clock_out_at' => now(),
@@ -209,6 +245,8 @@ class AttendanceService
                 'clock_out_latitude' => $data['latitude'] ?? null,
                 'clock_out_longitude' => $data['longitude'] ?? null,
                 'clock_out_source' => $data['source'] ?? AttendanceSessionSourceEnum::WEB->value,
+                'is_suspicious' => $isSuspicious,
+                'suspicious_reason' => $suspiciousReason,
             ]);
 
             // Update daily calculations
