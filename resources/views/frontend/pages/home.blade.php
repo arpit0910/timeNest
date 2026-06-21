@@ -4,7 +4,7 @@
 <style>
 /* ── ROOT DARK THEME ── */
 .tn-page { background: #ffffff; color: #334155; }
-html, body { background-color: #ffffff !important; color: #334155; }
+html, body { background-color: #0f0f1a !important; color: #334155; }
 
 /* ── TYPOGRAPHY ── */
 .tn-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #6366f1; }
