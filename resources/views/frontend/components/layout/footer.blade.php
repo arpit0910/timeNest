@@ -6,13 +6,8 @@
         <div class="grid grid-cols-2 md:grid-cols-6 gap-8 pb-12">
             {{-- Column 1: Brand / Logo --}}
             <div class="col-span-2 md:col-span-1 text-left">
-                <a href="{{ route('frontend.home') }}" class="flex items-center gap-2.5 mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                        <svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="font-display text-lg font-bold text-white tracking-tight">TimeNest</span>
+                <a href="{{ route('frontend.home') }}" class="flex items-center mb-4">
+                    <x-frontend-base.logo size="md" variant="full" />
                 </a>
                 <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 font-body max-w-[200px]">The Work Operating System for modern teams.</p>
             </div>

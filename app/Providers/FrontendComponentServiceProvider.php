@@ -28,6 +28,7 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-base-divider' => \App\View\Components\Frontend\Base\Divider::class,
             'frontend-base-link' => \App\View\Components\Frontend\Base\Link::class,
             'frontend-base-pill' => \App\View\Components\Frontend\Base\Pill::class,
+            'frontend-base-logo' => \App\View\Components\Frontend\Base\Logo::class,
 
             'frontend-cards-card' => \App\View\Components\Frontend\Cards\Card::class,
             'frontend-cards-feature-card' => \App\View\Components\Frontend\Cards\FeatureCard::class,
@@ -63,6 +64,7 @@ class FrontendComponentServiceProvider extends ServiceProvider
             'frontend-base.divider' => \App\View\Components\Frontend\Base\Divider::class,
             'frontend-base.link' => \App\View\Components\Frontend\Base\Link::class,
             'frontend-base.pill' => \App\View\Components\Frontend\Base\Pill::class,
+            'frontend-base.logo' => \App\View\Components\Frontend\Base\Logo::class,
  
             'frontend-cards.card' => \App\View\Components\Frontend\Cards\Card::class,
             'frontend-cards.feature-card' => \App\View\Components\Frontend\Cards\FeatureCard::class,

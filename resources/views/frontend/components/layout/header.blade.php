@@ -7,11 +7,8 @@
 >
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 lg:h-20">
-            <a href="{{ route('frontend.home') }}" class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-content-strong" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <span class="font-display text-xl font-bold text-content-strong">Time<span class="text-brand-400">Nest</span></span>
+            <a href="{{ route('frontend.home') }}" class="flex items-center">
+                <x-frontend-base.logo size="md" variant="full" />
             </a>
 
             <nav class="hidden lg:flex items-center gap-1">

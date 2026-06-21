@@ -7,6 +7,7 @@
 
     {{-- SEO Meta --}}
     <title>{{ $metaTitle ?? 'TimeNest â€” The Work Operating System' }}</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M28 16 A12 12 0 1 0 16 28' stroke='%236366f1' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M23 16 A7 7 0 1 0 16 23' stroke='%2318181b' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M19 16 A3 3 0 1 0 16 19' stroke='%2318181b' stroke-width='1.8' fill='none' stroke-linecap='round'/></svg>">
     <meta name="description" content="{{ $metaDescription ?? 'TimeNest is a complete Work Operating System for organizations, freelancers, and collaborative workspaces. Manage employees, attendance, leaves, invoices, and more.' }}">
     <meta name="keywords" content="{{ $metaKeywords ?? 'work os, workforce management, employee management, attendance, freelancer, HR software' }}">
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
