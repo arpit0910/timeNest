@@ -1,487 +1,518 @@
-<x-frontend-layout.app metaTitle="TimeNest — The Workforce OS Your Team Actually Uses">
-<!-- SECTION 1: HERO -->
-<section class="relative min-h-screen flex items-center justify-center bg-surface overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
-    <!-- Grid Background -->
-    <div class="absolute inset-0 bg-grid z-0"></div>
-    
-    <!-- Top Gradient Glow -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-500/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<x-frontend-layout.app>
+<x-slot name="metaTitle">TimeNest — The Workforce OS Your Team Actually Uses</x-slot>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-            
-            <!-- Hero Text -->
-            <div class="text-center lg:text-left flex flex-col items-center lg:items-start">
-                <!-- Eyebrow -->
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-sm font-medium mb-6">
-                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-                    Now in Early Access &middot; Join 200+ teams
-                </div>
-                
-                <!-- Headline -->
-                <h1 class="text-display-md lg:text-display-2xl text-content-strong mb-6 leading-tight tracking-tight">
-                    The Workforce OS<br/>
-                    <span class="text-gradient-brand">Your Team Actually Uses</span>
-                </h1>
-                
-                <!-- Subheadline -->
-                <p class="text-lg text-content max-w-2xl mb-8 leading-relaxed">
-                    TimeNest brings attendance, time logs, leaves, shifts, and AI insights into one unified platform &mdash; built for freelancers, growing teams, and enterprise organizations.
-                </p>
-                
-                <!-- CTAs -->
-                <div class="flex flex-col sm:flex-row items-center gap-4 mb-6">
-                    <a href="/register" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold transition-colors shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2">
-                        Start Free Trial
-                    </a>
-                    <a href="#features-section" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-surface-border text-content hover:border-brand-500 hover:text-content-strong transition-colors flex items-center justify-center gap-2 group">
-                        See How It Works
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </a>
-                </div>
-                
-                <!-- Social Proof -->
-                <p class="text-sm text-content-muted flex items-center gap-2">
-                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Trusted by teams in 12+ countries &middot; No credit card required
-                </p>
-            </div>
-            
-            <!-- Visual Element (Dashboard Mockup) -->
-            <div class="relative mt-8 lg:mt-0" style="perspective: 1000px;">
-                <style>
-                    @keyframes float-mockup {
-                        0%, 100% { transform: translateY(0); }
-                        50% { transform: translateY(-8px); }
-                    }
-                    @keyframes stagger-bar {
-                        from { transform: translateY(100%); opacity: 0; }
-                        to { transform: translateY(0); opacity: 1; }
-                    }
-                </style>
-                <div class="rounded-2xl border border-surface-border glass-dark p-6 glow-brand transform transition-transform" style="animation: float-mockup 4s ease-in-out infinite;">
-                    <!-- Mockup Header -->
-                    <div class="flex items-center justify-between border-b border-surface-border/50 pb-4 mb-6">
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-surface-border"></div>
-                            <div class="w-3 h-3 rounded-full bg-surface-border"></div>
-                            <div class="w-3 h-3 rounded-full bg-surface-border"></div>
-                        </div>
-                        <div class="text-sm font-medium text-content">TimeNest Dashboard</div>
-                        <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-xs font-bold border border-brand-500/30">JD</div>
-                    </div>
-                    
-                    <!-- Stat Cards -->
-                    <div class="grid grid-cols-3 gap-3 mb-6">
-                        <div class="bg-surface-100 border border-surface-border rounded-xl p-3">
-                            <div class="text-xs text-content-muted mb-1">Present</div>
-                            <div class="text-2xl font-bold text-content-strong">142</div>
-                        </div>
-                        <div class="bg-surface-100 border border-surface-border rounded-xl p-3">
-                            <div class="text-xs text-content-muted mb-1">On Leave</div>
-                            <div class="text-2xl font-bold text-content-strong">8</div>
-                        </div>
-                        <div class="bg-surface-100 border border-surface-border rounded-xl p-3">
-                            <div class="text-xs text-content-muted mb-1">Late</div>
-                            <div class="text-2xl font-bold text-content-strong">3</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Chart -->
-                    <div class="bg-surface-100 border border-surface-border rounded-xl p-4 h-32 flex items-end justify-between gap-2 overflow-hidden relative">
-                        @php
-                            $heights = ['40%', '65%', '85%', '50%', '90%', '20%', '10%'];
-                            $delays = ['0s', '0.1s', '0.2s', '0.3s', '0.4s', '0.5s', '0.6s'];
-                        @endphp
-                        @foreach($heights as $index => $height)
-                            <div class="w-full bg-brand-500 rounded-t-sm" 
-                                 style="height: {{ $height }}; animation: stagger-bar 0.8s ease-out {{ $delays[$index] }} both;"></div>
-                        @endforeach
-                    </div>
-                    
-                    <!-- Bottom Row -->
-                    <div class="mt-4 flex items-center justify-end gap-2 text-xs text-content-muted">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        Last sync: just now
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</section>
+<style>
+/* ── ROOT DARK THEME ── */
+.tn-page { background: #ffffff; color: #334155; }
+html, body { background-color: #ffffff !important; color: #334155; }
 
-<!-- SECTION 2: LOGO / TRUST BAR -->
-<section class="py-10 border-y border-surface-border bg-surface-50">
-    <div class="max-w-7xl mx-auto px-6">
-        <p class="text-sm text-content-muted text-center mb-6">Trusted by teams at</p>
-        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Acumen</div>
-            <div class="h-4 border-r border-surface-border hidden md:block"></div>
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Driftwork</div>
-            <div class="h-4 border-r border-surface-border hidden md:block"></div>
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Stacklane</div>
-            <div class="h-4 border-r border-surface-border hidden md:block"></div>
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Veloria</div>
-            <div class="h-4 border-r border-surface-border hidden lg:block"></div>
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Nexbridge</div>
-            <div class="h-4 border-r border-surface-border hidden lg:block"></div>
-            <div class="text-lg font-semibold text-content-light grayscale mix-blend-luminosity">Orbitops</div>
-        </div>
-    </div>
-</section>
+/* ── TYPOGRAPHY ── */
+.tn-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #6366f1; }
+.tn-h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #0f172a; }
+.tn-h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; }
+.tn-h3 { font-size: 1.125rem; font-weight: 700; color: #0f172a; }
+.tn-body { font-size: 1rem; line-height: 1.7; color: #475569; }
+.tn-muted { font-size: 0.875rem; color: #94a3b8; }
+.tn-grad { background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-<!-- SECTION 3: PLATFORM OVERVIEW / WHAT IS TIMENEST -->
-<section id="features-section" class="section-pad bg-surface relative">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="text-content-muted font-bold tracking-wider uppercase text-sm mb-3 block">THE PLATFORM</span>
-            <h2 class="text-display-md lg:text-display-lg text-content-strong mb-6">Everything workforce. Nothing wasted.</h2>
-            <p class="text-lg text-content-muted">
-                One platform to manage your people, time, and operations &mdash; whether you're a solo freelancer or running a 500-person company.
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 hover:border-brand-500/50 transition-colors group">
-                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                </div>
-                <h3 class="text-xl font-bold text-content-strong mb-3">Enterprise Workforce Control</h3>
-                <p class="text-content-muted mb-6">Manage multi-department teams with granular role permissions, geo-fenced attendance, shift policies, and automated approval workflows.</p>
-                <a href="{{ route('frontend.product.organizations') }}" class="text-brand-500 font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                    Explore for Organizations &rarr;
-                </a>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 hover:border-[#8b5cf6]/50 transition-colors group">
-                <div class="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                </div>
-                <h3 class="text-xl font-bold text-content-strong mb-3">Solo &amp; Freelance Ready</h3>
-                <p class="text-content-muted mb-6">Track client hours, log billable time, manage your own leave &mdash; all from one clean workspace that grows with your workload.</p>
-                <a href="{{ route('frontend.product.freelancers') }}" class="text-[#8b5cf6] font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                    Explore for Freelancers &rarr;
-                </a>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 hover:border-[#f59e0b]/50 transition-colors group">
-                <div class="w-12 h-12 rounded-xl bg-[#f59e0b]/10 flex items-center justify-center text-[#f59e0b] mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                </div>
-                <h3 class="text-xl font-bold text-content-strong mb-3">Freelance Team Workspace</h3>
-                <p class="text-content-muted mb-6">Collaborate with your crew &mdash; shared attendance tracking, team timesheets, member directories, and unified reporting.</p>
-                <a href="{{ route('frontend.product.workspace') }}" class="text-[#f59e0b] font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                    Explore Workspace &rarr;
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+/* ── LAYOUT ── */
+.tn-section { padding: 6rem 0; }
+.tn-section-sm { padding: 3rem 0; }
+.tn-container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
 
-<!-- SECTION 4: CORE FEATURES SHOWCASE -->
-<section class="section-pad bg-surface-50 border-y border-surface-border overflow-hidden">
-    <!-- Feature A -->
-    <div class="max-w-7xl mx-auto px-6 mb-24 lg:mb-32">
-        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            <div class="lg:w-1/2">
-                <h2 class="text-display-sm lg:text-display-md text-content-strong mb-6">Clock in. Know who's where. Always.</h2>
-                <p class="text-lg text-content-muted">
-                    Real-time attendance tracking with geo-fence enforcement. Set per-branch radius rules &mdash; strict block or flexible flagging. Every clock-in is stamped with location, device, and time.
-                </p>
-            </div>
-            <div class="lg:w-1/2 w-full">
-                <!-- Visual A -->
-                <div class="relative w-full aspect-video md:aspect-[4/3] rounded-2xl bg-surface-100 border border-surface-border flex items-center justify-center p-8 overflow-hidden">
-                    <!-- Map/Radar Base -->
-                    <div class="absolute w-48 h-48 border-2 border-dashed border-brand-500/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
-                    <div class="absolute w-32 h-32 border border-brand-500/20 rounded-full bg-brand-500/5"></div>
-                    
-                    <!-- Center Pin -->
-                    <div class="relative z-10 w-10 h-10 bg-brand-500 rounded-full shadow-lg shadow-brand-500/30 flex items-center justify-center mb-16 text-white">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                    </div>
-                    
-                    <!-- Status Card -->
-                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-surface glass-dark border border-surface-border rounded-xl p-3 shadow-xl flex items-center gap-3 w-64">
-                        <div>
-                            <div class="text-sm font-semibold text-content-strong flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                Checked In
-                            </div>
-                            <div class="text-xs text-content-muted">09:02 AM &middot; Mumbai Branch</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+/* ── SURFACES ── */
+.tn-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; }
+.tn-card:hover { border-color: rgba(99,102,241,0.4); background: #f1f5f9; }
+.tn-card-glow { background: #f8fafc; border: 1px solid rgba(99,102,241,0.5); border-radius: 16px; box-shadow: 0 0 60px rgba(99,102,241,0.1), 0 8px 32px rgba(0,0,0,0.06); }
+.tn-divider { border-color: rgba(255,255,255,0.06); }
 
-    <!-- Feature B -->
-    <div class="max-w-7xl mx-auto px-6 mb-24 lg:mb-32">
-        <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
-            <div class="lg:w-1/2 w-full">
-                <!-- Visual B -->
-                <div class="relative w-full aspect-video md:aspect-[4/3] rounded-2xl bg-surface-100 border border-surface-border p-8 flex flex-col justify-center">
-                    <div class="grid grid-cols-7 gap-2 mb-6 max-w-sm mx-auto w-full">
-                        <!-- Grid 5 rows of 7 -->
-                        @for($i=1; $i<=35; $i++)
-                            @php
-                                $class = 'bg-surface border-surface-border';
-                                if(in_array($i, [12, 13])) $class = 'bg-brand-500 border-brand-500'; // Approved
-                                if($i == 19) $class = 'bg-amber-500 border-amber-500'; // Pending
-                                if($i == 26) $class = 'bg-red-500 border-red-500'; // Rejected
-                            @endphp
-                            <div class="aspect-square rounded border {{ $class }}"></div>
-                        @endfor
-                    </div>
-                    
-                    <div class="flex items-center justify-center gap-4 text-xs font-medium">
-                        <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brand-500"></span> Approved</div>
-                        <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Pending</div>
-                        <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500"></span> Rejected</div>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:w-1/2">
-                <h2 class="text-display-sm lg:text-display-md text-content-strong mb-6">Leave requests that don't need chasing.</h2>
-                <p class="text-lg text-content-muted">
-                    Configurable leave policies per organization. Auto-approval or multi-level approval flows. Employees see their balance in real time. Managers get notified instantly.
-                </p>
-            </div>
-        </div>
-    </div>
+/* ── BUTTONS ── */
+.tn-btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem; border-radius: 12px;
+  background: #4f46e5; color: #fff; font-weight: 700; font-size: 0.9rem;
+  letter-spacing: 0.01em; text-decoration: none;
+  box-shadow: 0 0 0 1px #4f46e5, 0 4px 24px rgba(79,70,229,0.5), 0 1px 2px rgba(0,0,0,0.4);
+  transition: all 0.15s ease;
+  border: none; cursor: pointer;
+}
+.tn-btn-primary:hover { background: #6366f1; box-shadow: 0 0 0 1px #6366f1, 0 4px 32px rgba(99,102,241,0.65), 0 1px 2px rgba(0,0,0,0.4); transform: translateY(-1px); }
 
-    <!-- Feature C -->
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            <div class="lg:w-1/2">
-                <h2 class="text-display-sm lg:text-display-md text-content-strong mb-6">Your workforce data, finally making sense.</h2>
-                <p class="text-lg text-content-muted">
-                    TimeNest AI surfaces attendance anomalies, flags unusual patterns, forecasts leave conflicts, and gives managers the context they need &mdash; without manual reports.
-                </p>
-            </div>
-            <div class="lg:w-1/2 w-full">
-                <!-- Visual C -->
-                <div class="relative w-full aspect-video md:aspect-[4/3] rounded-2xl bg-surface-100 border border-surface-border flex flex-col justify-end overflow-hidden p-6">
-                    <!-- Chart Lines SVG -->
-                    <svg class="absolute inset-0 w-full h-full text-brand-500/20" preserveAspectRatio="none" viewBox="0 0 100 100">
-                        <path d="M0 100 L 0 60 Q 25 40, 50 70 T 100 30 L 100 100 Z" fill="currentColor"/>
-                        <path d="M0 60 Q 25 40, 50 70 T 100 30" fill="none" stroke="#6366f1" stroke-width="2" vector-effect="non-scaling-stroke"/>
-                    </svg>
-                    
-                    <!-- AI Insight Card -->
-                    <div class="relative z-10 glass-dark border border-surface-border rounded-xl p-4 mb-4 ml-auto max-w-xs shadow-lg">
-                        <div class="flex items-center gap-2 mb-1">
-                            <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            <span class="text-xs font-bold uppercase text-brand-400">AI Insight</span>
-                        </div>
-                        <p class="text-sm text-content-strong">Attendance dipped 18% this Friday.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+.tn-btn-ghost-dark {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem; border-radius: 12px;
+  background: rgba(255,255,255,0.04); color: #cbd5e1; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.15s ease; cursor: pointer;
+}
+.tn-btn-ghost-dark:hover { background: rgba(255,255,255,0.08); border-color: rgba(99,102,241,0.5); color: #f1f5f9; }
 
-<!-- SECTION 5: FEATURE GRID (QUICK WINS) -->
-<section class="section-pad bg-surface border-b border-surface-border">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="text-content-muted font-bold tracking-wider uppercase text-sm mb-3 block">BUILT FOR REAL TEAMS</span>
-            <h2 class="text-display-md text-content-strong">Everything you need. Nothing you don't.</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @php
-                $features = [
-                    ['Geo-Fence Attendance', 'Branch-level radius enforcement with strict or flexible modes.', 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'],
-                    ['Shift Management', 'Build rotating shifts, assign teams, track adherence automatically.', 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-                    ['Leave Policies', 'Carry-forward rules, leave types, accrual logic — fully configurable.', 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
-                    ['Multi-Level Approvals', 'Auto, single, or multi-step approval chains per policy.', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
-                    ['Employee Directory', 'Searchable org-wide directory with roles, departments, and status.', 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
-                    ['Time Logs', 'Billable hour tracking for freelancers and project-based teams.', 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-                    ['Role Permissions', 'Granular permission control without writing a single line of code.', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
-                    ['Audit Trail', 'Every action logged. Every change tracked. Full accountability.', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01']
-                ];
-            @endphp
-            
-            @foreach($features as [$title, $body, $icon])
-                <div class="p-6 rounded-xl border border-surface-border hover:border-brand-500/30 bg-surface-100 transition">
-                    <svg class="w-5 h-5 text-brand-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"/></svg>
-                    <h3 class="font-semibold text-content-strong text-sm mb-1">{{ $title }}</h3>
-                    <p class="text-content-muted text-sm">{{ $body }}</p>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+.tn-btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.75rem; border-radius: 12px;
+  background: transparent; color: #475569; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; border: 1px solid #cbd5e1;
+  transition: all 0.15s ease; cursor: pointer;
+}
+.tn-btn-ghost:hover { background: #f1f5f9; border-color: #94a3b8; color: #0f172a; }
 
-<!-- SECTION 6: AI PLATFORM TEASER -->
-<section class="section-pad relative border-b border-surface-border overflow-hidden">
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 70%);"></div>
-    
-    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-        <span class="text-content-muted font-bold tracking-wider uppercase text-sm mb-3 block">AI PLATFORM</span>
-        <h2 class="text-display-lg text-content-strong mb-4">Your workforce, intelligently managed.</h2>
-        <p class="text-lg text-content-muted mb-10 max-w-2xl mx-auto">
-            TimeNest AI doesn't just show you data &mdash; it tells you what it means and what to do next.
+.tn-btn-white {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 1rem 2rem; border-radius: 12px;
+  background: #fff; color: #0f0f1a; font-weight: 700; font-size: 0.95rem;
+  text-decoration: none; border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all 0.15s ease; cursor: pointer;
+}
+.tn-btn-white:hover { background: #e0e7ff; transform: translateY(-1px); }
+
+/* ── BADGE ── */
+.tn-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; border-radius: 999px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; }
+.tn-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; box-shadow: 0 0 8px rgba(99,102,241,0.8); animation: pulse 2s infinite; }
+
+/* ── GRID BG ── */
+.tn-grid-bg {
+  background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ── GLOW ORBS ── */
+.tn-glow-top { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse at center, rgba(99,102,241,0.18) 0%, transparent 65%); pointer-events: none; }
+.tn-glow-brand { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 400px; background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 70%); pointer-events: none; }
+
+/* ── ICON CHIP ── */
+.tn-icon-chip { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.tn-icon-indigo { background: rgba(99,102,241,0.12); color: #818cf8; }
+.tn-icon-violet { background: rgba(139,92,246,0.12); color: #a78bfa; }
+.tn-icon-amber { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.tn-icon-emerald { background: rgba(16,185,129,0.12); color: #34d399; }
+
+/* ── ANIMATIONS ── */
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes ping-slow { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(1.8);opacity:0} }
+@keyframes bar-grow { from{transform:scaleY(0);opacity:0} to{transform:scaleY(1);opacity:1} }
+.tn-float { animation: float 5s ease-in-out infinite; }
+.tn-ping { animation: ping-slow 2.5s ease-out infinite; }
+.tn-bar { transform-origin: bottom; animation: bar-grow 0.6s ease-out forwards; }
+
+/* ── STAR ── */
+.tn-star { width:16px;height:16px;color:#818cf8;fill:#818cf8; }
+
+/* ── FEATURE GRID ── */
+.tn-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: #e2e8f0; border-radius: 16px; overflow: hidden; }
+.tn-feat-item { background: #f8fafc; padding: 2rem; transition: background 0.2s; }
+.tn-feat-item:hover { background: #f1f5f9; }
+
+/* ── TESTIMONIAL STARS ── */
+.tn-stars { display:flex;gap:3px;margin-bottom:1rem; }
+
+/* ── PRICING ── */
+.tn-price-num { font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
+.tn-check { color: #818cf8; width: 16px; height: 16px; flex-shrink: 0; }
+.tn-feat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.tn-feat-list li { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9rem; color: #475569; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .tn-hero-grid{display:block !important;}
+  .tn-hero-visual{margin-top:3rem;}
+  .tn-2col{display:block !important;}
+  .tn-2col > * { margin-bottom: 3rem; }
+  .tn-3col{grid-template-columns:1fr !important;}
+  .tn-4col{grid-template-columns:1fr 1fr !important;}
+  .tn-pricing-grid{grid-template-columns:1fr !important;}
+}
+</style>
+
+<div class="tn-page">
+
+{{-- ═══════════ SECTION 1: HERO ═══════════ --}}
+<section style="background:#ffffff;position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;" class="tn-grid-bg">
+  <div class="tn-glow-top"></div>
+  <div class="tn-container" style="position:relative;z-index:1;padding-top:7rem;padding-bottom:5rem;">
+    <div class="tn-hero-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+
+      {{-- LEFT: COPY --}}
+      <div>
+        <div class="tn-badge" style="margin-bottom:1.5rem;">
+          <span class="tn-badge-dot"></span>
+          Now in Early Access · Join 200+ teams
+        </div>
+        <h1 class="tn-h1" style="margin-bottom:1.5rem;">
+          The Workforce OS<br>
+          <span class="tn-grad">Your Team Actually Uses</span>
+        </h1>
+        <p class="tn-body" style="max-width:480px;margin-bottom:2.5rem;">
+          TimeNest brings attendance, time logs, leaves, shifts, and AI insights into one unified platform — built for freelancers, growing teams, and enterprise organizations.
         </p>
-        
-        <div class="flex overflow-x-auto pb-4 -mx-6 px-6 lg:mx-0 lg:px-0 lg:justify-center gap-3 mb-10 scrollbar-hide">
-            @foreach([
-                'Attendance Anomaly Detection',
-                'Leave Conflict Forecasting',
-                'Productivity Pattern Analysis',
-                'AI Executive Dashboard',
-                'Fraud Detection'
-            ] as $pill)
-                <div class="whitespace-nowrap px-4 py-2 rounded-full border border-surface-border bg-surface text-content text-sm flex-shrink-0">
-                    {{ $pill }}
-                </div>
-            @endforeach
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+          <a href="/register" class="tn-btn-primary">
+            Start Free Trial
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#features-section" class="tn-btn-ghost">
+            See How It Works
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </a>
         </div>
-        
-        <a href="{{ route('frontend.ai') ?? '#' }}" class="inline-block px-6 py-3 rounded-xl border border-brand-500 text-brand-400 hover:bg-brand-500 hover:text-white transition-colors">
-            Explore the AI Platform &rarr;
+        <p class="tn-muted">✓ Trusted by teams in 12+ countries &nbsp;·&nbsp; ✓ No credit card required</p>
+      </div>
+
+      {{-- RIGHT: DASHBOARD MOCKUP --}}
+      <div class="tn-hero-visual tn-float">
+        <div class="tn-card" style="padding:1.5rem;box-shadow:0 0 80px rgba(99,102,241,0.12);">
+          {{-- Header bar --}}
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+            <span style="font-size:0.8rem;font-weight:700;color:#0f172a;">TimeNest Dashboard</span>
+            <div style="width:28px;height:28px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;">A</div>
+          </div>
+          {{-- Stat cards --}}
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;">
+            @foreach([['142','Present','#6366f1'],['8','On Leave','#f59e0b'],['3','Late','#ef4444']] as [$num,$label,$color])
+            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:0.875rem;">
+              <div style="font-size:1.4rem;font-weight:800;color:{{ $color }};line-height:1;">{{ $num }}</div>
+              <div style="font-size:0.65rem;color:#64748b;margin-top:0.25rem;">{{ $label }}</div>
+            </div>
+            @endforeach
+          </div>
+          {{-- Bar chart --}}
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:1rem;margin-bottom:0.75rem;">
+            <div style="font-size:0.65rem;color:#475569;margin-bottom:0.75rem;font-weight:600;">WEEKLY ATTENDANCE</div>
+            <div style="display:flex;align-items:flex-end;gap:6px;height:60px;">
+              @foreach([['M',70],['T',90],['W',60],['T',85],['F',40],['S',55],['S',75]] as [$d,$h])
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;">
+                <div class="tn-bar" style="width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#6366f1,#4f46e5);height:{{ $h }}%;animation-delay:{{ $loop->index * 0.08 }}s;"></div>
+                <span style="font-size:0.55rem;color:#475569;">{{ $d }}</span>
+              </div>
+              @endforeach
+            </div>
+          </div>
+          {{-- Status --}}
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 8px rgba(52,211,153,0.8);animation:pulse 2s infinite;"></span>
+            <span style="font-size:0.7rem;color:#475569;">Last sync: just now</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 2: TRUST BAR ═══════════ --}}
+<section class="tn-section-sm" style="border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;background:#fafafa;">
+  <div class="tn-container">
+    <p class="tn-muted" style="text-align:center;letter-spacing:0.1em;text-transform:uppercase;font-size:0.7rem;font-weight:600;margin-bottom:2rem;">Trusted by teams at</p>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:3rem;">
+      @foreach(['Acumen','Driftwork','Stacklane','Veloria','Nexbridge','Orbitops'] as $co)
+      <span style="font-size:1rem;font-weight:700;color:#94a3b8;letter-spacing:-0.01em;cursor:default;transition:color 0.2s;" onmouseover="this.style.color='#475569'" onmouseout="this.style.color='#94a3b8'">{{ $co }}</span>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 3: PLATFORM OVERVIEW ═══════════ --}}
+<section id="features-section" class="tn-section">
+  <div class="tn-container">
+    <div style="text-align:center;margin-bottom:4rem;">
+      <div class="tn-eyebrow" style="margin-bottom:0.75rem;">THE PLATFORM</div>
+      <h2 class="tn-h2">Everything workforce.<br><span class="tn-grad">Nothing wasted.</span></h2>
+      <p class="tn-body" style="max-width:560px;margin:1.25rem auto 0;">One platform to manage your people, time, and operations — whether you're a solo freelancer or running a 500-person company.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="tn-3col">
+      @foreach([
+        ['For Organizations','Enterprise Workforce Control','Manage multi-department teams with granular role permissions, geo-fenced attendance, shift policies, and automated approval workflows.','Explore for Organizations','frontend.product.organizations','indigo','M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
+        ['For Freelancers','Solo & Freelance Ready','Track client hours, log billable time, manage your own leave — all from one clean workspace that grows with your workload.','Explore for Freelancers','frontend.product.freelancers','violet','M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
+        ['For Teams','Freelance Team Workspace','Collaborate with your crew — shared attendance tracking, team timesheets, member directories, and unified reporting.','Explore Workspace','frontend.product.workspace','amber','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
+      ] as [$eyebrow,$title,$body,$cta,$route,$color,$icon])
+      <div class="tn-card" style="padding:2rem;display:flex;flex-direction:column;gap:1.25rem;transition:all 0.2s;">
+        <div class="tn-icon-chip tn-icon-{{ $color }}">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $icon }}"/></svg>
+        </div>
+        <div>
+          <div class="tn-eyebrow" style="margin-bottom:0.4rem;">{{ $eyebrow }}</div>
+          <div class="tn-h3">{{ $title }}</div>
+        </div>
+        <p class="tn-body" style="font-size:0.9rem;">{{ $body }}</p>
+        <a href="{{ route($route) }}" style="margin-top:auto;font-size:0.85rem;font-weight:700;color:#818cf8;text-decoration:none;display:inline-flex;align-items:center;gap:0.375rem;">
+          {{ $cta }}
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
+      </div>
+      @endforeach
     </div>
+  </div>
 </section>
 
-<!-- SECTION 7: SOCIAL PROOF / TESTIMONIALS -->
-<section class="section-pad bg-surface border-b border-surface-border">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="text-content-muted font-bold tracking-wider uppercase text-sm mb-3 block">WHAT TEAMS SAY</span>
-            <h2 class="text-display-md text-content-strong">Built for the teams who showed up.</h2>
+{{-- ═══════════ SECTION 4A: FEATURE — ATTENDANCE ═══════════ --}}
+<section class="tn-section" style="background:#f8fafc;">
+  <div class="tn-container">
+    <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+      <div>
+        <div class="tn-eyebrow" style="margin-bottom:0.75rem;">ATTENDANCE</div>
+        <h2 class="tn-h2" style="margin-bottom:1.25rem;">Clock in. Know who's<br>where. Always.</h2>
+        <p class="tn-body" style="margin-bottom:2rem;">Real-time attendance tracking with geo-fence enforcement. Set per-branch radius rules — strict block or flexible flagging. Every clock-in is stamped with location, device, and time.</p>
+        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'attendance-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More →</a>
+      </div>
+      <div>
+        <div class="tn-card" style="padding:2.5rem;text-align:center;">
+          <div style="position:relative;width:180px;height:180px;margin:0 auto 2rem;display:flex;align-items:center;justify-content:center;">
+            <div class="tn-ping" style="position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(99,102,241,0.25);"></div>
+            <div style="position:absolute;width:130px;height:130px;border-radius:50%;border:1px solid rgba(99,102,241,0.4);"></div>
+            <div style="position:absolute;width:80px;height:80px;border-radius:50%;border:1px solid rgba(99,102,241,0.6);"></div>
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(99,102,241,0.6);">
+              <svg width="22" height="22" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+          </div>
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:0.875rem;text-align:left;">
+            <span style="width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 10px rgba(52,211,153,0.8);flex-shrink:0;"></span>
+            <div style="flex:1;">
+              <div style="font-size:0.85rem;font-weight:700;color:#0f172a;">Checked In</div>
+              <div style="font-size:0.75rem;color:#475569;margin-top:2px;">09:02 AM · Mumbai Branch</div>
+            </div>
+            <span style="font-size:0.7rem;font-weight:700;color:#34d399;background:rgba(52,211,153,0.1);padding:0.25rem 0.625rem;border-radius:999px;">On Time</span>
+          </div>
         </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Testimonial 1 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 flex flex-col">
-                <div class="flex gap-1 text-brand-500 mb-4">
-                    @for($i=0; $i<5; $i++)
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    @endfor
-                </div>
-                <blockquote class="text-content italic mb-6 flex-grow text-sm">"We went from messy spreadsheets to a fully automated attendance and leave system in under a week. TimeNest just works."</blockquote>
-                <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-10 h-10 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-semibold text-sm">RS</div>
-                    <div>
-                        <div class="text-content-strong font-semibold text-sm">Riya Sharma</div>
-                        <div class="text-xs text-content-muted">HR Manager, Acumen Corp</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Testimonial 2 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 flex flex-col">
-                <div class="flex gap-1 text-brand-500 mb-4">
-                    @for($i=0; $i<5; $i++)
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    @endfor
-                </div>
-                <blockquote class="text-content italic mb-6 flex-grow text-sm">"As a freelancer managing multiple clients, TimeNest's time log and workspace features saved me hours every week."</blockquote>
-                <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-10 h-10 rounded-full bg-[#8b5cf6]/20 text-[#8b5cf6] flex items-center justify-center font-semibold text-sm">MW</div>
-                    <div>
-                        <div class="text-content-strong font-semibold text-sm">Marcus Webb</div>
-                        <div class="text-xs text-content-muted">Independent Consultant</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Testimonial 3 -->
-            <div class="glass-dark border border-surface-border rounded-2xl p-8 flex flex-col">
-                <div class="flex gap-1 text-brand-500 mb-4">
-                    @for($i=0; $i<5; $i++)
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    @endfor
-                </div>
-                <blockquote class="text-content italic mb-6 flex-grow text-sm">"The multi-level approval workflow is exactly what our 200-person team needed. No more chasing managers on Slack."</blockquote>
-                <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-10 h-10 rounded-full bg-[#f59e0b]/20 text-[#f59e0b] flex items-center justify-center font-semibold text-sm">PN</div>
-                    <div>
-                        <div class="text-content-strong font-semibold text-sm">Priya Nair</div>
-                        <div class="text-xs text-content-muted">COO, Stacklane</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- SECTION 8: PRICING TEASER -->
-<section class="section-pad bg-surface border-b border-surface-border">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-content-muted font-bold tracking-wider uppercase text-sm mb-3 block">PRICING</span>
-            <h2 class="text-display-md text-content-strong mb-4">Start free. Scale when ready.</h2>
-            <p class="text-lg text-content-muted">No credit card required. No hidden fees. Full access to core features on the free plan.</p>
+{{-- ═══════════ SECTION 4B: FEATURE — LEAVE ═══════════ --}}
+<section class="tn-section" style="background:#ffffff;">
+  <div class="tn-container">
+    <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+      <div>
+        {{-- Calendar visual --}}
+        <div class="tn-card" style="padding:2rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+            <span style="font-size:0.9rem;font-weight:700;color:#0f172a;">June 2025</span>
+            <span style="font-size:0.75rem;color:#475569;">Leave Calendar</span>
+          </div>
+          {{-- Day headers --}}
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px;">
+            @foreach(['M','T','W','T','F','S','S'] as $d)
+            <div style="text-align:center;font-size:0.65rem;font-weight:700;color:#334155;padding-bottom:4px;">{{ $d }}</div>
+            @endforeach
+          </div>
+          {{-- Days grid --}}
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">
+            @php
+              $approved = [10,11,12,13];
+              $pending  = [17];
+              $rejected = [24];
+            @endphp
+            @for($day = 1; $day <= 30; $day++)
+              @if(in_array($day, $approved))
+                <div style="text-align:center;padding:5px 2px;font-size:0.72rem;font-weight:700;color:#818cf8;background:rgba(99,102,241,0.15);border-radius:6px;">{{ $day }}</div>
+              @elseif(in_array($day, $pending))
+                <div style="text-align:center;padding:5px 2px;font-size:0.72rem;font-weight:700;color:#fbbf24;background:rgba(245,158,11,0.15);border-radius:6px;">{{ $day }}</div>
+              @elseif(in_array($day, $rejected))
+                <div style="text-align:center;padding:5px 2px;font-size:0.72rem;font-weight:700;color:#f87171;background:rgba(239,68,68,0.15);border-radius:6px;">{{ $day }}</div>
+              @else
+                <div style="text-align:center;padding:5px 2px;font-size:0.72rem;color:#94a3b8;">{{ $day }}</div>
+              @endif
+            @endfor
+          </div>
+          <div style="display:flex;gap:1.25rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.05);">
+            <span style="display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:#64748b;"><span style="width:8px;height:8px;border-radius:50%;background:#818cf8;"></span>Approved</span>
+            <span style="display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:#64748b;"><span style="width:8px;height:8px;border-radius:50%;background:#fbbf24;"></span>Pending</span>
+            <span style="display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:#64748b;"><span style="width:8px;height:8px;border-radius:50%;background:#f87171;"></span>Rejected</span>
+          </div>
         </div>
-        
-        <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-10">
-            <!-- Free Plan -->
-            <div class="border border-surface-border rounded-2xl p-8 flex flex-col bg-surface-50">
-                <div class="inline-block px-3 py-1 rounded-full bg-surface-200 text-content-strong text-xs font-bold uppercase tracking-wider mb-6 w-max">Free Forever</div>
-                <div class="text-4xl font-bold text-content-strong mb-6">$0<span class="text-lg text-content-muted font-normal">/month</span></div>
-                <ul class="space-y-3 mb-8 flex-grow text-sm text-content">
-                    @foreach(['Up to 5 members', 'Attendance & Time Logs', 'Basic Leave Management', '1 Organization'] as $item)
-                        <li class="flex items-center gap-2">
-                            <svg class="w-4 h-4 text-content-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $item }}
-                        </li>
-                    @endforeach
-                </ul>
-                <a href="/register" class="block w-full py-3 px-4 rounded-xl border border-surface-border text-center text-content-strong hover:bg-surface-100 transition-colors font-medium">Get Started Free</a>
-            </div>
-            
-            <!-- Pro Plan -->
-            <div class="border border-brand-500 glow-brand-sm rounded-2xl p-8 flex flex-col bg-surface relative">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-brand-500 text-white text-xs font-bold uppercase tracking-wider">Most Popular</div>
-                <div class="text-4xl font-bold text-content-strong mb-6 mt-2">$12<span class="text-lg text-content-muted font-normal">/member/month</span></div>
-                <ul class="space-y-3 mb-8 flex-grow text-sm text-content">
-                    @foreach(['Unlimited members', 'All Free features', 'Multi-level Approvals', 'Geo-Fence Enforcement', 'AI Workforce Insights', 'Priority Support'] as $item)
-                        <li class="flex items-center gap-2">
-                            <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $item }}
-                        </li>
-                    @endforeach
-                </ul>
-                <a href="/register" class="block w-full py-3 px-4 rounded-xl bg-brand-500 text-white text-center hover:bg-brand-600 transition-colors font-medium">Start 14-Day Trial</a>
-            </div>
-        </div>
-        
-        <div class="text-center text-sm text-content-muted">
-            Need enterprise? <a href="{{ route('frontend.contact') ?? '#' }}" class="text-brand-500 hover:text-brand-400">Talk to us &rarr;</a>
-        </div>
+      </div>
+      <div>
+        <div class="tn-eyebrow" style="margin-bottom:0.75rem;">LEAVE MANAGEMENT</div>
+        <h2 class="tn-h2" style="margin-bottom:1.25rem;">Leave requests that<br>don't need chasing.</h2>
+        <p class="tn-body" style="margin-bottom:2rem;">Configurable leave policies per organization. Auto-approval or multi-level approval flows. Employees see their balance in real time. Managers get notified instantly.</p>
+        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'leave-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More →</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- SECTION 9: FINAL CTA -->
-<section class="relative py-24 overflow-hidden" style="background: linear-gradient(135deg, #312e81 0%, #1e1b4b 40%, #0a0a0f 100%);">
-    <div class="absolute inset-0 bg-grid opacity-30 mix-blend-overlay"></div>
-    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        <h2 class="text-display-lg lg:text-display-xl text-white mb-4">Your team deserves better tools.</h2>
-        <p class="text-lg text-indigo-200/80 mb-10 max-w-2xl mx-auto">
-            Join thousands of freelancers and teams using TimeNest to manage their workforce with clarity and confidence.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-            <a href="/register" class="px-8 py-4 rounded-xl bg-white text-indigo-950 font-semibold text-base hover:bg-indigo-50 transition-colors">
-                Start Free &mdash; No Card Needed
-            </a>
-            <a href="{{ route('frontend.book-demo') ?? '#' }}" class="px-8 py-4 rounded-xl border border-white/30 text-white font-medium hover:bg-white/10 transition-colors">
-                Book a Demo
-            </a>
+{{-- ═══════════ SECTION 4C: FEATURE — AI ═══════════ --}}
+<section class="tn-section" style="background:#f8fafc;">
+  <div class="tn-container">
+    <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+      <div>
+        <div class="tn-eyebrow" style="margin-bottom:0.75rem;">AI INSIGHTS</div>
+        <h2 class="tn-h2" style="margin-bottom:1.25rem;">Your workforce data,<br>finally making sense.</h2>
+        <p class="tn-body" style="margin-bottom:2rem;">TimeNest AI surfaces attendance anomalies, flags unusual patterns, forecasts leave conflicts, and gives managers the context they need — without manual reports.</p>
+        <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost" style="width:fit-content;">Explore AI Platform →</a>
+      </div>
+      <div>
+        <div class="tn-card" style="padding:2rem;">
+          <div style="font-size:0.7rem;font-weight:700;color:#475569;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Weekly Attendance Rate</div>
+          <div style="display:flex;align-items:flex-end;gap:8px;height:100px;margin-bottom:1.25rem;">
+            @foreach([['M',65],['T',80],['W',55],['T',90],['F',45],['S',70],['S',85]] as $i => [$d,$h])
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;">
+              <div class="tn-bar" style="width:100%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#818cf8,#4f46e5);height:{{ $h }}%;animation-delay:{{ $i * 0.07 }}s;"></div>
+              <span style="font-size:0.6rem;color:#475569;font-weight:600;">{{ $d }}</span>
+            </div>
+            @endforeach
+          </div>
+          <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:1rem;display:flex;align-items:flex-start;gap:0.75rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:#4f46e5;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+              <svg width="14" height="14" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div style="font-size:0.65rem;font-weight:800;color:#6366f1;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">AI Insight</div>
+              <div style="font-size:0.85rem;color:#475569;line-height:1.5;">Attendance dipped 18% this Friday — likely due to 3 overlapping leave requests.</div>
+            </div>
+          </div>
         </div>
-        <div class="flex flex-wrap justify-center items-center gap-4 text-xs text-indigo-300">
-            <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Free plan forever</span>
-            <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Setup in under 5 minutes</span>
-            <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cancel anytime</span>
-        </div>
+      </div>
     </div>
+  </div>
 </section>
+
+{{-- ═══════════ SECTION 5: FEATURE GRID ═══════════ --}}
+<section class="tn-section" style="background:#ffffff;">
+  <div class="tn-container">
+    <div style="text-align:center;margin-bottom:4rem;">
+      <div class="tn-eyebrow" style="margin-bottom:0.75rem;">BUILT FOR REAL TEAMS</div>
+      <h2 class="tn-h2">Everything you need.<br><span class="tn-grad">Nothing you don't.</span></h2>
+    </div>
+    <div class="tn-feat-grid">
+      @foreach([
+        ['Geo-Fence Attendance','Branch-level radius enforcement with strict or flexible modes.','M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z'],
+        ['Shift Management','Build rotating shifts, assign teams, track adherence automatically.','M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+        ['Leave Policies','Carry-forward rules, leave types, accrual logic — fully configurable.','M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
+        ['Multi-Level Approvals','Auto, single, or multi-step approval chains per policy.','M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+        ['Employee Directory','Searchable org-wide directory with roles, departments, and status.','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
+        ['Time Logs','Billable hour tracking for freelancers and project-based teams.','M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+        ['Role Permissions','Granular permission control without writing a single line of code.','M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z'],
+        ['Audit Trail','Every action logged. Every change tracked. Full accountability.','M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'],
+      ] as [$title,$body,$icon])
+      <div class="tn-feat-item">
+        <div class="tn-icon-chip tn-icon-indigo" style="margin-bottom:1rem;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $icon }}"/></svg>
+        </div>
+        <div class="tn-h3" style="font-size:0.95rem;margin-bottom:0.5rem;">{{ $title }}</div>
+        <p class="tn-body" style="font-size:0.85rem;">{{ $body }}</p>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 6: AI TEASER ═══════════ --}}
+<section class="tn-section" style="background:#f1f5f9;position:relative;overflow:hidden;">
+  <div class="tn-glow-brand"></div>
+  <div class="tn-container" style="position:relative;z-index:1;text-align:center;">
+    <div class="tn-eyebrow" style="margin-bottom:0.75rem;">AI PLATFORM</div>
+    <h2 class="tn-h2" style="margin-bottom:1.25rem;">Your workforce,<br><span class="tn-grad">intelligently managed.</span></h2>
+    <p class="tn-body" style="max-width:520px;margin:0 auto 2.5rem;">TimeNest AI doesn't just show you data — it tells you what it means and what to do next.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:2.5rem;">
+      @foreach(['Attendance Anomaly Detection','Leave Conflict Forecasting','Productivity Pattern Analysis','AI Executive Dashboard','Fraud Detection'] as $pill)
+      <span style="padding:0.5rem 1rem;border-radius:999px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);color:#a5b4fc;font-size:0.8rem;font-weight:600;">{{ $pill }}</span>
+      @endforeach
+    </div>
+    <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost">Explore the AI Platform →</a>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 7: TESTIMONIALS ═══════════ --}}
+<section class="tn-section" style="background:#ffffff;">
+  <div class="tn-container">
+    <div style="text-align:center;margin-bottom:4rem;">
+      <div class="tn-eyebrow" style="margin-bottom:0.75rem;">WHAT TEAMS SAY</div>
+      <h2 class="tn-h2">Built for the teams<br>who showed up.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="tn-3col">
+      @foreach([
+        ['"We went from messy spreadsheets to a fully automated attendance and leave system in under a week. TimeNest just works."','Riya Sharma','HR Manager, Acumen Corp','RS','#4f46e5'],
+        ['"As a freelancer managing multiple clients, TimeNest\'s time log and workspace features saved me hours every week."','Marcus Webb','Independent Consultant','MW','#7c3aed'],
+        ['"The multi-level approval workflow is exactly what our 200-person team needed. No more chasing managers on Slack."','Priya Nair','COO, Stacklane','PN','#b45309'],
+      ] as [$quote,$name,$role,$initials,$avatarBg])
+      <div class="tn-card" style="padding:2rem;display:flex;flex-direction:column;gap:1.5rem;">
+        <div class="tn-stars">
+          @for($s=0;$s<5;$s++)
+          <svg class="tn-star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          @endfor
+        </div>
+        <p style="font-size:0.95rem;color:#475569;line-height:1.7;font-style:italic;flex:1;">{{ $quote }}</p>
+        <div style="display:flex;align-items:center;gap:0.875rem;">
+          <div style="width:40px;height:40px;border-radius:50%;background:{{ $avatarBg }};display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:#fff;flex-shrink:0;">{{ $initials }}</div>
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#0f172a;">{{ $name }}</div>
+            <div style="font-size:0.78rem;color:#94a3b8;">{{ $role }}</div>
+          </div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 8: PRICING TEASER ═══════════ --}}
+<section class="tn-section" style="background:#f8fafc;">
+  <div class="tn-container">
+    <div style="text-align:center;margin-bottom:3.5rem;">
+      <div class="tn-eyebrow" style="margin-bottom:0.75rem;">PRICING</div>
+      <h2 class="tn-h2">Start free.<br>Scale when ready.</h2>
+      <p class="tn-body" style="max-width:440px;margin:1.25rem auto 0;">No credit card required. No hidden fees. Full access to core features on the free plan.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:780px;margin:0 auto;" class="tn-pricing-grid">
+      {{-- FREE --}}
+      <div class="tn-card" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;">
+        <div>
+          <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">Free Forever</span>
+          <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
+            <span class="tn-price-num">$0</span>
+            <span style="color:#475569;font-size:0.9rem;">/month</span>
+          </div>
+        </div>
+        <ul class="tn-feat-list">
+          @foreach(['Up to 5 members','Attendance & Time Logs','Basic Leave Management','1 Organization'] as $f)
+          <li>
+            <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {{ $f }}
+          </li>
+          @endforeach
+        </ul>
+        <a href="/register" class="tn-btn-ghost" style="text-align:center;justify-content:center;">Get Started Free</a>
+      </div>
+      {{-- PRO --}}
+      <div class="tn-card-glow" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;position:relative;">
+        <span style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#4f46e5;color:#fff;font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 1rem;border-radius:999px;white-space:nowrap;">Most Popular</span>
+        <div>
+          <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6366f1;">Pro Plan</span>
+          <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
+            <span class="tn-price-num">$12</span>
+            <span style="color:#475569;font-size:0.9rem;">/member/month</span>
+          </div>
+        </div>
+        <ul class="tn-feat-list">
+          @foreach(['Unlimited members','All Free features','Multi-level Approvals','Geo-Fence Enforcement','AI Workforce Insights','Priority Support'] as $f)
+          <li>
+            <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            {{ $f }}
+          </li>
+          @endforeach
+        </ul>
+        <a href="/register" class="tn-btn-primary" style="justify-content:center;">Start 14-Day Trial</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:2rem;" class="tn-muted">Need enterprise? <a href="{{ route('frontend.contact') }}" style="color:#818cf8;font-weight:600;text-decoration:none;">Talk to us →</a></p>
+  </div>
+</section>
+
+{{-- ═══════════ SECTION 9: FINAL CTA ═══════════ --}}
+<section class="tn-section" style="background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#1e1b4b 70%,#0f172a 100%);position:relative;overflow:hidden;" class="tn-grid-bg">
+  <div style="position:absolute;inset:0;" class="tn-grid-bg"></div>
+  <div class="tn-container" style="position:relative;z-index:1;text-align:center;">
+    <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-0.025em;color:#f1f5f9;margin-bottom:1.25rem;">Your team deserves<br>better tools.</h2>
+    <p class="tn-body" style="max-width:500px;margin:0 auto 2.5rem;">Join thousands of freelancers and teams using TimeNest to manage their workforce with clarity and confidence.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+      <a href="/register" class="tn-btn-white">Start Free — No Card Needed</a>
+      <a href="{{ route('frontend.book-demo') }}" class="tn-btn-ghost-dark">Book a Demo</a>
+    </div>
+    <p class="tn-muted" style="font-size:0.8rem;">✓ Free plan forever &nbsp;·&nbsp; ✓ Setup in under 5 minutes &nbsp;·&nbsp; ✓ Cancel anytime</p>
+  </div>
+</section>
+
+</div>
 </x-frontend-layout.app>

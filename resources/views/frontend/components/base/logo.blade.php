@@ -26,12 +26,12 @@
         {{-- Outer Arc (270deg clock motif, open bottom-right) --}}
         <path d="M28 16 A12 12 0 1 0 16 28" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" />
         {{-- Inner Nest Lines (Concentric) --}}
-        <path d="M23 16 A7 7 0 1 0 16 23" stroke="#18181b" stroke-width="1.8" stroke-linecap="round" />
-        <path d="M19 16 A3 3 0 1 0 16 19" stroke="#18181b" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M23 16 A7 7 0 1 0 16 23" stroke="#cbd5e1" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M19 16 A3 3 0 1 0 16 19" stroke="#cbd5e1" stroke-width="1.8" stroke-linecap="round" />
     </svg>
 @if($variant === 'full')
     <span class="font-display font-bold tracking-tight {{ $textClasses }}">
-        <span class="text-[#0f172a]">Time</span><span class="text-[#6366f1]">Nest</span>
+        <span class="text-white">Time</span><span class="text-[#6366f1]">Nest</span>
     </span>
 </div>
 @endif
