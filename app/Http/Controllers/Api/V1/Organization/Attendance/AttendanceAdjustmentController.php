@@ -37,9 +37,11 @@ class AttendanceAdjustmentController extends BaseApiController
         // We will list all adjustments where the attendance day belongs to this organization.
         $organization = $this->getOrganization();
 
-        $adjustments = AttendanceAdjustmentRequest::where('organization_id', $organization->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $adjustments = AttendanceAdjustmentRequest::whereHas('attendanceDay', function ($query) use ($organization) {
+                $query->where('organization_id', $organization->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return $this->success(AttendanceAdjustmentRequestResource::collection($adjustments));
     }
