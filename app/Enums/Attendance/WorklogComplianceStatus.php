@@ -6,28 +6,28 @@ namespace App\Enums\Attendance;
 
 enum WorklogComplianceStatus: int
 {
-    case Compliant = 1;
-    case Overdue   = 2;
-    case Locked    = 3;
-    case Escalated = 4;
+    case COMPLIANT = 1;
+    case OVERDUE   = 2;
+    case LOCKED    = 3;
+    case ESCALATED = 4;
 
     public function label(): string
     {
         return match($this) {
-            self::Compliant => 'Compliant',
-            self::Overdue   => 'Overdue',
-            self::Locked    => 'Locked',
-            self::Escalated => 'Escalated',
+            self::COMPLIANT => 'Compliant',
+            self::OVERDUE   => 'Overdue',
+            self::LOCKED    => 'Locked',
+            self::ESCALATED => 'Escalated',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::Compliant => 'Worklog submitted within the allowed timeframe.',
-            self::Overdue   => 'Worklog not submitted by the deadline.',
-            self::Locked    => 'Worklog submission window closed and locked.',
-            self::Escalated => 'Overdue worklog has been escalated to management.',
+            self::COMPLIANT => 'Worklog submitted within the allowed timeframe.',
+            self::OVERDUE   => 'Worklog not submitted by the deadline.',
+            self::LOCKED    => 'Worklog submission window closed and locked.',
+            self::ESCALATED => 'Overdue worklog has been escalated to management.',
         };
     }
 }

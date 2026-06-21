@@ -12,11 +12,11 @@ namespace App\Enums;
  */
 enum MembershipStatus: string
 {
-    case Pending = 'pending';
-    case Active = 'active';
-    case Revoked = 'revoked';
-    case Suspended = 'suspended';
-    case Left = 'left';
+    case PENDING = 'pending';
+    case ACTIVE = 'active';
+    case REVOKED = 'revoked';
+    case SUSPENDED = 'suspended';
+    case LEFT = 'left';
 
     /**
      * Get human-readable label for the status.
@@ -24,11 +24,11 @@ enum MembershipStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Active => 'Active',
-            self::Revoked => 'Revoked',
-            self::Suspended => 'Suspended',
-            self::Left => 'Left',
+            self::PENDING => 'Pending',
+            self::ACTIVE => 'Active',
+            self::REVOKED => 'Revoked',
+            self::SUSPENDED => 'Suspended',
+            self::LEFT => 'Left',
         };
     }
 
@@ -37,6 +37,6 @@ enum MembershipStatus: string
      */
     public function isAccessible(): bool
     {
-        return $this === self::Active;
+        return $this === self::ACTIVE;
     }
 }

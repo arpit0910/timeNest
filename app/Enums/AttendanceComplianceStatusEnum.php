@@ -9,31 +9,31 @@ namespace App\Enums;
  */
 enum AttendanceComplianceStatusEnum: int
 {
-    case Compliant = 1;
-    case Pending = 2;
-    case Overdue = 3;
-    case Escalated = 4;
-    case PayrollRisk = 5;
+    case COMPLIANT = 1;
+    case PENDING = 2;
+    case OVERDUE = 3;
+    case ESCALATED = 4;
+    case PAYROLL_RISK = 5;
 
     public function label(): string
     {
         return match ($this) {
-            self::Compliant => 'Compliant',
-            self::Pending => 'Pending',
-            self::Overdue => 'Overdue',
-            self::Escalated => 'Escalated',
-            self::PayrollRisk => 'Payroll Risk',
+            self::COMPLIANT => 'Compliant',
+            self::PENDING => 'Pending',
+            self::OVERDUE => 'Overdue',
+            self::ESCALATED => 'Escalated',
+            self::PAYROLL_RISK => 'Payroll Risk',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Compliant => '#10B981', // Green
-            self::Pending => '#F59E0B', // Orange
-            self::Overdue => '#F97316', // Dark Orange
-            self::Escalated => '#EF4444', // Red
-            self::PayrollRisk => '#7F1D1D', // Dark Red
+            self::COMPLIANT => '#10B981', // Green
+            self::PENDING => '#F59E0B', // Orange
+            self::OVERDUE => '#F97316', // Dark Orange
+            self::ESCALATED => '#EF4444', // Red
+            self::PAYROLL_RISK => '#7F1D1D', // Dark Red
         };
     }
 }

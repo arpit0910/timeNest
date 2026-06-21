@@ -6,25 +6,25 @@ namespace App\Enums\Organization;
 
 enum OrganizationType: int
 {
-    case Personal     = 1;
-    case Team         = 2;
-    case Organization = 3;
+    case PERSONAL     = 1;
+    case TEAM         = 2;
+    case ORGANIZATION = 3;
 
     public function label(): string
     {
         return match($this) {
-            self::Personal     => 'Personal',
-            self::Team         => 'Team',
-            self::Organization => 'Organization',
+            self::PERSONAL     => 'Personal',
+            self::TEAM         => 'Team',
+            self::ORGANIZATION => 'Organization',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::Personal     => 'Single-user freelancer workspace. Attendance, leave, and worklog modules are suppressed at the API layer.',
-            self::Team         => 'Small team. Basic attendance and worklog available. Leave module is optional.',
-            self::Organization => 'Full enterprise workspace. All policy-driven modules available including leave, multi-level approvals, escalations, and reporting.',
+            self::PERSONAL     => 'Single-user freelancer workspace. Attendance, leave, and worklog modules are suppressed at the API layer.',
+            self::TEAM         => 'Small team. Basic attendance and worklog available. Leave module is optional.',
+            self::ORGANIZATION => 'Full enterprise workspace. All policy-driven modules available including leave, multi-level approvals, escalations, and reporting.',
         };
     }
 }

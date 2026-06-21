@@ -35,13 +35,13 @@ class TempAuthorizationTest extends TestCase
         
         // Setup permissions
         $employeeRole = Role::firstOrCreate(['name' => 'employee', 'organization_id' => $org->id, 'guard_name' => 'web']);
-        $employeeRole->givePermissionTo(SystemPermission::LeavesView->value, SystemPermission::LeavesCreate->value);
+        $employeeRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_CREATE->value);
         
         $managerRole = Role::firstOrCreate(['name' => 'manager', 'organization_id' => $org->id, 'guard_name' => 'web']);
-        $managerRole->givePermissionTo(SystemPermission::LeavesView->value, SystemPermission::LeavesApprove->value);
+        $managerRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE->value);
         
         $orgAdminRole = Role::firstOrCreate(['name' => 'organization_admin', 'organization_id' => $org->id, 'guard_name' => 'web']);
-        $orgAdminRole->givePermissionTo(SystemPermission::LeavesView->value, SystemPermission::LeavesApproveAny->value);
+        $orgAdminRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE_ANY->value);
 
         setPermissionsTeamId($org->id);
         $employeeUser->assignRole($employeeRole);

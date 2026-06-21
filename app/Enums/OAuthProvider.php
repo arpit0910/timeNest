@@ -12,9 +12,9 @@ namespace App\Enums;
  */
 enum OAuthProvider: string
 {
-    case Google = 'google';
-    case Github = 'github';
-    case Microsoft = 'microsoft';
+    case GOOGLE = 'google';
+    case GITHUB = 'github';
+    case MICROSOFT = 'microsoft';
 
     /**
      * Get human-readable label.
@@ -22,9 +22,9 @@ enum OAuthProvider: string
     public function label(): string
     {
         return match ($this) {
-            self::Google => 'Google',
-            self::Github => 'GitHub',
-            self::Microsoft => 'Microsoft',
+            self::GOOGLE => 'Google',
+            self::GITHUB => 'GitHub',
+            self::MICROSOFT => 'Microsoft',
         };
     }
 }

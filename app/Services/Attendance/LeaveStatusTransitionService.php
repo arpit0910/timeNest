@@ -20,18 +20,18 @@ class LeaveStatusTransitionService
      * value: array of allowed target statuses (int)
      */
     private const ALLOWED_TRANSITIONS = [
-        LeaveStatus::Draft->value => [
-            LeaveStatus::Pending->value,
-            LeaveStatus::Cancelled->value,
+        LeaveStatus::DRAFT->value => [
+            LeaveStatus::PENDING->value,
+            LeaveStatus::CANCELLED->value,
         ],
-        LeaveStatus::Pending->value => [
-            LeaveStatus::Approved->value,
-            LeaveStatus::Rejected->value,
-            LeaveStatus::Cancelled->value,
-            LeaveStatus::AutoApproved->value,
+        LeaveStatus::PENDING->value => [
+            LeaveStatus::APPROVED->value,
+            LeaveStatus::REJECTED->value,
+            LeaveStatus::CANCELLED->value,
+            LeaveStatus::AUTO_APPROVED->value,
         ],
-        LeaveStatus::Approved->value => [
-            LeaveStatus::Cancelled->value,
+        LeaveStatus::APPROVED->value => [
+            LeaveStatus::CANCELLED->value,
         ],
     ];
 
@@ -68,14 +68,14 @@ class LeaveStatusTransitionService
             ];
 
             // Maintain legacy approved_by/rejected_by fields for compatibility
-            if ($newStatus === LeaveStatus::Approved) {
+            if ($newStatus === LeaveStatus::APPROVED) {
                 $updates['approved_by'] = $actor->id;
                 $updates['approved_at'] = now();
-            } elseif ($newStatus === LeaveStatus::Rejected) {
+            } elseif ($newStatus === LeaveStatus::REJECTED) {
                 $updates['rejected_by'] = $actor->id;
                 $updates['rejected_at'] = now();
                 $updates['cancellation_reason'] = $remarks;
-            } elseif ($newStatus === LeaveStatus::Cancelled) {
+            } elseif ($newStatus === LeaveStatus::CANCELLED) {
                 $updates['cancellation_reason'] = $remarks;
             }
 
@@ -101,7 +101,7 @@ class LeaveStatusTransitionService
     private function validatePermissions(EmployeeLeave $leave, LeaveStatus $newStatus, User $actor): void
     {
         // 1. Employee Self-cancellation Check
-        if ($newStatus === LeaveStatus::Cancelled) {
+        if ($newStatus === LeaveStatus::CANCELLED) {
             // Employee can cancel their own leave if it is not already approved/processed (or they can do it anytime if it's pending)
             if ($leave->user_id === $actor->id) {
                 return;
@@ -109,13 +109,13 @@ class LeaveStatusTransitionService
         }
 
         // 2. Draft/Pending submittals by Employee
-        if ($leave->user_id === $actor->id && in_array($newStatus, [LeaveStatus::Draft, LeaveStatus::Pending], true)) {
+        if ($leave->user_id === $actor->id && in_array($newStatus, [LeaveStatus::DRAFT, LeaveStatus::PENDING], true)) {
             return;
         }
 
         // 3. Managerial/HR transitions require permission check scoped to tenant organization
         setPermissionsTeamId($leave->organization_id);
-        $hasPermission = $actor->hasPermissionTo(SystemPermission::LeavesApprove->value);
+        $hasPermission = $actor->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value);
         setPermissionsTeamId(null);
 
         if (! $hasPermission) {

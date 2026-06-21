@@ -60,8 +60,8 @@ class AttendanceClockService
                     'user_id' => $user->id,
                     'organization_id' => $organization->id,
                     'attendance_date' => $today->toDateString(),
-                    'attendance_status' => AttendanceStatus::Incomplete->value,
-                    'compliance_status' => ComplianceStatus::Pending->value,
+                    'attendance_status' => AttendanceStatus::INCOMPLETE->value,
+                    'compliance_status' => ComplianceStatus::PENDING->value,
                     'attendance_policy_version_id' => $policyVersion->id,
                     'approval_flow_snapshot' => $policyVersion->approval_flow->value,
                     'total_work_minutes' => 0,
@@ -218,7 +218,7 @@ class AttendanceClockService
 
                 if ($empLat === null || $empLng === null) {
                     // No coordinates provided
-                    if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::Strict) {
+                    if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::STRICT) {
                         throw new \App\Exceptions\Attendance\ClockInOutsideGeofenceException();
                     }
                     // Flexible and Hybrid: allow but flag suspicious
@@ -233,7 +233,7 @@ class AttendanceClockService
                     );
 
                     if (!$isWithin) {
-                        if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::Strict) {
+                        if ($policyVersion->attendance_mode === \App\Enums\Attendance\AttendanceMode::STRICT) {
                             throw new \App\Exceptions\Attendance\ClockInOutsideGeofenceException();
                         }
                         
@@ -369,8 +369,8 @@ class AttendanceClockService
             ->where('organization_id', $organization->id)
             ->where('attendance_date', $previousWorkingDay->toDateString())
             ->whereIn('attendance_status', [
-                AttendanceStatus::Present->value,
-                AttendanceStatus::HalfDay->value,
+                AttendanceStatus::PRESENT->value,
+                AttendanceStatus::HALF_DAY->value,
             ])
             ->first();
 

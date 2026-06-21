@@ -49,11 +49,11 @@ class AttendanceWorklogController extends BaseApiController
 
         try {
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
 
             // Check if manager or app owner
-            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WorklogView->value) 
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::WorklogApprove->value);
+            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value);
 
             $query = AttendanceWorklog::where('organization_id', $this->getOrganization()->id)
                 ->with(['project', 'milestone', 'task', 'statusHistories']);
@@ -219,7 +219,7 @@ class AttendanceWorklogController extends BaseApiController
             throw new BusinessRuleViolationException('Cannot delete someone else\'s worklog.', 'UNAUTHORIZED');
         }
 
-        if (in_array($worklog->worklog_status, [WorkflowStatusEnum::Approved, WorkflowStatusEnum::Locked], true)) {
+        if (in_array($worklog->worklog_status, [WorkflowStatusEnum::APPROVED, WorkflowStatusEnum::LOCKED], true)) {
             throw new BusinessRuleViolationException('Cannot delete a worklog that is already Approved or Locked.', 'WORKLOG_LOCKED');
         }
 

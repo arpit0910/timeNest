@@ -70,29 +70,29 @@ class AttendanceAdjustmentRequest extends Model
 
     public function isPending(): bool
     {
-        return $this->status === AttendanceAdjustmentStatusEnum::Pending;
+        return $this->status === AttendanceAdjustmentStatusEnum::PENDING;
     }
 
     public function isApproved(): bool
     {
-        return $this->status === AttendanceAdjustmentStatusEnum::Approved;
+        return $this->status === AttendanceAdjustmentStatusEnum::APPROVED;
     }
 
     public function isRejected(): bool
     {
-        return $this->status === AttendanceAdjustmentStatusEnum::Rejected;
+        return $this->status === AttendanceAdjustmentStatusEnum::REJECTED;
     }
 
     // ─── Scopes ──────────────────────────────────────────────────
 
     public function scopePending(Builder $query): Builder
     {
-        return $query->where('status', AttendanceAdjustmentStatusEnum::Pending);
+        return $query->where('status', AttendanceAdjustmentStatusEnum::PENDING);
     }
 
     public function scopeApproved(Builder $query): Builder
     {
-        return $query->where('status', AttendanceAdjustmentStatusEnum::Approved);
+        return $query->where('status', AttendanceAdjustmentStatusEnum::APPROVED);
     }
 
     public function scopeActive(Builder $query): Builder

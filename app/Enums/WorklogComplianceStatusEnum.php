@@ -9,18 +9,18 @@ namespace App\Enums;
  */
 enum WorklogComplianceStatusEnum: int
 {
-    case Compliant = 1;
-    case Overflow = 2;
-    case Overdue = 3;
-    case LowProductivity = 4;
+    case COMPLIANT = 1;
+    case OVERFLOW = 2;
+    case OVERDUE = 3;
+    case LOW_PRODUCTIVITY = 4;
 
     public function label(): string
     {
         return match ($this) {
-            self::Compliant => 'Compliant',
-            self::Overflow => 'Estimate Overflow',
-            self::Overdue => 'Overdue',
-            self::LowProductivity => 'Low Productivity',
+            self::COMPLIANT => 'Compliant',
+            self::OVERFLOW => 'Estimate Overflow',
+            self::OVERDUE => 'Overdue',
+            self::LOW_PRODUCTIVITY => 'Low Productivity',
         };
     }
 }

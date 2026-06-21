@@ -18,107 +18,107 @@ namespace App\Enums;
 enum SystemPermission: string
 {
     // ─── Organizations (Platform-level) ───────────────────────────
-    case OrganizationsManage = 'organizations.manage';
+    case ORGANIZATIONS_MANAGE = 'organizations.manage';
 
     // ─── Users ───────────────────────────────────────────────────
-    case UsersView = 'users.view';
-    case UsersInvite = 'users.invite';
-    case UsersEdit = 'users.edit';
-    case UsersDelete = 'users.delete';
-    case UsersManage = 'users.manage';
-    case UsersExport = 'users.export';
+    case USERS_VIEW = 'users.view';
+    case USERS_INVITE = 'users.invite';
+    case USERS_EDIT = 'users.edit';
+    case USERS_DELETE = 'users.delete';
+    case USERS_MANAGE = 'users.manage';
+    case USERS_EXPORT = 'users.export';
 
     // ─── Attendance ──────────────────────────────────────────────
-    case AttendanceView = 'attendance.view';
-    case AttendanceCreate = 'attendance.create';
-    case AttendanceEdit = 'attendance.edit';
-    case AttendanceDelete = 'attendance.delete';
-    case AttendanceApprove = 'attendance.approve';
-    case AttendanceApproveAny = 'attendance.approve_any';
-    case AttendanceExport = 'attendance.export';
-    case AttendanceImport = 'attendance.import';
-    case AttendancePolicyView = 'attendance_policy.view';
-    case AttendancePolicyManage = 'attendance_policy.manage';
-    case AttendanceAdjustmentsView = 'attendance_adjustments.view';
-    case AttendanceAdjustmentsCreate = 'attendance_adjustments.create';
-    case AttendanceEscalationsView = 'attendance_escalations.view';
-    case AttendanceEscalationsResolve = 'attendance_escalations.resolve';
-    case WorklogView = 'worklog.view';
-    case WorklogCreate = 'worklog.create';
-    case WorklogApprove = 'worklog.approve';
-    case WorklogApproveAny = 'worklog.approve_any';
-    case WorklogPolicyView = 'worklog_policy.view';
-    case WorklogPolicyManage = 'worklog_policy.manage';
-    case LeavePolicyView = 'leave_policy.view';
-    case LeavePolicyManage = 'leave_policy.manage';
+    case ATTENDANCE_VIEW = 'attendance.view';
+    case ATTENDANCE_CREATE = 'attendance.create';
+    case ATTENDANCE_EDIT = 'attendance.edit';
+    case ATTENDANCE_DELETE = 'attendance.delete';
+    case ATTENDANCE_APPROVE = 'attendance.approve';
+    case ATTENDANCE_APPROVE_ANY = 'attendance.approve_any';
+    case ATTENDANCE_EXPORT = 'attendance.export';
+    case ATTENDANCE_IMPORT = 'attendance.import';
+    case ATTENDANCE_POLICY_VIEW = 'attendance_policy.view';
+    case ATTENDANCE_POLICY_MANAGE = 'attendance_policy.manage';
+    case ATTENDANCE_ADJUSTMENTS_VIEW = 'attendance_adjustments.view';
+    case ATTENDANCE_ADJUSTMENTS_CREATE = 'attendance_adjustments.create';
+    case ATTENDANCE_ESCALATIONS_VIEW = 'attendance_escalations.view';
+    case ATTENDANCE_ESCALATIONS_RESOLVE = 'attendance_escalations.resolve';
+    case WORKLOG_VIEW = 'worklog.view';
+    case WORKLOG_CREATE = 'worklog.create';
+    case WORKLOG_APPROVE = 'worklog.approve';
+    case WORKLOG_APPROVE_ANY = 'worklog.approve_any';
+    case WORKLOG_POLICY_VIEW = 'worklog_policy.view';
+    case WORKLOG_POLICY_MANAGE = 'worklog_policy.manage';
+    case LEAVE_POLICY_VIEW = 'leave_policy.view';
+    case LEAVE_POLICY_MANAGE = 'leave_policy.manage';
 
     // ─── Payroll ─────────────────────────────────────────────────
-    case PayrollView = 'payroll.view';
-    case PayrollCreate = 'payroll.create';
-    case PayrollEdit = 'payroll.edit';
-    case PayrollDelete = 'payroll.delete';
-    case PayrollExport = 'payroll.export';
-    case PayrollApprove = 'payroll.approve';
-    case PayrollProcess = 'payroll.process';
+    case PAYROLL_VIEW = 'payroll.view';
+    case PAYROLL_CREATE = 'payroll.create';
+    case PAYROLL_EDIT = 'payroll.edit';
+    case PAYROLL_DELETE = 'payroll.delete';
+    case PAYROLL_EXPORT = 'payroll.export';
+    case PAYROLL_APPROVE = 'payroll.approve';
+    case PAYROLL_PROCESS = 'payroll.process';
 
     // ─── HRMS ────────────────────────────────────────────────────
-    case HrmsView = 'hrms.view';
-    case HrmsCreate = 'hrms.create';
-    case HrmsEdit = 'hrms.edit';
-    case HrmsDelete = 'hrms.delete';
-    case HrmsExport = 'hrms.export';
+    case HRMS_VIEW = 'hrms.view';
+    case HRMS_CREATE = 'hrms.create';
+    case HRMS_EDIT = 'hrms.edit';
+    case HRMS_DELETE = 'hrms.delete';
+    case HRMS_EXPORT = 'hrms.export';
 
     // ─── Leaves ──────────────────────────────────────────────────
-    case LeavesView = 'leaves.view';
-    case LeavesCreate = 'leaves.create';
-    case LeavesEdit = 'leaves.edit';
-    case LeavesDelete = 'leaves.delete';
-    case LeavesApprove = 'leaves.approve';
-    case LeavesApproveAny = 'leaves.approve_any';
-    case LeavesExport = 'leaves.export';
+    case LEAVES_VIEW = 'leaves.view';
+    case LEAVES_CREATE = 'leaves.create';
+    case LEAVES_EDIT = 'leaves.edit';
+    case LEAVES_DELETE = 'leaves.delete';
+    case LEAVES_APPROVE = 'leaves.approve';
+    case LEAVES_APPROVE_ANY = 'leaves.approve_any';
+    case LEAVES_EXPORT = 'leaves.export';
 
     // ─── Invitations ─────────────────────────────────────────────
-    case InvitationsView = 'invitations.view';
-    case InvitationsCreate = 'invitations.create';
-    case InvitationsRevoke = 'invitations.revoke';
-    case InvitationsResend = 'invitations.resend';
+    case INVITATIONS_VIEW = 'invitations.view';
+    case INVITATIONS_CREATE = 'invitations.create';
+    case INVITATIONS_REVOKE = 'invitations.revoke';
+    case INVITATIONS_RESEND = 'invitations.resend';
 
     // ─── Branches ────────────────────────────────────────────────
-    case BranchesView = 'branches.view';
-    case BranchesCreate = 'branches.create';
-    case BranchesEdit = 'branches.edit';
-    case BranchesDelete = 'branches.delete';
-    case BranchesManage = 'branches.manage';
+    case BRANCHES_VIEW = 'branches.view';
+    case BRANCHES_CREATE = 'branches.create';
+    case BRANCHES_EDIT = 'branches.edit';
+    case BRANCHES_DELETE = 'branches.delete';
+    case BRANCHES_MANAGE = 'branches.manage';
 
     // ─── Departments ─────────────────────────────────────────────
-    case DepartmentsView = 'departments.view';
-    case DepartmentsCreate = 'departments.create';
-    case DepartmentsEdit = 'departments.edit';
-    case DepartmentsDelete = 'departments.delete';
-    case DepartmentsManage = 'departments.manage';
+    case DEPARTMENTS_VIEW = 'departments.view';
+    case DEPARTMENTS_CREATE = 'departments.create';
+    case DEPARTMENTS_EDIT = 'departments.edit';
+    case DEPARTMENTS_DELETE = 'departments.delete';
+    case DEPARTMENTS_MANAGE = 'departments.manage';
 
     // ─── Reports ─────────────────────────────────────────────────
-    case ReportsView = 'reports.view';
-    case ReportsExport = 'reports.export';
-    case ReportsSchedule = 'reports.schedule';
+    case REPORTS_VIEW = 'reports.view';
+    case REPORTS_EXPORT = 'reports.export';
+    case REPORTS_SCHEDULE = 'reports.schedule';
 
     // ─── Settings ────────────────────────────────────────────────
-    case SettingsManage = 'settings.manage';
+    case SETTINGS_MANAGE = 'settings.manage';
 
     // ─── Invoicing ───────────────────────────────────────────────
-    case InvoicingView = 'invoicing.view';
-    case InvoicingCreate = 'invoicing.create';
-    case InvoicingEdit = 'invoicing.edit';
-    case InvoicingDelete = 'invoicing.delete';
-    case InvoicingSend = 'invoicing.send';
-    case InvoicingApprove = 'invoicing.approve';
+    case INVOICING_VIEW = 'invoicing.view';
+    case INVOICING_CREATE = 'invoicing.create';
+    case INVOICING_EDIT = 'invoicing.edit';
+    case INVOICING_DELETE = 'invoicing.delete';
+    case INVOICING_SEND = 'invoicing.send';
+    case INVOICING_APPROVE = 'invoicing.approve';
 
     // ─── Workflows ───────────────────────────────────────────────
-    case WorkflowsView = 'workflows.view';
-    case WorkflowsCreate = 'workflows.create';
-    case WorkflowsEdit = 'workflows.edit';
-    case WorkflowsDelete = 'workflows.delete';
-    case WorkflowsTrigger = 'workflows.trigger';
+    case WORKFLOWS_VIEW = 'workflows.view';
+    case WORKFLOWS_CREATE = 'workflows.create';
+    case WORKFLOWS_EDIT = 'workflows.edit';
+    case WORKFLOWS_DELETE = 'workflows.delete';
+    case WORKFLOWS_TRIGGER = 'workflows.trigger';
 
     /**
      * Extract the module segment from the permission name.
@@ -161,7 +161,7 @@ enum SystemPermission: string
      */
     public static function platformPermissions(): array
     {
-        return self::forModule(SystemModule::Organizations->value);
+        return self::forModule(SystemModule::ORGANIZATIONS->value);
     }
 
     /**

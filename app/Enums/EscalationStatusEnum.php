@@ -9,16 +9,16 @@ namespace App\Enums;
  */
 enum EscalationStatusEnum: int
 {
-    case Pending = 1;
-    case Resolved = 2;
-    case Dismissed = 3;
+    case PENDING = 1;
+    case RESOLVED = 2;
+    case DISMISSED = 3;
 
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending Resolution',
-            self::Resolved => 'Resolved',
-            self::Dismissed => 'Dismissed',
+            self::PENDING => 'Pending Resolution',
+            self::RESOLVED => 'Resolved',
+            self::DISMISSED => 'Dismissed',
         };
     }
 }

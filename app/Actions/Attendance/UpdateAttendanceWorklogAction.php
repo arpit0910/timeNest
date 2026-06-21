@@ -27,7 +27,7 @@ class UpdateAttendanceWorklogAction
     {
         return DB::transaction(function () use ($worklog, $actor, $data) {
             // 1. Check current status block
-            if (in_array($worklog->worklog_status, [WorkflowStatusEnum::Approved, WorkflowStatusEnum::Locked], true)) {
+            if (in_array($worklog->worklog_status, [WorkflowStatusEnum::APPROVED, WorkflowStatusEnum::LOCKED], true)) {
                 throw new BusinessRuleViolationException('Cannot update a worklog that is already Approved or Locked.', 'WORKLOG_LOCKED');
             }
 

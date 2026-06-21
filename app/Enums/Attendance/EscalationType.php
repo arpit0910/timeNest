@@ -6,31 +6,31 @@ namespace App\Enums\Attendance;
 
 enum EscalationType: int
 {
-    case MissingWorklog       = 1;
-    case LateArrival          = 2;
-    case EarlyExit            = 3;
-    case UnapprovedOvertime   = 4;
-    case AttendanceCorrection = 5;
+    case MISSING_WORKLOG       = 1;
+    case LATE_ARRIVAL          = 2;
+    case EARLY_EXIT            = 3;
+    case UNAPPROVED_OVERTIME   = 4;
+    case ATTENDANCE_CORRECTION = 5;
 
     public function label(): string
     {
         return match($this) {
-            self::MissingWorklog       => 'Missing Worklog',
-            self::LateArrival          => 'Late Arrival',
-            self::EarlyExit            => 'Early Exit',
-            self::UnapprovedOvertime   => 'Unapproved Overtime',
-            self::AttendanceCorrection => 'Attendance Correction',
+            self::MISSING_WORKLOG       => 'Missing Worklog',
+            self::LATE_ARRIVAL          => 'Late Arrival',
+            self::EARLY_EXIT            => 'Early Exit',
+            self::UNAPPROVED_OVERTIME   => 'Unapproved Overtime',
+            self::ATTENDANCE_CORRECTION => 'Attendance Correction',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::MissingWorklog       => 'Employee failed to submit a worklog on time.',
-            self::LateArrival          => 'Employee arrived later than the allowed grace period.',
-            self::EarlyExit            => 'Employee exited earlier than the allowed grace period.',
-            self::UnapprovedOvertime   => 'Employee recorded overtime without prior approval.',
-            self::AttendanceCorrection => 'A manual correction to attendance requires review.',
+            self::MISSING_WORKLOG       => 'Employee failed to submit a worklog on time.',
+            self::LATE_ARRIVAL          => 'Employee arrived later than the allowed grace period.',
+            self::EARLY_EXIT            => 'Employee exited earlier than the allowed grace period.',
+            self::UNAPPROVED_OVERTIME   => 'Employee recorded overtime without prior approval.',
+            self::ATTENDANCE_CORRECTION => 'A manual correction to attendance requires review.',
         };
     }
 }

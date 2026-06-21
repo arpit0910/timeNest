@@ -48,7 +48,7 @@ class AttendanceClockTest extends TestCase
         $org = Organization::create([
             'legal_name' => 'Test Organization',
             'slug' => 'test-org-' . uniqid(),
-            'type' => \App\Enums\Organization\OrganizationType::Organization->value,
+            'type' => \App\Enums\Organization\OrganizationType::ORGANIZATION->value,
             'is_active' => true,
         ]);
 
@@ -154,7 +154,7 @@ class AttendanceClockTest extends TestCase
             'user_id' => $user->id,
             'organization_id' => $org->id,
             'attendance_date' => Carbon::today()->toDateString(),
-            'attendance_status' => AttendanceStatus::Incomplete->value,
+            'attendance_status' => AttendanceStatus::INCOMPLETE->value,
         ]);
     }
 
@@ -235,7 +235,7 @@ class AttendanceClockTest extends TestCase
         $response->assertStatus(200);
 
         $day = AttendanceDay::first();
-        $this->assertEquals(AttendanceStatus::Present->value, $day->getRawOriginal('attendance_status'));
+        $this->assertEquals(AttendanceStatus::PRESENT->value, $day->getRawOriginal('attendance_status'));
         $this->assertGreaterThan(0, $day->total_work_minutes);
     }
 
@@ -254,8 +254,8 @@ class AttendanceClockTest extends TestCase
             'user_id' => $user->id,
             'organization_id' => $org->id,
             'attendance_date' => Carbon::today()->toDateString(),
-            'attendance_status' => AttendanceStatus::Incomplete->value,
-            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::Pending->value,
+            'attendance_status' => AttendanceStatus::INCOMPLETE->value,
+            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::PENDING->value,
             'attendance_policy_version_id' => $version->id,
             'approval_flow_snapshot' => $version->approval_flow->value,
             'total_work_minutes' => 0,
@@ -281,7 +281,7 @@ class AttendanceClockTest extends TestCase
         $computationService->recompute($day, $version);
 
         $day->refresh();
-        $this->assertEquals(AttendanceStatus::HalfDay->value, $day->getRawOriginal('attendance_status'));
+        $this->assertEquals(AttendanceStatus::HALF_DAY->value, $day->getRawOriginal('attendance_status'));
     }
 
     /**
@@ -300,8 +300,8 @@ class AttendanceClockTest extends TestCase
             'user_id' => $user->id,
             'organization_id' => $org->id,
             'attendance_date' => Carbon::today()->toDateString(),
-            'attendance_status' => AttendanceStatus::Incomplete->value,
-            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::Pending->value,
+            'attendance_status' => AttendanceStatus::INCOMPLETE->value,
+            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::PENDING->value,
             'attendance_policy_version_id' => $version->id,
             'approval_flow_snapshot' => $version->approval_flow->value,
             'total_work_minutes' => 0,
@@ -345,8 +345,8 @@ class AttendanceClockTest extends TestCase
             'user_id' => $user->id,
             'organization_id' => $org->id,
             'attendance_date' => Carbon::today()->toDateString(),
-            'attendance_status' => AttendanceStatus::Incomplete->value,
-            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::Pending->value,
+            'attendance_status' => AttendanceStatus::INCOMPLETE->value,
+            'compliance_status' => \App\Enums\Attendance\ComplianceStatus::PENDING->value,
             'attendance_policy_version_id' => $version->id,
             'approval_flow_snapshot' => $version->approval_flow->value,
             'total_work_minutes' => 0,
@@ -526,7 +526,7 @@ class AttendanceClockTest extends TestCase
     public function test_clock_in_blocked_outside_geofence_in_strict_mode(): void
     {
         [$user, $org, $policy, $policyVersion] = $this->createOrgWithAttendancePolicy([
-            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Strict->value,
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::STRICT->value,
             'geo_fencing_enabled' => true,
             'geo_fence_radius_meters' => 100,
         ]);
@@ -564,7 +564,7 @@ class AttendanceClockTest extends TestCase
     public function test_clock_in_outside_geofence_allowed_but_flagged_in_flexible_mode(): void
     {
         [$user, $org, $policy, $policyVersion] = $this->createOrgWithAttendancePolicy([
-            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Flexible->value,
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::FLEXIBLE->value,
             'geo_fencing_enabled' => true,
             'geo_fence_radius_meters' => 100,
         ]);

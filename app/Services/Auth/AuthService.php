@@ -133,7 +133,7 @@ class AuthService
                     (int) config('timenest.verification.expire', 60)
                 ),
                 'is_active' => false,
-                'status' => UserStatus::PendingVerification,
+                'status' => UserStatus::PENDING_VERIFICATION,
                 'token_version' => 1,
             ]);
         });
@@ -234,7 +234,7 @@ class AuthService
             : null;
 
         // For org guard, verify membership is still active
-        if ($guard === Guard::Organization && $organization) {
+        if ($guard === Guard::ORGANIZATION && $organization) {
             $membership = OrganizationMembership::active()
                 ->where('user_id', $user->id)
                 ->where('organization_id', $organization->id)
@@ -250,7 +250,7 @@ class AuthService
             if (! $roleName) {
                 throw new InvalidRoleGuardException('No role assigned for this organization');
             }
-        } elseif ($guard === Guard::Platform) {
+        } elseif ($guard === Guard::PLATFORM) {
             $platformMembership = PlatformMembership::active()
                 ->where('user_id', $user->id)
                 ->first();
@@ -311,7 +311,7 @@ class AuthService
             ->firstOrFail();
 
         $platformRole = resolve_platform_role($user);
-        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
 
         if (! $isAppOwner) {
             $membership = OrganizationMembership::active()
@@ -335,7 +335,7 @@ class AuthService
 
             $roleName = $role->name;
         } else {
-            $roleName = \App\Enums\SystemRole::AppOwner->value;
+            $roleName = \App\Enums\SystemRole::APP_OWNER->value;
         }
 
         // If switching, invalidate current JWT
@@ -348,10 +348,10 @@ class AuthService
         }
 
         $accessToken = $this->issueJwtAction->issueAccessToken(
-            $user, $organization, Guard::Organization, $roleName
+            $user, $organization, Guard::ORGANIZATION, $roleName
         );
         $refreshToken = $this->issueJwtAction->issueRefreshToken(
-            $user, $organization, Guard::Organization
+            $user, $organization, Guard::ORGANIZATION
         );
 
         $this->logActivity($user, 'organization_selected', "Selected organization: {$organization->legal_name}", $organization->id);
@@ -502,7 +502,7 @@ class AuthService
             'email_verification_token' => null,
             'email_verification_token_expires_at' => null,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
         ]);
 
         $this->logActivity($user, 'email_verified', 'Email address verified');
@@ -608,10 +608,10 @@ class AuthService
             }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, null, Guard::Platform, $roleName
+                $user, null, Guard::PLATFORM, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
-                $user, null, Guard::Platform
+                $user, null, Guard::PLATFORM
             );
 
             $this->logActivity($user, 'login', 'Platform admin login');
@@ -622,7 +622,7 @@ class AuthService
                 'refresh_token' => $refreshToken,
                 'token_type' => 'bearer',
                 'expires_in' => config('jwt.ttl') * 60,
-                'guard' => Guard::Platform->value,
+                'guard' => Guard::PLATFORM->value,
                 'role' => $roleName,
                 'user' => $user,
             ];
@@ -653,10 +653,10 @@ class AuthService
             }
 
             $accessToken = $this->issueJwtAction->issueAccessToken(
-                $user, $organization, Guard::Organization, $roleName
+                $user, $organization, Guard::ORGANIZATION, $roleName
             );
             $refreshToken = $this->issueJwtAction->issueRefreshToken(
-                $user, $organization, Guard::Organization
+                $user, $organization, Guard::ORGANIZATION
             );
 
             $this->logActivity($user, 'login', "Org login: {$organization->legal_name}", $organization->id);
@@ -667,7 +667,7 @@ class AuthService
                 'refresh_token' => $refreshToken,
                 'token_type' => 'bearer',
                 'expires_in' => config('jwt.ttl') * 60,
-                'guard' => Guard::Organization->value,
+                'guard' => Guard::ORGANIZATION->value,
                 'role' => $roleName,
                 'organization' => $organization,
                 'user' => $user,

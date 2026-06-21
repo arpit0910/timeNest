@@ -35,7 +35,7 @@ class LeaveManagementService
         $end = Carbon::parse($endDate);
         
         $leaveType = LeaveType::from((int) $data['leave_type']);
-        if ($leaveType === LeaveType::HalfDay) {
+        if ($leaveType === LeaveType::HALF_DAY) {
             $totalDays = 0.5;
         } else {
             $totalDays = $start->diffInDays($end) + 1.0;
@@ -45,7 +45,7 @@ class LeaveManagementService
             'organization_id' => $organization->id,
             'user_id' => $user->id,
             'leave_type' => $leaveType->value,
-            'leave_status' => LeaveStatus::Pending->value,
+            'leave_status' => LeaveStatus::PENDING->value,
             'start_date' => $startDate,
             'end_date' => $endDate,
             'total_days' => $totalDays,
@@ -62,9 +62,9 @@ class LeaveManagementService
     {
         $query = EmployeeLeave::where('user_id', $userId)
             ->whereIn('leave_status', [
-                LeaveStatus::Pending->value,
-                LeaveStatus::Approved->value,
-                LeaveStatus::AutoApproved->value
+                LeaveStatus::PENDING->value,
+                LeaveStatus::APPROVED->value,
+                LeaveStatus::AUTO_APPROVED->value
             ])
             ->where(function ($q) use ($startDate, $endDate) {
                 $q->where(function ($sub) use ($startDate, $endDate) {
@@ -91,8 +91,8 @@ class LeaveManagementService
     public function hasApprovedWFH(int $userId, string $date): bool
     {
         return EmployeeLeave::where('user_id', $userId)
-            ->where('leave_type', LeaveType::WorkFromHome->value)
-            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
+            ->where('leave_type', LeaveType::WORK_FROM_HOME->value)
+            ->whereIn('leave_status', [LeaveStatus::APPROVED->value, LeaveStatus::AUTO_APPROVED->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();
@@ -104,9 +104,9 @@ class LeaveManagementService
     public function hasApprovedEWD(int $userId, string $date): bool
     {
         return EmployeeLeave::where('user_id', $userId)
-            ->where('leave_type', LeaveType::ExtraWorkingDay->value)
+            ->where('leave_type', LeaveType::EXTRA_WORKING_DAY->value)
             // Need to change the status comparison as can't only allow fully apprved leaves
-            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
+            ->whereIn('leave_status', [LeaveStatus::APPROVED->value, LeaveStatus::AUTO_APPROVED->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();
@@ -120,10 +120,10 @@ class LeaveManagementService
         // Don't treat WFH/EWD as standard leaves that prevent clocking in
         return EmployeeLeave::where('user_id', $userId)
             ->whereNotIn('leave_type', [
-                LeaveType::WorkFromHome->value,
-                LeaveType::ExtraWorkingDay->value
+                LeaveType::WORK_FROM_HOME->value,
+                LeaveType::EXTRA_WORKING_DAY->value
             ])
-            ->whereIn('leave_status', [LeaveStatus::Approved->value, LeaveStatus::AutoApproved->value])
+            ->whereIn('leave_status', [LeaveStatus::APPROVED->value, LeaveStatus::AUTO_APPROVED->value])
             ->where('start_date', '<=', $date)
             ->where('end_date', '>=', $date)
             ->exists();

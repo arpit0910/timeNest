@@ -13,16 +13,16 @@ namespace App\Enums;
  */
 enum Guard: string
 {
-    case Platform = 'platform';
-    case Organization = 'organization';
-    case Temp = 'temp';
+    case PLATFORM = 'platform';
+    case ORGANIZATION = 'organization';
+    case TEMP = 'temp';
 
     /**
      * Check if this is a platform-level guard.
      */
     public function isPlatform(): bool
     {
-        return $this === self::Platform;
+        return $this === self::PLATFORM;
     }
 
     /**
@@ -30,7 +30,7 @@ enum Guard: string
      */
     public function isOrganization(): bool
     {
-        return $this === self::Organization;
+        return $this === self::ORGANIZATION;
     }
 
     /**
@@ -38,7 +38,7 @@ enum Guard: string
      */
     public function isTemp(): bool
     {
-        return $this === self::Temp;
+        return $this === self::TEMP;
     }
 
     /**
@@ -47,9 +47,9 @@ enum Guard: string
     public function label(): string
     {
         return match ($this) {
-            self::Platform => 'Platform',
-            self::Organization => 'Organization',
-            self::Temp => 'Temporary',
+            self::PLATFORM => 'Platform',
+            self::ORGANIZATION => 'Organization',
+            self::TEMP => 'Temporary',
         };
     }
 }

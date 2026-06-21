@@ -143,8 +143,8 @@ class AttendancePolicyService
     public function createDefaultPolicy(Organization $organization, User $createdBy): AttendancePolicy
     {
         $defaultData = [
-            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::Flexible->value,
-            'approval_flow' => \App\Enums\Attendance\ApprovalFlow::Auto->value,
+            'attendance_mode' => \App\Enums\Attendance\AttendanceMode::FLEXIBLE->value,
+            'approval_flow' => \App\Enums\Attendance\ApprovalFlow::AUTO->value,
             'shift_start_time' => '09:00:00',
             'shift_end_time' => '17:00:00',
             'required_daily_minutes' => 480,

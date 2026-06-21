@@ -54,7 +54,7 @@ class WorklogTest extends TestCase
         $token = app(\App\Actions\IssueJwtAction::class)->issueAccessToken(
             $user, 
             $org, 
-            \App\Enums\Guard::Organization, 
+            \App\Enums\Guard::ORGANIZATION, 
             'Manager'
         );
         $this->withToken($token);
@@ -64,7 +64,7 @@ class WorklogTest extends TestCase
         return $this;
     }
 
-    protected function createOrgWithWorklogSetup(ApprovalFlow $flow = ApprovalFlow::Auto): array
+    protected function createOrgWithWorklogSetup(ApprovalFlow $flow = ApprovalFlow::AUTO): array
     {
         $user = User::factory()->create([
             'name' => 'Test User',
@@ -75,7 +75,7 @@ class WorklogTest extends TestCase
         $organization = Organization::create([
             'legal_name' => 'Test Organization',
             'slug' => 'test-org-' . uniqid(),
-            'type' => \App\Enums\Organization\OrganizationType::Organization->value ?? 'organization',
+            'type' => \App\Enums\Organization\OrganizationType::ORGANIZATION->value ?? 'organization',
             'is_active' => true,
         ]);
 
@@ -87,8 +87,8 @@ class WorklogTest extends TestCase
 
         $attPolicy = new AttendancePolicy();
         $attPolicy->organization_id = $organization->id;
-        $attPolicy->attendance_mode = \App\Enums\Attendance\AttendanceMode::Flexible ?? 1;
-        $attPolicy->approval_flow = \App\Enums\Attendance\ApprovalFlow::Auto ?? 1;
+        $attPolicy->attendance_mode = \App\Enums\Attendance\AttendanceMode::FLEXIBLE ?? 1;
+        $attPolicy->approval_flow = \App\Enums\Attendance\ApprovalFlow::AUTO ?? 1;
         $attPolicy->shift_start_time = '09:00:00';
         $attPolicy->shift_end_time = '17:00:00';
         $attPolicy->required_daily_minutes = 480;
@@ -115,7 +115,7 @@ class WorklogTest extends TestCase
         $attPolicyVersion->version = 1;
         $attPolicyVersion->organization_id = $organization->id;
         $attPolicyVersion->attendance_mode = 1;
-        $attPolicyVersion->approval_flow = \App\Enums\Attendance\ApprovalFlow::Auto;
+        $attPolicyVersion->approval_flow = \App\Enums\Attendance\ApprovalFlow::AUTO;
         $attPolicyVersion->shift_start_time = '09:00:00';
         $attPolicyVersion->shift_end_time = '17:00:00';
         $attPolicyVersion->required_daily_minutes = 480;
@@ -185,8 +185,8 @@ class WorklogTest extends TestCase
         $day->user_id = $user->id;
         $day->organization_id = $organization->id;
         $day->attendance_date = now()->toDateString();
-        $day->attendance_status = \App\Enums\AttendanceStatusEnum::Present;
-        $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::Pending;
+        $day->attendance_status = \App\Enums\AttendanceStatusEnum::PRESENT;
+        $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::PENDING;
         $day->attendance_policy_version_id = $attPolicyVersion->id;
         $day->save();
 
@@ -223,7 +223,7 @@ class WorklogTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('attendance_worklogs', [
             'attendance_day_id' => $day->id,
-            'worklog_status' => WorklogStatus::AutoApproved->value,
+            'worklog_status' => WorklogStatus::AUTO_APPROVED->value,
             'worklog_policy_version_id' => $wlPolicyVersion->id,
         ]);
     }
@@ -263,7 +263,7 @@ class WorklogTest extends TestCase
             ->postJson("/api/v1/organization/attendance/days/{$day->uuid}/worklogs", $this->getValidWorklogPayload());
 
         $day->refresh();
-        $this->assertEquals(AttendanceComplianceStatusEnum::Compliant, $day->compliance_status);
+        $this->assertEquals(AttendanceComplianceStatusEnum::COMPLIANT, $day->compliance_status);
     }
 
     /**
@@ -271,7 +271,7 @@ class WorklogTest extends TestCase
      */
     public function test_employee_can_submit_worklog_under_single_approval_flow(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -280,7 +280,7 @@ class WorklogTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('attendance_worklogs', [
             'attendance_day_id' => $day->id,
-            'worklog_status' => WorklogStatus::Submitted->value,
+            'worklog_status' => WorklogStatus::SUBMITTED->value,
         ]);
     }
 
@@ -289,7 +289,7 @@ class WorklogTest extends TestCase
      */
     public function test_manager_can_approve_worklog_single_approval(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -306,7 +306,7 @@ class WorklogTest extends TestCase
         $approveResponse->assertStatus(200);
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
-            'worklog_status' => WorklogStatus::Approved->value,
+            'worklog_status' => WorklogStatus::APPROVED->value,
             'approved_by' => $manager->id,
         ]);
     }
@@ -316,7 +316,7 @@ class WorklogTest extends TestCase
      */
     public function test_manager_can_reject_worklog(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -333,7 +333,7 @@ class WorklogTest extends TestCase
         $rejectResponse->assertStatus(200);
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
-            'worklog_status' => WorklogStatus::Rejected->value,
+            'worklog_status' => WorklogStatus::REJECTED->value,
             'rejected_by' => $manager->id,
         ]);
     }
@@ -343,7 +343,7 @@ class WorklogTest extends TestCase
      */
     public function test_multi_level_first_approval_keeps_status_submitted(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::MultiLevelApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::MULTI_LEVEL_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -359,7 +359,7 @@ class WorklogTest extends TestCase
 
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
-            'worklog_status' => WorklogStatus::Submitted->value,
+            'worklog_status' => WorklogStatus::SUBMITTED->value,
             'approved_by' => $manager->id,
             'second_approver_id' => null,
         ]);
@@ -370,7 +370,7 @@ class WorklogTest extends TestCase
      */
     public function test_multi_level_second_approval_finalizes_worklog(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::MultiLevelApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::MULTI_LEVEL_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -391,7 +391,7 @@ class WorklogTest extends TestCase
 
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
-            'worklog_status' => WorklogStatus::Approved->value,
+            'worklog_status' => WorklogStatus::APPROVED->value,
             'approved_by' => $manager1->id,
             'second_approver_id' => $manager2->id,
         ]);
@@ -402,7 +402,7 @@ class WorklogTest extends TestCase
      */
     public function test_employee_cannot_approve_own_worklog(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -534,7 +534,7 @@ class WorklogTest extends TestCase
     public function test_approval_uses_snapshot_not_live_policy(): void
     {
         $this->withoutExceptionHandling();
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -545,10 +545,10 @@ class WorklogTest extends TestCase
         // Update live policy to MultiLevel
         $wlPolicyVersion2 = $wlPolicyVersion->replicate();
         $wlPolicyVersion2->version = 2;
-        $wlPolicyVersion2->approval_flow = ApprovalFlow::MultiLevelApproval->value;
+        $wlPolicyVersion2->approval_flow = ApprovalFlow::MULTI_LEVEL_APPROVAL->value;
         $wlPolicyVersion2->created_at = now();
         $wlPolicyVersion2->save();
-        $wlPolicy->approval_flow = ApprovalFlow::MultiLevelApproval;
+        $wlPolicy->approval_flow = ApprovalFlow::MULTI_LEVEL_APPROVAL;
         $wlPolicy->save();
 
         $manager = $this->createUserWithOrg($organization);
@@ -561,7 +561,7 @@ class WorklogTest extends TestCase
 
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
-            'worklog_status' => WorklogStatus::Approved->value,
+            'worklog_status' => WorklogStatus::APPROVED->value,
             'second_approver_id' => null,
         ]);
     }
@@ -605,7 +605,7 @@ class WorklogTest extends TestCase
         $org2 = Organization::create([
             'legal_name' => 'Test Org 2',
             'slug' => 'test-org-2-' . uniqid(),
-            'type' => \App\Enums\Organization\OrganizationType::Organization->value ?? 'organization',
+            'type' => \App\Enums\Organization\OrganizationType::ORGANIZATION->value ?? 'organization',
             'is_active' => true,
         ]);
         $user2 = $this->createUserWithOrg($org2);
@@ -621,7 +621,7 @@ class WorklogTest extends TestCase
      */
     public function test_status_history_recorded_on_submit_and_approve(): void
     {
-        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SingleApproval);
+        [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup(ApprovalFlow::SINGLE_APPROVAL);
 
         $response = $this->actingAsTenant($user, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
@@ -640,7 +640,7 @@ class WorklogTest extends TestCase
 
         $this->assertDatabaseHas('worklog_status_histories', [
             'attendance_worklog_id' => $worklogId,
-            'new_status' => WorklogStatus::Approved->value,
+            'new_status' => WorklogStatus::APPROVED->value,
         ]);
         $this->assertDatabaseCount('worklog_status_histories', 2);
     }

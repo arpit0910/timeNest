@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('organizations')->name('organizations.')
     ->controller(OrganizationController::class)
-    ->middleware('permission:'.SystemPermission::OrganizationsManage->value)
+    ->middleware('permission:'.SystemPermission::ORGANIZATIONS_MANAGE->value)
     ->group(function (): void {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');

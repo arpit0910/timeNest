@@ -9,28 +9,28 @@ namespace App\Enums;
  */
 enum AttendanceSessionSourceEnum: int
 {
-    case Mobile = 1;
-    case Web = 2;
-    case AdminPanel = 3;
-    case System = 4;
+    case MOBILE = 1;
+    case WEB = 2;
+    case ADMIN_PANEL = 3;
+    case SYSTEM = 4;
 
     public function label(): string
     {
         return match ($this) {
-            self::Mobile => 'Mobile App',
-            self::Web => 'Web Portal',
-            self::AdminPanel => 'Admin Panel',
-            self::System => 'System Automations',
+            self::MOBILE => 'Mobile App',
+            self::WEB => 'Web Portal',
+            self::ADMIN_PANEL => 'Admin Panel',
+            self::SYSTEM => 'System Automations',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Mobile => '#3B82F6', // Blue
-            self::Web => '#10B981', // Green
-            self::AdminPanel => '#8B5CF6', // Purple
-            self::System => '#6B7280', // Gray
+            self::MOBILE => '#3B82F6', // Blue
+            self::WEB => '#10B981', // Green
+            self::ADMIN_PANEL => '#8B5CF6', // Purple
+            self::SYSTEM => '#6B7280', // Gray
         };
     }
 }

@@ -75,7 +75,7 @@ class AttendanceCalculationService
             }
 
             // 3. Calculate late minutes from the first session (only for Strict mode)
-            if ($policy->attendance_mode === AttendanceModeEnum::Strict) {
+            if ($policy->attendance_mode === AttendanceModeEnum::STRICT) {
                 $firstSession = $sessions->first();
                 $localClockIn = $firstSession->clock_in_at->copy()->tz($timezone);
                 
@@ -95,8 +95,8 @@ class AttendanceCalculationService
         }
 
         // Determine Attendance Status
-        $attendanceStatus = AttendanceStatusEnum::Absent;
-        $complianceStatus = AttendanceComplianceStatusEnum::Compliant;
+        $attendanceStatus = AttendanceStatusEnum::ABSENT;
+        $complianceStatus = AttendanceComplianceStatusEnum::COMPLIANT;
 
         // Check if there is an approved leave
         $isLeave = $this->leaveManagementService->hasApprovedLeave($user->id, $dateStr);
@@ -107,28 +107,28 @@ class AttendanceCalculationService
 
         if ($totalSessions === 0) {
             if ($isLeave) {
-                $attendanceStatus = AttendanceStatusEnum::Leave;
+                $attendanceStatus = AttendanceStatusEnum::LEAVE;
             } elseif ($isHoliday) {
-                $attendanceStatus = AttendanceStatusEnum::Holiday;
+                $attendanceStatus = AttendanceStatusEnum::HOLIDAY;
             } elseif ($isWeekend) {
-                $attendanceStatus = AttendanceStatusEnum::Weekend;
+                $attendanceStatus = AttendanceStatusEnum::WEEKEND;
             } else {
-                $attendanceStatus = AttendanceStatusEnum::Absent;
-                $complianceStatus = AttendanceComplianceStatusEnum::Overdue; // Unexcused absence
+                $attendanceStatus = AttendanceStatusEnum::ABSENT;
+                $complianceStatus = AttendanceComplianceStatusEnum::OVERDUE; // Unexcused absence
             }
         } else {
             // User worked
             $hasOpenSession = $sessions->whereNull('clock_out_at')->isNotEmpty();
 
             if ($hasOpenSession && $attendanceDay->attendance_date->isToday()) {
-                $attendanceStatus = AttendanceStatusEnum::Incomplete; // Still working
-                $complianceStatus = AttendanceComplianceStatusEnum::Pending;
+                $attendanceStatus = AttendanceStatusEnum::INCOMPLETE; // Still working
+                $complianceStatus = AttendanceComplianceStatusEnum::PENDING;
             } else {
                 // All sessions closed, check work hours against policy and slabs
                 $minRequired = $policy->required_daily_minutes;
                 
                 if ($totalWorkMinutes >= $minRequired) {
-                    $attendanceStatus = AttendanceStatusEnum::Present;
+                    $attendanceStatus = AttendanceStatusEnum::PRESENT;
                 } else {
                     // Check if they hit half-day threshold (either 50% of required, or custom slab)
                     $halfDayThreshold = (int) ($minRequired / 2);
@@ -144,14 +144,14 @@ class AttendanceCalculationService
                     }
 
                     if ($deduction >= 100.0) {
-                        $attendanceStatus = AttendanceStatusEnum::Absent;
-                        $complianceStatus = AttendanceComplianceStatusEnum::PayrollRisk;
+                        $attendanceStatus = AttendanceStatusEnum::ABSENT;
+                        $complianceStatus = AttendanceComplianceStatusEnum::PAYROLL_RISK;
                     } elseif ($deduction >= 50.0 || $totalWorkMinutes >= $halfDayThreshold) {
-                        $attendanceStatus = AttendanceStatusEnum::HalfDay;
-                        $complianceStatus = AttendanceComplianceStatusEnum::Pending;
+                        $attendanceStatus = AttendanceStatusEnum::HALF_DAY;
+                        $complianceStatus = AttendanceComplianceStatusEnum::PENDING;
                     } else {
-                        $attendanceStatus = AttendanceStatusEnum::Incomplete;
-                        $complianceStatus = AttendanceComplianceStatusEnum::Pending;
+                        $attendanceStatus = AttendanceStatusEnum::INCOMPLETE;
+                        $complianceStatus = AttendanceComplianceStatusEnum::PENDING;
                     }
                 }
 
@@ -159,11 +159,11 @@ class AttendanceCalculationService
                 if ($lateMinutes > 0) {
                     $monthlyLateCount = $this->getMonthlyLateCount($user->id, $organization->id, $attendanceDay->attendance_date);
                     if ($monthlyLateCount > $policy->allowed_monthly_late_count) {
-                        $complianceStatus = AttendanceComplianceStatusEnum::PayrollRisk;
+                        $complianceStatus = AttendanceComplianceStatusEnum::PAYROLL_RISK;
                     } else {
                         // Late but within grace count
-                        if ($complianceStatus === AttendanceComplianceStatusEnum::Compliant) {
-                            $complianceStatus = AttendanceComplianceStatusEnum::Pending;
+                        if ($complianceStatus === AttendanceComplianceStatusEnum::COMPLIANT) {
+                            $complianceStatus = AttendanceComplianceStatusEnum::PENDING;
                         }
                     }
                 }
@@ -190,14 +190,14 @@ class AttendanceCalculationService
                     // Check if there is at least one submitted or approved worklog
                     $hasSubmittedWorklog = $attendanceDay->worklogs()
                         ->whereIn('worklog_status', [
-                            \App\Enums\WorkflowStatusEnum::Submitted->value,
-                            \App\Enums\WorkflowStatusEnum::Approved->value,
-                            \App\Enums\WorkflowStatusEnum::Locked->value
+                            \App\Enums\WorkflowStatusEnum::SUBMITTED->value,
+                            \App\Enums\WorkflowStatusEnum::APPROVED->value,
+                            \App\Enums\WorkflowStatusEnum::LOCKED->value
                         ])->exists();
                     
                     if (! $hasSubmittedWorklog) {
                         $attendanceDay->update([
-                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                            'attendance_status' => AttendanceStatusEnum::INCOMPLETE->value,
                         ]);
                     }
                 }
@@ -209,7 +209,7 @@ class AttendanceCalculationService
                         ->exists();
                     if ($hasMissingProject) {
                         $attendanceDay->update([
-                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                            'attendance_status' => AttendanceStatusEnum::INCOMPLETE->value,
                         ]);
                     }
                 }
@@ -220,7 +220,7 @@ class AttendanceCalculationService
                         ->exists();
                     if ($hasMissingTask) {
                         $attendanceDay->update([
-                            'attendance_status' => AttendanceStatusEnum::Incomplete->value,
+                            'attendance_status' => AttendanceStatusEnum::INCOMPLETE->value,
                         ]);
                     }
                 }

@@ -12,10 +12,10 @@ namespace App\Enums;
  */
 enum UserStatus: int
 {
-    case Active = 1;
-    case Inactive = 2;
-    case Suspended = 3;
-    case PendingVerification = 4;
+    case ACTIVE = 1;
+    case INACTIVE = 2;
+    case SUSPENDED = 3;
+    case PENDING_VERIFICATION = 4;
 
     /**
      * Get human-readable label for the status.
@@ -23,10 +23,10 @@ enum UserStatus: int
     public function label(): string
     {
         return match ($this) {
-            self::Active => 'Active',
-            self::Inactive => 'Inactive',
-            self::Suspended => 'Suspended',
-            self::PendingVerification => 'Pending Verification',
+            self::ACTIVE => 'Active',
+            self::INACTIVE => 'Inactive',
+            self::SUSPENDED => 'Suspended',
+            self::PENDING_VERIFICATION => 'Pending Verification',
         };
     }
 
@@ -35,6 +35,6 @@ enum UserStatus: int
      */
     public function isAccessible(): bool
     {
-        return $this === self::Active;
+        return $this === self::ACTIVE;
     }
 }

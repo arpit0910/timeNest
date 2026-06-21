@@ -6,35 +6,35 @@ namespace App\Enums\Attendance;
 
 enum ApprovalFlow: int
 {
-    case Auto               = 1;
-    case SingleApproval     = 2;
-    case MultiLevelApproval = 3;
+    case AUTO               = 1;
+    case SINGLE_APPROVAL     = 2;
+    case MULTI_LEVEL_APPROVAL = 3;
 
     public function label(): string
     {
         return match($this) {
-            self::Auto               => 'Auto',
-            self::SingleApproval     => 'Single Approval',
-            self::MultiLevelApproval => 'Multi-Level Approval',
+            self::AUTO               => 'Auto',
+            self::SINGLE_APPROVAL     => 'Single Approval',
+            self::MULTI_LEVEL_APPROVAL => 'Multi-Level Approval',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::Auto               => 'Corrections are immediately accepted without review.',
-            self::SingleApproval     => 'Direct manager must approve.',
-            self::MultiLevelApproval => 'Manager approves first, then HR or Admin.',
+            self::AUTO               => 'Corrections are immediately accepted without review.',
+            self::SINGLE_APPROVAL     => 'Direct manager must approve.',
+            self::MULTI_LEVEL_APPROVAL => 'Manager approves first, then HR or Admin.',
         };
     }
 
     public function requiresApprover(): bool
     {
-        return $this !== self::Auto;
+        return $this !== self::AUTO;
     }
 
     public function requiresSecondApprover(): bool
     {
-        return $this === self::MultiLevelApproval;
+        return $this === self::MULTI_LEVEL_APPROVAL;
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             // ── New columns ──────────────────────────────────────
 
             $table->unsignedTinyInteger('status')
-                ->default(UserStatus::Active->value)
+                ->default(UserStatus::ACTIVE->value)
                 ->after('is_active')
                 ->comment('Account lifecycle state: 1=active, 2=inactive, 3=suspended, 4=pending_verification');
 

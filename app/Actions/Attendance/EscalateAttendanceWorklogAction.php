@@ -30,7 +30,7 @@ class EscalateAttendanceWorklogAction
             // 1. Transition the worklog status to Escalated
             $this->transitionService->transition(
                 $worklog,
-                WorkflowStatusEnum::Escalated,
+                WorkflowStatusEnum::ESCALATED,
                 $actor,
                 $remarks,
                 $metadata

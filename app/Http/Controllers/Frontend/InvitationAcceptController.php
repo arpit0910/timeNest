@@ -151,17 +151,17 @@ class InvitationAcceptController extends Controller
         }
 
         if ($invitation->isExpired()) {
-            if ($invitation->status === InvitationStatusEnum::Pending) {
-                $invitation->update(['status' => InvitationStatusEnum::Expired]);
+            if ($invitation->status === InvitationStatusEnum::PENDING) {
+                $invitation->update(['status' => InvitationStatusEnum::EXPIRED]);
             }
             return ['error' => true, 'heading' => 'Invitation Expired', 'message' => 'This invitation has expired. Please ask the person who invited you to send a new invitation.'];
         }
 
-        if ($invitation->status === InvitationStatusEnum::Revoked) {
+        if ($invitation->status === InvitationStatusEnum::REVOKED) {
             return ['error' => true, 'heading' => 'Invitation Revoked', 'message' => 'This invitation has been revoked by the organization administrator.'];
         }
 
-        if ($invitation->status === InvitationStatusEnum::Accepted) {
+        if ($invitation->status === InvitationStatusEnum::ACCEPTED) {
             return ['error' => true, 'heading' => 'Already Accepted', 'message' => 'This invitation has already been accepted. You can log in to access the workspace.'];
         }
 

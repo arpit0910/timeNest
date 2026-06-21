@@ -9,18 +9,18 @@ namespace App\Enums;
  */
 enum InvitationStatusEnum: int
 {
-    case Pending = 1;
-    case Accepted = 2;
-    case Expired = 3;
-    case Revoked = 4;
+    case PENDING = 1;
+    case ACCEPTED = 2;
+    case EXPIRED = 3;
+    case REVOKED = 4;
 
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Accepted => 'Accepted',
-            self::Expired => 'Expired',
-            self::Revoked => 'Revoked',
+            self::PENDING => 'Pending',
+            self::ACCEPTED => 'Accepted',
+            self::EXPIRED => 'Expired',
+            self::REVOKED => 'Revoked',
         };
     }
 }

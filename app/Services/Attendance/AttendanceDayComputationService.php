@@ -138,7 +138,7 @@ class AttendanceDayComputationService
         $mode = $policyVersion->attendance_mode;
 
         // Flexible mode → always 0
-        if ($mode === AttendanceMode::Flexible) {
+        if ($mode === AttendanceMode::FLEXIBLE) {
             return 0;
         }
 
@@ -176,7 +176,7 @@ class AttendanceDayComputationService
         $mode = $policyVersion->attendance_mode;
 
         // Only Strict mode computes early exit
-        if ($mode !== AttendanceMode::Strict) {
+        if ($mode !== AttendanceMode::STRICT) {
             return 0;
         }
 
@@ -232,22 +232,22 @@ class AttendanceDayComputationService
     ): AttendanceStatus {
         // a. Open session → Incomplete
         if ($openSessions->isNotEmpty()) {
-            return AttendanceStatus::Incomplete;
+            return AttendanceStatus::INCOMPLETE;
         }
 
         // b. Full day
         if ($totalWorkMinutes >= $requiredDailyMinutes) {
-            return AttendanceStatus::Present;
+            return AttendanceStatus::PRESENT;
         }
 
         // c. Half day
         $halfRequired = (int) floor($requiredDailyMinutes / 2);
         if ($totalWorkMinutes >= $halfRequired) {
-            return AttendanceStatus::HalfDay;
+            return AttendanceStatus::HALF_DAY;
         }
 
         // d. Absent
-        return AttendanceStatus::Absent;
+        return AttendanceStatus::ABSENT;
     }
 
     /**
@@ -263,11 +263,11 @@ class AttendanceDayComputationService
     ): ComplianceStatus {
         if (
             $strictWorklogEnforcement &&
-            in_array($attendanceStatus, [AttendanceStatus::Present, AttendanceStatus::HalfDay], true)
+            in_array($attendanceStatus, [AttendanceStatus::PRESENT, AttendanceStatus::HALF_DAY], true)
         ) {
-            return ComplianceStatus::Pending;
+            return ComplianceStatus::PENDING;
         }
 
-        return ComplianceStatus::Compliant;
+        return ComplianceStatus::COMPLIANT;
     }
 }

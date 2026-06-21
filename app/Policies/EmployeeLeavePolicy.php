@@ -25,7 +25,7 @@ final class EmployeeLeavePolicy
             return true;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::LeavesView->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::LEAVES_VIEW->value)) {
             return false;
         }
 
@@ -33,7 +33,7 @@ final class EmployeeLeavePolicy
             $user,
             $leave->user_id,
             $leave->organization_id,
-            SystemPermission::LeavesApproveAny,
+            SystemPermission::LEAVES_APPROVE_ANY,
         );
     }
 
@@ -43,8 +43,8 @@ final class EmployeeLeavePolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::LeavesApprove->value)
-            && ! $user->hasPermissionTo(SystemPermission::LeavesApproveAny->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value)
+            && ! $user->hasPermissionTo(SystemPermission::LEAVES_APPROVE_ANY->value)) {
             return false;
         }
 
@@ -52,7 +52,7 @@ final class EmployeeLeavePolicy
             $user,
             $leave->user_id,
             $leave->organization_id,
-            SystemPermission::LeavesApproveAny,
+            SystemPermission::LEAVES_APPROVE_ANY,
         );
     }
 }

@@ -31,7 +31,7 @@ class AttendanceEscalationService
             // Check if there is an active pending escalation of this type for this worklog/day
             $existing = AttendanceEscalation::where('user_id', $userId)
                 ->where('escalation_type', $type->value)
-                ->where('escalation_status', EscalationStatusEnum::Pending->value);
+                ->where('escalation_status', EscalationStatusEnum::PENDING->value);
 
             if ($worklogId) {
                 $existing->where('attendance_worklog_id', $worklogId);
@@ -58,7 +58,7 @@ class AttendanceEscalationService
                 'attendance_worklog_id' => $worklogId,
                 'escalation_type' => $type->value,
                 'escalation_level' => 1,
-                'escalation_status' => EscalationStatusEnum::Pending->value,
+                'escalation_status' => EscalationStatusEnum::PENDING->value,
                 'remarks' => $remarks,
                 'metadata' => $metadata,
             ]);
@@ -72,7 +72,7 @@ class AttendanceEscalationService
     {
         return DB::transaction(function () use ($escalation, $resolvedBy, $remarks) {
             $escalation->update([
-                'escalation_status' => EscalationStatusEnum::Resolved->value,
+                'escalation_status' => EscalationStatusEnum::RESOLVED->value,
                 'resolved_by' => $resolvedBy->id,
                 'resolved_at' => now(),
                 'remarks' => $remarks ?: $escalation->remarks,
@@ -89,7 +89,7 @@ class AttendanceEscalationService
     {
         return DB::transaction(function () use ($escalation, $resolvedBy, $remarks) {
             $escalation->update([
-                'escalation_status' => EscalationStatusEnum::Dismissed->value,
+                'escalation_status' => EscalationStatusEnum::DISMISSED->value,
                 'resolved_by' => $resolvedBy->id,
                 'resolved_at' => now(),
                 'remarks' => $remarks ?: $escalation->remarks,

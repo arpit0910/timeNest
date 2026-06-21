@@ -131,17 +131,17 @@ class WorklogSubmissionService
             $worklog->created_by = $submittedBy->id;
             $worklog->updated_by = $submittedBy->id;
 
-            if ($flow === ApprovalFlow::Auto) {
-                $worklog->worklog_status = WorklogStatus::AutoApproved;
-                $worklog->compliance_status = WorklogComplianceStatus::Compliant;
+            if ($flow === ApprovalFlow::AUTO) {
+                $worklog->worklog_status = WorklogStatus::AUTO_APPROVED;
+                $worklog->compliance_status = WorklogComplianceStatus::COMPLIANT;
             } else {
-                $worklog->worklog_status = WorklogStatus::Submitted;
-                $worklog->compliance_status = WorklogComplianceStatus::Compliant;
+                $worklog->worklog_status = WorklogStatus::SUBMITTED;
+                $worklog->compliance_status = WorklogComplianceStatus::COMPLIANT;
             }
 
             $worklog->save();
 
-            $this->recordStatusChange($worklog, WorklogStatus::Draft, $worklog->worklog_status, $submittedBy, 'Worklog submitted');
+            $this->recordStatusChange($worklog, WorklogStatus::DRAFT, $worklog->worklog_status, $submittedBy, 'Worklog submitted');
 
             $this->updateDayComplianceStatus($day, $attPolicyVersion);
 
@@ -154,7 +154,7 @@ class WorklogSubmissionService
         User $approver,
         ?string $remarks = null
     ): AttendanceWorklog {
-        if ($worklog->worklog_status !== WorklogStatus::Submitted) {
+        if ($worklog->worklog_status !== WorklogStatus::SUBMITTED) {
             throw new WorklogAlreadyProcessedException();
         }
         if ($approver->id === $worklog->user_id) {
@@ -164,33 +164,33 @@ class WorklogSubmissionService
         $flow = $worklog->approval_flow_snapshot;
 
         return DB::transaction(function () use ($worklog, $approver, $remarks, $flow) {
-            if ($flow === ApprovalFlow::Auto) {
+            if ($flow === ApprovalFlow::AUTO) {
                 throw new WorklogAlreadyProcessedException();
             }
 
             $oldStatus = $worklog->worklog_status;
 
-            if ($flow === ApprovalFlow::SingleApproval) {
+            if ($flow === ApprovalFlow::SINGLE_APPROVAL) {
                 $worklog->approved_by = $approver->id;
                 $worklog->approved_at = now();
-                $worklog->worklog_status = WorklogStatus::Approved;
-                $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::Approved, $approver, $remarks);
-            } elseif ($flow === ApprovalFlow::MultiLevelApproval) {
+                $worklog->worklog_status = WorklogStatus::APPROVED;
+                $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::APPROVED, $approver, $remarks);
+            } elseif ($flow === ApprovalFlow::MULTI_LEVEL_APPROVAL) {
                 if (!$worklog->hasFirstLevelApproval()) {
                     $worklog->approved_by = $approver->id;
                     $worklog->approved_at = now();
-                    $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::Submitted, $approver, 'First level approved by ' . $approver->name . ($remarks ? " - $remarks" : ''));
+                    $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::SUBMITTED, $approver, 'First level approved by ' . $approver->name . ($remarks ? " - $remarks" : ''));
                 } else {
                     $worklog->second_approver_id = $approver->id;
                     $worklog->second_approved_at = now();
-                    $worklog->worklog_status = WorklogStatus::Approved;
-                    $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::Approved, $approver, $remarks);
+                    $worklog->worklog_status = WorklogStatus::APPROVED;
+                    $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::APPROVED, $approver, $remarks);
                 }
             }
 
             $worklog->save();
 
-            if (in_array($worklog->worklog_status, [WorklogStatus::Approved, WorklogStatus::AutoApproved], true)) {
+            if (in_array($worklog->worklog_status, [WorklogStatus::APPROVED, WorklogStatus::AUTO_APPROVED], true)) {
                 $day = $worklog->attendanceDay;
                 $attPolicyVersion = AttendancePolicyVersion::find($day->attendance_policy_version_id);
                 $this->updateDayComplianceStatus($day, $attPolicyVersion);
@@ -205,7 +205,7 @@ class WorklogSubmissionService
         User $rejector,
         string $rejectionReason
     ): AttendanceWorklog {
-        if ($worklog->worklog_status !== WorklogStatus::Submitted) {
+        if ($worklog->worklog_status !== WorklogStatus::SUBMITTED) {
             throw new WorklogAlreadyProcessedException();
         }
         if ($rejector->id === $worklog->user_id) {
@@ -217,7 +217,7 @@ class WorklogSubmissionService
         return DB::transaction(function () use ($worklog, $rejector, $rejectionReason, $flow) {
             $oldStatus = $worklog->worklog_status;
 
-            if ($flow === ApprovalFlow::SingleApproval || ($flow === ApprovalFlow::MultiLevelApproval && !$worklog->hasFirstLevelApproval())) {
+            if ($flow === ApprovalFlow::SINGLE_APPROVAL || ($flow === ApprovalFlow::MULTI_LEVEL_APPROVAL && !$worklog->hasFirstLevelApproval())) {
                 $worklog->rejected_by = $rejector->id;
                 $worklog->rejected_at = now();
                 $worklog->rejection_reason = $rejectionReason;
@@ -227,10 +227,10 @@ class WorklogSubmissionService
                 $worklog->rejection_reason = $rejectionReason;
             }
 
-            $worklog->worklog_status = WorklogStatus::Rejected;
+            $worklog->worklog_status = WorklogStatus::REJECTED;
             $worklog->save();
 
-            $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::Rejected, $rejector, $rejectionReason);
+            $this->recordStatusChange($worklog, $oldStatus, WorklogStatus::REJECTED, $rejector, $rejectionReason);
 
             return $worklog->fresh(['user', 'attendanceDay', 'attendanceSession', 'worklogPolicyVersion', 'submittedBy', 'rejectedBy', 'secondRejectedBy', 'statusHistories']);
         });
@@ -335,9 +335,9 @@ class WorklogSubmissionService
                         'user_id' => $day->user_id,
                         'organization_id' => $organization->id,
                         'attendance_day_id' => $day->id,
-                        'escalation_type' => EscalationType::MissingWorklog,
+                        'escalation_type' => EscalationType::MISSING_WORKLOG,
                     ], [
-                        'escalation_status' => EscalationStatus::Pending,
+                        'escalation_status' => EscalationStatus::PENDING,
                         'escalated_at' => now(),
                     ]);
                 }
@@ -345,7 +345,7 @@ class WorklogSubmissionService
                 // Actually need to map to the enum values for compliance status correctly
                 // Depending on the exact class used by AttendanceDay (App\Enums\AttendanceComplianceStatusEnum vs App\Enums\Attendance\ComplianceStatus)
                 // Let's assume the value Overdue is equivalent to int 3 (based on earlier enum)
-                $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::Overdue;
+                $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::OVERDUE;
                 $day->save();
                 $processedCount++;
             });
@@ -363,11 +363,11 @@ class WorklogSubmissionService
         }
 
         $hasCompliantWorklog = AttendanceWorklog::where('attendance_day_id', $day->id)
-            ->whereIn('worklog_status', [WorklogStatus::Approved, WorklogStatus::AutoApproved, WorklogStatus::Submitted])
+            ->whereIn('worklog_status', [WorklogStatus::APPROVED, WorklogStatus::AUTO_APPROVED, WorklogStatus::SUBMITTED])
             ->exists();
 
         if ($hasCompliantWorklog) {
-            $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::Compliant;
+            $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::COMPLIANT;
             $day->save();
         }
     }

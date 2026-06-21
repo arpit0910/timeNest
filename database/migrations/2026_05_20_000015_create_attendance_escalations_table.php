@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->unsignedTinyInteger('escalation_type'); // EscalationTypeEnum
             $table->unsignedTinyInteger('escalation_level')->default(1);
-            $table->unsignedTinyInteger('escalation_status')->default(1); // EscalationStatusEnum::Pending
+            $table->unsignedTinyInteger('escalation_status')->default(1); // EscalationStatusEnum::PENDING
 
             $table->text('remarks')->nullable();
             $table->json('metadata')->nullable();

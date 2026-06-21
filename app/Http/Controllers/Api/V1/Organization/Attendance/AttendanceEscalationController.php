@@ -38,10 +38,10 @@ class AttendanceEscalationController extends BaseApiController
 
         try {
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
 
-            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::AttendanceEscalationsView->value) 
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::AttendanceEscalationsResolve->value);
+            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value) 
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value);
 
             $query = AttendanceEscalation::where('organization_id', $organization->id);
 
@@ -83,14 +83,14 @@ class AttendanceEscalationController extends BaseApiController
         $user = auth()->user();
         $this->authorize('resolve', $escalation);
 
-        if ($escalation->escalation_status !== EscalationStatusEnum::Pending) {
+        if ($escalation->escalation_status !== EscalationStatusEnum::PENDING) {
             throw new BusinessRuleViolationException('This escalation is already resolved or dismissed.', 'ESCALATION_ALREADY_FINALIZED');
         }
 
         $validated = $request->validated();
         $status = EscalationStatusEnum::from((int) $validated['status']);
 
-        $dismiss = ($status === EscalationStatusEnum::Dismissed);
+        $dismiss = ($status === EscalationStatusEnum::DISMISSED);
 
         $updated = $this->resolveAction->execute(
             $escalation,

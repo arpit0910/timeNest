@@ -16,21 +16,21 @@ namespace App\Enums;
 enum SystemRole: string
 {
     // ─── Platform Roles ──────────────────────────────────────────
-    case AppOwner = 'app_owner';
-    case AppSuperAdmin = 'app_super_admin';
-    case AppAdmin = 'app_admin';
-    case SupportAgent = 'support_agent';
-    case Auditor = 'auditor';
+    case APP_OWNER = 'app_owner';
+    case APP_SUPER_ADMIN = 'app_super_admin';
+    case APP_ADMIN = 'app_admin';
+    case SUPPORT_AGENT = 'support_agent';
+    case AUDITOR = 'auditor';
 
     // ─── Organization Roles ───────────────────────────────────────
-    case OrganizationOwner = 'organization_owner';
-    case OrganizationSuperAdmin = 'organization_super_admin';
-    case OrganizationAdmin = 'organization_admin';
-    case HrManager = 'hr_manager';
-    case Manager = 'manager';
-    case Supervisor = 'supervisor';
-    case Employee = 'employee';
-    case Contractor = 'contractor';
+    case ORGANIZATION_OWNER = 'organization_owner';
+    case ORGANIZATION_SUPER_ADMIN = 'organization_super_admin';
+    case ORGANIZATION_ADMIN = 'organization_admin';
+    case HR_MANAGER = 'hr_manager';
+    case MANAGER = 'manager';
+    case SUPERVISOR = 'supervisor';
+    case EMPLOYEE = 'employee';
+    case CONTRACTOR = 'contractor';
 
     /**
      * Check if this is a platform-level role.
@@ -56,11 +56,11 @@ enum SystemRole: string
     public static function platformRoles(): array
     {
         return [
-            self::AppOwner,
-            self::AppSuperAdmin,
-            self::AppAdmin,
-            self::SupportAgent,
-            self::Auditor,
+            self::APP_OWNER,
+            self::APP_SUPER_ADMIN,
+            self::APP_ADMIN,
+            self::SUPPORT_AGENT,
+            self::AUDITOR,
         ];
     }
 
@@ -72,14 +72,14 @@ enum SystemRole: string
     public static function organizationRoles(): array
     {
         return [
-            self::OrganizationOwner,
-            self::OrganizationSuperAdmin,
-            self::OrganizationAdmin,
-            self::HrManager,
-            self::Manager,
-            self::Supervisor,
-            self::Employee,
-            self::Contractor,
+            self::ORGANIZATION_OWNER,
+            self::ORGANIZATION_SUPER_ADMIN,
+            self::ORGANIZATION_ADMIN,
+            self::HR_MANAGER,
+            self::MANAGER,
+            self::SUPERVISOR,
+            self::EMPLOYEE,
+            self::CONTRACTOR,
         ];
     }
 
@@ -89,19 +89,19 @@ enum SystemRole: string
     public function description(): string
     {
         return match ($this) {
-            self::AppOwner => 'Absolute platform owner. No restrictions.',
-            self::AppSuperAdmin => 'Platform super admin. Manages organizations, billing, platform config.',
-            self::AppAdmin => 'Platform admin. Daily operations, support escalations.',
-            self::SupportAgent => 'Read-only access to organization data for support.',
-            self::Auditor => 'Read-only audit access across platform.',
-            self::OrganizationOwner => 'Absolute owner of the organization. Cannot be revoked by org admins.',
-            self::OrganizationSuperAdmin => 'Full org access. Can manage all settings, users, billing.',
-            self::OrganizationAdmin => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
-            self::HrManager => 'HR operations: employee records, leave, attendance, onboarding.',
-            self::Manager => 'Team-level management. Approve leaves and attendance for team.',
-            self::Supervisor => 'Limited oversight. Attendance review only.',
-            self::Employee => 'Standard self-service access.',
-            self::Contractor => 'Project-scoped, limited access.',
+            self::APP_OWNER => 'Absolute platform owner. No restrictions.',
+            self::APP_SUPER_ADMIN => 'Platform super admin. Manages organizations, billing, platform config.',
+            self::APP_ADMIN => 'Platform admin. Daily operations, support escalations.',
+            self::SUPPORT_AGENT => 'Read-only access to organization data for support.',
+            self::AUDITOR => 'Read-only audit access across platform.',
+            self::ORGANIZATION_OWNER => 'Absolute owner of the organization. Cannot be revoked by org admins.',
+            self::ORGANIZATION_SUPER_ADMIN => 'Full org access. Can manage all settings, users, billing.',
+            self::ORGANIZATION_ADMIN => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
+            self::HR_MANAGER => 'HR operations: employee records, leave, attendance, onboarding.',
+            self::MANAGER => 'Team-level management. Approve leaves and attendance for team.',
+            self::SUPERVISOR => 'Limited oversight. Attendance review only.',
+            self::EMPLOYEE => 'Standard self-service access.',
+            self::CONTRACTOR => 'Project-scoped, limited access.',
         };
     }
 
@@ -112,20 +112,20 @@ enum SystemRole: string
     {
         return match ($this) {
             // Platform
-            self::AppOwner => 1,
-            self::AppSuperAdmin => 2,
-            self::AppAdmin => 3,
-            self::SupportAgent => 4,
-            self::Auditor => 5,
+            self::APP_OWNER => 1,
+            self::APP_SUPER_ADMIN => 2,
+            self::APP_ADMIN => 3,
+            self::SUPPORT_AGENT => 4,
+            self::AUDITOR => 5,
             // Organization
-            self::OrganizationOwner => 1,
-            self::OrganizationSuperAdmin => 2,
-            self::OrganizationAdmin => 3,
-            self::HrManager => 4,
-            self::Manager => 5,
-            self::Supervisor => 6,
-            self::Employee => 7,
-            self::Contractor => 8,
+            self::ORGANIZATION_OWNER => 1,
+            self::ORGANIZATION_SUPER_ADMIN => 2,
+            self::ORGANIZATION_ADMIN => 3,
+            self::HR_MANAGER => 4,
+            self::MANAGER => 5,
+            self::SUPERVISOR => 6,
+            self::EMPLOYEE => 7,
+            self::CONTRACTOR => 8,
         };
     }
 }

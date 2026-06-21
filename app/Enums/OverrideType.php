@@ -13,8 +13,8 @@ namespace App\Enums;
  */
 enum OverrideType: string
 {
-    case Grant = 'grant';
-    case Revoke = 'revoke';
+    case GRANT = 'grant';
+    case REVOKE = 'revoke';
 
     /**
      * Get human-readable label.
@@ -22,8 +22,8 @@ enum OverrideType: string
     public function label(): string
     {
         return match ($this) {
-            self::Grant => 'Grant',
-            self::Revoke => 'Revoke',
+            self::GRANT => 'Grant',
+            self::REVOKE => 'Revoke',
         };
     }
 }

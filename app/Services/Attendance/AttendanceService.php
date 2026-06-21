@@ -62,8 +62,8 @@ class AttendanceService
                 'organization_id' => $organization->id,
                 'attendance_date' => $todayDate,
             ], [
-                'attendance_status' => AttendanceStatusEnum::Incomplete->value,
-                'compliance_status' => AttendanceComplianceStatusEnum::Pending->value,
+                'attendance_status' => AttendanceStatusEnum::INCOMPLETE->value,
+                'compliance_status' => AttendanceComplianceStatusEnum::PENDING->value,
             ]);
 
             // Track active policy version snapshot on first clock-in of the day
@@ -135,7 +135,7 @@ class AttendanceService
                 'clock_in_accuracy' => $data['accuracy'] ?? null,
                 'clock_in_latitude' => $data['latitude'] ?? null,
                 'clock_in_longitude' => $data['longitude'] ?? null,
-                'clock_in_source' => $data['source'] ?? AttendanceSessionSourceEnum::Web->value,
+                'clock_in_source' => $data['source'] ?? AttendanceSessionSourceEnum::WEB->value,
                 'is_suspicious' => $isSuspicious,
                 'suspicious_reason' => $suspiciousReason,
             ]);
@@ -184,7 +184,7 @@ class AttendanceService
                 'clock_out_accuracy' => $data['accuracy'] ?? null,
                 'clock_out_latitude' => $data['latitude'] ?? null,
                 'clock_out_longitude' => $data['longitude'] ?? null,
-                'clock_out_source' => $data['source'] ?? AttendanceSessionSourceEnum::Web->value,
+                'clock_out_source' => $data['source'] ?? AttendanceSessionSourceEnum::WEB->value,
             ]);
 
             // Update daily calculations
@@ -223,7 +223,7 @@ class AttendanceService
                 'attendance_session_id' => $sessionId,
                 'requested_by' => $user->id,
                 'adjustment_type' => $type->value,
-                'status' => AttendanceAdjustmentStatusEnum::Pending->value,
+                'status' => AttendanceAdjustmentStatusEnum::PENDING->value,
                 'details' => [
                     'clock_in_at' => $data['clock_in_at'] ?? null,
                     'clock_out_at' => $data['clock_out_at'] ?? null,
@@ -252,40 +252,40 @@ class AttendanceService
 
             // Perform corrections depending on type
             switch ($type) {
-                case AttendanceAdjustmentTypeEnum::ClockInCorrection:
+                case AttendanceAdjustmentTypeEnum::CLOCK_IN_CORRECTION:
                     if (! $session) {
                         throw new BusinessRuleViolationException('Session is required for clock-in correction.', 'SESSION_REQUIRED');
                     }
                     $session->update(['clock_in_at' => Carbon::parse($details['clock_in_at'])]);
                     break;
 
-                case AttendanceAdjustmentTypeEnum::ClockOutCorrection:
+                case AttendanceAdjustmentTypeEnum::CLOCK_OUT_CORRECTION:
                     if (! $session) {
                         throw new BusinessRuleViolationException('Session is required for clock-out correction.', 'SESSION_REQUIRED');
                     }
                     $session->update(['clock_out_at' => Carbon::parse($details['clock_out_at'])]);
                     break;
 
-                case AttendanceAdjustmentTypeEnum::SessionDeletion:
+                case AttendanceAdjustmentTypeEnum::SESSION_DELETION:
                     if (! $session) {
                         throw new BusinessRuleViolationException('Session is required for deletion.', 'SESSION_REQUIRED');
                     }
                     $session->delete();
                     break;
 
-                case AttendanceAdjustmentTypeEnum::ManualAttendance:
+                case AttendanceAdjustmentTypeEnum::MANUAL_ATTENDANCE:
                     $day->attendanceSessions()->create([
                         'clock_in_at' => Carbon::parse($details['clock_in_at']),
                         'clock_out_at' => $details['clock_out_at'] ? Carbon::parse($details['clock_out_at']) : null,
-                        'clock_in_source' => AttendanceSessionSourceEnum::AdminPanel->value,
-                        'clock_out_source' => $details['clock_out_at'] ? AttendanceSessionSourceEnum::AdminPanel->value : null,
+                        'clock_in_source' => AttendanceSessionSourceEnum::ADMIN_PANEL->value,
+                        'clock_out_source' => $details['clock_out_at'] ? AttendanceSessionSourceEnum::ADMIN_PANEL->value : null,
                     ]);
                     break;
             }
 
             // Update adjustment request status
             $request->update([
-                'status' => AttendanceAdjustmentStatusEnum::Approved->value,
+                'status' => AttendanceAdjustmentStatusEnum::APPROVED->value,
                 'resolved_by' => $resolver->id,
                 'resolved_at' => now(),
             ]);
@@ -311,7 +311,7 @@ class AttendanceService
 
         return DB::transaction(function () use ($request, $resolver, $reason) {
             $request->update([
-                'status' => AttendanceAdjustmentStatusEnum::Rejected->value,
+                'status' => AttendanceAdjustmentStatusEnum::REJECTED->value,
                 //TODO: Need rejected at time too
                 'resolved_by' => $resolver->id,
                 'resolved_at' => now(),

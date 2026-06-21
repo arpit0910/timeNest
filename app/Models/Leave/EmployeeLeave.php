@@ -130,22 +130,22 @@ class EmployeeLeave extends Model
 
     public function isPending(): bool
     {
-        return $this->leave_status === LeaveStatus::Pending;
+        return $this->leave_status === LeaveStatus::PENDING;
     }
 
     public function isApproved(): bool
     {
-        return in_array($this->leave_status, [LeaveStatus::Approved, LeaveStatus::AutoApproved], true);
+        return in_array($this->leave_status, [LeaveStatus::APPROVED, LeaveStatus::AUTO_APPROVED], true);
     }
 
     public function isRejected(): bool
     {
-        return $this->leave_status === LeaveStatus::Rejected;
+        return $this->leave_status === LeaveStatus::REJECTED;
     }
 
     public function isCancelled(): bool
     {
-        return $this->leave_status === LeaveStatus::Cancelled;
+        return $this->leave_status === LeaveStatus::CANCELLED;
     }
 
     public function hasFirstLevelApproval(): bool
@@ -167,12 +167,12 @@ class EmployeeLeave extends Model
 
     public function scopeApproved(Builder $query): Builder
     {
-        return $query->whereIn('leave_status', [LeaveStatus::Approved, LeaveStatus::AutoApproved]);
+        return $query->whereIn('leave_status', [LeaveStatus::APPROVED, LeaveStatus::AUTO_APPROVED]);
     }
 
     public function scopePending(Builder $query): Builder
     {
-        return $query->where('leave_status', LeaveStatus::Pending);
+        return $query->where('leave_status', LeaveStatus::PENDING);
     }
 
     public function scopeToday(Builder $query): Builder

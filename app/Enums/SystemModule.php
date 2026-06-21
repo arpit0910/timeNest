@@ -12,18 +12,18 @@ namespace App\Enums;
  */
 enum SystemModule: string
 {
-    case Organizations = 'organizations';
-    case Users = 'users';
-    case Branches = 'branches';
-    case Departments = 'departments';
-    case Attendance = 'attendance';
-    case Payroll = 'payroll';
-    case Hrms = 'hrms';
-    case Leaves = 'leaves';
-    case Reports = 'reports';
-    case Settings = 'settings';
-    case Invoicing = 'invoicing';
-    case Workflows = 'workflows';
+    case ORGANIZATIONS = 'organizations';
+    case USERS = 'users';
+    case BRANCHES = 'branches';
+    case DEPARTMENTS = 'departments';
+    case ATTENDANCE = 'attendance';
+    case PAYROLL = 'payroll';
+    case HRMS = 'hrms';
+    case LEAVES = 'leaves';
+    case REPORTS = 'reports';
+    case SETTINGS = 'settings';
+    case INVOICING = 'invoicing';
+    case WORKFLOWS = 'workflows';
 
     /**
      * Get human-readable label.
@@ -31,18 +31,18 @@ enum SystemModule: string
     public function label(): string
     {
         return match ($this) {
-            self::Organizations => 'Organization Management',
-            self::Users => 'User Management',
-            self::Branches => 'Branch Management',
-            self::Departments => 'Department Management',
-            self::Attendance => 'Attendance Management',
-            self::Payroll => 'Payroll Management',
-            self::Hrms => 'HRMS',
-            self::Leaves => 'Leave Management',
-            self::Reports => 'Reports & Analytics',
-            self::Settings => 'System Settings',
-            self::Invoicing => 'Invoicing & Billing',
-            self::Workflows => 'Workflow Automation',
+            self::ORGANIZATIONS => 'Organization Management',
+            self::USERS => 'User Management',
+            self::BRANCHES => 'Branch Management',
+            self::DEPARTMENTS => 'Department Management',
+            self::ATTENDANCE => 'Attendance Management',
+            self::PAYROLL => 'Payroll Management',
+            self::HRMS => 'HRMS',
+            self::LEAVES => 'Leave Management',
+            self::REPORTS => 'Reports & Analytics',
+            self::SETTINGS => 'System Settings',
+            self::INVOICING => 'Invoicing & Billing',
+            self::WORKFLOWS => 'Workflow Automation',
         };
     }
 }

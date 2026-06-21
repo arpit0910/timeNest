@@ -48,8 +48,8 @@ class InvitationTest extends TestCase
         $this->seed(PlatformRolePermissionsSeeder::class);
 
         // 2. Resolve roles
-        $this->adminRole = Role::where('name', SystemRole::OrganizationAdmin->value)->firstOrFail();
-        $this->employeeRole = Role::where('name', SystemRole::Employee->value)->firstOrFail();
+        $this->adminRole = Role::where('name', SystemRole::ORGANIZATION_ADMIN->value)->firstOrFail();
+        $this->employeeRole = Role::where('name', SystemRole::EMPLOYEE->value)->firstOrFail();
 
         // 3. Create organizations
         $this->organizationA = Organization::create([
@@ -74,7 +74,7 @@ class InvitationTest extends TestCase
         OrganizationMembership::create([
             'user_id' => $this->adminA->id,
             'organization_id' => $this->organizationA->id,
-            'status' => MembershipStatus::Active,
+            'status' => MembershipStatus::ACTIVE,
             'joined_at' => now(),
         ]);
         setPermissionsTeamId($this->organizationA->id);
@@ -84,7 +84,7 @@ class InvitationTest extends TestCase
         OrganizationMembership::create([
             'user_id' => $this->adminB->id,
             'organization_id' => $this->organizationB->id,
-            'status' => MembershipStatus::Active,
+            'status' => MembershipStatus::ACTIVE,
             'joined_at' => now(),
         ]);
         setPermissionsTeamId($this->organizationB->id);
@@ -94,8 +94,8 @@ class InvitationTest extends TestCase
 
         // 7. Issue Auth Tokens
         $issueJwtAction = app(IssueJwtAction::class);
-        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->organizationA, \App\Enums\Guard::Organization, SystemRole::OrganizationAdmin->value);
-        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->organizationB, \App\Enums\Guard::Organization, SystemRole::OrganizationAdmin->value);
+        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->organizationA, \App\Enums\Guard::ORGANIZATION, SystemRole::ORGANIZATION_ADMIN->value);
+        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->organizationB, \App\Enums\Guard::ORGANIZATION, SystemRole::ORGANIZATION_ADMIN->value);
     }
 
     private function headers(string $token, Organization $organization): array
@@ -128,7 +128,7 @@ class InvitationTest extends TestCase
             'organization_id' => $this->organizationA->id,
             'email' => 'new.employee@example.com',
             'role_id' => $this->employeeRole->id,
-            'status' => InvitationStatusEnum::Pending->value,
+            'status' => InvitationStatusEnum::PENDING->value,
         ]);
 
         Event::assertDispatched(InvitationCreated::class);
@@ -137,7 +137,7 @@ class InvitationTest extends TestCase
     public function test_cannot_create_invitation_for_invalid_role(): void
     {
         // Try creating with a platform-only role (e.g. AppOwner)
-        $platformRole = Role::where('name', SystemRole::AppOwner->value)->firstOrFail();
+        $platformRole = Role::where('name', SystemRole::APP_OWNER->value)->firstOrFail();
 
         $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->postJson('/api/v1/organization/invitations', [
@@ -159,7 +159,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token123'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -184,7 +184,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token_pending'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -195,7 +195,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token_revoked'),
-            'status' => InvitationStatusEnum::Revoked,
+            'status' => InvitationStatusEnum::REVOKED,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -223,7 +223,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token_show'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -244,7 +244,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token_revoke'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -252,11 +252,11 @@ class InvitationTest extends TestCase
             ->postJson("/api/v1/organization/invitations/{$invite->uuid}/revoke");
 
         $response->assertOk()
-            ->assertJsonPath('data.status', InvitationStatusEnum::Revoked->value);
+            ->assertJsonPath('data.status', InvitationStatusEnum::REVOKED->value);
 
         $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
-            'status' => InvitationStatusEnum::Revoked->value,
+            'status' => InvitationStatusEnum::REVOKED->value,
             'revoked_by' => $this->adminA->id,
         ]);
 
@@ -273,7 +273,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'token_old'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
             'resend_count' => 0,
         ]);
@@ -300,7 +300,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'rawtoken123'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -326,7 +326,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'rawtoken123'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -364,18 +364,18 @@ class InvitationTest extends TestCase
         $this->assertDatabaseHas('organization_memberships', [
             'user_id' => $newUser->id,
             'organization_id' => $this->organizationA->id,
-            'status' => MembershipStatus::Active->value,
+            'status' => MembershipStatus::ACTIVE->value,
         ]);
 
         // Assert role assigned
         setPermissionsTeamId($this->organizationA->id);
-        $this->assertTrue($newUser->hasRole(SystemRole::Employee->value));
+        $this->assertTrue($newUser->hasRole(SystemRole::EMPLOYEE->value));
         setPermissionsTeamId(null);
 
         // Assert invitation marked accepted
         $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
-            'status' => InvitationStatusEnum::Accepted->value,
+            'status' => InvitationStatusEnum::ACCEPTED->value,
         ]);
 
         Event::assertDispatched(InvitationAccepted::class);
@@ -397,13 +397,13 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'rawtokenexisting'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
         // Generate user token
         $issueJwtAction = app(IssueJwtAction::class);
-        $userToken = $issueJwtAction->issueAccessToken($existingUser, null, \App\Enums\Guard::Platform);
+        $userToken = $issueJwtAction->issueAccessToken($existingUser, null, \App\Enums\Guard::PLATFORM);
 
         $response = $this->withHeader('Authorization', "Bearer {$userToken}")
             ->postJson('/api/v1/invitations/accept', [
@@ -417,18 +417,18 @@ class InvitationTest extends TestCase
         $this->assertDatabaseHas('organization_memberships', [
             'user_id' => $existingUser->id,
             'organization_id' => $this->organizationA->id,
-            'status' => MembershipStatus::Active->value,
+            'status' => MembershipStatus::ACTIVE->value,
         ]);
 
         // Assert role assigned
         setPermissionsTeamId($this->organizationA->id);
-        $this->assertTrue($existingUser->hasRole(SystemRole::Employee->value));
+        $this->assertTrue($existingUser->hasRole(SystemRole::EMPLOYEE->value));
         setPermissionsTeamId(null);
 
         // Assert invitation accepted
         $this->assertDatabaseHas('organization_invitations', [
             'id' => $invite->id,
-            'status' => InvitationStatusEnum::Accepted->value,
+            'status' => InvitationStatusEnum::ACCEPTED->value,
         ]);
 
         Event::assertDispatched(InvitationAccepted::class);
@@ -447,7 +447,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminA->id,
             'token' => hash('sha256', 'rawtokenexisting2'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 
@@ -467,7 +467,7 @@ class InvitationTest extends TestCase
             'role_id' => $this->employeeRole->id,
             'invited_by_user_id' => $this->adminB->id,
             'token' => hash('sha256', 'tokenb'),
-            'status' => InvitationStatusEnum::Pending,
+            'status' => InvitationStatusEnum::PENDING,
             'expires_at' => now()->addDays(7),
         ]);
 

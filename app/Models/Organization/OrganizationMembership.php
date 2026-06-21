@@ -66,12 +66,12 @@ class OrganizationMembership extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status', MembershipStatus::Active);
+        return $query->where('status', MembershipStatus::ACTIVE);
     }
 
     public function scopePending($query)
     {
-        return $query->where('status', MembershipStatus::Pending);
+        return $query->where('status', MembershipStatus::PENDING);
     }
 
     public function scopeForOrganization($query, int $orgId)

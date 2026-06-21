@@ -9,14 +9,14 @@ namespace App\Enums;
  */
 enum AccrualFrequencyEnum: int
 {
-    case Monthly = 1;
-    case Quarterly = 2;
+    case MONTHLY = 1;
+    case QUARTERLY = 2;
 
     public function label(): string
     {
         return match ($this) {
-            self::Monthly => 'Monthly',
-            self::Quarterly => 'Quarterly',
+            self::MONTHLY => 'Monthly',
+            self::QUARTERLY => 'Quarterly',
         };
     }
 }

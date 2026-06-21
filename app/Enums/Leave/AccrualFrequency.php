@@ -6,22 +6,22 @@ namespace App\Enums\Leave;
 
 enum AccrualFrequency: int
 {
-    case Monthly = 1;
-    case Quarterly = 2;
+    case MONTHLY = 1;
+    case QUARTERLY = 2;
 
     public function label(): string
     {
         return match ($this) {
-            self::Monthly => 'Monthly',
-            self::Quarterly => 'Quarterly',
+            self::MONTHLY => 'Monthly',
+            self::QUARTERLY => 'Quarterly',
         };
     }
 
     public function description(): string
     {
         return match ($this) {
-            self::Monthly => 'Leave balance is accrued on a monthly basis.',
-            self::Quarterly => 'Leave balance is accrued on a quarterly basis.',
+            self::MONTHLY => 'Leave balance is accrued on a monthly basis.',
+            self::QUARTERLY => 'Leave balance is accrued on a quarterly basis.',
         };
     }
 }

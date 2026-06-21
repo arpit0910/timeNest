@@ -6,34 +6,34 @@ namespace App\Enums\Attendance;
 
 enum WorklogStatus: int
 {
-    case Draft        = 1;
-    case Submitted    = 2;
-    case Approved     = 3;
-    case Rejected     = 4;
-    case AutoApproved = 5;
-    case Locked       = 6;
+    case DRAFT        = 1;
+    case SUBMITTED    = 2;
+    case APPROVED     = 3;
+    case REJECTED     = 4;
+    case AUTO_APPROVED = 5;
+    case LOCKED       = 6;
 
     public function label(): string
     {
         return match($this) {
-            self::Draft        => 'Draft',
-            self::Submitted    => 'Submitted',
-            self::Approved     => 'Approved',
-            self::Rejected     => 'Rejected',
-            self::AutoApproved => 'Auto Approved',
-            self::Locked       => 'Locked',
+            self::DRAFT        => 'Draft',
+            self::SUBMITTED    => 'Submitted',
+            self::APPROVED     => 'Approved',
+            self::REJECTED     => 'Rejected',
+            self::AUTO_APPROVED => 'Auto Approved',
+            self::LOCKED       => 'Locked',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::Draft        => 'Worklog is currently being drafted by the employee.',
-            self::Submitted    => 'Worklog has been submitted and is pending review.',
-            self::Approved     => 'Worklog has been manually approved by a manager.',
-            self::Rejected     => 'Worklog has been rejected and requires correction.',
-            self::AutoApproved => 'Worklog was automatically approved by system policy.',
-            self::Locked       => 'Worklog is locked and can no longer be edited.',
+            self::DRAFT        => 'Worklog is currently being drafted by the employee.',
+            self::SUBMITTED    => 'Worklog has been submitted and is pending review.',
+            self::APPROVED     => 'Worklog has been manually approved by a manager.',
+            self::REJECTED     => 'Worklog has been rejected and requires correction.',
+            self::AUTO_APPROVED => 'Worklog was automatically approved by system policy.',
+            self::LOCKED       => 'Worklog is locked and can no longer be edited.',
         };
     }
 }

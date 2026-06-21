@@ -11,10 +11,10 @@ namespace App\Enums;
  */
 enum OrganizationPlan: string
 {
-    case Free = 'free';
-    case Starter = 'starter';
-    case Professional = 'professional';
-    case Enterprise = 'enterprise';
+    case FREE = 'free';
+    case STARTER = 'starter';
+    case PROFESSIONAL = 'professional';
+    case ENTERPRISE = 'enterprise';
 
     /**
      * Get human-readable label.
@@ -22,10 +22,10 @@ enum OrganizationPlan: string
     public function label(): string
     {
         return match ($this) {
-            self::Free => 'Free',
-            self::Starter => 'Starter',
-            self::Professional => 'Professional',
-            self::Enterprise => 'Enterprise',
+            self::FREE => 'Free',
+            self::STARTER => 'Starter',
+            self::PROFESSIONAL => 'Professional',
+            self::ENTERPRISE => 'Enterprise',
         };
     }
 
@@ -35,10 +35,10 @@ enum OrganizationPlan: string
     public function defaultMaxUsers(): int
     {
         return match ($this) {
-            self::Free => 5,
-            self::Starter => 25,
-            self::Professional => 100,
-            self::Enterprise => 500,
+            self::FREE => 5,
+            self::STARTER => 25,
+            self::PROFESSIONAL => 100,
+            self::ENTERPRISE => 500,
         };
     }
 }

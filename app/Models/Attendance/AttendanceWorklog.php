@@ -161,17 +161,17 @@ class AttendanceWorklog extends Model
 
     public function isApproved(): bool
     {
-        return in_array($this->worklog_status, [WorklogStatus::Approved, WorklogStatus::AutoApproved], true);
+        return in_array($this->worklog_status, [WorklogStatus::APPROVED, WorklogStatus::AUTO_APPROVED], true);
     }
 
     public function isPending(): bool
     {
-        return $this->worklog_status === WorklogStatus::Submitted;
+        return $this->worklog_status === WorklogStatus::SUBMITTED;
     }
 
     public function isLocked(): bool
     {
-        return $this->worklog_status === WorklogStatus::Locked;
+        return $this->worklog_status === WorklogStatus::LOCKED;
     }
 
     public function hasFirstLevelApproval(): bool

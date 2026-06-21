@@ -17,38 +17,38 @@ class WorklogStatusTransitionService
      * Set of allowed transitions.
      */
     private const ALLOWED_TRANSITIONS = [
-        WorkflowStatusEnum::Draft->value => [
-            WorkflowStatusEnum::Submitted->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::DRAFT->value => [
+            WorkflowStatusEnum::SUBMITTED->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::Pending->value => [
-            WorkflowStatusEnum::Submitted->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::PENDING->value => [
+            WorkflowStatusEnum::SUBMITTED->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::Submitted->value => [
-            WorkflowStatusEnum::Approved->value,
-            WorkflowStatusEnum::Rejected->value,
-            WorkflowStatusEnum::RevisionRequested->value,
-            WorkflowStatusEnum::Escalated->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::SUBMITTED->value => [
+            WorkflowStatusEnum::APPROVED->value,
+            WorkflowStatusEnum::REJECTED->value,
+            WorkflowStatusEnum::REVISION_REQUESTED->value,
+            WorkflowStatusEnum::ESCALATED->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::Rejected->value => [
-            WorkflowStatusEnum::Draft->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::REJECTED->value => [
+            WorkflowStatusEnum::DRAFT->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::RevisionRequested->value => [
-            WorkflowStatusEnum::Draft->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::REVISION_REQUESTED->value => [
+            WorkflowStatusEnum::DRAFT->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::Escalated->value => [
-            WorkflowStatusEnum::Approved->value,
-            WorkflowStatusEnum::Rejected->value,
-            WorkflowStatusEnum::RevisionRequested->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::ESCALATED->value => [
+            WorkflowStatusEnum::APPROVED->value,
+            WorkflowStatusEnum::REJECTED->value,
+            WorkflowStatusEnum::REVISION_REQUESTED->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
-        WorkflowStatusEnum::Approved->value => [
-            WorkflowStatusEnum::Locked->value,
-            WorkflowStatusEnum::Cancelled->value,
+        WorkflowStatusEnum::APPROVED->value => [
+            WorkflowStatusEnum::LOCKED->value,
+            WorkflowStatusEnum::CANCELLED->value,
         ],
     ];
 
@@ -97,12 +97,12 @@ class WorklogStatusTransitionService
                 'updated_by' => $actor->id,
             ];
 
-            if ($targetStatus === WorkflowStatusEnum::Submitted) {
+            if ($targetStatus === WorkflowStatusEnum::SUBMITTED) {
                 $updates['submitted_at'] = now();
-            } elseif ($targetStatus === WorkflowStatusEnum::Approved) {
+            } elseif ($targetStatus === WorkflowStatusEnum::APPROVED) {
                 $updates['approved_by'] = $actor->id;
                 $updates['approved_at'] = now();
-            } elseif ($targetStatus === WorkflowStatusEnum::Rejected) {
+            } elseif ($targetStatus === WorkflowStatusEnum::REJECTED) {
                 $updates['rejected_by'] = $actor->id;
                 $updates['rejected_at'] = now();
                 $updates['rejection_reason'] = $remarks;
@@ -131,7 +131,7 @@ class WorklogStatusTransitionService
         $isOwner = $worklog->user_id === $actor->id;
 
         // Draft -> Submitted or Cancelled is allowed for owner
-        if (($target === WorkflowStatusEnum::Submitted || $target === WorkflowStatusEnum::Cancelled) && $isOwner) {
+        if (($target === WorkflowStatusEnum::SUBMITTED || $target === WorkflowStatusEnum::CANCELLED) && $isOwner) {
             return;
         }
 
@@ -141,7 +141,7 @@ class WorklogStatusTransitionService
         try {
             // Check platform bypass
             $platformRole = resolve_platform_role($actor);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::AppOwner->value;
+            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
 
             if ($isAppOwner) {
                 return;

@@ -42,7 +42,7 @@ class JwtOrganizationContextTest extends TestCase
         $ownerRole = Role::firstOrCreate(['name' => 'Owner', 'guard_name' => 'api']);
         $managerRole = Role::firstOrCreate(['name' => 'Manager', 'guard_name' => 'api']);
         $memberRole = Role::firstOrCreate(['name' => 'Member', 'guard_name' => 'api']);
-        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::AppOwner->value, 'guard_name' => 'api']);
+        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::APP_OWNER->value, 'guard_name' => 'api']);
 
         // Organizations
         $this->orgA = Organization::create(['legal_name' => 'Org A', 'slug' => 'org-a', 'is_active' => true]);
@@ -55,7 +55,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -66,7 +66,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -80,7 +80,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -102,7 +102,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -114,7 +114,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => false,
-            'status' => UserStatus::Inactive,
+            'status' => UserStatus::INACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -125,7 +125,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
             'two_factor_secret' => 'JBSWY3DPEHPK3PXP',
@@ -142,7 +142,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);
@@ -191,7 +191,7 @@ class JwtOrganizationContextTest extends TestCase
         $this->assertDatabaseHas('users', [
             'email' => 'new@example.com',
             'is_active' => 0,
-            'status' => UserStatus::PendingVerification->value,
+            'status' => UserStatus::PENDING_VERIFICATION->value,
         ]);
 
         $user = User::where('email', 'new@example.com')->first();
@@ -263,7 +263,7 @@ class JwtOrganizationContextTest extends TestCase
             'email_verification_token' => hash('sha256', $rawToken),
             'email_verification_token_expires_at' => now()->addHour(),
             'is_active' => false,
-            'status' => UserStatus::PendingVerification
+            'status' => UserStatus::PENDING_VERIFICATION
         ]);
 
         $response = $this->postJson("/api/v1/auth/verify-email?token={$rawToken}");
@@ -272,7 +272,7 @@ class JwtOrganizationContextTest extends TestCase
         $this->assertDatabaseHas('users', [
             'email' => 'verify@example.com',
             'is_active' => 1,
-            'status' => UserStatus::Active->value,
+            'status' => UserStatus::ACTIVE->value,
             'email_verification_token' => null
         ]);
         $this->assertNotNull($user->fresh()->email_verified_at);
@@ -291,7 +291,7 @@ class JwtOrganizationContextTest extends TestCase
             'email_verification_token' => hash('sha256', $rawToken),
             'email_verification_token_expires_at' => now()->subMinute(),
             'is_active' => false,
-            'status' => UserStatus::PendingVerification
+            'status' => UserStatus::PENDING_VERIFICATION
         ]);
 
         $response = $this->postJson("/api/v1/auth/verify-email?token={$rawToken}");
@@ -899,7 +899,7 @@ class JwtOrganizationContextTest extends TestCase
      */
     public function test_7_2_jwt_scoped_to_org_a_cannot_access_org_b_data()
     {
-        $permission = \App\Models\Rbac\Permission::firstOrCreate(['name' => \App\Enums\SystemPermission::BranchesView->value, 'guard_name' => 'api']);
+        $permission = \App\Models\Rbac\Permission::firstOrCreate(['name' => \App\Enums\SystemPermission::BRANCHES_VIEW->value, 'guard_name' => 'api']);
         $role = \App\Models\Rbac\Role::where('name', 'Owner')->first();
         $role->givePermissionTo($permission);
 
@@ -1236,8 +1236,8 @@ class JwtOrganizationContextTest extends TestCase
             'user_id' => $this->multiOrgUser->id,
             'organization_id' => $this->orgB->id,
             'attendance_date' => now()->toDateString(),
-            'attendance_status' => \App\Enums\AttendanceStatusEnum::Present,
-            'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Compliant,
+            'attendance_status' => \App\Enums\AttendanceStatusEnum::PRESENT,
+            'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::COMPLIANT,
         ]);
 
         $response = $this->withHeader('Authorization', "Bearer {$res['access_token']}")
@@ -1316,8 +1316,8 @@ class JwtOrganizationContextTest extends TestCase
             'user_id' => $this->singleOrgUser->id,
             'organization_id' => $this->orgA->id,
             'attendance_date' => now()->toDateString(),
-            'attendance_status' => \App\Enums\AttendanceStatusEnum::Present,
-            'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::Compliant,
+            'attendance_status' => \App\Enums\AttendanceStatusEnum::PRESENT,
+            'compliance_status' => \App\Enums\AttendanceComplianceStatusEnum::COMPLIANT,
         ]);
 
         $loginRes = $this->postJson('/api/v1/auth/login', [
@@ -1362,7 +1362,7 @@ class JwtOrganizationContextTest extends TestCase
     #[Group('jwt')]
     public function test_9_7_invitation_to_org_b_can_only_be_accepted_once()
     {
-        $role = \App\Models\Rbac\Role::firstOrCreate(['name' => \App\Enums\SystemRole::Employee->value, 'guard_name' => 'api', 'organization_id' => $this->orgB->id]);
+        $role = \App\Models\Rbac\Role::firstOrCreate(['name' => \App\Enums\SystemRole::EMPLOYEE->value, 'guard_name' => 'api', 'organization_id' => $this->orgB->id]);
         $plainToken = \Illuminate\Support\Str::random(32);
         $invitation = \App\Models\Invitation\Invitation::create([
             'organization_id' => $this->orgB->id,
@@ -1371,7 +1371,7 @@ class JwtOrganizationContextTest extends TestCase
             'invited_by_user_id' => $this->multiOrgUser->id,
             'token' => hash('sha256', $plainToken),
             'expires_at' => now()->addDays(7),
-            'status' => \App\Enums\InvitationStatusEnum::Pending
+            'status' => \App\Enums\InvitationStatusEnum::PENDING
         ]);
 
         $acceptData = [
@@ -1454,7 +1454,7 @@ class JwtOrganizationContextTest extends TestCase
             'password' => Hash::make('Password123!'),
             'password_set' => true,
             'is_active' => true,
-            'status' => UserStatus::Active,
+            'status' => UserStatus::ACTIVE,
             'email_verified_at' => now(),
             'token_version' => 1,
         ]);

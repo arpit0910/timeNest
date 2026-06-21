@@ -49,7 +49,7 @@ class SecurityHardeningTest extends TestCase
 
         // 2. Create Platform Roles
         $this->appOwnerRole = Role::create([
-            'name' => SystemRole::AppOwner->value,
+            'name' => SystemRole::APP_OWNER->value,
             'guard_name' => 'api',
             'organization_id' => null,
             'is_system_role' => true,
@@ -84,7 +84,7 @@ class SecurityHardeningTest extends TestCase
 
         $response->assertOk()
             ->assertJsonPath('success', true)
-            ->assertJsonPath('data.role', SystemRole::AppOwner->value)
+            ->assertJsonPath('data.role', SystemRole::APP_OWNER->value)
             ->assertJsonStructure([
                 'success',
                 'data' => [
@@ -146,7 +146,7 @@ class SecurityHardeningTest extends TestCase
     public function test_app_owner_can_access_organization_apis_directly_with_platform_token_via_header(): void
     {
         // Issue platform access token
-        $token = $this->issueJwtAction->issueAccessToken($this->appOwner, null, \App\Enums\Guard::Platform, SystemRole::AppOwner->value);
+        $token = $this->issueJwtAction->issueAccessToken($this->appOwner, null, \App\Enums\Guard::PLATFORM, SystemRole::APP_OWNER->value);
 
         // Call organization branch list API directly with platform token + X-Organization-Uuid header
         $response = $this->withHeader('Authorization', "Bearer {$token}")

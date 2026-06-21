@@ -44,7 +44,7 @@ class MembershipService
             $membership = OrganizationMembership::create([
                 'user_id' => $user->id,
                 'organization_id' => $organization->id,
-                'status' => MembershipStatus::Active,
+                'status' => MembershipStatus::ACTIVE,
                 'invited_by' => $invitedById,
                 'joined_at' => now(),
             ]);
@@ -122,7 +122,7 @@ class MembershipService
 
         DB::transaction(function () use ($membership) {
             $organization = $membership->organization;
-            $membership->update(['status' => MembershipStatus::Suspended]);
+            $membership->update(['status' => MembershipStatus::SUSPENDED]);
 
             // Also deactivate employee profile
             $profile = EmployeeProfile::where('organization_membership_id', $membership->id)->first();

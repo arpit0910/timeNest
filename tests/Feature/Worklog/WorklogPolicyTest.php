@@ -44,7 +44,7 @@ class WorklogPolicyTest extends TestCase
         $org = Organization::create([
             'legal_name' => 'Test Organization',
             'slug' => 'test-org-' . uniqid(),
-            'type' => \App\Enums\Organization\OrganizationType::Organization->value,
+            'type' => \App\Enums\Organization\OrganizationType::ORGANIZATION->value,
             'is_active' => true,
         ]);
 

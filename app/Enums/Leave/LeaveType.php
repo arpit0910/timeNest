@@ -6,32 +6,32 @@ namespace App\Enums\Leave;
 
 enum LeaveType: int
 {
-    case Casual = 1;
-    case Sick = 2;
-    case Paid = 3;
-    case Unpaid = 4;
-    case WorkFromHome = 5;
-    case ExtraWorkingDay = 6;
-    case HalfDay = 7;
-    case Emergency = 8;
-    case Maternity = 9;
-    case Paternity = 10;
-    case Bereavement = 11;
+    case CASUAL = 1;
+    case SICK = 2;
+    case PAID = 3;
+    case UNPAID = 4;
+    case WORK_FROM_HOME = 5;
+    case EXTRA_WORKING_DAY = 6;
+    case HALF_DAY = 7;
+    case EMERGENCY = 8;
+    case MATERNITY = 9;
+    case PATERNITY = 10;
+    case BEREAVEMENT = 11;
 
     public function label(): string
     {
         return match ($this) {
-            self::Casual => 'Casual Leave',
-            self::Sick => 'Sick Leave',
-            self::Paid => 'Paid Leave',
-            self::Unpaid => 'Unpaid Leave',
-            self::WorkFromHome => 'Work From Home',
-            self::ExtraWorkingDay => 'Extra Working Day',
-            self::HalfDay => 'Half Day Leave',
-            self::Emergency => 'Emergency Leave',
-            self::Maternity => 'Maternity Leave',
-            self::Paternity => 'Paternity Leave',
-            self::Bereavement => 'Bereavement Leave',
+            self::CASUAL => 'Casual Leave',
+            self::SICK => 'Sick Leave',
+            self::PAID => 'Paid Leave',
+            self::UNPAID => 'Unpaid Leave',
+            self::WORK_FROM_HOME => 'Work From Home',
+            self::EXTRA_WORKING_DAY => 'Extra Working Day',
+            self::HALF_DAY => 'Half Day Leave',
+            self::EMERGENCY => 'Emergency Leave',
+            self::MATERNITY => 'Maternity Leave',
+            self::PATERNITY => 'Paternity Leave',
+            self::BEREAVEMENT => 'Bereavement Leave',
         };
     }
 }

@@ -75,12 +75,12 @@ class Invitation extends Model
 
     public function scopePending($query)
     {
-        return $query->where('status', \App\Enums\InvitationStatusEnum::Pending);
+        return $query->where('status', \App\Enums\InvitationStatusEnum::PENDING);
     }
 
     public function scopeActive($query)
     {
-        return $query->where('status', \App\Enums\InvitationStatusEnum::Pending)
+        return $query->where('status', \App\Enums\InvitationStatusEnum::PENDING)
             ->where('expires_at', '>', now());
     }
 
@@ -91,16 +91,16 @@ class Invitation extends Model
 
     public function isAccepted(): bool
     {
-        return $this->status === \App\Enums\InvitationStatusEnum::Accepted;
+        return $this->status === \App\Enums\InvitationStatusEnum::ACCEPTED;
     }
 
     public function isRevoked(): bool
     {
-        return $this->status === \App\Enums\InvitationStatusEnum::Revoked;
+        return $this->status === \App\Enums\InvitationStatusEnum::REVOKED;
     }
 
     public function isPending(): bool
     {
-        return $this->status === \App\Enums\InvitationStatusEnum::Pending;
+        return $this->status === \App\Enums\InvitationStatusEnum::PENDING;
     }
 }

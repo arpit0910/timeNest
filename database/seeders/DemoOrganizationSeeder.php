@@ -93,8 +93,8 @@ class DemoOrganizationSeeder extends Seeder
 
             // Create demo users with memberships
             // Use platform roles (organization_id = null), scope via team permissions
-            $ownerRole = Role::where('name', SystemRole::OrganizationOwner->value)->whereNull('organization_id')->first();
-            $employeeRole = Role::where('name', SystemRole::Employee->value)->whereNull('organization_id')->first();
+            $ownerRole = Role::where('name', SystemRole::ORGANIZATION_OWNER->value)->whereNull('organization_id')->first();
+            $employeeRole = Role::where('name', SystemRole::EMPLOYEE->value)->whereNull('organization_id')->first();
 
             $password = Hash::make('Demo@1234');
 
@@ -115,7 +115,7 @@ class DemoOrganizationSeeder extends Seeder
                 'uuid' => (string) Str::uuid(),
                 'user_id' => $owner->id,
                 'organization_id' => $org->id,
-                'status' => MembershipStatus::Active,
+                'status' => MembershipStatus::ACTIVE,
                 'joined_at' => now(),
             ]);
 
@@ -152,7 +152,7 @@ class DemoOrganizationSeeder extends Seeder
                 'uuid' => (string) Str::uuid(),
                 'user_id' => $emp->id,
                 'organization_id' => $org->id,
-                'status' => MembershipStatus::Active,
+                'status' => MembershipStatus::ACTIVE,
                 'invited_by' => $owner->id,
                 'joined_at' => now(),
             ]);

@@ -58,7 +58,7 @@ class LeaveRequestTest extends TestCase
         $this->organization = Organization::create([
             'legal_name' => 'Test Organization',
             'slug' => 'test-org-' . uniqid(),
-            'type' => \App\Enums\Organization\OrganizationType::Organization->value,
+            'type' => \App\Enums\Organization\OrganizationType::ORGANIZATION->value,
             'is_active' => true,
         ]);
 
@@ -79,7 +79,7 @@ class LeaveRequestTest extends TestCase
 
         $this->policy = LeavePolicy::create([
             'organization_id' => $this->organization->id,
-            'approval_flow' => ApprovalFlow::SingleApproval->value,
+            'approval_flow' => ApprovalFlow::SINGLE_APPROVAL->value,
             'allow_half_day_leaves' => true,
             'allow_leave_on_weekends' => false,
             'allow_leave_on_holidays' => false,
@@ -102,7 +102,7 @@ class LeaveRequestTest extends TestCase
             'leave_policy_id' => $this->policy->id,
             'organization_id' => $this->organization->id,
             'version' => 1,
-            'approval_flow' => ApprovalFlow::SingleApproval->value,
+            'approval_flow' => ApprovalFlow::SINGLE_APPROVAL->value,
             'advance_notice_required_days' => 1,
             'max_advance_application_days' => 30,
             'allow_half_day_leaves' => true,
@@ -143,7 +143,7 @@ class LeaveRequestTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('employee_leaves', [
             'user_id' => $this->employee->id,
-            'leave_status' => LeaveStatus::Pending->value,
+            'leave_status' => LeaveStatus::PENDING->value,
         ]);
     }
 
@@ -175,7 +175,7 @@ class LeaveRequestTest extends TestCase
 
     public function test_4_auto_approval_flow(): void
     {
-        $this->policyVersion->update(['approval_flow' => ApprovalFlow::Auto->value]);
+        $this->policyVersion->update(['approval_flow' => ApprovalFlow::AUTO->value]);
 
         $response = $this->actingAsTenant($this->employee, $this->organization)->postJson("/api/v1/leave-requests", [
             'leave_type_id' => $this->leaveType->uuid,
@@ -187,7 +187,7 @@ class LeaveRequestTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('employee_leaves', [
             'user_id' => $this->employee->id,
-            'leave_status' => LeaveStatus::AutoApproved->value,
+            'leave_status' => LeaveStatus::AUTO_APPROVED->value,
         ]);
     }
 
@@ -201,7 +201,7 @@ class LeaveRequestTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $this->assertEquals(LeaveStatus::Approved, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::APPROVED, $leave->fresh()->leave_status);
     }
 
     public function test_6_employee_cannot_approve_own_leave(): void
@@ -226,7 +226,7 @@ class LeaveRequestTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $this->assertEquals(LeaveStatus::Rejected, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::REJECTED, $leave->fresh()->leave_status);
     }
 
     public function test_8_employee_can_cancel_pending_leave(): void
@@ -239,7 +239,7 @@ class LeaveRequestTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $this->assertEquals(LeaveStatus::Cancelled, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::CANCELLED, $leave->fresh()->leave_status);
     }
 
     public function test_9_manager_cannot_cancel_employee_leave(): void
@@ -256,7 +256,7 @@ class LeaveRequestTest extends TestCase
 
     public function test_10_multilevel_approval_requires_two_steps(): void
     {
-        $this->policyVersion->update(['approval_flow' => ApprovalFlow::MultiLevelApproval->value]);
+        $this->policyVersion->update(['approval_flow' => ApprovalFlow::MULTI_LEVEL_APPROVAL->value]);
         $this->test_1_can_submit_leave_request();
         $leave = EmployeeLeave::where('user_id', $this->employee->id)->first();
 
@@ -264,14 +264,14 @@ class LeaveRequestTest extends TestCase
             'remarks' => 'Manager approved',
         ])->assertStatus(200);
 
-        $this->assertEquals(LeaveStatus::Pending, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::PENDING, $leave->fresh()->leave_status);
         $this->assertNotNull($leave->fresh()->approved_at);
 
         $this->actingAsTenant($this->hr, $this->organization)->postJson("/api/v1/leave-requests/{$leave->uuid}/approve", [
             'remarks' => 'HR approved',
         ])->assertStatus(200);
 
-        $this->assertEquals(LeaveStatus::Approved, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::APPROVED, $leave->fresh()->leave_status);
         $this->assertNotNull($leave->fresh()->second_approved_at);
     }
 
@@ -389,7 +389,7 @@ class LeaveRequestTest extends TestCase
         $this->test_1_can_submit_leave_request();
         $leave = EmployeeLeave::where('user_id', $this->employee->id)->first();
         $leave->update([
-            'leave_status' => LeaveStatus::Approved->value,
+            'leave_status' => LeaveStatus::APPROVED->value,
             'start_date' => Carbon::now()->addHours(12)->toDateString(),
         ]);
 
@@ -412,6 +412,6 @@ class LeaveRequestTest extends TestCase
         $count = $service->processAutoApprovals($this->organization);
 
         $this->assertEquals(1, $count);
-        $this->assertEquals(LeaveStatus::Approved, $leave->fresh()->leave_status);
+        $this->assertEquals(LeaveStatus::APPROVED, $leave->fresh()->leave_status);
     }
 }

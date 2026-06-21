@@ -25,7 +25,7 @@ final class AttendanceWorklogPolicy
             return true;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::WorklogView->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::WORKLOG_VIEW->value)) {
             return false;
         }
 
@@ -33,7 +33,7 @@ final class AttendanceWorklogPolicy
             $user,
             $worklog->user_id,
             $worklog->organization_id,
-            SystemPermission::WorklogApproveAny,
+            SystemPermission::WORKLOG_APPROVE_ANY,
         );
     }
 
@@ -43,8 +43,8 @@ final class AttendanceWorklogPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::WorklogApprove->value)
-            && ! $user->hasPermissionTo(SystemPermission::WorklogApproveAny->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE->value)
+            && ! $user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE_ANY->value)) {
             return false;
         }
 
@@ -52,7 +52,7 @@ final class AttendanceWorklogPolicy
             $user,
             $worklog->user_id,
             $worklog->organization_id,
-            SystemPermission::WorklogApproveAny,
+            SystemPermission::WORKLOG_APPROVE_ANY,
         );
     }
 }

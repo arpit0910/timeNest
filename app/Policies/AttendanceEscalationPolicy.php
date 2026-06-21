@@ -19,7 +19,7 @@ final class AttendanceEscalationPolicy
             return false;
         }
 
-        return $user->hasPermissionTo(SystemPermission::AttendanceEscalationsView->value);
+        return $user->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value);
     }
 
     public function resolve(User $user, AttendanceEscalation $escalation): bool
@@ -28,6 +28,6 @@ final class AttendanceEscalationPolicy
             return false;
         }
 
-        return $user->hasPermissionTo(SystemPermission::AttendanceEscalationsResolve->value);
+        return $user->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value);
     }
 }

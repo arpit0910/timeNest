@@ -66,7 +66,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $role = Role::create([
-            'name' => SystemRole::OrganizationOwner->value,
+            'name' => SystemRole::ORGANIZATION_OWNER->value,
             'guard_name' => 'api',
             'organization_id' => null,
             'is_system_role' => true,
@@ -75,7 +75,7 @@ class AuthenticationTest extends TestCase
         OrganizationMembership::create([
             'user_id' => $user->id,
             'organization_id' => $organization->id,
-            'status' => MembershipStatus::Active,
+            'status' => MembershipStatus::ACTIVE,
             'joined_at' => now(),
         ]);
 
@@ -93,6 +93,6 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.status', 'authenticated')
             ->assertJsonPath('data.guard', 'organization')
-            ->assertJsonPath('data.role', SystemRole::OrganizationOwner->value);
+            ->assertJsonPath('data.role', SystemRole::ORGANIZATION_OWNER->value);
     }
 }

@@ -30,11 +30,11 @@ class RealisticOrganizationsSeeder extends Seeder
         $password = Hash::make('Password@123');
 
         $orgRoles = [
-            SystemRole::OrganizationOwner->value,
-            SystemRole::OrganizationAdmin->value,
-            SystemRole::HrManager->value,
-            SystemRole::Manager->value,
-            SystemRole::Employee->value,
+            SystemRole::ORGANIZATION_OWNER->value,
+            SystemRole::ORGANIZATION_ADMIN->value,
+            SystemRole::HR_MANAGER->value,
+            SystemRole::MANAGER->value,
+            SystemRole::EMPLOYEE->value,
         ];
 
         DB::transaction(function () use ($faker, $password, $orgRoles) {
@@ -89,7 +89,7 @@ class RealisticOrganizationsSeeder extends Seeder
                         'uuid' => (string) Str::uuid(),
                         'user_id' => $user->id,
                         'organization_id' => $org->id,
-                        'status' => MembershipStatus::Active,
+                        'status' => MembershipStatus::ACTIVE,
                         'joined_at' => now(),
                     ]);
 

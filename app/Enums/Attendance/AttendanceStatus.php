@@ -6,37 +6,37 @@ namespace App\Enums\Attendance;
 
 enum AttendanceStatus: int
 {
-    case Absent     = 1;
-    case Present    = 2;
-    case HalfDay    = 3;
-    case OnLeave    = 4;
-    case Holiday    = 5;
-    case Weekend    = 6;
-    case Incomplete = 7;
+    case ABSENT     = 1;
+    case PRESENT    = 2;
+    case HALF_DAY    = 3;
+    case ON_LEAVE    = 4;
+    case HOLIDAY    = 5;
+    case WEEKEND    = 6;
+    case INCOMPLETE = 7;
 
     public function label(): string
     {
         return match($this) {
-            self::Absent     => 'Absent',
-            self::Present    => 'Present',
-            self::HalfDay    => 'Half Day',
-            self::OnLeave    => 'On Leave',
-            self::Holiday    => 'Holiday',
-            self::Weekend    => 'Weekend',
-            self::Incomplete => 'Incomplete',
+            self::ABSENT     => 'Absent',
+            self::PRESENT    => 'Present',
+            self::HALF_DAY    => 'Half Day',
+            self::ON_LEAVE    => 'On Leave',
+            self::HOLIDAY    => 'Holiday',
+            self::WEEKEND    => 'Weekend',
+            self::INCOMPLETE => 'Incomplete',
         };
     }
 
     public function description(): string
     {
         return match($this) {
-            self::Absent     => 'Employee did not clock in and had no approved leave.',
-            self::Present    => 'Employee met all required attendance criteria for the day.',
-            self::HalfDay    => 'Employee worked only a half-day shift.',
-            self::OnLeave    => 'Employee was on approved leave.',
-            self::Holiday    => 'Organization defined public holiday.',
-            self::Weekend    => 'Organization defined weekend day.',
-            self::Incomplete => 'Missing clock out or invalid session data.',
+            self::ABSENT     => 'Employee did not clock in and had no approved leave.',
+            self::PRESENT    => 'Employee met all required attendance criteria for the day.',
+            self::HALF_DAY    => 'Employee worked only a half-day shift.',
+            self::ON_LEAVE    => 'Employee was on approved leave.',
+            self::HOLIDAY    => 'Organization defined public holiday.',
+            self::WEEKEND    => 'Organization defined weekend day.',
+            self::INCOMPLETE => 'Missing clock out or invalid session data.',
         };
     }
 }

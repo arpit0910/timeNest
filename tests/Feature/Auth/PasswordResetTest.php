@@ -20,7 +20,7 @@ class PasswordResetTest extends TestCase
             'email_verified_at' => now(),
         ]);
 
-        $token = app(IssueJwtAction::class)->issueAccessToken($user, null, Guard::Platform);
+        $token = app(IssueJwtAction::class)->issueAccessToken($user, null, Guard::PLATFORM);
 
         $response = $this
             ->withToken($token)

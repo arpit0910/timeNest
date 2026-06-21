@@ -37,17 +37,17 @@ class InvitationAcceptanceService
 
         // Handle expired invitations
         if ($invitation->isExpired()) {
-            if ($invitation->status === InvitationStatusEnum::Pending) {
-                $invitation->update(['status' => InvitationStatusEnum::Expired]);
+            if ($invitation->status === InvitationStatusEnum::PENDING) {
+                $invitation->update(['status' => InvitationStatusEnum::EXPIRED]);
             }
             throw new BusinessRuleViolationException('This invitation has expired.', 'EXPIRED_TOKEN');
         }
 
-        if ($invitation->status === InvitationStatusEnum::Revoked) {
+        if ($invitation->status === InvitationStatusEnum::REVOKED) {
             throw new BusinessRuleViolationException('This invitation has been revoked.', 'REVOKED_TOKEN');
         }
 
-        if ($invitation->status === InvitationStatusEnum::Accepted) {
+        if ($invitation->status === InvitationStatusEnum::ACCEPTED) {
             throw new BusinessRuleViolationException('This invitation has already been accepted.', 'ACCEPTED_TOKEN');
         }
 
@@ -87,7 +87,7 @@ class InvitationAcceptanceService
                 // If they are already a member, we just mark the invitation accepted
                 DB::transaction(function () use ($invitation) {
                     $invitation->update([
-                        'status' => InvitationStatusEnum::Accepted,
+                        'status' => InvitationStatusEnum::ACCEPTED,
                         'accepted_at' => now(),
                     ]);
                     InvitationAccepted::dispatch($invitation);
@@ -112,7 +112,7 @@ class InvitationAcceptanceService
                 );
 
                 $invitation->update([
-                    'status' => InvitationStatusEnum::Accepted,
+                    'status' => InvitationStatusEnum::ACCEPTED,
                     'accepted_at' => now(),
                 ]);
 
@@ -150,7 +150,7 @@ class InvitationAcceptanceService
                 'is_active' => true,
                 'token_version' => 1,
                 'timezone' => $profileData['timezone'] ?? 'UTC',
-                'status' => \App\Enums\UserStatus::Active->value,
+                'status' => \App\Enums\UserStatus::ACTIVE->value,
             ]);
 
             // 2. Attach to organization
@@ -164,7 +164,7 @@ class InvitationAcceptanceService
 
             // 3. Update invitation status
             $invitation->update([
-                'status' => InvitationStatusEnum::Accepted,
+                'status' => InvitationStatusEnum::ACCEPTED,
                 'accepted_at' => now(),
             ]);
 
@@ -172,8 +172,8 @@ class InvitationAcceptanceService
 
             // 4. Generate JWT tokens for immediate login
             $roleName = $invitation->role->name;
-            $accessToken = $this->issueJwtAction->issueAccessToken($user, $invitation->organization, Guard::Organization, $roleName);
-            $refreshToken = $this->issueJwtAction->issueRefreshToken($user, $invitation->organization, Guard::Organization);
+            $accessToken = $this->issueJwtAction->issueAccessToken($user, $invitation->organization, Guard::ORGANIZATION, $roleName);
+            $refreshToken = $this->issueJwtAction->issueRefreshToken($user, $invitation->organization, Guard::ORGANIZATION);
 
             return [
                 'status' => 'accepted',

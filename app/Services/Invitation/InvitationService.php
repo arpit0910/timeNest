@@ -43,7 +43,7 @@ class InvitationService
         // 2. Prevent duplicate active invitations for the same email inside the same organization
         $existing = Invitation::where('organization_id', $organization->id)
             ->where('email', $email)
-            ->where('status', InvitationStatusEnum::Pending)
+            ->where('status', InvitationStatusEnum::PENDING)
             ->where('expires_at', '>', now())
             ->first();
 
@@ -62,7 +62,7 @@ class InvitationService
                 'role_id' => $roleId,
                 'invited_by_user_id' => $invitedByUser->id,
                 'token' => $hashedToken,
-                'status' => InvitationStatusEnum::Pending,
+                'status' => InvitationStatusEnum::PENDING,
                 'expires_at' => now()->addDays(7),
                 'resend_count' => 0,
                 'metadata' => $metadata,
@@ -80,13 +80,13 @@ class InvitationService
      */
     public function revokeInvitation(Invitation $invitation, User $revokedByUser): Invitation
     {
-        if ($invitation->status !== InvitationStatusEnum::Pending) {
+        if ($invitation->status !== InvitationStatusEnum::PENDING) {
             throw new BusinessRuleViolationException('Only pending invitations can be revoked.', 'INVALID_STATE');
         }
 
         DB::transaction(function () use ($invitation, $revokedByUser) {
             $invitation->update([
-                'status' => InvitationStatusEnum::Revoked,
+                'status' => InvitationStatusEnum::REVOKED,
                 'revoked_at' => now(),
                 'revoked_by' => $revokedByUser->id,
             ]);
@@ -102,7 +102,7 @@ class InvitationService
      */
     public function resendInvitation(Invitation $invitation, User $resentByUser): Invitation
     {
-        if ($invitation->status !== InvitationStatusEnum::Pending) {
+        if ($invitation->status !== InvitationStatusEnum::PENDING) {
             throw new BusinessRuleViolationException('Only pending invitations can be resent.', 'INVALID_STATE');
         }
 

@@ -37,17 +37,17 @@ class PublicInvitationController extends BaseApiController
 
         // Handle expired states
         if ($invitation->isExpired()) {
-            if ($invitation->status === InvitationStatusEnum::Pending) {
-                $invitation->update(['status' => InvitationStatusEnum::Expired]);
+            if ($invitation->status === InvitationStatusEnum::PENDING) {
+                $invitation->update(['status' => InvitationStatusEnum::EXPIRED]);
             }
             throw new BusinessRuleViolationException('This invitation has expired.', 'EXPIRED_TOKEN');
         }
 
-        if ($invitation->status === InvitationStatusEnum::Revoked) {
+        if ($invitation->status === InvitationStatusEnum::REVOKED) {
             throw new BusinessRuleViolationException('This invitation has been revoked.', 'REVOKED_TOKEN');
         }
 
-        if ($invitation->status === InvitationStatusEnum::Accepted) {
+        if ($invitation->status === InvitationStatusEnum::ACCEPTED) {
             throw new BusinessRuleViolationException('This invitation has already been accepted.', 'ACCEPTED_TOKEN');
         }
 

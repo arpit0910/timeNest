@@ -25,8 +25,8 @@ return new class extends Migration
             $table->foreignId('milestone_id')->nullable()->constrained('milestones')->nullOnDelete();
             $table->foreignId('task_id')->nullable()->constrained('tasks')->nullOnDelete();
 
-            $table->unsignedTinyInteger('worklog_status')->default(1); // WorkflowStatusEnum::Draft
-            $table->unsignedTinyInteger('compliance_status')->default(1); // WorklogComplianceStatusEnum::Compliant
+            $table->unsignedTinyInteger('worklog_status')->default(1); // WorkflowStatusEnum::DRAFT
+            $table->unsignedTinyInteger('compliance_status')->default(1); // WorklogComplianceStatusEnum::COMPLIANT
 
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();

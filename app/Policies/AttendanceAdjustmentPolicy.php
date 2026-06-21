@@ -28,7 +28,7 @@ final class AttendanceAdjustmentPolicy
             return true;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::AttendanceAdjustmentsView->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW->value)) {
             return false;
         }
 
@@ -36,7 +36,7 @@ final class AttendanceAdjustmentPolicy
             $user,
             $targetUserId,
             $organizationId,
-            SystemPermission::AttendanceApproveAny,
+            SystemPermission::ATTENDANCE_APPROVE_ANY,
         );
     }
 
@@ -49,8 +49,8 @@ final class AttendanceAdjustmentPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::AttendanceApprove->value)
-            && ! $user->hasPermissionTo(SystemPermission::AttendanceApproveAny->value)) {
+        if (! $user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE->value)
+            && ! $user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)) {
             return false;
         }
 
@@ -58,7 +58,7 @@ final class AttendanceAdjustmentPolicy
             $user,
             $targetUserId,
             $organizationId,
-            SystemPermission::AttendanceApproveAny,
+            SystemPermission::ATTENDANCE_APPROVE_ANY,
         );
     }
 }

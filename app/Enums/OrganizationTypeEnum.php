@@ -9,16 +9,16 @@ namespace App\Enums;
  */
 enum OrganizationTypeEnum: int
 {
-    case Personal = 1;
-    case Team = 2;
-    case Organization = 3;
+    case PERSONAL = 1;
+    case TEAM = 2;
+    case ORGANIZATION = 3;
 
     public function label(): string
     {
         return match ($this) {
-            self::Personal => 'Personal',
-            self::Team => 'Team',
-            self::Organization => 'Organization',
+            self::PERSONAL => 'Personal',
+            self::TEAM => 'Team',
+            self::ORGANIZATION => 'Organization',
         };
     }
 }

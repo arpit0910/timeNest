@@ -35,7 +35,7 @@ final readonly class JwtContext
     public static function fromPayload(array $claims): self
     {
         return new self(
-            guard: Guard::tryFrom($claims['guard'] ?? '') ?? Guard::Temp,
+            guard: Guard::tryFrom($claims['guard'] ?? '') ?? Guard::TEMP,
             organizationUuid: $claims['organization_uuid'] ?? null,
             role: $claims['role'] ?? null,
             purpose: $claims['purpose'] ?? null,

@@ -46,7 +46,7 @@ class CreateAttendanceWorklogAction
             $worklog->project_id = $data['project_id'] ?? null;
             $worklog->milestone_id = $data['milestone_id'] ?? null;
             $worklog->task_id = $data['task_id'] ?? null;
-            $worklog->worklog_status = WorkflowStatusEnum::Draft->value;
+            $worklog->worklog_status = WorkflowStatusEnum::DRAFT->value;
             $worklog->start_time = $data['start_time'] ?? null;
             $worklog->end_time = $data['end_time'] ?? null;
             $worklog->logged_minutes = $loggedMinutes;
@@ -62,8 +62,8 @@ class CreateAttendanceWorklogAction
 
             // 6. Record status history entry (Initial Draft)
             $worklog->statusHistories()->create([
-                'old_status' => WorkflowStatusEnum::Draft->value,
-                'new_status' => WorkflowStatusEnum::Draft->value,
+                'old_status' => WorkflowStatusEnum::DRAFT->value,
+                'new_status' => WorkflowStatusEnum::DRAFT->value,
                 'changed_by' => $user->id,
                 'remarks' => 'Worklog created as Draft',
             ]);

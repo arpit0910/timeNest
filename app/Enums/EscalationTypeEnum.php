@@ -9,22 +9,22 @@ namespace App\Enums;
  */
 enum EscalationTypeEnum: int
 {
-    case OverdueWorklog = 1;
-    case LowProductivity = 2;
-    case MissingLog = 3;
-    case ExcessiveOverflow = 4;
-    case RepeatedRejection = 5;
-    case ComplianceViolation = 6;
+    case OVERDUE_WORKLOG = 1;
+    case LOW_PRODUCTIVITY = 2;
+    case MISSING_LOG = 3;
+    case EXCESSIVE_OVERFLOW = 4;
+    case REPEATED_REJECTION = 5;
+    case COMPLIANCE_VIOLATION = 6;
 
     public function label(): string
     {
         return match ($this) {
-            self::OverdueWorklog => 'Overdue Worklog Submission',
-            self::LowProductivity => 'Repeated Low Productivity',
-            self::MissingLog => 'Missing Worklog',
-            self::ExcessiveOverflow => 'Excessive Task Estimate Overflow',
-            self::RepeatedRejection => 'Repeated Worklog Rejections',
-            self::ComplianceViolation => 'Compliance Violation',
+            self::OVERDUE_WORKLOG => 'Overdue Worklog Submission',
+            self::LOW_PRODUCTIVITY => 'Repeated Low Productivity',
+            self::MISSING_LOG => 'Missing Worklog',
+            self::EXCESSIVE_OVERFLOW => 'Excessive Task Estimate Overflow',
+            self::REPEATED_REJECTION => 'Repeated Worklog Rejections',
+            self::COMPLIANCE_VIOLATION => 'Compliance Violation',
         };
     }
 }

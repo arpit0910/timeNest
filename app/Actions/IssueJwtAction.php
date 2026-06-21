@@ -61,7 +61,7 @@ class IssueJwtAction
 
         $customClaims = [
             'user_uuid' => $user->uuid,
-            'guard' => Guard::Temp->value,
+            'guard' => Guard::TEMP->value,
             'purpose' => $purpose,
             'token_version' => $tokenVersion,
             'jti' => $jti,

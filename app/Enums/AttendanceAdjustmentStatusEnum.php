@@ -9,28 +9,28 @@ namespace App\Enums;
  */
 enum AttendanceAdjustmentStatusEnum: int
 {
-    case Pending = 1;
-    case Approved = 2;
-    case Rejected = 3;
-    case Cancelled = 4;
+    case PENDING = 1;
+    case APPROVED = 2;
+    case REJECTED = 3;
+    case CANCELLED = 4;
 
     public function label(): string
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Approved => 'Approved',
-            self::Rejected => 'Rejected',
-            self::Cancelled => 'Cancelled',
+            self::PENDING => 'Pending',
+            self::APPROVED => 'Approved',
+            self::REJECTED => 'Rejected',
+            self::CANCELLED => 'Cancelled',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Pending => '#F59E0B', // Orange
-            self::Approved => '#10B981', // Green
-            self::Rejected => '#EF4444', // Red
-            self::Cancelled => '#6B7280', // Gray
+            self::PENDING => '#F59E0B', // Orange
+            self::APPROVED => '#10B981', // Green
+            self::REJECTED => '#EF4444', // Red
+            self::CANCELLED => '#6B7280', // Gray
         };
     }
 }

@@ -6,35 +6,35 @@ namespace App\Enums\Worklog;
 
 enum ApprovalFlow: int
 {
-    case Auto = 1;
-    case SingleApproval = 2;
-    case MultiLevelApproval = 3;
+    case AUTO = 1;
+    case SINGLE_APPROVAL = 2;
+    case MULTI_LEVEL_APPROVAL = 3;
 
     public function label(): string
     {
         return match ($this) {
-            self::Auto => 'Auto Approve',
-            self::SingleApproval => 'Single Approval',
-            self::MultiLevelApproval => 'Multi-Level Approval',
+            self::AUTO => 'Auto Approve',
+            self::SINGLE_APPROVAL => 'Single Approval',
+            self::MULTI_LEVEL_APPROVAL => 'Multi-Level Approval',
         };
     }
 
     public function description(): string
     {
         return match ($this) {
-            self::Auto => 'Worklogs are automatically approved upon submission.',
-            self::SingleApproval => 'Worklogs require approval from one designated manager.',
-            self::MultiLevelApproval => 'Worklogs require approval from multiple managers sequentially.',
+            self::AUTO => 'Worklogs are automatically approved upon submission.',
+            self::SINGLE_APPROVAL => 'Worklogs require approval from one designated manager.',
+            self::MULTI_LEVEL_APPROVAL => 'Worklogs require approval from multiple managers sequentially.',
         };
     }
 
     public function requiresApprover(): bool
     {
-        return in_array($this, [self::SingleApproval, self::MultiLevelApproval], true);
+        return in_array($this, [self::SINGLE_APPROVAL, self::MULTI_LEVEL_APPROVAL], true);
     }
 
     public function requiresSecondApprover(): bool
     {
-        return $this === self::MultiLevelApproval;
+        return $this === self::MULTI_LEVEL_APPROVAL;
     }
 }

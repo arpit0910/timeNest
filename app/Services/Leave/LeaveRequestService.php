@@ -86,8 +86,8 @@ class LeaveRequestService
             $flow = $policyVersion->approval_flow;
 
             $leaveStatus = match ($flow) {
-                ApprovalFlow::Auto => LeaveStatus::AutoApproved,
-                ApprovalFlow::SingleApproval, ApprovalFlow::MultiLevelApproval => LeaveStatus::Pending,
+                ApprovalFlow::AUTO => LeaveStatus::AUTO_APPROVED,
+                ApprovalFlow::SINGLE_APPROVAL, ApprovalFlow::MULTI_LEVEL_APPROVAL => LeaveStatus::PENDING,
             };
 
             $leave = new EmployeeLeave([
@@ -104,10 +104,10 @@ class LeaveRequestService
                 'is_carry_forward' => false,
                 'reason' => $data['reason'],
                 'attachment_path' => $data['attachment_path'] ?? null,
-                'auto_approved_at' => $flow === ApprovalFlow::Auto ? now() : null,
+                'auto_approved_at' => $flow === ApprovalFlow::AUTO ? now() : null,
             ]);
 
-            if ($flow === ApprovalFlow::Auto) {
+            if ($flow === ApprovalFlow::AUTO) {
                 $balance->used_days += $totalDays;
                 $balance->remaining_days -= $totalDays;
             } else {
@@ -118,7 +118,7 @@ class LeaveRequestService
             $leave->save();
             $balance->save();
 
-            $this->recordStatusChange($leave, LeaveStatus::Draft, $leaveStatus, $user, 'Initial submission');
+            $this->recordStatusChange($leave, LeaveStatus::DRAFT, $leaveStatus, $user, 'Initial submission');
 
             $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
@@ -127,7 +127,7 @@ class LeaveRequestService
 
     public function approveLeave(EmployeeLeave $leave, User $approver, ?string $remarks = null): EmployeeLeave
     {
-        if ($leave->leave_status !== LeaveStatus::Pending) {
+        if ($leave->leave_status !== LeaveStatus::PENDING) {
             throw new LeaveRequestAlreadyProcessedException();
         }
 
@@ -137,7 +137,7 @@ class LeaveRequestService
 
         $flow = $leave->approval_flow_snapshot;
 
-        if ($flow === ApprovalFlow::Auto) {
+        if ($flow === ApprovalFlow::AUTO) {
             throw new LeaveRequestAlreadyProcessedException();
         }
 
@@ -150,10 +150,10 @@ class LeaveRequestService
 
             $oldStatus = $leave->leave_status;
 
-            if ($flow === ApprovalFlow::SingleApproval) {
+            if ($flow === ApprovalFlow::SINGLE_APPROVAL) {
                 $leave->approved_by = $approver->id;
                 $leave->approved_at = now();
-                $leave->leave_status = LeaveStatus::Approved->value;
+                $leave->leave_status = LeaveStatus::APPROVED->value;
                 
                 $balance->used_days += $leave->total_days;
                 $balance->pending_days -= $leave->total_days;
@@ -164,7 +164,7 @@ class LeaveRequestService
                 } else {
                     $leave->second_approver_id = $approver->id;
                     $leave->second_approved_at = now();
-                    $leave->leave_status = LeaveStatus::Approved->value;
+                    $leave->leave_status = LeaveStatus::APPROVED->value;
 
                     $balance->used_days += $leave->total_days;
                     $balance->pending_days -= $leave->total_days;
@@ -175,7 +175,7 @@ class LeaveRequestService
             $balance->save();
 
             if ($leave->leave_status !== $oldStatus) {
-                $this->recordStatusChange($leave, $oldStatus, LeaveStatus::Approved, $approver, $remarks);
+                $this->recordStatusChange($leave, $oldStatus, LeaveStatus::APPROVED, $approver, $remarks);
             }
 
             $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
@@ -185,7 +185,7 @@ class LeaveRequestService
 
     public function rejectLeave(EmployeeLeave $leave, User $rejector, string $rejectionReason): EmployeeLeave
     {
-        if ($leave->leave_status !== LeaveStatus::Pending) {
+        if ($leave->leave_status !== LeaveStatus::PENDING) {
             throw new LeaveRequestAlreadyProcessedException();
         }
 
@@ -203,7 +203,7 @@ class LeaveRequestService
             $flow = $leave->approval_flow_snapshot;
             $oldStatus = $leave->leave_status;
 
-            if ($flow === ApprovalFlow::SingleApproval || !$leave->hasFirstLevelApproval()) {
+            if ($flow === ApprovalFlow::SINGLE_APPROVAL || !$leave->hasFirstLevelApproval()) {
                 $leave->rejected_by = $rejector->id;
                 $leave->rejected_at = now();
             } else {
@@ -211,7 +211,7 @@ class LeaveRequestService
                 $leave->rejected_at = now();
                 $leave->cancellation_reason = $rejectionReason;
             }
-            $leave->leave_status = LeaveStatus::Rejected->value;
+            $leave->leave_status = LeaveStatus::REJECTED->value;
 
             $leave->cancellation_reason = $rejectionReason;
 
@@ -221,7 +221,7 @@ class LeaveRequestService
             $leave->save();
             $balance->save();
 
-            $this->recordStatusChange($leave, $oldStatus, LeaveStatus::Rejected, $rejector, $rejectionReason);
+            $this->recordStatusChange($leave, $oldStatus, LeaveStatus::REJECTED, $rejector, $rejectionReason);
 
             $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
@@ -240,11 +240,11 @@ class LeaveRequestService
             throw new LeaveCancellationNotAllowedException('Leave cancellation is not permitted by your organization policy.');
         }
 
-        if (!in_array($leave->leave_status, [LeaveStatus::Pending, LeaveStatus::Approved, LeaveStatus::AutoApproved], true)) {
+        if (!in_array($leave->leave_status, [LeaveStatus::PENDING, LeaveStatus::APPROVED, LeaveStatus::AUTO_APPROVED], true)) {
             throw new LeaveRequestAlreadyProcessedException();
         }
 
-        if (in_array($leave->leave_status, [LeaveStatus::Approved, LeaveStatus::AutoApproved], true)) {
+        if (in_array($leave->leave_status, [LeaveStatus::APPROVED, LeaveStatus::AUTO_APPROVED], true)) {
             $cancelBeforeHours = $policy->cancellation_before_hours ?? 0;
             $startTime = Carbon::parse($leave->start_date)->startOfDay();
             if (now()->diffInHours($startTime, false) < $cancelBeforeHours) {
@@ -261,10 +261,10 @@ class LeaveRequestService
 
             $oldStatus = $leave->leave_status;
 
-            $leave->leave_status = LeaveStatus::Cancelled->value;
+            $leave->leave_status = LeaveStatus::CANCELLED->value;
             $leave->cancellation_reason = $reason;
 
-            if ($oldStatus === LeaveStatus::Pending) {
+            if ($oldStatus === LeaveStatus::PENDING) {
                 $balance->pending_days -= $leave->total_days;
                 $balance->remaining_days += $leave->total_days;
             } else {
@@ -275,7 +275,7 @@ class LeaveRequestService
             $leave->save();
             $balance->save();
 
-            $this->recordStatusChange($leave, $oldStatus, LeaveStatus::Cancelled, $canceller, $reason);
+            $this->recordStatusChange($leave, $oldStatus, LeaveStatus::CANCELLED, $canceller, $reason);
 
             $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
@@ -352,8 +352,8 @@ class LeaveRequestService
         $cutoff = now()->subHours($policy->auto_approve_after_hours);
 
         $leaves = EmployeeLeave::where('organization_id', $organization->id)
-            ->where('leave_status', LeaveStatus::Pending->value)
-            ->where('approval_flow_snapshot', ApprovalFlow::SingleApproval->value)
+            ->where('leave_status', LeaveStatus::PENDING->value)
+            ->where('approval_flow_snapshot', ApprovalFlow::SINGLE_APPROVAL->value)
             ->where('created_at', '<=', $cutoff)
             ->get();
 
@@ -366,7 +366,7 @@ class LeaveRequestService
                 $count++;
             } else {
                 DB::transaction(function () use ($leave) {
-                    $leave->leave_status = LeaveStatus::AutoApproved->value;
+                    $leave->leave_status = LeaveStatus::AUTO_APPROVED->value;
                     $leave->auto_approved_at = now();
 
                     $balance = LeaveBalance::where('organization_id', $leave->organization_id)
@@ -487,7 +487,7 @@ class LeaveRequestService
 
         $overlapQuery = EmployeeLeave::where('user_id', $user->id)
             ->where('organization_id', $organization->id)
-            ->whereNotIn('leave_status', [LeaveStatus::Rejected->value, LeaveStatus::Cancelled->value])
+            ->whereNotIn('leave_status', [LeaveStatus::REJECTED->value, LeaveStatus::CANCELLED->value])
             ->where(function ($q) use ($start, $end) {
                 $q->where('start_date', '<=', $end->toDateString())
                   ->where('end_date', '>=', $start->toDateString());

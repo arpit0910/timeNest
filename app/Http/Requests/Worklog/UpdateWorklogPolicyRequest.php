@@ -21,8 +21,8 @@ class UpdateWorklogPolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'worklog_mode' => ['sometimes', 'required', 'integer', new Enum(WorklogModeEnum::class)],
-            'approval_flow' => ['sometimes', 'required', 'integer', new Enum(ApprovalFlowEnum::class)],
+            'worklog_mode' => ['sometimes', 'required', new Enum(WorklogModeEnum::class)],
+            'approval_flow' => ['sometimes', 'required', new Enum(ApprovalFlowEnum::class)],
             'require_worklog_on_clockout' => 'sometimes|required|boolean',
             'allow_deferred_submission' => 'sometimes|required|boolean',
             'submission_window_days' => 'sometimes|required|integer|min:1|max:30',

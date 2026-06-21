@@ -38,12 +38,12 @@ class AttendanceWorklogCalculationService
         WorklogPolicy $policy
     ): WorklogComplianceStatusEnum {
         if (! $worklog->task_id) {
-            return WorklogComplianceStatusEnum::Compliant;
+            return WorklogComplianceStatusEnum::COMPLIANT;
         }
 
         $task = $worklog->task;
         if (! $task || $task->estimated_minutes <= 0) {
-            return WorklogComplianceStatusEnum::Compliant;
+            return WorklogComplianceStatusEnum::COMPLIANT;
         }
 
         // Sum other consumptions
@@ -52,9 +52,9 @@ class AttendanceWorklogCalculationService
             ->sum('consumed_minutes');
 
         if ($existingConsumption + $worklog->logged_minutes > $task->estimated_minutes) {
-            return WorklogComplianceStatusEnum::Overflow;
+            return WorklogComplianceStatusEnum::OVERFLOW;
         }
 
-        return WorklogComplianceStatusEnum::Compliant;
+        return WorklogComplianceStatusEnum::COMPLIANT;
     }
 }

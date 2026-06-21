@@ -9,16 +9,16 @@ namespace App\Enums;
  */
 enum WorklogModeEnum: int
 {
-    case Strict = 1;
-    case Flexible = 2;
-    case Hybrid = 3;
+    case STRICT = 1;
+    case FLEXIBLE = 2;
+    case HYBRID = 3;
 
     public function label(): string
     {
         return match ($this) {
-            self::Strict => 'Strict',
-            self::Flexible => 'Flexible',
-            self::Hybrid => 'Hybrid',
+            self::STRICT => 'Strict',
+            self::FLEXIBLE => 'Flexible',
+            self::HYBRID => 'Hybrid',
         };
     }
 }

@@ -9,55 +9,55 @@ namespace App\Enums;
  */
 enum WorkflowStatusEnum: int
 {
-    case Draft = 1;
-    case Pending = 2;
-    case Submitted = 3;
-    case Approved = 4;
-    case Rejected = 5;
-    case Cancelled = 6;
-    case Escalated = 7;
-    case OnHold = 8;
-    case RevisionRequested = 9;
-    case PayrollBlocked = 10;
-    case ComplianceReview = 11;
-    case Locked = 12;
-    case Overdue = 13;
+    case DRAFT = 1;
+    case PENDING = 2;
+    case SUBMITTED = 3;
+    case APPROVED = 4;
+    case REJECTED = 5;
+    case CANCELLED = 6;
+    case ESCALATED = 7;
+    case ON_HOLD = 8;
+    case REVISION_REQUESTED = 9;
+    case PAYROLL_BLOCKED = 10;
+    case COMPLIANCE_REVIEW = 11;
+    case LOCKED = 12;
+    case OVERDUE = 13;
 
     public function label(): string
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Pending => 'Pending',
-            self::Submitted => 'Submitted',
-            self::Approved => 'Approved',
-            self::Rejected => 'Rejected',
-            self::Cancelled => 'Cancelled',
-            self::Escalated => 'Escalated',
-            self::OnHold => 'On Hold',
-            self::RevisionRequested => 'Revision Requested',
-            self::PayrollBlocked => 'Payroll Blocked',
-            self::ComplianceReview => 'Compliance Review',
-            self::Locked => 'Locked',
-            self::Overdue => 'Overdue',
+            self::DRAFT => 'Draft',
+            self::PENDING => 'Pending',
+            self::SUBMITTED => 'Submitted',
+            self::APPROVED => 'Approved',
+            self::REJECTED => 'Rejected',
+            self::CANCELLED => 'Cancelled',
+            self::ESCALATED => 'Escalated',
+            self::ON_HOLD => 'On Hold',
+            self::REVISION_REQUESTED => 'Revision Requested',
+            self::PAYROLL_BLOCKED => 'Payroll Blocked',
+            self::COMPLIANCE_REVIEW => 'Compliance Review',
+            self::LOCKED => 'Locked',
+            self::OVERDUE => 'Overdue',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Draft => '#6B7280', // Gray
-            self::Pending => '#F59E0B', // Orange
-            self::Submitted => '#3B82F6', // Blue
-            self::Approved => '#10B981', // Green
-            self::Rejected => '#EF4444', // Red
-            self::Cancelled => '#374151', // Dark Gray
-            self::Escalated => '#DC2626', // Dark Red
-            self::OnHold => '#D97706', // Dark Orange
-            self::RevisionRequested => '#EC4899', // Pink
-            self::PayrollBlocked => '#7F1D1D', // Deep Red
-            self::ComplianceReview => '#4B5563', // Gray-Blue
-            self::Locked => '#111827', // Black/Charcoal
-            self::Overdue => '#991B1B', // Darker Red
+            self::DRAFT => '#6B7280', // Gray
+            self::PENDING => '#F59E0B', // Orange
+            self::SUBMITTED => '#3B82F6', // Blue
+            self::APPROVED => '#10B981', // Green
+            self::REJECTED => '#EF4444', // Red
+            self::CANCELLED => '#374151', // Dark Gray
+            self::ESCALATED => '#DC2626', // Dark Red
+            self::ON_HOLD => '#D97706', // Dark Orange
+            self::REVISION_REQUESTED => '#EC4899', // Pink
+            self::PAYROLL_BLOCKED => '#7F1D1D', // Deep Red
+            self::COMPLIANCE_REVIEW => '#4B5563', // Gray-Blue
+            self::LOCKED => '#111827', // Black/Charcoal
+            self::OVERDUE => '#991B1B', // Darker Red
         };
     }
 }
