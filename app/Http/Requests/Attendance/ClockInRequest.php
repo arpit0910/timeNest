@@ -28,8 +28,8 @@ class ClockInRequest extends FormRequest
         return [
             'clock_in_source' => ['required', 'integer', new Enum(AttendanceSessionSourceEnum::class)],
             'clock_in_device_id' => 'nullable|string|max:255',
-            'clock_in_latitude' => 'nullable|numeric|between:-90,90',
-            'clock_in_longitude' => 'nullable|numeric|between:-180,180',
+            'clock_in_latitude' => 'required|numeric|between:-90,90',
+            'clock_in_longitude' => 'required|numeric|between:-180,180',
             'clock_in_accuracy' => 'nullable|numeric|min:0',
         ];
     }
@@ -45,7 +45,9 @@ class ClockInRequest extends FormRequest
             'clock_in_source.required' => 'The clock-in source is required.',
             'clock_in_source.in' => 'Invalid clock-in source. Must be 1 (Mobile), 2 (Web), 3 (Admin), or 4 (System).',
             'clock_in_device_id.max' => 'The device ID must not exceed 255 characters.',
+            'clock_in_latitude.required' => 'Latitude is required.',
             'clock_in_latitude.between' => 'Latitude must be between -90 and 90.',
+            'clock_in_longitude.required' => 'Longitude is required.',
             'clock_in_longitude.between' => 'Longitude must be between -180 and 180.',
             'clock_in_accuracy.min' => 'Accuracy must be a non-negative number.',
         ];

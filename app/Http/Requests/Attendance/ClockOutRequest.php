@@ -28,8 +28,8 @@ class ClockOutRequest extends FormRequest
         return [
             'clock_out_source' => ['required', 'integer', new Enum(AttendanceSessionSourceEnum::class)],
             'clock_out_device_id' => 'nullable|string|max:255',
-            'clock_out_latitude' => 'nullable|numeric|between:-90,90',
-            'clock_out_longitude' => 'nullable|numeric|between:-180,180',
+            'clock_out_latitude' => 'required|numeric|between:-90,90',
+            'clock_out_longitude' => 'required|numeric|between:-180,180',
             'clock_out_accuracy' => 'nullable|numeric|min:0',
         ];
     }
@@ -45,7 +45,9 @@ class ClockOutRequest extends FormRequest
             'clock_out_source.required' => 'The clock-out source is required.',
             'clock_out_source.in' => 'Invalid clock-out source. Must be 1 (Mobile), 2 (Web), 3 (Admin), or 4 (System).',
             'clock_out_device_id.max' => 'The device ID must not exceed 255 characters.',
+            'clock_out_latitude.required' => 'Latitude is required.',
             'clock_out_latitude.between' => 'Latitude must be between -90 and 90.',
+            'clock_out_longitude.required' => 'Longitude is required.',
             'clock_out_longitude.between' => 'Longitude must be between -180 and 180.',
             'clock_out_accuracy.min' => 'Accuracy must be a non-negative number.',
         ];
