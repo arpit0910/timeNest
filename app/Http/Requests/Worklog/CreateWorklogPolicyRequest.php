@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Worklog;
 
+use App\Enums\ApprovalFlowEnum;
+use App\Enums\WorklogModeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class CreateWorklogPolicyRequest extends FormRequest
 {
@@ -16,8 +19,8 @@ class CreateWorklogPolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'worklog_mode' => 'required|integer|in:1,2,3',
-            'approval_flow' => 'required|integer|in:1,2,3',
+            'worklog_mode' => ['required', 'integer', new Enum(WorklogModeEnum::class)],
+            'approval_flow' => ['required', 'integer', new Enum(ApprovalFlowEnum::class)],
             'require_worklog_on_clockout' => 'required|boolean',
             'allow_deferred_submission' => 'required|boolean',
             'submission_window_days' => 'required|integer|min:1|max:30',

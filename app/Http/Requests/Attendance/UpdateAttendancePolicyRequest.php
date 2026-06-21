@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Attendance;
 
+use App\Enums\ApprovalFlowEnum;
+use App\Enums\AttendanceModeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UpdateAttendancePolicyRequest extends FormRequest
 {
@@ -21,8 +24,8 @@ class UpdateAttendancePolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'attendance_mode' => 'sometimes|required|integer|in:1,2,3',
-            'approval_flow' => 'sometimes|required|integer|in:1,2,3',
+            'attendance_mode' => ['sometimes', 'required', 'integer', new Enum(AttendanceModeEnum::class)],
+            'approval_flow' => ['sometimes', 'required', 'integer', new Enum(ApprovalFlowEnum::class)],
             'shift_start_time' => 'sometimes|required|date_format:H:i:s',
             'shift_end_time' => 'sometimes|required|date_format:H:i:s',
             'required_daily_minutes' => 'sometimes|required|integer|min:1|max:1440',

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Attendance;
 
+use App\Enums\AttendanceSessionSourceEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class ClockInRequest extends FormRequest
 {
@@ -24,7 +26,7 @@ class ClockInRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'clock_in_source' => 'required|integer|in:1,2,3,4',
+            'clock_in_source' => ['required', 'integer', new Enum(AttendanceSessionSourceEnum::class)],
             'clock_in_ip' => 'nullable|ip',
             'clock_in_device_id' => 'nullable|string|max:255',
             'clock_in_latitude' => 'nullable|numeric|between:-90,90',
