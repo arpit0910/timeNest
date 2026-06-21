@@ -1,7 +1,10 @@
+<style>
+.tn-header-scrolled { background-color: #ffffff !important; border-bottom: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+</style>
 <header
     x-data="{ scrolled: false, activeMenu: null, mobileOpen: false, expandedSection: null }"
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
-    :class="(scrolled || mobileOpen) ? 'bg-surface/80 glass-dark border-b border-surface-border shadow-2xl' : 'bg-transparent'"
+    :class="(scrolled || mobileOpen) ? 'tn-header-scrolled' : 'bg-transparent'"
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     @mouseleave="activeMenu = null"
 >
