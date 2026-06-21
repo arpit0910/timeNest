@@ -34,4 +34,21 @@ enum LeaveType: int
             self::BEREAVEMENT => 'Bereavement Leave',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::CASUAL => '#3B82F6',       // Blue
+            self::SICK => '#EF4444',          // Red
+            self::PAID => '#10B981',          // Green
+            self::UNPAID => '#6B7280',        // Gray
+            self::WORK_FROM_HOME => '#8B5CF6', // Purple
+            self::EXTRA_WORKING_DAY => '#F59E0B', // Amber
+            self::HALF_DAY => '#06B6D4',      // Cyan
+            self::EMERGENCY => '#DC2626',     // Dark Red
+            self::MATERNITY => '#EC4899',     // Pink
+            self::PATERNITY => '#14B8A6',     // Teal
+            self::BEREAVEMENT => '#475569',   // Slate
+        };
+    }
 }

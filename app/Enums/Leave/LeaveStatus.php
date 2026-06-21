@@ -39,4 +39,17 @@ enum LeaveStatus: int
             self::AUTO_APPROVED => 'Leave request was automatically approved.',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::DRAFT => '#9CA3AF',         // Gray
+            self::PENDING => '#F59E0B',       // Amber
+            self::APPROVED => '#10B981',      // Green
+            self::REJECTED => '#EF4444',      // Red
+            self::CANCELLED => '#6B7280',     // Dark Gray
+            self::EXPIRED => '#78716C',       // Stone
+            self::AUTO_APPROVED => '#22C55E', // Light Green
+        };
+    }
 }
