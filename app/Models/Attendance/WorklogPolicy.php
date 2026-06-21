@@ -16,19 +16,24 @@ class WorklogPolicy extends Model
     protected $table = 'worklog_policies';
 
     protected $fillable = [
-        'attendance_policy_id',
+        'organization_id',
+        'worklog_mode',
+        'approval_flow',
         'require_worklog_on_clockout',
         'allow_deferred_submission',
+        'submission_window_days',
+        'edit_grace_days',
+        'lock_after_days',
+        'require_description',
+        'min_description_length',
+        'require_justification_on_overflow',
         'require_project_mapping',
         'require_task_mapping',
-        'require_justification_on_overflow',
-        'auto_escalate_overdue_logs',
-        'overdue_after_days',
-        'lock_after_days',
         'allow_multiple_worklogs_per_session',
-        'strict_mode_enabled',
-        'flexible_mode_enabled',
-        'hybrid_mode_enabled',
+        'auto_escalate_overdue_logs',
+        'billable_tracking_enabled',
+        'created_by',
+        'updated_by',
     ];
 
     protected function casts(): array
@@ -36,21 +41,22 @@ class WorklogPolicy extends Model
         return [
             'require_worklog_on_clockout' => 'boolean',
             'allow_deferred_submission' => 'boolean',
+            'submission_window_days' => 'integer',
+            'edit_grace_days' => 'integer',
+            'lock_after_days' => 'integer',
+            'require_description' => 'boolean',
+            'min_description_length' => 'integer',
+            'require_justification_on_overflow' => 'boolean',
             'require_project_mapping' => 'boolean',
             'require_task_mapping' => 'boolean',
-            'require_justification_on_overflow' => 'boolean',
-            'auto_escalate_overdue_logs' => 'boolean',
-            'overdue_after_days' => 'integer',
-            'lock_after_days' => 'integer',
             'allow_multiple_worklogs_per_session' => 'boolean',
-            'strict_mode_enabled' => 'boolean',
-            'flexible_mode_enabled' => 'boolean',
-            'hybrid_mode_enabled' => 'boolean',
+            'auto_escalate_overdue_logs' => 'boolean',
+            'billable_tracking_enabled' => 'boolean',
         ];
     }
 
-    public function attendancePolicy(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(AttendancePolicy::class);
+        return $this->belongsTo(\App\Models\Organization\Organization::class);
     }
 }

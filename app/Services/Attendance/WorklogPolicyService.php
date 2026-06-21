@@ -33,20 +33,23 @@ class WorklogPolicyService
     public function getOrCreateWorklogPolicy(AttendancePolicy $policy): WorklogPolicy
     {
         return WorklogPolicy::firstOrCreate([
-            'attendance_policy_id' => $policy->id,
+            'organization_id' => $policy->organization_id,
         ], [
+            'worklog_mode' => 2, // Flexible
+            'approval_flow' => 1, // Auto
             'require_worklog_on_clockout' => false,
             'allow_deferred_submission' => true,
+            'submission_window_days' => 3,
+            'edit_grace_days' => 1,
+            'lock_after_days' => 7,
+            'require_description' => true,
+            'min_description_length' => 0,
+            'require_justification_on_overflow' => true,
             'require_project_mapping' => false,
             'require_task_mapping' => false,
-            'require_justification_on_overflow' => true,
-            'auto_escalate_overdue_logs' => false,
-            'overdue_after_days' => 1,
-            'lock_after_days' => 3,
             'allow_multiple_worklogs_per_session' => true,
-            'strict_mode_enabled' => false,
-            'flexible_mode_enabled' => true,
-            'hybrid_mode_enabled' => false,
+            'auto_escalate_overdue_logs' => false,
+            'billable_tracking_enabled' => false,
         ]);
     }
 

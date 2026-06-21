@@ -182,7 +182,7 @@ class AttendanceCalculationService
         ]);
 
         // Integrate Phase 2 Worklog Compliance rules
-        $worklogPolicy = \App\Models\Attendance\WorklogPolicy::where('attendance_policy_id', $policy->id)->first();
+        $worklogPolicy = \App\Models\Attendance\WorklogPolicy::where('organization_id', $attendanceDay->organization_id)->first();
         if ($worklogPolicy && $totalSessions > 0) {
             $hasOpenSession = $sessions->whereNull('clock_out_at')->isNotEmpty();
             if (! $hasOpenSession) {
