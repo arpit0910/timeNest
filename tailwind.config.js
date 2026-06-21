@@ -9,18 +9,6 @@ export default {
     extend: {
       colors: {
         brand: {
-          50:  '#fafafa',
-          100: '#f4f4f5',
-          200: '#e4e4e7',
-          300: '#d4d4d8',
-          400: '#a1a1aa',
-          500: '#18181b', // Main brand color (black/zinc-900)
-          600: '#09090b', // Hover state
-          700: '#000000',
-          800: '#000000',
-          900: '#000000',
-        },
-        accent: {
           50:  '#eef2ff',
           100: '#e0e7ff',
           200: '#c7d2fe',
@@ -32,19 +20,39 @@ export default {
           800: '#3730a3',
           900: '#312e81',
         },
+        accent: {
+          50:  '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#8b5cf6',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+        },
         surface: {
-          DEFAULT: '#ffffff',     /* White background */
-          50:      '#f8fafc',     /* Off-white */
-          100:     '#f1f5f9',     /* Soft gray */
-          card:    '#ffffff',     /* Card background */
-          border:  '#e2e8f0',     /* Borders */
+          DEFAULT: '#0a0a0f',
+          50:      '#0f0f1a',
+          100:     '#13131f',
+          200:     '#1a1a2e',
+          card:    '#111118',
+          border:  '#1e1e2e',
         },
         content: {
-          strong:  '#0f172a',     /* text-slate-900 equivalent */
-          DEFAULT: '#334155',     /* text-slate-700 equivalent */
-          muted:   '#64748b',     /* text-slate-500 equivalent */
-          light:   '#94a3b8',     /* text-slate-400 equivalent */
+          strong:  '#f8fafc',
+          DEFAULT: '#cbd5e1',
+          muted:   '#64748b',
+          light:   '#334155',
         },
+      },
+      fontSize: {
+        'display-2xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em', fontWeight: '800' }],
+        'display-xl':  ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.03em', fontWeight: '700' }],
+        'display-lg':  ['3rem',    { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'display-md':  ['2.25rem', { lineHeight: '1.2',  letterSpacing: '-0.02em', fontWeight: '600' }],
+        'display-sm':  ['1.875rem',{ lineHeight: '1.25', letterSpacing: '-0.01em', fontWeight: '600' }],
       },
       fontFamily: {
         display: ['"Poppins"', 'sans-serif'],
