@@ -39,10 +39,14 @@ class AttendanceController extends BaseApiController
      */
     public function clockIn(ClockInRequest $request): JsonResponse
     {
+        $data = array_merge($request->validated(), [
+            'clock_in_ip' => $request->ip(),
+        ]);
+
         $session = $this->clockService->clockIn(
             $this->getOrganization(),
             $request->user(),
-            $request->validated()
+            $data
         );
 
         return $this->success(
@@ -60,10 +64,14 @@ class AttendanceController extends BaseApiController
      */
     public function clockOut(ClockOutRequest $request): JsonResponse
     {
+        $data = array_merge($request->validated(), [
+            'clock_out_ip' => $request->ip(),
+        ]);
+
         $session = $this->clockService->clockOut(
             $this->getOrganization(),
             $request->user(),
-            $request->validated()
+            $data
         );
 
         return $this->success(
