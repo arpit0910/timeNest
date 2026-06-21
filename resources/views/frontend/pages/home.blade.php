@@ -109,7 +109,16 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 
 /* ── PRICING ── */
 .tn-price-num { font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
-.tn-check { color: #818cf8; width: 16px; height: 16px; flex-shrink: 0; }
+.tn-check { width: 18px; height: 18px; color: #6366f1; flex-shrink: 0; margin-top: 2px; }
+
+/* ── CTA OVERRIDES ── */
+@media (max-width: 1023px) {
+    .tn-cta-responsive { grid-template-columns: 1fr !important; padding: 3rem 1.5rem !important; text-align: center; }
+    .tn-cta-content { display: flex; flex-direction: column; align-items: center; text-align: center !important; }
+    .tn-cta-visual { display: none !important; }
+    .tn-cta-buttons { justify-content: center; }
+}
+
 .tn-feat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
 .tn-feat-list li { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9rem; color: #475569; }
 
@@ -501,16 +510,76 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 </section>
 
 {{-- ═══════════ SECTION 9: FINAL CTA ═══════════ --}}
-<section class="tn-section" style="background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#1e1b4b 70%,#0f172a 100%);position:relative;overflow:hidden;" class="tn-grid-bg">
-  <div style="position:absolute;inset:0;" class="tn-grid-bg"></div>
-  <div class="tn-container" style="position:relative;z-index:1;text-align:center;">
-    <h2 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-0.025em;color:#f1f5f9;margin-bottom:1.25rem;">Your team deserves<br>better tools.</h2>
-    <p class="tn-body" style="max-width:500px;margin:0 auto 2.5rem;">Join thousands of freelancers and teams using TimeNest to manage their workforce with clarity and confidence.</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
-      <a href="/register" class="tn-btn-white">Start Free — No Card Needed</a>
-      <a href="{{ route('frontend.book-demo') }}" class="tn-btn-ghost-dark">Book a Demo</a>
+<section class="tn-section" style="background:#fafafa; border-top:1px solid #e2e8f0; padding-bottom: 8rem;">
+  <div style="max-width:1440px; margin:0 auto; padding:0 1.5rem;">
+    <div style="background:#08080f; border-radius:32px; padding:4rem 5rem; position:relative; overflow:hidden; box-shadow:0 30px 60px -15px rgba(99,102,241,0.25); border:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:1.3fr 1fr; gap:3rem; align-items:center;" class="tn-cta-responsive">
+      
+      {{-- Background Glow --}}
+      <div style="position:absolute; top:-30%; right:-10%; width:600px; height:600px; background:radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(139,92,246,0.1) 50%, transparent 70%); filter:blur(60px); z-index:0; pointer-events:none;"></div>
+      <div style="position:absolute; bottom:-30%; left:-10%; width:500px; height:500px; background:radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%); filter:blur(60px); z-index:0; pointer-events:none;"></div>
+      
+      {{-- Content (Left) --}}
+      <div style="position:relative; z-index:2; text-align:left;" class="tn-cta-content">
+        <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.15em; text-transform:uppercase; color:#818cf8; margin-bottom:1.25rem; display:inline-flex; align-items:center; gap:8px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#818cf8; box-shadow:0 0 12px rgba(129,140,248,0.8);"></span>
+          Ready to upgrade?
+        </div>
+        <h2 style="font-size:clamp(2.5rem,4vw,3.5rem); font-weight:800; line-height:1.1; letter-spacing:-0.03em; color:#ffffff; margin-bottom:1.25rem;">Your team deserves better tools.</h2>
+        <p style="font-size:1.125rem; color:#94a3b8; margin-bottom:2.5rem; line-height:1.6;">Join thousands of freelancers and teams using TimeNest to manage their workforce with clarity and confidence. No credit card required.</p>
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;" class="tn-cta-buttons">
+          <a href="/register" class="tn-btn-primary" style="font-size:1rem; padding:0.875rem 2rem; box-shadow:0 0 20px rgba(99,102,241,0.4);">Start Free Trial</a>
+          <a href="{{ route('frontend.book-demo') }}" class="tn-btn-ghost-dark" style="font-size:1rem; padding:0.875rem 2rem;">Book a Demo</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:1.5rem; margin-top:2rem; font-size:0.8rem; color:#64748b; font-weight:500;">
+          <div style="display:flex; align-items:center; gap:6px;"><svg width="16" height="16" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Free plan forever</div>
+          <div style="display:flex; align-items:center; gap:6px;"><svg width="16" height="16" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Setup in 5 mins</div>
+        </div>
+      </div>
+      
+      {{-- Illustration / Visuals (Right) --}}
+      <div style="position:relative; z-index:2; height:100%; display:flex; align-items:center; justify-content:center;" class="tn-cta-visual">
+          <div style="position:relative; width:100%; max-width:400px; height:340px;">
+              {{-- Main overlapping card --}}
+              <div style="position:absolute; top:20px; right:10px; width:280px; background:rgba(255,255,255,0.03); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:1.5rem; transform:rotate(4deg); box-shadow:0 20px 40px rgba(0,0,0,0.4); animation: float 6s ease-in-out infinite;">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:1rem;">
+                      <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #6366f1, #8b5cf6); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(99,102,241,0.3);">
+                          <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                      </div>
+                      <div>
+                          <div style="font-size:0.85rem; font-weight:700; color:#ffffff;">Timesheet Approved</div>
+                          <div style="font-size:0.7rem; color:#94a3b8;">Just now · Auto-processed</div>
+                      </div>
+                  </div>
+                  <div style="height:4px; width:100%; background:rgba(255,255,255,0.1); border-radius:2px; margin-bottom:8px;">
+                      <div style="height:100%; width:100%; background:linear-gradient(90deg, #6366f1, #34d399); border-radius:2px;"></div>
+                  </div>
+              </div>
+              
+              {{-- Floating element 1 (Chart) --}}
+              <div style="position:absolute; bottom:40px; left:0; width:220px; background:linear-gradient(135deg, rgba(15,23,42,0.95), rgba(8,8,15,0.98)); backdrop-filter:blur(10px); border:1px solid rgba(99,102,241,0.3); border-radius:16px; padding:1.25rem; transform:rotate(-6deg); box-shadow:0 15px 30px rgba(0,0,0,0.5); animation: float 7s ease-in-out infinite 1s;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                      <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">Productivity</span>
+                      <span style="font-size:0.75rem; color:#34d399; font-weight:800;">+24%</span>
+                  </div>
+                  <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:4px; height:40px;">
+                      @foreach([30,50,40,70,60,90,80] as $h)
+                      <div style="flex:1; height:{{$h}}%; background:{{ $h > 70 ? 'linear-gradient(to top, #4f46e5, #818cf8)' : 'rgba(99,102,241,0.2)' }}; border-radius:2px; transition:height 0.5s;"></div>
+                      @endforeach
+                  </div>
+              </div>
+
+              {{-- Floating profile circle --}}
+              <div style="position:absolute; top:70px; left:30px; width:50px; height:50px; border-radius:50%; background:#1e1b4b; border:2px solid #6366f1; display:flex; align-items:center; justify-content:center; color:#818cf8; font-weight:700; font-size:1rem; box-shadow:0 10px 20px rgba(0,0,0,0.3); animation: float 5s ease-in-out infinite 0.5s;">
+                  JD
+              </div>
+              
+              {{-- Decorative sparks --}}
+              <svg style="position:absolute; top:-10px; right:40px; width:28px; height:28px; color:#f59e0b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              <svg style="position:absolute; bottom:-10px; right:100px; width:20px; height:20px; color:#8b5cf6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </div>
+      </div>
+      
     </div>
-    <p class="tn-muted" style="font-size:0.8rem;">✓ Free plan forever &nbsp;·&nbsp; ✓ Setup in under 5 minutes &nbsp;·&nbsp; ✓ Cancel anytime</p>
   </div>
 </section>
 
