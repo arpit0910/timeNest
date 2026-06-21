@@ -113,17 +113,41 @@ class AttendanceService
             $isSuspicious = false;
             $suspiciousReason = null;
 
-            if (! $isWFH) {
-                $latitude = (float) ($data['latitude'] ?? 0);
-                $longitude = (float) ($data['longitude'] ?? 0);
+            if (! $isWFH && $policy->geo_fencing_enabled) {
+                $latitude = $data['latitude'] ?? null;
+                $longitude = $data['longitude'] ?? null;
                 $accuracy = (float) ($data['accuracy'] ?? 0);
+                $attendanceMode = $policy->attendance_mode;
 
-                try {
-                    $this->geofenceService->validateAndFindBranch($organization, $latitude, $longitude, $accuracy);
-                } catch (BusinessRuleViolationException $e) {
-                    // Let's check if the policy allows hybrid/flexible clock-in with warning or blocks.
-                    // For Phase 1, we block if they are outside geofence.
-                    throw $e;
+                if ($latitude === null || $longitude === null) {
+                    // No coordinates provided
+                    if ($attendanceMode === AttendanceMode::STRICT) {
+                        throw new BusinessRuleViolationException(
+                            'Location is required for clock-in under strict attendance mode.',
+                            'LOCATION_REQUIRED'
+                        );
+                    }
+                    // Flexible/Hybrid: allow but flag suspicious
+                    $isSuspicious = true;
+                    $suspiciousReason = 'Location not provided but geo-fencing is enabled.';
+                } else {
+                    try {
+                        $this->geofenceService->validateAndFindBranch(
+                            $organization,
+                            (float) $latitude,
+                            (float) $longitude,
+                            $accuracy
+                        );
+                    } catch (BusinessRuleViolationException $e) {
+                        if ($attendanceMode === AttendanceMode::STRICT) {
+                            // Strict mode: hard block — do not allow clock-in outside geofence
+                            throw $e;
+                        }
+
+                        // Flexible/Hybrid: allow clock-in but flag as suspicious
+                        $isSuspicious = true;
+                        $suspiciousReason = $e->getMessage();
+                    }
                 }
             }
 
