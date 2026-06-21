@@ -51,7 +51,7 @@
     </div>
 
     {{-- Mega Menu --}}
-    <div x-show="activeMenu" x-transition x-cloak class="absolute top-full left-0 right-0 flex justify-center mt-2 px-6 lg:px-8">
+    <div x-show="activeMenu" x-transition x-cloak class="absolute top-full left-0 right-0 flex justify-center pt-2 px-6 lg:px-8">
         <div class="w-full max-w-7xl bg-surface-card/95 glass border border-surface-border rounded-2xl shadow-2xl p-10 overflow-hidden">
             @include('frontend.partials.mega-menu-panels')
         </div>
