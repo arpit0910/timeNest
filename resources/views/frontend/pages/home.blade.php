@@ -464,124 +464,75 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
       <h2 class="tn-h2">Start free.<br>Scale when ready.</h2>
       <p class="tn-body" style="max-width:440px;margin:1.25rem auto 0;">No credit card required. No hidden fees. Full access to core features on the free plan.</p>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:780px;margin:0 auto;" class="tn-pricing-grid">
-      {{-- FREE --}}
-      <div class="tn-card" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;">
-        <div>
-          <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">Free Forever</span>
-          <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
-            <span class="tn-price-num">$0</span>
-            <span style="color:#475569;font-size:0.9rem;">/month</span>
+    
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;" class="tn-pricing-grid tn-3col">
+        {{-- FOR FREELANCERS --}}
+        <div class="tn-card" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;">
+          <div>
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">For Freelancers</span>
+            <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
+              <span class="tn-price-num">&#8377;0</span>
+              <span style="color:#475569;font-size:0.9rem;">/month</span>
+            </div>
+            <p style="color:#64748b; font-size:0.9rem; margin-top:1rem; line-height:1.5; height:60px;">Everything a solo freelancer needs to manage clients, revenue, and projects from one dashboard. Forever free.</p>
           </div>
+          <ul class="tn-feat-list" style="flex:1;">
+            @foreach(['Client CRM & Lead Tracking', 'Professional Invoicing', 'Quotations & Proposals', 'Revenue Analytics', 'Project Management', 'Task Tracking & Kanban', 'Document Management', 'AI Revenue Forecasting'] as )
+            <li>
+              <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              {{ $f }}
+            </li>
+            @endforeach
+          </ul>
+          <a href="/register" class="tn-btn-ghost" style="text-align:center;justify-content:center;">Start Freelancing Free</a>
         </div>
-        <ul class="tn-feat-list">
-          @foreach(['Up to 5 members','Attendance & Time Logs','Basic Leave Management','1 Organization'] as $f)
-          <li>
-            <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            {{ $f }}
-          </li>
-          @endforeach
-        </ul>
-        <a href="/register" class="tn-btn-ghost" style="text-align:center;justify-content:center;">Get Started Free</a>
-      </div>
-      {{-- PRO --}}
-      <div class="tn-card-glow" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;position:relative;">
-        <span style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#4f46e5;color:#fff;font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 1rem;border-radius:999px;white-space:nowrap;">Most Popular</span>
-        <div>
-          <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6366f1;">Pro Plan</span>
-          <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
-            <span class="tn-price-num">$12</span>
-            <span style="color:#475569;font-size:0.9rem;">/member/month</span>
+        
+        {{-- FREELANCE WORKSPACE --}}
+        <div class="tn-card-glow" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;position:relative;">
+          <span style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#4f46e5;color:#fff;font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 1rem;border-radius:999px;white-space:nowrap;">Most Popular</span>
+          <div>
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6366f1;">Freelance Workspace</span>
+            <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
+              <span class="tn-price-num">&#8377;999</span>
+              <span style="color:#475569;font-size:0.9rem;">/workspace/mo</span>
+            </div>
+            <p style="color:#64748b; font-size:0.9rem; margin-top:1rem; line-height:1.5; height:60px;">A collaborative workspace for freelance teams, agencies, and studios. Share projects without corporate overhead.</p>
           </div>
+          <ul class="tn-feat-list" style="flex:1;">
+            @foreach(['Collaborator Management', 'Shared Projects & Files', 'Shared Client Billing', 'Workspace Analytics', 'Team Utilization Tracking', 'Collaborative Reporting', 'Agency Workflows', 'Shared Documents'] as )
+            <li>
+              <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              {{ $f }}
+            </li>
+            @endforeach
+          </ul>
+          <a href="/register" class="tn-btn-primary" style="justify-content:center;">Launch Your Workspace</a>
         </div>
-        <ul class="tn-feat-list">
-          @foreach(['Unlimited members','All Free features','Multi-level Approvals','Geo-Fence Enforcement','AI Workforce Insights','Priority Support'] as $f)
-          <li>
-            <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            {{ $f }}
-          </li>
-          @endforeach
-        </ul>
-        <a href="/register" class="tn-btn-primary" style="justify-content:center;">Start 14-Day Trial</a>
+  
+        {{-- FOR ORGANIZATIONS --}}
+        <div class="tn-card" style="padding:2.5rem;display:flex;flex-direction:column;gap:2rem;">
+          <div>
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;">For Organizations</span>
+            <div style="display:flex;align-items:baseline;gap:4px;margin-top:0.75rem;">
+              <span class="tn-price-num" style="font-size:2rem;">Contact Sales</span>
+            </div>
+            <p style="color:#64748b; font-size:0.9rem; margin-top:1rem; line-height:1.5; height:60px;">Complete workforce and operations management for companies. Unify HR, attendance, shifts, and workflows.</p>
+          </div>
+          <ul class="tn-feat-list" style="flex:1;">
+            @foreach(['Employee Directory & Profiles', 'Attendance Tracking & GPS', 'Shift Scheduling & Rostering', 'Departments & Teams', 'Roles & Permissions', 'Multi-Level Approvals', 'Workforce Analytics', 'Compliance Monitoring'] as )
+            <li>
+              <svg class="tn-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              {{ $f }}
+            </li>
+            @endforeach
+          </ul>
+          <a href="{{ route('frontend.book-demo') ?? '#' }}" class="tn-btn-ghost" style="text-align:center;justify-content:center;">Book Organization Demo</a>
+        </div>
       </div>
-    </div>
-    <p style="text-align:center;margin-top:2rem;" class="tn-muted">Need enterprise? <a href="{{ route('frontend.contact') }}" style="color:#818cf8;font-weight:600;text-decoration:none;">Talk to us →</a></p>
-  </div>
-</section>
 
-{{-- ═══════════ SECTION 9: FINAL CTA ═══════════ --}}
-<section class="tn-section" style="background:#fafafa; border-top:1px solid #e2e8f0; padding-bottom: 8rem;">
-  <div style="max-width:1440px; margin:0 auto; padding:0 1.5rem;">
-    <div style="background:#08080f; border-radius:32px; padding:4rem 5rem; position:relative; overflow:hidden; box-shadow:0 30px 60px -15px rgba(99,102,241,0.25); border:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:1.3fr 1fr; gap:3rem; align-items:center;" class="tn-cta-responsive">
-      
-      {{-- Background Glow --}}
-      <div style="position:absolute; top:-30%; right:-10%; width:600px; height:600px; background:radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(139,92,246,0.1) 50%, transparent 70%); filter:blur(60px); z-index:0; pointer-events:none;"></div>
-      <div style="position:absolute; bottom:-30%; left:-10%; width:500px; height:500px; background:radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%); filter:blur(60px); z-index:0; pointer-events:none;"></div>
-      
-      {{-- Content (Left) --}}
-      <div style="position:relative; z-index:2; text-align:left;" class="tn-cta-content">
-        <div style="font-size:0.75rem; font-weight:800; letter-spacing:0.15em; text-transform:uppercase; color:#818cf8; margin-bottom:1.25rem; display:inline-flex; align-items:center; gap:8px;">
-          <span style="width:8px; height:8px; border-radius:50%; background:#818cf8; box-shadow:0 0 12px rgba(129,140,248,0.8);"></span>
-          Ready to upgrade?
-        </div>
-        <h2 style="font-size:clamp(2.5rem,4vw,3.5rem); font-weight:800; line-height:1.1; letter-spacing:-0.03em; color:#ffffff; margin-bottom:1.25rem;">Your team deserves better tools.</h2>
-        <p style="font-size:1.125rem; color:#94a3b8; margin-bottom:2.5rem; line-height:1.6;">Join thousands of freelancers and teams using TimeNest to manage their workforce with clarity and confidence. No credit card required.</p>
-        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;" class="tn-cta-buttons">
-          <a href="/register" class="tn-btn-primary" style="font-size:1rem; padding:0.875rem 2rem; box-shadow:0 0 20px rgba(99,102,241,0.4);">Start Free Trial</a>
-          <a href="{{ route('frontend.book-demo') }}" class="tn-btn-ghost-dark" style="font-size:1rem; padding:0.875rem 2rem;">Book a Demo</a>
-        </div>
-        <div style="display:flex; align-items:center; gap:1.5rem; margin-top:2rem; font-size:0.8rem; color:#64748b; font-weight:500;">
-          <div style="display:flex; align-items:center; gap:6px;"><svg width="16" height="16" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Free plan forever</div>
-          <div style="display:flex; align-items:center; gap:6px;"><svg width="16" height="16" fill="none" stroke="#34d399" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Setup in 5 mins</div>
-        </div>
-      </div>
-      
-      {{-- Illustration / Visuals (Right) --}}
-      <div style="position:relative; z-index:2; height:100%; display:flex; align-items:center; justify-content:center;" class="tn-cta-visual">
-          <div style="position:relative; width:100%; max-width:400px; height:340px;">
-              {{-- Main overlapping card --}}
-              <div style="position:absolute; top:20px; right:10px; width:280px; background:rgba(255,255,255,0.03); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:1.5rem; transform:rotate(4deg); box-shadow:0 20px 40px rgba(0,0,0,0.4); animation: float 6s ease-in-out infinite;">
-                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:1rem;">
-                      <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, #6366f1, #8b5cf6); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px rgba(99,102,241,0.3);">
-                          <svg width="20" height="20" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                      </div>
-                      <div>
-                          <div style="font-size:0.85rem; font-weight:700; color:#ffffff;">Timesheet Approved</div>
-                          <div style="font-size:0.7rem; color:#94a3b8;">Just now · Auto-processed</div>
-                      </div>
-                  </div>
-                  <div style="height:4px; width:100%; background:rgba(255,255,255,0.1); border-radius:2px; margin-bottom:8px;">
-                      <div style="height:100%; width:100%; background:linear-gradient(90deg, #6366f1, #34d399); border-radius:2px;"></div>
-                  </div>
-              </div>
-              
-              {{-- Floating element 1 (Chart) --}}
-              <div style="position:absolute; bottom:40px; left:0; width:220px; background:linear-gradient(135deg, rgba(15,23,42,0.95), rgba(8,8,15,0.98)); backdrop-filter:blur(10px); border:1px solid rgba(99,102,241,0.3); border-radius:16px; padding:1.25rem; transform:rotate(-6deg); box-shadow:0 15px 30px rgba(0,0,0,0.5); animation: float 7s ease-in-out infinite 1s;">
-                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
-                      <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">Productivity</span>
-                      <span style="font-size:0.75rem; color:#34d399; font-weight:800;">+24%</span>
-                  </div>
-                  <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:4px; height:40px;">
-                      @foreach([30,50,40,70,60,90,80] as $h)
-                      <div style="flex:1; height:{{$h}}%; background:{{ $h > 70 ? 'linear-gradient(to top, #4f46e5, #818cf8)' : 'rgba(99,102,241,0.2)' }}; border-radius:2px; transition:height 0.5s;"></div>
-                      @endforeach
-                  </div>
-              </div>
-
-              {{-- Floating profile circle --}}
-              <div style="position:absolute; top:70px; left:30px; width:50px; height:50px; border-radius:50%; background:#1e1b4b; border:2px solid #6366f1; display:flex; align-items:center; justify-content:center; color:#818cf8; font-weight:700; font-size:1rem; box-shadow:0 10px 20px rgba(0,0,0,0.3); animation: float 5s ease-in-out infinite 0.5s;">
-                  JD
-              </div>
-              
-              {{-- Decorative sparks --}}
-              <svg style="position:absolute; top:-10px; right:40px; width:28px; height:28px; color:#f59e0b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-              <svg style="position:absolute; bottom:-10px; right:100px; width:20px; height:20px; color:#8b5cf6;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          </div>
-      </div>
-      
-    </div>
-  </div>
 </section>
 
 </div>
 </x-frontend-layout.app>
+
+
