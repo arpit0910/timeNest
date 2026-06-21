@@ -49,7 +49,7 @@ Route::prefix('worklog-policy')->name('worklog-policy.')->controller(WorklogPoli
 });
 
 // ─── Attendance Worklogs (WorklogController) ─────────────────
-Route::controller(\App\Http\Controllers\Api\Attendance\WorklogController::class)->group(function () {
+Route::controller(WorklogController::class)->group(function () {
     Route::post('days/{dayUuid}/worklogs', 'storeForDay')->middleware('permission:' . SystemPermission::WorklogCreate->value)->name('days.worklogs.store');
     Route::get('days/{dayUuid}/worklogs', 'forDay')->middleware('permission:' . SystemPermission::WorklogView->value)->name('days.worklogs.index');
     Route::get('worklogs', 'index')->middleware('permission:' . SystemPermission::WorklogView->value)->name('worklogs.index');

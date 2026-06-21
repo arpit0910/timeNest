@@ -103,7 +103,7 @@ class AttendanceCalculationService
         // Check if it's a holiday
         $isHoliday = $this->isHoliday($organization->id, $profile?->branch_id, $dateStr);
         // Check if it's a weekend
-        $isWeekend = $this->isWeekend($dateStr, $timezone);
+        $isWeekend = $this->isWeekend($dateStr, $timezone, $policy->weekend_days ?? []);
 
         if ($totalSessions === 0) {
             if ($isLeave) {
@@ -254,10 +254,21 @@ class AttendanceCalculationService
     /**
      * Check if a date falls on a weekend in the given timezone.
      */
-    public function isWeekend(string $date, string $timezone): bool
+    public function isWeekend(string $date, string $timezone, array $weekendDays = []): bool
     {
         $carbon = Carbon::parse($date, $timezone);
-        return $carbon->isWeekend();
+        
+        if (empty($weekendDays)) {
+            return $carbon->isWeekend();
+        }
+
+        // Handle both integer iso days (1-7) and string day names ('Saturday')
+        $dayIso = $carbon->dayOfWeekIso;
+        $dayName = $carbon->englishDayOfWeek;
+
+        return in_array($dayIso, $weekendDays) 
+            || in_array((string)$dayIso, $weekendDays, true) 
+            || in_array($dayName, $weekendDays);
     }
 
     /**

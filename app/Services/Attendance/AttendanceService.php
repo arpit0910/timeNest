@@ -87,7 +87,7 @@ class AttendanceService
 
             // 3. Holiday and Weekend Rules
             $isHoliday = $this->calculationService->isHoliday($organization->id, $profile->branch_id, $todayDate);
-            $isWeekend = $this->calculationService->isWeekend($todayDate, $timezone);
+            $isWeekend = $this->calculationService->isWeekend($todayDate, $timezone, $policy->weekend_days ?? []);
             $hasEWD = $this->leaveManagementService->hasApprovedEWD($user->id, $todayDate);
 
             if ($isHoliday) {
