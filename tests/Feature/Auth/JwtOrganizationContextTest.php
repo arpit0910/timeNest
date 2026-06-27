@@ -38,6 +38,9 @@ class JwtOrganizationContextTest extends TestCase
     {
         parent::setUp();
 
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'PlatformPermissionsSeeder']);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'OrganizationRolePermissionsSeeder']);
+
         // Roles
         $ownerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::DIRECTOR->value, 'guard_name' => 'api']);
         $managerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::MANAGER->value, 'guard_name' => 'api']);
@@ -673,7 +676,7 @@ class JwtOrganizationContextTest extends TestCase
         ]);
         OrganizationMembership::create(['user_id' => $otherUser->id, 'organization_id' => $this->orgC->id, 'joined_at' => now(), 'status' => 'active']);
         setPermissionsTeamId($this->orgC->id);
-        $otherUser->assignRole('Member');
+        $otherUser->assignRole(\App\Enums\SystemRole::EMPLOYEE->value);
 
         $res2 = $this->loginUser($otherUser);
 
@@ -900,7 +903,7 @@ class JwtOrganizationContextTest extends TestCase
     public function test_7_2_jwt_scoped_to_org_a_cannot_access_org_b_data()
     {
         $permission = \App\Models\Rbac\Permission::firstOrCreate(['name' => \App\Enums\SystemPermission::BRANCHES_VIEW->value, 'guard_name' => 'api']);
-        $role = \App\Models\Rbac\Role::where('name', 'Owner')->first();
+        $role = \App\Models\Rbac\Role::where('name', \App\Enums\SystemRole::DIRECTOR->value)->first();
         $role->givePermissionTo($permission);
 
         $res = $this->loginUser($this->singleOrgUser);
@@ -1243,6 +1246,9 @@ class JwtOrganizationContextTest extends TestCase
         $response = $this->withHeader('Authorization', "Bearer {$res['access_token']}")
             ->getJson('/api/v1/organization/attendance/history');
             
+        if ($response->status() !== 200) {
+            dump($response->json());
+        }
         $response->assertStatus(200);
         $response->assertJsonMissing(['organization_id' => $this->orgB->id]);
     }
@@ -1331,12 +1337,17 @@ class JwtOrganizationContextTest extends TestCase
             ->postJson('/api/v1/auth/select-organization', [
                 'organization_uuid' => $this->orgB->uuid
             ]);
+            
+        dump("SelectRes:", $selectRes->json());
 
         $accessToken = $selectRes->json('data.access_token');
 
         $response = $this->withHeader('Authorization', "Bearer {$accessToken}")
             ->getJson('/api/v1/organization/attendance/history');
             
+        if ($response->status() !== 200) {
+            dump("Login:", $loginRes->json(), "Select:", $selectRes->json(), "History:", $response->json());
+        }
         $response->assertStatus(200);
         $response->assertJsonMissing(['organization_id' => $this->orgA->id]);
     }
@@ -1460,7 +1471,7 @@ class JwtOrganizationContextTest extends TestCase
         ]);
         OrganizationMembership::create(['user_id' => $otherUser->id, 'organization_id' => $this->orgA->id, 'joined_at' => now(), 'status' => 'active']);
         setPermissionsTeamId($this->orgA->id);
-        $otherUser->assignRole('Member');
+        $otherUser->assignRole(\App\Enums\SystemRole::EMPLOYEE->value);
         
         $res2 = $this->loginUser($otherUser);
         $this->assertArrayHasKey('refresh_token', $res2, 'Other user login failed');

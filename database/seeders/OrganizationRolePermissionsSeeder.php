@@ -218,31 +218,16 @@ class OrganizationRolePermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get all organizations
-        $organizations = Organization::all();
-
-        foreach ($organizations as $organization) {
-            $this->seedPermissionsForOrganization($organization);
-        }
-    }
-
-    /**
-     * Seed permissions for a specific organization.
-     */
-    private function seedPermissionsForOrganization(Organization $organization): void
-    {
         $map = $this->rolePermissionMap();
         $totalAssignments = 0;
 
         foreach ($map as $roleName => $permissions) {
-            // Find the organization-scoped role
-            $role = Role::where('name', $roleName)
-                ->where('organization_id', $organization->id)
-                ->first();
-
-            if (! $role) {
-                continue;
-            }
+            // Find or create the global role
+            $role = Role::firstOrCreate([
+                'name' => $roleName,
+                'guard_name' => 'api',
+                'organization_id' => null,
+            ]);
 
             if ($permissions === null) {
                 // Wildcard: assign ALL permissions for this guard
@@ -258,9 +243,9 @@ class OrganizationRolePermissionsSeeder extends Seeder
             $role->syncPermissions($perms);
             $totalAssignments += $perms->count();
 
-            $this->command->info("Synced {$perms->count()} permissions to role: {$role->name} in organization: {$organization->legal_name}");
+            $this->command->info("Synced {$perms->count()} permissions to role: {$role->name}");
         }
 
-        $this->command->info("Total: Seeded {$totalAssignments} role-permission assignments for organization: {$organization->legal_name}");
+        $this->command->info("Total: Seeded {$totalAssignments} role-permission assignments for global org roles.");
     }
 }
