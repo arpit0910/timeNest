@@ -40,7 +40,7 @@ class TempAuthorizationTest extends TestCase
         $managerRole = Role::firstOrCreate(['name' => 'manager', 'organization_id' => $org->id, 'guard_name' => 'web']);
         $managerRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE->value);
         
-        $orgAdminRole = Role::firstOrCreate(['name' => 'organization_admin', 'organization_id' => $org->id, 'guard_name' => 'web']);
+        $orgAdminRole = Role::firstOrCreate(['name' => 'admin', 'organization_id' => $org->id, 'guard_name' => 'web']);
         $orgAdminRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE_ANY->value);
 
         setPermissionsTeamId($org->id);

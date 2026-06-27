@@ -34,7 +34,7 @@ class PlatformUsersSeeder extends Seeder
             [
                 'name' => 'TimeNest Owner',
                 'email' => 'app.owner@timenest.internal',
-                'role' => 'app_owner',
+                'role' => 'app_director',
             ],
             [
                 'name' => 'TimeNest Super Admin',

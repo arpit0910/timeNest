@@ -30,9 +30,9 @@ class RealisticOrganizationsSeeder extends Seeder
         $password = Hash::make('Password@123');
 
         $orgRoles = [
-            SystemRole::ORGANIZATION_OWNER->value,
-            SystemRole::ORGANIZATION_ADMIN->value,
-            SystemRole::HR_MANAGER->value,
+            SystemRole::DIRECTOR->value,
+            SystemRole::ADMIN->value,
+            SystemRole::HEAD->value,
             SystemRole::MANAGER->value,
             SystemRole::EMPLOYEE->value,
         ];

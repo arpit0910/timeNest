@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         // Centralized AppOwner root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
             $platformRole = resolve_platform_role($user);
-            if ($platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value) {
+            if ($platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value) {
                 return true;
             }
             return null;

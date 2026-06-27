@@ -31,7 +31,7 @@ class OrganizationMembership extends Model
     protected $table = 'organization_memberships';
 
     protected $fillable = [
-        'user_id', 'organization_id', 'invited_by',
+        'user_id', 'organization_id', 'department_id', 'invited_by',
         'status', 'joined_at', 'left_at',
     ];
 
@@ -62,6 +62,11 @@ class OrganizationMembership extends Model
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class, 'organization_membership_id');
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function scopeActive($query)

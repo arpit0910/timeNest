@@ -49,7 +49,7 @@ class AttendanceWorklogController extends BaseApiController
 
         try {
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
+            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
 
             // Check if manager or app owner
             $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 

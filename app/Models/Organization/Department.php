@@ -30,7 +30,7 @@ class Department extends Model
 
     protected $fillable = [
         'organization_id', 'branch_id', 'parent_department_id',
-        'name', 'code', 'head_user_id', 'is_active',
+        'name', 'code', 'slug', 'description', 'head_user_id', 'is_active',
     ];
 
     protected function casts(): array
@@ -61,6 +61,14 @@ class Department extends Model
     public function head(): BelongsTo
     {
         return $this->belongsTo(User::class, 'head_user_id');
+    }
+
+    /**
+     * Organization members scoped to this department via organization_memberships.department_id.
+     */
+    public function members(): HasMany
+    {
+        return $this->hasMany(OrganizationMembership::class, 'department_id');
     }
 
     public function scopeActive($query)

@@ -311,7 +311,7 @@ class AuthService
             ->firstOrFail();
 
         $platformRole = resolve_platform_role($user);
-        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
 
         if (! $isAppOwner) {
             $membership = OrganizationMembership::active()
@@ -335,7 +335,7 @@ class AuthService
 
             $roleName = $role->name;
         } else {
-            $roleName = \App\Enums\SystemRole::APP_OWNER->value;
+            $roleName = \App\Enums\SystemRole::APP_DIRECTOR->value;
         }
 
         // If switching, invalidate current JWT

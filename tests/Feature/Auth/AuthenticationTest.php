@@ -66,7 +66,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $role = Role::create([
-            'name' => SystemRole::ORGANIZATION_OWNER->value,
+            'name' => SystemRole::DIRECTOR->value,
             'guard_name' => 'api',
             'organization_id' => null,
             'is_system_role' => true,
@@ -93,6 +93,6 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.status', 'authenticated')
             ->assertJsonPath('data.guard', 'organization')
-            ->assertJsonPath('data.role', SystemRole::ORGANIZATION_OWNER->value);
+            ->assertJsonPath('data.role', SystemRole::DIRECTOR->value);
     }
 }

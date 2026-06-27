@@ -37,7 +37,7 @@ class EnsureOrganizationAccess
         $context = jwt_context();
 
         $platformRole = resolve_platform_role($request->user());
-        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_OWNER->value;
+        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
 
         if (! $isAppOwner) {
             if (! $context->isOrganization() || ! $context->hasOrganizationContext()) {

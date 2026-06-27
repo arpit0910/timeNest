@@ -23,17 +23,17 @@ use Illuminate\Database\Seeder;
 class OrganizationRolePermissionsSeeder extends Seeder
 {
     /**
-     * Role → permission mapping (same as PlatformRolePermissionsSeeder).
+     * Role → permission mapping for org-level roles.
      *
-     * @return array<SystemRole, SystemPermission[]|null>
+     * @return array<string, SystemPermission[]|null>
      */
     private function rolePermissionMap(): array
     {
         return [
-            // Organization roles only
-            SystemRole::ORGANIZATION_OWNER->value => null, // ALL permissions
-            SystemRole::ORGANIZATION_SUPER_ADMIN->value => null, // ALL permissions
-            SystemRole::ORGANIZATION_ADMIN->value => [
+            // Org-wide administration
+            SystemRole::DIRECTOR->value    => null, // ALL permissions
+            SystemRole::SUPER_ADMIN->value => null, // ALL permissions (billing excluded at app layer)
+            SystemRole::ADMIN->value       => [
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_INVITE,
                 SystemPermission::USERS_EDIT,
@@ -49,8 +49,14 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::ATTENDANCE_EDIT,
                 SystemPermission::ATTENDANCE_DELETE,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_APPROVE_ANY,
                 SystemPermission::ATTENDANCE_EXPORT,
                 SystemPermission::ATTENDANCE_IMPORT,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_MANAGE,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
                 SystemPermission::REPORTS_VIEW,
                 SystemPermission::REPORTS_EXPORT,
                 SystemPermission::BRANCHES_VIEW,
@@ -68,22 +74,17 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::WORKLOG_APPROVE,
                 SystemPermission::WORKLOG_APPROVE_ANY,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::WORKLOG_POLICY_MANAGE,
                 SystemPermission::LEAVES_VIEW,
                 SystemPermission::LEAVES_CREATE,
                 SystemPermission::LEAVES_APPROVE,
                 SystemPermission::LEAVES_APPROVE_ANY,
-                SystemPermission::ATTENDANCE_APPROVE_ANY,
-                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
-                SystemPermission::ATTENDANCE_POLICY_VIEW,
-                SystemPermission::ATTENDANCE_POLICY_MANAGE,
                 SystemPermission::LEAVE_POLICY_VIEW,
                 SystemPermission::LEAVE_POLICY_MANAGE,
-                SystemPermission::WORKLOG_POLICY_VIEW,
-                SystemPermission::WORKLOG_POLICY_MANAGE,
-                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
-                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
             ],
-            SystemRole::HR_MANAGER->value => [
+            // Department-scoped authority
+            SystemRole::HEAD->value => [
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_INVITE,
                 SystemPermission::INVITATIONS_VIEW,
@@ -99,34 +100,58 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::LEAVES_EDIT,
                 SystemPermission::LEAVES_DELETE,
                 SystemPermission::LEAVES_APPROVE,
+                SystemPermission::LEAVES_APPROVE_ANY,
                 SystemPermission::LEAVES_EXPORT,
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_CREATE,
                 SystemPermission::ATTENDANCE_EDIT,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_APPROVE_ANY,
                 SystemPermission::ATTENDANCE_EXPORT,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
                 SystemPermission::DEPARTMENTS_VIEW,
                 SystemPermission::WORKLOG_VIEW,
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::WORKLOG_APPROVE,
                 SystemPermission::WORKLOG_APPROVE_ANY,
-                SystemPermission::LEAVES_APPROVE_ANY,
-                SystemPermission::ATTENDANCE_APPROVE_ANY,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::LEAVE_POLICY_VIEW,
+            ],
+            SystemRole::DEPARTMENT_ADMIN->value => [
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::ATTENDANCE_EDIT,
+                SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_EXPORT,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_POLICY_VIEW,
-                SystemPermission::LEAVE_POLICY_VIEW,
-                SystemPermission::WORKLOG_POLICY_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
+                SystemPermission::LEAVES_EDIT,
+                SystemPermission::LEAVES_APPROVE,
+                SystemPermission::LEAVES_EXPORT,
+                SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::WORKLOG_APPROVE,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::DEPARTMENTS_VIEW,
+                SystemPermission::USERS_VIEW,
             ],
+            // Generic management
             SystemRole::MANAGER->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_APPROVE,
                 SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
                 SystemPermission::LEAVES_APPROVE,
                 SystemPermission::REPORTS_VIEW,
                 SystemPermission::USERS_VIEW,
-                SystemPermission::LEAVES_CREATE,
                 SystemPermission::WORKLOG_VIEW,
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::WORKLOG_APPROVE,
@@ -134,20 +159,30 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
             ],
-            SystemRole::SUPERVISOR->value => [
+            SystemRole::TEAM_LEAD->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_APPROVE,
                 SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::LEAVES_VIEW,
                 SystemPermission::LEAVES_CREATE,
                 SystemPermission::WORKLOG_VIEW,
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
             ],
+            // Workers
             SystemRole::EMPLOYEE->value => [
                 SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
                 SystemPermission::LEAVES_VIEW,
                 SystemPermission::LEAVES_CREATE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+            ],
+            SystemRole::INTERN->value => [
+                SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_CREATE,
                 SystemPermission::WORKLOG_VIEW,
                 SystemPermission::WORKLOG_CREATE,
@@ -161,6 +196,19 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+            ],
+            // Observers
+            SystemRole::VIEWER->value => [
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::USERS_VIEW,
+                SystemPermission::REPORTS_VIEW,
+                SystemPermission::BRANCHES_VIEW,
+                SystemPermission::DEPARTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::WORKLOG_POLICY_VIEW,
             ],
         ];
     }

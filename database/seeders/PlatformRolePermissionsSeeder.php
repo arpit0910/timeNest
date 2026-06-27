@@ -23,15 +23,15 @@ class PlatformRolePermissionsSeeder extends Seeder
      * Uses enum references exclusively.
      * null = all permissions (wildcard).
      *
-     * @return array<SystemRole, SystemPermission[]|null>
+     * @return array<string, SystemPermission[]|null>
      */
     private function rolePermissionMap(): array
     {
         return [
-            // Platform roles
-            SystemRole::APP_OWNER->value => null, // ALL permissions
+            // ─── Platform roles ─────────────────────────────────────
+            SystemRole::APP_DIRECTOR->value    => null, // ALL permissions
             SystemRole::APP_SUPER_ADMIN->value => null, // ALL permissions
-            SystemRole::APP_ADMIN->value => [
+            SystemRole::APP_ADMIN->value       => [
                 SystemPermission::ORGANIZATIONS_MANAGE,
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_EDIT,
@@ -39,11 +39,11 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::REPORTS_VIEW,
                 SystemPermission::ATTENDANCE_VIEW,
             ],
-            SystemRole::SUPPORT_AGENT->value => [
+            SystemRole::APP_SUPPORT->value => [
                 SystemPermission::USERS_VIEW,
                 SystemPermission::REPORTS_VIEW,
             ],
-            SystemRole::AUDITOR->value => [
+            SystemRole::APP_AUDITOR->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_EXPORT,
                 SystemPermission::USERS_VIEW,
@@ -60,10 +60,10 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::REPORTS_EXPORT,
             ],
 
-            // Organization roles
-            SystemRole::ORGANIZATION_OWNER->value => null, // ALL permissions
-            SystemRole::ORGANIZATION_SUPER_ADMIN->value => null, // ALL permissions
-            SystemRole::ORGANIZATION_ADMIN->value => [
+            // ─── Organization roles ─────────────────────────────────
+            SystemRole::DIRECTOR->value    => null, // ALL permissions
+            SystemRole::SUPER_ADMIN->value => null, // ALL permissions (billing excluded at app layer)
+            SystemRole::ADMIN->value       => [
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_INVITE,
                 SystemPermission::USERS_EDIT,
@@ -79,8 +79,14 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::ATTENDANCE_EDIT,
                 SystemPermission::ATTENDANCE_DELETE,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_APPROVE_ANY,
                 SystemPermission::ATTENDANCE_EXPORT,
                 SystemPermission::ATTENDANCE_IMPORT,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_MANAGE,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
                 SystemPermission::REPORTS_VIEW,
                 SystemPermission::REPORTS_EXPORT,
                 SystemPermission::BRANCHES_VIEW,
@@ -94,8 +100,21 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::DEPARTMENTS_DELETE,
                 SystemPermission::DEPARTMENTS_MANAGE,
                 SystemPermission::SETTINGS_MANAGE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::WORKLOG_APPROVE,
+                SystemPermission::WORKLOG_APPROVE_ANY,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::WORKLOG_POLICY_MANAGE,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
+                SystemPermission::LEAVES_APPROVE,
+                SystemPermission::LEAVES_APPROVE_ANY,
+                SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::LEAVE_POLICY_MANAGE,
             ],
-            SystemRole::HR_MANAGER->value => [
+            SystemRole::HEAD->value => [
+                // Same as department_admin + can manage department members
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_INVITE,
                 SystemPermission::INVITATIONS_VIEW,
@@ -111,33 +130,116 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::LEAVES_EDIT,
                 SystemPermission::LEAVES_DELETE,
                 SystemPermission::LEAVES_APPROVE,
+                SystemPermission::LEAVES_APPROVE_ANY,
                 SystemPermission::LEAVES_EXPORT,
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_CREATE,
                 SystemPermission::ATTENDANCE_EDIT,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_APPROVE_ANY,
                 SystemPermission::ATTENDANCE_EXPORT,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
                 SystemPermission::DEPARTMENTS_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::WORKLOG_APPROVE,
+                SystemPermission::WORKLOG_APPROVE_ANY,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::LEAVE_POLICY_VIEW,
+            ],
+            SystemRole::DEPARTMENT_ADMIN->value => [
+                // Attendance, leave, worklog within their department only
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::ATTENDANCE_EDIT,
+                SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_EXPORT,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
+                SystemPermission::LEAVES_EDIT,
+                SystemPermission::LEAVES_APPROVE,
+                SystemPermission::LEAVES_EXPORT,
+                SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::WORKLOG_APPROVE,
+                SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::DEPARTMENTS_VIEW,
+                SystemPermission::USERS_VIEW,
             ],
             SystemRole::MANAGER->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_APPROVE,
                 SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
                 SystemPermission::LEAVES_APPROVE,
                 SystemPermission::REPORTS_VIEW,
                 SystemPermission::USERS_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::WORKLOG_APPROVE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
             ],
-            SystemRole::SUPERVISOR->value => [
+            SystemRole::TEAM_LEAD->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::LEAVES_CREATE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
             ],
             SystemRole::EMPLOYEE->value => [
                 SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
                 SystemPermission::LEAVES_VIEW,
                 SystemPermission::LEAVES_CREATE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+            ],
+            SystemRole::INTERN->value => [
+                // Same as employee but no leave balance-related permissions
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
             ],
             SystemRole::CONTRACTOR->value => [
+                // Clock in/out, submit worklog. No leave. No policy access.
                 SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::WORKLOG_CREATE,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+            ],
+            SystemRole::VIEWER->value => [
+                // Read-only on all modules they are given access to
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::LEAVES_VIEW,
+                SystemPermission::WORKLOG_VIEW,
+                SystemPermission::USERS_VIEW,
+                SystemPermission::REPORTS_VIEW,
+                SystemPermission::BRANCHES_VIEW,
+                SystemPermission::DEPARTMENTS_VIEW,
+                SystemPermission::ATTENDANCE_POLICY_VIEW,
+                SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::WORKLOG_POLICY_VIEW,
             ],
         ];
     }
@@ -168,10 +270,6 @@ class PlatformRolePermissionsSeeder extends Seeder
             }
 
             $mapping = $map[$systemRole->value];
-
-            if ($mapping === 'skip') {
-                continue;
-            }
 
             if ($mapping === null) {
                 // Wildcard: assign ALL permissions for this guard

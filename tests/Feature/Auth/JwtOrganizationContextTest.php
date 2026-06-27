@@ -39,10 +39,10 @@ class JwtOrganizationContextTest extends TestCase
         parent::setUp();
 
         // Roles
-        $ownerRole = Role::firstOrCreate(['name' => 'Owner', 'guard_name' => 'api']);
-        $managerRole = Role::firstOrCreate(['name' => 'Manager', 'guard_name' => 'api']);
-        $memberRole = Role::firstOrCreate(['name' => 'Member', 'guard_name' => 'api']);
-        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::APP_OWNER->value, 'guard_name' => 'api']);
+        $ownerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::DIRECTOR->value, 'guard_name' => 'api']);
+        $managerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::MANAGER->value, 'guard_name' => 'api']);
+        $memberRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::EMPLOYEE->value, 'guard_name' => 'api']);
+        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::APP_DIRECTOR->value, 'guard_name' => 'api']);
 
         // Organizations
         $this->orgA = Organization::create(['legal_name' => 'Org A', 'slug' => 'org-a', 'is_active' => true]);

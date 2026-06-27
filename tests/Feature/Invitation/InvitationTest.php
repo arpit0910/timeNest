@@ -48,7 +48,7 @@ class InvitationTest extends TestCase
         $this->seed(PlatformRolePermissionsSeeder::class);
 
         // 2. Resolve roles
-        $this->adminRole = Role::where('name', SystemRole::ORGANIZATION_ADMIN->value)->firstOrFail();
+        $this->adminRole = Role::where('name', SystemRole::ADMIN->value)->firstOrFail();
         $this->employeeRole = Role::where('name', SystemRole::EMPLOYEE->value)->firstOrFail();
 
         // 3. Create organizations
@@ -94,8 +94,8 @@ class InvitationTest extends TestCase
 
         // 7. Issue Auth Tokens
         $issueJwtAction = app(IssueJwtAction::class);
-        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->organizationA, \App\Enums\Guard::ORGANIZATION, SystemRole::ORGANIZATION_ADMIN->value);
-        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->organizationB, \App\Enums\Guard::ORGANIZATION, SystemRole::ORGANIZATION_ADMIN->value);
+        $this->tokenA = $issueJwtAction->issueAccessToken($this->adminA, $this->organizationA, \App\Enums\Guard::ORGANIZATION, SystemRole::ADMIN->value);
+        $this->tokenB = $issueJwtAction->issueAccessToken($this->adminB, $this->organizationB, \App\Enums\Guard::ORGANIZATION, SystemRole::ADMIN->value);
     }
 
     private function headers(string $token, Organization $organization): array
@@ -137,7 +137,7 @@ class InvitationTest extends TestCase
     public function test_cannot_create_invitation_for_invalid_role(): void
     {
         // Try creating with a platform-only role (e.g. AppOwner)
-        $platformRole = Role::where('name', SystemRole::APP_OWNER->value)->firstOrFail();
+        $platformRole = Role::where('name', SystemRole::APP_DIRECTOR->value)->firstOrFail();
 
         $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->postJson('/api/v1/organization/invitations', [
