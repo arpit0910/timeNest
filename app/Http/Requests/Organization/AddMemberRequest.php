@@ -36,7 +36,16 @@ class AddMemberRequest extends FormRequest
                 'max:50',
                 Rule::unique('employee_profiles', 'employee_code')->where('organization_id', $organizationId),
             ],
-            'designation' => ['nullable', 'string', 'max:100'],
+            'sub_department_uuid' => [
+                'nullable',
+                'uuid',
+                Rule::exists('sub_departments', 'uuid'),
+            ],
+            'designation_uuid' => [
+                'nullable',
+                'uuid',
+                Rule::exists('designations', 'uuid'),
+            ],
             'department_uuid' => [
                 'nullable',
                 'uuid',

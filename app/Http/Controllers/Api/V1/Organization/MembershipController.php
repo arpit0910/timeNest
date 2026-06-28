@@ -71,8 +71,13 @@ class MembershipController extends BaseApiController
         $branchId = $request->input('branch_uuid') ? \App\Models\Organization\Branch::where('uuid', $request->input('branch_uuid'))->value('id') : null;
         $reportsToId = $request->input('reports_to_uuid') ? User::where('uuid', $request->input('reports_to_uuid'))->value('id') : null;
 
-        $employeeData = $request->only(['employee_code', 'designation', 'employment_type', 'joining_date']);
+        $subDepartmentId = $request->input('sub_department_uuid') ? \App\Models\Organization\SubDepartment::where('uuid', $request->input('sub_department_uuid'))->value('id') : null;
+        $designationId = $request->input('designation_uuid') ? \App\Models\Organization\Designation::where('uuid', $request->input('designation_uuid'))->value('id') : null;
+
+        $employeeData = $request->only(['employee_code', 'employment_type', 'joining_date']);
         $employeeData['department_id'] = $departmentId;
+        $employeeData['sub_department_id'] = $subDepartmentId;
+        $employeeData['designation_id'] = $designationId;
         $employeeData['branch_id'] = $branchId;
         $employeeData['reports_to'] = $reportsToId;
 

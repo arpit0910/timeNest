@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Resources\Organization;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class SubDepartmentResource extends JsonResource
+{
+    public function toArray($request): array
+    {
+        return [
+            'uuid'        => $this->uuid,
+            'name'        => $this->name,
+            'slug'        => $this->slug,
+            'description' => $this->description,
+            'is_active'   => $this->is_active,
+            'head'        => $this->whenLoaded('head', fn() => [
+                'uuid' => $this->head->uuid,
+                'name' => $this->head->name,
+            ]),
+            'designations' => DesignationResource::collection(
+                $this->whenLoaded('designations')
+            ),
+        ];
+    }
+}

@@ -99,7 +99,6 @@ class RealisticOrganizationsSeeder extends Seeder
                         'organization_id' => $org->id,
                         'organization_membership_id' => $membership->id,
                         'employee_code' => strtoupper(Str::random(6)),
-                        'designation' => ucwords(str_replace('_', ' ', $roleName)),
                         'employment_type' => 'full_time',
                         'joining_date' => $faker->date(),
                         'is_active' => true,

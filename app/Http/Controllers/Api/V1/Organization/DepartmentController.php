@@ -43,7 +43,7 @@ class DepartmentController extends BaseApiController
         $organization = $this->getOrganization();
 
         $departments = Department::where('organization_id', $organization->id)
-            ->with(['branch', 'parent', 'head'])
+            ->with(['branch', 'head', 'subDepartments'])
             ->get();
 
         return $this->success(DepartmentResource::collection($departments));
@@ -65,6 +65,7 @@ class DepartmentController extends BaseApiController
     public function show(string $uuid): JsonResponse
     {
         $department = Department::where('organization_id', $this->getOrganization()->id)
+            ->with(['head', 'subDepartments.head', 'subDepartments.designations'])
             ->where('uuid', $uuid)
             ->firstOrFail();
 

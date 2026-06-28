@@ -12,6 +12,7 @@ use App\Models\Organization\Department;
 use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Organization\Designation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -36,7 +37,7 @@ class EmployeeProfile extends Model
 
     protected $fillable = [
         'user_id', 'organization_id', 'organization_membership_id',
-        'employee_code', 'designation', 'department_id', 'branch_id', 'reports_to',
+        'employee_code', 'designation_id', 'department_id', 'branch_id', 'reports_to',
         'employment_type', 'joining_date', 'confirmation_date', 'exit_date', 'exit_reason',
         'work_location', 'bio', 'linkedin_url',
         'emergency_contact_name', 'emergency_contact_phone', 'emergency_contact_relation',
@@ -83,6 +84,11 @@ class EmployeeProfile extends Model
     public function reportsTo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'reports_to');
+    }
+
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class);
     }
 
     public function scopeActive($query)

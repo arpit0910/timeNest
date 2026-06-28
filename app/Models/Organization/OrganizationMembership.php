@@ -31,7 +31,7 @@ class OrganizationMembership extends Model
     protected $table = 'organization_memberships';
 
     protected $fillable = [
-        'user_id', 'organization_id', 'department_id', 'invited_by',
+        'user_id', 'organization_id', 'department_id', 'sub_department_id', 'designation_id', 'invited_by',
         'status', 'joined_at', 'left_at',
     ];
 
@@ -67,6 +67,16 @@ class OrganizationMembership extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function subDepartment(): BelongsTo
+    {
+        return $this->belongsTo(SubDepartment::class);
+    }
+
+    public function designation(): BelongsTo
+    {
+        return $this->belongsTo(Designation::class);
     }
 
     public function scopeActive($query)

@@ -26,11 +26,7 @@ class CreateDepartmentRequest extends FormRequest
                 'uuid',
                 Rule::exists('branches', 'uuid')->where('organization_id', $organizationId),
             ],
-            'parent_department_uuid' => [
-                'nullable',
-                'uuid',
-                Rule::exists('departments', 'uuid')->where('organization_id', $organizationId),
-            ],
+
             'head_user_uuid' => [
                 'nullable',
                 'uuid',

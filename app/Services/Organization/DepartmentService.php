@@ -27,11 +27,6 @@ class DepartmentService
             $branchId = \App\Models\Organization\Branch::where('uuid', $data['branch_uuid'])->value('id');
         }
 
-        $parentDeptId = null;
-        if (!empty($data['parent_department_uuid'])) {
-            $parentDeptId = \App\Models\Organization\Department::where('uuid', $data['parent_department_uuid'])->value('id');
-        }
-
         $headUserId = null;
         if (!empty($data['head_user_uuid'])) {
             $headUserId = \App\Models\Auth\User::where('uuid', $data['head_user_uuid'])->value('id');
@@ -40,7 +35,6 @@ class DepartmentService
         $dept = Department::create([
             'organization_id' => $organization->id,
             'branch_id' => $branchId ?? $data['branch_id'] ?? null,
-            'parent_department_id' => $parentDeptId ?? $data['parent_department_id'] ?? null,
             'name' => $data['name'],
             'code' => $data['code'] ?? null,
             'head_user_id' => $headUserId ?? $data['head_user_id'] ?? null,

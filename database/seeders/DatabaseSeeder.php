@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             PlatformRolesSeeder::class,
             PlatformRolePermissionsSeeder::class,
 
-            // 3. Platform users
+            // 3. Global Domain Data
+            GlobalDepartmentSeeder::class,
+
+            // 4. Platform users
             PlatformUsersSeeder::class,
 
             // 4. Demo data (dev only)

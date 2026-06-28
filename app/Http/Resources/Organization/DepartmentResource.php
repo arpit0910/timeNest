@@ -16,7 +16,9 @@ class DepartmentResource extends JsonResource
             'name' => $this->name,
             'code' => $this->code,
             'branch_uuid' => $this->branch?->uuid,
-            'parent_department_uuid' => $this->parentDepartment?->uuid,
+            'sub_departments' => SubDepartmentResource::collection(
+                $this->whenLoaded('subDepartments')
+            ),
             'head_user_uuid' => $this->headUser?->uuid,
             'is_active' => $this->is_active,
             'created_at' => $this->created_at?->toISOString(),

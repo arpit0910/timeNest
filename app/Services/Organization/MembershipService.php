@@ -59,7 +59,7 @@ class MembershipService
                 'organization_id' => $organization->id,
                 'organization_membership_id' => $membership->id,
                 'employee_code' => $employeeData['employee_code'] ?? null,
-                'designation' => $employeeData['designation'] ?? null,
+                'designation_id' => $employeeData['designation_id'] ?? null,
                 'department_id' => $employeeData['department_id'] ?? null,
                 'branch_id' => $employeeData['branch_id'] ?? null,
                 'employment_type' => $employeeData['employment_type'] ?? 'full_time',

@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Department model — organizational units within an organization.
  *
- * Supports hierarchy via self-referential parent_department_id.
- *
  * @property int $id
  * @property string $uuid
  * @property int $organization_id
@@ -29,7 +27,7 @@ class Department extends Model
     protected $table = 'departments';
 
     protected $fillable = [
-        'organization_id', 'branch_id', 'parent_department_id',
+        'organization_id', 'branch_id',
         'name', 'code', 'slug', 'description', 'head_user_id', 'is_active',
     ];
 
@@ -48,14 +46,20 @@ class Department extends Model
         return $this->belongsTo(Branch::class);
     }
 
-    public function parent(): BelongsTo
+    /**
+     * Sub-departments that belong to this department.
+     */
+    public function subDepartments(): HasMany
     {
-        return $this->belongsTo(self::class, 'parent_department_id');
+        return $this->hasMany(SubDepartment::class);
     }
 
-    public function children(): HasMany
+    /**
+     * Active sub-departments only.
+     */
+    public function activeSubDepartments(): HasMany
     {
-        return $this->hasMany(self::class, 'parent_department_id');
+        return $this->hasMany(SubDepartment::class)->where('is_active', true);
     }
 
     public function head(): BelongsTo
@@ -74,10 +78,5 @@ class Department extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function scopeRoot($query)
-    {
-        return $query->whereNull('parent_department_id');
     }
 }
