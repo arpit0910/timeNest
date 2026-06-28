@@ -30,6 +30,16 @@ enum SystemPermission: string
     case EMPLOYEE_PROFILE_VIEW = 'employee_profile.view';
     case EMPLOYEE_PROFILE_MANAGE = 'employee_profile.manage';
 
+    // ─── Role management ─────────────────────────────────────────
+    case ROLES_VIEW              = 'roles.view';
+    case ROLES_CREATE            = 'roles.create';
+    case ROLES_EDIT              = 'roles.edit';
+    case ROLES_DELETE            = 'roles.delete';
+    case ROLES_ASSIGN_PERMISSIONS = 'roles.assign_permissions';
+
+    // Platform-only role management (global roles)
+    case PLATFORM_ROLES_MANAGE   = 'platform.roles.manage';
+
     // ─── Attendance ──────────────────────────────────────────────
     case ATTENDANCE_VIEW = 'attendance.view';
     case ATTENDANCE_CREATE = 'attendance.create';

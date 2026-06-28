@@ -109,4 +109,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::post('/{uuid}/reject', 'reject');
             Route::post('/{uuid}/cancel', 'cancel');
         });
+
+    require __DIR__ . '/api/v1/roles.php';
+    require __DIR__ . '/api/v1/platform-roles.php';
 });
