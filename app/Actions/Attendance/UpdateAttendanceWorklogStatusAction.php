@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Attendance;
 
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
 use App\Services\Attendance\WorklogStatusTransitionService;
@@ -17,7 +17,7 @@ class UpdateAttendanceWorklogStatusAction
 
     public function execute(
         AttendanceWorklog $worklog,
-        WorkflowStatusEnum $targetStatus,
+        WorklogStatus $targetStatus,
         User $actor,
         ?string $remarks = null,
         array $metadata = []

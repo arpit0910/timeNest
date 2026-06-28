@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\V1\Organization\Attendance;
 use App\Actions\Attendance\CreateAttendanceWorklogAction;
 use App\Actions\Attendance\UpdateAttendanceWorklogAction;
 use App\Actions\Attendance\UpdateAttendanceWorklogStatusAction;
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Attendance\StoreAttendanceWorklogRequest;
@@ -75,13 +75,48 @@ class AttendanceWorklogController extends BaseApiController
     }
 
     /**
+     * List worklogs for a specific attendance day.
+     */
+    public function forDay(Request $request, string $dayUuid): JsonResponse
+    {
+        $user = auth()->user();
+        setPermissionsTeamId($this->getOrganization()->id);
+
+        try {
+            $day = AttendanceDay::where('uuid', $dayUuid)
+                ->where('organization_id', $this->getOrganization()->id)
+                ->firstOrFail();
+
+            $platformRole = resolve_platform_role($user);
+            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+
+            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value)
+                || $isAppOwner;
+
+            if (! $canViewAll && $day->user_id !== $user->id) {
+                throw new BusinessRuleViolationException('Unauthorized to view these worklogs.', 'UNAUTHORIZED');
+            }
+
+            $worklogs = AttendanceWorklog::where('attendance_day_id', $day->id)
+                ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
+                ->orderBy('created_at', 'asc')
+                ->get();
+
+            return $this->success(AttendanceWorklogResource::collection($worklogs));
+        } finally {
+            setPermissionsTeamId(null);
+        }
+    }
+
+    /**
      * Show a worklog by UUID.
      */
     public function show(string $uuid): JsonResponse
     {
         $worklog = AttendanceWorklog::where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
-            ->with(['project', 'milestone', 'task', 'statusHistories'])
+            ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
             ->firstOrFail();
 
         // Check authorization
@@ -93,7 +128,7 @@ class AttendanceWorklogController extends BaseApiController
     /**
      * Store a new worklog.
      */
-    public function store(StoreAttendanceWorklogRequest $request): JsonResponse
+    public function storeForDay(StoreAttendanceWorklogRequest $request, string $dayUuid): JsonResponse
     {
         $user = auth()->user();
         $validated = $request->validated();
@@ -177,6 +212,74 @@ class AttendanceWorklogController extends BaseApiController
     }
 
     /**
+     * Approve a worklog.
+     */
+    public function approve(Request $request, string $uuid): JsonResponse
+    {
+        $user = auth()->user();
+        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user'])
+            ->where('uuid', $uuid)
+            ->where('organization_id', $this->getOrganization()->id)
+            ->firstOrFail();
+
+        $this->authorize('approve', $worklog);
+
+        $validated = $request->validate([
+            'remarks' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $updated = $this->updateStatusAction->execute(
+            $worklog,
+            WorklogStatus::APPROVED,
+            $user,
+            $validated['remarks'] ?? null,
+            []
+        );
+
+        // Reload eager loads for resource representation to prevent lazy loading errors
+        $updated->loadMissing(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
+
+        return $this->success(
+            new AttendanceWorklogResource($updated),
+            "Worklog approved successfully."
+        );
+    }
+
+    /**
+     * Reject a worklog.
+     */
+    public function reject(Request $request, string $uuid): JsonResponse
+    {
+        $user = auth()->user();
+        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user'])
+            ->where('uuid', $uuid)
+            ->where('organization_id', $this->getOrganization()->id)
+            ->firstOrFail();
+
+        $this->authorize('approve', $worklog);
+
+        $validated = $request->validate([
+            'rejection_reason' => ['required', 'string', 'max:255'],
+        ]);
+
+        $updated = $this->updateStatusAction->execute(
+            $worklog,
+            WorklogStatus::REJECTED,
+            $user,
+            $validated['rejection_reason'] ?? null,
+            []
+        );
+
+        // Reload eager loads for resource representation to prevent lazy loading errors
+        $updated->loadMissing(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
+
+        return $this->success(
+            new AttendanceWorklogResource($updated),
+            "Worklog rejected successfully."
+        );
+    }
+
+    /**
      * Transition status of a worklog.
      */
     public function updateStatus(UpdateAttendanceWorklogStatusRequest $request, string $uuid): JsonResponse
@@ -189,7 +292,7 @@ class AttendanceWorklogController extends BaseApiController
         $this->authorize('approve', $worklog);
 
         $validated = $request->validated();
-        $targetStatus = WorkflowStatusEnum::from((int) $validated['status']);
+        $targetStatus = WorklogStatus::from((int) $validated['status']);
 
         $updated = $this->updateStatusAction->execute(
             $worklog,
@@ -219,7 +322,7 @@ class AttendanceWorklogController extends BaseApiController
             throw new BusinessRuleViolationException('Cannot delete someone else\'s worklog.', 'UNAUTHORIZED');
         }
 
-        if (in_array($worklog->worklog_status, [WorkflowStatusEnum::APPROVED, WorkflowStatusEnum::LOCKED], true)) {
+        if (in_array($worklog->worklog_status, [WorklogStatus::APPROVED, WorklogStatus::LOCKED], true)) {
             throw new BusinessRuleViolationException('Cannot delete a worklog that is already Approved or Locked.', 'WORKLOG_LOCKED');
         }
 

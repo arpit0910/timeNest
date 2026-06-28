@@ -38,9 +38,6 @@ class JwtOrganizationContextTest extends TestCase
     {
         parent::setUp();
 
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'PlatformPermissionsSeeder']);
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'OrganizationRolePermissionsSeeder']);
-
         // Roles
         $ownerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::DIRECTOR->value, 'guard_name' => 'api']);
         $managerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::MANAGER->value, 'guard_name' => 'api']);

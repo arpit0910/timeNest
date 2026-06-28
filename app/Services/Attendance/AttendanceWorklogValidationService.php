@@ -44,6 +44,14 @@ class AttendanceWorklogValidationService
             }
         }
 
+        // 1.5 Window locked check
+        if ($policy->lock_after_days !== null && $policy->lock_after_days > 0) {
+            $daysSince = \Carbon\Carbon::parse($day->attendance_date)->startOfDay()->diffInDays(now()->startOfDay());
+            if ($daysSince >= $policy->lock_after_days) {
+                throw new BusinessRuleViolationException('Submission window closed. This attendance day is locked.', 'WORKLOG_LOCKED');
+            }
+        }
+
         // 2. Policy-driven mapping checks
         if ($policy->require_project_mapping && empty($data['project_id'])) {
             throw ValidationException::withMessages([
@@ -103,10 +111,30 @@ class AttendanceWorklogValidationService
                 if ($existingConsumption + $loggedMinutes > $task->estimated_minutes) {
                     // Overflow occurred
                     if ($policy->require_justification_on_overflow && empty($data['justification'])) {
-                        throw ValidationException::withMessages([
-                            'justification' => 'Task estimated minutes exceeded. Justification is required.'
-                        ]);
+                        throw new \App\Exceptions\Attendance\WorklogOverflowJustificationRequiredException('Task estimated minutes exceeded. Justification is required.');
                     }
+                }
+            }
+        }
+
+        // 4.1 Description check
+        if ($policy->require_description) {
+            $desc = $data['description'] ?? '';
+            if (empty($desc) || ($policy->min_description_length > 0 && strlen($desc) < $policy->min_description_length)) {
+                throw new \App\Exceptions\Attendance\WorklogDescriptionRequiredException('Description is required and must meet minimum length by company policy.');
+            }
+        }
+
+        // 4.2 Session Overflow check
+        $loggedMinutes = (int) ($data['logged_minutes'] ?? 0);
+        if ($sessionId && $loggedMinutes > 0) {
+            $session = AttendanceSession::find($sessionId);
+            $sessionMinutes = $session->clock_in_at->diffInMinutes($session->clock_out_at ?? now());
+            
+            // Allow a small grace period? Or just strict > ?
+            if ($loggedMinutes > $sessionMinutes) {
+                if ($policy->require_justification_on_overflow && empty($data['justification'])) {
+                    throw new \App\Exceptions\Attendance\WorklogOverflowJustificationRequiredException('Logged minutes exceed session duration. Justification is required.');
                 }
             }
         }
@@ -116,7 +144,7 @@ class AttendanceWorklogValidationService
             $query = AttendanceWorklog::where('attendance_session_id', $sessionId)
                 ->where('id', '!=', $existingWorklog?->id);
             if ($query->exists()) {
-                throw new BusinessRuleViolationException('Multiple worklogs are not allowed for this session.', 'MULTIPLE_WORKLOGS_BLOCKED');
+                throw new \App\Exceptions\Attendance\WorklogAlreadyExistsForSessionException('Multiple worklogs are not allowed for this session.');
             }
         }
 

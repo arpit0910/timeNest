@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Attendance;
 
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
@@ -27,7 +27,7 @@ class UpdateAttendanceWorklogAction
     {
         return DB::transaction(function () use ($worklog, $actor, $data) {
             // 1. Check current status block
-            if (in_array($worklog->worklog_status, [WorkflowStatusEnum::APPROVED, WorkflowStatusEnum::LOCKED], true)) {
+            if (in_array($worklog->worklog_status, [WorklogStatus::APPROVED, WorklogStatus::LOCKED], true)) {
                 throw new BusinessRuleViolationException('Cannot update a worklog that is already Approved or Locked.', 'WORKLOG_LOCKED');
             }
 

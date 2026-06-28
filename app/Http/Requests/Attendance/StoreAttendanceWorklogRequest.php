@@ -13,6 +13,15 @@ class StoreAttendanceWorklogRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        if ($this->route('dayUuid')) {
+            $this->merge([
+                'attendance_day_uuid' => $this->route('dayUuid'),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [

@@ -7,11 +7,11 @@ use App\Models\Auth\User;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Organization\Organization;
 use App\Models\Membership\EmployeeProfile;
+use App\Models\Rbac\Role;
+use App\Models\Rbac\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class TempAuthorizationTest extends TestCase
 {
@@ -20,13 +20,15 @@ class TempAuthorizationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Just in case permissions aren't seeded in the testing DB
-        $this->artisan('db:seed', ['--class' => 'PlatformPermissionsSeeder']);
     }
 
     public function test_authorization_rules()
     {
-        $org = Organization::factory()->create();
+        $org = Organization::create([
+            'legal_name' => 'Test Org',
+            'slug' => 'test-org-' . uniqid(),
+            'is_active' => true,
+        ]);
         
         $managerUser = User::factory()->create();
         $employeeUser = User::factory()->create();
@@ -34,13 +36,13 @@ class TempAuthorizationTest extends TestCase
         $orgAdminUser = User::factory()->create();
         
         // Setup permissions
-        $employeeRole = Role::firstOrCreate(['name' => 'employee', 'organization_id' => $org->id, 'guard_name' => 'web']);
+        $employeeRole = Role::firstOrCreate(['name' => 'employee', 'organization_id' => $org->id, 'guard_name' => 'api']);
         $employeeRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_CREATE->value);
-        
-        $managerRole = Role::firstOrCreate(['name' => 'manager', 'organization_id' => $org->id, 'guard_name' => 'web']);
+
+        $managerRole = Role::firstOrCreate(['name' => 'manager', 'organization_id' => $org->id, 'guard_name' => 'api']);
         $managerRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE->value);
-        
-        $orgAdminRole = Role::firstOrCreate(['name' => 'admin', 'organization_id' => $org->id, 'guard_name' => 'web']);
+
+        $orgAdminRole = Role::firstOrCreate(['name' => 'admin', 'organization_id' => $org->id, 'guard_name' => 'api']);
         $orgAdminRole->givePermissionTo(SystemPermission::LEAVES_VIEW->value, SystemPermission::LEAVES_APPROVE_ANY->value);
 
         setPermissionsTeamId($org->id);
@@ -49,20 +51,76 @@ class TempAuthorizationTest extends TestCase
         $managerUser->assignRole($managerRole);
         $orgAdminUser->assignRole($orgAdminRole);
         setPermissionsTeamId(null);
-        
+
+        // Setup organization memberships first
+        $managerMembership = \App\Models\Organization\OrganizationMembership::create([
+            'user_id' => $managerUser->id,
+            'organization_id' => $org->id,
+            'status' => \App\Enums\MembershipStatus::ACTIVE,
+            'joined_at' => now(),
+        ]);
+        $employeeMembership = \App\Models\Organization\OrganizationMembership::create([
+            'user_id' => $employeeUser->id,
+            'organization_id' => $org->id,
+            'status' => \App\Enums\MembershipStatus::ACTIVE,
+            'joined_at' => now(),
+        ]);
+        $otherEmployeeMembership = \App\Models\Organization\OrganizationMembership::create([
+            'user_id' => $otherEmployeeUser->id,
+            'organization_id' => $org->id,
+            'status' => \App\Enums\MembershipStatus::ACTIVE,
+            'joined_at' => now(),
+        ]);
+
         // Setup profiles for hierarchy
-        EmployeeProfile::factory()->create(['user_id' => $managerUser->id, 'organization_id' => $org->id]);
-        EmployeeProfile::factory()->create(['user_id' => $employeeUser->id, 'organization_id' => $org->id, 'reports_to' => $managerUser->id]);
-        EmployeeProfile::factory()->create(['user_id' => $otherEmployeeUser->id, 'organization_id' => $org->id]); // does not report to manager
+        EmployeeProfile::create(['user_id' => $managerUser->id, 'organization_id' => $org->id, 'organization_membership_id' => $managerMembership->id, 'is_active' => true]);
+        EmployeeProfile::create(['user_id' => $employeeUser->id, 'organization_id' => $org->id, 'organization_membership_id' => $employeeMembership->id, 'reports_to' => $managerUser->id, 'is_active' => true]);
+        EmployeeProfile::create(['user_id' => $otherEmployeeUser->id, 'organization_id' => $org->id, 'organization_membership_id' => $otherEmployeeMembership->id, 'is_active' => true]); // does not report to manager
 
         // Dummy leave for employee
-        $employeeLeave = EmployeeLeave::factory()->create(['user_id' => $employeeUser->id, 'organization_id' => $org->id, 'status' => 1]);
+        $employeeLeave = EmployeeLeave::create([
+            'user_id' => $employeeUser->id,
+            'organization_id' => $org->id,
+            'leave_type' => \App\Enums\Leave\LeaveType::SICK,
+            'leave_status' => \App\Enums\Leave\LeaveStatus::PENDING,
+            'start_date' => now()->addDay(),
+            'end_date' => now()->addDays(2),
+            'total_days' => 2,
+            'reason' => 'Test leave',
+        ]);
         // Dummy leave for other employee
-        $otherLeave = EmployeeLeave::factory()->create(['user_id' => $otherEmployeeUser->id, 'organization_id' => $org->id, 'status' => 1]);
+        $otherLeave = EmployeeLeave::create([
+            'user_id' => $otherEmployeeUser->id,
+            'organization_id' => $org->id,
+            'leave_type' => \App\Enums\Leave\LeaveType::SICK,
+            'leave_status' => \App\Enums\Leave\LeaveStatus::PENDING,
+            'start_date' => now()->addDay(),
+            'end_date' => now()->addDays(2),
+            'total_days' => 2,
+            'reason' => 'Test leave',
+        ]);
         // Dummy leave for manager (to test self-approval)
-        $managerLeave = EmployeeLeave::factory()->create(['user_id' => $managerUser->id, 'organization_id' => $org->id, 'status' => 1]);
+        $managerLeave = EmployeeLeave::create([
+            'user_id' => $managerUser->id,
+            'organization_id' => $org->id,
+            'leave_type' => \App\Enums\Leave\LeaveType::SICK,
+            'leave_status' => \App\Enums\Leave\LeaveStatus::PENDING,
+            'start_date' => now()->addDay(),
+            'end_date' => now()->addDays(2),
+            'total_days' => 2,
+            'reason' => 'Test leave',
+        ]);
         // Dummy leave for org admin (to test self-approval with approve_any)
-        $adminLeave = EmployeeLeave::factory()->create(['user_id' => $orgAdminUser->id, 'organization_id' => $org->id, 'status' => 1]);
+        $adminLeave = EmployeeLeave::create([
+            'user_id' => $orgAdminUser->id,
+            'organization_id' => $org->id,
+            'leave_type' => \App\Enums\Leave\LeaveType::SICK,
+            'leave_status' => \App\Enums\Leave\LeaveStatus::PENDING,
+            'start_date' => now()->addDay(),
+            'end_date' => now()->addDays(2),
+            'total_days' => 2,
+            'reason' => 'Test leave',
+        ]);
 
         // Helper to mimic app('tenant.organization') resolution during test
         $this->app->instance('tenant.organization', $org);

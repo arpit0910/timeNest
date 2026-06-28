@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attendance;
 
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
@@ -17,45 +17,31 @@ class WorklogStatusTransitionService
      * Set of allowed transitions.
      */
     private const ALLOWED_TRANSITIONS = [
-        WorkflowStatusEnum::DRAFT->value => [
-            WorkflowStatusEnum::SUBMITTED->value,
-            WorkflowStatusEnum::CANCELLED->value,
+        1 => [ // DRAFT
+            2, // SUBMITTED
         ],
-        WorkflowStatusEnum::PENDING->value => [
-            WorkflowStatusEnum::SUBMITTED->value,
-            WorkflowStatusEnum::CANCELLED->value,
+        2 => [ // SUBMITTED
+            2, // SUBMITTED (First step of multi-level)
+            3, // APPROVED
+            4, // REJECTED
+            5, // AUTO_APPROVED
         ],
-        WorkflowStatusEnum::SUBMITTED->value => [
-            WorkflowStatusEnum::APPROVED->value,
-            WorkflowStatusEnum::REJECTED->value,
-            WorkflowStatusEnum::REVISION_REQUESTED->value,
-            WorkflowStatusEnum::ESCALATED->value,
-            WorkflowStatusEnum::CANCELLED->value,
+        3 => [ // APPROVED
+            6, // LOCKED
         ],
-        WorkflowStatusEnum::REJECTED->value => [
-            WorkflowStatusEnum::DRAFT->value,
-            WorkflowStatusEnum::CANCELLED->value,
+        4 => [ // REJECTED
+            1, // DRAFT
+            2, // SUBMITTED
         ],
-        WorkflowStatusEnum::REVISION_REQUESTED->value => [
-            WorkflowStatusEnum::DRAFT->value,
-            WorkflowStatusEnum::CANCELLED->value,
-        ],
-        WorkflowStatusEnum::ESCALATED->value => [
-            WorkflowStatusEnum::APPROVED->value,
-            WorkflowStatusEnum::REJECTED->value,
-            WorkflowStatusEnum::REVISION_REQUESTED->value,
-            WorkflowStatusEnum::CANCELLED->value,
-        ],
-        WorkflowStatusEnum::APPROVED->value => [
-            WorkflowStatusEnum::LOCKED->value,
-            WorkflowStatusEnum::CANCELLED->value,
+        5 => [ // AUTO_APPROVED
+            6, // LOCKED
         ],
     ];
 
     /**
      * Check if a transition is valid.
      */
-    public function isValidTransition(WorkflowStatusEnum $from, WorkflowStatusEnum $to): bool
+    public function isValidTransition(WorklogStatus $from, WorklogStatus $to): bool
     {
         if (! isset(self::ALLOWED_TRANSITIONS[$from->value])) {
             return false;
@@ -72,13 +58,23 @@ class WorklogStatusTransitionService
      */
     public function transition(
         AttendanceWorklog $worklog,
-        WorkflowStatusEnum $targetStatus,
+        WorklogStatus $targetStatus,
         User $actor,
         ?string $remarks = null,
         array $metadata = []
     ): AttendanceWorklog {
         return DB::transaction(function () use ($worklog, $targetStatus, $actor, $remarks, $metadata) {
             $currentStatus = $worklog->worklog_status;
+            
+            $isMultiLevel = $worklog->approval_flow_snapshot === \App\Enums\Worklog\ApprovalFlow::MULTI_LEVEL_APPROVAL;
+
+            // Handle multi-level approval intercept
+            if ($targetStatus === WorklogStatus::APPROVED && $isMultiLevel) {
+                if (empty($worklog->approved_by)) {
+                    // First approver in a multi-level flow
+                    $targetStatus = WorklogStatus::SUBMITTED;
+                }
+            }
 
             // 1. Verify structural state flow
             if (! $this->isValidTransition($currentStatus, $targetStatus)) {
@@ -97,12 +93,23 @@ class WorklogStatusTransitionService
                 'updated_by' => $actor->id,
             ];
 
-            if ($targetStatus === WorkflowStatusEnum::SUBMITTED) {
+            if ($targetStatus === WorklogStatus::SUBMITTED && $currentStatus === WorklogStatus::DRAFT) {
                 $updates['submitted_at'] = now();
-            } elseif ($targetStatus === WorkflowStatusEnum::APPROVED) {
+            } elseif ($targetStatus === WorklogStatus::SUBMITTED && $currentStatus === WorklogStatus::SUBMITTED && $isMultiLevel && empty($worklog->approved_by)) {
+                // First approval in multi-level
                 $updates['approved_by'] = $actor->id;
                 $updates['approved_at'] = now();
-            } elseif ($targetStatus === WorkflowStatusEnum::REJECTED) {
+            } elseif ($targetStatus === WorklogStatus::APPROVED) {
+                if ($isMultiLevel && !empty($worklog->approved_by)) {
+                    $updates['second_approver_id'] = $actor->id;
+                } else {
+                    $updates['approved_by'] = $actor->id;
+                    $updates['approved_at'] = now();
+                }
+            } elseif ($targetStatus === WorklogStatus::AUTO_APPROVED) {
+                $updates['approved_by'] = $actor->id;
+                $updates['approved_at'] = now();
+            } elseif ($targetStatus === WorklogStatus::REJECTED) {
                 $updates['rejected_by'] = $actor->id;
                 $updates['rejected_at'] = now();
                 $updates['rejection_reason'] = $remarks;
@@ -126,12 +133,12 @@ class WorklogStatusTransitionService
     /**
      * Authorize transition based on user role/permissions and ownership.
      */
-    private function authorizeTransition(AttendanceWorklog $worklog, WorkflowStatusEnum $target, User $actor): void
+    private function authorizeTransition(AttendanceWorklog $worklog, WorklogStatus $target, User $actor): void
     {
         $isOwner = $worklog->user_id === $actor->id;
 
         // Draft -> Submitted or Cancelled is allowed for owner
-        if (($target === WorkflowStatusEnum::SUBMITTED || $target === WorkflowStatusEnum::CANCELLED) && $isOwner) {
+        if ($target === WorklogStatus::SUBMITTED && $isOwner) {
             return;
         }
 
@@ -148,7 +155,7 @@ class WorklogStatusTransitionService
             }
 
             // Regular managers must have permission
-            if ($actor->hasPermissionTo('attendance_worklogs_update_status')) {
+            if ($actor->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value)) {
                 return;
             }
         } finally {

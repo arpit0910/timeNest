@@ -38,11 +38,22 @@ class WorklogTest extends TestCase
             'joined_at' => now(),
         ]);
 
-        $permission = \Spatie\Permission\Models\Permission::firstOrCreate(
-            ['name' => 'worklog.view_all', 'guard_name' => 'api'],
-            ['uuid' => (string) \Illuminate\Support\Str::uuid()]
-        );
-        $user->givePermissionTo($permission);
+        setPermissionsTeamId($org->id);
+        $permission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_VIEW->value)->where('guard_name', 'api')->first();
+        if ($permission) {
+            $user->givePermissionTo($permission);
+        }
+        
+        $approvePermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_APPROVE->value)->where('guard_name', 'api')->first();
+        if ($approvePermission) {
+            $user->givePermissionTo($approvePermission);
+        }
+        
+        $approveAnyPermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_APPROVE_ANY->value)->where('guard_name', 'api')->first();
+        if ($approveAnyPermission) {
+            $user->givePermissionTo($approveAnyPermission);
+        }
+        setPermissionsTeamId(null);
 
         return $user;
     }
@@ -84,6 +95,15 @@ class WorklogTest extends TestCase
             'status' => 'active',
             'joined_at' => now(),
         ]);
+
+        // Assign worklog permissions to the user using seeded permissions
+        setPermissionsTeamId($organization->id);
+        $worklogViewPermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_VIEW->value)->where('guard_name', 'api')->first();
+        $worklogCreatePermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_CREATE->value)->where('guard_name', 'api')->first();
+        $worklogApprovePermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_APPROVE->value)->where('guard_name', 'api')->first();
+        $worklogApproveAnyPermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::WORKLOG_APPROVE_ANY->value)->where('guard_name', 'api')->first();
+        $user->givePermissionTo($worklogViewPermission, $worklogCreatePermission, $worklogApprovePermission, $worklogApproveAnyPermission);
+        setPermissionsTeamId(null);
 
         $attPolicy = new AttendancePolicy();
         $attPolicy->organization_id = $organization->id;
@@ -381,13 +401,15 @@ class WorklogTest extends TestCase
         $manager1 = $this->createUserWithOrg($organization);
         $manager2 = $this->createUserWithOrg($organization);
 
-        $this->actingAsTenant($manager1, $organization)
+        $r1 = $this->actingAsTenant($manager1, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
             ->postJson("/api/v1/organization/attendance/worklogs/{$worklogUuid}/approve");
+        $r1->dump();
 
-        $this->actingAsTenant($manager2, $organization)
+        $r2 = $this->actingAsTenant($manager2, $organization)
             ->withHeader('X-Organization-Uuid', $organization->uuid)
             ->postJson("/api/v1/organization/attendance/worklogs/{$worklogUuid}/approve");
+        $r2->dump();
 
         $this->assertDatabaseHas('attendance_worklogs', [
             'uuid' => $worklogUuid,
@@ -424,11 +446,11 @@ class WorklogTest extends TestCase
     {
         [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup();
 
-        $wlPolicyVersion->require_justification_on_overflow = true;
-        $wlPolicyVersion->save();
+        $wlPolicy->require_justification_on_overflow = true;
+        $wlPolicy->save();
 
         $payload = array_merge($this->getValidWorklogPayload(90), [
-            'attendance_session_id' => $session->uuid,
+            'attendance_session_uuid' => $session->uuid,
         ]);
 
         $response = $this->actingAsTenant($user, $organization)
@@ -446,11 +468,11 @@ class WorklogTest extends TestCase
     {
         [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup();
 
-        $wlPolicyVersion->require_justification_on_overflow = true;
-        $wlPolicyVersion->save();
+        $wlPolicy->require_justification_on_overflow = true;
+        $wlPolicy->save();
 
         $payload = array_merge($this->getValidWorklogPayload(90), [
-            'attendance_session_id' => $session->uuid,
+            'attendance_session_uuid' => $session->uuid,
             'justification' => 'Forgot to clock in',
         ]);
 
@@ -468,11 +490,11 @@ class WorklogTest extends TestCase
     {
         [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup();
 
-        $wlPolicyVersion->allow_multiple_worklogs_per_session = false;
-        $wlPolicyVersion->save();
+        $wlPolicy->allow_multiple_worklogs_per_session = false;
+        $wlPolicy->save();
 
         $payload = array_merge($this->getValidWorklogPayload(30), [
-            'attendance_session_id' => $session->uuid,
+            'attendance_session_uuid' => $session->uuid,
         ]);
 
         $this->actingAsTenant($user, $organization)
@@ -513,9 +535,9 @@ class WorklogTest extends TestCase
     {
         [$organization, $user, $day, $session, $wlPolicy, $wlPolicyVersion] = $this->createOrgWithWorklogSetup();
 
-        $wlPolicyVersion->require_description = true;
-        $wlPolicyVersion->min_description_length = 10;
-        $wlPolicyVersion->save();
+        $wlPolicy->require_description = true;
+        $wlPolicy->min_description_length = 10;
+        $wlPolicy->save();
 
         $payload = $this->getValidWorklogPayload();
         $payload['description'] = 'Short';

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Attendance;
 
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
@@ -46,7 +46,18 @@ class CreateAttendanceWorklogAction
             $worklog->project_id = $data['project_id'] ?? null;
             $worklog->milestone_id = $data['milestone_id'] ?? null;
             $worklog->task_id = $data['task_id'] ?? null;
-            $worklog->worklog_status = WorkflowStatusEnum::DRAFT->value;
+            
+            $latestVersion = \App\Models\Worklog\WorklogPolicyVersion::where('worklog_policy_id', $worklogPolicy->id)->latest('version')->first();
+            $worklog->worklog_policy_version_id = $latestVersion?->id;
+            
+            $approvalFlowValue = $worklogPolicy->approval_flow instanceof \App\Enums\Worklog\ApprovalFlow ? $worklogPolicy->approval_flow->value : (int) $worklogPolicy->approval_flow;
+            $worklog->approval_flow_snapshot = $approvalFlowValue;
+
+            $initialStatus = $approvalFlowValue === \App\Enums\Worklog\ApprovalFlow::AUTO->value 
+                ? WorklogStatus::AUTO_APPROVED 
+                : WorklogStatus::SUBMITTED;
+
+            $worklog->worklog_status = $initialStatus->value;
             $worklog->start_time = $data['start_time'] ?? null;
             $worklog->end_time = $data['end_time'] ?? null;
             $worklog->logged_minutes = $loggedMinutes;
@@ -54,18 +65,36 @@ class CreateAttendanceWorklogAction
             $worklog->justification = $data['justification'] ?? null;
             $worklog->metadata = $data['metadata'] ?? null;
             $worklog->created_by = $user->id;
+
+            if ($initialStatus === WorklogStatus::SUBMITTED) {
+                $worklog->submitted_at = now();
+                $worklog->submitted_by = $user->id;
+            } elseif ($initialStatus === WorklogStatus::AUTO_APPROVED) {
+                $worklog->submitted_at = now();
+                $worklog->submitted_by = $user->id;
+                $worklog->approved_at = now();
+            }
+
             $worklog->save();
 
             // 5. Determine and assign compliance status
             $complianceStatus = $this->calculationService->determineComplianceStatus($worklog, $worklogPolicy);
             $worklog->update(['compliance_status' => $complianceStatus->value]);
 
-            // 6. Record status history entry (Initial Draft)
+            if ($day->policyVersion?->strict_worklog_enforcement) {
+                $statusEnum = $worklog->worklog_status instanceof \BackedEnum ? $worklog->worklog_status->value : $worklog->worklog_status;
+                if (in_array($statusEnum, [WorklogStatus::APPROVED->value, WorklogStatus::AUTO_APPROVED->value, WorklogStatus::SUBMITTED->value])) {
+                    $day->compliance_status = \App\Enums\AttendanceComplianceStatusEnum::COMPLIANT->value;
+                    $day->save();
+                }
+            }
+
+            // 6. Record status history entry (Initial Submit)
             $worklog->statusHistories()->create([
-                'old_status' => WorkflowStatusEnum::DRAFT->value,
-                'new_status' => WorkflowStatusEnum::DRAFT->value,
+                'old_status' => WorklogStatus::DRAFT->value,
+                'new_status' => $initialStatus->value,
                 'changed_by' => $user->id,
-                'remarks' => 'Worklog created as Draft',
+                'remarks' => 'Worklog submitted',
             ]);
 
             // 7. Sync task time consumption record

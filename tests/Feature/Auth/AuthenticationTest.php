@@ -65,11 +65,10 @@ class AuthenticationTest extends TestCase
             'is_verified' => true,
         ]);
 
-        $role = Role::create([
+        $role = Role::firstOrCreate([
             'name' => SystemRole::DIRECTOR->value,
             'guard_name' => 'api',
             'organization_id' => null,
-            'is_system_role' => true,
         ]);
 
         OrganizationMembership::create([

@@ -118,6 +118,8 @@ class AttendanceClockTest extends TestCase
     {
         return [
             'clock_in_source' => 2, // Web
+            'clock_in_latitude' => 26.9124,
+            'clock_in_longitude' => 75.7873,
         ];
     }
 
@@ -130,6 +132,8 @@ class AttendanceClockTest extends TestCase
     {
         return [
             'clock_out_source' => 2, // Web
+            'clock_out_latitude' => 26.9124,
+            'clock_out_longitude' => 75.7873,
         ];
     }
 

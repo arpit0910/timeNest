@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Attendance;
 
 use App\Enums\EscalationTypeEnum;
-use App\Enums\WorkflowStatusEnum;
+use App\Enums\Attendance\WorklogStatus;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Auth\User;
 use App\Services\Attendance\AttendanceEscalationService;
@@ -30,7 +30,7 @@ class EscalateAttendanceWorklogAction
             // 1. Transition the worklog status to Escalated
             $this->transitionService->transition(
                 $worklog,
-                WorkflowStatusEnum::ESCALATED,
+                WorklogStatus::ESCALATED,
                 $actor,
                 $remarks,
                 $metadata

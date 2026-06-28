@@ -28,6 +28,7 @@ class Permission extends SpatiePermission
         'module',
         'action',
         'description',
+        'uuid',
     ];
 
     public function getRouteKeyName(): string

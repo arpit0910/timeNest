@@ -36,4 +36,16 @@ enum WorklogStatus: int
             self::LOCKED       => 'Worklog is locked and can no longer be edited.',
         };
     }
+
+    public function color(): string
+    {
+        return match($this) {
+            self::DRAFT        => 'gray',
+            self::SUBMITTED    => 'blue',
+            self::APPROVED     => 'green',
+            self::REJECTED     => 'red',
+            self::AUTO_APPROVED => 'green',
+            self::LOCKED       => 'gray',
+        };
+    }
 }
