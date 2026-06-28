@@ -19,4 +19,7 @@ Route::middleware(['jwt.auth', 'organization.access', 'tenant.resolve'])->group(
 
     Route::delete('sub-departments/{uuid}', [SubDepartmentController::class, 'destroy'])
         ->middleware('permission:sub_departments.delete');
+
+    Route::patch('sub-departments/{uuid}/head', [SubDepartmentController::class, 'assignHead'])
+        ->middleware('permission:sub_departments.assign_head');
 });

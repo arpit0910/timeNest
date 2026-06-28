@@ -635,7 +635,7 @@ class WorklogTest extends TestCase
         $this->actingAsTenant($user2, $org2)
             ->withHeader('X-Organization-Uuid', $org2->uuid)
             ->getJson("/api/v1/organization/attendance/worklogs/{$worklogUuid}")
-            ->assertStatus(404);
+            ->assertStatus(403);
     }
 
     /**

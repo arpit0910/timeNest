@@ -1878,6 +1878,47 @@
                                 },
                                 "description": "Soft delete a specific department from the Organization."
                             }
+                        },
+                        {
+                            "name": "Assign Department Head",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{auth_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/departments/{{department_uuid}}/head",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "departments",
+                                        "{{department_uuid}}",
+                                        "head"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"user_uuid\": \"{{user_uuid}}\"\n}"
+                                }
+                            }
                         }
                     ]
                 },
@@ -3788,6 +3829,47 @@
                                 },
                                 "description": "Soft delete a specific sub_department from the Organization."
                             }
+                        },
+                        {
+                            "name": "Assign Sub-Department Head",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{auth_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/sub-departments/{{sub_department_uuid}}/head",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "sub-departments",
+                                        "{{sub_department_uuid}}",
+                                        "head"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"user_uuid\": \"{{user_uuid}}\"\n}"
+                                }
+                            }
                         }
                     ]
                 },
@@ -4058,6 +4140,89 @@
                                     "query": []
                                 },
                                 "description": "Soft delete a specific designation from the Organization."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Members",
+                    "item": [
+                        {
+                            "name": "Assign Designation to Member",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{auth_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/members/{{member_uuid}}/designation",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "members",
+                                        "{{member_uuid}}",
+                                        "designation"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"designation_uuid\": \"{{designation_uuid}}\"\n}"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Get Member Hierarchy",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{auth_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/members/{{member_uuid}}/hierarchy",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "members",
+                                        "{{member_uuid}}",
+                                        "hierarchy"
+                                    ]
+                                }
                             }
                         }
                     ]

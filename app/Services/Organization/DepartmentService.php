@@ -7,6 +7,7 @@ namespace App\Services\Organization;
 use App\Models\Organization\Organization;
 use App\Models\Organization\Department;
 use App\Traits\HasAuditLog;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Handles Department lifecycle within an Organization.
@@ -72,5 +73,43 @@ class DepartmentService
         // before deleting.
         $dept->delete();
         $this->logAction('department.deleted', $dept);
+    }
+
+    public function findByUuid(string $uuid, int $organizationId): Department
+    {
+        return Department::with(['head', 'subDepartments'])
+            ->where('organization_id', $organizationId)
+            ->where('uuid', $uuid)
+            ->firstOrFail();
+    }
+
+    /**
+     * Assign or remove the head of a department.
+     * Validates the user is a member of the same organization.
+     */
+    public function assignHead(Department $department, ?string $userUuid, int $organizationId): Department
+    {
+        return DB::transaction(function () use ($department, $userUuid, $organizationId): Department {
+            $headUserId = null;
+
+            if ($userUuid !== null) {
+                $user = \App\Models\Auth\User::where('uuid', $userUuid)->firstOrFail();
+
+                // Verify this user is actually a member of this organization
+                $isMember = \App\Models\Organization\OrganizationMembership::where('organization_id', $organizationId)
+                    ->where('user_id', $user->id)
+                    ->exists();
+
+                if (!$isMember) {
+                    throw new \RuntimeException('The specified user is not a member of this organization.');
+                }
+
+                $headUserId = $user->id;
+            }
+
+            $department->update(['head_user_id' => $headUserId]);
+
+            return $department->refresh()->load('head');
+        });
     }
 }

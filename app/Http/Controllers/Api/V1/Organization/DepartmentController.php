@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\Organization;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Organization\CreateDepartmentRequest;
+use App\Http\Requests\Organization\AssignDepartmentHeadRequest;
 use App\Http\Resources\Organization\DepartmentResource;
 use App\Models\Organization\Organization;
 use App\Models\Organization\Department;
@@ -98,5 +99,20 @@ class DepartmentController extends BaseApiController
         $this->departmentService->deleteDepartment($department);
 
         return $this->success(message: 'Department deleted successfully');
+    }
+
+    public function assignHead(AssignDepartmentHeadRequest $request, string $uuid): DepartmentResource
+    {
+        $organizationId = app('tenant.organization')->id;
+
+        $department = $this->departmentService->findByUuid($uuid, $organizationId);
+
+        $updated = $this->departmentService->assignHead(
+            $department,
+            $request->validated('user_uuid'),
+            $organizationId
+        );
+
+        return new DepartmentResource($updated);
     }
 }

@@ -475,13 +475,13 @@ class InvitationTest extends TestCase
         $responseShow = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->getJson("/api/v1/organization/invitations/{$inviteB->uuid}");
 
-        $responseShow->assertStatus(404);
+        $responseShow->assertStatus(403);
 
         // Admin A tries to revoke organization B invite
         $responseRevoke = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->postJson("/api/v1/organization/invitations/{$inviteB->uuid}/revoke");
 
-        $responseRevoke->assertStatus(404);
+        $responseRevoke->assertStatus(403);
 
         // Admin A tries to resend organization B invite
         $responseResend = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))

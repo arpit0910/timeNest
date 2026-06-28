@@ -109,6 +109,12 @@ enum SystemPermission: string
     case DESIGNATIONS_EDIT   = 'designations.edit';
     case DESIGNATIONS_DELETE = 'designations.delete';
 
+    // Member hierarchy management
+    case MEMBERS_ASSIGN_DESIGNATION = 'members.assign_designation';
+    case MEMBERS_VIEW_HIERARCHY     = 'members.view_hierarchy';
+    case DEPARTMENTS_ASSIGN_HEAD    = 'departments.assign_head';
+    case SUB_DEPARTMENTS_ASSIGN_HEAD = 'sub_departments.assign_head';
+
     // ─── Reports ─────────────────────────────────────────────────
     case REPORTS_VIEW = 'reports.view';
     case REPORTS_EXPORT = 'reports.export';

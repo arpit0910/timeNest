@@ -114,4 +114,39 @@ class SubDepartmentService
             $subDepartment->delete();
         });
     }
+
+    /**
+     * Assign or remove the head of a sub-department.
+     * Validates the user is a member of the same organization.
+     * Global sub-departments can only have heads assigned by platform admins —
+     * org admins can assign heads to their own sub-departments only.
+     */
+    public function assignHead(SubDepartment $subDepartment, ?string $userUuid, int $organizationId): SubDepartment
+    {
+        if ($subDepartment->organization_id === null) {
+            throw new \RuntimeException('Cannot assign a head to a global sub-department from an organization context.');
+        }
+
+        return DB::transaction(function () use ($subDepartment, $userUuid, $organizationId): SubDepartment {
+            $headUserId = null;
+
+            if ($userUuid !== null) {
+                $user = \App\Models\Auth\User::where('uuid', $userUuid)->firstOrFail();
+
+                $isMember = \App\Models\Organization\OrganizationMembership::where('organization_id', $organizationId)
+                    ->where('user_id', $user->id)
+                    ->exists();
+
+                if (!$isMember) {
+                    throw new \RuntimeException('The specified user is not a member of this organization.');
+                }
+
+                $headUserId = $user->id;
+            }
+
+            $subDepartment->update(['head_user_id' => $headUserId]);
+
+            return $subDepartment->refresh()->load(['head', 'department']);
+        });
+    }
 }

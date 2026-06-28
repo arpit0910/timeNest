@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1\Organization;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Organization\CreateSubDepartmentRequest;
 use App\Http\Requests\Organization\UpdateSubDepartmentRequest;
+use App\Http\Requests\Organization\AssignDepartmentHeadRequest;
 use App\Http\Resources\Organization\SubDepartmentResource;
 use App\Models\Organization\SubDepartment;
 use App\Services\Organization\SubDepartmentService;
@@ -76,5 +77,20 @@ class SubDepartmentController extends Controller
         $this->subDepartmentService->delete($subDepartment);
 
         return response()->json(['message' => 'Sub-department deleted successfully.']);
+    }
+
+    public function assignHead(AssignDepartmentHeadRequest $request, string $uuid): SubDepartmentResource
+    {
+        $organizationId = app('tenant.organization')->id;
+
+        $subDepartment = $this->subDepartmentService->findByUuid($uuid, $organizationId);
+
+        $updated = $this->subDepartmentService->assignHead(
+            $subDepartment,
+            $request->validated('user_uuid'),
+            $organizationId
+        );
+
+        return new SubDepartmentResource($updated);
     }
 }

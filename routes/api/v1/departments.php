@@ -17,4 +17,5 @@ Route::controller(DepartmentController::class)->group(function (): void {
     Route::post('/', 'store')->middleware('permission:'.SystemPermission::DEPARTMENTS_CREATE->value)->name('store');
     Route::put('{department_uuid}', 'update')->middleware('permission:'.SystemPermission::DEPARTMENTS_EDIT->value)->name('update');
     Route::delete('{department_uuid}', 'destroy')->middleware('permission:'.SystemPermission::DEPARTMENTS_DELETE->value)->name('destroy');
+    Route::patch('{department_uuid}/head', 'assignHead')->middleware('permission:'.SystemPermission::DEPARTMENTS_ASSIGN_HEAD->value)->name('assign_head');
 });
