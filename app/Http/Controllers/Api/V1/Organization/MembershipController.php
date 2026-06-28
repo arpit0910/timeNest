@@ -13,6 +13,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationMembership;
 use App\Models\Rbac\Role;
 use App\Services\Organization\MembershipService;
+use App\Http\Requests\Organization\UpdateMemberRoleRequest;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -104,5 +105,41 @@ class MembershipController extends BaseApiController
         $this->membershipService->deactivateMember($membership);
 
         return $this->success(message: 'Member deactivated successfully');
+    }
+
+    /**
+     * View a single member.
+     */
+    public function show(string $uuid): JsonResponse
+    {
+        $organizationId = $this->getOrganization()->id;
+
+        $membership = OrganizationMembership::where('uuid', $uuid)
+            ->where('organization_id', $organizationId)
+            ->with(['user.roles', 'department', 'subDepartment', 'designation'])
+            ->firstOrFail();
+
+        return $this->success(new OrganizationMembershipResource($membership));
+    }
+
+    /**
+     * Update a member's role.
+     */
+    public function updateRole(UpdateMemberRoleRequest $request, string $uuid): JsonResponse
+    {
+        $organizationId = $this->getOrganization()->id;
+
+        $membership = OrganizationMembership::where('uuid', $uuid)
+            ->where('organization_id', $organizationId)
+            ->firstOrFail();
+
+        $role = Role::where('uuid', $request->validated('role_uuid'))->firstOrFail();
+
+        $updated = $this->membershipService->changeRole(
+            $membership,
+            $role
+        );
+
+        return $this->success(new OrganizationMembershipResource($updated->load(['user.roles', 'department', 'subDepartment', 'designation'])));
     }
 }

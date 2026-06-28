@@ -27,6 +27,8 @@ enum SystemPermission: string
     case USERS_DELETE = 'users.delete';
     case USERS_MANAGE = 'users.manage';
     case USERS_EXPORT = 'users.export';
+    case EMPLOYEE_PROFILE_VIEW = 'employee_profile.view';
+    case EMPLOYEE_PROFILE_MANAGE = 'employee_profile.manage';
 
     // ─── Attendance ──────────────────────────────────────────────
     case ATTENDANCE_VIEW = 'attendance.view';

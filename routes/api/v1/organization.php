@@ -26,6 +26,7 @@ Route::prefix('departments')->name('departments.')
 require __DIR__ . '/sub-departments.php';
 require __DIR__ . '/designations.php';
 require __DIR__ . '/members-hierarchy.php';
+require __DIR__ . '/employee-profiles.php';
 
 // Membership Management
 Route::prefix('memberships')->name('memberships.')

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(InvitationController::class)->group(function (): void {
     Route::get('/', 'index')->middleware('permission:' . SystemPermission::INVITATIONS_VIEW->value)->name('index');
     Route::get('{uuid}', 'show')->middleware('permission:' . SystemPermission::INVITATIONS_VIEW->value)->name('show');
-    Route::post('/', 'store')->name('store');
+    Route::post('/', 'store')->middleware('permission:' . SystemPermission::INVITATIONS_CREATE->value)->name('store');
     Route::post('{uuid}/revoke', 'revoke')->middleware('permission:' . SystemPermission::INVITATIONS_REVOKE->value)->name('revoke');
     Route::post('{uuid}/resend', 'resend')->middleware('permission:' . SystemPermission::INVITATIONS_RESEND->value)->name('resend');
 });
