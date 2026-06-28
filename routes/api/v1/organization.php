@@ -23,6 +23,9 @@ Route::prefix('branches')->name('branches.')
 Route::prefix('departments')->name('departments.')
     ->group(base_path('routes/api/v1/departments.php'));
 
+require __DIR__ . '/sub-departments.php';
+require __DIR__ . '/designations.php';
+
 // Membership Management
 Route::prefix('memberships')->name('memberships.')
     ->group(base_path('routes/api/v1/memberships.php'));

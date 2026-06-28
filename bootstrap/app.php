@@ -174,6 +174,15 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 404);
         });
 
+        // ========== RUNTIME EXCEPTIONS (403) ==========
+        $exceptions->render(function (\RuntimeException $e, Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 403);
+            }
+        });
+
         // ========== RATE LIMITING (429) ==========
         $exceptions->render(function (ThrottleRequestsException $e, Request $request): JsonResponse {
             if ($request->routeIs('*2fa.verify')) {

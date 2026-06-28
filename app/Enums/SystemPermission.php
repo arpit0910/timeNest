@@ -97,6 +97,18 @@ enum SystemPermission: string
     case DEPARTMENTS_DELETE = 'departments.delete';
     case DEPARTMENTS_MANAGE = 'departments.manage';
 
+    // Sub-Department permissions
+    case SUB_DEPARTMENTS_VIEW   = 'sub_departments.view';
+    case SUB_DEPARTMENTS_CREATE = 'sub_departments.create';
+    case SUB_DEPARTMENTS_EDIT   = 'sub_departments.edit';
+    case SUB_DEPARTMENTS_DELETE = 'sub_departments.delete';
+
+    // Designation permissions
+    case DESIGNATIONS_VIEW   = 'designations.view';
+    case DESIGNATIONS_CREATE = 'designations.create';
+    case DESIGNATIONS_EDIT   = 'designations.edit';
+    case DESIGNATIONS_DELETE = 'designations.delete';
+
     // ─── Reports ─────────────────────────────────────────────────
     case REPORTS_VIEW = 'reports.view';
     case REPORTS_EXPORT = 'reports.export';

@@ -3519,6 +3519,548 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "Sub Departments",
+                    "description": "Manage corporate @@sub_departments@@, hierarchies, and divisions.",
+                    "item": [
+                        {
+                            "name": "List Sub Departments",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@sub_departments@@?page=1&per_page=15&search=Engineering&sort_by=&sort_direction=&branch_uuid=&is_active=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@sub_departments@@"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "Engineering"
+                                        },
+                                        {
+                                            "key": "sort_by",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "sort_direction",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "branch_uuid",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve @@sub_departments@@ resolved under the active Organization."
+                            }
+                        },
+                        {
+                            "name": "Create Sub Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Sub Department Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_uuid\": 1,\n    \"parent_sub_department_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@sub_departments@@",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@sub_departments@@"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Create a new sub_department within the active Organization."
+                            }
+                        },
+                        {
+                            "name": "Get Sub Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@sub_departments@@/{{sub_department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@sub_departments@@",
+                                        "{{sub_department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Retrieve details of a specific sub_department by UUID."
+                            }
+                        },
+                        {
+                            "name": "Update Sub Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Sub Department Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_uuid\": 1,\n    \"parent_sub_department_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@sub_departments@@/{{sub_department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@sub_departments@@",
+                                        "{{sub_department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Update specific configuration parameters of a sub_department by UUID."
+                            }
+                        },
+                        {
+                            "name": "Delete Sub Department",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@sub_departments@@/{{sub_department_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@sub_departments@@",
+                                        "{{sub_department_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Soft delete a specific sub_department from the Organization."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Designations",
+                    "description": "Manage corporate @@designations@@, hierarchies, and divisions.",
+                    "item": [
+                        {
+                            "name": "List Designations",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@designations@@?page=1&per_page=15&search=Engineering&sort_by=&sort_direction=&branch_uuid=&is_active=",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@designations@@"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "per_page",
+                                            "value": "15"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "Engineering"
+                                        },
+                                        {
+                                            "key": "sort_by",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "sort_direction",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "branch_uuid",
+                                            "value": ""
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve @@designations@@ resolved under the active Organization."
+                            }
+                        },
+                        {
+                            "name": "Create Designation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Designation Services\",\n    \"code\": \"ENG-DEPT\",\n    \"branch_uuid\": 1,\n    \"parent_designation_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@designations@@",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@designations@@"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Create a new designation within the active Organization."
+                            }
+                        },
+                        {
+                            "name": "Get Designation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@designations@@/{{designation_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@designations@@",
+                                        "{{designation_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Retrieve details of a specific designation by UUID."
+                            }
+                        },
+                        {
+                            "name": "Update Designation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Engineering Designation Services Updated\",\n    \"code\": \"ENG-DEPT-UPD\",\n    \"branch_uuid\": 1,\n    \"parent_designation_uuid\": null,\n    \"head_user_uuid\": null,\n    \"is_active\": true,\n    \"description\": \"\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@designations@@/{{designation_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@designations@@",
+                                        "{{designation_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Update specific configuration parameters of a designation by UUID."
+                            }
+                        },
+                        {
+                            "name": "Delete Designation",
+                            "request": {
+                                "auth": {
+                                    "type": "bearer",
+                                    "bearer": [
+                                        {
+                                            "key": "token",
+                                            "value": "{{access_token}}",
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "X-Organization-Uuid",
+                                        "value": "{{organization_uuid}}",
+                                        "description": "Dynamic workspace fallback resolution header for AppOwner role bypass"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/organization/@@designations@@/{{designation_uuid}}",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "organization",
+                                        "@@designations@@",
+                                        "{{designation_uuid}}"
+                                    ],
+                                    "query": []
+                                },
+                                "description": "Soft delete a specific designation from the Organization."
+                            }
+                        }
+                    ]
                 }
             ]
         },
