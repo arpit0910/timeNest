@@ -1,13 +1,13 @@
 <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center">
     
-    {{-- Subtle Dotted Grid Background --}}
-    <div class="absolute inset-0 z-0 pointer-events-none" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 32px 32px; opacity: 0.3;"></div>
+    {{-- Ambient Background Layer (External SVG) --}}
+    <x-marketing.hero-background />
     
     {{-- Main Content --}}
-    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col items-center">
+    <div class="relative max-w-7xl mx-auto px-6 w-full flex flex-col items-center">
         
-        {{-- Headline & Text --}}
-        <div class="text-center max-w-3xl mx-auto flex flex-col items-center">
+        {{-- Headline & Text (Highest z-index) --}}
+        <div class="text-center max-w-3xl mx-auto flex flex-col items-center relative z-40">
             <div class="animate-fade-up">
                 <x-ui.pill-badge class="mb-6">
                     <x-slot:icon>

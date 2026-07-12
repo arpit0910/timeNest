@@ -1,5 +1,5 @@
 <div class="bg-white rounded-2xl shadow-xl shadow-indigo-100/50 p-5 w-64 border border-slate-100 flex flex-col gap-4">
-    <div class="text-sm font-semibold text-slate-800 mb-1">Leave Approval Time</div>
+    <div class="text-sm font-semibold text-slate-800 mb-1">Fraudulent Check-ins</div>
     
     {{-- Row 1: Off --}}
     <div class="flex items-center justify-between">
@@ -9,7 +9,7 @@
             </div>
             <div class="text-xs font-medium text-slate-500">Without TimeNest</div>
         </div>
-        <div class="text-sm font-bold text-slate-700">6 hrs</div>
+        <div class="text-sm font-bold text-slate-700">14%</div>
     </div>
 
     {{-- Divider --}}
@@ -23,6 +23,6 @@
             </div>
             <div class="text-xs font-medium text-slate-700">With TimeNest</div>
         </div>
-        <div class="text-sm font-bold text-indigo-600">2 min</div>
+        <div class="text-sm font-bold text-emerald-600">0%</div>
     </div>
 </div>

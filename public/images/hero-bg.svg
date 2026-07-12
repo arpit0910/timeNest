@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+    <defs>
+        <!-- Faint dot pattern -->
+        <pattern id="dot" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.2" fill="#cbd5e1" opacity="0.6"/>
+        </pattern>
+        <!-- Gradients for subtle glowing lines -->
+        <linearGradient id="glowLine1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#cbd5e1" stop-opacity="0.2" />
+            <stop offset="50%" stop-color="#94a3b8" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#cbd5e1" stop-opacity="0.2" />
+        </linearGradient>
+    </defs>
+
+    <!-- Base Dot Grid restricted to the central column like the reference -->
+    <rect x="350" y="0" width="740" height="800" fill="url(#dot)" />
+
+    <!-- Corner Brackets -->
+    <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.7">
+        <path d="M 40 100 L 40 40 L 100 40" />
+        <path d="M 1400 700 L 1400 760 L 1340 760" />
+    </g>
+
+    <!-- The exact network lines with perfect rounded corners -->
+    <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 6" fill="none" opacity="0.5">
+        
+        <!-- Left Side Vertical Drop -->
+        <path d="M 180 0 L 180 200 a 40 40 0 0 1 -40 40 L 0 240" />
+        
+        <!-- Mid-Left sweeping under the stat card -->
+        <path d="M 0 450 L 220 450 a 40 40 0 0 1 40 40 L 260 800" />
+        
+        <!-- Right Side Top Drop -->
+        <path d="M 1250 0 L 1250 150 a 40 40 0 0 0 40 40 L 1440 190" />
+        
+        <!-- Right Side Middle Curve -->
+        <path d="M 1200 300 L 1200 450 a 40 40 0 0 0 40 40 L 1440 490" />
+        
+        <!-- Right Side Bottom Curve -->
+        <path d="M 1050 600 L 1300 600 a 40 40 0 0 0 40 40 L 1340 800" />
+        
+        <!-- The two main vertical grid lines framing the center -->
+        <line x1="350" y1="0" x2="350" y2="800" />
+        <line x1="1090" y1="0" x2="1090" y2="800" />
+    </g>
+
+    <!-- Add some subtle tech nodes/crosshairs on the intersections -->
+    <g stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.4">
+        <!-- Crosshair 1 -->
+        <line x1="345" y1="200" x2="355" y2="200" />
+        <line x1="350" y1="195" x2="350" y2="205" />
+        
+        <!-- Crosshair 2 -->
+        <line x1="1085" y1="600" x2="1095" y2="600" />
+        <line x1="1090" y1="595" x2="1090" y2="605" />
+    </g>
+</svg>

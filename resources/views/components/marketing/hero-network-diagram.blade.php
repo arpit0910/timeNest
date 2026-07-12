@@ -1,11 +1,5 @@
 <div class="relative w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 mt-16 animate-float-alt">
     
-    {{-- Connecting Lines SVG (Desktop only) --}}
-    <svg class="hidden md:block absolute top-1/2 left-0 w-full h-full -translate-y-1/2 z-0 pointer-events-none" preserveAspectRatio="none">
-        <path d="M 200 50 C 350 50, 350 50, 450 50" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" />
-        <path d="M 550 50 C 650 50, 650 50, 800 50" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" />
-    </svg>
-
     {{-- Left: Your Team --}}
     <div class="bg-white rounded-2xl shadow-xl shadow-indigo-100/40 p-4 border border-slate-100 z-10 w-full md:w-auto relative">
         <div class="absolute -top-3 left-4 bg-white px-2 py-0.5 rounded-full border border-slate-100 shadow-sm text-[10px] font-semibold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
@@ -23,13 +17,17 @@
     </div>
 
     {{-- Center: TimeNest Node --}}
-    <div class="z-10 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-full py-3 px-6 shadow-xl shadow-indigo-200 flex items-center gap-2">
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' class="w-5 h-5">
-            <path d='M28 16 A12 12 0 1 0 16 28' stroke='#ffffff' stroke-width='2' fill='none' stroke-linecap='round'/>
-            <path d='M23 16 A7 7 0 1 0 16 23' stroke='#93c5fd' stroke-width='2' fill='none' stroke-linecap='round'/>
-            <path d='M19 16 A3 3 0 1 0 16 19' stroke='#93c5fd' stroke-width='2' fill='none' stroke-linecap='round'/>
-        </svg>
-        <span class="font-bold text-white text-lg tracking-tight">TimeNest</span>
+    <div class="relative flex-1 flex items-center justify-center">
+        {{-- Internal Connecting Line perfectly centered on the button --}}
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-px border-t-[1.5px] border-dashed border-slate-300 z-0 pointer-events-none"></div>
+
+        <div class="relative z-10 bg-white rounded-full py-2 px-4 shadow-lg shadow-slate-200/50 border border-slate-200 flex items-center gap-2.5">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="font-bold text-slate-600 text-xs tracking-widest uppercase">Live Sync</span>
+        </div>
     </div>
 
     {{-- Right: HR & Admins --}}
