@@ -39,7 +39,7 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Product</h3>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Features</a></li>
+                    <li><a href="/features" class="text-sm text-slate-400 hover:text-white transition">Features</a></li>
                     <li><a href="/security" class="text-sm text-slate-400 hover:text-white transition">Security</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Integrations</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Pricing</a></li>

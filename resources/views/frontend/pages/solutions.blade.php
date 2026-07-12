@@ -223,6 +223,13 @@
                                 <span class="text-slate-700 font-medium">Branch-level attendance with location verification</span>
                             </li>
                         </ul>
+                        
+                        <div class="mt-8">
+                            <a href="{{ route('frontend.features.attendance-leave') }}" class="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors group">
+                                Explore attendance & leave in detail 
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </a>
+                        </div>
                     </div>
                     <div class="order-1 lg:order-2">
                         <div class="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-inner">
