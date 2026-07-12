@@ -52,6 +52,7 @@ Route::prefix('')->name('frontend.')->group(function () {
     Route::get('/feature/{category}/{slug}', [ProductFeatureController::class, 'show'])->name('feature.show');
 
     // Solutions
+    Route::view('/solutions', 'frontend.pages.solutions')->name('solutions.index');
     Route::get('/solutions/{slug}', [SolutionsController::class, 'show'])->name('solutions.show');
 
     // Industries
@@ -87,4 +88,5 @@ Route::prefix('')->name('frontend.')->group(function () {
 
     Route::view('/', 'marketing.home')->name('home');
     Route::view('/security', 'frontend.pages.security')->name('security');
+    Route::view('/solutions', 'frontend.pages.solutions')->name('solutions');
 });

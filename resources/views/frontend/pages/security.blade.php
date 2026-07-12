@@ -47,7 +47,7 @@
         </section>
 
         {{-- 2. Authentication & Account Protection --}}
-        <section class="py-24 bg-slate-50 border-t border-slate-100">
+        <section class="py-16 lg:py-20 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
@@ -109,7 +109,7 @@
         </section>
 
         {{-- 3. Multi-Tenant Data Isolation --}}
-        <section class="py-24 bg-white overflow-hidden">
+        <section class="py-16 lg:py-20 bg-white overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 text-center">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
@@ -184,7 +184,7 @@
         </section>
 
         {{-- 4. Roles & Permissions --}}
-        <section class="py-24 bg-slate-50 border-y border-slate-100">
+        <section class="py-16 lg:py-20 bg-slate-50 border-y border-slate-100">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 {{-- Right side goes first on mobile --}}
                 <div class="order-2 lg:order-1">
@@ -391,7 +391,7 @@
         </section>
 
         {{-- 5. Monitoring & Audit Trail --}}
-        <section class="py-24 bg-slate-50 border-t border-slate-100">
+        <section class="py-16 lg:py-20 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-6 text-center">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -460,7 +460,7 @@
         </section>
 
         {{-- 6. FAQ --}}
-        <section class="py-32 bg-white relative">
+        <section class="py-16 lg:py-20 bg-white relative">
             <div class="max-w-4xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">

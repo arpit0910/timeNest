@@ -19,7 +19,7 @@
         {{-- Center: Nav Links (Desktop) --}}
         <nav class="hidden md:flex items-center gap-8">
             <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Features</a>
-            <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
+            <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
             <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
             <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
             <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
@@ -59,7 +59,7 @@
         
         <div class="p-4 flex flex-col gap-4">
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Features</a>
-            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Solutions</a>
+            <a href="/solutions" class="text-base font-medium text-slate-700 hover:text-indigo-600">Solutions</a>
             <a href="/security" class="text-base font-medium text-slate-700 hover:text-indigo-600">Security</a>
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>

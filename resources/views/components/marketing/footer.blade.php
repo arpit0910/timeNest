@@ -51,9 +51,9 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Solutions</h3>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">For Organizations</a></li>
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">For Freelance Teams</a></li>
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">For Freelancers</a></li>
+                    <li><a href="/solutions#organizations" class="text-sm text-slate-400 hover:text-white transition">For Organizations</a></li>
+                    <li><a href="/solutions#teams" class="text-sm text-slate-400 hover:text-white transition">For Growing Teams</a></li>
+                    <li><a href="/solutions#freelancers" class="text-sm text-slate-400 hover:text-white transition">For Freelancers</a></li>
                 </ul>
             </div>
 
