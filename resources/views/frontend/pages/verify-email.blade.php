@@ -1,4 +1,4 @@
-<x-frontend-layout.app metaTitle="Email Verification — TimeNest" metaDescription="Verify your timeNest email address.">
+<x-frontend-layout.auth-minimal metaTitle="Email Verification — TimeNest" metaDescription="Verify your timeNest email address.">
     <section style="padding: 120px 0 80px; min-height: 60vh;">
         <div style="max-width: 520px; margin: 0 auto; padding: 0 24px;">
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 48px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
@@ -32,4 +32,4 @@
             </div>
         </div>
     </section>
-</x-frontend-layout.app>
+</x-frontend-layout.auth-minimal>

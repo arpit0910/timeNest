@@ -1,4 +1,4 @@
-<x-frontend-layout.app metaTitle="Reset Password — TimeNest" metaDescription="Reset your TimeNest password.">
+<x-frontend-layout.auth-minimal metaTitle="Reset Password — TimeNest" metaDescription="Reset your TimeNest password.">
     <section style="padding: 120px 0 80px; min-height: 60vh;">
         <div style="max-width: 520px; margin: 0 auto; padding: 0 24px;">
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 48px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
@@ -107,4 +107,4 @@
             }
         }
     </script>
-</x-frontend-layout.app>
+</x-frontend-layout.auth-minimal>

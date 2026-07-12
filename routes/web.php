@@ -33,6 +33,8 @@ Route::post('/invitations/accept', [InvitationAcceptController::class, 'accept']
 Route::get('/reset-password', [\App\Http\Controllers\Frontend\PasswordResetWebController::class, 'show'])->name('password.reset.web');
 
 Route::prefix('')->name('frontend.')->group(function () {
+    // TODO: restore or remove after rebuild
+    /*
     // Core
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/features', [FeaturesController::class, 'index'])->name('features');
@@ -81,4 +83,7 @@ Route::prefix('')->name('frontend.')->group(function () {
     // Search
     Route::get('/search', [SearchController::class, 'index'])->name('search');
     Route::get('/search/suggest', [SearchController::class, 'search'])->name('search.suggest');
+    */
+
+    Route::view('/', 'marketing.home')->name('home');
 });

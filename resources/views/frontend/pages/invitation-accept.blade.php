@@ -1,4 +1,4 @@
-<x-frontend-layout.app metaTitle="Accept Invitation — TimeNest" metaDescription="Accept your invitation to join a workspace on TimeNest.">
+<x-frontend-layout.auth-minimal metaTitle="Accept Invitation — TimeNest" metaDescription="Accept your invitation to join a workspace on TimeNest.">
     <section style="padding: 120px 0 80px; min-height: 60vh;">
         <div style="max-width: 520px; margin: 0 auto; padding: 0 24px;">
 
@@ -160,4 +160,4 @@
 
         </div>
     </section>
-</x-frontend-layout.app>
+</x-frontend-layout.auth-minimal>
