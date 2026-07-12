@@ -27,13 +27,13 @@
 
         {{-- Right: Actions (Desktop) --}}
         <div class="hidden md:flex items-center gap-4">
-            <a href="#" class="text-sm font-medium text-slate-700 hover:text-indigo-600 transition-colors">Sign in</a>
-            <x-ui.button href="#">Get Started</x-ui.button>
+            <a href="#" class="text-sm font-medium text-slate-700 hover:text-indigo-600 transition-colors">Contact us</a>
+            <x-ui.button href="#">Book a demo</x-ui.button>
         </div>
 
         {{-- Mobile Hamburger --}}
         <div class="md:hidden flex items-center gap-4">
-            <x-ui.button href="#" class="!px-3 !py-1.5 text-xs">Get Started</x-ui.button>
+            <x-ui.button href="#" class="!px-3 !py-1.5 text-xs">Book a demo</x-ui.button>
             <button @click="open = !open" class="text-slate-600 hover:text-slate-900 focus:outline-none p-1">
                 <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -64,7 +64,7 @@
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
             <hr class="border-slate-100">
-            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Sign in</a>
+            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>
         </div>
     </div>
 </header>

@@ -20,12 +20,14 @@
                         Join 10,000+ companies using TimeNest to manage shifts, process leave, and handle complex payroll effortlessly.
                     </p>
                     
-                    <form class="flex flex-col sm:flex-row gap-3 max-w-md">
-                        <input type="email" placeholder="Enter your work email" class="flex-1 bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
-                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-6 py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/25 whitespace-nowrap">
-                            Get Started Free
-                        </button>
-                    </form>
+                    <div class="flex flex-col sm:flex-row gap-4 max-w-md">
+                        <a href="#" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/25 text-center whitespace-nowrap">
+                            Book a demo
+                        </a>
+                        <a href="#" class="bg-slate-800/50 hover:bg-slate-700 border border-slate-700 text-white font-bold px-8 py-3.5 rounded-xl transition text-center whitespace-nowrap">
+                            Contact us
+                        </a>
+                    </div>
                     <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
                 </div>
 
