@@ -1,4 +1,4 @@
-<section class="py-32 bg-white relative px-6">
+<section class="py-16 bg-white relative px-6">
     <div class="max-w-7xl mx-auto">
         <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
             

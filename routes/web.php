@@ -86,4 +86,5 @@ Route::prefix('')->name('frontend.')->group(function () {
     */
 
     Route::view('/', 'marketing.home')->name('home');
+    Route::view('/security', 'frontend.pages.security')->name('security');
 });
