@@ -28,7 +28,7 @@
             <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
             <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
             <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
-            <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
+            <a href="/about" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
         </nav>
 
         {{-- Right: Actions (Desktop) --}}
@@ -68,7 +68,7 @@
             <a href="/solutions" class="text-base font-medium text-slate-700 hover:text-indigo-600">Solutions</a>
             <a href="/security" class="text-base font-medium text-slate-700 hover:text-indigo-600">Security</a>
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
-            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
+            <a href="/about" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
             <hr class="border-slate-100">
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>
         </div>

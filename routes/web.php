@@ -91,4 +91,5 @@ Route::prefix('')->name('frontend.')->group(function () {
     Route::view('/solutions', 'frontend.pages.solutions')->name('solutions');
     Route::view('/features/attendance-leave', 'frontend.pages.attendance-leave')->name('features.attendance-leave');
     Route::view('/features', 'frontend.pages.features')->name('features');
+    Route::view('/about', 'frontend.pages.about')->name('about');
 });
