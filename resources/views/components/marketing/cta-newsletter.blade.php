@@ -12,7 +12,7 @@
             <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center p-8 md:p-12">
                 
                 {{-- Text --}}
-                <div>
+                <div class="marketing-section-copy">
                     <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
                         Ready to automate your workforce?
                     </h2>

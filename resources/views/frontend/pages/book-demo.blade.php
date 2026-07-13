@@ -4,7 +4,7 @@
 
     <x-marketing.header />
 
-    <main>
+    <main class="marketing-responsive-sections">
         {{-- Section 1: Hero with Interactive Scheduler --}}
         <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-white">
             <x-marketing.hero-background />
@@ -13,7 +13,7 @@
                 <div class="grid lg:grid-cols-12 gap-16 xl:gap-20 items-center">
                     
                     {{-- Left Column: Text Content --}}
-                    <div class="lg:col-span-7 flex flex-col items-start text-left animate-fade-up">
+                    <div class="lg:col-span-7 flex flex-col items-start text-left marketing-responsive-copy animate-fade-up">
                         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50/80 backdrop-blur-sm border border-indigo-100/50 text-indigo-700 text-sm font-semibold tracking-wide uppercase mb-6 shadow-sm">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-.447.894L15 19l-6-3-6 3V6l6 3 6-3z" />

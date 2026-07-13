@@ -6,11 +6,11 @@
 @section('content')
 <x-marketing.header />
 
-<main class="min-h-screen pt-24 relative overflow-hidden">
+<main class="marketing-responsive-sections min-h-screen pt-24 relative overflow-hidden">
     {{-- Hero Section --}}
     <section class="relative pt-20 lg:pt-32 pb-16 px-6 z-10">
         <x-marketing.hero-background />
-        <div class="relative max-w-4xl mx-auto text-center z-10">
+        <div class="relative max-w-4xl mx-auto flex flex-col items-center text-center z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50/80 backdrop-blur-sm border border-indigo-100/50 text-indigo-700 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
                 Contact Us
             </div>

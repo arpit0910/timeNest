@@ -61,7 +61,7 @@
             </div>
 
             {{-- Text Content (Right on desktop, top on mobile) --}}
-            <div class="order-1 lg:order-2 max-w-xl">
+            <div class="order-1 lg:order-2 max-w-xl marketing-section-copy">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     Leave & Time Off

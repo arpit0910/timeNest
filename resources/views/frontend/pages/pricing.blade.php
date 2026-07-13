@@ -4,7 +4,7 @@
 
     <x-marketing.header />
 
-    <main x-data="{ isAnnual: false }">
+    <main class="marketing-responsive-sections" x-data="{ isAnnual: false }">
         {{-- Section 1: Hero --}}
         <section class="relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden bg-white">
             <x-marketing.hero-background />

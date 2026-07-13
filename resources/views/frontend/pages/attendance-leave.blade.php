@@ -4,7 +4,7 @@
 
 <x-marketing.header />
 
-<main>
+<main class="marketing-responsive-sections">
 
 {{-- Hero Section --}}
 <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">

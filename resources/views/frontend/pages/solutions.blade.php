@@ -3,7 +3,7 @@
 @section('content')
     <x-marketing.header />
     
-    <main>
+    <main class="marketing-responsive-sections">
         {{-- 1. Hero Section --}}
         <section class="relative pt-32 pb-20 px-6 md:pt-40 md:pb-28 overflow-hidden bg-white">
             <x-marketing.hero-background />
