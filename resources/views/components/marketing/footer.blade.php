@@ -1,4 +1,17 @@
-<footer class="bg-slate-950 border-t border-slate-900 pt-32 pb-10 mt-16">
+<footer class="bg-slate-950 pt-32 pb-10 relative">
+    {{-- Glowing Gradient Divider with Text Badge --}}
+    <div class="absolute top-0 left-0 w-full flex justify-center -mt-3.5">
+        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-slate-900 via-indigo-500/50 to-slate-900 -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[2px] bg-gradient-to-r from-transparent via-blue-400/40 to-transparent blur-sm -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-indigo-400/80 to-transparent shadow-[0_0_15px_rgba(99,102,241,0.5)] -translate-y-1/2"></div>
+        
+        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-indigo-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(99,102,241,0.15)] flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+            Built for the future of work
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+        </div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
             
@@ -64,7 +77,7 @@
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">About Us</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Careers</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Blog</a></li>
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Contact</a></li>
+                    <li><a href="/contact" class="text-sm text-slate-400 hover:text-white transition">Contact</a></li>
                 </ul>
             </div>
             

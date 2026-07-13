@@ -33,7 +33,7 @@
 
         {{-- Right: Actions (Desktop) --}}
         <div class="hidden md:flex items-center gap-4">
-            <a href="#" class="text-sm font-medium text-slate-700 hover:text-indigo-600 transition-colors">Contact us</a>
+            <a href="/contact" class="text-sm font-medium text-slate-700 hover:text-indigo-600 transition-colors">Contact us</a>
             <x-ui.button href="#">Book a demo</x-ui.button>
         </div>
 
@@ -70,7 +70,7 @@
             <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
             <a href="/about" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
             <hr class="border-slate-100">
-            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>
+            <a href="/contact" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>
         </div>
     </div>
 </header>
