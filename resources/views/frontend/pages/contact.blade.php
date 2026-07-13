@@ -180,7 +180,7 @@
 
                                 {{-- Submit Button --}}
                                 <div>
-                                    <x-ui.button type="submit" :disabled="submitting" class="w-full md:w-auto">
+                                    <x-ui.button type="submit" ::disabled="submitting" class="w-full md:w-auto">
                                         <span x-text="submitting ? 'Sending...' : 'Send Message'"></span>
                                     </x-ui.button>
                                 </div>

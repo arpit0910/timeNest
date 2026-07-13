@@ -23,7 +23,7 @@
         </a>
 
         {{-- Center: Nav Links (Desktop) --}}
-        <nav class="hidden md:flex items-center gap-8">
+        <nav class="hidden lg:flex items-center gap-8">
             <a href="/features" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Features</a>
             <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
             <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
@@ -32,13 +32,13 @@
         </nav>
 
         {{-- Right: Actions (Desktop) --}}
-        <div class="hidden md:flex items-center gap-4">
+        <div class="hidden lg:flex items-center gap-4">
             <x-ui.button variant="secondary" href="/contact" class="!px-4.5 !py-2 !text-sm">Contact us</x-ui.button>
             <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
         </div>
 
         {{-- Mobile Hamburger --}}
-        <div class="md:hidden flex items-center gap-4">
+        <div class="lg:hidden flex items-center gap-4">
             <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-3 !py-1.5 text-xs">Book a demo</x-ui.button>
             <button @click="open = !open" class="text-slate-650 hover:text-slate-900 focus:outline-none p-1">
                 <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,7 +61,7 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
          style="display: none;"
-         class="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden md:hidden">
+         class="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden lg:hidden">
         
         <div class="p-4 flex flex-col gap-4">
             <a href="/features" class="text-base font-medium text-slate-700 hover:text-indigo-600">Features</a>

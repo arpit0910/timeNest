@@ -47,3 +47,19 @@
         animation: float-slow 6s ease-in-out infinite;
     }
 }
+
+/* Responsive Section Spacing Overrides (Mobile & Medium Screens) */
+@media (max-width: 1023px) {
+    section.py-16, section.py-20, section.py-24, section.py-32, section.py-12 {
+        padding-top: 2.5rem !important; /* py-10 */
+        padding-bottom: 2.5rem !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    section.py-16, section.py-20, section.py-24, section.py-32, section.py-12 {
+        padding-top: 4.5rem !important; /* py-18 */
+        padding-bottom: 4.5rem !important;
+    }
+}
+
