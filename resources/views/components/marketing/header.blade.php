@@ -34,12 +34,12 @@
         {{-- Right: Actions (Desktop) --}}
         <div class="hidden md:flex items-center gap-4">
             <x-ui.button variant="secondary" href="/contact" class="!px-4.5 !py-2 !text-sm">Contact us</x-ui.button>
-            <x-ui.button href="#" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
+            <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
         </div>
 
         {{-- Mobile Hamburger --}}
         <div class="md:hidden flex items-center gap-4">
-            <x-ui.button href="#" class="!px-3 !py-1.5 text-xs">Book a demo</x-ui.button>
+            <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-3 !py-1.5 text-xs">Book a demo</x-ui.button>
             <button @click="open = !open" class="text-slate-600 hover:text-slate-900 focus:outline-none p-1">
                 <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

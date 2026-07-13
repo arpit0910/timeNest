@@ -294,7 +294,7 @@
             subtext="Whether you're a solo freelancer testing the waters or a 500-person company replacing legacy tools, our team can walk you through the best setup — no commitment, no sales pitch."
         >
             <x-slot name="buttons">
-                <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+                <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">Book a demo</x-ui.button>
                 <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to sales</x-ui.button>
             </x-slot>
         </x-marketing.cta-interruption>
@@ -462,7 +462,7 @@
                                         Start tracking your own hours and projects the moment you sign up — no organization, no setup, no waiting on anyone else. Whether you're freelancing full-time or juggling a side project, your time log is yours from day one.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -505,7 +505,7 @@
                                         Go beyond a simple clock in and clock out — log what you actually worked on each day, tied to the project it belonged to. It's a running record you can look back on, without any extra tooling to configure first.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Let's Talk</x-ui.button>
+                                        <x-ui.button href="/contact">Let's Talk</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -548,7 +548,7 @@
                                         Bring your team onto TimeNest with a single invite link — no manual account creation, no back-and-forth setup. People accept, land inside your organization, and are ready to go the same day.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Contact us</x-ui.button>
+                                        <x-ui.button href="/contact">Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -591,7 +591,7 @@
                                         Check-ins are matched against your office or branch's geo-fence automatically, so attendance reflects where people actually were — not just what they typed in. No manual cross-checking required on your end.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -634,7 +634,7 @@
                                         Leave requests route straight to the right approver — the person someone actually reports to — instead of sitting in an inbox. Nobody has to chase anybody down just to find out if a request went through.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Contact us</x-ui.button>
+                                        <x-ui.button href="/contact">Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -677,7 +677,7 @@
                                         Talk to your team and your clients without leaving the platform your work already lives in. Every conversation stays scoped to your organization, so there's no separate app and no extra login to manage.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -720,7 +720,7 @@
                                         Model your organization the way it actually runs — departments, sub-departments, designations, and real reporting lines. Approvals and structure follow your org chart instead of forcing a flat, one-size-fits-all setup.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Contact us</x-ui.button>
+                                        <x-ui.button href="/contact">Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -763,7 +763,7 @@
                                         Decide exactly who can view, edit, or approve what — down to the individual permission. Nothing is hardcoded, so your admins can shape access to match how your organization is actually structured.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -806,7 +806,7 @@
                                         Plan and assign shifts across your whole team from one place, currently in active development. It'll build directly on the same attendance and approval foundation TimeNest already runs on.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Contact us</x-ui.button>
+                                        <x-ui.button href="/contact">Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 

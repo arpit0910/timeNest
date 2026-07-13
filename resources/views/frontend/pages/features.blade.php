@@ -441,7 +441,7 @@
     >
         <x-slot name="buttons">
             <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Contact Us</x-ui.button>
-            <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+            <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">Book a demo</x-ui.button>
         </x-slot>
     </x-marketing.cta-interruption>
 
@@ -586,7 +586,7 @@
                                         Log hours against specific projects, whether you're working solo or as part of a full team. It's the same tracking foundation across every tier — nothing changes as you grow, only what's built on top of it does.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -629,7 +629,7 @@
                                         Tie logged hours to real task and project context instead of a bare timestamp. Managers see what was actually worked on each day, and employees get a running record they can refer back to.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Let's Talk</x-ui.button>
+                                        <x-ui.button href="/contact">Let's Talk</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -672,7 +672,7 @@
                                         Set a configurable check-in radius per branch, and TimeNest only accepts an attendance mark when someone is actually within range. Multiple branches can each run their own independent radius and rules.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Get in Touch</x-ui.button>
+                                        <x-ui.button href="/contact">Get in Touch</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -715,7 +715,7 @@
                                         Define the leave types and balances your organization actually offers, with full policy versioning underneath. When a policy changes, past approvals stay exactly as they were — only new requests follow the update.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Talk to Sales</x-ui.button>
+                                        <x-ui.button href="/contact">Talk to Sales</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -758,7 +758,7 @@
                                         Choose auto-approval, a single sign-off, or a full multi-level chain — per policy, not platform-wide. Requests route to the person someone actually reports to, with a department-head fallback if needed.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Reach out</x-ui.button>
+                                        <x-ui.button href="/contact">Reach out</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -801,7 +801,7 @@
                                         Model departments, sub-departments, designations, and real reporting lines — the structure your organization actually has, not a flattened version of it. Every approval and permission check respects this hierarchy.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -844,7 +844,7 @@
                                         Add a rotating verification code on top of a password for any account that wants it. A stolen or guessed password alone is never enough to get into someone's TimeNest account.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Let's Talk</x-ui.button>
+                                        <x-ui.button href="/contact">Let's Talk</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -887,7 +887,7 @@
                                         Build roles with permission-by-permission precision, configurable independently by each organization. Nothing about who can see or approve what is hardcoded into the platform.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Get in Touch</x-ui.button>
+                                        <x-ui.button href="/contact">Get in Touch</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -930,7 +930,7 @@
                                         Every conversation is encrypted in transit and scoped strictly to members within your organization. It ships as part of TimeNest at every tier, not as a separate purchase or a bolt-on app.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Talk to Sales</x-ui.button>
+                                        <x-ui.button href="/contact">Talk to Sales</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -973,7 +973,7 @@
                                         Plan, assign, and manage shifts across your whole team from a single view, currently in active development. It'll sit directly on top of the attendance and approval system TimeNest already runs on.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Reach out</x-ui.button>
+                                        <x-ui.button href="/contact">Reach out</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -1016,7 +1016,7 @@
                                         Deeper insights and exportable reports across attendance, leave, and worklogs, currently in active development. Built to turn the data TimeNest already collects into something you can actually act on.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button>Book a demo</x-ui.button>
+                                        <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 

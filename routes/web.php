@@ -92,5 +92,10 @@ Route::prefix('')->name('frontend.')->group(function () {
     Route::view('/features/attendance-leave', 'frontend.pages.attendance-leave')->name('features.attendance-leave');
     Route::view('/features', 'frontend.pages.features')->name('features');
     Route::view('/about', 'frontend.pages.about')->name('about');
-    Route::view('/contact', 'frontend.pages.contact')->name('contact');
+    
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    
+    Route::get('/book-demo', [DemoController::class, 'index'])->name('book-demo');
+    Route::post('/book-demo', [DemoController::class, 'store'])->name('book-demo.store');
 });

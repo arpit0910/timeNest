@@ -86,56 +86,122 @@
             <div class="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center max-w-7xl mx-auto">
                 
                 {{-- Left Column: Contact Form (Section 3) --}}
-                <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden">
+                <div class="lg:col-span-7 bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden" x-data="{
+                    name: '',
+                    email: '',
+                    organization: '',
+                    subject: 'General Inquiry',
+                    message: '',
+                    success: false,
+                    error: '',
+                    submitting: false,
+                    
+                    async submitForm() {
+                        if (!this.name || !this.email || !this.message) {
+                            this.error = 'Please fill out all required fields.';
+                            return;
+                        }
+                        this.error = '';
+                        this.submitting = true;
+                        try {
+                            const response = await fetch('/contact', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    name: this.name,
+                                    email: this.email,
+                                    subject: this.subject,
+                                    message: this.message
+                                })
+                            });
+                            
+                            const data = await response.json();
+                            if (response.ok && data.success) {
+                                this.success = true;
+                            } else {
+                                this.error = data.message || 'An error occurred while sending the message.';
+                            }
+                        } catch (e) {
+                            this.error = 'Failed to connect to the server. Please try again.';
+                        } finally {
+                            this.submitting = false;
+                        }
+                    }
+                }">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-full blur-3xl -mr-32 -mt-32"></div>
                     
                     <div class="relative z-10">
-                        <h2 class="text-3xl font-bold text-slate-900 mb-2">Send Us a Message</h2>
-                        <p class="text-slate-500 mb-8">Fill this out and we'll get back to you.</p>
+                        <div x-show="!success">
+                            <h2 class="text-3xl font-bold text-slate-900 mb-2">Send Us a Message</h2>
+                            <p class="text-slate-500 mb-8">Fill this out and we'll get back to you.</p>
 
-                        <form class="space-y-6">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                {{-- Full Name --}}
-                                <div>
-                                    <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-                                    <input type="text" id="name" name="name" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Jane Doe" required>
+                            <form @submit.prevent="submitForm()" class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    {{-- Full Name --}}
+                                    <div>
+                                        <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+                                        <input type="text" id="name" x-model="name" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Jane Doe" required>
+                                    </div>
+                                    {{-- Email Address --}}
+                                    <div>
+                                        <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                                        <input type="email" id="email" x-model="email" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="jane@example.com" required>
+                                    </div>
                                 </div>
-                                {{-- Email Address --}}
-                                <div>
-                                    <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                                    <input type="email" id="email" name="email" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="jane@example.com" required>
-                                </div>
-                            </div>
 
-                            <div class="grid md:grid-cols-2 gap-6">
-                                {{-- Organization Name --}}
-                                <div>
-                                    <label for="organization" class="block text-sm font-semibold text-slate-700 mb-2">Organization Name <span class="text-slate-400 font-normal">(optional)</span></label>
-                                    <input type="text" id="organization" name="organization" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Acme Corp">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    {{-- Organization Name --}}
+                                    <div>
+                                        <label for="organization" class="block text-sm font-semibold text-slate-700 mb-2">Organization Name <span class="text-slate-400 font-normal">(optional)</span></label>
+                                        <input type="text" id="organization" x-model="organization" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Acme Corp">
+                                    </div>
+                                    {{-- Subject --}}
+                                    <div>
+                                        <label for="subject" class="block text-sm font-semibold text-slate-700 mb-2">Topic</label>
+                                        <select id="subject" x-model="subject" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 appearance-none">
+                                            <option value="General Inquiry">General Inquiry</option>
+                                            <option value="Sales">Sales</option>
+                                            <option value="Support">Support</option>
+                                            <option value="Partnership">Partnership</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                {{-- Subject --}}
+
+                                {{-- Message --}}
                                 <div>
-                                    <label for="subject" class="block text-sm font-semibold text-slate-700 mb-2">Topic</label>
-                                    <select id="subject" name="subject" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 appearance-none">
-                                        <option value="general">General Inquiry</option>
-                                        <option value="sales">Sales</option>
-                                        <option value="support">Support</option>
-                                        <option value="partnership">Partnership</option>
-                                    </select>
+                                    <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
+                                    <textarea id="message" x-model="message" rows="5" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 resize-y" placeholder="How can we help you?" required></textarea>
                                 </div>
-                            </div>
 
-                            {{-- Message --}}
-                            <div>
-                                <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 resize-y" placeholder="How can we help you?" required></textarea>
-                            </div>
+                                <div x-show="error" x-text="error" class="text-xs text-rose-600 font-semibold mb-4 leading-relaxed"></div>
 
-                            {{-- Submit Button --}}
-                            <div>
-                                <x-ui.button type="submit" class="w-full md:w-auto">Send Message</x-ui.button>
+                                {{-- Submit Button --}}
+                                <div>
+                                    <x-ui.button type="submit" :disabled="submitting" class="w-full md:w-auto">
+                                        <span x-text="submitting ? 'Sending...' : 'Send Message'"></span>
+                                    </x-ui.button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        {{-- Success Feedback Screen --}}
+                        <div x-show="success" x-transition class="text-center py-12 px-6 animate-fade-up">
+                            <div class="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-250 flex items-center justify-center mb-6 shadow-inner text-emerald-600 mx-auto">
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                </svg>
                             </div>
-                        </form>
+                            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Message Sent!</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed max-w-sm mx-auto mb-6">
+                                Thank you for reaching out. A team member will get back to you shortly at <span class="font-bold text-slate-900" x-text="email"></span>.
+                            </p>
+                            <div class="text-[11px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 rounded-lg p-2.5 max-w-sm mx-auto">
+                                Reference code generated successfully. We usually reply in less than 24 hours.
+                            </div>
+                        </div>
                     </div>
                 </div>
 

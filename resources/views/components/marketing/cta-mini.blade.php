@@ -21,7 +21,7 @@
             
             {{-- Actions --}}
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+                <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">Book a demo</x-ui.button>
                 <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Contact us</x-ui.button>
             </div>
             
