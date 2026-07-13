@@ -98,4 +98,6 @@ Route::prefix('')->name('frontend.')->group(function () {
     
     Route::get('/book-demo', [DemoController::class, 'index'])->name('book-demo');
     Route::post('/book-demo', [DemoController::class, 'store'])->name('book-demo.store');
+    
+    Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 });

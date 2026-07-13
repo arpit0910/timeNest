@@ -27,7 +27,7 @@
             <a href="/features" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Features</a>
             <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
             <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
-            <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
+            <a href="/pricing" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
             <a href="/about" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
         </nav>
 
@@ -40,7 +40,7 @@
         {{-- Mobile Hamburger --}}
         <div class="md:hidden flex items-center gap-4">
             <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-3 !py-1.5 text-xs">Book a demo</x-ui.button>
-            <button @click="open = !open" class="text-slate-600 hover:text-slate-900 focus:outline-none p-1">
+            <button @click="open = !open" class="text-slate-650 hover:text-slate-900 focus:outline-none p-1">
                 <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -67,7 +67,7 @@
             <a href="/features" class="text-base font-medium text-slate-700 hover:text-indigo-600">Features</a>
             <a href="/solutions" class="text-base font-medium text-slate-700 hover:text-indigo-600">Solutions</a>
             <a href="/security" class="text-base font-medium text-slate-700 hover:text-indigo-600">Security</a>
-            <a href="#" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
+            <a href="/pricing" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
             <a href="/about" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
             <hr class="border-slate-100">
             <a href="/contact" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>

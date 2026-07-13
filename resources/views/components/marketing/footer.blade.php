@@ -55,7 +55,7 @@
                     <li><a href="/features" class="text-sm text-slate-400 hover:text-white transition">Features</a></li>
                     <li><a href="/security" class="text-sm text-slate-400 hover:text-white transition">Security</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Integrations</a></li>
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Pricing</a></li>
+                    <li><a href="/pricing" class="text-sm text-slate-400 hover:text-white transition">Pricing</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Changelog</a></li>
                 </ul>
             </div>
