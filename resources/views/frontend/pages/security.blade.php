@@ -364,14 +364,8 @@
                         </p>
                         
                         <div class="flex flex-col sm:flex-row items-center gap-6">
-                            <a href="#" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold px-8 py-3 rounded-full transition-all duration-200 shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2.5 border border-transparent">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                Start free trial
-                            </a>
-                            <a href="/contact" class="w-full sm:w-auto bg-white hover:bg-gray-100 text-black font-bold px-8 py-3 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-sm border border-transparent">
-                                <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                                Talk to sales
-                            </a>
+                            <x-ui.button href="#" class="w-full sm:w-auto">Start free trial</x-ui.button>
+                            <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to sales</x-ui.button>
                         </div>
                     </div>
 
@@ -576,12 +570,8 @@
                             </p>
                             
                             <div class="flex flex-col sm:flex-row gap-4 max-w-md">
-                                <a href="#" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/25 text-center whitespace-nowrap">
-                                    Get Started
-                                </a>
-                                <a href="/contact" class="bg-slate-800/50 hover:bg-slate-700 border border-slate-700 text-white font-bold px-8 py-3.5 rounded-xl transition text-center whitespace-nowrap">
-                                    Talk to Sales
-                                </a>
+                                <x-ui.button href="#" class="w-full sm:w-auto">Get Started</x-ui.button>
+                                <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to Sales</x-ui.button>
                             </div>
                             <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
                         </div>

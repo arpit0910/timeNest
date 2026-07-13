@@ -24,17 +24,26 @@
                     Whether you're working solo, growing a team, or running a multi-department organization, TimeNest scales with you — without forcing you into structure you don't need yet.
                 </p>
                 
-                <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 max-w-4xl mx-auto">
-                    <a href="#freelancers" class="inline-flex items-center rounded-full bg-slate-50 hover:bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 shadow-sm border border-slate-200 transition-colors">
-                        Freelancers
-                    </a>
-                    <a href="#teams" class="inline-flex items-center rounded-full bg-slate-50 hover:bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 shadow-sm border border-slate-200 transition-colors">
-                        Teams
-                    </a>
-                    <a href="#organizations" class="inline-flex items-center rounded-full bg-slate-50 hover:bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-700 shadow-sm border border-slate-200 transition-colors">
-                        Organizations
-                    </a>
-                </div>
+            <div class="inline-flex flex-wrap p-1.5 bg-slate-100/80 backdrop-blur-md rounded-2xl border border-slate-200/50 gap-1.5 shadow-sm max-w-2xl mx-auto mt-4">
+                <a href="#freelancers" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Freelancers
+                </a>
+                <a href="#teams" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Teams
+                </a>
+                <a href="#organizations" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    Organizations
+                </a>
+            </div>
             </div>
         </section>
 
@@ -285,14 +294,8 @@
             subtext="Whether you're a solo freelancer testing the waters or a 500-person company replacing legacy tools, our team can walk you through the best setup — no commitment, no sales pitch."
         >
             <x-slot name="buttons">
-                <a href="#" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold px-8 py-3 rounded-full transition-all duration-200 shadow-xl shadow-indigo-500/20 flex items-center justify-center gap-2.5 border border-transparent">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    Book a demo
-                </a>
-                <a href="/contact" class="w-full sm:w-auto bg-white hover:bg-gray-100 text-black font-bold px-8 py-3 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-sm border border-transparent">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    Talk to sales
-                </a>
+                <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+                <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to sales</x-ui.button>
             </x-slot>
         </x-marketing.cta-interruption>
 
@@ -459,7 +462,7 @@
                                         Start tracking your own hours and projects the moment you sign up — no organization, no setup, no waiting on anyone else. Whether you're freelancing full-time or juggling a side project, your time log is yours from day one.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Book a demo <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -502,7 +505,7 @@
                                         Go beyond a simple clock in and clock out — log what you actually worked on each day, tied to the project it belonged to. It's a running record you can look back on, without any extra tooling to configure first.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Let's Talk <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Let's Talk</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -545,7 +548,7 @@
                                         Bring your team onto TimeNest with a single invite link — no manual account creation, no back-and-forth setup. People accept, land inside your organization, and are ready to go the same day.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Contact us <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -588,7 +591,7 @@
                                         Check-ins are matched against your office or branch's geo-fence automatically, so attendance reflects where people actually were — not just what they typed in. No manual cross-checking required on your end.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Book a demo <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -631,7 +634,7 @@
                                         Leave requests route straight to the right approver — the person someone actually reports to — instead of sitting in an inbox. Nobody has to chase anybody down just to find out if a request went through.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Contact us <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -674,7 +677,7 @@
                                         Talk to your team and your clients without leaving the platform your work already lives in. Every conversation stays scoped to your organization, so there's no separate app and no extra login to manage.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Book a demo <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -717,7 +720,7 @@
                                         Model your organization the way it actually runs — departments, sub-departments, designations, and real reporting lines. Approvals and structure follow your org chart instead of forcing a flat, one-size-fits-all setup.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Contact us <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -760,7 +763,7 @@
                                         Decide exactly who can view, edit, or approve what — down to the individual permission. Nothing is hardcoded, so your admins can shape access to match how your organization is actually structured.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Book a demo <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Book a demo</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -803,7 +806,7 @@
                                         Plan and assign shifts across your whole team from one place, currently in active development. It'll build directly on the same attendance and approval foundation TimeNest already runs on.
                                     </p>
                                     <div class="mt-auto pt-2">
-                                        <x-ui.button class="group/btn inline-flex items-center gap-2">Contact us <svg class="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></x-ui.button>
+                                        <x-ui.button>Contact us</x-ui.button>
                                     </div>
                                 </div>
                                 
@@ -933,12 +936,8 @@
             subtext="Whether you're tracking hours as a solo freelancer or managing attendance across a 500-person organization, TimeNest scales with you. Start free today — upgrade whenever your team needs it."
         >
             <x-slot name="buttons">
-                <a href="#" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/25 text-center whitespace-nowrap">
-                    Start free trial
-                </a>
-                <a href="/contact" class="bg-slate-800/50 hover:bg-slate-700 border border-slate-700 text-white font-bold px-8 py-3.5 rounded-xl transition text-center whitespace-nowrap">
-                    Talk to Sales
-                </a>
+                <x-ui.button href="#" class="w-full sm:w-auto">Start free trial</x-ui.button>
+                <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to Sales</x-ui.button>
             </x-slot>
         </x-marketing.cta-dynamic>
 

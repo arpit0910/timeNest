@@ -21,12 +21,8 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 max-w-md">
-                        <a href="#" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-indigo-500/25 text-center whitespace-nowrap">
-                            Book a demo
-                        </a>
-                        <a href="#" class="bg-slate-800/50 hover:bg-slate-700 border border-slate-700 text-white font-bold px-8 py-3.5 rounded-xl transition text-center whitespace-nowrap">
-                            Contact us
-                        </a>
+                        <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+                        <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Contact us</x-ui.button>
                     </div>
                     <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
                 </div>

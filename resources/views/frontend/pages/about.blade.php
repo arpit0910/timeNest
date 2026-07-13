@@ -143,12 +143,8 @@
                 Set up your organization in minutes — no credit card required.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <x-ui.button href="#" class="w-full sm:w-auto px-8 py-4 text-base rounded-xl shadow-lg shadow-indigo-500/25">
-                    Get Started
-                </x-ui.button>
-                <a href="#" class="w-full sm:w-auto px-8 py-4 text-base font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all border border-white/10 backdrop-blur-sm">
-                    Talk to Sales
-                </a>
+                <x-ui.button href="#" class="w-full sm:w-auto">Get Started</x-ui.button>
+                <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Talk to Sales</x-ui.button>
             </div>
         </div>
     </section>

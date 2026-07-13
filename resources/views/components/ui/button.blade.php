@@ -5,22 +5,28 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-full';
+    $baseClasses = 'inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-full group/btn px-6 py-3 text-sm md:px-7 md:py-3.5 md:text-base border';
     
     $variants = [
-        'primary' => 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700 shadow-xl shadow-indigo-200/50 focus:ring-indigo-500 border border-transparent',
-        'secondary' => 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 shadow-sm focus:ring-slate-500',
+        'primary' => 'bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 focus:ring-indigo-500 border-transparent',
+        'secondary' => 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300 focus:ring-slate-500 shadow-sm',
     ];
     
     $classes = $baseClasses . ' ' . ($variants[$variant] ?? $variants['primary']);
 @endphp
 
 @if ($href)
-    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes . ' px-5 py-2.5 text-sm']) }}>
-        {{ $slot }}
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }}>
+        <span>{{ $slot }}</span>
+        <svg class="w-4 h-4 ml-2 transition-transform duration-300 transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
     </a>
 @else
-    <button type="{{ $type }}" {{ $attributes->merge(['class' => $classes . ' px-5 py-2.5 text-sm']) }}>
-        {{ $slot }}
+    <button type="{{ $type }}" {{ $attributes->merge(['class' => $classes]) }}>
+        <span>{{ $slot }}</span>
+        <svg class="w-4 h-4 ml-2 transition-transform duration-300 transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
     </button>
 @endif

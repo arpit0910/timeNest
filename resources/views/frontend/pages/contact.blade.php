@@ -133,9 +133,7 @@
 
                             {{-- Submit Button --}}
                             <div>
-                                <button type="button" class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 hover:shadow-indigo-500/40 transition-all active:scale-[0.98]">
-                                    Send Message
-                                </button>
+                                <x-ui.button type="submit" class="w-full md:w-auto">Send Message</x-ui.button>
                             </div>
                         </form>
                     </div>
@@ -158,13 +156,13 @@
                                 <div>
                                     <h4 class="font-bold text-slate-900">Sales</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Questions about plans or getting your organization set up.</p>
-                                    <div class="flex flex-col gap-1.5">
-                                        <a href="mailto:sales@timenest.io" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                    <div class="flex flex-col sm:flex-row flex-wrap gap-2">
+                                        <a href="mailto:sales@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             sales@timenest.io
                                         </a>
-                                        <a href="tel:+919876543210" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543210" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43210
                                         </a>
                                     </div>
@@ -181,13 +179,13 @@
                                 <div>
                                     <h4 class="font-bold text-slate-900">Support</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Already using TimeNest and need help?</p>
-                                    <div class="flex flex-col gap-1.5">
-                                        <a href="mailto:support@timenest.io" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                    <div class="flex flex-col sm:flex-row flex-wrap gap-2">
+                                        <a href="mailto:support@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             support@timenest.io
                                         </a>
-                                        <a href="tel:+919876543211" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543211" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43211
                                         </a>
                                     </div>
@@ -204,16 +202,18 @@
                                 <div>
                                     <h4 class="font-bold text-slate-900">General</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Anything else — partnerships, press, or just saying hi.</p>
-                                    <div class="flex flex-col gap-1.5">
-                                        <a href="mailto:hello@timenest.io" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                    <div class="flex flex-col sm:flex-row flex-wrap gap-2">
+                                        <a href="mailto:hello@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             hello@timenest.io
                                         </a>
-                                        <a href="tel:+919876543212" class="text-indigo-600 text-sm font-semibold hover:text-indigo-700 inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543212" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43212
                                         </a>
                                     </div>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                         </div>
@@ -348,12 +348,8 @@
                 Explore TimeNest on your own — no credit card required to get started.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <x-ui.button href="#" class="w-full sm:w-auto px-8 py-4 text-base rounded-xl shadow-lg shadow-indigo-500/25">
-                    Get Started
-                </x-ui.button>
-                <a href="{{ route('frontend.solutions') }}" class="w-full sm:w-auto px-8 py-4 text-base font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all border border-white/10 backdrop-blur-sm">
-                    See Solutions
-                </a>
+                <x-ui.button href="#" class="w-full sm:w-auto">Get Started</x-ui.button>
+                <x-ui.button variant="secondary" href="{{ route('frontend.solutions') }}" class="w-full sm:w-auto">See Solutions</x-ui.button>
             </div>
         </div>
     </section>

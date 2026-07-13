@@ -217,10 +217,7 @@
     subtext="Talk to our team — we'll walk through your specific approval and attendance rules."
 >
     <x-slot name="buttons">
-        <a href="/contact" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-8 py-3.5 rounded-full transition-all duration-200 shadow-xl shadow-blue-500/20 flex items-center justify-center gap-2.5 border border-transparent">
-            Contact Us
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </a>
+        <x-ui.button href="/contact" class="w-full sm:w-auto">Contact Us</x-ui.button>
     </x-slot>
 </x-marketing.cta-interruption>
 

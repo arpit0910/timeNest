@@ -74,7 +74,7 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Company</h3>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="/about" class="text-sm text-slate-400 hover:text-white transition">About Us</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Careers</a></li>
                     <li><a href="#" class="text-sm text-slate-400 hover:text-white transition">Blog</a></li>
                     <li><a href="/contact" class="text-sm text-slate-400 hover:text-white transition">Contact</a></li>

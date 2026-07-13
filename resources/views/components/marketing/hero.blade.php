@@ -29,8 +29,8 @@
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-300 w-full sm:w-auto">
-                <x-ui.button href="#" class="w-full sm:w-auto !px-8 !py-3.5 !text-base">Book a demo</x-ui.button>
-                <x-ui.button variant="secondary" href="#" class="w-full sm:w-auto !px-8 !py-3.5 !text-base !rounded-full">Talk to Expert</x-ui.button>
+                <x-ui.button href="#" class="w-full sm:w-auto">Book a demo</x-ui.button>
+                <x-ui.button variant="secondary" href="#" class="w-full sm:w-auto">Talk to Expert</x-ui.button>
             </div>
         </div>
 

@@ -33,8 +33,8 @@
 
         {{-- Right: Actions (Desktop) --}}
         <div class="hidden md:flex items-center gap-4">
-            <a href="/contact" class="text-sm font-medium text-slate-700 hover:text-indigo-600 transition-colors">Contact us</a>
-            <x-ui.button href="#">Book a demo</x-ui.button>
+            <x-ui.button variant="secondary" href="/contact" class="!px-4.5 !py-2 !text-sm">Contact us</x-ui.button>
+            <x-ui.button href="#" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
         </div>
 
         {{-- Mobile Hamburger --}}
