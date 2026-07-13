@@ -1,9 +1,15 @@
-<header 
-    x-data="{ open: false, scrolled: false }" 
-    @scroll.window="scrolled = (window.pageYOffset > 10)"
-    :class="{ 'shadow-xl shadow-indigo-100/50 bg-white/90 backdrop-blur-md': scrolled, 'bg-white shadow-sm': !scrolled }"
-    class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full transition-all duration-300"
->
+<div x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 10)">
+    
+    {{-- Gap Blocker to blur the space behind and above the floating header when scrolling --}}
+    <div 
+        class="fixed top-0 left-0 w-full h-5 z-40 transition-all duration-300 pointer-events-none"
+        :class="scrolled ? 'bg-white/80 backdrop-blur-md' : 'bg-transparent'"
+    ></div>
+
+    <header 
+        :class="{ 'shadow-xl shadow-indigo-100/50 bg-white/90 backdrop-blur-md': scrolled, 'bg-white shadow-sm': !scrolled }"
+        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full transition-all duration-300"
+    >
     <div class="px-6 py-3 mx-auto flex items-center justify-between">
         
         {{-- Left: Logo --}}
@@ -68,3 +74,4 @@
         </div>
     </div>
 </header>
+</div>
