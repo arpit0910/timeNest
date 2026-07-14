@@ -18,6 +18,8 @@ class FrontendComponentServiceProvider extends ServiceProvider
         $components = [
             'frontend-layout.app' => \App\View\Components\Frontend\Layout\App::class,
             'frontend-layout-app' => \App\View\Components\Frontend\Layout\App::class,
+            'frontend-layout.auth-minimal' => \App\View\Components\Frontend\Layout\AuthMinimal::class,
+            'frontend-layout-auth-minimal' => \App\View\Components\Frontend\Layout\AuthMinimal::class,
             'frontend-layout.header' => \App\View\Components\Frontend\Layout\Header::class,
             'frontend-layout-header' => \App\View\Components\Frontend\Layout\Header::class,
             'frontend-layout.footer' => \App\View\Components\Frontend\Layout\Footer::class,
