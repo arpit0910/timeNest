@@ -1,3 +1,8 @@
+@props([
+    'heading' => 'Ready to automate your workforce?',
+    'subtext' => 'Join 10,000+ companies using TimeNest to manage shifts, process leave, and handle complex payroll effortlessly.',
+    'buttonText' => 'Book a demo'
+])
 <section class="py-16 bg-white relative px-6">
     <div class="max-w-7xl mx-auto">
         <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
@@ -14,17 +19,26 @@
                 {{-- Text --}}
                 <div class="marketing-section-copy">
                     <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
-                        Ready to automate your workforce?
+                        {{ $heading }}
                     </h2>
                     <p class="text-lg text-white mb-8 max-w-lg">
-                        Join 10,000+ companies using TimeNest to manage shifts, process leave, and handle complex payroll effortlessly.
+                        {{ $subtext }}
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 max-w-md">
-                        <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">Book a demo</x-ui.button>
-                        <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Contact us</x-ui.button>
+                        @if($buttonText === 'Subscribe')
+                            <div class="flex w-full gap-2">
+                                <input type="email" placeholder="Your email address..." class="flex-grow bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <x-ui.button type="button" class="shrink-0">{{ $buttonText }}</x-ui.button>
+                            </div>
+                        @else
+                            <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">{{ $buttonText }}</x-ui.button>
+                            <x-ui.button variant="secondary" href="/contact" class="w-full sm:w-auto">Contact us</x-ui.button>
+                        @endif
                     </div>
-                    <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
+                    @if($buttonText !== 'Subscribe')
+                        <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
+                    @endif
                 </div>
 
                 {{-- Images/Avatars Collage --}}

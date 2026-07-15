@@ -8,7 +8,7 @@
 
     <header 
         :class="{ 'shadow-xl shadow-indigo-100/50 bg-white/90 backdrop-blur-md': scrolled, 'bg-white shadow-sm': !scrolled }"
-        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl rounded-full transition-all duration-300"
+        class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl rounded-full transition-all duration-300"
     >
     <div class="px-6 py-3 mx-auto flex items-center justify-between">
         
@@ -22,19 +22,23 @@
             <span class="font-bold text-xl text-slate-900 tracking-tight">TimeNest</span>
         </a>
 
-        {{-- Center: Nav Links (Desktop) --}}
-        <nav class="hidden lg:flex items-center gap-8">
-            <a href="/features" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Features</a>
-            <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
-            <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
-            <a href="/pricing" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
-            <a href="/about" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
-        </nav>
+        {{-- Right Group: Nav Links & Actions (Desktop) --}}
+        <div class="hidden lg:flex items-center gap-8">
+            {{-- Nav Links --}}
+            <nav class="flex items-center gap-8">
+                <a href="/features" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Features</a>
+                <a href="/solutions" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Solutions</a>
+                <a href="/security" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Security</a>
+                <a href="/pricing" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pricing</a>
+                <a href="/blog" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Blogs</a>
+                <a href="/about" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">About</a>
+            </nav>
 
-        {{-- Right: Actions (Desktop) --}}
-        <div class="hidden lg:flex items-center gap-4">
-            <x-ui.button variant="secondary" href="/contact" class="!px-4.5 !py-2 !text-sm">Contact us</x-ui.button>
-            <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
+            {{-- Actions --}}
+            <div class="flex items-center gap-4">
+                <x-ui.button variant="secondary" href="/contact" class="!px-4.5 !py-2 !text-sm">Contact us</x-ui.button>
+                <x-ui.button href="{{ route('frontend.book-demo') }}" class="!px-4.5 !py-2 !text-sm">Book a demo</x-ui.button>
+            </div>
         </div>
 
         {{-- Mobile Hamburger --}}
@@ -68,6 +72,7 @@
             <a href="/solutions" class="text-base font-medium text-slate-700 hover:text-indigo-600">Solutions</a>
             <a href="/security" class="text-base font-medium text-slate-700 hover:text-indigo-600">Security</a>
             <a href="/pricing" class="text-base font-medium text-slate-700 hover:text-indigo-600">Pricing</a>
+            <a href="/blog" class="text-base font-medium text-slate-700 hover:text-indigo-600">Blogs</a>
             <a href="/about" class="text-base font-medium text-slate-700 hover:text-indigo-600">About</a>
             <hr class="border-slate-100">
             <a href="/contact" class="text-base font-medium text-slate-700 hover:text-indigo-600">Contact us</a>
