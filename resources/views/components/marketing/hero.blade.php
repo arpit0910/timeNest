@@ -1,4 +1,4 @@
-<section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center">
+<section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center bg-slate-950">
     
     {{-- Ambient Background Layer (External SVG) --}}
     <x-marketing.hero-background />
@@ -9,7 +9,7 @@
         {{-- Headline & Text (Highest z-index) --}}
         <div class="text-center max-w-3xl mx-auto flex flex-col items-center relative z-40">
             <div class="animate-fade-up">
-                <x-ui.pill-badge class="mb-6">
+                <x-ui.pill-badge class="mb-6 !bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">
                     <x-slot:icon>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -19,12 +19,12 @@
                 </x-ui.pill-badge>
             </div>
             
-            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6 animate-fade-up delay-100">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 animate-fade-up delay-100">
                 The Workforce Platform <br />
                 Built for Trust & Speed
             </h1>
             
-            <p class="text-lg md:text-xl text-slate-500 max-w-[600px] leading-relaxed mb-10 animate-fade-up delay-200">
+            <p class="text-lg md:text-xl text-slate-400 max-w-[600px] leading-relaxed mb-10 animate-fade-up delay-200">
                 TimeNest unifies attendance, leave, worklogs, and secure team chat in one platform — encrypted end-to-end, and fast enough to keep up with your team.
             </p>
             

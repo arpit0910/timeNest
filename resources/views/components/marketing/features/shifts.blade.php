@@ -4,14 +4,14 @@
             
             {{-- Text Content --}}
             <div class="max-w-xl marketing-section-copy">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Shift Management
                 </div>
                 
                 <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
                     Schedule complex shifts <br class="hidden md:block"/>
-                    <span class="text-indigo-600">without the chaos.</span>
+                    <span class="text-accent-600">without the chaos.</span>
                 </h2>
                 
                 <p class="text-lg text-slate-500 mb-8 leading-relaxed">
@@ -43,7 +43,7 @@
 
             {{-- Visual Content --}}
             <div class="relative">
-                <div class="absolute inset-0 bg-gradient-to-tr from-indigo-100 to-white rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-accent-100 to-white rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
                 <div class="bg-white border border-slate-100 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-4">
                     
                     {{-- Calendar Header --}}
@@ -67,10 +67,10 @@
                                 <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-5 h-5 rounded-full" alt="avatar">
                                 <span class="text-xs font-bold text-slate-700">Alice Freeman</span>
                             </div>
-                            <div class="bg-blue-50 text-blue-600 border border-blue-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
-                            <div class="bg-blue-50 text-blue-600 border border-blue-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
                             <div class="bg-slate-50 text-slate-400 border border-slate-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">OFF</div>
-                            <div class="bg-blue-50 text-blue-600 border border-blue-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
                         </div>
 
                         {{-- Employee 2 --}}
@@ -79,9 +79,9 @@
                                 <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-5 h-5 rounded-full" alt="avatar">
                                 <span class="text-xs font-bold text-slate-700">David Kim</span>
                             </div>
-                            <div class="bg-indigo-50 text-indigo-600 border border-indigo-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
-                            <div class="bg-indigo-50 text-indigo-600 border border-indigo-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
-                            <div class="bg-indigo-50 text-indigo-600 border border-indigo-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
+                            <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
                             <div class="bg-rose-50 text-rose-600 border border-rose-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap flex items-center justify-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
                                 Conflict

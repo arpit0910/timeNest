@@ -4,14 +4,14 @@
             
             {{-- Visual Content (Left on desktop, bottom on mobile) --}}
             <div class="order-2 lg:order-1 relative">
-                <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-white rounded-3xl transform -rotate-3 scale-105 opacity-50"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-accent-100 to-white rounded-3xl transform -rotate-3 scale-105 opacity-50"></div>
                 <div class="bg-white border border-slate-100 shadow-xl rounded-3xl p-8 relative z-10">
                     
                     {{-- UI Mockup: Fraud Detection --}}
                     <div class="space-y-4">
                         <div class="flex items-center justify-between mb-2">
                             <h4 class="text-sm font-bold text-slate-800">Recent Check-ins</h4>
-                            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                            <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
                         </div>
                         
                         {{-- Clean Check-in --}}
@@ -45,8 +45,8 @@
                         
                         {{-- AI Face Match --}}
                         <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center border border-blue-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
+                            <div class="w-8 h-8 rounded-full bg-accent-50 flex items-center justify-center border border-accent-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
                             </div>
                             <div class="text-xs font-medium text-slate-600 flex-1">AI Face Match enabled for Warehouse staff</div>
                             <x-ui.pill-badge class="!text-[9px] !py-0.5">Active</x-ui.pill-badge>
@@ -57,14 +57,14 @@
 
             {{-- Text Content (Right on desktop, top on mobile) --}}
             <div class="order-1 lg:order-2 max-w-xl marketing-section-copy">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     Bulletproof Attendance
                 </div>
                 
                 <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
                     Eliminate buddy punching. <br class="hidden md:block"/>
-                    <span class="text-blue-600">Zero exceptions.</span>
+                    <span class="text-accent-600">Zero exceptions.</span>
                 </h2>
                 
                 <p class="text-lg text-slate-500 mb-8 leading-relaxed">
@@ -73,7 +73,7 @@
                 
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
@@ -81,7 +81,7 @@
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
@@ -89,7 +89,7 @@
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>

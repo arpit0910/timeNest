@@ -6,19 +6,19 @@
 
 <main class="marketing-responsive-sections">
     {{-- Hero Section --}}
-    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-white">
+    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-slate-950">
         <x-marketing.hero-background />
         <div class="relative max-w-7xl mx-auto px-6 text-center z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50/80 backdrop-blur-sm border border-indigo-100/50 text-indigo-700 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
                 About TimeNest
             </div>
             
-            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-[1.1]">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.1]">
                 Built for Teams That<br class="hidden md:block"/>
-                <span class="text-slate-900">Outgrow Simple Tools</span>
+                <span class="text-slate-300">Outgrow Simple Tools</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 TimeNest exists because most workforce tools force you to pick between "too simple" and "too complicated" — nothing built for the actual in-between of a freelancer becoming a team, and a team becoming an organization.
             </p>
         </div>
@@ -93,7 +93,7 @@
     <section class="py-16 lg:py-24 bg-slate-50 relative overflow-hidden">
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px]">
             <div class="max-w-3xl mx-auto flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -103,7 +103,7 @@
                 <p class="text-lg text-slate-600 mb-8 leading-relaxed">
                     TimeNest is designed to work the same way for a solo freelancer, a growing startup, and a multi-department organization — the difference is what unlocks as you grow, not a different product entirely.
                 </p>
-                <a href="{{ route('frontend.solutions') }}" class="inline-flex items-center text-indigo-600 font-semibold hover:text-indigo-700 transition-colors">
+                <a href="{{ route('frontend.solutions') }}" class="inline-flex items-center text-accent-600 font-semibold hover:text-accent-700 transition-colors">
                     See how TimeNest fits your team
                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -132,8 +132,8 @@
     {{-- Footer CTA --}}
     <section class="py-20 lg:py-28 relative overflow-hidden bg-slate-900">
         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
-        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-accent-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-accent-500/20 rounded-full blur-3xl"></div>
         
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10 text-center">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">

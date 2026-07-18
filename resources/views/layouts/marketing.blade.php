@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>TimeNest - The Workforce Platform Built for Trust & Speed</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M28 16 A12 12 0 1 0 16 28' stroke='%234f46e5' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M23 16 A7 7 0 1 0 16 23' stroke='%230f172a' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M19 16 A3 3 0 1 0 16 19' stroke='%230f172a' stroke-width='1.8' fill='none' stroke-linecap='round'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M28 16 A12 12 0 1 0 16 28' stroke='%236853a4' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M23 16 A7 7 0 1 0 16 23' stroke='%230f172a' stroke-width='1.8' fill='none' stroke-linecap='round'/><path d='M19 16 A3 3 0 1 0 16 19' stroke='%230f172a' stroke-width='1.8' fill='none' stroke-linecap='round'/></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
     
     @vite(['resources/css/marketing.css', 'resources/js/marketing.js'])
 </head>
-<body class="bg-gray-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-indigo-100 selection:text-indigo-900">
+<body class="bg-gray-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-accent-100 selection:text-accent-900">
     @yield('content')
 </body>
 </html>

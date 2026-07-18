@@ -3,15 +3,16 @@
 @section('content')
     <x-marketing.header />
 
-    <main x-data="{ searchQuery: '', activeCategory: 'All' }" class="flex-grow pt-32 pb-20 bg-slate-50 relative overflow-hidden">
+    <main x-data="{ searchQuery: '', activeCategory: 'All' }" class="flex-grow pb-20 bg-slate-50 relative overflow-hidden">
         {{-- Section 1: Hero --}}
-        <section class="relative z-10 px-6 mb-20 max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-up">
-                <x-ui.pill-badge class="mb-6">Blog</x-ui.pill-badge>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6">
+        <section class="relative z-10 px-6 pt-32 pb-20 mb-0 bg-slate-950 overflow-hidden">
+            <x-marketing.hero-background />
+            <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-up relative z-10">
+                <x-ui.pill-badge class="mb-6 !bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">Blog</x-ui.pill-badge>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
                     Ideas on Running<br/>Teams Better
                 </h1>
-                <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed mb-8">
+                <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
                     Thoughts on workforce management, security, and building teams that don't run on spreadsheets and group chats.
                 </p>
                 
@@ -23,7 +24,7 @@
         {{-- ONLY THIS SECTION IS FILTERED --}}
         <section class="px-6 mt-16 mb-24 max-w-7xl mx-auto border-t border-slate-200 pt-24">
             <div class="text-center max-w-3xl mx-auto mb-12">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Recent
                 </div>
@@ -37,16 +38,16 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="text" x-model="searchQuery" class="block w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm shadow-sm transition-shadow hover:shadow-md" placeholder="Search articles by keyword...">
+                    <input type="text" x-model="searchQuery" class="block w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 sm:text-sm shadow-sm transition-shadow hover:shadow-md" placeholder="Search articles by keyword...">
                 </div>
 
                 {{-- Category Filters --}}
                 <div class="flex flex-wrap justify-center gap-2">
-                    <button @click="activeCategory = 'All'" :class="activeCategory === 'All' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">All</button>
-                    <button @click="activeCategory = 'Workforce Management'" :class="activeCategory === 'Workforce Management' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Workforce Management</button>
-                    <button @click="activeCategory = 'Security & Compliance'" :class="activeCategory === 'Security & Compliance' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Security & Compliance</button>
-                    <button @click="activeCategory = 'Growing Teams'" :class="activeCategory === 'Growing Teams' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Growing Teams</button>
-                    <button @click="activeCategory = 'Remote & Hybrid Work'" :class="activeCategory === 'Remote & Hybrid Work' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Remote & Hybrid Work</button>
+                    <button @click="activeCategory = 'All'" :class="activeCategory === 'All' ? 'bg-accent-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">All</button>
+                    <button @click="activeCategory = 'Workforce Management'" :class="activeCategory === 'Workforce Management' ? 'bg-accent-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Workforce Management</button>
+                    <button @click="activeCategory = 'Security & Compliance'" :class="activeCategory === 'Security & Compliance' ? 'bg-accent-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Security & Compliance</button>
+                    <button @click="activeCategory = 'Growing Teams'" :class="activeCategory === 'Growing Teams' ? 'bg-accent-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Growing Teams</button>
+                    <button @click="activeCategory = 'Remote & Hybrid Work'" :class="activeCategory === 'Remote & Hybrid Work' ? 'bg-accent-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors shadow-sm'" class="px-4 py-1.5 rounded-full text-sm font-semibold">Remote & Hybrid Work</button>
                     
                 </div>
                 </div>
@@ -59,8 +60,8 @@
                         <img src="{{ asset('images/blog/39f5e4bd70.jpg') }}" alt="Workflow" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
-                        <x-ui.pill-badge class="mb-4 text-indigo-600">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">The Real Cost of Manually Approving Leave Requests</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">The Real Cost of Manually Approving Leave Requests</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">What actually gets lost when approvals live in someone's inbox.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -72,8 +73,8 @@
                         <img src="{{ asset('images/blog/7a3d6ae345.jpg') }}" alt="Code security" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
-                        <x-ui.pill-badge class="mb-4 text-blue-600">Security & Compliance</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">Geo-Fenced Attendance: What It Is and Why It Matters</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600">Security & Compliance</x-ui.pill-badge>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">Geo-Fenced Attendance: What It Is and Why It Matters</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">A plain-language look at location-verified check-ins.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -86,7 +87,7 @@
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
                         <x-ui.pill-badge class="mb-4 text-emerald-600">Growing Teams</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">From Freelancer to Founder: When to Actually Create an Organization</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">From Freelancer to Founder: When to Actually Create an Organization</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">The signs it's time to move past a solo setup.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -98,8 +99,8 @@
                         <img src="{{ asset('images/blog/97369a06fe.jpg') }}" alt="Authentication" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
-                        <x-ui.pill-badge class="mb-4 text-blue-600">Security & Compliance</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">Two-Factor Authentication, Explained for Non-Technical Teams</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600">Security & Compliance</x-ui.pill-badge>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">Two-Factor Authentication, Explained for Non-Technical Teams</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">What 2FA actually protects against, without the jargon.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -112,7 +113,7 @@
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
                         <x-ui.pill-badge class="mb-4 text-amber-600">Remote & Hybrid Work</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">WhatsApp Groups Aren't a Team Chat Strategy</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">WhatsApp Groups Aren't a Team Chat Strategy</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">Why the "just use WhatsApp" phase has a shelf life.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -124,8 +125,8 @@
                         <img src="{{ asset('images/blog/0e514f19e2.jpg') }}" alt="Business discussion" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6 md:p-8 flex flex-col flex-grow items-start">
-                        <x-ui.pill-badge class="mb-4 text-indigo-600">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">Designing Roles and Permissions That Don't Get in the Way</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">Designing Roles and Permissions That Don't Get in the Way</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">Access control that protects data without slowing people down.</p>
                         <div class="text-sm font-medium text-slate-500 mt-auto pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -151,7 +152,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-slate-900 mb-2">No results found</h3>
                 <p class="text-slate-500 mb-6">We couldn't find any articles matching your search.</p>
-                <button @click="searchQuery = ''; activeCategory = 'All'" class="px-6 py-2 bg-indigo-50 text-indigo-600 font-semibold rounded-full hover:bg-indigo-100 transition-colors">Clear filters</button>
+                <button @click="searchQuery = ''; activeCategory = 'All'" class="px-6 py-2 bg-accent-50 text-accent-600 font-semibold rounded-full hover:bg-accent-100 transition-colors">Clear filters</button>
             </div>
         </section>
 
@@ -173,8 +174,8 @@
                             <img src="{{ asset('images/blog/2c97030ede.jpg') }}" alt="Team meeting" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                         </div>
                         <div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center items-start">
-                            <x-ui.pill-badge class="mb-6 text-indigo-600 border-indigo-100 bg-indigo-50">Workforce Management</x-ui.pill-badge>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 leading-tight group-hover:text-indigo-600 transition-colors">
+                            <x-ui.pill-badge class="mb-6 text-accent-600 border-accent-100 bg-accent-50">Workforce Management</x-ui.pill-badge>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 leading-tight group-hover:text-accent-600 transition-colors">
                                 Why Attendance Sheets Stop Working Past 10 Employees
                             </h2>
                             <p class="text-lg text-slate-600 mb-8 leading-relaxed">
@@ -182,7 +183,7 @@
                             </p>
                             <div class="flex items-center justify-between w-full mt-auto">
                                 <span class="text-sm font-medium text-slate-500">TimeNest Team</span>
-                                <span class="text-sm font-bold text-indigo-600 flex items-center group-hover:translate-x-1 transition-transform">
+                                <span class="text-sm font-bold text-accent-600 flex items-center group-hover:translate-x-1 transition-transform">
                                     Read Article 
                                     <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                                 </span>
@@ -210,15 +211,15 @@
                     {{-- Popular Post 1 --}}
                     <a href="#" class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl transition-all group hover:-translate-y-2 duration-300">
                         <x-ui.pill-badge class="mb-4 text-emerald-600 w-max">Growing Teams</x-ui.pill-badge>
-                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">What Changes When Your Team Crosses 50 People</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">What Changes When Your Team Crosses 50 People</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">The structural shift most growing teams don't see coming.</p>
                         <div class="text-sm font-medium text-slate-400 mt-auto pt-4 border-t border-slate-100">TimeNest Team</div>
                     </a>
 
                     {{-- Popular Post 2 --}}
                     <a href="#" class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl transition-all group hover:-translate-y-2 duration-300">
-                        <x-ui.pill-badge class="mb-4 text-indigo-600 w-max">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">How Multi-Level Approvals Actually Save Time</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600 w-max">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">How Multi-Level Approvals Actually Save Time</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">Why routing requests through a real hierarchy beats a single bottleneck.</p>
                         <div class="text-sm font-medium text-slate-400 mt-auto pt-4 border-t border-slate-100">TimeNest Team</div>
                     </a>
@@ -226,23 +227,23 @@
                     {{-- Popular Post 3 --}}
                     <a href="#" class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl transition-all group hover:-translate-y-2 duration-300">
                         <x-ui.pill-badge class="mb-4 text-emerald-600 w-max">Growing Teams</x-ui.pill-badge>
-                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">From Freelancer to Founder: When to Actually Create an Organization</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">From Freelancer to Founder: When to Actually Create an Organization</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">The signs it's time to move past a solo setup.</p>
                         <div class="text-sm font-medium text-slate-400 mt-auto pt-4 border-t border-slate-100">TimeNest Team</div>
                     </a>
 
                     {{-- Popular Post 4 --}}
                     <a href="#" class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl transition-all group hover:-translate-y-2 duration-300">
-                        <x-ui.pill-badge class="mb-4 text-indigo-600 w-max">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">Designing Roles and Permissions That Don't Get in the Way</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600 w-max">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">Designing Roles and Permissions That Don't Get in the Way</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">Access control that protects data without slowing people down.</p>
                         <div class="text-sm font-medium text-slate-400 mt-auto pt-4 border-t border-slate-100">TimeNest Team</div>
                     </a>
                     
                     {{-- Popular Post 5 --}}
                     <a href="#" class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl transition-all group hover:-translate-y-2 duration-300">
-                        <x-ui.pill-badge class="mb-4 text-indigo-600 w-max">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">The Real Cost of Manually Approving Leave Requests</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600 w-max">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">The Real Cost of Manually Approving Leave Requests</h3>
                         <p class="text-slate-600 text-sm mb-6 flex-grow">What actually gets lost when approvals live in someone's inbox.</p>
                         <div class="text-sm font-medium text-slate-400 mt-auto pt-4 border-t border-slate-100">TimeNest Team</div>
                     </a>
@@ -262,7 +263,7 @@
         {{-- Section 5: Deep Dives (Masonry) --}}
         <section class="px-6 mb-24 max-w-7xl mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                     In-Depth
                 </div>
@@ -277,8 +278,8 @@
                         <img src="{{ asset('images/blog/1049dc8662.jpg') }}" alt="Cybersecurity" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <div class="p-8 items-start flex flex-col">
-                        <x-ui.pill-badge class="mb-4 text-blue-600">Security & Compliance</x-ui.pill-badge>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors leading-tight">Multi-Tenant Data Isolation: Why It's Harder Than It Sounds</h3>
+                        <x-ui.pill-badge class="mb-4 text-accent-600">Security & Compliance</x-ui.pill-badge>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover:text-accent-600 transition-colors leading-tight">Multi-Tenant Data Isolation: Why It's Harder Than It Sounds</h3>
                         <p class="text-slate-600 text-base mb-6 leading-relaxed">The quiet engineering problem behind "your data stays yours." When you build SaaS, separating tenant databases physically vs logically is a major decision that impacts every tier of security.</p>
                         <div class="text-sm font-medium text-slate-500 pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -288,7 +289,7 @@
                 <a href="#" class="break-inside-avoid block group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300">
                     <div class="p-8 items-start flex flex-col">
                         <x-ui.pill-badge class="mb-4 text-purple-600">Product Updates</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">Building TimeNest: Why We Started With Attendance</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">Building TimeNest: Why We Started With Attendance</h3>
                         <p class="text-slate-600 text-sm mb-6 leading-relaxed">The reasoning behind the first module we shipped, and why time tracking is the foundation of modern HR operations.</p>
                         <div class="text-sm font-medium text-slate-500 pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
@@ -301,19 +302,19 @@
                     </div>
                     <div class="p-8 items-start flex flex-col">
                         <x-ui.pill-badge class="mb-4 text-amber-600">Remote & Hybrid Work</x-ui.pill-badge>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors leading-tight">WhatsApp Groups Aren't a Team Chat Strategy</h3>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-600 transition-colors leading-tight">WhatsApp Groups Aren't a Team Chat Strategy</h3>
                         <p class="text-slate-600 text-sm mb-6 leading-relaxed">Why informal chat networks fracture company knowledge and how to migrate teams to dedicated communication hubs.</p>
                         <div class="text-sm font-medium text-slate-500 pt-4 border-t border-slate-100 w-full">TimeNest Team</div>
                     </div>
                 </a>
 
                 {{-- Masonry Post 4 (Tall text focus) --}}
-                <a href="#" class="break-inside-avoid block group bg-indigo-50 rounded-[2rem] overflow-hidden shadow-sm border border-indigo-100 hover:shadow-xl transition-all duration-300">
+                <a href="#" class="break-inside-avoid block group bg-accent-50 rounded-[2rem] overflow-hidden shadow-sm border border-accent-100 hover:shadow-xl transition-all duration-300">
                     <div class="p-10 items-start flex flex-col">
-                        <x-ui.pill-badge class="mb-6 text-indigo-600 bg-white border-white">Workforce Management</x-ui.pill-badge>
-                        <h3 class="text-2xl font-bold text-indigo-950 mb-4 group-hover:text-indigo-600 transition-colors leading-tight">Inside TimeNest's Approval Hierarchy Logic</h3>
+                        <x-ui.pill-badge class="mb-6 text-accent-600 bg-white border-white">Workforce Management</x-ui.pill-badge>
+                        <h3 class="text-2xl font-bold text-indigo-950 mb-4 group-hover:text-accent-600 transition-colors leading-tight">Inside TimeNest's Approval Hierarchy Logic</h3>
                         <p class="text-indigo-900/80 text-base mb-8 leading-relaxed">A detailed breakdown of how leave requests and expense approvals are routed when managers are out of office or escalation is required. We open-source our flowchart so you can implement similar resilience.</p>
-                        <div class="flex items-center text-indigo-600 font-bold group-hover:translate-x-2 transition-transform w-full">
+                        <div class="flex items-center text-accent-600 font-bold group-hover:translate-x-2 transition-transform w-full">
                             Read the teardown 
                             <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </div>
@@ -338,7 +339,7 @@
                 <a href="#" class="block p-6 hover:bg-slate-50 transition-colors group">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">Building TimeNest: Why We Started With Attendance</h3>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-accent-600 transition-colors mb-1">Building TimeNest: Why We Started With Attendance</h3>
                             <p class="text-slate-600 text-sm">The reasoning behind the first module we shipped.</p>
                         </div>
                         <x-ui.pill-badge class="shrink-0 text-purple-600 w-max">Product Updates</x-ui.pill-badge>
@@ -349,7 +350,7 @@
                 <a href="#" class="block p-6 hover:bg-slate-50 transition-colors group">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">What Changes When Your Team Crosses 50 People</h3>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-accent-600 transition-colors mb-1">What Changes When Your Team Crosses 50 People</h3>
                             <p class="text-slate-600 text-sm">The structural shift most growing teams don't see coming.</p>
                         </div>
                         <x-ui.pill-badge class="shrink-0 text-emerald-600 w-max">Growing Teams</x-ui.pill-badge>
@@ -360,10 +361,10 @@
                 <a href="#" class="block p-6 hover:bg-slate-50 transition-colors group">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">Two-Factor Authentication, Explained for Non-Technical Teams</h3>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-accent-600 transition-colors mb-1">Two-Factor Authentication, Explained for Non-Technical Teams</h3>
                             <p class="text-slate-600 text-sm">What 2FA actually protects against, without the jargon.</p>
                         </div>
-                        <x-ui.pill-badge class="shrink-0 text-blue-600 w-max">Security</x-ui.pill-badge>
+                        <x-ui.pill-badge class="shrink-0 text-accent-600 w-max">Security</x-ui.pill-badge>
                     </div>
                 </a>
                 
@@ -371,10 +372,10 @@
                 <a href="#" class="block p-6 hover:bg-slate-50 transition-colors group">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">Geo-Fenced Attendance: What It Is and Why It Matters</h3>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-accent-600 transition-colors mb-1">Geo-Fenced Attendance: What It Is and Why It Matters</h3>
                             <p class="text-slate-600 text-sm">A plain-language look at location-verified check-ins.</p>
                         </div>
-                        <x-ui.pill-badge class="shrink-0 text-blue-600 w-max">Security</x-ui.pill-badge>
+                        <x-ui.pill-badge class="shrink-0 text-accent-600 w-max">Security</x-ui.pill-badge>
                     </div>
                 </a>
 

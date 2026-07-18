@@ -14,10 +14,10 @@
         <div class="space-y-4" x-data="{ active: null }">
             
             {{-- FAQ 1 --}}
-            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 1 ? 'border-indigo-200 bg-white shadow-md' : ''">
+            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 bg-white shadow-md' : ''">
                 <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                     <span class="text-base font-bold text-slate-900">Can I mix flexible and strict check-in rules?</span>
-                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div x-show="active === 1" x-collapse x-cloak>
                     <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -27,10 +27,10 @@
             </div>
             
             {{-- FAQ 2 --}}
-            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 2 ? 'border-indigo-200 bg-white shadow-md' : ''">
+            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 bg-white shadow-md' : ''">
                 <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                     <span class="text-base font-bold text-slate-900">How does the AI Face Match prevent fraud?</span>
-                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div x-show="active === 2" x-collapse x-cloak>
                     <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -40,10 +40,10 @@
             </div>
 
             {{-- FAQ 3 --}}
-            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 3 ? 'border-indigo-200 bg-white shadow-md' : ''">
+            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 bg-white shadow-md' : ''">
                 <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                     <span class="text-base font-bold text-slate-900">Do you support multi-country holiday calendars?</span>
-                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div x-show="active === 3" x-collapse x-cloak>
                     <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -53,10 +53,10 @@
             </div>
 
             {{-- FAQ 4 --}}
-            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 4 ? 'border-indigo-200 bg-white shadow-md' : ''">
+            <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 bg-white shadow-md' : ''">
                 <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                     <span class="text-base font-bold text-slate-900">Is the employee chat secure?</span>
-                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 <div x-show="active === 4" x-collapse x-cloak>
                     <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">

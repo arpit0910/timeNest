@@ -8,7 +8,7 @@
     $baseClasses = 'inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-full group/btn px-6 py-3 text-sm md:px-7 md:py-3.5 md:text-base border';
     
     $variants = [
-        'primary' => 'bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 focus:ring-indigo-500 border-transparent',
+        'primary' => 'bg-gradient-to-r from-accent-600 to-accent-500 hover:from-accent-700 hover:to-accent-600 text-white shadow-lg shadow-accent-500/20 hover:shadow-accent-500/30 focus:ring-accent-500 border-transparent',
         'secondary' => 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300 focus:ring-slate-500 shadow-sm',
     ];
     

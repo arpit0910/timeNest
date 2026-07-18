@@ -1,14 +1,14 @@
 <footer class="bg-slate-950 pt-32 pb-10 relative">
     {{-- Glowing Gradient Divider with Text Badge --}}
     <div class="absolute top-0 left-0 w-full flex justify-center -mt-3.5">
-        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-slate-900 via-indigo-500/50 to-slate-900 -translate-y-1/2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[2px] bg-gradient-to-r from-transparent via-blue-400/40 to-transparent blur-sm -translate-y-1/2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-indigo-400/80 to-transparent shadow-[0_0_15px_rgba(99,102,241,0.5)] -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-slate-900 via-accent-500/50 to-slate-900 -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[2px] bg-gradient-to-r from-transparent via-accent-400/40 to-transparent blur-sm -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-accent-400/80 to-transparent shadow-[0_0_15px_rgba(99,102,241,0.5)] -translate-y-1/2"></div>
         
-        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-indigo-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(99,102,241,0.15)] flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-accent-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(99,102,241,0.15)] flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
             Built for the future of work
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
         </div>
     </div>
 
@@ -19,9 +19,9 @@
             <div class="col-span-2 lg:col-span-2">
                 <a href="/" class="flex items-center gap-2 mb-6">
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' class="w-8 h-8">
-                        <path d='M28 16 A12 12 0 1 0 16 28' stroke='#6366f1' stroke-width='3' fill='none' stroke-linecap='round'/>
-                        <path d='M23 16 A7 7 0 1 0 16 23' stroke='#38bdf8' stroke-width='3' fill='none' stroke-linecap='round'/>
-                        <path d='M19 16 A3 3 0 1 0 16 19' stroke='#38bdf8' stroke-width='3' fill='none' stroke-linecap='round'/>
+                        <path d='M28 16 A12 12 0 1 0 16 28' stroke='#7c6abb' stroke-width='3' fill='none' stroke-linecap='round'/>
+                        <path d='M23 16 A7 7 0 1 0 16 23' stroke='#9b7dd0' stroke-width='3' fill='none' stroke-linecap='round'/>
+                        <path d='M19 16 A3 3 0 1 0 16 19' stroke='#9b7dd0' stroke-width='3' fill='none' stroke-linecap='round'/>
                     </svg>
                     <span class="text-xl font-extrabold text-white tracking-tight">TimeNest</span>
                 </a>

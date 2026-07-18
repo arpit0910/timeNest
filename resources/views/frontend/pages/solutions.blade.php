@@ -5,39 +5,39 @@
     
     <main class="marketing-responsive-sections">
         {{-- 1. Hero Section --}}
-        <section class="relative pt-32 pb-20 px-6 md:pt-40 md:pb-28 overflow-hidden bg-white">
+        <section class="relative pt-32 pb-20 px-6 md:pt-40 md:pb-28 overflow-hidden bg-slate-950">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-4xl mx-auto text-center animate-fade-up">
                 <div class="flex justify-center mb-6">
-                    <x-ui.pill-badge>
+                    <x-ui.pill-badge class="!bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">
                         Solutions
                     </x-ui.pill-badge>
                 </div>
                 
-                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
                     One Platform. <br class="hidden sm:block" />
                     Every Stage of Your Team.
                 </h1>
                 
-                <p class="text-lg md:text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed mb-12">
+                <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
                     Whether you're working solo, growing a team, or running a multi-department organization, TimeNest scales with you — without forcing you into structure you don't need yet.
                 </p>
                 
-            <div class="inline-flex flex-wrap p-1.5 bg-slate-100/80 backdrop-blur-md rounded-2xl border border-slate-200/50 gap-1.5 shadow-sm max-w-2xl mx-auto mt-4">
-                <a href="#freelancers" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
-                    <svg class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="inline-flex flex-wrap p-1.5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 gap-1.5 shadow-sm max-w-2xl mx-auto mt-4">
+                <a href="#freelancers" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
+                    <svg class="w-4 h-4 text-slate-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Freelancers
                 </a>
-                <a href="#teams" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
-                    <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="#teams" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
+                    <svg class="w-4 h-4 text-slate-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     Teams
                 </a>
-                <a href="#organizations" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white hover:shadow-md hover:border-slate-150/50 transition-all duration-300 text-sm font-semibold text-slate-600 hover:text-slate-900">
+                <a href="#organizations" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
                     <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -90,7 +90,7 @@
                                         <div class="text-sm font-bold text-slate-900">Today's Worklog</div>
                                         <div class="text-xs text-slate-500">Personal Space</div>
                                     </div>
-                                    <div class="text-xl font-mono font-bold text-indigo-600">04:23:15</div>
+                                    <div class="text-xl font-mono font-bold text-accent-600">04:23:15</div>
                                 </div>
                                 <div class="space-y-3">
                                     <div class="p-3 border border-slate-100 rounded-xl flex justify-between items-center bg-slate-50">
@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="p-3 border border-slate-100 rounded-xl flex justify-between items-center bg-white shadow-sm border-l-4 border-l-indigo-500">
                                         <div class="text-sm font-medium text-slate-700">Client B - Development</div>
-                                        <div class="text-sm font-mono text-indigo-600 font-semibold flex items-center gap-2">
+                                        <div class="text-sm font-mono text-accent-600 font-semibold flex items-center gap-2">
                                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                             02:08:15
                                         </div>
@@ -124,7 +124,7 @@
                             <div class="p-4 border border-slate-100 rounded-xl bg-slate-50 mb-4">
                                 <div class="flex justify-between items-start mb-2">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">MK</div>
+                                        <div class="w-8 h-8 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 font-bold text-xs">MK</div>
                                         <div>
                                             <div class="text-sm font-bold text-slate-900">Maya Krishnan</div>
                                             <div class="text-xs text-slate-500">Employee</div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="flex gap-2 mt-3">
                                     <button class="flex-1 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold py-1.5 rounded-lg transition">Deny</button>
-                                    <button class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold py-1.5 rounded-lg transition shadow-sm">Approve</button>
+                                    <button class="flex-1 bg-accent-600 hover:bg-accent-500 text-white text-xs font-bold py-1.5 rounded-lg transition shadow-sm">Approve</button>
                                 </div>
                             </div>
                             <div class="space-y-2">
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <div class="order-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             Growing Teams & Startups
                         </div>
@@ -169,19 +169,19 @@
                         
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Invite your team with a link — no manual account creation</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Simple roles: Admin, Manager, Employee</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Attendance and leave requests, approved in one place</span>
@@ -197,7 +197,7 @@
             <div class="max-w-7xl mx-auto px-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div class="order-2 lg:order-1">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-blue-100">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                             Established Organizations
                         </div>
@@ -208,25 +208,25 @@
                         
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Departments, designations, and reporting hierarchy</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Multi-level approvals that follow your org chart</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Custom roles and permissions, configurable per organization</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
                                 <span class="text-slate-700 font-medium">Branch-level attendance with location verification</span>
@@ -234,7 +234,7 @@
                         </ul>
                         
                         <div class="mt-8">
-                            <a href="{{ route('frontend.features.attendance-leave') }}" class="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors group">
+                            <a href="{{ route('frontend.features.attendance-leave') }}" class="inline-flex items-center gap-2 text-accent-600 font-bold hover:text-accent-700 transition-colors group">
                                 Explore attendance & leave in detail 
                                 <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </a>
@@ -249,7 +249,7 @@
                                 <div class="absolute left-6 bottom-10 w-6 h-0.5 bg-slate-200 z-0"></div>
                                 
                                 <div class="relative z-10 p-3 border border-slate-200 rounded-xl bg-white shadow-sm flex items-center gap-3 ml-0">
-                                    <div class="w-10 h-10 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-600">
+                                    <div class="w-10 h-10 rounded-lg bg-accent-100 border border-blue-200 flex items-center justify-center text-accent-600">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     </div>
                                     <div>
@@ -260,7 +260,7 @@
                                 
                                 <div class="relative z-10 p-3 border border-slate-200 rounded-xl bg-white shadow-sm flex items-center gap-3 ml-12">
                                     <div class="absolute -left-6 top-1/2 w-6 h-0.5 bg-slate-200"></div>
-                                    <div class="w-10 h-10 rounded-lg bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600">
+                                    <div class="w-10 h-10 rounded-lg bg-accent-100 border border-accent-200 flex items-center justify-center text-accent-600">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                     </div>
                                     <div>
@@ -302,7 +302,7 @@
         {{-- 5. Chat Section --}}
         <section class="py-16 lg:py-20 bg-slate-50 border-y border-slate-100">
             <div class="max-w-4xl mx-auto px-6 text-center">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                     Included at every stage
                 </div>
@@ -313,7 +313,7 @@
                 
                 <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-slate-700 font-bold text-sm md:text-base border-t border-slate-200 pt-8 mt-4">
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Built in at every plan — not an add-on
                     </div>
                     <div class="flex items-center gap-2">
@@ -321,7 +321,7 @@
                         Conversations stay scoped to your organization
                     </div>
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         One login for work, attendance, and conversation
                     </div>
                 </div>
@@ -332,7 +332,7 @@
         <section class="py-16 lg:py-20 bg-white relative">
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="text-center mb-12 flex flex-col items-center">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
@@ -376,7 +376,7 @@
                 }
                 .owl-theme .owl-dots .owl-dot.active span {
                     width: 32px;
-                    background: #4f46e5 !important;
+                    background: #6853a4 !important;
                     border-radius: 4px;
                 }
                 
@@ -428,7 +428,7 @@
                     transition: all 0.2s ease;
                 }
                 .custom-nav-btn:hover {
-                    color: #4f46e5;
+                    color: #6853a4;
                     border-color: #c7d2fe;
                     background-color: #eef2ff;
                 }
@@ -441,7 +441,7 @@
                     <div class="relative h-full bg-gradient-to-br from-white via-white to-indigo-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
@@ -656,7 +656,7 @@
                     <div class="relative h-full bg-gradient-to-br from-white via-white to-blue-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
@@ -862,10 +862,10 @@
                 <div x-data="{ active: null }" class="space-y-4">
                     
                     {{-- Q1 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 1 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 1 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Do I need to create an organization to use TimeNest?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -875,10 +875,10 @@
                     </div>
 
                     {{-- Q2 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 2 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 2 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Can I start solo and upgrade to a team later?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -888,10 +888,10 @@
                     </div>
 
                     {{-- Q3 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 3 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 3 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Can one person belong to more than one organization?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -901,10 +901,10 @@
                     </div>
 
                     {{-- Q4 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 4 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 4 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">What happens to our setup if our team grows?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -914,10 +914,10 @@
                     </div>
 
                     {{-- Q5 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 5 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm transition-colors" :class="active === 5 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Is chat included, or is it a separate product?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">

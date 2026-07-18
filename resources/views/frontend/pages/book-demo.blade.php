@@ -6,7 +6,7 @@
 
     <main class="marketing-responsive-sections">
         {{-- Section 1: Hero with Interactive Scheduler --}}
-        <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-white">
+        <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-slate-950">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6">
@@ -14,40 +14,40 @@
                     
                     {{-- Left Column: Text Content --}}
                     <div class="lg:col-span-7 flex flex-col items-start text-left marketing-responsive-copy animate-fade-up">
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50/80 backdrop-blur-sm border border-indigo-100/50 text-indigo-700 text-sm font-semibold tracking-wide uppercase mb-6 shadow-sm">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-6 shadow-sm">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-.447.894L15 19l-6-3-6 3V6l6 3 6-3z" />
                             </svg>
                             Book a Demo
                         </div>
                         
-                        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
                             See TimeNest <br />
                             Running Your Way
                         </h1>
                         
-                        <p class="text-lg md:text-xl text-slate-500 max-w-2xl mb-10 leading-relaxed">
+                        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
                             A real walkthrough, not a canned video — we'll show you attendance, leave, and chat set up the way your team would actually use them.
                         </p>
 
-                        <div class="space-y-4 border-t border-slate-100 pt-8 w-full max-w-lg">
+                        <div class="space-y-4 border-t border-slate-700/50 pt-8 w-full max-w-lg">
                             <div class="flex items-center gap-3">
-                                <div class="w-5 h-5 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                <div class="w-5 h-5 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-700">Live walkthrough with a real person</span>
+                                <span class="text-sm font-semibold text-slate-300">Live walkthrough with a real person</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                <div class="w-5 h-5 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-700">Tailored configuration for your exact team size</span>
+                                <span class="text-sm font-semibold text-slate-300">Tailored configuration for your exact team size</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                <div class="w-5 h-5 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-700">No commitment, no credit card required</span>
+                                <span class="text-sm font-semibold text-slate-300">No commitment, no credit card required</span>
                             </div>
                         </div>
                     </div>
@@ -255,20 +255,20 @@
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
                                         <h3 class="font-extrabold text-slate-900 text-lg">1. Choose Date & Time</h3>
-                                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Step 1 of 2</span>
+                                        <span class="text-xs font-bold text-accent-600 bg-accent-50 px-2.5 py-1 rounded-full">Step 1 of 2</span>
                                     </div>
 
                                     {{-- Horizontal Date Selector --}}
                                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Dates</label>
                                     <div class="grid grid-cols-5 gap-2 mb-4">
                                         <template x-for="item in dates" :key="item.value">
-                                            <button type="button" @click="selectDate(item.value, item.label)" :class="(!isCustomDate && date === item.value) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
+                                            <button type="button" @click="selectDate(item.value, item.label)" :class="(!isCustomDate && date === item.value) ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
                                                 <span class="text-[10px] uppercase font-bold tracking-wider" x-text="item.shortLabel"></span>
                                                 <span class="text-base font-extrabold mt-0.5" x-text="item.dateNum"></span>
                                             </button>
                                         </template>
                                         {{-- Custom Date Button --}}
-                                        <button type="button" @click="selectCustom()" :class="isCustomDate ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
+                                        <button type="button" @click="selectCustom()" :class="isCustomDate ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
                                             <span class="text-[10px] uppercase font-bold tracking-wider">Custom</span>
                                             <svg class="w-5 h-5 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -279,22 +279,22 @@
                                     {{-- Custom Date Picker field (only show when isCustomDate is true) --}}
                                     <div x-show="isCustomDate" x-transition class="mb-6 animate-fade-down">
                                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Pick Any Date (Wed/Fri/Sat, non-holiday)</label>
-                                        <input type="date" x-model="customDate" @change="validateCustomDate" :min="new Date().toISOString().split('T')[0]" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-350" />
+                                        <input type="date" x-model="customDate" @change="validateCustomDate" :min="new Date().toISOString().split('T')[0]" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" />
                                     </div>
 
                                     {{-- Time Slots Grid --}}
                                     <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Time Slots (Your Timezone)</label>
                                     <div class="grid grid-cols-2 gap-2 mb-6">
-                                        <button type="button" @click="time = '10:00 AM'; error = ''" :class="time === '10:00 AM' ? 'bg-indigo-50 border-indigo-500 text-indigo-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">10:00 AM</button>
-                                        <button type="button" @click="time = '11:30 AM'; error = ''" :class="time === '11:30 AM' ? 'bg-indigo-50 border-indigo-500 text-indigo-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">11:30 AM</button>
-                                        <button type="button" @click="time = '02:00 PM'; error = ''" :class="time === '02:00 PM' ? 'bg-indigo-50 border-indigo-500 text-indigo-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">02:00 PM</button>
-                                        <button type="button" @click="time = '03:30 PM'; error = ''" :class="time === '03:30 PM' ? 'bg-indigo-50 border-indigo-500 text-indigo-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">03:30 PM</button>
+                                        <button type="button" @click="time = '10:00 AM'; error = ''" :class="time === '10:00 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">10:00 AM</button>
+                                        <button type="button" @click="time = '11:30 AM'; error = ''" :class="time === '11:30 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">11:30 AM</button>
+                                        <button type="button" @click="time = '02:00 PM'; error = ''" :class="time === '02:00 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">02:00 PM</button>
+                                        <button type="button" @click="time = '03:30 PM'; error = ''" :class="time === '03:30 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">03:30 PM</button>
                                     </div>
 
                                     <div x-show="error" x-text="error" class="text-xs text-rose-600 font-semibold mb-4 leading-relaxed"></div>
                                 </div>
 
-                                <button type="button" @click="goToStep2()" class="w-full inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 rounded-full group/btn px-6 py-3.5 text-sm md:text-base bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 border border-transparent">
+                                <button type="button" @click="goToStep2()" class="w-full inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 rounded-full group/btn px-6 py-3.5 text-sm md:text-base bg-gradient-to-r from-accent-600 to-accent-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 border border-transparent">
                                     <span>Next Step</span>
                                     <svg class="w-4 h-4 ml-2 transition-transform duration-300 transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -307,21 +307,21 @@
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
                                         <h3 class="font-extrabold text-slate-900 text-lg">2. Your Details</h3>
-                                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Step 2 of 2</span>
+                                        <span class="text-xs font-bold text-accent-600 bg-accent-50 px-2.5 py-1 rounded-full">Step 2 of 2</span>
                                     </div>
 
                                     <div class="space-y-4 mb-6">
                                         <div>
                                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
-                                            <input type="text" x-model="name" placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-350" required />
+                                            <input type="text" x-model="name" placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" required />
                                         </div>
                                         <div>
                                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Work Email</label>
-                                            <input type="email" x-model="email" placeholder="john@company.com" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-350" required />
+                                            <input type="email" x-model="email" placeholder="john@company.com" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" required />
                                         </div>
                                         <div>
                                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Team Size</label>
-                                            <select x-model="size" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-350">
+                                            <select x-model="size" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350">
                                                 <option value="1-10">1–10 members</option>
                                                 <option value="11-50">11–50 members</option>
                                                 <option value="51-200">51–200 members</option>
@@ -337,7 +337,7 @@
                                     <button type="button" @click="step = 1; error = ''" class="text-slate-500 hover:text-slate-900 font-bold text-sm tracking-wide transition-colors">
                                         Back
                                     </button>
-                                    <button type="button" @click="submitBooking()" :disabled="submitting" class="flex-1 inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 rounded-full group/btn px-6 py-3.5 text-sm md:text-base bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 border border-transparent disabled:opacity-50">
+                                    <button type="button" @click="submitBooking()" :disabled="submitting" class="flex-1 inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 rounded-full group/btn px-6 py-3.5 text-sm md:text-base bg-gradient-to-r from-accent-600 to-accent-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 border border-transparent disabled:opacity-50">
                                         <span x-text="submitting ? 'Scheduling...' : 'Confirm Booking'"></span>
                                         <svg x-show="!submitting" class="w-4 h-4 ml-2 transition-transform duration-300 transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -373,12 +373,12 @@
 
         {{-- Section 2: What You'll See --}}
         <section class="relative py-16 lg:py-24 bg-slate-50 border-y border-slate-100 overflow-hidden">
-            <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-indigo-50/60 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-blue-50/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-4xl mx-auto text-center mb-16">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -391,8 +391,8 @@
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {{-- Card 1 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all group">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all group">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
@@ -403,7 +403,7 @@
 
                     {{-- Card 2 --}}
                     <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -439,11 +439,11 @@
 
         {{-- Section 3: Real Scenarios --}}
         <section class="relative py-16 lg:py-24 bg-white z-10 overflow-hidden">
-            <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-indigo-50/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-3xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
                         </svg>
@@ -459,7 +459,7 @@
 
         {{-- Section 4: Who Should Book This --}}
         <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
-            <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-indigo-50/30 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-4xl mx-auto text-center mb-16">
@@ -474,8 +474,8 @@
 
                 <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     {{-- Card 1 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all group">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all group">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
@@ -486,7 +486,7 @@
 
                     {{-- Card 2 --}}
                     <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2" />
                             </svg>
@@ -517,8 +517,8 @@
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
                         <div class="absolute inset-0" style="background-image: linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px); background-size: 32px 32px; opacity: 0.15; mask-image: radial-gradient(circle at center, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);"></div>
-                        <div class="absolute -right-64 -top-64 w-[600px] h-[600px] bg-indigo-600/20 rounded-full filter blur-[120px] pointer-events-none"></div>
-                        <div class="absolute -left-64 -bottom-64 w-[600px] h-[600px] bg-blue-600/10 rounded-full filter blur-[120px] pointer-events-none"></div>
+                        <div class="absolute -right-64 -top-64 w-[600px] h-[600px] bg-accent-600/20 rounded-full filter blur-[120px] pointer-events-none"></div>
+                        <div class="absolute -left-64 -bottom-64 w-[600px] h-[600px] bg-accent-600/10 rounded-full filter blur-[120px] pointer-events-none"></div>
                     </div>
 
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center p-8 md:p-12">
@@ -549,7 +549,7 @@
 
         {{-- Section 5: What to Expect --}}
         <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
-            <div class="absolute top-1/3 -left-1/4 w-[600px] h-[600px] bg-indigo-50/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-4xl mx-auto text-center mb-16">
@@ -604,7 +604,7 @@
 
         {{-- Section 6: Why a Demo --}}
         <section class="relative py-16 lg:py-24 bg-white z-10 overflow-hidden">
-            <div class="absolute -bottom-1/3 -right-1/4 w-[500px] h-[500px] bg-blue-50/40 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-1/3 -right-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-3xl mx-auto text-center">
@@ -618,7 +618,7 @@
                     <p class="text-lg text-slate-650 leading-relaxed mb-8">
                         You can absolutely do that. But if your team has a specific approval structure, multiple branches, or questions about how something maps to your setup, a demo means we configure it together and you leave with real answers — not just a trial account and guesswork.
                     </p>
-                    <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-650 hover:text-indigo-700 transition-colors">
+                    <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-650 hover:text-accent-700 transition-colors">
                         Prefer to explore on your own? Get started free
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -630,11 +630,11 @@
 
         {{-- Section 7: FAQ --}}
         <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
-            <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-indigo-50/30 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
                 <div class="max-w-4xl mx-auto text-center mb-16">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -645,10 +645,10 @@
 
                 <div x-data="{ active: null }" class="max-w-3xl mx-auto space-y-4">
                     {{-- Q1 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 1 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Is the demo actually free?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -658,10 +658,10 @@
                     </div>
 
                     {{-- Q2 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 2 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">How long does it take?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -671,10 +671,10 @@
                     </div>
 
                     {{-- Q3 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 3 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Do I need to prepare anything beforehand?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -684,10 +684,10 @@
                     </div>
 
                     {{-- Q4 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 4 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Can more than one person from my team join?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -697,10 +697,10 @@
                     </div>
 
                     {{-- Q5 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 5 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">What if we're not ready to commit yet?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -710,10 +710,10 @@
                     </div>
 
                     {{-- Q6 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 6 ? 'border-indigo-200 shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 6 ? null : 6" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Is it a live call, or a recorded video?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -733,8 +733,8 @@
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
                         <div class="absolute inset-0" style="background-image: linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px); background-size: 32px 32px; opacity: 0.15; mask-image: radial-gradient(circle at center, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);"></div>
-                        <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-indigo-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
-                        <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-blue-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
+                        <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-accent-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
+                        <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-accent-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
                     </div>
 
                     <div class="relative z-10 p-12 md:p-16 text-center max-w-3xl mx-auto">

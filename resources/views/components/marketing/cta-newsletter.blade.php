@@ -10,8 +10,8 @@
             {{-- Background Effects --}}
             <div class="absolute inset-0 z-0">
                 <div class="absolute inset-0" style="background-image: linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px); background-size: 32px 32px; opacity: 0.2; mask-image: radial-gradient(circle at center, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);"></div>
-                <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-indigo-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
-                <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-blue-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
+                <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-accent-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
+                <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-accent-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
             </div>
 
             <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center p-8 md:p-12">
@@ -28,7 +28,7 @@
                     <div class="flex flex-col sm:flex-row gap-4 max-w-md">
                         @if($buttonText === 'Subscribe')
                             <div class="flex w-full gap-2">
-                                <input type="email" placeholder="Your email address..." class="flex-grow bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <input type="email" placeholder="Your email address..." class="flex-grow bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500">
                                 <x-ui.button type="button" class="shrink-0">{{ $buttonText }}</x-ui.button>
                             </div>
                         @else
@@ -46,7 +46,7 @@
                     <div class="relative w-full max-w-md h-[300px]">
                         {{-- Decorative Elements --}}
                         <div class="absolute right-0 top-0 w-32 h-40 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-2xl rotate-6 transform hover:rotate-12 transition duration-500">
-                            <div class="w-full h-24 rounded-lg bg-indigo-500/20 mb-2"></div>
+                            <div class="w-full h-24 rounded-lg bg-accent-500/20 mb-2"></div>
                             <div class="w-2/3 h-2 rounded bg-white/20"></div>
                         </div>
                         
@@ -71,9 +71,9 @@
                             </div>
                             <div class="text-center">
                                 <div class="text-white font-bold text-sm">Welcome back, Alex</div>
-                                <div class="text-indigo-300 text-xs mt-1">Clock in for your shift</div>
+                                <div class="text-accent-300 text-xs mt-1">Clock in for your shift</div>
                             </div>
-                            <div class="mt-4 bg-indigo-500 text-white text-center text-sm font-bold py-2 rounded-xl shadow-inner cursor-pointer hover:bg-indigo-400 transition">
+                            <div class="mt-4 bg-accent-500 text-white text-center text-sm font-bold py-2 rounded-xl shadow-inner cursor-pointer hover:bg-accent-400 transition">
                                 Clock In Now
                             </div>
                         </div>

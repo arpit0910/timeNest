@@ -6,19 +6,19 @@
 @section('content')
 <x-marketing.header />
 
-<main class="marketing-responsive-sections min-h-screen pt-24 relative overflow-hidden">
+<main class="marketing-responsive-sections min-h-screen relative overflow-hidden">
     {{-- Hero Section --}}
-    <section class="relative pt-20 lg:pt-32 pb-16 px-6 z-10">
+    <section class="relative pt-44 lg:pt-56 pb-16 px-6 z-10 bg-slate-950">
         <x-marketing.hero-background />
         <div class="relative max-w-4xl mx-auto flex flex-col items-center text-center z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50/80 backdrop-blur-sm border border-indigo-100/50 text-indigo-700 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
                 Contact Us
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-[1.1]">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.1]">
                 Let's Talk About<br class="hidden md:block"/>
-                <span class="text-slate-900">Your Team</span>
+                <span class="text-slate-300">Your Team</span>
             </h1>
-            <p class="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 Questions about pricing, a specific feature, or just want to see TimeNest in action? Send us a message — a real person reads every one.
             </p>
         </div>
@@ -26,12 +26,12 @@
 
     {{-- Section 2: Common Reasons to Reach Out --}}
     <section class="relative py-16 lg:py-20 bg-white z-10 overflow-hidden">
-        <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-indigo-50/60 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-blue-50/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-16 flex flex-col items-center text-center">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
@@ -43,7 +43,7 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {{-- Reason 1 --}}
                     <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                         <h3 class="font-bold text-slate-900 mb-2">Pricing & Plans</h3>
@@ -51,7 +51,7 @@
                     </div>
                     {{-- Reason 2 --}}
                     <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                         <h3 class="font-bold text-slate-900 mb-2">Product Demo</h3>
@@ -80,8 +80,8 @@
 
     {{-- Main Content: Form & Direct Lines --}}
     <section class="relative py-16 lg:py-24 bg-slate-50 z-10 overflow-hidden">
-        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-100/30 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-blue-100/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-accent-100/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
             <div class="grid lg:grid-cols-12 gap-16 xl:gap-24 items-center max-w-7xl mx-auto">
                 
@@ -143,12 +143,12 @@
                                     {{-- Full Name --}}
                                     <div>
                                         <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-                                        <input type="text" id="name" x-model="name" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Jane Doe" required>
+                                        <input type="text" id="name" x-model="name" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-300" placeholder="Jane Doe" required>
                                     </div>
                                     {{-- Email Address --}}
                                     <div>
                                         <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                                        <input type="email" id="email" x-model="email" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="jane@example.com" required>
+                                        <input type="email" id="email" x-model="email" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-300" placeholder="jane@example.com" required>
                                     </div>
                                 </div>
 
@@ -156,12 +156,12 @@
                                     {{-- Organization Name --}}
                                     <div>
                                         <label for="organization" class="block text-sm font-semibold text-slate-700 mb-2">Organization Name <span class="text-slate-400 font-normal">(optional)</span></label>
-                                        <input type="text" id="organization" x-model="organization" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300" placeholder="Acme Corp">
+                                        <input type="text" id="organization" x-model="organization" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-300" placeholder="Acme Corp">
                                     </div>
                                     {{-- Subject --}}
                                     <div>
                                         <label for="subject" class="block text-sm font-semibold text-slate-700 mb-2">Topic</label>
-                                        <select id="subject" x-model="subject" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 appearance-none">
+                                        <select id="subject" x-model="subject" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-300 appearance-none">
                                             <option value="General Inquiry">General Inquiry</option>
                                             <option value="Sales">Sales</option>
                                             <option value="Support">Support</option>
@@ -173,7 +173,7 @@
                                 {{-- Message --}}
                                 <div>
                                     <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
-                                    <textarea id="message" x-model="message" rows="5" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block p-3 transition-colors hover:border-slate-300 resize-y" placeholder="How can we help you?" required></textarea>
+                                    <textarea id="message" x-model="message" rows="5" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-300 resize-y" placeholder="How can we help you?" required></textarea>
                                 </div>
 
                                 <div x-show="error" x-text="error" class="text-xs text-rose-600 font-semibold mb-4 leading-relaxed"></div>
@@ -213,7 +213,7 @@
                         <h3 class="text-2xl font-bold text-slate-900 mb-6">Prefer a Direct Line?</h3>
                         <div class="space-y-4">
                             {{-- Sales --}}
-                            <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all flex items-start gap-4 group">
+                            <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all flex items-start gap-4 group">
                                 <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 transition-colors">
                                     <svg class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -223,12 +223,12 @@
                                     <h4 class="font-bold text-slate-900">Sales</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Questions about plans or getting your organization set up.</p>
                                     <div class="flex flex-col sm:flex-row flex-wrap gap-2">
-                                        <a href="mailto:sales@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                        <a href="mailto:sales@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             sales@timenest.io
                                         </a>
-                                        <a href="tel:+919876543210" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543210" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43210
                                         </a>
                                     </div>
@@ -237,8 +237,8 @@
                             
                             {{-- Support --}}
                             <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all flex items-start gap-4 group">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 group-hover:bg-blue-600 transition-colors">
-                                    <svg class="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center shrink-0 group-hover:bg-accent-600 transition-colors">
+                                    <svg class="w-5 h-5 text-accent-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
                                 </div>
@@ -246,12 +246,12 @@
                                     <h4 class="font-bold text-slate-900">Support</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Already using TimeNest and need help?</p>
                                     <div class="flex flex-col sm:flex-row flex-wrap gap-2">
-                                        <a href="mailto:support@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                        <a href="mailto:support@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             support@timenest.io
                                         </a>
-                                        <a href="tel:+919876543211" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543211" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43211
                                         </a>
                                     </div>
@@ -269,12 +269,12 @@
                                     <h4 class="font-bold text-slate-900">General</h4>
                                     <p class="text-sm text-slate-600 mt-1 mb-3 leading-relaxed">Anything else — partnerships, press, or just saying hi.</p>
                                     <div class="flex flex-col sm:flex-row flex-wrap gap-2">
-                                        <a href="mailto:hello@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                        <a href="mailto:hello@timenest.io" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                             hello@timenest.io
                                         </a>
-                                        <a href="tel:+919876543212" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-xs font-semibold">
-                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                        <a href="tel:+919876543212" class="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 hover:bg-accent-50 hover:text-accent-600 hover:border-accent-200 transition-all text-xs font-semibold">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                             +91 98765 43212
                                         </a>
                                     </div>
@@ -306,18 +306,18 @@
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <a href="{{ route('frontend.security') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all text-center">
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                <a href="{{ route('frontend.security') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all text-center">
+                    <div class="w-12 h-12 bg-accent-50 text-accent-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors">Security</h3>
+                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-accent-600 transition-colors">Security</h3>
                     <p class="text-sm text-slate-500 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
                 </a>
                 <a href="{{ route('frontend.solutions') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-center">
-                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <div class="w-12 h-12 bg-accent-50 text-accent-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">Solutions</h3>
+                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-accent-600 transition-colors">Solutions</h3>
                     <p class="text-sm text-slate-500 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
                 </a>
                 <a href="{{ route('frontend.features') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all text-center">
@@ -334,7 +334,7 @@
     {{-- Section 6: What Happens Next --}}
     <section class="relative py-16 lg:py-24 bg-slate-50 z-10 overflow-hidden">
         <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-purple-50/40 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-indigo-50/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
             <div class="max-w-4xl mx-auto text-center mb-16">
                 <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-100 text-purple-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
@@ -350,11 +350,11 @@
             {{-- Process Steps --}}
             <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 {{-- Step 1: Enquiry --}}
-                <div class="group relative bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-xl hover:border-indigo-200 transition-all duration-300 text-center">
+                <div class="group relative bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-xl hover:border-accent-200 transition-all duration-300 text-center">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-xs font-bold shadow-lg shadow-indigo-200">1</span>
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-accent-600 text-white text-xs font-bold shadow-lg shadow-accent-200">1</span>
                     </div>
-                    <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-5 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-50 text-accent-600 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-600 group-hover:text-white transition-colors duration-300">
                         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                     </div>
                     <h4 class="font-bold text-slate-900 mb-2 text-lg">Enquiry</h4>
@@ -364,9 +364,9 @@
                 {{-- Step 2: Discussion --}}
                 <div class="group relative bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 text-center">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white text-xs font-bold shadow-lg shadow-blue-200">2</span>
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-accent-600 text-white text-xs font-bold shadow-lg shadow-blue-200">2</span>
                     </div>
-                    <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-5 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-50 text-accent-600 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent-600 group-hover:text-white transition-colors duration-300">
                         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
                     <h4 class="font-bold text-slate-900 mb-2 text-lg">Discussion</h4>
@@ -403,8 +403,8 @@
     {{-- Custom Footer CTA for Contact Page --}}
     <section class="py-20 lg:py-28 relative overflow-hidden bg-slate-900 mt-12">
         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
-        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-indigo-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-accent-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-accent-500/20 rounded-full blur-3xl"></div>
         
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10 text-center">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">

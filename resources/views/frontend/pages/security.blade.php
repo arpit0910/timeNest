@@ -5,37 +5,37 @@
     
     <main class="marketing-responsive-sections">
         {{-- 1. Hero Section --}}
-        <section class="relative pt-32 pb-20 px-30 md:pt-40 md:pb-28 overflow-hidden bg-white">
+        <section class="relative pt-32 pb-20 px-30 md:pt-40 md:pb-28 overflow-hidden bg-slate-950">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6 text-center animate-fade-up">
                 <div class="flex justify-center mb-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                         Security
                     </div>
                 </div>
                 
-                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
                     Built to Protect <br class="hidden sm:block" />
                     Every Team, Every Record
                 </h1>
                 
-                <p class="text-lg md:text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed mb-12">
+                <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
                     TimeNest keeps every organization's data isolated, every login verified, and every action logged — so security isn't something you have to take on faith.
                 </p>
                 
-                <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-slate-700 font-bold text-sm md:text-base border-t border-slate-100 pt-8 mt-4 max-w-4xl mx-auto">
+                <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-slate-300 font-bold text-sm md:text-base border-t border-slate-700/50 pt-8 mt-4 max-w-4xl mx-auto">
                     <div class="flex items-center gap-2">
                         <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         Encrypted Sessions
                     </div>
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         Tenant Isolation
                     </div>
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         Role-Based Access
                     </div>
                     <div class="flex items-center gap-2">
@@ -50,7 +50,7 @@
         <section class="py-16 lg:py-20 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         JWT & TOTP
                     </div>
@@ -61,7 +61,7 @@
                     
                     <ul class="space-y-8">
                         <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                             <span class="text-slate-700 font-semibold mt-1">Session tokens expire automatically</span>
@@ -83,10 +83,10 @@
                 
                 {{-- Mockup of 2FA Input --}}
                 <div class="relative w-full max-w-md mx-auto">
-                    <div class="absolute inset-0 bg-indigo-600/5 rounded-full filter blur-3xl transform translate-y-10 scale-90"></div>
+                    <div class="absolute inset-0 bg-accent-600/5 rounded-full filter blur-3xl transform translate-y-10 scale-90"></div>
                     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 relative z-10">
-                        <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-center mb-6 shadow-sm">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                        <div class="w-12 h-12 bg-accent-50 border border-accent-100 rounded-xl flex items-center justify-center mb-6 shadow-sm">
+                            <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                         </div>
                         <h3 class="text-xl font-extrabold text-slate-900 mb-2">Two-Factor Authentication</h3>
                         <p class="text-slate-500 text-sm mb-6">Enter the 6-digit code from your authenticator app.</p>
@@ -95,8 +95,8 @@
                             <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">4</div>
                             <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">8</div>
                             <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">1</div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border-indigo-500 border-2 bg-white flex items-center justify-center text-2xl font-bold text-slate-900 shadow-sm shadow-indigo-100 relative">
-                                <span class="animate-pulse block w-px h-6 bg-indigo-500"></span>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border-accent-500 border-2 bg-white flex items-center justify-center text-2xl font-bold text-slate-900 shadow-sm shadow-indigo-100 relative">
+                                <span class="animate-pulse block w-px h-6 bg-accent-500"></span>
                             </div>
                             <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center shadow-inner"></div>
                             <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center shadow-inner"></div>
@@ -111,7 +111,7 @@
         {{-- 3. Multi-Tenant Data Isolation --}}
         <section class="py-16 lg:py-20 bg-white overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 text-center">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     Enforced Layer
                 </div>
@@ -144,15 +144,15 @@
                     </div>
                     
                     {{-- Org 2 (Your Org) --}}
-                    <div class="bg-indigo-50 border-2 border-indigo-200 rounded-3xl p-8 shadow-lg flex-1 w-full relative transform scale-105 z-10">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">Your Organization</div>
+                    <div class="bg-accent-50 border-2 border-accent-200 rounded-3xl p-8 shadow-lg flex-1 w-full relative transform scale-105 z-10">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm whitespace-nowrap">Your Organization</div>
                         <div class="w-full flex justify-center mb-6 mt-2">
-                            <div class="w-12 h-12 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-inner">
+                            <div class="w-12 h-12 rounded-xl bg-accent-100 border border-accent-200 flex items-center justify-center text-accent-600 shadow-inner">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                             </div>
                         </div>
-                        <h4 class="font-bold text-indigo-950 mb-6 border-b border-indigo-100 pb-4">TimeNest Vault</h4>
-                        <div class="flex justify-center gap-4 text-indigo-400">
+                        <h4 class="font-bold text-indigo-950 mb-6 border-b border-accent-100 pb-4">TimeNest Vault</h4>
+                        <div class="flex justify-center gap-4 text-accent-400">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
@@ -196,7 +196,7 @@
                                 <h3 class="font-bold text-slate-900 text-lg">Default Roles</h3>
                                 <p class="text-sm text-slate-500 mt-1">Can be customized per workspace</p>
                             </div>
-                            <div class="h-8 w-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                            <div class="h-8 w-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                                     <tr class="group bg-slate-50/50 hover:bg-slate-50 transition-colors shadow-sm border border-slate-100">
                                         <td class="py-4 px-6 rounded-l-2xl border-y border-l border-slate-200/60 bg-white">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                                <div class="w-12 h-12 rounded-xl bg-accent-50 border border-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                 </div>
                                                 <div>
@@ -264,7 +264,7 @@
                                     <tr class="group bg-slate-50/50 hover:bg-slate-50 transition-colors shadow-sm relative border border-slate-100">
                                         <td class="py-4 px-6 rounded-l-2xl border-y border-l border-slate-200/60 bg-white">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                                <div class="w-12 h-12 rounded-xl bg-accent-50 border border-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                                 </div>
                                                 <div>
@@ -274,13 +274,13 @@
                                             </div>
                                         </td>
                                         <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold border border-blue-100 w-[84px] justify-center shadow-sm">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Team
                                             </div>
                                         </td>
                                         <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold border border-blue-100 w-[84px] justify-center shadow-sm">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Team
                                             </div>
@@ -307,7 +307,7 @@
                                             </div>
                                         </td>
                                         <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold border border-indigo-100 w-[84px] justify-center shadow-sm">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Self
                                             </div>
@@ -332,7 +332,7 @@
                 </div>
                 
                 <div class="order-1 lg:order-2">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                         Access Control
                     </div>
@@ -387,7 +387,7 @@
         {{-- 5. Monitoring & Audit Trail --}}
         <section class="py-16 lg:py-20 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-6 text-center">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-indigo-100">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     Audit Trail
                 </div>
@@ -414,7 +414,7 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                             </div>
                             <div>
-                                <p class="text-sm text-slate-800 leading-relaxed"><span class="font-extrabold">Priya</span> changed <span class="font-extrabold">Rohan</span>'s role to <span class="font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">Manager</span></p>
+                                <p class="text-sm text-slate-800 leading-relaxed"><span class="font-extrabold">Priya</span> changed <span class="font-extrabold">Rohan</span>'s role to <span class="font-bold text-accent-600 bg-accent-50 px-1.5 py-0.5 rounded">Manager</span></p>
                                 <p class="text-xs text-slate-400 mt-1.5 font-medium">2 mins ago &middot; IP 192.168.1.1</p>
                             </div>
                         </div>
@@ -430,7 +430,7 @@
                         </div>
                         {{-- Log Entry 3 --}}
                         <div class="p-5 hover:bg-slate-50/80 flex items-start gap-4 transition-colors">
-                            <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div class="w-10 h-10 rounded-full bg-accent-50 text-accent-600 border border-accent-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                             </div>
                             <div>
@@ -465,10 +465,10 @@
                 <div x-data="{ active: null }" class="space-y-4">
                     
                     {{-- Q1 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 1 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Is my organization's data encrypted?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -478,10 +478,10 @@
                     </div>
 
                     {{-- Q2 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 2 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Can another organization on TimeNest see our data?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -491,10 +491,10 @@
                     </div>
 
                     {{-- Q3 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 3 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Who inside our organization can see employee data?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -504,10 +504,10 @@
                     </div>
 
                     {{-- Q4 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 4 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">Is team chat encrypted?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -517,10 +517,10 @@
                     </div>
 
                     {{-- Q5 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 5 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">What happens to our data if we stop using TimeNest?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -530,10 +530,10 @@
                     </div>
 
                     {{-- Q6 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 6 ? 'border-indigo-200 bg-white shadow-md' : ''">
+                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-200 bg-white shadow-md' : ''">
                         <button @click="active = active === 6 ? null : 6" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-slate-900">How do you track suspicious activity?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-indigo-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
@@ -554,8 +554,8 @@
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
                         <div class="absolute inset-0" style="background-image: linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px); background-size: 32px 32px; opacity: 0.2; mask-image: radial-gradient(circle at center, black 40%, transparent 100%); -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);"></div>
-                        <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-indigo-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
-                        <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-blue-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
+                        <div class="absolute -right-64 -top-64 w-[800px] h-[800px] bg-accent-600/30 rounded-full filter blur-[150px] pointer-events-none"></div>
+                        <div class="absolute -left-64 -bottom-64 w-[800px] h-[800px] bg-accent-600/20 rounded-full filter blur-[150px] pointer-events-none"></div>
                     </div>
 
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center p-12 md:p-16">
@@ -581,8 +581,8 @@
                             <div class="relative w-full max-w-md h-[300px]">
                                 {{-- Decorative Elements --}}
                                 <div class="absolute right-0 top-0 w-32 h-40 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 shadow-2xl rotate-6 transform hover:rotate-12 transition duration-500">
-                                    <div class="w-full h-24 rounded-lg bg-indigo-500/20 mb-2 border border-indigo-400/20 flex items-center justify-center">
-                                        <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                    <div class="w-full h-24 rounded-lg bg-accent-500/20 mb-2 border border-accent-400/20 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                                     </div>
                                     <div class="w-2/3 h-2 rounded bg-white/20"></div>
                                 </div>
@@ -604,13 +604,13 @@
                                 {{-- Center Main Element --}}
                                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 bg-slate-800 border border-slate-700 rounded-3xl p-5 shadow-2xl z-10">
                                     <div class="flex justify-center mb-4">
-                                        <div class="w-16 h-16 rounded-full border-4 border-slate-900 shadow-md bg-indigo-500 flex items-center justify-center text-white">
+                                        <div class="w-16 h-16 rounded-full border-4 border-slate-900 shadow-md bg-accent-500 flex items-center justify-center text-white">
                                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                                         </div>
                                     </div>
                                     <div class="text-center">
                                         <div class="text-white font-bold text-sm">Authentication</div>
-                                        <div class="text-indigo-300 text-xs mt-1">Identity Verified</div>
+                                        <div class="text-accent-300 text-xs mt-1">Identity Verified</div>
                                     </div>
                                     <div class="mt-6 bg-emerald-500/20 text-emerald-400 text-center text-sm font-bold py-3 px-6 rounded-xl border border-emerald-500/30 w-full uppercase tracking-wider">
                                         Access Granted
