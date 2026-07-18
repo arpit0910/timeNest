@@ -1,4 +1,4 @@
-﻿@php
+@php
 $competitors = [
     'timenest-vs-zoho-people' => ['name' => 'Zoho People', 'verdict' => 'TimeNest offers a unified Work OS with built-in AI and freelancer tools that Zoho People lacks.'],
     'timenest-vs-keka' => ['name' => 'Keka', 'verdict' => 'TimeNest goes beyond HR with freelancer management, AI analytics, and collaborative workspaces.'],
@@ -9,7 +9,7 @@ $competitors = [
 ];
 $data = $competitors[$slug] ?? abort(404);
 @endphp
-<x-frontend-layout.app :metaTitle="'TimeNest vs ' . $data['name'] . ' â€” Comparison'" :metaDescription="$data['verdict']">
+<x-frontend-layout.app :metaTitle="'TimeNest vs ' . $data['name'] . ' — Comparison'" :metaDescription="$data['verdict']">
     <section class="relative pt-32 pb-20 bg-surface">
         <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <h1 class="font-display text-4xl lg:text-5xl font-bold text-content-strong mb-4">TimeNest vs {{ $data['name'] }}</h1>
@@ -27,8 +27,8 @@ $data = $competitors[$slug] ?? abort(404);
                         ] as [$feature, $tn, $comp])
                             <tr class="border-t border-surface-border">
                                 <td class="p-4 text-content-strong">{{ $feature }}</td>
-                                <td class="p-4 text-center">@if($tn)<svg class="w-5 h-5 text-brand-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>@else<span class="text-slate-600">â€”</span>@endif</td>
-                                <td class="p-4 text-center">@if($comp)<svg class="w-5 h-5 text-content-light mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>@else<span class="text-slate-600">â€”</span>@endif</td>
+                                <td class="p-4 text-center">@if($tn)<svg class="w-5 h-5 text-brand-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>@else<span class="text-neutral-600">—</span>@endif</td>
+                                <td class="p-4 text-center">@if($comp)<svg class="w-5 h-5 text-content-light mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>@else<span class="text-neutral-600">—</span>@endif</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -38,3 +38,4 @@ $data = $competitors[$slug] ?? abort(404);
     </section>
     <x-frontend-sections.cta-block headline="Make the switch to TimeNest" primaryCtaText="Book Demo" primaryCtaUrl="{{ route('frontend.book-demo') }}" secondaryCtaText="Start Free" secondaryCtaUrl="/register" />
 </x-frontend-layout.app>
+

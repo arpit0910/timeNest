@@ -183,9 +183,9 @@
                                 @break
                             @case('Operations Mgmt')
                                 <svg class="w-5 h-5 text-content-muted group-hover:text-brand-500 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                    <circle cx="6" cy="12" r="2.5" class="anim-ops-node-a fill-slate-300" />
-                                    <path d="M8.5 12h7" class="anim-ops-line stroke-slate-300" stroke-linecap="round" />
-                                    <circle cx="18" cy="12" r="2.5" class="anim-ops-node-b fill-slate-300" />
+                                    <circle cx="6" cy="12" r="2.5" class="anim-ops-node-a fill-neutral-300" />
+                                    <path d="M8.5 12h7" class="anim-ops-line stroke-neutral-300" stroke-linecap="round" />
+                                    <circle cx="18" cy="12" r="2.5" class="anim-ops-node-b fill-neutral-300" />
                                     <path d="M12 12v4h3" stroke-dasharray="2" stroke-linecap="round" />
                                 </svg>
                                 @break
@@ -547,3 +547,5 @@
         </div>
     </div>
 </div>
+
+

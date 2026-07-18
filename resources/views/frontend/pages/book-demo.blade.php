@@ -6,7 +6,7 @@
 
     <main class="marketing-responsive-sections">
         {{-- Section 1: Hero with Interactive Scheduler --}}
-        <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-slate-950">
+        <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6">
@@ -26,28 +26,28 @@
                             Running Your Way
                         </h1>
                         
-                        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed">
+                        <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
                             A real walkthrough, not a canned video — we'll show you attendance, leave, and chat set up the way your team would actually use them.
                         </p>
 
-                        <div class="space-y-4 border-t border-slate-700/50 pt-8 w-full max-w-lg">
+                        <div class="space-y-4 border-t border-neutral-700/50 pt-8 w-full max-w-lg">
                             <div class="flex items-center gap-3">
                                 <div class="w-5 h-5 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-300">Live walkthrough with a real person</span>
+                                <span class="text-sm font-semibold text-neutral-300">Live walkthrough with a real person</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-5 h-5 rounded-full bg-accent-500/15 text-accent-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-300">Tailored configuration for your exact team size</span>
+                                <span class="text-sm font-semibold text-neutral-300">Tailored configuration for your exact team size</span>
                             </div>
                             <div class="flex items-center gap-3">
                                 <div class="w-5 h-5 rounded-full bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                                 </div>
-                                <span class="text-sm font-semibold text-slate-300">No commitment, no credit card required</span>
+                                <span class="text-sm font-semibold text-neutral-300">No commitment, no credit card required</span>
                             </div>
                         </div>
                     </div>
@@ -248,27 +248,27 @@
                     }">
                         <div class="absolute inset-0 bg-indigo-650/5 rounded-[2.5rem] filter blur-3xl transform translate-y-10 scale-95"></div>
                         
-                        <div class="bg-white border border-slate-200 rounded-[2.2rem] shadow-xl shadow-slate-100/80 p-6 md:p-8 relative z-20 overflow-hidden min-h-[460px] flex flex-col justify-between">
+                        <div class="bg-white border border-neutral-200 rounded-[2.2rem] shadow-xl shadow-neutral-100/80 p-6 md:p-8 relative z-20 overflow-hidden min-h-[460px] flex flex-col justify-between">
                             
                             {{-- Step 1: Select Date & Time --}}
                             <div x-show="step === 1" class="flex-1 flex flex-col justify-between">
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
-                                        <h3 class="font-extrabold text-slate-900 text-lg">1. Choose Date & Time</h3>
+                                        <h3 class="font-extrabold text-neutral-900 text-lg">1. Choose Date & Time</h3>
                                         <span class="text-xs font-bold text-accent-600 bg-accent-50 px-2.5 py-1 rounded-full">Step 1 of 2</span>
                                     </div>
 
                                     {{-- Horizontal Date Selector --}}
-                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Dates</label>
+                                    <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Available Dates</label>
                                     <div class="grid grid-cols-5 gap-2 mb-4">
                                         <template x-for="item in dates" :key="item.value">
-                                            <button type="button" @click="selectDate(item.value, item.label)" :class="(!isCustomDate && date === item.value) ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
+                                            <button type="button" @click="selectDate(item.value, item.label)" :class="(!isCustomDate && date === item.value) ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-neutral-50 border-neutral-200 text-neutral-650 hover:bg-neutral-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
                                                 <span class="text-[10px] uppercase font-bold tracking-wider" x-text="item.shortLabel"></span>
                                                 <span class="text-base font-extrabold mt-0.5" x-text="item.dateNum"></span>
                                             </button>
                                         </template>
                                         {{-- Custom Date Button --}}
-                                        <button type="button" @click="selectCustom()" :class="isCustomDate ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
+                                        <button type="button" @click="selectCustom()" :class="isCustomDate ? 'bg-accent-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-neutral-50 border-neutral-200 text-neutral-650 hover:bg-neutral-100'" class="flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all">
                                             <span class="text-[10px] uppercase font-bold tracking-wider">Custom</span>
                                             <svg class="w-5 h-5 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -278,17 +278,17 @@
 
                                     {{-- Custom Date Picker field (only show when isCustomDate is true) --}}
                                     <div x-show="isCustomDate" x-transition class="mb-6 animate-fade-down">
-                                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Pick Any Date (Wed/Fri/Sat, non-holiday)</label>
-                                        <input type="date" x-model="customDate" @change="validateCustomDate" :min="new Date().toISOString().split('T')[0]" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" />
+                                        <label class="block text-xs font-bold text-neutral-700 mb-1.5">Pick Any Date (Wed/Fri/Sat, non-holiday)</label>
+                                        <input type="date" x-model="customDate" @change="validateCustomDate" :min="new Date().toISOString().split('T')[0]" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-neutral-350" />
                                     </div>
 
                                     {{-- Time Slots Grid --}}
-                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available Time Slots (Your Timezone)</label>
+                                    <label class="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Available Time Slots (Your Timezone)</label>
                                     <div class="grid grid-cols-2 gap-2 mb-6">
-                                        <button type="button" @click="time = '10:00 AM'; error = ''" :class="time === '10:00 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">10:00 AM</button>
-                                        <button type="button" @click="time = '11:30 AM'; error = ''" :class="time === '11:30 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">11:30 AM</button>
-                                        <button type="button" @click="time = '02:00 PM'; error = ''" :class="time === '02:00 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">02:00 PM</button>
-                                        <button type="button" @click="time = '03:30 PM'; error = ''" :class="time === '03:30 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">03:30 PM</button>
+                                        <button type="button" @click="time = '10:00 AM'; error = ''" :class="time === '10:00 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">10:00 AM</button>
+                                        <button type="button" @click="time = '11:30 AM'; error = ''" :class="time === '11:30 AM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">11:30 AM</button>
+                                        <button type="button" @click="time = '02:00 PM'; error = ''" :class="time === '02:00 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">02:00 PM</button>
+                                        <button type="button" @click="time = '03:30 PM'; error = ''" :class="time === '03:30 PM' ? 'bg-accent-50 border-accent-500 text-accent-700 font-bold' : 'bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50'" class="py-2.5 px-4 rounded-xl border text-sm font-medium transition-all text-center">03:30 PM</button>
                                     </div>
 
                                     <div x-show="error" x-text="error" class="text-xs text-rose-600 font-semibold mb-4 leading-relaxed"></div>
@@ -306,22 +306,22 @@
                             <div x-show="step === 2" class="flex-1 flex flex-col justify-between">
                                 <div>
                                     <div class="flex items-center justify-between mb-6">
-                                        <h3 class="font-extrabold text-slate-900 text-lg">2. Your Details</h3>
+                                        <h3 class="font-extrabold text-neutral-900 text-lg">2. Your Details</h3>
                                         <span class="text-xs font-bold text-accent-600 bg-accent-50 px-2.5 py-1 rounded-full">Step 2 of 2</span>
                                     </div>
 
                                     <div class="space-y-4 mb-6">
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
-                                            <input type="text" x-model="name" placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" required />
+                                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">Full Name</label>
+                                            <input type="text" x-model="name" placeholder="John Doe" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-neutral-350" required />
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Work Email</label>
-                                            <input type="email" x-model="email" placeholder="john@company.com" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350" required />
+                                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">Work Email</label>
+                                            <input type="email" x-model="email" placeholder="john@company.com" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-neutral-350" required />
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Team Size</label>
-                                            <select x-model="size" class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-slate-350">
+                                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">Team Size</label>
+                                            <select x-model="size" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-neutral-350">
                                                 <option value="1-10">1–10 members</option>
                                                 <option value="11-50">11–50 members</option>
                                                 <option value="51-200">51–200 members</option>
@@ -334,7 +334,7 @@
                                 </div>
 
                                 <div class="flex items-center justify-between gap-6">
-                                    <button type="button" @click="step = 1; error = ''" class="text-slate-500 hover:text-slate-900 font-bold text-sm tracking-wide transition-colors">
+                                    <button type="button" @click="step = 1; error = ''" class="text-neutral-500 hover:text-neutral-900 font-bold text-sm tracking-wide transition-colors">
                                         Back
                                     </button>
                                     <button type="button" @click="submitBooking()" :disabled="submitting" class="flex-1 inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 rounded-full group/btn px-6 py-3.5 text-sm md:text-base bg-gradient-to-r from-accent-600 to-accent-600 hover:from-indigo-700 hover:to-blue-700 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 border border-transparent disabled:opacity-50">
@@ -353,13 +353,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Walkthrough Scheduled!</h3>
-                                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                                <h3 class="text-2xl font-extrabold text-neutral-900 mb-3">Walkthrough Scheduled!</h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed mb-6">
                                     We've sent a calendar invite and video link to <br />
-                                    <span class="font-bold text-slate-900" x-text="email"></span> for <br />
-                                    <span class="font-bold text-slate-900" x-text="date"></span> at <span class="font-bold text-slate-900" x-text="time"></span>.
+                                    <span class="font-bold text-neutral-900" x-text="email"></span> for <br />
+                                    <span class="font-bold text-neutral-900" x-text="date"></span> at <span class="font-bold text-neutral-900" x-text="time"></span>.
                                 </p>
-                                <div class="text-[11px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 rounded-lg p-2.5 w-full">
+                                <div class="text-[11px] font-semibold text-neutral-400 bg-neutral-50 border border-neutral-100 rounded-lg p-2.5 w-full">
                                     If you need to reschedule, you can do so directly using the link in the calendar invite.
                                 </div>
                             </div>
@@ -372,7 +372,7 @@
         </section>
 
         {{-- Section 2: What You'll See --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-y border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-y border-neutral-800 overflow-hidden">
             <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
@@ -386,7 +386,7 @@
                         Walkthrough Overview
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">What We'll Walk Through</h2>
-                    <p class="text-lg text-slate-400 max-w-2xl mx-auto">A focused session, not a generic feature tour.</p>
+                    <p class="text-lg text-neutral-400 max-w-2xl mx-auto">A focused session, not a generic feature tour.</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -398,7 +398,7 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">Attendance Setup</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Geo-fenced check-ins, configured for a branch like yours.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Geo-fenced check-ins, configured for a branch like yours.</p>
                     </div>
 
                     {{-- Card 2 --}}
@@ -409,7 +409,7 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">Leave & Approvals</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">How requests route through your actual reporting structure.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">How requests route through your actual reporting structure.</p>
                     </div>
 
                     {{-- Card 3 --}}
@@ -420,7 +420,7 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">Worklogs</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Daily work tied to attendance, not just clock in and out.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Daily work tied to attendance, not just clock in and out.</p>
                     </div>
 
                     {{-- Card 4 --}}
@@ -431,14 +431,14 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">Team Chat</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Secure, organization-scoped conversations, live in the demo.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Secure, organization-scoped conversations, live in the demo.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- Section 3: Real Scenarios --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 z-10 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black z-10 overflow-hidden">
             <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -449,8 +449,8 @@
                         </svg>
                         Real Scenarios
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-6">Not Just a Feature List</h2>
-                    <p class="text-lg text-slate-600 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-6">Not Just a Feature List</h2>
+                    <p class="text-lg text-neutral-600 leading-relaxed">
                         We'll run through actual situations — a leave request that needs multi-level approval, a check-in outside a branch's geo-fence getting blocked, a manager reassigning an approval when they're unavailable. Seeing the logic in action tells you more than a slide ever could.
                     </p>
                 </div>
@@ -458,7 +458,7 @@
         </section>
 
         {{-- Section 4: Who Should Book This --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -481,7 +481,7 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">Founders & Team Leads</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Evaluating whether TimeNest replaces your current setup.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Evaluating whether TimeNest replaces your current setup.</p>
                     </div>
 
                     {{-- Card 2 --}}
@@ -492,7 +492,7 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">HR & Operations</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Want to see approval flows and policies before rolling out.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Want to see approval flows and policies before rolling out.</p>
                     </div>
 
                     {{-- Card 3 --}}
@@ -503,16 +503,16 @@
                             </svg>
                         </div>
                         <h3 class="font-bold text-white mb-2">IT & Admins</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Curious about roles, permissions, and how access actually works.</p>
+                        <p class="text-sm text-neutral-400 leading-relaxed">Curious about roles, permissions, and how access actually works.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- Mid-Page CTA (Contained Panel) --}}
-        <section class="py-16 bg-slate-950 relative px-6">
+        <section class="py-16 bg-black relative px-6">
             <div class="max-w-5xl mx-auto">
-                <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+                <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
@@ -527,7 +527,7 @@
                             <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">
                                 Prefer to just talk it through first?
                             </h2>
-                            <p class="text-base md:text-lg text-slate-300 mb-8 max-w-lg leading-relaxed">
+                            <p class="text-base md:text-lg text-neutral-300 mb-8 max-w-lg leading-relaxed">
                                 No pressure, no sales script — just a conversation about whether TimeNest fits.
                             </p>
                             
@@ -538,7 +538,7 @@
 
                         {{-- Image Column --}}
                         <div class="relative flex items-center justify-center lg:justify-end">
-                            <div class="relative w-full max-w-md aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-800 bg-slate-950">
+                            <div class="relative w-full max-w-md aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-neutral-800 bg-black">
                                 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80" class="w-full h-full object-cover object-center" alt="Video call screen share meeting">
                             </div>
                         </div>
@@ -548,7 +548,7 @@
         </section>
 
         {{-- Section 5: What to Expect --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
             <div class="absolute top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -559,51 +559,51 @@
                         </svg>
                         Simple, No Surprises
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">What to Expect</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-4">What to Expect</h2>
                 </div>
 
-                <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm space-y-6">
+                <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 md:p-12 border border-neutral-200 shadow-sm space-y-6">
                     <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+                        <div class="w-8 h-8 rounded-full bg-neutral-100 text-neutral-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-slate-750 mt-1">20–30 minutes, over a video call</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">20–30 minutes, over a video call</span>
                     </div>
 
                     <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+                        <div class="w-8 h-8 rounded-full bg-neutral-100 text-neutral-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-slate-750 mt-1">No cost, no credit card required</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">No cost, no credit card required</span>
                     </div>
 
                     <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+                        <div class="w-8 h-8 rounded-full bg-neutral-100 text-neutral-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-.447.894L15 19l-6-3-6 3V6l6 3 6-3z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-slate-750 mt-1">Live walkthrough with a real person — not a recorded video</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">Live walkthrough with a real person — not a recorded video</span>
                     </div>
 
                     <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+                        <div class="w-8 h-8 rounded-full bg-neutral-100 text-neutral-600 flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-slate-750 mt-1">Bring your team — multiple people can join</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">Bring your team — multiple people can join</span>
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- Section 6: Why a Demo --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 z-10 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black z-10 overflow-hidden">
             <div class="absolute -bottom-1/3 -right-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -615,7 +615,7 @@
                         Why Book a Demo?
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-6">Why Not Just Sign Up and Explore?</h2>
-                    <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                    <p class="text-lg text-neutral-400 leading-relaxed mb-8">
                         You can absolutely do that. But if your team has a specific approval structure, multiple branches, or questions about how something maps to your setup, a demo means we configure it together and you leave with real answers — not just a trial account and guesswork.
                     </p>
                     <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-400 hover:text-accent-400 transition-colors">
@@ -629,7 +629,7 @@
         </section>
 
         {{-- Section 7: FAQ --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -640,83 +640,83 @@
                         </svg>
                         FAQ
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Before You Book</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-4">Before You Book</h2>
                 </div>
 
                 <div x-data="{ active: null }" class="max-w-3xl mx-auto space-y-4">
                     {{-- Q1 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Is the demo actually free?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">Is the demo actually free?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 Yes — no cost, no credit card required, no obligation to buy anything afterward.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q2 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">How long does it take?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">How long does it take?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 Usually 20–30 minutes, depending on how many questions you bring.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q3 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Do I need to prepare anything beforehand?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">Do I need to prepare anything beforehand?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 Not required, but knowing your team size and current process (spreadsheets, WhatsApp, another tool) helps us tailor the walkthrough to you.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q4 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Can more than one person from my team join?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">Can more than one person from my team join?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 Yes — bring whoever's actually making the decision.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q5 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">What if we're not ready to commit yet?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">What if we're not ready to commit yet?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 That's fine. Plenty of people book a demo just to understand what TimeNest actually does before deciding anything.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q6 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-200 shadow-md' : ''">
+                    <div class="border border-neutral-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-200 shadow-md' : ''">
                         <button @click="active = active === 6 ? null : 6" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Is it a live call, or a recorded video?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <span class="text-base font-bold text-neutral-900">Is it a live call, or a recorded video?</span>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
                                 Live, with a real person, over video with screen-share — not a pre-recorded walkthrough.
                             </div>
                         </div>
@@ -726,9 +726,9 @@
         </section>
 
         {{-- Footer CTA (Contained Panel styling matching homepage final CTA) --}}
-        <section class="py-16 bg-slate-950 relative px-6 z-10 border-t border-slate-800">
+        <section class="py-16 bg-black relative px-6 z-10 border-t border-neutral-800">
             <div class="max-w-7xl mx-auto">
-                <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+                <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
@@ -741,7 +741,7 @@
                         <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6 animate-pulse">
                             Ready when you are
                         </h2>
-                        <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed">
+                        <p class="text-lg md:text-xl text-neutral-300 mb-10 leading-relaxed">
                             Book a time that works for you — takes less than a minute to schedule.
                         </p>
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -756,4 +756,6 @@
 
     <x-marketing.footer />
 @endsection
+
+
 

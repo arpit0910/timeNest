@@ -57,3 +57,5 @@
 
     <x-frontend-sections.cta-block headline="Get Early Access to AI Features" subheadline="Be among the first to experience intelligent workforce management." primaryCtaText="Book Demo" primaryCtaUrl="{{ route('frontend.book-demo') }}" secondaryCtaText="Start Free" secondaryCtaUrl="/register" />
 </x-frontend-layout.app>
+
+

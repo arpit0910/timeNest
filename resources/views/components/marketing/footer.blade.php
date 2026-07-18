@@ -1,11 +1,11 @@
-<footer class="bg-slate-950 pt-32 pb-10 relative">
+<footer class="bg-black pt-32 pb-10 relative">
     {{-- Glowing Gradient Divider with Text Badge --}}
     <div class="absolute top-0 left-0 w-full flex justify-center -mt-3.5">
-        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-slate-900 via-accent-500/50 to-slate-900 -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-neutral-900 via-accent-500/50 to-neutral-900 -translate-y-1/2"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[2px] bg-gradient-to-r from-transparent via-accent-400/40 to-transparent blur-sm -translate-y-1/2"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-accent-400/80 to-transparent shadow-[0_0_15px_rgba(124,106,187,0.5)] -translate-y-1/2"></div>
         
-        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-accent-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(124,106,187,0.15)] flex items-center gap-2">
+        <div class="relative z-10 px-4 py-1.5 rounded-full border border-neutral-800 bg-black text-accent-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(124,106,187,0.15)] flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
             Built for the future of work
             <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
@@ -25,24 +25,24 @@
                     </svg>
                     <span class="text-xl font-extrabold text-white tracking-tight">TimeNest</span>
                 </a>
-                <p class="text-slate-400 text-sm mb-8 max-w-xs leading-relaxed">
+                <p class="text-neutral-400 text-sm mb-8 max-w-xs leading-relaxed">
                     The modern operating system for workforce management. Automate time tracking, shift scheduling, and payroll compliance.
                 </p>
                 <div class="flex items-center gap-4">
                     {{-- Twitter / X --}}
-                    <a href="#" class="text-slate-500 hover:text-white transition" title="Twitter">
+                    <a href="#" class="text-neutral-500 hover:text-white transition" title="Twitter">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                     {{-- GitHub --}}
-                    <a href="#" class="text-slate-500 hover:text-white transition" title="GitHub">
+                    <a href="#" class="text-neutral-500 hover:text-white transition" title="GitHub">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
                     </a>
                     {{-- Instagram --}}
-                    <a href="#" class="text-slate-500 hover:text-white transition" title="Instagram">
+                    <a href="#" class="text-neutral-500 hover:text-white transition" title="Instagram">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/></svg>
                     </a>
                     {{-- YouTube --}}
-                    <a href="#" class="text-slate-500 hover:text-white transition" title="YouTube">
+                    <a href="#" class="text-neutral-500 hover:text-white transition" title="YouTube">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
                 </div>
@@ -52,10 +52,10 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Product</h3>
                 <ul class="space-y-4">
-                    <li><a href="/solutions" class="text-sm text-slate-400 hover:text-white transition">Solutions</a></li>
-                    <li><a href="/features" class="text-sm text-slate-400 hover:text-white transition">Features</a></li>
-                    <li><a href="/security" class="text-sm text-slate-400 hover:text-white transition">Security</a></li>
-                    <li><a href="/pricing" class="text-sm text-slate-400 hover:text-white transition">Pricing</a></li>
+                    <li><a href="/solutions" class="text-sm text-neutral-400 hover:text-white transition">Solutions</a></li>
+                    <li><a href="/features" class="text-sm text-neutral-400 hover:text-white transition">Features</a></li>
+                    <li><a href="/security" class="text-sm text-neutral-400 hover:text-white transition">Security</a></li>
+                    <li><a href="/pricing" class="text-sm text-neutral-400 hover:text-white transition">Pricing</a></li>
                 </ul>
             </div>
 
@@ -63,9 +63,9 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Solutions</h3>
                 <ul class="space-y-4">
-                    <li><a href="/solutions#organizations" class="text-sm text-slate-400 hover:text-white transition">For Organizations</a></li>
-                    <li><a href="/solutions#teams" class="text-sm text-slate-400 hover:text-white transition">For Growing Teams</a></li>
-                    <li><a href="/solutions#freelancers" class="text-sm text-slate-400 hover:text-white transition">For Freelancers</a></li>
+                    <li><a href="/solutions#organizations" class="text-sm text-neutral-400 hover:text-white transition">For Organizations</a></li>
+                    <li><a href="/solutions#teams" class="text-sm text-neutral-400 hover:text-white transition">For Growing Teams</a></li>
+                    <li><a href="/solutions#freelancers" class="text-sm text-neutral-400 hover:text-white transition">For Freelancers</a></li>
                 </ul>
             </div>
 
@@ -73,22 +73,24 @@
             <div>
                 <h3 class="text-sm font-bold text-white mb-5 tracking-wide uppercase">Company</h3>
                 <ul class="space-y-4">
-                    <li><a href="/about" class="text-sm text-slate-400 hover:text-white transition">About Us</a></li>
-                    <li><a href="/blog" class="text-sm text-slate-400 hover:text-white transition">Blogs</a></li>
-                    <li><a href="/contact" class="text-sm text-slate-400 hover:text-white transition">Contact</a></li>
+                    <li><a href="/about" class="text-sm text-neutral-400 hover:text-white transition">About Us</a></li>
+                    <li><a href="/blog" class="text-sm text-neutral-400 hover:text-white transition">Blogs</a></li>
+                    <li><a href="/contact" class="text-sm text-neutral-400 hover:text-white transition">Contact</a></li>
                 </ul>
             </div>
             
         </div>
         
-        <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-sm text-slate-500">
+        <div class="border-t border-neutral-900 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-neutral-500">
                 &copy; {{ date('Y') }} TimeNest Inc. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="#" class="text-sm text-slate-500 hover:text-slate-300 transition">Privacy Policy</a>
-                <a href="#" class="text-sm text-slate-500 hover:text-slate-300 transition">Terms of Service</a>
+                <a href="#" class="text-sm text-neutral-500 hover:text-neutral-300 transition">Privacy Policy</a>
+                <a href="#" class="text-sm text-neutral-500 hover:text-neutral-300 transition">Terms of Service</a>
             </div>
         </div>
     </div>
 </footer>
+
+

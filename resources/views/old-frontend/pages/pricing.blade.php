@@ -1,16 +1,16 @@
-﻿<x-frontend-layout.app>
-<x-slot name="metaTitle">Pricing — TimeNest</x-slot>
+<x-frontend-layout.app>
+<x-slot name="metaTitle">Pricing � TimeNest</x-slot>
 
 <style>
-/* ═════════ BASE STYLES ═════════ */
+/* --------- BASE STYLES --------- */
 .tn-page { background: #fafafa; color: #334155; }
 
-/* ═════════ TYPOGRAPHY ═════════ */
+/* --------- TYPOGRAPHY --------- */
 .tn-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #6366f1; }
 .tn-hero-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; color: #0f172a; line-height: 1.1; margin-bottom: 1.5rem; }
 .tn-hero-subtitle { font-size: 1.25rem; color: #64748b; max-width: 600px; margin: 0 auto 3rem; line-height: 1.6; }
 
-/* ═════════ PRICING CARDS ═════════ */
+/* --------- PRICING CARDS --------- */
 .tn-pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; align-items: stretch; }
 
 .tn-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 2.5rem; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
@@ -22,14 +22,14 @@
 .tn-price { font-size: 3.5rem; font-weight: 800; color: inherit; line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.04em; }
 .tn-price span { font-size: 1rem; font-weight: 500; color: #94a3b8; letter-spacing: normal; }
 
-/* ═════════ BUTTONS ═════════ */
+/* --------- BUTTONS --------- */
 .tn-btn-outline { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 0.875rem 1.5rem; border-radius: 12px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all 0.2s; border: 1px solid #cbd5e1; color: #334155; background: transparent; }
 .tn-btn-outline:hover { background: #f1f5f9; border-color: #94a3b8; color: #0f172a; }
 
 .tn-btn-primary { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 0.875rem 1.5rem; border-radius: 12px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all 0.2s; background: #6366f1; color: #ffffff; border: none; box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
 .tn-btn-primary:hover { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.4); }
 
-/* ═════════ FEATURE LISTS ═════════ */
+/* --------- FEATURE LISTS --------- */
 .tn-features-header { font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
 .tn-card .tn-features-header { color: #0f172a; }
 .tn-card-pro .tn-features-header { color: #ffffff; }
@@ -43,7 +43,7 @@
 .tn-card .tn-icon-check { color: #6366f1; }
 .tn-card-pro .tn-icon-check { color: #818cf8; }
 
-/* ═════════ COMPARISON TABLE ═════════ */
+/* --------- COMPARISON TABLE --------- */
 .tn-table-wrapper { max-width: 1100px; margin: 5rem auto 2rem; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
 .tn-table { width: 100%; border-collapse: collapse; text-align: left; }
 .tn-table th { padding: 1.5rem; background: #f8fafc; font-weight: 700; color: #0f172a; font-size: 1rem; border-bottom: 2px solid #e2e8f0; }
@@ -51,7 +51,7 @@
 .tn-table tr:last-child td { border-bottom: none; }
 .tn-table td.text-center, .tn-table th.text-center { text-align: center; }
 
-/* ═════════ FAQ ═════════ */
+/* --------- FAQ --------- */
 .tn-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 0 auto; text-align: left; }
 .tn-faq-q { font-size: 1.125rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem; }
 .tn-faq-a { font-size: 1rem; color: #475569; line-height: 1.6; }
@@ -86,7 +86,7 @@
                   <x-frontend-base.badge variant="primary" class="mb-4">Platform Products</x-frontend-base.badge>
                   <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Three products, one 
 platform</h2>
-                  <p class="text-content-muted text-lg">TimeNest isn't one tool â€” it's three powerful operating 
+                  <p class="text-content-muted text-lg">TimeNest isn't one tool — it's three powerful operating 
 systems unified under a single platform. Choose the product that fits your workflow, and scale seamlessly without ever 
 migrating data.</p>
               </div>
@@ -118,7 +118,7 @@ Management', 'Shift Scheduling & Rostering', 'Departments & Teams', 'Roles & Per
                           'title' => 'For Freelancers',
                           'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
                           'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects from 
-one dashboard. Run your entire freelance business â€” CRM, invoicing, tasks, and AI forecasting â€” forever free.',
+one dashboard. Run your entire freelance business — CRM, invoicing, tasks, and AI forecasting — forever free.',
                           'audience' => ['Solo Freelancers', 'Consultants', 'Creators', 'Independent Professionals'],
                           'stats' => [['label' => 'Clients', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 
 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 
@@ -142,7 +142,7 @@ Tracking', 'AI Revenue Forecasting', 'Time Logging'],
 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 
 0z',
                           'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Share 
-projects, consolidate invoicing, and track team utilization â€” without corporate overhead.',
+projects, consolidate invoicing, and track team utilization — without corporate overhead.',
                           'audience' => ['Agencies', 'Studios', 'Consulting Teams', 'Collaborative Freelance Groups'],
                           'stats' => [['label' => 'Collaborators', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 
 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z'], ['label' => 'Projects', 'icon' => 'M19 11H5m14 
@@ -199,9 +199,9 @@ $product['title'] }}</h3>
                           
                           {{-- Audience tag --}}
                           <div class="flex items-center gap-1.5 mb-4 relative z-10">
-                              <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Ideal 
+                              <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-widest">Ideal 
 For:</span>
-                              <span class="text-[10px] font-medium text-slate-500">{{ implode(' â€¢ ', 
+                              <span class="text-[10px] font-medium text-neutral-500">{{ implode(' • ', 
 $product['audience']) }}</span>
                           </div>
                           
@@ -216,27 +216,27 @@ $product['audience']) }}</span>
                           {{-- Stats micro-badges row --}}
                           <div class="flex items-center gap-2 mb-6 relative z-10">
                               @foreach($product['stats'] as $stat)
-                                  <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border 
-border-slate-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 
+                                  <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-50 border 
+border-neutral-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 
 transition-colors duration-300">
                                       <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-500" fill="none" 
 stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ 
 $stat['icon'] }}"/></svg>
-                                      <span class="text-[10px] font-semibold text-slate-600">{{ $stat['label'] 
+                                      <span class="text-[10px] font-semibold text-neutral-600">{{ $stat['label'] 
 }}</span>
                                   </div>
                               @endforeach
                           </div>
   
                           {{-- Mini Dashboard Preview Widget --}}
-                          <div class="relative z-10 mb-6 rounded-xl border border-slate-200/60 bg-gradient-to-br 
-from-slate-50 to-white p-3 overflow-hidden">
+                          <div class="relative z-10 mb-6 rounded-xl border border-neutral-200/60 bg-gradient-to-br 
+from-neutral-50 to-white p-3 overflow-hidden">
                               @if($product['widgetType'] === 'org')
                                   {{-- Organization: Attendance mini-widget --}}
                                   <div x-data="{ present: 47, total: 52, rate: 90.4 }" x-init="setInterval(() => { 
 present = present === 47 ? 50 : present === 50 ? 52 : 47; rate = Math.round(present/total*1000)/10; }, 3000)">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Today's Attendance</span>
                                           <span class="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1.5 
 py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse">
@@ -245,14 +245,14 @@ py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse
                                       </div>
                                       <div class="flex items-end justify-between">
                                           <div>
-                                              <span class="text-lg font-bold text-slate-800 transition-all 
+                                              <span class="text-lg font-bold text-neutral-800 transition-all 
 duration-500" x-text="present + '/' + total"></span>
-                                              <span class="text-[9px] text-slate-400 ml-1">employees</span>
+                                              <span class="text-[9px] text-neutral-400 ml-1">employees</span>
                                           </div>
                                           <span class="text-xs font-bold transition-all duration-500" :class="rate > 
 95 ? 'text-emerald-600' : 'text-amber-600'" x-text="rate + '%'"></span>
                                       </div>
-                                      <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                                      <div class="w-full h-1.5 bg-neutral-100 rounded-full mt-2 overflow-hidden">
                                           <div class="h-full rounded-full transition-all duration-700 ease-out" 
 :class="rate > 95 ? 'bg-emerald-500' : 'bg-amber-500'" :style="'width: ' + rate + '%'"></div>
                                       </div>
@@ -262,25 +262,25 @@ duration-500" x-text="present + '/' + total"></span>
                                   <div x-data="{ revenue: 284500, invoices: 12, paid: 9 }" x-init="setInterval(() => { 
 revenue += Math.floor(Math.random() * 15000); paid = Math.min(paid + 1, invoices); }, 4000)">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Revenue This Month</span>
                                           <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 
 rounded border border-indigo-200">Tracking</span>
                                       </div>
                                       <div class="flex items-end justify-between">
                                           <div>
-                                              <span class="text-lg font-bold text-slate-800 transition-all 
-duration-500" x-text="'â‚¹' + revenue.toLocaleString()"></span>
+                                              <span class="text-lg font-bold text-neutral-800 transition-all 
+duration-500" x-text="'₹' + revenue.toLocaleString()"></span>
                                           </div>
                                           <div class="text-right">
-                                              <span class="text-[9px] text-slate-400 block" x-text="paid + '/' + 
+                                              <span class="text-[9px] text-neutral-400 block" x-text="paid + '/' + 
 invoices + ' paid'"></span>
                                           </div>
                                       </div>
                                       <div class="flex gap-1 mt-2">
                                           <template x-for="i in invoices">
                                               <div class="flex-1 h-1.5 rounded-full transition-all duration-500" 
-:class="i <= paid ? 'bg-indigo-500' : 'bg-slate-100'"></div>
+:class="i <= paid ? 'bg-indigo-500' : 'bg-neutral-100'"></div>
                                           </template>
                                       </div>
                                   </div>
@@ -289,7 +289,7 @@ invoices + ' paid'"></span>
                                   <div x-data="{ members: [{n:'Sarah K.', u:92}, {n:'James L.', u:78}, {n:'Maria R.', 
 u:85}] }">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Team Utilization</span>
                                           <span class="text-[8px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 
 rounded border border-amber-200">3 Active</span>
@@ -297,13 +297,13 @@ rounded border border-amber-200">3 Active</span>
                                       <div class="space-y-1.5">
                                           <template x-for="m in members" :key="m.n">
                                               <div class="flex items-center gap-2">
-                                                  <span class="text-[9px] font-medium text-slate-600 w-14 truncate" 
+                                                  <span class="text-[9px] font-medium text-neutral-600 w-14 truncate" 
 x-text="m.n"></span>
-                                                  <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                  <div class="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
                                                       <div class="h-full bg-amber-500 rounded-full transition-all 
 duration-700" :style="'width: ' + m.u + '%'"></div>
                                                   </div>
-                                                  <span class="text-[9px] font-bold text-slate-500 w-7 text-right" 
+                                                  <span class="text-[9px] font-bold text-neutral-500 w-7 text-right" 
 x-text="m.u + '%'"></span>
                                               </div>
                                           </template>
@@ -348,12 +348,12 @@ z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:te
 hover:border-{{ $product['color'] }}-200 transition-all duration-300">{{ $product['cta'] }}</x-frontend-base.button>
                           
                           {{-- Product comparison indicator --}}
-                          <div class="relative z-10 mt-4 pt-4 border-t border-slate-100 flex items-center 
+                          <div class="relative z-10 mt-4 pt-4 border-t border-neutral-100 flex items-center 
 justify-center gap-2">
                               <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-400" fill="none" 
 stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ 
 $product['icon'] }}"/></svg>
-                              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ 
+                              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">{{ 
 $product['basis'] }}</span>
                           </div>
                       </div>
@@ -395,43 +395,43 @@ $product['basis'] }}</span>
           </tr>
           <tr>
             <td>AI Features</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto; color:#6366f1;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
           <tr>
             <td>Freelance Workspace</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto; color:#6366f1;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
           </tr>
           <tr>
             <td>Employee Management</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
           <tr>
             <td>Attendance & Leaves</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
           <tr>
             <td>Shift Management</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
           <tr>
             <td>Custom Workflows</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
           <tr>
             <td>Dedicated Support</td>
-            <td class="text-center" style="color:#cbd5e1;">—</td>
+            <td class="text-center" style="color:#cbd5e1;">�</td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto; color:#6366f1;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
             <td class="text-center"><svg class="tn-icon-check" style="width:20px; margin:0 auto;" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></td>
           </tr>
@@ -467,6 +467,8 @@ $product['basis'] }}</span>
 
 </div>
 </x-frontend-layout.app>
+
+
 
 
 

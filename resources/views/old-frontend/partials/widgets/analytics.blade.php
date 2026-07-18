@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          value: 94.2, 
          points: [
@@ -16,7 +16,7 @@
      "
 >
      <div class="flex items-center justify-between">
-         <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Productivity</span>
+         <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider font-body">Productivity</span>
          <span class="text-[9px] font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 transition-all duration-300" x-text="value + '%'"></span>
      </div>
      <div class="relative h-[45px] mt-2 flex-1 flex items-end">
@@ -29,3 +29,4 @@
          </svg>
      </div>
 </div>
+

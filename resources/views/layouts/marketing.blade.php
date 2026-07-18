@@ -15,7 +15,8 @@
     
     @vite(['resources/css/marketing.css', 'resources/js/marketing.js'])
 </head>
-<body class="bg-gray-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-accent-100 selection:text-accent-900">
+<body class="bg-gray-50 text-neutral-800 font-sans antialiased overflow-x-hidden selection:bg-accent-100 selection:text-accent-900">
     @yield('content')
 </body>
 </html>
+

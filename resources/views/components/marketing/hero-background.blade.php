@@ -1,4 +1,4 @@
-<div class="absolute inset-0 z-0 overflow-hidden bg-slate-950">
+<div class="absolute inset-0 z-0 overflow-hidden bg-black">
     
     {{-- Fading Grid Pattern (subtle on dark) --}}
     <div class="absolute inset-0" 
@@ -20,3 +20,5 @@
          style="width: 600px; height: 400px; background-color: rgba(155, 125, 208, 0.10); filter: blur(100px);"></div>
 
 </div>
+
+

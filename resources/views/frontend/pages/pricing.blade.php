@@ -6,7 +6,7 @@
 
     <main class="marketing-responsive-sections" x-data="{ isAnnual: false }">
         {{-- Section 1: Hero --}}
-        <section class="relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden bg-slate-950">
+        <section class="relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6 text-center animate-fade-up">
@@ -22,18 +22,18 @@
                     That Scales With You
                 </h1>
                 
-                <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-10">
+                <p class="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-10">
                     Free to start as an individual. Pay per person once you're a team — with the rate going down, not up, as you grow.
                 </p>
 
                 {{-- Billing Toggle --}}
                 <div class="flex items-center justify-center gap-4 mt-6">
-                    <span :class="!isAnnual ? 'text-white font-bold' : 'text-slate-500 font-medium'" class="text-sm transition-colors duration-200">Monthly Billing</span>
+                    <span :class="!isAnnual ? 'text-white font-bold' : 'text-neutral-500 font-medium'" class="text-sm transition-colors duration-200">Monthly Billing</span>
                     <button type="button" @click="isAnnual = !isAnnual" class="relative inline-flex h-6.5 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-250 ease-in-out focus:outline-none bg-accent-600">
                         <span :class="isAnnual ? 'translate-x-5.5' : 'translate-x-0'" class="pointer-events-none inline-block h-5.5 w-5.5 transform rounded-full bg-white shadow ring-0 transition duration-250 ease-in-out"></span>
                     </button>
                     <div class="flex items-center gap-2">
-                        <span :class="isAnnual ? 'text-white font-bold' : 'text-slate-500 font-medium'" class="text-sm transition-colors duration-200">Annual Billing</span>
+                        <span :class="isAnnual ? 'text-white font-bold' : 'text-neutral-500 font-medium'" class="text-sm transition-colors duration-200">Annual Billing</span>
                         <span class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-500/15 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold rounded-full shadow-sm">
                             Save 20%
                         </span>
@@ -43,7 +43,7 @@
         </section>
 
         {{-- Section 2: Freelancers & Independents --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-y border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-y border-neutral-800 overflow-hidden">
             <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -55,7 +55,7 @@
                         Solos & Independents
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Free Forever, For Individual Work</h2>
-                    <p class="text-lg text-slate-400 max-w-2xl mx-auto">Get started tracking your own projects and tasks at no cost.</p>
+                    <p class="text-lg text-neutral-400 max-w-2xl mx-auto">Get started tracking your own projects and tasks at no cost.</p>
                 </div>
 
                 <div class="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto items-stretch">
@@ -65,11 +65,11 @@
                             <div class="flex items-center justify-between mb-6">
                                 <div>
                                     <h3 class="font-extrabold text-white text-xl mb-1">Freelancer Free</h3>
-                                    <p class="text-sm text-slate-400">Everything you need to track personal hours</p>
+                                    <p class="text-sm text-neutral-400">Everything you need to track personal hours</p>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-3xl font-extrabold text-white">$0</div>
-                                    <div class="text-xs font-bold text-slate-500 uppercase mt-0.5">Free Forever</div>
+                                    <div class="text-xs font-bold text-neutral-500 uppercase mt-0.5">Free Forever</div>
                                 </div>
                             </div>
                             
@@ -80,25 +80,25 @@
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Personal time tracking</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Personal time tracking</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Project & task tracking</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Project & task tracking</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Progress overview & dashboard</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Progress overview & dashboard</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Daily worklogs</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Daily worklogs</span>
                                 </li>
                             </ul>
                         </div>
@@ -107,7 +107,7 @@
                     </div>
 
                     {{-- Pro Add-on Card --}}
-                    <div class="lg:col-span-5 bg-gradient-to-b from-slate-900 to-slate-950 text-white rounded-3xl p-8 border border-slate-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                    <div class="lg:col-span-5 bg-gradient-to-b from-neutral-900 to-neutral-950 text-white rounded-3xl p-8 border border-neutral-800 shadow-xl flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute -right-16 -top-16 w-48 h-48 bg-accent-600/10 rounded-full filter blur-[40px] pointer-events-none"></div>
                         
                         <div>
@@ -120,14 +120,14 @@
                                 </div>
                                 <div class="text-right">
                                     <div class="text-2xl font-extrabold text-white" x-text="isAnnual ? '$48/yr' : '$5/mo'">$5/mo</div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wide mt-0.5" x-text="isAnnual ? 'Billed Annually' : 'Billed Monthly'">Billed Monthly</div>
+                                    <div class="text-[9px] font-bold text-neutral-400 uppercase tracking-wide mt-0.5" x-text="isAnnual ? 'Billed Annually' : 'Billed Monthly'">Billed Monthly</div>
                                 </div>
                             </div>
-                            <p class="text-xs text-slate-450 leading-relaxed mb-6">For freelancers who need to bill clients and stay in touch, not just track time.</p>
+                            <p class="text-xs text-neutral-450 leading-relaxed mb-6">For freelancers who need to bill clients and stay in touch, not just track time.</p>
                             
-                            <hr class="border-slate-800 my-4" />
+                            <hr class="border-neutral-800 my-4" />
 
-                            <ul class="space-y-3.5 mb-6 text-slate-300">
+                            <ul class="space-y-3.5 mb-6 text-neutral-300">
                                 <li class="flex items-start gap-2.5">
                                     <div class="mt-0.5 w-4.5 h-4.5 rounded-full bg-accent-500/10 text-accent-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
@@ -148,12 +148,12 @@
                                 </li>
                             </ul>
                             
-                            <div class="p-2.5 bg-slate-800/40 rounded-xl border border-slate-800 text-[10px] text-slate-400 font-medium leading-relaxed mb-6">
+                            <div class="p-2.5 bg-neutral-800/40 rounded-xl border border-neutral-800 text-[10px] text-neutral-400 font-medium leading-relaxed mb-6">
                                 Note: These three features are disabled on the free plan and unlock immediately with Freelancer Pro.
                             </div>
                         </div>
 
-                        <x-ui.button variant="secondary" href="#" class="w-full !bg-white !text-slate-900 border-transparent hover:!bg-slate-100">
+                        <x-ui.button variant="secondary" href="#" class="w-full !bg-white !text-neutral-900 border-transparent hover:!bg-neutral-100">
                             Upgrade to Pro
                         </x-ui.button>
                     </div>
@@ -177,89 +177,89 @@
                                 </svg>
                                 Growing Teams
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Team — Priced Per Person</h2>
-                            <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6">Minimum 2 members</p>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-2">Team — Priced Per Person</h2>
+                            <p class="text-sm font-bold text-neutral-400 uppercase tracking-wider mb-6">Minimum 2 members</p>
                             
                             {{-- Pricing Table --}}
-                            <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-6 bg-white">
+                            <div class="border border-neutral-200 rounded-2xl overflow-hidden shadow-sm mb-6 bg-white">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
-                                        <tr class="bg-slate-50 border-b border-slate-200">
-                                            <th class="py-4 px-6 text-sm font-bold text-slate-950">Team Size</th>
-                                            <th class="py-4 px-6 text-sm font-bold text-slate-950 text-right">Price per user / month</th>
+                                        <tr class="bg-neutral-50 border-b border-neutral-200">
+                                            <th class="py-4 px-6 text-sm font-bold text-neutral-950">Team Size</th>
+                                            <th class="py-4 px-6 text-sm font-bold text-neutral-950 text-right">Price per user / month</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-slate-150">
+                                    <tbody class="divide-y divide-neutral-150">
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-700">2–20</td>
-                                            <td class="py-3.5 px-6 text-sm font-extrabold text-slate-900 text-right" x-text="isAnnual ? '$3.20' : '$4.00'">$4.00</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">2–20</td>
+                                            <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$3.20' : '$4.00'">$4.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-700">21–100</td>
-                                            <td class="py-3.5 px-6 text-sm font-extrabold text-slate-900 text-right" x-text="isAnnual ? '$2.80' : '$3.50'">$3.50</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">21–100</td>
+                                            <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.80' : '$3.50'">$3.50</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-700">101–1,000</td>
-                                            <td class="py-3.5 px-6 text-sm font-extrabold text-slate-900 text-right" x-text="isAnnual ? '$2.40' : '$3.00'">$3.00</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">101–1,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.40' : '$3.00'">$3.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-700">1,001–10,000</td>
-                                            <td class="py-3.5 px-6 text-sm font-extrabold text-slate-900 text-right" x-text="isAnnual ? '$2.00' : '$2.50'">$2.50</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">1,001–10,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.00' : '$2.50'">$2.50</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-700">10,001–200,000</td>
-                                            <td class="py-3.5 px-6 text-sm font-extrabold text-slate-900 text-right" x-text="isAnnual ? '$1.60' : '$2.00'">$2.00</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">10,001–200,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$1.60' : '$2.00'">$2.00</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <p class="text-sm font-semibold text-slate-400 bg-slate-50 border border-slate-100 rounded-xl p-3 w-fit mb-6">
+                        <p class="text-sm font-semibold text-neutral-400 bg-neutral-50 border border-neutral-100 rounded-xl p-3 w-fit mb-6">
                             💡 Your rate automatically drops as your team grows — no renegotiation needed.
                         </p>
                     </div>
 
                     {{-- Right Column: Features list & Action --}}
-                    <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-3xl p-8 flex flex-col justify-between shadow-inner">
+                    <div class="lg:col-span-5 bg-neutral-50 border border-neutral-200 rounded-3xl p-8 flex flex-col justify-between shadow-inner">
                         <div>
-                            <h3 class="font-extrabold text-slate-900 text-lg mb-6">Included in Team:</h3>
+                            <h3 class="font-extrabold text-neutral-900 text-lg mb-6">Included in Team:</h3>
                             <ul class="space-y-4 mb-8">
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Everything in Freelancer Pro</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Everything in Freelancer Pro</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Team attendance with geo-fenced check-ins</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Team attendance with geo-fenced check-ins</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Leave management with single-approval workflow</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Leave management with single-approval workflow</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Daily worklogs</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Daily worklogs</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Basic roles — Admin, Manager, Employee</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Basic roles — Admin, Manager, Employee</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-700">Team chat</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Team chat</span>
                                 </li>
                             </ul>
                         </div>
@@ -272,7 +272,7 @@
         </section>
 
         {{-- Section 4: Established Organizations & Enterprises --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-y border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-y border-neutral-800 overflow-hidden">
             <div class="absolute top-1/3 -right-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -288,36 +288,36 @@
                                 Large Organizations
                             </div>
                             <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">Organization — Built for Real Structure</h2>
-                            <p class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-6">Minimum 2 members</p>
+                            <p class="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-6">Minimum 2 members</p>
                             
                             {{-- Pricing Table --}}
                             <div class="border border-white/10 rounded-2xl overflow-hidden shadow-sm mb-6 bg-white/5">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="bg-black/20 border-b border-white/10">
-                                            <th class="py-4 px-6 text-sm font-bold text-slate-300">Team Size</th>
-                                            <th class="py-4 px-6 text-sm font-bold text-slate-300 text-right">Price per user / month</th>
+                                            <th class="py-4 px-6 text-sm font-bold text-neutral-300">Team Size</th>
+                                            <th class="py-4 px-6 text-sm font-bold text-neutral-300 text-right">Price per user / month</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-white/10">
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-400">2–20</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">2–20</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$5.60' : '$7.00'">$7.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-400">21–100</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">21–100</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$4.80' : '$6.00'">$6.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-400">101–1,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">101–1,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$4.00' : '$5.00'">$5.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-400">1,001–10,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">1,001–10,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$3.20' : '$4.00'">$4.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-slate-400">10,001–200,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">10,001–200,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$2.40' : '$3.00'">$3.00</td>
                                         </tr>
                                     </tbody>
@@ -325,7 +325,7 @@
                             </div>
                         </div>
 
-                        <p class="text-sm font-semibold text-slate-400 bg-white/5 border border-white/10 rounded-xl p-3 w-fit mb-6 shadow-sm">
+                        <p class="text-sm font-semibold text-neutral-400 bg-white/5 border border-white/10 rounded-xl p-3 w-fit mb-6 shadow-sm">
                             💡 Your rate automatically drops as your team grows — no renegotiation needed.
                         </p>
                     </div>
@@ -339,44 +339,44 @@
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Everything in Team</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Everything in Team</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Departments, designations & reporting hierarchy</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Departments, designations & reporting hierarchy</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Multi-level approval workflows</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Multi-level approval workflows</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Custom roles & granular permissions</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Custom roles & granular permissions</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Branch-level attendance policies</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Branch-level attendance policies</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-slate-300">Worklogs tied to projects and approvals</span>
+                                    <span class="text-sm font-semibold text-neutral-300">Worklogs tied to projects and approvals</span>
                                 </li>
                                 <li class="flex items-center gap-3">
                                     <div class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
                                         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <span class="text-sm font-semibold text-slate-500 line-through">Shift Management</span>
+                                        <span class="text-sm font-semibold text-neutral-500 line-through">Shift Management</span>
                                         <span class="inline-flex items-center px-2 py-0.5 bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[9px] font-bold uppercase rounded tracking-wider">
                                             Coming Soon
                                         </span>
@@ -407,20 +407,20 @@
         <section class="py-16 lg:py-24 bg-white">
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px]">
                 <div class="max-w-4xl mx-auto text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Compare Plans</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight">Compare Plans</h2>
                 </div>
 
-                <div class="max-w-5xl mx-auto border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                <div class="max-w-5xl mx-auto border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
                     <table class="w-full border-collapse text-left bg-white">
                         <thead>
-                            <tr class="bg-slate-50 border-b border-slate-200">
-                                <th class="py-4 px-6 text-sm font-bold text-slate-900">Capability</th>
-                                <th class="py-4 px-6 text-sm font-bold text-slate-900 text-center">Freelancer</th>
-                                <th class="py-4 px-6 text-sm font-bold text-slate-900 text-center">Team</th>
-                                <th class="py-4 px-6 text-sm font-bold text-slate-900 text-center">Organization</th>
+                            <tr class="bg-neutral-50 border-b border-neutral-200">
+                                <th class="py-4 px-6 text-sm font-bold text-neutral-900">Capability</th>
+                                <th class="py-4 px-6 text-sm font-bold text-neutral-900 text-center">Freelancer</th>
+                                <th class="py-4 px-6 text-sm font-bold text-neutral-900 text-center">Team</th>
+                                <th class="py-4 px-6 text-sm font-bold text-neutral-900 text-center">Organization</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-200 text-sm font-medium text-slate-700">
+                        <tbody class="divide-y divide-neutral-200 text-sm font-medium text-neutral-700">
                             <tr>
                                 <td class="py-4 px-6">Time & project tracking</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
@@ -442,56 +442,56 @@
                             <tr>
                                 <td class="py-4 px-6">Client chat</td>
                                 <td class="py-4 px-6 text-center text-accent-600 font-bold">Add-on</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Team attendance & leave</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Approval workflow</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
-                                <td class="py-4 px-6 text-center text-slate-700">Single-step</td>
-                                <td class="py-4 px-6 text-center text-slate-700">Multi-level</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-700">Single-step</td>
+                                <td class="py-4 px-6 text-center text-neutral-700">Multi-level</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Team chat</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Departments & hierarchy</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Custom roles & permissions</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
-                                <td class="py-4 px-6 text-center text-slate-700">Basic</td>
-                                <td class="py-4 px-6 text-center text-slate-700">Granular</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-700">Basic</td>
+                                <td class="py-4 px-6 text-center text-neutral-700">Granular</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Branch-level policies</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
-                                <td class="py-4 px-6 text-center text-slate-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
                                 <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Minimum users</td>
-                                <td class="py-4 px-6 text-center text-slate-900">1</td>
-                                <td class="py-4 px-6 text-center text-slate-900">2</td>
-                                <td class="py-4 px-6 text-center text-slate-900">2</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">1</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">2</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">2</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Maximum users</td>
-                                <td class="py-4 px-6 text-center text-slate-900">1</td>
-                                <td class="py-4 px-6 text-center text-slate-900">200,000</td>
-                                <td class="py-4 px-6 text-center text-slate-900">200,000</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">1</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">200,000</td>
+                                <td class="py-4 px-6 text-center text-neutral-900">200,000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -500,7 +500,7 @@
         </section>
 
         {{-- Section 6: FAQ --}}
-        <section class="relative py-16 lg:py-24 bg-slate-950 border-y border-slate-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-black border-y border-neutral-800 overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -519,10 +519,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 1 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">What happens if our team grows past a pricing bracket?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 Your rate automatically adjusts to the new bracket at your next billing cycle — no manual upgrade, no renegotiation, no surprise jump.
                             </div>
                         </div>
@@ -532,10 +532,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 2 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">Can we switch from Team to Organization anytime?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 Yes. Upgrading unlocks the additional features immediately, and your existing data carries over without any migration.
                             </div>
                         </div>
@@ -545,10 +545,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 3 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">Is there a minimum team size?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 The Freelancer plan is single-user. Team and Organization plans require a minimum of 2 members.
                             </div>
                         </div>
@@ -558,10 +558,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 4 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">What exactly does Freelancer Pro unlock?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 Excel/data export, invoice creation, and client chat — all disabled on the free plan, all available immediately once you subscribe.
                             </div>
                         </div>
@@ -571,10 +571,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 5 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">Do you offer a discount for annual billing?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 Yes — paying annually saves 20% compared to monthly billing, on both Team and Organization plans.
                             </div>
                         </div>
@@ -584,10 +584,10 @@
                     <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 6 ? 'border-white/20 shadow-md bg-white/10' : ''">
                         <button @click="active = active === 6 ? null : 6" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                             <span class="text-base font-bold text-white">Is there a free trial for Team or Organization plans?</span>
-                            <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-5 h-5 text-neutral-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-400' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
                                 Yes — 14 days, no credit card required, full access to the plan's features during the trial.
                             </div>
                         </div>
@@ -597,9 +597,9 @@
         </section>
 
         {{-- Footer CTA --}}
-        <section class="py-16 bg-white relative px-6 z-10 border-t border-slate-100">
+        <section class="py-16 bg-white relative px-6 z-10 border-t border-neutral-100">
             <div class="max-w-7xl mx-auto">
-                <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+                <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
                     {{-- Background Effects --}}
                     <div class="absolute inset-0 z-0">
@@ -612,7 +612,7 @@
                         <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
                             Ready to get started?
                         </h2>
-                        <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed">
+                        <p class="text-lg md:text-xl text-neutral-300 mb-10 leading-relaxed">
                             Start free as an individual, or set up your team in minutes.
                         </p>
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -627,3 +627,5 @@
 
     <x-marketing.footer />
 @endsection
+
+

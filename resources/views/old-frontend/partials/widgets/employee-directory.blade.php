@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          employees: [
              { name: 'Sarah Jenkins', role: 'UX Designer', verified: true, active: true },
@@ -23,19 +23,19 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
             </span>
-            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Employee Directory</span>
+            <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">Employee Directory</span>
         </div>
-        <span class="text-[8px] font-mono text-slate-400">Total: 42</span>
+        <span class="text-[8px] font-mono text-neutral-400">Total: 42</span>
     </div>
     
     <div class="mt-2 space-y-2 flex-1 flex flex-col justify-center">
         <template x-for="emp in employees" :key="emp.name">
-            <div class="flex items-center justify-between p-1.5 border-b border-slate-100 last:border-0">
+            <div class="flex items-center justify-between p-1.5 border-b border-neutral-100 last:border-0">
                 <div class="flex items-center gap-2">
-                    <span :class="'w-1.5 h-1.5 rounded-full ' + (emp.active ? 'bg-emerald-500' : 'bg-slate-300')"></span>
+                    <span :class="'w-1.5 h-1.5 rounded-full ' + (emp.active ? 'bg-emerald-500' : 'bg-neutral-300')"></span>
                     <div class="flex flex-col text-left">
-                        <span class="text-[10px] font-bold text-slate-700" x-text="emp.name"></span>
-                        <span class="text-[8px] text-slate-400" x-text="emp.role"></span>
+                        <span class="text-[10px] font-bold text-neutral-700" x-text="emp.name"></span>
+                        <span class="text-[8px] text-neutral-400" x-text="emp.role"></span>
                     </div>
                 </div>
                 <div class="flex items-center gap-1.5">
@@ -48,3 +48,4 @@
         </template>
     </div>
 </div>
+

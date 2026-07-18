@@ -1,10 +1,10 @@
-﻿{{-- Global Search Overlay --}}
+{{-- Global Search Overlay --}}
 <div x-show="$store.search.open" x-transition x-cloak class="fixed inset-0 z-[60] bg-surface/95 glass">
     <div class="max-w-3xl mx-auto px-6 pt-24">
         <div class="flex items-center gap-4 mb-8">
             <div class="flex-1 relative">
                 <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-content-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input id="global-search-input" type="text" placeholder="Search pages, features, FAQs..." class="w-full pl-12 pr-4 py-4 bg-surface-card border border-surface-border rounded-xl text-content-strong placeholder-slate-500 font-body focus:outline-none focus:border-brand-500" x-model="$store.search.query" @input="$store.search.search($event.target.value)" @keydown.escape="$store.search.close()">
+                <input id="global-search-input" type="text" placeholder="Search pages, features, FAQs..." class="w-full pl-12 pr-4 py-4 bg-surface-card border border-surface-border rounded-xl text-content-strong placeholder-neutral-500 font-body focus:outline-none focus:border-brand-500" x-model="$store.search.query" @input="$store.search.search($event.target.value)" @keydown.escape="$store.search.close()">
             </div>
             <button @click="$store.search.close()" class="p-2 text-content-muted hover:text-content-strong cursor-pointer">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -32,10 +32,12 @@
 
         <div x-show="$store.search.query.length < 2 && !$store.search.loading" class="text-center py-12">
             <p class="text-content-light text-sm">Start typing to search...</p>
-            <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-600">
+            <div class="flex items-center justify-center gap-2 mt-4 text-xs text-neutral-600">
                 <kbd class="px-2 py-1 rounded bg-surface-card border border-surface-border text-content-muted">ESC</kbd>
                 <span>to close</span>
             </div>
         </div>
     </div>
 </div>
+
+

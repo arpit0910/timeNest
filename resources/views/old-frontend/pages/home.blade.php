@@ -1,12 +1,12 @@
-﻿<x-frontend-layout.app>
-<x-slot name="metaTitle">TimeNest — The Workforce OS Your Team Actually Uses</x-slot>
+<x-frontend-layout.app>
+<x-slot name="metaTitle">TimeNest � The Workforce OS Your Team Actually Uses</x-slot>
 
 <style>
-/* ── ROOT DARK THEME ── */
+/* -- ROOT DARK THEME -- */
 .tn-page { background: #ffffff; color: #334155; }
 html, body { background-color: #0f0f1a !important; color: #334155; }
 
-/* ── TYPOGRAPHY ── */
+/* -- TYPOGRAPHY -- */
 .tn-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #6366f1; }
 .tn-h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #0f172a; }
 .tn-h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0f172a; }
@@ -15,18 +15,18 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 .tn-muted { font-size: 0.875rem; color: #94a3b8; }
 .tn-grad { background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-/* ── LAYOUT ── */
+/* -- LAYOUT -- */
 .tn-section { padding: 6rem 0; }
 .tn-section-sm { padding: 3rem 0; }
 .tn-container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
 
-/* ── SURFACES ── */
+/* -- SURFACES -- */
 .tn-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; }
 .tn-card:hover { border-color: rgba(99,102,241,0.4); background: #f1f5f9; }
 .tn-card-glow { background: #f8fafc; border: 1px solid rgba(99,102,241,0.5); border-radius: 16px; box-shadow: 0 0 60px rgba(99,102,241,0.1), 0 8px 32px rgba(0,0,0,0.06); }
 .tn-divider { border-color: rgba(255,255,255,0.06); }
 
-/* ── BUTTONS ── */
+/* -- BUTTONS -- */
 .tn-btn-primary {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.875rem 1.75rem; border-radius: 12px;
@@ -66,28 +66,28 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 }
 .tn-btn-white:hover { background: #e0e7ff; transform: translateY(-1px); }
 
-/* ── BADGE ── */
+/* -- BADGE -- */
 .tn-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; border-radius: 999px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; }
 .tn-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; box-shadow: 0 0 8px rgba(99,102,241,0.8); animation: pulse 2s infinite; }
 
-/* ── GRID BG ── */
+/* -- GRID BG -- */
 .tn-grid-bg {
   background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
-/* ── GLOW ORBS ── */
+/* -- GLOW ORBS -- */
 .tn-glow-top { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse at center, rgba(99,102,241,0.18) 0%, transparent 65%); pointer-events: none; }
 .tn-glow-brand { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 400px; background: radial-gradient(ellipse at center, rgba(99,102,241,0.1) 0%, transparent 70%); pointer-events: none; }
 
-/* ── ICON CHIP ── */
+/* -- ICON CHIP -- */
 .tn-icon-chip { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .tn-icon-indigo { background: rgba(99,102,241,0.12); color: #818cf8; }
 .tn-icon-violet { background: rgba(139,92,246,0.12); color: #a78bfa; }
 .tn-icon-amber { background: rgba(245,158,11,0.12); color: #fbbf24; }
 .tn-icon-emerald { background: rgba(16,185,129,0.12); color: #34d399; }
 
-/* ── ANIMATIONS ── */
+/* -- ANIMATIONS -- */
 @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 @keyframes ping-slow { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(1.8);opacity:0} }
@@ -96,22 +96,22 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 .tn-ping { animation: ping-slow 2.5s ease-out infinite; }
 .tn-bar { transform-origin: bottom; animation: bar-grow 0.6s ease-out forwards; }
 
-/* ── STAR ── */
+/* -- STAR -- */
 .tn-star { width:16px;height:16px;color:#818cf8;fill:#818cf8; }
 
-/* ── FEATURE GRID ── */
+/* -- FEATURE GRID -- */
 .tn-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: #e2e8f0; border-radius: 16px; overflow: hidden; }
 .tn-feat-item { background: #f8fafc; padding: 2rem; transition: background 0.2s; }
 .tn-feat-item:hover { background: #f1f5f9; }
 
-/* ── TESTIMONIAL STARS ── */
+/* -- TESTIMONIAL STARS -- */
 .tn-stars { display:flex;gap:3px;margin-bottom:1rem; }
 
-/* ── PRICING ── */
+/* -- PRICING -- */
 .tn-price-num { font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
 .tn-check { width: 18px; height: 18px; color: #6366f1; flex-shrink: 0; margin-top: 2px; }
 
-/* ── CTA OVERRIDES ── */
+/* -- CTA OVERRIDES -- */
 @media (max-width: 1023px) {
     .tn-cta-responsive { grid-template-columns: 1fr !important; padding: 3rem 1.5rem !important; text-align: center; }
     .tn-cta-content { display: flex; flex-direction: column; align-items: center; text-align: center !important; }
@@ -122,7 +122,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 .tn-feat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
 .tn-feat-list li { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9rem; color: #475569; }
 
-/* ── RESPONSIVE ── */
+/* -- RESPONSIVE -- */
 @media(max-width:768px){
   .tn-hero-grid{display:block !important;}
   .tn-hero-visual{margin-top:3rem;}
@@ -136,7 +136,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
 
 <div class="tn-page">
 
-{{-- ═══════════ SECTION 1: HERO ═══════════ --}}
+{{-- ----------- SECTION 1: HERO ----------- --}}
 <section style="background:#ffffff;position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;" class="tn-grid-bg">
   <div class="tn-glow-top"></div>
   <div class="tn-container" style="position:relative;z-index:1;padding-top:7rem;padding-bottom:5rem;">
@@ -146,14 +146,14 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
       <div>
         <div class="tn-badge" style="margin-bottom:1.5rem;">
           <span class="tn-badge-dot"></span>
-          Now in Early Access · Join 200+ teams
+          Now in Early Access � Join 200+ teams
         </div>
         <h1 class="tn-h1" style="margin-bottom:1.5rem;">
           The Workforce OS<br>
           <span class="tn-grad">Your Team Actually Uses</span>
         </h1>
         <p class="tn-body" style="max-width:480px;margin-bottom:2.5rem;">
-          TimeNest brings attendance, time logs, leaves, shifts, and AI insights into one unified platform — built for freelancers, growing teams, and enterprise organizations.
+          TimeNest brings attendance, time logs, leaves, shifts, and AI insights into one unified platform � built for freelancers, growing teams, and enterprise organizations.
         </p>
         <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
           <a href="/register" class="tn-btn-primary">
@@ -165,7 +165,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </a>
         </div>
-        <p class="tn-muted">✓ Trusted by teams in 12+ countries &nbsp;·&nbsp; ✓ No credit card required</p>
+        <p class="tn-muted">? Trusted by teams in 12+ countries &nbsp;�&nbsp; ? No credit card required</p>
       </div>
 
       {{-- RIGHT: DASHBOARD MOCKUP --}}
@@ -209,7 +209,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 2: TRUST BAR ═══════════ --}}
+{{-- ----------- SECTION 2: TRUST BAR ----------- --}}
 <section class="tn-section-sm" style="border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;background:#fafafa;">
   <div class="tn-container">
     <p class="tn-muted" style="text-align:center;letter-spacing:0.1em;text-transform:uppercase;font-size:0.7rem;font-weight:600;margin-bottom:2rem;">Trusted by teams at</p>
@@ -221,19 +221,19 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 3: PLATFORM OVERVIEW ═══════════ --}}
+{{-- ----------- SECTION 3: PLATFORM OVERVIEW ----------- --}}
 <section id="features-section" class="tn-section">
   <div class="tn-container">
     <div style="text-align:center;margin-bottom:4rem;">
       <div class="tn-eyebrow" style="margin-bottom:0.75rem;">THE PLATFORM</div>
       <h2 class="tn-h2">Everything workforce.<br><span class="tn-grad">Nothing wasted.</span></h2>
-      <p class="tn-body" style="max-width:560px;margin:1.25rem auto 0;">One platform to manage your people, time, and operations — whether you're a solo freelancer or running a 500-person company.</p>
+      <p class="tn-body" style="max-width:560px;margin:1.25rem auto 0;">One platform to manage your people, time, and operations � whether you're a solo freelancer or running a 500-person company.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="tn-3col">
       @foreach([
         ['For Organizations','Enterprise Workforce Control','Manage multi-department teams with granular role permissions, geo-fenced attendance, shift policies, and automated approval workflows.','Explore for Organizations','frontend.product.organizations','indigo','M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'],
-        ['For Freelancers','Solo & Freelance Ready','Track client hours, log billable time, manage your own leave — all from one clean workspace that grows with your workload.','Explore for Freelancers','frontend.product.freelancers','violet','M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
-        ['For Teams','Freelance Team Workspace','Collaborate with your crew — shared attendance tracking, team timesheets, member directories, and unified reporting.','Explore Workspace','frontend.product.workspace','amber','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
+        ['For Freelancers','Solo & Freelance Ready','Track client hours, log billable time, manage your own leave � all from one clean workspace that grows with your workload.','Explore for Freelancers','frontend.product.freelancers','violet','M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'],
+        ['For Teams','Freelance Team Workspace','Collaborate with your crew � shared attendance tracking, team timesheets, member directories, and unified reporting.','Explore Workspace','frontend.product.workspace','amber','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
       ] as [$eyebrow,$title,$body,$cta,$route,$color,$icon])
       <div class="tn-card" style="padding:2rem;display:flex;flex-direction:column;gap:1.25rem;transition:all 0.2s;">
         <div class="tn-icon-chip tn-icon-{{ $color }}">
@@ -254,15 +254,15 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 4A: FEATURE — ATTENDANCE ═══════════ --}}
+{{-- ----------- SECTION 4A: FEATURE � ATTENDANCE ----------- --}}
 <section class="tn-section" style="background:#f8fafc;">
   <div class="tn-container">
     <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
       <div>
         <div class="tn-eyebrow" style="margin-bottom:0.75rem;">ATTENDANCE</div>
         <h2 class="tn-h2" style="margin-bottom:1.25rem;">Clock in. Know who's<br>where. Always.</h2>
-        <p class="tn-body" style="margin-bottom:2rem;">Real-time attendance tracking with geo-fence enforcement. Set per-branch radius rules — strict block or flexible flagging. Every clock-in is stamped with location, device, and time.</p>
-        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'attendance-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More →</a>
+        <p class="tn-body" style="margin-bottom:2rem;">Real-time attendance tracking with geo-fence enforcement. Set per-branch radius rules � strict block or flexible flagging. Every clock-in is stamped with location, device, and time.</p>
+        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'attendance-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More ?</a>
       </div>
       <div>
         <div class="tn-card" style="padding:2.5rem;text-align:center;">
@@ -278,7 +278,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
             <span style="width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 10px rgba(52,211,153,0.8);flex-shrink:0;"></span>
             <div style="flex:1;">
               <div style="font-size:0.85rem;font-weight:700;color:#0f172a;">Checked In</div>
-              <div style="font-size:0.75rem;color:#475569;margin-top:2px;">09:02 AM · Mumbai Branch</div>
+              <div style="font-size:0.75rem;color:#475569;margin-top:2px;">09:02 AM � Mumbai Branch</div>
             </div>
             <span style="font-size:0.7rem;font-weight:700;color:#34d399;background:rgba(52,211,153,0.1);padding:0.25rem 0.625rem;border-radius:999px;">On Time</span>
           </div>
@@ -288,7 +288,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 4B: FEATURE — LEAVE ═══════════ --}}
+{{-- ----------- SECTION 4B: FEATURE � LEAVE ----------- --}}
 <section class="tn-section" style="background:#ffffff;">
   <div class="tn-container">
     <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
@@ -335,21 +335,21 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
         <div class="tn-eyebrow" style="margin-bottom:0.75rem;">LEAVE MANAGEMENT</div>
         <h2 class="tn-h2" style="margin-bottom:1.25rem;">Leave requests that<br>don't need chasing.</h2>
         <p class="tn-body" style="margin-bottom:2rem;">Configurable leave policies per organization. Auto-approval or multi-level approval flows. Employees see their balance in real time. Managers get notified instantly.</p>
-        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'leave-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More →</a>
+        <a href="{{ route('frontend.feature.show', ['category'=>'workforce','slug'=>'leave-management']) }}" class="tn-btn-ghost" style="width:fit-content;">Learn More ?</a>
       </div>
     </div>
   </div>
 </section>
 
-{{-- ═══════════ SECTION 4C: FEATURE — AI ═══════════ --}}
+{{-- ----------- SECTION 4C: FEATURE � AI ----------- --}}
 <section class="tn-section" style="background:#f8fafc;">
   <div class="tn-container">
     <div class="tn-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
       <div>
         <div class="tn-eyebrow" style="margin-bottom:0.75rem;">AI INSIGHTS</div>
         <h2 class="tn-h2" style="margin-bottom:1.25rem;">Your workforce data,<br>finally making sense.</h2>
-        <p class="tn-body" style="margin-bottom:2rem;">TimeNest AI surfaces attendance anomalies, flags unusual patterns, forecasts leave conflicts, and gives managers the context they need — without manual reports.</p>
-        <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost" style="width:fit-content;">Explore AI Platform →</a>
+        <p class="tn-body" style="margin-bottom:2rem;">TimeNest AI surfaces attendance anomalies, flags unusual patterns, forecasts leave conflicts, and gives managers the context they need � without manual reports.</p>
+        <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost" style="width:fit-content;">Explore AI Platform ?</a>
       </div>
       <div>
         <div class="tn-card" style="padding:2rem;">
@@ -368,7 +368,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
             </div>
             <div>
               <div style="font-size:0.65rem;font-weight:800;color:#6366f1;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">AI Insight</div>
-              <div style="font-size:0.85rem;color:#475569;line-height:1.5;">Attendance dipped 18% this Friday — likely due to 3 overlapping leave requests.</div>
+              <div style="font-size:0.85rem;color:#475569;line-height:1.5;">Attendance dipped 18% this Friday � likely due to 3 overlapping leave requests.</div>
             </div>
           </div>
         </div>
@@ -377,7 +377,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 5: FEATURE GRID ═══════════ --}}
+{{-- ----------- SECTION 5: FEATURE GRID ----------- --}}
 <section class="tn-section" style="background:#ffffff;">
   <div class="tn-container">
     <div style="text-align:center;margin-bottom:4rem;">
@@ -388,7 +388,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
       @foreach([
         ['Geo-Fence Attendance','Branch-level radius enforcement with strict or flexible modes.','M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z'],
         ['Shift Management','Build rotating shifts, assign teams, track adherence automatically.','M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-        ['Leave Policies','Carry-forward rules, leave types, accrual logic — fully configurable.','M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
+        ['Leave Policies','Carry-forward rules, leave types, accrual logic � fully configurable.','M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
         ['Multi-Level Approvals','Auto, single, or multi-step approval chains per policy.','M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
         ['Employee Directory','Searchable org-wide directory with roles, departments, and status.','M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'],
         ['Time Logs','Billable hour tracking for freelancers and project-based teams.','M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
@@ -407,23 +407,23 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
   </div>
 </section>
 
-{{-- ═══════════ SECTION 6: AI TEASER ═══════════ --}}
+{{-- ----------- SECTION 6: AI TEASER ----------- --}}
 <section class="tn-section" style="background:#f1f5f9;position:relative;overflow:hidden;">
   <div class="tn-glow-brand"></div>
   <div class="tn-container" style="position:relative;z-index:1;text-align:center;">
     <div class="tn-eyebrow" style="margin-bottom:0.75rem;">AI PLATFORM</div>
     <h2 class="tn-h2" style="margin-bottom:1.25rem;">Your workforce,<br><span class="tn-grad">intelligently managed.</span></h2>
-    <p class="tn-body" style="max-width:520px;margin:0 auto 2.5rem;">TimeNest AI doesn't just show you data — it tells you what it means and what to do next.</p>
+    <p class="tn-body" style="max-width:520px;margin:0 auto 2.5rem;">TimeNest AI doesn't just show you data � it tells you what it means and what to do next.</p>
     <div style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:2.5rem;">
       @foreach(['Attendance Anomaly Detection','Leave Conflict Forecasting','Productivity Pattern Analysis','AI Executive Dashboard','Fraud Detection'] as $pill)
       <span style="padding:0.5rem 1rem;border-radius:999px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);color:#a5b4fc;font-size:0.8rem;font-weight:600;">{{ $pill }}</span>
       @endforeach
     </div>
-    <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost">Explore the AI Platform →</a>
+    <a href="{{ route('frontend.ai') }}" class="tn-btn-ghost">Explore the AI Platform ?</a>
   </div>
 </section>
 
-{{-- ═══════════ SECTION 7: TESTIMONIALS ═══════════ --}}
+{{-- ----------- SECTION 7: TESTIMONIALS ----------- --}}
 <section class="tn-section" style="background:#ffffff;">
   <div class="tn-container">
     <div style="text-align:center;margin-bottom:4rem;">
@@ -463,7 +463,7 @@ html, body { background-color: #0f0f1a !important; color: #334155; }
                   <x-frontend-base.badge variant="primary" class="mb-4">Platform Products</x-frontend-base.badge>
                   <h2 class="font-display text-3xl lg:text-4xl font-bold text-content-strong mb-4">Three products, one 
 platform</h2>
-                  <p class="text-content-muted text-lg">TimeNest isn't one tool â€” it's three powerful operating 
+                  <p class="text-content-muted text-lg">TimeNest isn't one tool — it's three powerful operating 
 systems unified under a single platform. Choose the product that fits your workflow, and scale seamlessly without ever 
 migrating data.</p>
               </div>
@@ -495,7 +495,7 @@ Management', 'Shift Scheduling & Rostering', 'Departments & Teams', 'Roles & Per
                           'title' => 'For Freelancers',
                           'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
                           'desc' => 'Everything a solo freelancer needs to manage clients, revenue, and projects from 
-one dashboard. Run your entire freelance business â€” CRM, invoicing, tasks, and AI forecasting â€” forever free.',
+one dashboard. Run your entire freelance business — CRM, invoicing, tasks, and AI forecasting — forever free.',
                           'audience' => ['Solo Freelancers', 'Consultants', 'Creators', 'Independent Professionals'],
                           'stats' => [['label' => 'Clients', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 
 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 
@@ -519,7 +519,7 @@ Tracking', 'AI Revenue Forecasting', 'Time Logging'],
 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 
 0z',
                           'desc' => 'A collaborative workspace for freelance teams, agencies, and studios. Share 
-projects, consolidate invoicing, and track team utilization â€” without corporate overhead.',
+projects, consolidate invoicing, and track team utilization — without corporate overhead.',
                           'audience' => ['Agencies', 'Studios', 'Consulting Teams', 'Collaborative Freelance Groups'],
                           'stats' => [['label' => 'Collaborators', 'icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 
 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z'], ['label' => 'Projects', 'icon' => 'M19 11H5m14 
@@ -576,9 +576,9 @@ $product['title'] }}</h3>
                           
                           {{-- Audience tag --}}
                           <div class="flex items-center gap-1.5 mb-4 relative z-10">
-                              <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Ideal 
+                              <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-widest">Ideal 
 For:</span>
-                              <span class="text-[10px] font-medium text-slate-500">{{ implode(' â€¢ ', 
+                              <span class="text-[10px] font-medium text-neutral-500">{{ implode(' • ', 
 $product['audience']) }}</span>
                           </div>
                           
@@ -593,27 +593,27 @@ $product['audience']) }}</span>
                           {{-- Stats micro-badges row --}}
                           <div class="flex items-center gap-2 mb-6 relative z-10">
                               @foreach($product['stats'] as $stat)
-                                  <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border 
-border-slate-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 
+                                  <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-50 border 
+border-neutral-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 
 transition-colors duration-300">
                                       <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-500" fill="none" 
 stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ 
 $stat['icon'] }}"/></svg>
-                                      <span class="text-[10px] font-semibold text-slate-600">{{ $stat['label'] 
+                                      <span class="text-[10px] font-semibold text-neutral-600">{{ $stat['label'] 
 }}</span>
                                   </div>
                               @endforeach
                           </div>
   
                           {{-- Mini Dashboard Preview Widget --}}
-                          <div class="relative z-10 mb-6 rounded-xl border border-slate-200/60 bg-gradient-to-br 
-from-slate-50 to-white p-3 overflow-hidden">
+                          <div class="relative z-10 mb-6 rounded-xl border border-neutral-200/60 bg-gradient-to-br 
+from-neutral-50 to-white p-3 overflow-hidden">
                               @if($product['widgetType'] === 'org')
                                   {{-- Organization: Attendance mini-widget --}}
                                   <div x-data="{ present: 47, total: 52, rate: 90.4 }" x-init="setInterval(() => { 
 present = present === 47 ? 50 : present === 50 ? 52 : 47; rate = Math.round(present/total*1000)/10; }, 3000)">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Today's Attendance</span>
                                           <span class="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1.5 
 py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse">
@@ -622,14 +622,14 @@ py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse
                                       </div>
                                       <div class="flex items-end justify-between">
                                           <div>
-                                              <span class="text-lg font-bold text-slate-800 transition-all 
+                                              <span class="text-lg font-bold text-neutral-800 transition-all 
 duration-500" x-text="present + '/' + total"></span>
-                                              <span class="text-[9px] text-slate-400 ml-1">employees</span>
+                                              <span class="text-[9px] text-neutral-400 ml-1">employees</span>
                                           </div>
                                           <span class="text-xs font-bold transition-all duration-500" :class="rate > 
 95 ? 'text-emerald-600' : 'text-amber-600'" x-text="rate + '%'"></span>
                                       </div>
-                                      <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                                      <div class="w-full h-1.5 bg-neutral-100 rounded-full mt-2 overflow-hidden">
                                           <div class="h-full rounded-full transition-all duration-700 ease-out" 
 :class="rate > 95 ? 'bg-emerald-500' : 'bg-amber-500'" :style="'width: ' + rate + '%'"></div>
                                       </div>
@@ -639,25 +639,25 @@ duration-500" x-text="present + '/' + total"></span>
                                   <div x-data="{ revenue: 284500, invoices: 12, paid: 9 }" x-init="setInterval(() => { 
 revenue += Math.floor(Math.random() * 15000); paid = Math.min(paid + 1, invoices); }, 4000)">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Revenue This Month</span>
                                           <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 
 rounded border border-indigo-200">Tracking</span>
                                       </div>
                                       <div class="flex items-end justify-between">
                                           <div>
-                                              <span class="text-lg font-bold text-slate-800 transition-all 
-duration-500" x-text="'â‚¹' + revenue.toLocaleString()"></span>
+                                              <span class="text-lg font-bold text-neutral-800 transition-all 
+duration-500" x-text="'₹' + revenue.toLocaleString()"></span>
                                           </div>
                                           <div class="text-right">
-                                              <span class="text-[9px] text-slate-400 block" x-text="paid + '/' + 
+                                              <span class="text-[9px] text-neutral-400 block" x-text="paid + '/' + 
 invoices + ' paid'"></span>
                                           </div>
                                       </div>
                                       <div class="flex gap-1 mt-2">
                                           <template x-for="i in invoices">
                                               <div class="flex-1 h-1.5 rounded-full transition-all duration-500" 
-:class="i <= paid ? 'bg-indigo-500' : 'bg-slate-100'"></div>
+:class="i <= paid ? 'bg-indigo-500' : 'bg-neutral-100'"></div>
                                           </template>
                                       </div>
                                   </div>
@@ -666,7 +666,7 @@ invoices + ' paid'"></span>
                                   <div x-data="{ members: [{n:'Sarah K.', u:92}, {n:'James L.', u:78}, {n:'Maria R.', 
 u:85}] }">
                                       <div class="flex items-center justify-between mb-2">
-                                          <span class="text-[9px] font-bold text-slate-400 uppercase 
+                                          <span class="text-[9px] font-bold text-neutral-400 uppercase 
 tracking-wider">Team Utilization</span>
                                           <span class="text-[8px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 
 rounded border border-amber-200">3 Active</span>
@@ -674,13 +674,13 @@ rounded border border-amber-200">3 Active</span>
                                       <div class="space-y-1.5">
                                           <template x-for="m in members" :key="m.n">
                                               <div class="flex items-center gap-2">
-                                                  <span class="text-[9px] font-medium text-slate-600 w-14 truncate" 
+                                                  <span class="text-[9px] font-medium text-neutral-600 w-14 truncate" 
 x-text="m.n"></span>
-                                                  <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                  <div class="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
                                                       <div class="h-full bg-amber-500 rounded-full transition-all 
 duration-700" :style="'width: ' + m.u + '%'"></div>
                                                   </div>
-                                                  <span class="text-[9px] font-bold text-slate-500 w-7 text-right" 
+                                                  <span class="text-[9px] font-bold text-neutral-500 w-7 text-right" 
 x-text="m.u + '%'"></span>
                                               </div>
                                           </template>
@@ -725,12 +725,12 @@ z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:te
 hover:border-{{ $product['color'] }}-200 transition-all duration-300">{{ $product['cta'] }}</x-frontend-base.button>
                           
                           {{-- Product comparison indicator --}}
-                          <div class="relative z-10 mt-4 pt-4 border-t border-slate-100 flex items-center 
+                          <div class="relative z-10 mt-4 pt-4 border-t border-neutral-100 flex items-center 
 justify-center gap-2">
                               <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-400" fill="none" 
 stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ 
 $product['icon'] }}"/></svg>
-                              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ 
+                              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">{{ 
 $product['basis'] }}</span>
                           </div>
                       </div>
@@ -744,4 +744,6 @@ $product['basis'] }}</span>
 
 </div>
 </x-frontend-layout.app>
+
+
 

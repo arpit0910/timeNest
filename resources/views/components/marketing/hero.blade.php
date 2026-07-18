@@ -1,4 +1,4 @@
-<section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center bg-slate-950">
+<section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden min-h-[90vh] flex flex-col justify-center bg-black">
     
     {{-- Ambient Background Layer (External SVG) --}}
     <x-marketing.hero-background />
@@ -24,7 +24,7 @@
                 Built for Trust & Speed
             </h1>
             
-            <p class="text-lg md:text-xl text-slate-400 max-w-[600px] leading-relaxed mb-10 animate-fade-up delay-200">
+            <p class="text-lg md:text-xl text-neutral-400 max-w-[600px] leading-relaxed mb-10 animate-fade-up delay-200">
                 TimeNest unifies attendance, leave, worklogs, and secure team chat in one platform — encrypted end-to-end, and fast enough to keep up with your team.
             </p>
             
@@ -58,3 +58,5 @@
         
     </div>
 </section>
+
+

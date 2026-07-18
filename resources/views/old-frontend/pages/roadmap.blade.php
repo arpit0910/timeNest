@@ -18,7 +18,7 @@
                         ['Payroll Module', 'Finance'], ['Recruitment ATS', 'HR'], ['Performance Reviews', 'HR'],
                         ['Asset Management', 'Operations'], ['CRM Module', 'Operations'],
                     ]],
-                    ['Future Vision', 'bg-slate-500', [
+                    ['Future Vision', 'bg-neutral-500', [
                         ['AI Agents', 'AI'], ['Workflow Automation', 'AI'], ['AI Operations Manager', 'AI'],
                         ['Procurement', 'Operations'], ['Vendor Management', 'Operations'],
                     ]],
@@ -43,3 +43,4 @@
         </div>
     </section>
 </x-frontend-layout.app>
+

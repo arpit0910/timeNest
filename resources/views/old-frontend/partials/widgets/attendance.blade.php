@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[240px] relative overflow-hidden' }}" 
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[240px] relative overflow-hidden' }}" 
      x-data="biometricAttendance()"
      x-init="initSequence()">
     
@@ -9,9 +9,9 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" :class="statusBgClass"></span>
                 <span class="relative inline-flex rounded-full h-2.5 w-2.5" :class="statusBgClass"></span>
             </span>
-            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Attendance</span>
+            <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">Attendance</span>
         </div>
-        <span class="text-[10px] font-semibold text-slate-400" x-text="currentTime"></span>
+        <span class="text-[10px] font-semibold text-neutral-400" x-text="currentTime"></span>
     </div>
 
     <!-- Central Stage Area -->
@@ -26,7 +26,7 @@
                 <!-- Base Fingerprint (Dim) -->
                 <div class="absolute inset-0 transition-colors duration-500"
                      style="mask-image: url('/images/mockups/fingerprint.svg'); mask-size: contain; mask-position: center; mask-repeat: no-repeat; -webkit-mask-image: url('/images/mockups/fingerprint.svg'); -webkit-mask-size: contain; -webkit-mask-position: center; -webkit-mask-repeat: no-repeat;"
-                     :class="stage === 'fp_verified' ? 'bg-emerald-500 drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]' : 'bg-slate-200'">
+                     :class="stage === 'fp_verified' ? 'bg-emerald-500 drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]' : 'bg-neutral-200'">
                 </div>
 
                 <!-- Active Fingerprint Glow (Revealed by scanning line) -->
@@ -59,7 +59,7 @@
 
             <!-- Status Text -->
             <div class="h-6 mt-4 flex items-center justify-center">
-                <span x-show="stage === 'fp_idle'" class="text-[11px] font-semibold text-slate-400">Place finger to scan</span>
+                <span x-show="stage === 'fp_idle'" class="text-[11px] font-semibold text-neutral-400">Place finger to scan</span>
                 <span x-show="stage === 'fp_scan'" class="text-[11px] font-bold text-brand-600 animate-pulse">Scanning Print...</span>
                 <span x-show="stage === 'fp_verified'" class="text-[11px] font-bold text-emerald-600">Identity Verified</span>
             </div>
@@ -69,7 +69,7 @@
         <div class="absolute inset-0 flex flex-col items-center justify-center transition-all duration-700"
              :class="isFaceStage ? 'opacity-100 scale-100 z-20' : 'opacity-0 scale-105 z-0 pointer-events-none'">
             
-            <div class="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 shadow-inner group">
+            <div class="relative w-24 h-24 rounded-2xl overflow-hidden bg-neutral-100 shadow-inner group">
                 <!-- Profile Image -->
                 <img src="/images/mockups/employee_portrait.png" class="w-full h-full object-cover transition-transform duration-1000" :class="isFaceStage ? 'scale-100' : 'scale-110'" alt="Sarah K.">
                 
@@ -103,7 +103,7 @@
             <!-- Status Badge -->
             <div class="h-6 mt-4 flex items-center justify-center relative">
                 <div class="absolute transition-all duration-300 flex items-center justify-center" :class="stage === 'face_scan' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
-                    <span class="text-[11px] font-bold text-slate-500 animate-pulse">Running Face Match...</span>
+                    <span class="text-[11px] font-bold text-neutral-500 animate-pulse">Running Face Match...</span>
                 </div>
                 <div class="absolute transition-all duration-300 flex items-center justify-center" :class="stage === 'face_verified' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'">
                     <div class="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded border border-emerald-100 shadow-sm">
@@ -124,13 +124,13 @@
                 </svg>
             </div>
             
-            <h4 class="text-[15px] font-display font-bold text-slate-800 tracking-tight">Attendance Marked</h4>
+            <h4 class="text-[15px] font-display font-bold text-neutral-800 tracking-tight">Attendance Marked</h4>
             
-            <div class="mt-3 w-full bg-slate-50 border border-slate-100 rounded-xl p-3 flex flex-col items-center gap-1">
-                <span class="text-sm font-bold text-slate-800">Sarah K.</span>
+            <div class="mt-3 w-full bg-neutral-50 border border-neutral-100 rounded-xl p-3 flex flex-col items-center gap-1">
+                <span class="text-sm font-bold text-neutral-800">Sarah K.</span>
                 <div class="flex items-center gap-2 mt-0.5">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider" x-text="currentTime"></span>
-                    <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+                    <span class="text-[10px] font-bold text-neutral-500 uppercase tracking-wider" x-text="currentTime"></span>
+                    <span class="w-1 h-1 rounded-full bg-neutral-300"></span>
                     <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Biometric Verified</span>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 if (this.stage === 'fp_scan' || this.stage === 'face_scan') return 'bg-brand-400';
                 if (this.stage === 'success') return 'bg-emerald-500';
                 if (this.stage === 'fp_verified' || this.stage === 'face_verified') return 'bg-emerald-400';
-                return 'bg-slate-300';
+                return 'bg-neutral-300';
             },
             
             get isFingerprintStage() {
@@ -234,3 +234,5 @@
         }));
     });
 </script>
+
+

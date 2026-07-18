@@ -3,9 +3,9 @@
     'subtext' => 'Join 10,000+ companies using TimeNest to manage shifts, process leave, and handle complex payroll effortlessly.',
     'buttonText' => 'Book a demo'
 ])
-<section class="py-16 bg-slate-950 relative px-6">
+<section class="py-16 bg-black relative px-6">
     <div class="max-w-7xl mx-auto">
-        <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+        <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
             
             {{-- Background Effects --}}
             <div class="absolute inset-0 z-0">
@@ -28,7 +28,7 @@
                     <div class="flex flex-col sm:flex-row gap-4 max-w-md">
                         @if($buttonText === 'Subscribe')
                             <div class="flex w-full gap-2">
-                                <input type="email" placeholder="Your email address..." class="flex-grow bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500">
+                                <input type="email" placeholder="Your email address..." class="flex-grow bg-neutral-800/50 border border-neutral-700 text-white placeholder-neutral-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500">
                                 <x-ui.button type="button" class="shrink-0">{{ $buttonText }}</x-ui.button>
                             </div>
                         @else
@@ -37,7 +37,7 @@
                         @endif
                     </div>
                     @if($buttonText !== 'Subscribe')
-                        <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
+                        <p class="text-xs text-neutral-400 mt-4">No credit card required. 14-day free trial.</p>
                     @endif
                 </div>
 
@@ -65,9 +65,9 @@
                         </div>
                         
                         {{-- Center Main Element --}}
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 bg-slate-800 border border-slate-700 rounded-3xl p-5 shadow-2xl z-10">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 bg-neutral-800 border border-neutral-700 rounded-3xl p-5 shadow-2xl z-10">
                             <div class="flex justify-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full border-4 border-slate-900 shadow-md" alt="User">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full border-4 border-neutral-900 shadow-md" alt="User">
                             </div>
                             <div class="text-center">
                                 <div class="text-white font-bold text-sm">Welcome back, Alex</div>
@@ -85,3 +85,5 @@
         </div>
     </div>
 </section>
+
+

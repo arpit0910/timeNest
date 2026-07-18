@@ -23,7 +23,7 @@
         <script type="module" src="{{ asset('assets/frontend.js') }}"></script>
     @endif
 </head>
-<body class="bg-[#0a0a0f] text-slate-300 antialiased min-h-screen flex flex-col">
+<body class="bg-[#0a0a0f] text-neutral-300 antialiased min-h-screen flex flex-col">
     <main class="flex-grow bg-surface flex flex-col items-center justify-center">
         <div class="mb-8">
             <a href="/" class="flex items-center gap-2" style="text-decoration: none;">
@@ -39,3 +39,4 @@
     </main>
 </body>
 </html>
+

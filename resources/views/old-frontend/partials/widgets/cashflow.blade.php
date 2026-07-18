@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          revenue: 842000,
          transactions: [
@@ -30,15 +30,15 @@
      "
 >
     <div class="flex items-center justify-between">
-         <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-body">Cashflow</span>
+         <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider font-body">Cashflow</span>
          <span class="text-[8px] font-bold text-emerald-600 flex items-center gap-0.5 animate-pulse bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
              Live
          </span>
     </div>
     <div class="my-1">
-         <h4 class="text-slate-900 font-bold text-base leading-none transition-all duration-300" x-text="'₹' + revenue.toLocaleString()"></h4>
-         <span class="text-[9px] text-slate-400 font-semibold">Total Balance</span>
+         <h4 class="text-neutral-900 font-bold text-base leading-none transition-all duration-300" x-text="'₹' + revenue.toLocaleString()"></h4>
+         <span class="text-[9px] text-neutral-400 font-semibold">Total Balance</span>
     </div>
     <div class="space-y-1 mt-1 flex-1 flex flex-col justify-end">
          <template x-for="tx in transactions" :key="tx.id">
@@ -57,3 +57,5 @@
          </template>
     </div>
 </div>
+
+

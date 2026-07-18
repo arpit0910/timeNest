@@ -1,27 +1,27 @@
-<section class="py-32 bg-slate-50 relative overflow-hidden border-y border-slate-200/50">
+<section class="py-32 bg-neutral-50 relative overflow-hidden border-y border-neutral-200/50">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
             {{-- Visual Content (Left on desktop, bottom on mobile) --}}
             <div class="order-2 lg:order-1 relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-accent-100 to-white rounded-3xl transform -rotate-3 scale-105 opacity-50"></div>
-                <div class="bg-white border border-slate-100 shadow-xl rounded-3xl p-8 relative z-10">
+                <div class="bg-white border border-neutral-100 shadow-xl rounded-3xl p-8 relative z-10">
                     
                     {{-- UI Mockup: Fraud Detection --}}
                     <div class="space-y-4">
                         <div class="flex items-center justify-between mb-2">
-                            <h4 class="text-sm font-bold text-slate-800">Recent Check-ins</h4>
+                            <h4 class="text-sm font-bold text-neutral-800">Recent Check-ins</h4>
                             <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
                         </div>
                         
                         {{-- Clean Check-in --}}
-                        <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-4 p-3 bg-neutral-50 rounded-xl border border-neutral-100">
                             <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                             </div>
                             <div class="flex-1">
-                                <div class="text-sm font-bold text-slate-900">Sarah Jenkins</div>
-                                <div class="text-xs text-slate-500">09:02 AM • Headquarters</div>
+                                <div class="text-sm font-bold text-neutral-900">Sarah Jenkins</div>
+                                <div class="text-xs text-neutral-500">09:02 AM • Headquarters</div>
                             </div>
                             <div class="text-right">
                                 <div class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded text-center">Verified</div>
@@ -35,7 +35,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                             </div>
                             <div class="flex-1">
-                                <div class="text-sm font-bold text-slate-900">Mike Thompson</div>
+                                <div class="text-sm font-bold text-neutral-900">Mike Thompson</div>
                                 <div class="text-xs text-rose-600 font-medium">Flagged: Geofence mismatch</div>
                             </div>
                             <div class="text-right">
@@ -44,11 +44,11 @@
                         </div>
                         
                         {{-- AI Face Match --}}
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
+                        <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-accent-50 flex items-center justify-center border border-accent-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>
                             </div>
-                            <div class="text-xs font-medium text-slate-600 flex-1">AI Face Match enabled for Warehouse staff</div>
+                            <div class="text-xs font-medium text-neutral-600 flex-1">AI Face Match enabled for Warehouse staff</div>
                             <x-ui.pill-badge class="!text-[9px] !py-0.5">Active</x-ui.pill-badge>
                         </div>
                     </div>
@@ -62,12 +62,12 @@
                     Bulletproof Attendance
                 </div>
                 
-                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6">
                     Eliminate buddy punching. <br class="hidden md:block"/>
                     <span class="text-accent-600">Zero exceptions.</span>
                 </h2>
                 
-                <p class="text-lg text-slate-500 mb-8 leading-relaxed">
+                <p class="text-lg text-neutral-500 mb-8 leading-relaxed">
                     Built for the realities of modern business. We combine multi-factor identity verification with strict business logic to ensure the people checking in are exactly who they say they are, exactly where they're supposed to be.
                 </p>
                 
@@ -77,7 +77,7 @@
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
-                            <strong class="text-slate-900">Precision Geofencing:</strong> Restrict check-ins to specific coordinates with adjustable radius buffers.
+                            <strong class="text-neutral-900">Precision Geofencing:</strong> Restrict check-ins to specific coordinates with adjustable radius buffers.
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
@@ -85,7 +85,7 @@
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
-                            <strong class="text-slate-900">AI Face Detection:</strong> Compare live camera captures against employee master photos in real-time.
+                            <strong class="text-neutral-900">AI Face Detection:</strong> Compare live camera captures against employee master photos in real-time.
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
@@ -93,7 +93,7 @@
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div>
-                            <strong class="text-slate-900">Automated Fraud Flags:</strong> Instantly notify managers of device spoofing, location masking, or suspicious patterns.
+                            <strong class="text-neutral-900">Automated Fraud Flags:</strong> Instantly notify managers of device spoofing, location masking, or suspicious patterns.
                         </div>
                     </li>
                 </ul>
@@ -102,3 +102,4 @@
         </div>
     </div>
 </section>
+

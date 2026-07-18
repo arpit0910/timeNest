@@ -1,4 +1,4 @@
-<section class="py-32 bg-slate-950 relative">
+<section class="py-32 bg-black relative">
     <div class="max-w-7xl mx-auto px-6">
         
         <div class="w-full bg-black rounded-3xl py-24 px-6 flex flex-col items-center justify-center text-center shadow-2xl">
@@ -6,7 +6,7 @@
             {{-- Status Badge --}}
             <div class="flex items-center gap-2 mb-8">
                 <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span class="text-slate-400 text-xs font-bold tracking-widest uppercase">Free 14-Day Trial</span>
+                <span class="text-neutral-400 text-xs font-bold tracking-widest uppercase">Free 14-Day Trial</span>
             </div>
             
             {{-- Headline --}}
@@ -15,7 +15,7 @@
             </h2>
             
             {{-- Subtitle --}}
-            <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl font-medium">
+            <p class="text-neutral-400 text-lg md:text-xl mb-12 max-w-2xl font-medium">
                 Join thousands of companies automating their workflow today.
             </p>
             
@@ -29,3 +29,4 @@
         
     </div>
 </section>
+

@@ -9,33 +9,33 @@
                     Shift Management
                 </div>
                 
-                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6">
                     Schedule complex shifts <br class="hidden md:block"/>
                     <span class="text-accent-600">without the chaos.</span>
                 </h2>
                 
-                <p class="text-lg text-slate-500 mb-8 leading-relaxed">
+                <p class="text-lg text-neutral-500 mb-8 leading-relaxed">
                     Build, rotate, and manage shifts for thousands of employees in minutes. Handle overlaps, night shifts, and split shifts with intelligent conflict resolution that stops scheduling errors before they happen.
                 </p>
                 
                 <div class="space-y-6">
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-700 border border-slate-200">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-neutral-50 flex items-center justify-center text-neutral-700 border border-neutral-200">
                             <span class="font-bold">1</span>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-slate-900 mb-1">Dynamic Rosters</h3>
-                            <p class="text-sm text-slate-500">Assign recurring shifts or one-off schedules instantly. Employees get notified via the app.</p>
+                            <h3 class="text-base font-bold text-neutral-900 mb-1">Dynamic Rosters</h3>
+                            <p class="text-sm text-neutral-500">Assign recurring shifts or one-off schedules instantly. Employees get notified via the app.</p>
                         </div>
                     </div>
                     
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-700 border border-slate-200">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-neutral-50 flex items-center justify-center text-neutral-700 border border-neutral-200">
                             <span class="font-bold">2</span>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-slate-900 mb-1">Conflict Engine</h3>
-                            <p class="text-sm text-slate-500">Automatically warns you about double-bookings, rest period violations, and overtime thresholds.</p>
+                            <h3 class="text-base font-bold text-neutral-900 mb-1">Conflict Engine</h3>
+                            <p class="text-sm text-neutral-500">Automatically warns you about double-bookings, rest period violations, and overtime thresholds.</p>
                         </div>
                     </div>
                 </div>
@@ -44,19 +44,19 @@
             {{-- Visual Content --}}
             <div class="relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-accent-100 to-white rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
-                <div class="bg-white border border-slate-100 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-4">
+                <div class="bg-white border border-neutral-100 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-4">
                     
                     {{-- Calendar Header --}}
                     <div class="flex items-center justify-between mb-2">
-                        <div class="text-sm font-bold text-slate-800">This Week's Roster</div>
-                        <div class="flex gap-1 text-slate-400">
+                        <div class="text-sm font-bold text-neutral-800">This Week's Roster</div>
+                        <div class="flex gap-1 text-neutral-400">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                            <svg class="w-5 h-5 text-slate-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <svg class="w-5 h-5 text-neutral-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </div>
                     </div>
 
                     {{-- Shift Grid Mockup --}}
-                    <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold text-slate-500 mb-2">
+                    <div class="grid grid-cols-4 gap-2 text-center text-xs font-semibold text-neutral-500 mb-2">
                         <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div>
                     </div>
 
@@ -65,19 +65,19 @@
                         <div class="grid grid-cols-4 gap-2">
                             <div class="col-span-4 flex items-center gap-2 mb-1">
                                 <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-5 h-5 rounded-full" alt="avatar">
-                                <span class="text-xs font-bold text-slate-700">Alice Freeman</span>
+                                <span class="text-xs font-bold text-neutral-700">Alice Freeman</span>
                             </div>
                             <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
                             <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
-                            <div class="bg-slate-50 text-slate-400 border border-slate-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">OFF</div>
+                            <div class="bg-neutral-50 text-neutral-400 border border-neutral-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">OFF</div>
                             <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">09:00 - 17:00</div>
                         </div>
 
                         {{-- Employee 2 --}}
-                        <div class="grid grid-cols-4 gap-2 pt-2 border-t border-slate-50">
+                        <div class="grid grid-cols-4 gap-2 pt-2 border-t border-neutral-50">
                             <div class="col-span-4 flex items-center gap-2 mb-1">
                                 <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-5 h-5 rounded-full" alt="avatar">
-                                <span class="text-xs font-bold text-slate-700">David Kim</span>
+                                <span class="text-xs font-bold text-neutral-700">David Kim</span>
                             </div>
                             <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
                             <div class="bg-accent-50 text-accent-600 border border-accent-100 rounded text-[10px] px-2 py-1.5 font-bold whitespace-nowrap">18:00 - 02:00</div>
@@ -95,3 +95,4 @@
         </div>
     </div>
 </section>
+

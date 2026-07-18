@@ -4,7 +4,7 @@
     'subtext' => '',
 ])
 
-<section class="py-12 md:py-16 bg-slate-950 relative">
+<section class="py-12 md:py-16 bg-black relative">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="bg-black rounded-[2rem] overflow-hidden relative flex flex-col md:flex-row items-center justify-between p-6 md:p-8 border-[1.5px] border-[#2ad4a3]/80 shadow-[0_0_30px_rgba(42,212,163,0.15)]">
             
@@ -21,7 +21,7 @@
                 </h3>
                 
                 @if($subtext)
-                <p class="text-slate-300 text-lg mb-8 leading-relaxed font-medium">
+                <p class="text-neutral-300 text-lg mb-8 leading-relaxed font-medium">
                     {{ $subtext }}
                 </p>
                 @endif
@@ -43,3 +43,4 @@
         </div>
     </div>
 </section>
+

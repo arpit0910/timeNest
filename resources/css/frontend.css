@@ -1,9 +1,10 @@
+@import './variables.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html, body {
-  background-color: #0a0a0f !important;
+  background-color: #000000 !important;
   color: #cbd5e1;
 }
 

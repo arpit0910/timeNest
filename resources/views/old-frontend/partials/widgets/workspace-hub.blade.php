@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          users: [
              { initials: 'AM', color: 'bg-indigo-500', name: 'Alex' },
@@ -12,7 +12,7 @@
      }, 3000)"
 >
      <div class="flex items-center justify-between mb-2">
-         <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Workspace Hub</span>
+         <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider block">Workspace Hub</span>
          <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 rounded px-1.5 py-0.5 animate-pulse" x-text="activeCount + ' Editing'"></span>
      </div>
      <div class="flex items-center gap-1.5 mt-2 flex-1">
@@ -29,6 +29,7 @@
                   class="inline-block h-6 w-6 rounded-full border-2 border-white bg-purple-500 flex items-center justify-center font-bold text-white text-[8px]"
              >DL</div>
          </div>
-         <span class="text-[9px] text-slate-500 font-semibold truncate" x-text="activeCount === 3 ? 'David joined' : 'Sarah editing...'"></span>
+         <span class="text-[9px] text-neutral-500 font-semibold truncate" x-text="activeCount === 3 ? 'David joined' : 'Sarah editing...'"></span>
      </div>
 </div>
+

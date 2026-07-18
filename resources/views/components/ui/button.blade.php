@@ -9,7 +9,7 @@
     
     $variants = [
         'primary' => 'bg-gradient-to-r from-accent-600 to-accent-500 hover:from-accent-700 hover:to-accent-600 text-white shadow-lg shadow-accent-500/20 hover:shadow-accent-500/30 focus:ring-accent-500 border-transparent',
-        'secondary' => 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300 focus:ring-slate-500 shadow-sm',
+        'secondary' => 'bg-white hover:bg-neutral-50 text-neutral-800 border-neutral-200 hover:border-neutral-300 focus:ring-neutral-500 shadow-sm',
     ];
     
     $classes = $baseClasses . ' ' . ($variants[$variant] ?? $variants['primary']);
@@ -30,3 +30,5 @@
         </svg>
     </button>
 @endif
+
+

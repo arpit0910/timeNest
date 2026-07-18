@@ -1,4 +1,4 @@
-<div class="{{ $class ?? 'bg-white rounded-2xl border border-slate-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
+<div class="{{ $class ?? 'bg-white rounded-2xl border border-neutral-200/60 p-4 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between min-h-[160px] overflow-hidden' }}"
      x-data="{ 
          insights: [
              { text: 'Design team overtime up 15%. Balance recommended.', type: 'warning', color: 'text-amber-700 bg-amber-50 border-amber-100' },
@@ -12,7 +12,7 @@
      <div class="flex items-center justify-between">
          <div class="flex items-center gap-1">
              <svg class="w-3.5 h-3.5 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-             <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Copilot</span>
+             <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">AI Copilot</span>
          </div>
          <span class="text-[8px] bg-indigo-50 text-indigo-600 border border-indigo-100 rounded px-1.5 py-0.5 font-bold uppercase">Realtime</span>
      </div>
@@ -37,3 +37,5 @@
          </template>
      </div>
 </div>
+
+

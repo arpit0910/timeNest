@@ -2,9 +2,9 @@
     'heading' => 'Ready to run your team on a secure platform?',
     'subtext' => 'Set up your organization in minutes. Rest easy knowing your attendance and payroll data is locked down.',
 ])
-<section class="py-16 bg-slate-950 relative px-6">
+<section class="py-16 bg-black relative px-6">
     <div class="max-w-7xl mx-auto">
-        <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
+        <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
             
             {{-- Background Effects --}}
             <div class="absolute inset-0 z-0">
@@ -29,7 +29,7 @@
                             {{ $buttons }}
                         </div>
                     @endif
-                    <p class="text-xs text-slate-400 mt-4">No credit card required. 14-day free trial.</p>
+                    <p class="text-xs text-neutral-400 mt-4">No credit card required. 14-day free trial.</p>
                 </div>
 
                 {{-- Images/Avatars Collage (Same as Homepage) --}}
@@ -58,9 +58,9 @@
                         </div>
                         
                         {{-- Center Main Element --}}
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 bg-slate-800 border border-slate-700 rounded-3xl p-5 shadow-2xl z-10">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 bg-neutral-800 border border-neutral-700 rounded-3xl p-5 shadow-2xl z-10">
                             <div class="flex justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full border-4 border-slate-900 shadow-md bg-accent-500 flex items-center justify-center text-white">
+                                <div class="w-16 h-16 rounded-full border-4 border-neutral-900 shadow-md bg-accent-500 flex items-center justify-center text-white">
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                                 </div>
                             </div>
@@ -79,3 +79,5 @@
         </div>
     </div>
 </section>
+
+

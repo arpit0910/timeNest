@@ -6,7 +6,7 @@
 
 <main class="marketing-responsive-sections">
     {{-- Section 1: Hero --}}
-    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-slate-950">
+    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-black">
         <x-marketing.hero-background />
         <div class="relative max-w-7xl mx-auto px-6 text-center z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
@@ -16,28 +16,28 @@
             
             <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-[1.1]">
                 Everything included, <br class="hidden md:block"/>
-                <span class="text-slate-300">by how you work.</span>
+                <span class="text-neutral-300">by how you work.</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-neutral-400 mb-12 max-w-3xl mx-auto leading-relaxed">
                 Whether you're tracking hours as a solo freelancer or managing attendance across a 500-person organization, TimeNest has the tools you need.
             </p>
             
             <div class="inline-flex flex-wrap p-1.5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 gap-1.5 shadow-sm max-w-2xl mx-auto mt-4">
-                <a href="#freelancers" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
-                    <svg class="w-4 h-4 text-slate-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="#freelancers" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-neutral-400 hover:text-white">
+                    <svg class="w-4 h-4 text-neutral-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Freelancers
                 </a>
-                <a href="#teams" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
-                    <svg class="w-4 h-4 text-slate-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="#teams" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-neutral-400 hover:text-white">
+                    <svg class="w-4 h-4 text-neutral-500 group-hover:text-accent-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     Teams
                 </a>
-                <a href="#organizations" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-slate-400 hover:text-white">
-                    <svg class="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="#organizations" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-white/10 transition-all duration-300 text-sm font-semibold text-neutral-400 hover:text-white">
+                    <svg class="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                     Organizations
@@ -47,7 +47,7 @@
     </section>
 
     {{-- Section 2: Freelancers & Independents --}}
-    <section id="freelancers" class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden scroll-mt-20">
+    <section id="freelancers" class="py-20 lg:py-32 bg-black border-y border-neutral-800 relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1">
@@ -56,7 +56,7 @@
                         Freelancers
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Freelancers & Independents</h2>
-                    <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                    <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
                         Track your time cleanly without the bloat of enterprise systems. Stay focused on your work.
                     </p>
                     
@@ -65,44 +65,44 @@
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-400 hover:underline">explore security</a>).</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-400 hover:underline">explore security</a>).</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
                         </li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-slate-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
-                        <div class="bg-slate-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-neutral-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
+                        <div class="bg-neutral-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6">
                             
                             {{-- Header Stats --}}
                             <div class="flex items-end justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Weekly Summary</div>
-                                    <div class="text-3xl font-extrabold text-white tracking-tight">38<span class="text-xl text-slate-500 font-medium">h</span> 15<span class="text-xl text-slate-500 font-medium">m</span></div>
+                                    <div class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1">Weekly Summary</div>
+                                    <div class="text-3xl font-extrabold text-white tracking-tight">38<span class="text-xl text-neutral-500 font-medium">h</span> 15<span class="text-xl text-neutral-500 font-medium">m</span></div>
                                 </div>
                                 <div class="text-right">
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-md">
@@ -114,15 +114,15 @@
                             
                             {{-- Mini Bar Chart --}}
                             <div class="flex items-end justify-between h-24 gap-2 pt-2">
-                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[40%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">4h</div></div>
-                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[70%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">7h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[40%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-neutral-300 bg-neutral-800 shadow-sm border border-neutral-700 py-1 rounded">4h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[70%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-neutral-300 bg-neutral-800 shadow-sm border border-neutral-700 py-1 rounded">7h</div></div>
                                 <div class="w-full bg-accent-500 rounded-t-sm h-[85%] relative shadow-[0_0_15px_rgba(99,102,241,0.4)]"><div class="absolute inset-x-0 bottom-full mb-2 text-center text-xs font-bold text-accent-400 bg-accent-500/20 py-1 rounded">8.5h</div></div>
-                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[60%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">6h</div></div>
-                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[90%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">9h</div></div>
-                                <div class="w-full bg-white/5 rounded-t-sm h-[10%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">1h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[60%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-neutral-300 bg-neutral-800 shadow-sm border border-neutral-700 py-1 rounded">6h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[90%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-neutral-300 bg-neutral-800 shadow-sm border border-neutral-700 py-1 rounded">9h</div></div>
+                                <div class="w-full bg-white/5 rounded-t-sm h-[10%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-neutral-300 bg-neutral-800 shadow-sm border border-neutral-700 py-1 rounded">1h</div></div>
                                 <div class="w-full bg-white/5 rounded-t-sm h-[0%]"></div>
                             </div>
-                            <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 px-1">
+                            <div class="flex items-center justify-between text-[10px] font-bold text-neutral-500 uppercase tracking-widest mt-1 px-1">
                                 <span>M</span><span>T</span><span class="text-accent-400">W</span><span>T</span><span>F</span><span>S</span><span>S</span>
                             </div>
                             
@@ -133,11 +133,11 @@
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-sm font-bold text-white">Frontend Architecture</span>
-                                            <span class="text-sm font-mono font-bold text-slate-400">03:45:00</span>
+                                            <span class="text-sm font-mono font-bold text-neutral-400">03:45:00</span>
                                         </div>
                                         <div class="flex items-center gap-2">
                                             <span class="px-2 py-0.5 bg-accent-500/20 text-accent-400 text-[10px] font-bold uppercase tracking-wider rounded">TimeNest App</span>
-                                            <span class="text-xs text-slate-400">Billable</span>
+                                            <span class="text-xs text-neutral-400">Billable</span>
                                         </div>
                                     </div>
                                 </div>
@@ -146,11 +146,11 @@
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between mb-1">
                                             <span class="text-sm font-bold text-white">Client Sync - Q3 Goals</span>
-                                            <span class="text-sm font-mono font-bold text-slate-400">01:30:00</span>
+                                            <span class="text-sm font-mono font-bold text-neutral-400">01:30:00</span>
                                         </div>
                                         <div class="flex items-center gap-2">
                                             <span class="px-2 py-0.5 bg-rose-500/20 text-rose-400 text-[10px] font-bold uppercase tracking-wider rounded">Consulting</span>
-                                            <span class="text-xs text-slate-400">Billable</span>
+                                            <span class="text-xs text-neutral-400">Billable</span>
                                         </div>
                                     </div>
                                 </div>
@@ -170,14 +170,14 @@
                 <div>
                     <div class="relative">
                         <div class="absolute inset-0 bg-gradient-to-tr from-blue-200 to-cyan-100 rounded-3xl transform rotate-2 scale-105 opacity-60"></div>
-                        <div class="bg-white border border-slate-100 shadow-2xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
+                        <div class="bg-white border border-neutral-100 shadow-2xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
                             
                             {{-- Live Radar Header --}}
-                            <div class="relative bg-slate-900 rounded-2xl p-5 overflow-hidden">
+                            <div class="relative bg-neutral-900 rounded-2xl p-5 overflow-hidden">
                                 {{-- Radar Rings --}}
-                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-slate-700/50 rounded-full"></div>
-                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-slate-700/50 rounded-full"></div>
-                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-slate-600/50 rounded-full bg-slate-800/30"></div>
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-neutral-700/50 rounded-full"></div>
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-neutral-700/50 rounded-full"></div>
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-neutral-600/50 rounded-full bg-neutral-800/30"></div>
                                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-emerald-500/30 rounded-full bg-emerald-500/10 animate-pulse"></div>
                                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]"></div>
                                 
@@ -188,13 +188,13 @@
                                 
                                 <div class="relative z-10 flex items-center justify-between">
                                     <div>
-                                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                        <div class="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-1 flex items-center gap-2">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live Status
                                         </div>
                                         <div class="text-xl font-bold text-white">Downtown HQ</div>
                                     </div>
                                     <div class="text-right">
-                                        <div class="text-xs font-medium text-slate-400">Geo-fence</div>
+                                        <div class="text-xs font-medium text-neutral-400">Geo-fence</div>
                                         <div class="text-sm font-mono font-bold text-emerald-400">150m Radius</div>
                                     </div>
                                 </div>
@@ -202,33 +202,33 @@
                             
                             {{-- Team Status Grid --}}
                             <div class="grid grid-cols-2 gap-3">
-                                <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 hover:shadow-md transition-shadow relative overflow-hidden">
+                                <div class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 hover:shadow-md transition-shadow relative overflow-hidden">
                                     <div class="absolute top-0 right-0 w-8 h-8 bg-emerald-50 transform rotate-45 translate-x-4 -translate-y-4"></div>
                                     <div class="flex items-start justify-between mb-3 relative z-10">
                                         <div class="w-8 h-8 rounded-full bg-accent-100 flex items-center justify-center text-accent-700 font-bold text-xs shadow-inner">AS</div>
                                         <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></span>
                                     </div>
-                                    <div class="text-sm font-bold text-slate-900 relative z-10">Alice Smith</div>
+                                    <div class="text-sm font-bold text-neutral-900 relative z-10">Alice Smith</div>
                                     <div class="text-[10px] font-medium text-emerald-600 uppercase tracking-wider mt-1 relative z-10">In Zone • 08:45 AM</div>
                                 </div>
-                                <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 hover:shadow-md transition-shadow relative overflow-hidden">
+                                <div class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 hover:shadow-md transition-shadow relative overflow-hidden">
                                     <div class="absolute top-0 right-0 w-8 h-8 bg-rose-50 transform rotate-45 translate-x-4 -translate-y-4"></div>
                                     <div class="flex items-start justify-between mb-3 relative z-10">
-                                        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs shadow-inner">RJ</div>
+                                        <div class="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center text-neutral-600 font-bold text-xs shadow-inner">RJ</div>
                                         <span class="flex h-2.5 w-2.5 rounded-full bg-rose-500 shadow-[0_0_5px_rgba(244,63,94,0.5)]"></span>
                                     </div>
-                                    <div class="text-sm font-bold text-slate-900 relative z-10">Robert Jones</div>
+                                    <div class="text-sm font-bold text-neutral-900 relative z-10">Robert Jones</div>
                                     <div class="text-[10px] font-medium text-rose-600 uppercase tracking-wider mt-1 relative z-10">Out of Zone</div>
                                 </div>
                             </div>
                             
                             {{-- Manager Override --}}
-                            <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-lg shadow-sm border-dashed">
+                            <div class="flex items-center justify-between p-3 bg-white border border-neutral-200 rounded-lg shadow-sm border-dashed">
                                 <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                                    <span class="text-xs font-bold text-slate-600">Robert check-in failed</span>
+                                    <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                    <span class="text-xs font-bold text-neutral-600">Robert check-in failed</span>
                                 </div>
-                                <button class="px-3 py-1 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wide rounded hover:bg-slate-800 transition-colors shadow-sm">Override</button>
+                                <button class="px-3 py-1 bg-neutral-900 text-white text-[10px] font-bold uppercase tracking-wide rounded hover:bg-neutral-800 transition-colors shadow-sm">Override</button>
                             </div>
                             
                         </div>
@@ -239,8 +239,8 @@
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                         Teams
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Growing Teams & Startups</h2>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Growing Teams & Startups</h2>
+                    <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
                         Structure your growing workforce with geo-verified attendance, custom leave policies, and secure team communication.
                     </p>
                     
@@ -249,49 +249,49 @@
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Organization & Member Management:</strong> Invite-link based, no manual account creation.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Organization & Member Management:</strong> Invite-link based, no manual account creation.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Roles:</strong> Admin / Manager / Employee, assignable per member.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Roles:</strong> Admin / Manager / Employee, assignable per member.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Attendance:</strong> Check-in verified against a configurable geo-fence radius per branch.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Attendance:</strong> Check-in verified against a configurable geo-fence radius per branch.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Leave Management:</strong> Configurable leave types, balances, and policy versioning (past approvals never change).</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Leave Management:</strong> Configurable leave types, balances, and policy versioning (past approvals never change).</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Approval Workflows:</strong> Choose Auto-approval or Single-approval per policy.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Approval Workflows:</strong> Choose Auto-approval or Single-approval per policy.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Worklogs:</strong> Tied to attendance, not tracked separately.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Worklogs:</strong> Tied to attendance, not tracked separately.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Team Chat:</strong> Secure, scoped to your organization only.</span>
+                            <span class="text-neutral-700 font-medium"><strong class="text-neutral-900">Team Chat:</strong> Secure, scoped to your organization only.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-500 font-medium italic"><strong class="text-slate-500">Shift Management:</strong> Coming Soon.</span>
+                            <span class="text-neutral-500 font-medium italic"><strong class="text-neutral-500">Shift Management:</strong> Coming Soon.</span>
                         </li>
                     </ul>
                 </div>
@@ -300,7 +300,7 @@
     </section>
 
     {{-- Section 4: Established Organizations & Enterprises --}}
-    <section id="organizations" class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden scroll-mt-20">
+    <section id="organizations" class="py-20 lg:py-32 bg-black border-y border-neutral-800 relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1">
@@ -309,7 +309,7 @@
                         Organizations
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Established Organizations & Enterprises</h2>
-                    <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                    <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
                         Scale efficiently with multi-level hierarchies, atomic permission syncing, and deep audit logs tailored for large-scale operations.
                     </p>
                     
@@ -318,61 +318,61 @@
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Departments & Designations:</strong> Full hierarchy, sub-departments, department heads.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Departments & Designations:</strong> Full hierarchy, sub-departments, department heads.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Multi-Level Approvals:</strong> Reports-to first, department-head fallback, self-approval blocked.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Multi-Level Approvals:</strong> Reports-to first, department-head fallback, self-approval blocked.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Branch-Level Attendance:</strong> Independent geo-fence radius and rules per branch/location.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Branch-Level Attendance:</strong> Independent geo-fence radius and rules per branch/location.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Custom Roles & Permissions:</strong> Admin-configurable, atomic permission sync, no hardcoded limits.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Custom Roles & Permissions:</strong> Admin-configurable, atomic permission sync, no hardcoded limits.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Worklogs:</strong> Tied to projects and approvals for real work context.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Worklogs:</strong> Tied to projects and approvals for real work context.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Org-Wide Secure Chat:</strong> Scoped strictly within your org, encrypted in transit.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Org-Wide Secure Chat:</strong> Scoped strictly within your org, encrypted in transit.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium"><strong class="text-white">Account Security & Audit:</strong> 2FA, session/device tracking, activity logging.</span>
+                            <span class="text-neutral-400 font-medium"><strong class="text-white">Account Security & Audit:</strong> 2FA, session/device tracking, activity logging.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-slate-400 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                             </div>
-                            <span class="text-slate-400 font-medium italic"><strong class="text-slate-500">Shift Management & Advanced Reporting:</strong> Coming Soon.</span>
+                            <span class="text-neutral-400 font-medium italic"><strong class="text-neutral-500">Shift Management & Advanced Reporting:</strong> Coming Soon.</span>
                         </li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-slate-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
-                        <div class="bg-slate-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-neutral-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
+                        <div class="bg-neutral-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
                             
                             {{-- Global Sync Header --}}
                             <div class="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                    <div class="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-1 flex items-center gap-2">
                                         <svg class="w-3 h-3 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                                         Global Policy Sync
                                     </div>
@@ -386,18 +386,18 @@
                             {{-- Data Matrix --}}
                             <div class="bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-sm">
                                 <div class="grid grid-cols-3 bg-black/20 p-2 border-b border-white/10">
-                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Branch</div>
-                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Nodes</div>
-                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Status</div>
+                                    <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Branch</div>
+                                    <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest text-center">Nodes</div>
+                                    <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest text-right">Status</div>
                                 </div>
                                 <div class="grid grid-cols-3 p-3 items-center border-b border-white/10 hover:bg-white/10 transition-colors">
                                     <div class="text-xs font-bold text-white">North America</div>
-                                    <div class="text-xs font-mono text-slate-400 text-center">4,205</div>
+                                    <div class="text-xs font-mono text-neutral-400 text-center">4,205</div>
                                     <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded">Synced</span></div>
                                 </div>
                                 <div class="grid grid-cols-3 p-3 items-center border-b border-white/10 hover:bg-white/10 transition-colors">
                                     <div class="text-xs font-bold text-white">Europe (EMEA)</div>
-                                    <div class="text-xs font-mono text-slate-400 text-center">2,810</div>
+                                    <div class="text-xs font-mono text-neutral-400 text-center">2,810</div>
                                     <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded">Synced</span></div>
                                 </div>
                                 <div class="grid grid-cols-3 p-3 items-center hover:bg-white/10 transition-colors bg-accent-500/10">
@@ -412,14 +412,14 @@
                             
                             {{-- Live Audit Stream --}}
                             <div class="pt-2">
-                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Live Audit Stream</div>
-                                <div class="space-y-3 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-700 before:to-transparent">
+                                <div class="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-3">Live Audit Stream</div>
+                                <div class="space-y-3 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-neutral-700 before:to-transparent">
                                     <div class="relative flex items-center justify-between group">
                                         <div class="flex items-center gap-3 w-full">
-                                            <div class="w-4 h-4 rounded-full bg-slate-800 border-2 border-slate-600 shadow-sm flex items-center justify-center z-10"><div class="w-1.5 h-1.5 bg-slate-400 rounded-full"></div></div>
+                                            <div class="w-4 h-4 rounded-full bg-neutral-800 border-2 border-neutral-600 shadow-sm flex items-center justify-center z-10"><div class="w-1.5 h-1.5 bg-neutral-400 rounded-full"></div></div>
                                             <div class="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer">
-                                                <div class="text-[11px] font-medium text-slate-400"><span class="font-bold text-white">SysAdmin</span> updated role <span class="font-mono text-accent-400 bg-accent-500/20 px-1 rounded font-bold">Floor_Mgr</span></div>
-                                                <div class="text-[9px] text-slate-500 font-bold uppercase">2m ago</div>
+                                                <div class="text-[11px] font-medium text-neutral-400"><span class="font-bold text-white">SysAdmin</span> updated role <span class="font-mono text-accent-400 bg-accent-500/20 px-1 rounded font-bold">Floor_Mgr</span></div>
+                                                <div class="text-[9px] text-neutral-500 font-bold uppercase">2m ago</div>
                                             </div>
                                         </div>
                                     </div>
@@ -446,7 +446,7 @@
     </x-marketing.cta-interruption>
 
     {{-- Section 5: Core Platform Capabilities (Carousel) --}}
-    <section class="py-16 lg:py-32 bg-slate-50 relative border-t border-slate-100 overflow-hidden">
+    <section class="py-16 lg:py-32 bg-neutral-50 relative border-t border-neutral-100 overflow-hidden">
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-700 text-sm font-bold tracking-wide mb-4 border border-accent-100">
@@ -459,13 +459,13 @@
                     </svg>
                     Feature Overview
                 </div>
-                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-neutral-900 tracking-tight mb-6">
                     Compare at a glance
                 </h2>
-                <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-4">
+                <p class="text-lg text-neutral-500 max-w-2xl mx-auto mb-4">
                     Explore all the powerful tools and capabilities that make timeNest the ultimate platform for managing your work, teams, and projects.
                 </p>
-                <div class="flex items-center justify-center gap-2 text-sm text-slate-400 font-bold uppercase tracking-widest mt-8 animate-pulse">
+                <div class="flex items-center justify-center gap-2 text-sm text-neutral-400 font-bold uppercase tracking-widest mt-8 animate-pulse">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"/></svg>
                     Swipe to explore
                 </div>
@@ -562,7 +562,7 @@
 
                 {{-- Card 1: Time & Project Tracking --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-indigo-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-indigo-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -575,14 +575,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Time & Project Tracking</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Time & Project Tracking</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Log hours against specific projects, whether you're working solo or as part of a full team. It's the same tracking foundation across every tier — nothing changes as you grow, only what's built on top of it does.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -605,7 +605,7 @@
                 </div>
                 {{-- Card 2: Daily Worklogs --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-rose-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-rose-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -618,14 +618,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Daily Worklogs</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Daily Worklogs</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Tie logged hours to real task and project context instead of a bare timestamp. Managers see what was actually worked on each day, and employees get a running record they can refer back to.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -648,7 +648,7 @@
                 </div>
                 {{-- Card 3: Geo-Fenced Attendance --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-emerald-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-emerald-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -661,14 +661,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Geo-Fenced Attendance</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Geo-Fenced Attendance</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Set a configurable check-in radius per branch, and TimeNest only accepts an attendance mark when someone is actually within range. Multiple branches can each run their own independent radius and rules.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -691,7 +691,7 @@
                 </div>
                 {{-- Card 4: Leave Management --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-amber-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-amber-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -704,14 +704,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Leave Management</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Leave Management</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Define the leave types and balances your organization actually offers, with full policy versioning underneath. When a policy changes, past approvals stay exactly as they were — only new requests follow the update.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -734,7 +734,7 @@
                 </div>
                 {{-- Card 5: Approval Workflows --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-fuchsia-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-fuchsia-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-fuchsia-100 text-fuchsia-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -747,14 +747,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Approval Workflows</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Approval Workflows</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Choose auto-approval, a single sign-off, or a full multi-level chain — per policy, not platform-wide. Requests route to the person someone actually reports to, with a department-head fallback if needed.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -777,7 +777,7 @@
                 </div>
                 {{-- Card 6: Departments & Hierarchy --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-blue-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-blue-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -790,14 +790,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Departments & Hierarchy</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Departments & Hierarchy</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Model departments, sub-departments, designations, and real reporting lines — the structure your organization actually has, not a flattened version of it. Every approval and permission check respects this hierarchy.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -820,7 +820,7 @@
                 </div>
                 {{-- Card 7: Two-Factor Authentication --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-teal-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-teal-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -833,14 +833,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Two-Factor Authentication</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Two-Factor Authentication</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Add a rotating verification code on top of a password for any account that wants it. A stolen or guessed password alone is never enough to get into someone's TimeNest account.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -863,7 +863,7 @@
                 </div>
                 {{-- Card 8: Custom Roles & Permissions --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-violet-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-violet-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100 text-violet-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -876,14 +876,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Custom Roles & Permissions</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Custom Roles & Permissions</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Build roles with permission-by-permission precision, configurable independently by each organization. Nothing about who can see or approve what is hardcoded into the platform.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -906,7 +906,7 @@
                 </div>
                 {{-- Card 9: Organization-Scoped Chat --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-orange-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-orange-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -919,14 +919,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Organization-Scoped Chat</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Organization-Scoped Chat</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Every conversation is encrypted in transit and scoped strictly to members within your organization. It ships as part of TimeNest at every tier, not as a separate purchase or a bolt-on app.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -949,7 +949,7 @@
                 </div>
                 {{-- Card 10: Shift Management --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-cyan-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-cyan-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -962,14 +962,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zM12 12v4l3 3" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Shift Management</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Shift Management</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Plan, assign, and manage shifts across your whole team from a single view, currently in active development. It'll sit directly on top of the attendance and approval system TimeNest already runs on.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -992,7 +992,7 @@
                 </div>
                 {{-- Card 11: Advanced Reporting --}}
                 <div class="item h-full pb-8 pt-4">
-                    <div class="relative h-full bg-gradient-to-br from-white via-white to-pink-50 rounded-[32px] border border-slate-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
+                    <div class="relative h-full bg-gradient-to-br from-white via-white to-pink-50 rounded-[32px] border border-neutral-200 hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col group">
                         
                         <div class="relative flex-1 p-6 md:p-8 flex flex-col justify-between">
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-pink-100 text-pink-700 text-xs font-bold rounded-lg w-fit tracking-wide mb-6">
@@ -1005,14 +1005,14 @@
                             <div class="flex-grow flex flex-col lg:flex-row items-center gap-6">
                                 <div class="w-full lg:w-[45%] relative z-10 flex flex-col h-full justify-center">
                                     <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center p-2">
-                                            <svg class="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center p-2">
+                                            <svg class="w-6 h-6 text-neutral-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                             </svg>
                                         </div>
-                                        <h3 class="text-2xl font-bold text-slate-900">Advanced Reporting</h3>
+                                        <h3 class="text-2xl font-bold text-neutral-900">Advanced Reporting</h3>
                                     </div>
-                                    <p class="text-slate-500 text-sm leading-relaxed font-medium mb-6">
+                                    <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
                                         Deeper insights and exportable reports across attendance, leave, and worklogs, currently in active development. Built to turn the data TimeNest already collects into something you can actually act on.
                                     </p>
                                     <div class="mt-auto pt-2">
@@ -1061,7 +1061,7 @@
             </section>
 
     {{-- Section 6: FAQ --}}
-    <section class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800">
+    <section class="py-20 lg:py-32 bg-black border-y border-neutral-800">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Features Deep Dive — FAQ</h2>
@@ -1112,3 +1112,5 @@
 
 <x-marketing.footer />
 @endsection
+
+

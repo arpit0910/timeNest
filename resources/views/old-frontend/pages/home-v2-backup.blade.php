@@ -8,20 +8,20 @@
         @mousemove.window="mx = ($event.clientX / window.innerWidth - 0.5) * 4; my = ($event.clientY / window.innerHeight - 0.5) * 3"
     >
         {{-- Layer 1: Gradient Background --}}
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-white pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-neutral-50 via-white to-white pointer-events-none"></div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[900px] h-[600px] bg-gradient-to-br from-teal-100/40 via-indigo-100/30 to-purple-100/20 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
 
         {{-- Layer 2: Hero Content --}}
         <div class="relative z-30 max-w-7xl mx-auto px-6 lg:px-8 text-center">
             {{-- Announcement Pill --}}
             <div class="opacity-0 animate-hero-fade-up" style="animation-delay: 0ms;">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md border border-slate-200/80 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] mb-8 cursor-pointer hover:border-brand-500/30 hover:shadow-md transition-all duration-300">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md border border-neutral-200/80 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] mb-8 cursor-pointer hover:border-brand-500/30 hover:shadow-md transition-all duration-300">
                     <span class="flex h-2 w-2 relative">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
                     </span>
-                    <span class="text-[13px] font-semibold text-slate-800 tracking-wide">TimeNest 2.0 is now live</span>
-                    <svg class="w-3.5 h-3.5 text-slate-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                    <span class="text-[13px] font-semibold text-neutral-800 tracking-wide">TimeNest 2.0 is now live</span>
+                    <svg class="w-3.5 h-3.5 text-neutral-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                 </div>
             </div>
             
@@ -55,7 +55,7 @@
     </section>
 
     {{-- Section 1.5: Standalone Premium Showcase (Ecosystem & Trusted Partners Marquee) --}}
-    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-slate-50/40 to-white overflow-hidden relative border-t border-slate-100/80"
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-neutral-50/40 to-white overflow-hidden relative border-t border-neutral-100/80"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
@@ -87,214 +87,214 @@
                 
                 <!-- Group 1 of 8 Cards -->
                 <!-- Card 1: Acme Corp -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
                     </div>
                 </div>
 
                 <!-- Card 2: Wayne Enterprises -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
                     </div>
                 </div>
 
                 <!-- Card 3: Initech -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Automation</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">AI Automation</span>
                     </div>
                 </div>
 
                 <!-- Card 4: Stark Industries -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
                     </div>
                 </div>
 
                 <!-- Card 5: Globex Corp -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Operations Management</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Operations Management</span>
                     </div>
                 </div>
 
                 <!-- Card 6: Tyrell Corp -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
                     </div>
                 </div>
 
                 <!-- Card 7: Hooli -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
                     </div>
                 </div>
 
                 <!-- Card 8: Cyberdyne Systems -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
                     </div>
                 </div>
 
 
                 <!-- Group 2 of 8 Cards (Duplicated for seamless loop) -->
                 <!-- Card 1 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-brand-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-brand-950">Acme Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Workforce Management</span>
                     </div>
                 </div>
 
                 <!-- Card 2 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-indigo-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-indigo-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-indigo-950">Wayne Ent.</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Security & Compliance</span>
                     </div>
                 </div>
 
                 <!-- Card 3 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Automation</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-emerald-950">Initech</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">AI Automation</span>
                     </div>
                 </div>
 
                 <!-- Card 4 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-violet-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-violet-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-violet-950">Stark Industries</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Enterprise Operations</span>
                     </div>
                 </div>
 
                 <!-- Card 5 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-blue-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Operations Management</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-blue-950">Globex Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Operations Management</span>
                     </div>
                 </div>
 
                 <!-- Card 6 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-amber-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-amber-950">Tyrell Corp</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Bio-Tech Engineering</span>
                     </div>
                 </div>
 
                 <!-- Card 7 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-cyan-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-cyan-950">Hooli</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">Cloud Workspace</span>
                     </div>
                 </div>
 
                 <!-- Card 8 Duplicate -->
-                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-slate-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
+                <div class="group inline-flex items-center gap-4 bg-white/70 backdrop-blur-sm border border-neutral-200/60 p-4 pr-6 rounded-2xl shadow-sm hover:shadow-md hover:border-rose-500 hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 rounded-xl bg-neutral-50 text-neutral-500 flex items-center justify-center transition-all duration-300 group-hover:bg-rose-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-rose-500/20">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                         </svg>
                     </div>
                     <div class="flex flex-col text-left">
-                        <span class="text-sm font-bold text-slate-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
-                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
+                        <span class="text-sm font-bold text-neutral-800 tracking-tight transition-colors duration-300 group-hover:text-rose-950">Cyberdyne Systems</span>
+                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5">AI Robotics & Dev</span>
                     </div>
                 </div>
 
@@ -303,7 +303,7 @@
     </section>
 
     {{-- Section 2: How TimeNest Powers Work (Visualization Cards Showcase) --}}
-    <section class="py-12 sm:py-16 lg:py-20 bg-slate-50/50 border-y border-slate-100/80 overflow-hidden relative"
+    <section class="py-12 sm:py-16 lg:py-20 bg-neutral-50/50 border-y border-neutral-100/80 overflow-hidden relative"
              x-data="{ show: false }"
              x-init="const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { show = true; obs.disconnect(); } }, { threshold: 0.05 }); obs.observe($el);"
     >
@@ -328,7 +328,7 @@
                 <div class="hidden md:grid md:grid-cols-2 gap-8">
 
                     <!-- Capability 1: Workforce & HR Operations -->
-                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="bg-white rounded-3xl border border-neutral-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-neutral-300 transition-all duration-300 group">
                         <div class="flex items-start gap-4 mb-6">
                             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100 shrink-0 group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-500 transition-all duration-300">
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -337,12 +337,12 @@
                             </div>
                             <div>
                                 <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Workforce & HR</span>
-                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Workforce & HR Operations</h3>
+                                <h3 class="font-display text-xl font-bold text-neutral-800 mt-1">Workforce & HR Operations</h3>
                                 <p class="text-content-muted text-xs leading-relaxed mt-2">Manage employees and freelancers in one unified directory. Set shift schedules, approve leaves, and verify logins automatically.</p>
                                 <div class="flex flex-wrap gap-1.5 mt-3">
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Biometric Clock-ins</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Visual Rostering</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Conflict-Free Leaves</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Biometric Clock-ins</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Visual Rostering</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Conflict-Free Leaves</span>
                                 </div>
                             </div>
                         </div>
@@ -355,7 +355,7 @@
                     </div>
 
                     <!-- Capability 2: Operations & Project Workflows -->
-                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="bg-white rounded-3xl border border-neutral-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-neutral-300 transition-all duration-300 group">
                         <div class="flex items-start gap-4 mb-6">
                             <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 shrink-0 group-hover:bg-teal-500 group-hover:text-white group-hover:border-teal-500 transition-all duration-300">
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -364,12 +364,12 @@
                             </div>
                             <div>
                                 <span class="text-[10px] font-bold text-teal-600 uppercase tracking-widest">Operations & Tasks</span>
-                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Operations & Project Workflows</h3>
+                                <h3 class="font-display text-xl font-bold text-neutral-800 mt-1">Operations & Project Workflows</h3>
                                 <p class="text-content-muted text-xs leading-relaxed mt-2">Connect task milestones directly to team capacity. Setup multi-stage approval paths to automate operations and department structures.</p>
                                 <div class="flex flex-wrap gap-1.5 mt-3">
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Kanban Boards</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Sprint Velocity</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Custom Approval Chains</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Kanban Boards</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Sprint Velocity</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Custom Approval Chains</span>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +382,7 @@
                     </div>
 
                     <!-- Capability 3: Financial Operations & Billing -->
-                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="bg-white rounded-3xl border border-neutral-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-neutral-300 transition-all duration-300 group">
                         <div class="flex items-start gap-4 mb-6">
                             <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shrink-0 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-all duration-300">
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -391,12 +391,12 @@
                             </div>
                             <div>
                                 <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Finance & Billings</span>
-                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">Financial Operations & Billing</h3>
+                                <h3 class="font-display text-xl font-bold text-neutral-800 mt-1">Financial Operations & Billing</h3>
                                 <p class="text-content-muted text-xs leading-relaxed mt-2">Run payroll instantly based on tracked hours, authorize employee business expenses, and automate client invoice cycles.</p>
                                 <div class="flex flex-wrap gap-1.5 mt-3">
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Automated Payroll</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Expense Approvals</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Client Revenue logs</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Automated Payroll</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Expense Approvals</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Client Revenue logs</span>
                                 </div>
                             </div>
                         </div>
@@ -409,7 +409,7 @@
                     </div>
 
                     <!-- Capability 4: AI Insights & Security Governance -->
-                    <div class="bg-white rounded-3xl border border-slate-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition-all duration-300 group">
+                    <div class="bg-white rounded-3xl border border-neutral-200/80 p-6 lg:p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-neutral-300 transition-all duration-300 group">
                         <div class="flex items-start gap-4 mb-6">
                             <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center border border-violet-100 shrink-0 group-hover:bg-violet-500 group-hover:text-white group-hover:border-violet-500 transition-all duration-300">
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -418,12 +418,12 @@
                             </div>
                             <div>
                                 <span class="text-[10px] font-bold text-violet-600 uppercase tracking-widest">AI & Governance</span>
-                                <h3 class="font-display text-xl font-bold text-slate-800 mt-1">AI Insights & Security Governance</h3>
+                                <h3 class="font-display text-xl font-bold text-neutral-800 mt-1">AI Insights & Security Governance</h3>
                                 <p class="text-content-muted text-xs leading-relaxed mt-2">Leverage machine learning to identify burnout, detect attendance fraud, and secure your systems with detailed logs.</p>
                                 <div class="flex flex-wrap gap-1.5 mt-3">
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Predictive Anomaly Scans</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">SOC2 Compliance Auditing</span>
-                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">Access Audit Trails</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Predictive Anomaly Scans</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">SOC2 Compliance Auditing</span>
+                                    <span class="text-[9px] font-semibold px-2.5 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">Access Audit Trails</span>
                                 </div>
                             </div>
                         </div>
@@ -482,18 +482,18 @@
                                  x-transition:leave-start="opacity-100 translate-x-0"
                                  x-transition:leave-end="opacity-0 -translate-x-8"
                                  x-cloak
-                                 class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
+                                 class="bg-white rounded-2xl border border-neutral-200/80 p-5 shadow-sm">
                                 <div class="flex items-start gap-3 mb-5">
                                     <div class="w-10 h-10 rounded-xl bg-{{ $cap['color'] }}-50 text-{{ $cap['color'] }}-600 flex items-center justify-center border border-{{ $cap['color'] }}-100 shrink-0">
                                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $cap['icon'] }}" /></svg>
                                     </div>
                                     <div class="min-w-0">
                                         <span class="text-[9px] font-bold text-{{ $cap['color'] }}-600 uppercase tracking-widest">{{ $cap['label'] }}</span>
-                                        <h3 class="font-display text-lg font-bold text-slate-800 mt-0.5 leading-tight">{{ $cap['title'] }}</h3>
+                                        <h3 class="font-display text-lg font-bold text-neutral-800 mt-0.5 leading-tight">{{ $cap['title'] }}</h3>
                                         <p class="text-content-muted text-xs leading-relaxed mt-1.5">{{ $cap['desc'] }}</p>
                                         <div class="flex flex-wrap gap-1 mt-2">
                                             @foreach($cap['tags'] as $tag)
-                                                <span class="text-[8px] font-semibold px-2 py-0.5 rounded-full bg-slate-50 text-slate-500 border border-slate-200/50">{{ $tag }}</span>
+                                                <span class="text-[8px] font-semibold px-2 py-0.5 rounded-full bg-neutral-50 text-neutral-500 border border-neutral-200/50">{{ $tag }}</span>
                                             @endforeach
                                         </div>
                                     </div>
@@ -509,13 +509,13 @@
 
                     {{-- Mobile carousel controls --}}
                     <div class="flex items-center justify-center gap-2 mt-5">
-                        <button @click="capSlide = (capSlide - 1 + capTotal) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 transition-all">
+                        <button @click="capSlide = (capSlide - 1 + capTotal) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-neutral-200 transition-all">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                         </button>
                         <template x-for="i in capTotal">
-                            <button @click="capSlide = i - 1" class="h-1.5 rounded-full transition-all duration-400" :class="capSlide === i - 1 ? 'w-7 bg-gradient-to-r from-brand-500 to-indigo-500' : 'w-1.5 bg-slate-200 hover:bg-slate-400'"></button>
+                            <button @click="capSlide = i - 1" class="h-1.5 rounded-full transition-all duration-400" :class="capSlide === i - 1 ? 'w-7 bg-gradient-to-r from-brand-500 to-indigo-500' : 'w-1.5 bg-neutral-200 hover:bg-neutral-400'"></button>
                         </template>
-                        <button @click="capSlide = (capSlide + 1) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-200 transition-all">
+                        <button @click="capSlide = (capSlide + 1) % capTotal" class="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-400 hover:text-neutral-700 hover:bg-white hover:shadow-sm border border-transparent hover:border-neutral-200 transition-all">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                         </button>
                     </div>
@@ -543,7 +543,7 @@
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
                 
                 <!-- Card 1: Attendance Compliance -->
-                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                <div class="bg-neutral-50 border border-neutral-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
                      x-data="{ count: 0, target: 99.2 }"
                      x-init="
                          const obs = new IntersectionObserver(([entry]) => {
@@ -564,12 +564,12 @@
                          obs.observe($el);
                      "
                 >
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Attendance Compliance</p>
+                    <p class="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-2">Attendance Compliance</p>
                     <h3 class="text-3xl lg:text-4xl font-bold text-brand-600 tracking-tight font-display" x-text="count.toFixed(1) + '%'">0%</h3>
                 </div>
 
                 <!-- Card 2: AI Insights Generated -->
-                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                <div class="bg-neutral-50 border border-neutral-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
                      x-data="{ count: 0, target: 2341 }"
                      x-init="
                          const obs = new IntersectionObserver(([entry]) => {
@@ -590,12 +590,12 @@
                          obs.observe($el);
                      "
                 >
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">AI Insights Generated</p>
+                    <p class="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-2">AI Insights Generated</p>
                     <h3 class="text-3xl lg:text-4xl font-bold text-indigo-600 tracking-tight font-display" x-text="count.toLocaleString()">0</h3>
                 </div>
 
                 <!-- Card 3: Projects Managed -->
-                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                <div class="bg-neutral-50 border border-neutral-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
                      x-data="{ count: 0, target: 18400 }"
                      x-init="
                          const obs = new IntersectionObserver(([entry]) => {
@@ -616,12 +616,12 @@
                          obs.observe($el);
                      "
                 >
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Projects Managed</p>
+                    <p class="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-2">Projects Managed</p>
                     <h3 class="text-3xl lg:text-4xl font-bold text-teal-600 tracking-tight font-display" x-text="count.toLocaleString() + '+'">0+</h3>
                 </div>
 
                 <!-- Card 4: Payroll Accuracy -->
-                <div class="bg-slate-50 border border-slate-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
+                <div class="bg-neutral-50 border border-neutral-200/60 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 text-center flex flex-col justify-center"
                      x-data="{ count: 0, target: 99.99 }"
                      x-init="
                          const obs = new IntersectionObserver(([entry]) => {
@@ -642,13 +642,13 @@
                          obs.observe($el);
                      "
                 >
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Payroll Accuracy</p>
+                    <p class="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-2">Payroll Accuracy</p>
                     <h3 class="text-3xl lg:text-4xl font-bold text-amber-600 tracking-tight font-display" x-text="count.toFixed(2) + '%'">0%</h3>
                 </div>
             </div>
 
             <!-- Premium Two-Column Vertical Scrolling Showcase (Marquee) -->
-            <div class="relative mx-auto max-w-6xl h-[650px] lg:h-[750px] w-full rounded-3xl border border-slate-200/80 bg-slate-50/50 overflow-hidden shadow-inner transition-all duration-1000 delay-400 transform"
+            <div class="relative mx-auto max-w-6xl h-[650px] lg:h-[750px] w-full rounded-3xl border border-neutral-200/80 bg-neutral-50/50 overflow-hidden shadow-inner transition-all duration-1000 delay-400 transform"
                  :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
             >
                 <!-- Fade overlays to smooth the scrolling effect -->
@@ -662,28 +662,28 @@
                     <div class="flex flex-col gap-6 animate-marquee-down">
                         
                         <!-- Cards Set 1 -->
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/dashboard</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Work OS Dashboard</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Work OS Dashboard</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
@@ -693,28 +693,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/scheduler</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Workforce Scheduler</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Workforce Scheduler</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
@@ -724,28 +724,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/compliance</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Compliance & Audit</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Compliance & Audit</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
@@ -755,28 +755,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/ai-core</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">AI Intelligence Core</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">AI Intelligence Core</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
@@ -786,28 +786,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/payroll</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Payroll Automations" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Payroll Automations</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Payroll Automations</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Payroll</span>
@@ -819,28 +819,28 @@
                         </div>
 
                         <!-- Cards Set 2 (Duplicated for infinite scroll) -->
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/dashboard</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/hero-dashboard.png" alt="Work OS Dashboard" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Work OS Dashboard</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Work OS Dashboard</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Central Command Hub</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Monitor real-time operations, team attendance, and live financial metrics all from a single, intuitive interface.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-100/50">Core</span>
@@ -850,28 +850,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/scheduler</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/workforce_scheduler.png" alt="Workforce Scheduler" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Workforce Scheduler</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Workforce Scheduler</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Shift & Roster Manager</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Easily drag and drop shifts, manage employee time-offs, and instantly detect scheduling conflicts before they happen.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100/50">Roster</span>
@@ -881,28 +881,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/compliance</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/compliance_audit.png" alt="Compliance & Audit" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Compliance & Audit</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Compliance & Audit</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Immutable Event Logging</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Automatically maintain a strict audit trail of every data change to guarantee SOC2 and GDPR compliance effortlessly.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">Audit</span>
@@ -912,28 +912,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/ai-core</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_ai.png" alt="AI Intelligence Core" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">AI Intelligence Core</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">AI Intelligence Core</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Automated Operations Rules</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Leverage machine learning to flag potential burnout, optimize your task delegations, and automatically approve workflows.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 border border-cyan-100/50">Automation</span>
@@ -943,28 +943,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/payroll</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Payroll Automations" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Payroll Automations</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Payroll Automations</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Seamless Contractor Payouts</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Directly link tracked hours and approved shifts to integrated payroll systems, ensuring everyone is paid accurately and on time.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Payroll</span>
@@ -979,28 +979,28 @@
                     <div class="hidden md:flex flex-col gap-6 animate-marquee-up">
                         
                         <!-- Cards Set 1 -->
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/ai-analytics</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">AI Analytics Hub</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">AI Analytics Hub</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
@@ -1010,28 +1010,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/billing</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Financial Invoicing</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Financial Invoicing</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
@@ -1041,28 +1041,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/enterprise</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Enterprise Solutions</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Enterprise Solutions</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
@@ -1072,28 +1072,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/workspaces</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Collaborative Workspaces</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Collaborative Workspaces</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
@@ -1103,28 +1103,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/crm-sync</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="Client CRM Sync" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Client CRM Sync</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Client CRM Sync</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">CRM</span>
@@ -1136,28 +1136,28 @@
                         </div>
 
                         <!-- Cards Set 2 (Duplicated for infinite scroll) -->
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/ai-analytics</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="AI Analytics Hub" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">AI Analytics Hub</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">AI Analytics Hub</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Predictive Forecasting</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Analyze historical workflow data to predict upcoming resource bottlenecks and forecast future revenue growth accurately.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-violet-50 text-violet-600 border border-violet-100/50">Analytics</span>
@@ -1167,28 +1167,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/billing</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/finance_ledger.png" alt="Financial Invoicing" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Financial Invoicing</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Financial Invoicing</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Ledger & Payments</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Create beautiful, automated invoices for clients based on tracked billable hours and automatically chase late payments.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-100/50">Finance</span>
@@ -1198,28 +1198,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/enterprise</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_solutions.png" alt="Enterprise Solutions" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Enterprise Solutions</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Enterprise Solutions</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Global Scalability</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Designed to scale with massive teams, offering custom permission hierarchies, single sign-on (SSO), and dedicated support.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100/50">Enterprise</span>
@@ -1229,28 +1229,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/workspaces</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/mega_menu_resources.png" alt="Collaborative Workspaces" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Collaborative Workspaces</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Collaborative Workspaces</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Shared Team Portals</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Foster team collaboration with shared project views, internal chat integrations, and securely isolated client portals.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-600 border border-teal-100/50">Workspace</span>
@@ -1260,28 +1260,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-slate-300/80 transition-all duration-300 select-none">
-                            <div class="flex items-center justify-between px-3 py-2 bg-slate-50 border-b border-slate-100 browser-glass-top shrink-0">
+                        <div class="bg-white rounded-xl border border-neutral-200/60 shadow-sm overflow-hidden flex flex-col hover:scale-[1.02] hover:shadow-md hover:border-neutral-300/80 transition-all duration-300 select-none">
+                            <div class="flex items-center justify-between px-3 py-2 bg-neutral-50 border-b border-neutral-100 browser-glass-top shrink-0">
                                 <div class="flex items-center gap-1.5 w-1/4">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                 </div>
-                                <div class="bg-white border border-slate-200/50 rounded py-0.5 px-2 text-[9px] text-slate-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
+                                <div class="bg-white border border-neutral-200/50 rounded py-0.5 px-2 text-[9px] text-neutral-400 font-mono text-center flex items-center justify-center gap-1 shadow-sm max-w-[150px] truncate">
                                     <svg class="w-2.5 h-2.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                     <span class="truncate">timenest.com/crm-sync</span>
                                 </div>
                                 <div class="w-1/4"></div>
                             </div>
-                            <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                            <div class="relative overflow-hidden aspect-[4/3] bg-neutral-100">
                                 <img src="/images/mockups/ai-analytics.png" alt="Client CRM Sync" class="w-full h-full object-cover object-top">
                                 <div class="absolute inset-0 browser-sheen pointer-events-none"></div>
                             </div>
-                            <div class="px-4 py-4 bg-slate-50/50 border-t border-slate-100 flex flex-col gap-3">
+                            <div class="px-4 py-4 bg-neutral-50/50 border-t border-neutral-100 flex flex-col gap-3">
                                 <div>
-                                    <h4 class="text-sm font-bold text-slate-800">Client CRM Sync</h4>
-                                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
-                                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
+                                    <h4 class="text-sm font-bold text-neutral-800">Client CRM Sync</h4>
+                                    <p class="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide mt-0.5 mb-2">Sales Pipeline Tracking</p>
+                                    <p class="text-xs text-neutral-500 leading-relaxed line-clamp-2">Keep your operations aligned with sales by syncing directly with your CRM, bridging the gap between closing and execution.</p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5">
                                     <span class="text-[9px] font-semibold px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100/50">CRM</span>
@@ -1370,7 +1370,7 @@
                             'solution' => 'Freelance Workspace — a collaborative environment for agencies. Shared projects, shared invoicing, and team analytics.'
                         ],
                         'enterprise' => [
-                            'color' => 'slate',
+                            'color' => 'neutral',
                             'pain' => 'Regulatory compliance audit anxiety, lack of fine-grained roles, no activity trails, and compromised security logs.',
                             'solution' => 'Full enterprise governance, comprehensive automated audit trail logs, granular permission matrices, and security analytics.'
                         ],
@@ -1438,12 +1438,12 @@
                             'from' => 'from-fuchsia-500/[0.015]',
                             'hover' => 'hover:bg-fuchsia-500/[0.03] hover:border-fuchsia-100/40'
                         ],
-                        'slate' => [
-                            'bg' => 'bg-slate-50 border-slate-200',
-                            'border_l' => 'border-l-slate-500', 
-                            'text' => 'text-slate-600',
-                            'from' => 'from-slate-500/[0.015]',
-                            'hover' => 'hover:bg-slate-500/[0.03] hover:border-slate-200/40'
+                        'neutral' => [
+                            'bg' => 'bg-neutral-50 border-neutral-200',
+                            'border_l' => 'border-l-neutral-500', 
+                            'text' => 'text-neutral-600',
+                            'from' => 'from-neutral-500/[0.015]',
+                            'hover' => 'hover:bg-neutral-500/[0.03] hover:border-neutral-200/40'
                         ],
                         'rose' => [
                             'bg' => 'bg-rose-50 border-rose-100',
@@ -1476,7 +1476,7 @@
                                         <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center border border-red-100">
                                             <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                                         </div>
-                                        <h3 class="font-display text-base font-bold text-slate-800 tracking-tight">The Pain</h3>
+                                        <h3 class="font-display text-base font-bold text-neutral-800 tracking-tight">The Pain</h3>
                                     </div>
                                     <p class="text-content-muted text-[13px] leading-relaxed">{{ $data['pain'] }}</p>
                                 </div>
@@ -1487,7 +1487,7 @@
                                         <div class="w-8 h-8 rounded-lg {{ $colorMaps[$data['color']]['bg'] }} flex items-center justify-center border">
                                             <svg class="w-4 h-4 {{ $colorMaps[$data['color']]['text'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <h3 class="font-display text-base font-bold text-slate-800 tracking-tight">TimeNest Solution</h3>
+                                        <h3 class="font-display text-base font-bold text-neutral-800 tracking-tight">TimeNest Solution</h3>
                                     </div>
                                     <p class="text-content-muted text-[13px] leading-relaxed">{{ $data['solution'] }}</p>
                                 </div>
@@ -1698,8 +1698,8 @@
                         
                         {{-- Audience tag --}}
                         <div class="flex items-center gap-1.5 mb-4 relative z-10">
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Ideal For:</span>
-                            <span class="text-[10px] font-medium text-slate-500">{{ implode(' • ', $product['audience']) }}</span>
+                            <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-widest">Ideal For:</span>
+                            <span class="text-[10px] font-medium text-neutral-500">{{ implode(' • ', $product['audience']) }}</span>
                         </div>
                         
                         @if(isset($product['pro']))
@@ -1712,32 +1712,32 @@
                         {{-- Stats micro-badges row --}}
                         <div class="flex items-center gap-2 mb-6 relative z-10">
                             @foreach($product['stats'] as $stat)
-                                <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 transition-colors duration-300">
+                                <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-50 border border-neutral-100 group-hover:bg-{{ $product['color'] }}-50/50 group-hover:border-{{ $product['color'] }}-100/50 transition-colors duration-300">
                                     <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}"/></svg>
-                                    <span class="text-[10px] font-semibold text-slate-600">{{ $stat['label'] }}</span>
+                                    <span class="text-[10px] font-semibold text-neutral-600">{{ $stat['label'] }}</span>
                                 </div>
                             @endforeach
                         </div>
 
                         {{-- Mini Dashboard Preview Widget --}}
-                        <div class="relative z-10 mb-6 rounded-xl border border-slate-200/60 bg-gradient-to-br from-slate-50 to-white p-3 overflow-hidden">
+                        <div class="relative z-10 mb-6 rounded-xl border border-neutral-200/60 bg-gradient-to-br from-neutral-50 to-white p-3 overflow-hidden">
                             @if($product['widgetType'] === 'org')
                                 {{-- Organization: Attendance mini-widget --}}
                                 <div x-data="{ present: 47, total: 52, rate: 90.4 }" x-init="setInterval(() => { present = present === 47 ? 50 : present === 50 ? 52 : 47; rate = Math.round(present/total*1000)/10; }, 3000)">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Today's Attendance</span>
+                                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">Today's Attendance</span>
                                         <span class="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 flex items-center gap-0.5 animate-pulse">
                                             <span class="w-1 h-1 rounded-full bg-emerald-500"></span> Live
                                         </span>
                                     </div>
                                     <div class="flex items-end justify-between">
                                         <div>
-                                            <span class="text-lg font-bold text-slate-800 transition-all duration-500" x-text="present + '/' + total"></span>
-                                            <span class="text-[9px] text-slate-400 ml-1">employees</span>
+                                            <span class="text-lg font-bold text-neutral-800 transition-all duration-500" x-text="present + '/' + total"></span>
+                                            <span class="text-[9px] text-neutral-400 ml-1">employees</span>
                                         </div>
                                         <span class="text-xs font-bold transition-all duration-500" :class="rate > 95 ? 'text-emerald-600' : 'text-amber-600'" x-text="rate + '%'"></span>
                                     </div>
-                                    <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                                    <div class="w-full h-1.5 bg-neutral-100 rounded-full mt-2 overflow-hidden">
                                         <div class="h-full rounded-full transition-all duration-700 ease-out" :class="rate > 95 ? 'bg-emerald-500' : 'bg-amber-500'" :style="'width: ' + rate + '%'"></div>
                                     </div>
                                 </div>
@@ -1745,20 +1745,20 @@
                                 {{-- Freelancer: Revenue mini-widget --}}
                                 <div x-data="{ revenue: 284500, invoices: 12, paid: 9 }" x-init="setInterval(() => { revenue += Math.floor(Math.random() * 15000); paid = Math.min(paid + 1, invoices); }, 4000)">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Revenue This Month</span>
+                                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">Revenue This Month</span>
                                         <span class="text-[8px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">Tracking</span>
                                     </div>
                                     <div class="flex items-end justify-between">
                                         <div>
-                                            <span class="text-lg font-bold text-slate-800 transition-all duration-500" x-text="'₹' + revenue.toLocaleString()"></span>
+                                            <span class="text-lg font-bold text-neutral-800 transition-all duration-500" x-text="'₹' + revenue.toLocaleString()"></span>
                                         </div>
                                         <div class="text-right">
-                                            <span class="text-[9px] text-slate-400 block" x-text="paid + '/' + invoices + ' paid'"></span>
+                                            <span class="text-[9px] text-neutral-400 block" x-text="paid + '/' + invoices + ' paid'"></span>
                                         </div>
                                     </div>
                                     <div class="flex gap-1 mt-2">
                                         <template x-for="i in invoices">
-                                            <div class="flex-1 h-1.5 rounded-full transition-all duration-500" :class="i <= paid ? 'bg-indigo-500' : 'bg-slate-100'"></div>
+                                            <div class="flex-1 h-1.5 rounded-full transition-all duration-500" :class="i <= paid ? 'bg-indigo-500' : 'bg-neutral-100'"></div>
                                         </template>
                                     </div>
                                 </div>
@@ -1766,17 +1766,17 @@
                                 {{-- Workspace: Team utilization mini-widget --}}
                                 <div x-data="{ members: [{n:'Sarah K.', u:92}, {n:'James L.', u:78}, {n:'Maria R.', u:85}] }">
                                     <div class="flex items-center justify-between mb-2">
-                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Team Utilization</span>
+                                        <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">Team Utilization</span>
                                         <span class="text-[8px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">3 Active</span>
                                     </div>
                                     <div class="space-y-1.5">
                                         <template x-for="m in members" :key="m.n">
                                             <div class="flex items-center gap-2">
-                                                <span class="text-[9px] font-medium text-slate-600 w-14 truncate" x-text="m.n"></span>
-                                                <div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                <span class="text-[9px] font-medium text-neutral-600 w-14 truncate" x-text="m.n"></span>
+                                                <div class="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
                                                     <div class="h-full bg-amber-500 rounded-full transition-all duration-700" :style="'width: ' + m.u + '%'"></div>
                                                 </div>
-                                                <span class="text-[9px] font-bold text-slate-500 w-7 text-right" x-text="m.u + '%'"></span>
+                                                <span class="text-[9px] font-bold text-neutral-500 w-7 text-right" x-text="m.u + '%'"></span>
                                             </div>
                                         </template>
                                     </div>
@@ -1810,9 +1810,9 @@
                         <x-frontend-base.button :href="$product['url']" variant="outline" class="w-full relative z-10 bg-white border-surface-border hover:bg-{{ $product['color'] }}-50 hover:text-{{ $product['color'] }}-700 hover:border-{{ $product['color'] }}-200 transition-all duration-300">{{ $product['cta'] }}</x-frontend-base.button>
                         
                         {{-- Product comparison indicator --}}
-                        <div class="relative z-10 mt-4 pt-4 border-t border-slate-100 flex items-center justify-center gap-2">
+                        <div class="relative z-10 mt-4 pt-4 border-t border-neutral-100 flex items-center justify-center gap-2">
                             <svg class="w-3.5 h-3.5 text-{{ $product['color'] }}-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $product['icon'] }}"/></svg>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ $product['basis'] }}</span>
+                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">{{ $product['basis'] }}</span>
                         </div>
                     </div>
                 @endforeach
@@ -1821,10 +1821,10 @@
     </section>
 
     {{-- Section 5: AI Platform (Refined) --}}
-    <section class="py-16 sm:py-24 lg:py-32 bg-slate-950 relative overflow-hidden text-white border-y border-white/5">
+    <section class="py-16 sm:py-24 lg:py-32 bg-black relative overflow-hidden text-white border-y border-white/5">
         
         <!-- Ambient Deep Background Layering -->
-        <div class="absolute inset-0 bg-slate-950 pointer-events-none">
+        <div class="absolute inset-0 bg-black pointer-events-none">
             <!-- Core Deep Gradients -->
             <div class="absolute top-0 right-0 w-[1000px] h-[800px] bg-brand-600/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4"></div>
             <div class="absolute bottom-0 left-0 w-[800px] h-[600px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4"></div>
@@ -1855,7 +1855,7 @@
                         <h2 class="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
                             Intelligence embedded into <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-indigo-300">every workflow.</span>
                         </h2>
-                        <p class="text-lg lg:text-xl text-slate-300/80 mb-8 leading-relaxed max-w-2xl font-body">
+                        <p class="text-lg lg:text-xl text-neutral-300/80 mb-8 leading-relaxed max-w-2xl font-body">
                             We didn't just bolt on a chatbot. TimeNest AI monitors your operations in the background, surfacing insights, detecting anomalies, and automating routine tasks before you even ask.
                         </p>
                     </div>
@@ -1872,16 +1872,16 @@
                                     <svg class="w-5 h-5 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                                 </div>
                                 <h3 class="font-display font-semibold text-white mb-2 text-lg">Workforce Analyst</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">Detects attendance anomalies, leave abuse patterns, and overtime burnout risks.</p>
+                                <p class="text-neutral-400 text-sm leading-relaxed">Detects attendance anomalies, leave abuse patterns, and overtime burnout risks.</p>
                             </div>
                                 
                             <!-- Mini UI Element -->
                             <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] text-slate-400 uppercase font-bold">Burnout Risk</span>
+                                    <span class="text-[10px] text-neutral-400 uppercase font-bold">Burnout Risk</span>
                                     <span class="text-[10px] text-rose-400 font-bold bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">High (15% OT)</span>
                                 </div>
-                                <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-full h-1 bg-neutral-800 rounded-full overflow-hidden">
                                     <div class="w-[85%] h-full bg-rose-500 rounded-full relative overflow-hidden">
                                         <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
                                     </div>
@@ -1898,17 +1898,17 @@
                                     <svg class="w-5 h-5 text-rose-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                                 </div>
                                 <h3 class="font-display font-semibold text-white mb-2 text-lg">Fraud Detection</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">Identifies location spoofing, buddy punching, and suspicious reimbursement claims.</p>
+                                <p class="text-neutral-400 text-sm leading-relaxed">Identifies location spoofing, buddy punching, and suspicious reimbursement claims.</p>
                             </div>
                                 
                             <!-- Mini UI Element -->
                             <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
                                 <div class="flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                                    <span class="text-[10px] text-slate-300 font-medium font-mono">IP: 192.168.1.1 (VPN)</span>
+                                    <span class="text-[10px] text-neutral-300 font-medium font-mono">IP: 192.168.1.1 (VPN)</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Spoof Prob.</span>
+                                    <span class="text-[10px] text-neutral-500 font-bold uppercase tracking-wider">Spoof Prob.</span>
                                     <span class="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">89.2%</span>
                                 </div>
                             </div>
@@ -1923,7 +1923,7 @@
                                     <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
                                 </div>
                                 <h3 class="font-display font-semibold text-white mb-2 text-lg">Executive Intelligence</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">Ask complex business queries in plain English and instantly get visual data answers.</p>
+                                <p class="text-neutral-400 text-sm leading-relaxed">Ask complex business queries in plain English and instantly get visual data answers.</p>
                             </div>
                                 
                             <!-- Mini UI Element -->
@@ -1947,16 +1947,16 @@
                                     <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 </div>
                                 <h3 class="font-display font-semibold text-white mb-2 text-lg">Freelancer Assistant</h3>
-                                <p class="text-slate-400 text-sm leading-relaxed">Smart invoice categorization, payment risk assessment, and precise revenue prediction.</p>
+                                <p class="text-neutral-400 text-sm leading-relaxed">Smart invoice categorization, payment risk assessment, and precise revenue prediction.</p>
                             </div>
                                 
                             <!-- Mini UI Element -->
                             <div class="relative z-10 bg-black/30 rounded-lg p-3 border border-white/5 flex flex-col gap-2 mt-auto">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] text-slate-400 font-medium">Inv #4092</span>
+                                    <span class="text-[10px] text-neutral-400 font-medium">Inv #4092</span>
                                     <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Categorized</span>
                                 </div>
-                                <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-1.5 w-full bg-neutral-800 rounded-full overflow-hidden">
                                     <div class="w-full h-full bg-emerald-500/60 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
                                 </div>
                             </div>
@@ -1967,29 +1967,29 @@
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/10 pt-10">
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
-                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <svg class="w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-white">24/7 Monitoring</h4>
-                                <p class="text-[11px] text-slate-400">Processes data continuously</p>
+                                <p class="text-[11px] text-neutral-400">Processes data continuously</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
-                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                <svg class="w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-white">Instant Insights</h4>
-                                <p class="text-[11px] text-slate-400">Intelligence in seconds</p>
+                                <p class="text-[11px] text-neutral-400">Intelligence in seconds</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
-                                <svg class="w-4 h-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
+                                <svg class="w-4 h-4 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-white">Predictive Analysis</h4>
-                                <p class="text-[11px] text-slate-400">Forecast before problems</p>
+                                <p class="text-[11px] text-neutral-400">Forecast before problems</p>
                             </div>
                         </div>
                     </div>
@@ -1999,7 +1999,7 @@
                 <!-- RIGHT AI AGENT PANEL (LIVE) -->
                 <div class="relative w-full flex flex-col gap-6" x-data="aiLivePanel()" x-init="startEngine()">
                     <!-- Panel Container -->
-                    <div class="bg-slate-900/80 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden shrink-0">
+                    <div class="bg-neutral-900/80 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden shrink-0">
                         
                         <!-- Top Ambient Glow -->
                         <div class="absolute -top-20 -left-20 w-60 h-60 bg-brand-500/20 rounded-full blur-[60px] pointer-events-none transition-opacity duration-1000"
@@ -2007,7 +2007,7 @@
                         
                         <!-- Agent Header -->
                         <div class="flex items-start gap-4 mb-8 relative z-10">
-                            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700 relative shadow-inner">
+                            <div class="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-700 relative shadow-inner">
                                 <div class="absolute inset-0 rounded-full border-2 border-brand-500/30 animate-ping" style="animation-duration: 3s"></div>
                                 <svg class="w-6 h-6 text-brand-400 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                             </div>
@@ -2036,39 +2036,39 @@
                         <div class="relative h-[180px] sm:h-[160px] z-10">
                             
                             <!-- Insight 1: Anomaly -->
-                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-amber-500/30 border-l-4 border-l-amber-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                            <div class="absolute inset-0 bg-neutral-800/80 rounded-xl p-5 border border-amber-500/30 border-l-4 border-l-amber-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
                                  :class="activeInsight === 0 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
                                 <div class="flex items-center gap-2 mb-2">
                                     <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                                     <h4 class="text-white font-bold text-sm">Attendance Anomaly</h4>
                                 </div>
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Design team has logged 15% more overtime this week compared to monthly average. Risk of burnout is high.</p>
+                                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed">Design team has logged 15% more overtime this week compared to monthly average. Risk of burnout is high.</p>
                                 <div class="mt-4 flex items-center gap-2">
                                     <span class="text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded font-mono">Action Recommended</span>
                                 </div>
                             </div>
 
                             <!-- Insight 2: Revenue Forecast -->
-                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-brand-500/30 border-l-4 border-l-brand-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                            <div class="absolute inset-0 bg-neutral-800/80 rounded-xl p-5 border border-brand-500/30 border-l-4 border-l-brand-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
                                  :class="activeInsight === 1 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
                                 <div class="flex items-center gap-2 mb-2">
                                     <svg class="w-4 h-4 text-brand-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                                     <h4 class="text-white font-bold text-sm">Revenue Projection Up</h4>
                                 </div>
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">Based on current billable hours across active projects, Q3 revenue is projected to exceed targets by 8.5%.</p>
+                                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed">Based on current billable hours across active projects, Q3 revenue is projected to exceed targets by 8.5%.</p>
                                 <div class="mt-4 flex items-center gap-2">
                                     <span class="text-[10px] text-brand-300 bg-brand-500/10 border border-brand-500/20 px-2 py-1 rounded font-mono">Positive Trend</span>
                                 </div>
                             </div>
 
                             <!-- Insight 3: Payroll Risk -->
-                            <div class="absolute inset-0 bg-slate-800/80 rounded-xl p-5 border border-rose-500/30 border-l-4 border-l-rose-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
+                            <div class="absolute inset-0 bg-neutral-800/80 rounded-xl p-5 border border-rose-500/30 border-l-4 border-l-rose-500 transition-all duration-700 transform flex flex-col justify-center shadow-lg"
                                  :class="activeInsight === 2 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-4 scale-95 pointer-events-none'">
                                 <div class="flex items-center gap-2 mb-2">
                                     <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                     <h4 class="text-white font-bold text-sm">Payroll Compliance</h4>
                                 </div>
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">2 remote contractors have expiring compliance documents in the next 7 days. Automatic holds have been staged.</p>
+                                <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed">2 remote contractors have expiring compliance documents in the next 7 days. Automatic holds have been staged.</p>
                                 <div class="mt-4 flex items-center gap-2">
                                     <span class="text-[10px] text-rose-300 bg-rose-500/10 border border-rose-500/20 px-2 py-1 rounded font-mono">Review Required</span>
                                 </div>
@@ -2078,7 +2078,7 @@
                     </div>
 
                     <!-- Card 1: AI Actions Today (Timeline) -->
-                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
+                    <div class="bg-neutral-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
                         <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                         <div class="flex items-center gap-3 mb-5 relative z-10">
                             <div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center border border-brand-500/30">
@@ -2091,23 +2091,23 @@
                             <div class="relative">
                                 <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(14,165,233,0.8)]"></div>
                                 <p class="text-xs text-white font-medium">Anomaly detected</p>
-                                <p class="text-[10px] text-slate-400 mt-0.5 font-mono">10:42 AM • Attendance</p>
+                                <p class="text-[10px] text-neutral-400 mt-0.5 font-mono">10:42 AM • Attendance</p>
                             </div>
                             <div class="relative">
                                 <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-brand-500/50"></div>
-                                <p class="text-xs text-slate-200">Manager notified via Slack</p>
-                                <p class="text-[10px] text-slate-400 mt-0.5 font-mono">10:43 AM • Escalation</p>
+                                <p class="text-xs text-neutral-200">Manager notified via Slack</p>
+                                <p class="text-[10px] text-neutral-400 mt-0.5 font-mono">10:43 AM • Escalation</p>
                             </div>
                             <div class="relative">
-                                <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full border border-white/30 bg-slate-900"></div>
-                                <p class="text-xs text-slate-400">Resolution generated</p>
-                                <p class="text-[10px] text-slate-500 mt-0.5 font-mono">Pending Approval</p>
+                                <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full border border-white/30 bg-neutral-900"></div>
+                                <p class="text-xs text-neutral-400">Resolution generated</p>
+                                <p class="text-[10px] text-neutral-500 mt-0.5 font-mono">Pending Approval</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 2: Predicted Business Risks -->
-                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
+                    <div class="bg-neutral-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden group">
                         <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                         <div class="flex items-center gap-3 mb-5 relative z-10">
                             <div class="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
@@ -2119,7 +2119,7 @@
                         <div class="space-y-4 relative z-10">
                             <div>
                                 <div class="flex justify-between text-xs mb-1.5">
-                                    <span class="text-slate-300">Expected overtime increase</span>
+                                    <span class="text-neutral-300">Expected overtime increase</span>
                                     <span class="text-rose-400 font-bold">18%</span>
                                 </div>
                                 <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
@@ -2128,7 +2128,7 @@
                             </div>
                             <div>
                                 <div class="flex justify-between text-xs mb-1.5">
-                                    <span class="text-slate-300">Revenue forecast confidence</span>
+                                    <span class="text-neutral-300">Revenue forecast confidence</span>
                                     <span class="text-emerald-400 font-bold">97%</span>
                                 </div>
                                 <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
@@ -2139,12 +2139,12 @@
                     </div>
 
                     <!-- Card 3: Automation Success Rate -->
-                    <div class="bg-slate-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden flex items-center justify-between group">
+                    <div class="bg-neutral-900/60 border border-white/10 rounded-3xl p-6 backdrop-blur-xl shadow-xl relative overflow-hidden flex items-center justify-between group">
                         <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                         <div class="relative z-10">
-                            <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mb-1">Automation Success</p>
+                            <p class="text-[10px] text-neutral-400 font-bold tracking-widest uppercase mb-1">Automation Success</p>
                             <div class="flex items-end gap-2">
-                                <span class="text-3xl font-display font-bold text-white">99.9<span class="text-lg text-slate-500">%</span></span>
+                                <span class="text-3xl font-display font-bold text-white">99.9<span class="text-lg text-neutral-500">%</span></span>
                                 <span class="flex items-center text-[10px] text-emerald-400 mb-1.5 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded font-mono">
                                     <svg class="w-3 h-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
                                     Reliable
@@ -2207,7 +2207,7 @@
     <x-frontend-sections.stats-strip :stats="$stats" />
 
     {{-- Section 7: AI Workforce Assessment --}}
-    <section class="py-20 lg:py-32 bg-slate-50 overflow-hidden relative border-y border-slate-200" id="ai-assessment"
+    <section class="py-20 lg:py-32 bg-neutral-50 overflow-hidden relative border-y border-neutral-200" id="ai-assessment"
              x-data="{ 
                  step: 'input', // 'input', 'analyzing', 'report'
                  
@@ -2300,27 +2300,27 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <!-- Header Group -->
             <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6 cursor-default">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-neutral-200 shadow-sm mb-6 cursor-default">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                     </span>
-                    <span class="text-[11px] font-bold text-slate-700 tracking-widest uppercase">AI Workforce Assessment</span>
+                    <span class="text-[11px] font-bold text-neutral-700 tracking-widest uppercase">AI Workforce Assessment</span>
                 </div>
-                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Discover hidden operational costs in under 60 seconds.</h2>
-                <p class="text-slate-600 text-lg font-body leading-relaxed max-w-2xl mx-auto">TimeNest AI analyzes workforce operations, attendance workflows, approval bottlenecks, payroll effort, and administrative overhead to estimate your potential savings.</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-neutral-900 mb-6 tracking-tight">Discover hidden operational costs in under 60 seconds.</h2>
+                <p class="text-neutral-600 text-lg font-body leading-relaxed max-w-2xl mx-auto">TimeNest AI analyzes workforce operations, attendance workflows, approval bottlenecks, payroll effort, and administrative overhead to estimate your potential savings.</p>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
                 
                 <!-- LEFT SIDE: INPUTS & PRESETS -->
-                <div class="lg:col-span-5 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm h-max sticky top-32">
+                <div class="lg:col-span-5 bg-white rounded-3xl border border-neutral-200 p-6 sm:p-8 shadow-sm h-max sticky top-32">
                     <div class="mb-8">
-                        <h3 class="font-display text-lg font-bold text-slate-900 mb-4">Quick Presets</h3>
+                        <h3 class="font-display text-lg font-bold text-neutral-900 mb-4">Quick Presets</h3>
                         <div class="flex flex-wrap gap-2">
-                            <button @click="applyPreset('Startup')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">Startup</button>
-                            <button @click="applyPreset('SME')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">SME</button>
-                            <button @click="applyPreset('Growing Company')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">Growing Company</button>
+                            <button @click="applyPreset('Startup')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-indigo-600 transition-colors">Startup</button>
+                            <button @click="applyPreset('SME')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-indigo-600 transition-colors">SME</button>
+                            <button @click="applyPreset('Growing Company')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-indigo-600 transition-colors">Growing Company</button>
                             <button @click="applyPreset('Enterprise')" class="px-4 py-2 rounded-xl text-xs font-semibold border border-indigo-100 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors">Enterprise</button>
                         </div>
                     </div>
@@ -2328,40 +2328,40 @@
                     <div class="space-y-6">
                         <!-- Employee Size -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-900 mb-2">How many employees do you have?</label>
-                            <input type="number" x-model.number="employees" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 150">
+                            <label class="block text-sm font-semibold text-neutral-900 mb-2">How many employees do you have?</label>
+                            <input type="number" x-model.number="employees" min="1" class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-neutral-900 font-mono text-lg transition-all" placeholder="e.g. 150">
                         </div>
                         
                         <!-- HR Size -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-900 mb-2">How many people manage HR operations?</label>
-                            <input type="number" x-model.number="hrSize" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 3">
+                            <label class="block text-sm font-semibold text-neutral-900 mb-2">How many people manage HR operations?</label>
+                            <input type="number" x-model.number="hrSize" min="1" class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-neutral-900 font-mono text-lg transition-all" placeholder="e.g. 3">
                         </div>
 
                         <!-- Avg Salary -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-900 mb-2">Average Monthly Salary (₹)</label>
+                            <label class="block text-sm font-semibold text-neutral-900 mb-2">Average Monthly Salary (₹)</label>
                             <div class="relative">
-                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-lg">₹</span>
-                                <input type="number" x-model.number="avgSalary" min="1" class="w-full pl-8 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="60000">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 font-mono text-lg">₹</span>
+                                <input type="number" x-model.number="avgSalary" min="1" class="w-full pl-8 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-neutral-900 font-mono text-lg transition-all" placeholder="60000">
                             </div>
                         </div>
 
                         <!-- Approvals -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-900 mb-2">Manual Approvals / Month</label>
-                            <input type="number" x-model.number="approvalsPerMonth" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 500">
+                            <label class="block text-sm font-semibold text-neutral-900 mb-2">Manual Approvals / Month</label>
+                            <input type="number" x-model.number="approvalsPerMonth" min="1" class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-neutral-900 font-mono text-lg transition-all" placeholder="e.g. 500">
                         </div>
 
                         <!-- Attendance Hours -->
                         <div>
-                            <label class="block text-sm font-semibold text-slate-900 mb-2">Attendance Processing Hours / Month</label>
-                            <input type="number" x-model.number="attendanceProcessingHrs" min="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 font-mono text-lg transition-all" placeholder="e.g. 24">
+                            <label class="block text-sm font-semibold text-neutral-900 mb-2">Attendance Processing Hours / Month</label>
+                            <input type="number" x-model.number="attendanceProcessingHrs" min="1" class="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-neutral-900 font-mono text-lg transition-all" placeholder="e.g. 24">
                         </div>
                     </div>
 
                     <button @click="analyze()" :disabled="step === 'analyzing'"
-                            class="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-slate-900/10">
+                            class="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-neutral-900/10">
                         <svg x-show="step !== 'analyzing'" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         <svg x-show="step === 'analyzing'" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                         <span x-text="step === 'analyzing' ? 'AI is analyzing...' : (step === 'report' ? 'Recalculate Data' : 'Analyze My Organization')"></span>
@@ -2369,10 +2369,10 @@
                 </div>
                 
                 <!-- RIGHT SIDE: AI WORKSPACE & REPORT -->
-                <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden min-h-[700px] flex flex-col relative">
+                <div class="lg:col-span-7 bg-white rounded-3xl border border-neutral-200 shadow-xl overflow-hidden min-h-[700px] flex flex-col relative">
                     
                     <!-- TOP BAR: AI IDENTIFIER -->
-                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 backdrop-blur-sm sticky top-0 z-20">
+                    <div class="px-6 py-4 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/80 backdrop-blur-sm sticky top-0 z-20">
                         <div class="flex items-center gap-3">
                             <div class="relative w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center border border-indigo-200">
                                 <svg class="w-4 h-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
@@ -2382,24 +2382,24 @@
                                 </span>
                             </div>
                             <div>
-                                <h4 class="text-sm font-bold text-slate-900 leading-tight">TimeNest AI Analyst</h4>
-                                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-mono" x-text="step === 'analyzing' ? 'Processing...' : (step === 'report' ? 'Report Generated' : 'Ready')"></p>
+                                <h4 class="text-sm font-bold text-neutral-900 leading-tight">TimeNest AI Analyst</h4>
+                                <p class="text-[10px] font-semibold text-neutral-500 uppercase tracking-widest font-mono" x-text="step === 'analyzing' ? 'Processing...' : (step === 'report' ? 'Report Generated' : 'Ready')"></p>
                             </div>
                         </div>
                         <div x-show="step === 'report'" x-cloak>
-                            <button @click="reset()" class="text-xs font-bold text-slate-500 hover:text-slate-900 underline underline-offset-2">Reset Session</button>
+                            <button @click="reset()" class="text-xs font-bold text-neutral-500 hover:text-neutral-900 underline underline-offset-2">Reset Session</button>
                         </div>
                     </div>
 
                     <div class="flex-grow p-6 sm:p-8 relative overflow-y-auto" style="scroll-behavior: smooth;" x-ref="reportContainer">
                         
                         <!-- STATE 1: INITIAL/EMPTY -->
-                        <div x-show="step === 'input'" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-slate-50/50">
+                        <div x-show="step === 'input'" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-neutral-50/50">
                             <div class="w-20 h-20 rounded-full bg-indigo-50 flex items-center justify-center mb-6">
                                 <svg class="w-10 h-10 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                             </div>
-                            <h3 class="text-xl font-bold font-display text-slate-900 mb-2">Awaiting Organizational Data</h3>
-                            <p class="text-slate-500 text-sm max-w-sm font-body">Provide your company details and click analyze. TimeNest AI will process your operational bottlenecks and generate a customized efficiency report.</p>
+                            <h3 class="text-xl font-bold font-display text-neutral-900 mb-2">Awaiting Organizational Data</h3>
+                            <p class="text-neutral-500 text-sm max-w-sm font-body">Provide your company details and click analyze. TimeNest AI will process your operational bottlenecks and generate a customized efficiency report.</p>
                         </div>
 
                         <!-- STATE 2: ANALYZING (CONVERSATION/STEPS) -->
@@ -2417,13 +2417,13 @@
                                             <svg x-show="index === currentStepIndex" class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                                         </div>
                                         <span class="text-sm font-semibold font-mono"
-                                              :class="index < currentStepIndex ? 'text-slate-700' : 'text-indigo-600 animate-pulse'" x-text="task"></span>
+                                              :class="index < currentStepIndex ? 'text-neutral-700' : 'text-indigo-600 animate-pulse'" x-text="task"></span>
                                     </div>
                                 </template>
                             </div>
 
                             <!-- Simulated Messages Stream -->
-                            <div class="pt-6 border-t border-slate-100 space-y-4" x-effect="$refs.reportContainer.scrollTop = $refs.reportContainer.scrollHeight">
+                            <div class="pt-6 border-t border-neutral-100 space-y-4" x-effect="$refs.reportContainer.scrollTop = $refs.reportContainer.scrollHeight">
                                 <template x-for="(msg, idx) in analysisMessages" :key="idx">
                                     <div class="flex gap-4 animate-hero-fade-up">
                                         <div class="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0">
@@ -2442,7 +2442,7 @@
                             
                             <!-- Section: Executive Summary -->
                             <div>
-                                <h3 class="text-2xl font-bold font-display text-slate-900 mb-4 tracking-tight">Business Impact Report</h3>
+                                <h3 class="text-2xl font-bold font-display text-neutral-900 mb-4 tracking-tight">Business Impact Report</h3>
                                 <div class="bg-indigo-900 rounded-2xl p-6 relative overflow-hidden shadow-lg">
                                     <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/30 rounded-full blur-3xl"></div>
                                     <p class="text-indigo-50 text-base sm:text-lg leading-relaxed relative z-10 font-body" x-text="executiveSummary"></p>
@@ -2451,49 +2451,49 @@
 
                             <!-- Section: Visual AI Insights (Big Metrics) -->
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                <div class="p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex flex-col justify-center items-center text-center shadow-sm">
                                     <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Cost Recovery</span>
-                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></span>
-                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Est. Annual</span>
+                                    <span class="text-3xl font-display font-bold text-neutral-900" x-text="'₹' + Number(annualCapitalSaved).toLocaleString()"></span>
+                                    <span class="text-[10px] text-neutral-500 mt-1 uppercase font-bold tracking-widest">Est. Annual</span>
                                 </div>
-                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                <div class="p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex flex-col justify-center items-center text-center shadow-sm">
                                     <span class="text-[10px] uppercase font-bold tracking-widest text-indigo-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Time Recovered</span>
-                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="Number(totalMonthlyHrsSaved).toLocaleString()"></span>
-                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Hours / Month</span>
+                                    <span class="text-3xl font-display font-bold text-neutral-900" x-text="Number(totalMonthlyHrsSaved).toLocaleString()"></span>
+                                    <span class="text-[10px] text-neutral-500 mt-1 uppercase font-bold tracking-widest">Hours / Month</span>
                                 </div>
-                                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-center items-center text-center shadow-sm">
+                                <div class="p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex flex-col justify-center items-center text-center shadow-sm">
                                     <span class="text-[10px] uppercase font-bold tracking-widest text-brand-600 font-mono mb-2 flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> Efficiency Gain</span>
-                                    <span class="text-3xl font-display font-bold text-slate-900" x-text="'+' + efficiencyGain + '%'"></span>
-                                    <span class="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">Ops Capacity</span>
+                                    <span class="text-3xl font-display font-bold text-neutral-900" x-text="'+' + efficiencyGain + '%'"></span>
+                                    <span class="text-[10px] text-neutral-500 mt-1 uppercase font-bold tracking-widest">Ops Capacity</span>
                                 </div>
                             </div>
 
                             <!-- Section: Scenario Comparison -->
                             <div>
-                                <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Operations Comparison</h4>
-                                <div class="border border-slate-200 rounded-2xl overflow-x-auto shadow-sm">
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 font-mono mb-4">Operations Comparison</h4>
+                                <div class="border border-neutral-200 rounded-2xl overflow-x-auto shadow-sm">
                                     <table class="w-full text-left text-sm font-body min-w-[500px]">
-                                        <thead class="bg-slate-50 border-b border-slate-200">
+                                        <thead class="bg-neutral-50 border-b border-neutral-200">
                                             <tr>
-                                                <th class="py-3 px-4 font-semibold text-slate-600 text-xs sm:text-sm">Metric</th>
-                                                <th class="py-3 px-4 font-semibold text-slate-600 text-xs sm:text-sm">Current</th>
+                                                <th class="py-3 px-4 font-semibold text-neutral-600 text-xs sm:text-sm">Metric</th>
+                                                <th class="py-3 px-4 font-semibold text-neutral-600 text-xs sm:text-sm">Current</th>
                                                 <th class="py-3 px-4 font-bold text-indigo-600 bg-indigo-50/50 text-xs sm:text-sm">With TimeNest</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="divide-y divide-slate-100">
-                                            <tr class="hover:bg-slate-50/50 transition-colors">
-                                                <td class="py-3 px-4 font-medium text-slate-900">Attendance Processing</td>
-                                                <td class="py-3 px-4 text-slate-600" x-text="attendanceProcessingHrs + ' hrs'"></td>
+                                        <tbody class="divide-y divide-neutral-100">
+                                            <tr class="hover:bg-neutral-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-neutral-900">Attendance Processing</td>
+                                                <td class="py-3 px-4 text-neutral-600" x-text="attendanceProcessingHrs + ' hrs'"></td>
                                                 <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30" x-text="(attendanceProcessingHrs - attendanceSaved) + ' hrs'"></td>
                                             </tr>
-                                            <tr class="hover:bg-slate-50/50 transition-colors">
-                                                <td class="py-3 px-4 font-medium text-slate-900">Approval Routing</td>
-                                                <td class="py-3 px-4 text-slate-600">Manual Chains</td>
+                                            <tr class="hover:bg-neutral-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-neutral-900">Approval Routing</td>
+                                                <td class="py-3 px-4 text-neutral-600">Manual Chains</td>
                                                 <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30">Automated</td>
                                             </tr>
-                                            <tr class="hover:bg-slate-50/50 transition-colors">
-                                                <td class="py-3 px-4 font-medium text-slate-900">Payroll Preparation</td>
-                                                <td class="py-3 px-4 text-slate-600">Spreadsheets</td>
+                                            <tr class="hover:bg-neutral-50/50 transition-colors">
+                                                <td class="py-3 px-4 font-medium text-neutral-900">Payroll Preparation</td>
+                                                <td class="py-3 px-4 text-neutral-600">Spreadsheets</td>
                                                 <td class="py-3 px-4 font-bold text-emerald-600 bg-emerald-50/30">One-Click Sync</td>
                                             </tr>
                                         </tbody>
@@ -2503,24 +2503,24 @@
 
                             <!-- Section: Key Findings / Savings Breakdown -->
                             <div>
-                                <h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Key Finding Highlights</h4>
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-neutral-400 font-mono mb-4">Key Finding Highlights</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div class="border border-slate-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-slate-300 transition-colors">
+                                    <div class="border border-neutral-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-neutral-300 transition-colors">
                                         <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
                                             <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                         </div>
                                         <div>
-                                            <h5 class="font-bold text-slate-900 text-sm">Attendance Automation</h5>
-                                            <p class="text-xs text-slate-500 mt-1 font-body">High manual effort detected. Automation can save <span x-text="attendanceSaved"></span> hours monthly.</p>
+                                            <h5 class="font-bold text-neutral-900 text-sm">Attendance Automation</h5>
+                                            <p class="text-xs text-neutral-500 mt-1 font-body">High manual effort detected. Automation can save <span x-text="attendanceSaved"></span> hours monthly.</p>
                                         </div>
                                     </div>
-                                    <div class="border border-slate-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-slate-300 transition-colors">
+                                    <div class="border border-neutral-200 rounded-xl p-5 flex gap-4 items-start shadow-sm bg-white hover:border-neutral-300 transition-colors">
                                         <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center shrink-0 border border-amber-100">
                                             <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                         </div>
                                         <div>
-                                            <h5 class="font-bold text-slate-900 text-sm">Approval Bottlenecks</h5>
-                                            <p class="text-xs text-slate-500 mt-1 font-body">Routing delays identified. Streamlining can recover <span x-text="approvalSaved"></span> hours monthly.</p>
+                                            <h5 class="font-bold text-neutral-900 text-sm">Approval Bottlenecks</h5>
+                                            <p class="text-xs text-neutral-500 mt-1 font-body">Routing delays identified. Streamlining can recover <span x-text="approvalSaved"></span> hours monthly.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -2532,24 +2532,24 @@
                                 <ul class="space-y-4 font-body">
                                     <li class="flex items-start gap-3">
                                         <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 1</span>
-                                        <span class="text-sm font-medium text-slate-800">Centralize approval workflows across managers to eliminate routing bottlenecks.</span>
+                                        <span class="text-sm font-medium text-neutral-800">Centralize approval workflows across managers to eliminate routing bottlenecks.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="bg-indigo-400 text-white text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 2</span>
-                                        <span class="text-sm font-medium text-slate-800">Automate biometric and geofenced attendance tracking to recover <span class="font-bold" x-text="attendanceSaved"></span> hours.</span>
+                                        <span class="text-sm font-medium text-neutral-800">Automate biometric and geofenced attendance tracking to recover <span class="font-bold" x-text="attendanceSaved"></span> hours.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="bg-indigo-300 text-indigo-900 text-[10px] font-bold px-2 py-0.5 rounded shrink-0">Priority 3</span>
-                                        <span class="text-sm font-medium text-slate-800">Enable one-click payroll sync to reduce manual calculations and entry errors.</span>
+                                        <span class="text-sm font-medium text-neutral-800">Enable one-click payroll sync to reduce manual calculations and entry errors.</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <!-- Export / Next Steps -->
-                            <div class="flex flex-col sm:flex-row items-center gap-4 pt-6 border-t border-slate-200">
+                            <div class="flex flex-col sm:flex-row items-center gap-4 pt-6 border-t border-neutral-200">
                                 <a href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition-colors text-center shadow-md shadow-indigo-600/20">Book a Consultation</a>
-                                <button onclick="alert('PDF generation and Email Export features will be integrated with the backend services.')" class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-sm transition-colors flex items-center justify-center gap-2 bg-white shadow-sm">
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                <button onclick="alert('PDF generation and Email Export features will be integrated with the backend services.')" class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-neutral-300 hover:bg-neutral-50 text-neutral-700 font-bold text-sm transition-colors flex items-center justify-center gap-2 bg-white shadow-sm">
+                                    <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                     Download Full Report
                                 </button>
                             </div>
@@ -2623,7 +2623,7 @@
     };
     @endphp
 
-    <section class="py-24 lg:py-32 bg-slate-50 relative border-t border-slate-200/60" id="faq"
+    <section class="py-24 lg:py-32 bg-neutral-50 relative border-t border-neutral-200/60" id="faq"
              x-data="{ 
                  activeCategory: 'General', 
                  activeSubcategory: 'All',
@@ -2759,42 +2759,42 @@
             <!-- Section Header -->
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <x-frontend-base.badge color="brand" size="md" class="mb-6">Knowledge Base</x-frontend-base.badge>
-                <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight">Everything you need to know.</h2>
-                <p class="text-slate-600 text-lg lg:text-xl font-body">Clear answers to help you make an informed decision about migrating your workforce to TimeNest.</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-neutral-900 mb-6 tracking-tight">Everything you need to know.</h2>
+                <p class="text-neutral-600 text-lg lg:text-xl font-body">Clear answers to help you make an informed decision about migrating your workforce to TimeNest.</p>
             </div>
 
             <!-- Statistics Badge Row -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0 gap-x-4 max-w-4xl mx-auto mb-16 border-y border-slate-200 py-6 md:py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-0 gap-x-4 max-w-4xl mx-auto mb-16 border-y border-neutral-200 py-6 md:py-8">
                 <div class="text-center">
-                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">250+</span>
-                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Knowledge Articles</p>
+                    <span class="text-2xl md:text-3xl font-display font-black text-neutral-900 leading-none">250+</span>
+                    <p class="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Knowledge Articles</p>
                 </div>
-                <div class="text-center border-l border-slate-200">
-                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">35+</span>
-                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Product Features</p>
+                <div class="text-center border-l border-neutral-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-neutral-900 leading-none">35+</span>
+                    <p class="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Product Features</p>
                 </div>
-                <div class="text-center md:border-l border-slate-200">
-                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">24/7</span>
-                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Support Coverage</p>
+                <div class="text-center md:border-l border-neutral-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-neutral-900 leading-none">24/7</span>
+                    <p class="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Support Coverage</p>
                 </div>
-                <div class="text-center border-l border-slate-200">
-                    <span class="text-2xl md:text-3xl font-display font-black text-slate-900 leading-none">98%</span>
-                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Questions Answered</p>
+                <div class="text-center border-l border-neutral-200">
+                    <span class="text-2xl md:text-3xl font-display font-black text-neutral-900 leading-none">98%</span>
+                    <p class="text-[10px] text-neutral-500 font-semibold uppercase tracking-wider mt-1.5 font-mono">Questions Answered</p>
                 </div>
             </div>
 
             <!-- Most Popular Questions Panel -->
-            <div class="max-w-7xl mx-auto mb-16 p-6 rounded-3xl bg-white border border-slate-200 shadow-sm text-left">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono mb-4">Most Popular Questions</h3>
+            <div class="max-w-7xl mx-auto mb-16 p-6 rounded-3xl bg-white border border-neutral-200 shadow-sm text-left">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-400 font-mono mb-4">Most Popular Questions</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach(collect($faqs['questions'])->filter(fn($q) => $q['is_popular'])->take(4) as $pQuest)
                         <button @click="navigateToQuestion('{{ $pQuest['id'] }}')"
-                                class="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-slate-200 hover:shadow-sm text-left group transition-all duration-300 cursor-pointer">
+                                class="flex items-center justify-between p-4 rounded-xl border border-neutral-100 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-200 hover:shadow-sm text-left group transition-all duration-300 cursor-pointer">
                             <div>
                                 <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded font-mono uppercase tracking-wider">{{ $pQuest['category'] }}</span>
-                                <p class="text-slate-900 font-display font-semibold text-sm sm:text-base mt-2 group-hover:text-indigo-600 transition-colors">{{ $pQuest['q'] }}</p>
+                                <p class="text-neutral-900 font-display font-semibold text-sm sm:text-base mt-2 group-hover:text-indigo-600 transition-colors">{{ $pQuest['q'] }}</p>
                             </div>
-                            <span class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-200 shrink-0 ml-4 transition-all">
+                            <span class="w-8 h-8 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-neutral-400 group-hover:text-indigo-600 group-hover:border-indigo-200 shrink-0 ml-4 transition-all">
                                 &rarr;
                             </span>
                         </button>
@@ -2806,42 +2806,42 @@
             <div class="max-w-3xl mx-auto mb-16 relative">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        <svg class="h-5 w-5 text-neutral-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                     </div>
                     <input x-model="searchQuery" type="text" placeholder="Search across all categories, subcategories, and answers..." 
-                           class="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 shadow-sm transition-all text-base font-body text-slate-900 placeholder-slate-400">
+                           class="w-full pl-12 pr-4 py-4 bg-white border border-neutral-200 rounded-2xl focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 shadow-sm transition-all text-base font-body text-neutral-900 placeholder-neutral-400">
                 </div>
 
                 <!-- Instant Search Dropdown Overlay -->
                 <div x-show="searchQuery.trim().length >= 2" 
                      x-cloak
-                     class="absolute left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200/80 shadow-2xl z-50 p-2 space-y-1 text-left max-h-96 overflow-y-auto"
+                     class="absolute left-0 right-0 mt-2 bg-white rounded-2xl border border-neutral-200/80 shadow-2xl z-50 p-2 space-y-1 text-left max-h-96 overflow-y-auto"
                      @click.away="searchQuery = ''">
                     
-                    <div class="px-3 py-2 border-b border-slate-100">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">Global Search Matches</p>
+                    <div class="px-3 py-2 border-b border-neutral-100">
+                        <p class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest font-mono">Global Search Matches</p>
                     </div>
 
                     <!-- Match list -->
                     <template x-for="match in searchMatches" :key="match.id">
                         <button @click="selectSearchResult(match)"
-                                class="w-full text-left p-3 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer block border border-transparent hover:border-slate-100 group">
+                                class="w-full text-left p-3 hover:bg-neutral-50 rounded-xl transition-colors cursor-pointer block border border-transparent hover:border-neutral-100 group">
                             <div class="flex items-center justify-between">
-                                <span class="font-display font-semibold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors" x-text="match.q"></span>
-                                <svg class="w-3.5 h-3.5 text-slate-300 group-hover:text-indigo-500 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <span class="font-display font-semibold text-neutral-900 text-sm group-hover:text-indigo-600 transition-colors" x-text="match.q"></span>
+                                <svg class="w-3.5 h-3.5 text-neutral-300 group-hover:text-indigo-500 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </div>
                             <div class="flex items-center gap-1.5 mt-1.5">
-                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono" x-text="match.category"></span>
-                                <span class="text-slate-300 text-[9px]">&bull;</span>
-                                <span class="text-[9px] font-bold text-slate-500 font-mono" x-text="match.subcategory"></span>
+                                <span class="text-[9px] font-bold text-neutral-400 uppercase tracking-wider font-mono" x-text="match.category"></span>
+                                <span class="text-neutral-300 text-[9px]">&bull;</span>
+                                <span class="text-[9px] font-bold text-neutral-500 font-mono" x-text="match.subcategory"></span>
                             </div>
                         </button>
                     </template>
 
                     <!-- Empty state match -->
-                    <div x-show="searchMatches.length === 0" class="py-6 text-center text-slate-400 text-sm font-body">
+                    <div x-show="searchMatches.length === 0" class="py-6 text-center text-neutral-400 text-sm font-body">
                         No matches found. Try general keywords like "location", "pricing", or "SSO".
                     </div>
                 </div>
@@ -2853,12 +2853,12 @@
                     <button @click="activeCategory = '{{ $catName }}'; activeSubcategory = 'All'; currentPage = 1; expandedIds = []"
                             class="px-4 py-2.5 rounded-xl border text-xs font-semibold tracking-tight whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-2"
                             :class="activeCategory === '{{ $catName }}'
-                                ? 'bg-slate-900 text-white border-slate-900 shadow-md scale-[1.02]'
-                                : 'bg-white text-slate-600 border-slate-200/80 hover:bg-slate-50'">
+                                ? 'bg-neutral-900 text-white border-neutral-900 shadow-md scale-[1.02]'
+                                : 'bg-white text-neutral-600 border-neutral-200/80 hover:bg-neutral-50'">
                         {!! $getSvg($catMeta['icon']) !!}
                         <span>{{ $catName }}</span>
                         <span class="px-1.5 py-0.5 rounded-full text-[9px] font-mono leading-none"
-                              :class="activeCategory === '{{ $catName }}' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'">
+                              :class="activeCategory === '{{ $catName }}' ? 'bg-white/20 text-white' : 'bg-neutral-100 text-neutral-500'">
                             {{ count(collect($faqs['questions'])->filter(fn($q) => $q['category'] === $catName)) }}
                         </span>
                     </button>
@@ -2871,21 +2871,21 @@
                 <!-- Left Sidebar (Desktop Categories list) -->
                 <div class="hidden lg:flex w-full lg:w-1/3 flex-col gap-3 sticky top-32 shrink-0 select-none" x-show="searchQuery.trim() === ''">
                     <div class="px-2 pb-2">
-                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">Browse Categories</h4>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-400 font-mono">Browse Categories</h4>
                     </div>
 
                     @foreach($faqs['categories'] as $catName => $catMeta)
                         <button @click="activeCategory = '{{ $catName }}'; activeSubcategory = 'All'; currentPage = 1; expandedIds = []"
                                 class="text-left p-4 rounded-2xl border transition-all duration-300 cursor-pointer group flex items-start gap-4"
                                 :class="activeCategory === '{{ $catName }}'
-                                    ? 'bg-slate-900 border-slate-900 text-white shadow-xl shadow-slate-900/10 scale-[1.01]'
-                                    : 'bg-white border-slate-200/60 text-slate-700 hover:border-slate-300 hover:bg-slate-50/50 hover:shadow-sm'">
+                                    ? 'bg-neutral-900 border-neutral-900 text-white shadow-xl shadow-neutral-900/10 scale-[1.01]'
+                                    : 'bg-white border-neutral-200/60 text-neutral-700 hover:border-neutral-300 hover:bg-neutral-50/50 hover:shadow-sm'">
                             
                             <!-- Icon wrapper -->
                             <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-colors duration-300"
                                  :class="activeCategory === '{{ $catName }}' 
                                      ? 'bg-white/10 border-white/10 text-indigo-400' 
-                                     : 'bg-slate-50 border-slate-100 text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-100'">
+                                     : 'bg-neutral-50 border-neutral-100 text-neutral-400 group-hover:text-indigo-600 group-hover:border-indigo-100'">
                                 {!! $getSvg($catMeta['icon']) !!}
                             </div>
 
@@ -2893,17 +2893,17 @@
                             <div class="flex-grow">
                                 <div class="flex items-center justify-between">
                                     <span class="font-display font-bold text-sm tracking-tight"
-                                          :class="activeCategory === '{{ $catName }}' ? 'text-white' : 'text-slate-950 group-hover:text-indigo-600'">
+                                          :class="activeCategory === '{{ $catName }}' ? 'text-white' : 'text-neutral-950 group-hover:text-indigo-600'">
                                         {{ $catName }}
                                     </span>
                                     <!-- count badge -->
                                     <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono leading-none"
-                                          :class="activeCategory === '{{ $catName }}' ? 'bg-white/25 text-white' : 'bg-slate-100 text-slate-500'">
+                                          :class="activeCategory === '{{ $catName }}' ? 'bg-white/25 text-white' : 'bg-neutral-100 text-neutral-500'">
                                         {{ count(collect($faqs['questions'])->filter(fn($q) => $q['category'] === $catName)) }}
                                     </span>
                                 </div>
                                 <p class="text-[11px] leading-relaxed mt-1 font-body"
-                                   :class="activeCategory === '{{ $catName }}' ? 'text-slate-400' : 'text-slate-500'">
+                                   :class="activeCategory === '{{ $catName }}' ? 'text-neutral-400' : 'text-neutral-500'">
                                     {{ $catMeta['description'] }}
                                 </p>
                             </div>
@@ -2916,18 +2916,18 @@
                     
                     <!-- Search Mode Header -->
                     <div x-show="searchQuery.trim() !== ''" class="mb-4 text-left">
-                        <h3 class="text-xl font-bold text-slate-950 font-display">
+                        <h3 class="text-xl font-bold text-neutral-950 font-display">
                             Search Results for "<span class="text-indigo-600" x-text="searchQuery"></span>"
-                            <span class="text-xs font-semibold ml-2 px-2.5 py-1 rounded-full bg-slate-200 text-slate-600" x-text="filteredQuestions.length"></span>
+                            <span class="text-xs font-semibold ml-2 px-2.5 py-1 rounded-full bg-neutral-200 text-neutral-600" x-text="filteredQuestions.length"></span>
                         </h3>
                     </div>
 
                     <!-- Category Mode Filters Bar -->
                     <div x-show="searchQuery.trim() === ''" class="space-y-4 text-left">
-                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-                            <h3 class="text-xl font-bold text-slate-950 font-display flex items-center gap-2">
+                        <div class="flex items-center justify-between border-b border-neutral-200 pb-3">
+                            <h3 class="text-xl font-bold text-neutral-950 font-display flex items-center gap-2">
                                 <span x-text="activeCategory"></span>
-                                <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-600" x-text="filteredQuestions.length"></span>
+                                <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-600" x-text="filteredQuestions.length"></span>
                             </h3>
                         </div>
 
@@ -2938,7 +2938,7 @@
                                         class="px-3.5 py-1.5 rounded-lg border text-xs font-semibold tracking-tight whitespace-nowrap transition-colors duration-200 cursor-pointer"
                                         :class="activeSubcategory === subcat
                                             ? 'bg-indigo-600 border-indigo-500 text-white shadow-sm'
-                                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'">
+                                            : 'bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'">
                                     <span x-text="subcat"></span>
                                 </button>
                             </template>
@@ -2946,15 +2946,15 @@
                     </div>
 
                     <!-- Controls / Sort Bar -->
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 bg-slate-100/60 p-2.5 rounded-xl border border-slate-200/50">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono"
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 bg-neutral-100/60 p-2.5 rounded-xl border border-neutral-200/50">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-neutral-400 font-mono"
                               x-text="'Showing ' + (filteredQuestions.length ? ((currentPage-1)*itemsPerPage + 1) : 0) + '–' + Math.min(currentPage * itemsPerPage, filteredQuestions.length) + ' of ' + filteredQuestions.length + ' questions'">
                         </span>
                         
                         <div class="flex flex-wrap items-center justify-center gap-3">
                             <!-- Sort -->
                             <select x-model="sortMethod" 
-                                    class="text-[11px] font-semibold bg-white border border-slate-200 rounded-lg px-2 py-1 text-slate-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-body">
+                                    class="text-[11px] font-semibold bg-white border border-neutral-200 rounded-lg px-2 py-1 text-neutral-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 font-body">
                                 <option value="popular">Sort: Popularity</option>
                                 <option value="alphabetical">Sort: Alphabetical</option>
                                 <option value="updated">Sort: Recently Updated</option>
@@ -2962,8 +2962,8 @@
 
                             <!-- Accordion Toggles -->
                             <div class="flex items-center gap-1">
-                                <button @click="expandAll()" class="text-[10px] font-bold text-slate-500 hover:text-slate-900 border border-slate-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Expand All</button>
-                                <button @click="collapseAll()" class="text-[10px] font-bold text-slate-500 hover:text-slate-900 border border-slate-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Collapse All</button>
+                                <button @click="expandAll()" class="text-[10px] font-bold text-neutral-500 hover:text-neutral-900 border border-neutral-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Expand All</button>
+                                <button @click="collapseAll()" class="text-[10px] font-bold text-neutral-500 hover:text-neutral-900 border border-neutral-200 bg-white px-2 py-1 rounded-md transition-colors cursor-pointer">Collapse All</button>
                             </div>
                         </div>
                     </div>
@@ -2973,7 +2973,7 @@
                         <template x-for="faq in paginatedQuestions" :key="faq.id">
                             <div :id="'faq-' + faq.id"
                                  class="rounded-2xl border bg-white overflow-hidden transition-all duration-300 shadow-sm"
-                                 :class="isExpanded(faq.id) ? 'border-indigo-500 ring-1 ring-indigo-500/10 shadow-md bg-slate-50/50' : 'border-slate-200/80 hover:border-slate-300 hover:shadow-sm'">
+                                 :class="isExpanded(faq.id) ? 'border-indigo-500 ring-1 ring-indigo-500/10 shadow-md bg-neutral-50/50' : 'border-neutral-200/80 hover:border-neutral-300 hover:shadow-sm'">
                                 
                                 <button @click="toggleQuestion(faq.id)"
                                         class="w-full flex items-start sm:items-center justify-between px-5 py-4 text-left cursor-pointer focus:outline-none group">
@@ -2988,11 +2988,11 @@
                                                       x-text="faq.label"></span>
                                             </template>
                                             <template x-if="searchQuery.trim() !== ''">
-                                                <span class="text-[8px] font-black text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded font-mono uppercase tracking-widest"
+                                                <span class="text-[8px] font-black text-neutral-400 bg-neutral-100 px-1.5 py-0.5 rounded font-mono uppercase tracking-widest"
                                                       x-text="faq.category + ' > ' + faq.subcategory"></span>
                                             </template>
                                         </div>
-                                        <span class="font-display font-bold text-slate-900 text-base sm:text-lg group-hover:text-indigo-600 transition-colors duration-200 leading-tight block"
+                                        <span class="font-display font-bold text-neutral-900 text-base sm:text-lg group-hover:text-indigo-600 transition-colors duration-200 leading-tight block"
                                               :class="isExpanded(faq.id) ? 'text-indigo-600' : ''" 
                                               x-text="faq.q"></span>
                                     </div>
@@ -3000,7 +3000,7 @@
                                     <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300"
                                          :class="isExpanded(faq.id) 
                                              ? 'bg-indigo-100 border-indigo-200 text-indigo-600 rotate-180 shadow-inner' 
-                                             : 'bg-slate-50 border-slate-100 text-slate-400 group-hover:bg-slate-100'">
+                                             : 'bg-neutral-50 border-neutral-100 text-neutral-400 group-hover:bg-neutral-100'">
                                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
                                         </svg>
@@ -3009,11 +3009,11 @@
 
                                 <!-- Collapsible content -->
                                 <div x-show="isExpanded(faq.id)" x-collapse>
-                                    <div class="px-5 pb-5 pt-1 text-slate-600 leading-relaxed text-sm sm:text-base font-body border-t border-slate-200/40">
+                                    <div class="px-5 pb-5 pt-1 text-neutral-600 leading-relaxed text-sm sm:text-base font-body border-t border-neutral-200/40">
                                         <div class="space-y-4" x-html="faq.a"></div>
                                         
                                         <!-- Last Updated timestamp -->
-                                        <div class="text-[10px] text-slate-400 font-mono mt-4 flex items-center gap-1.5 select-none">
+                                        <div class="text-[10px] text-neutral-400 font-mono mt-4 flex items-center gap-1.5 select-none">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                             </svg>
@@ -3022,8 +3022,8 @@
 
                                         <!-- Related Questions panel -->
                                         <template x-if="faq.related_questions && faq.related_questions.length > 0">
-                                            <div class="mt-6 pt-4 border-t border-slate-200 select-none">
-                                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono block mb-2.5">Related Questions</span>
+                                            <div class="mt-6 pt-4 border-t border-neutral-200 select-none">
+                                                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest font-mono block mb-2.5">Related Questions</span>
                                                 <div class="flex flex-wrap gap-2">
                                                     <template x-for="reqId in faq.related_questions">
                                                         <button @click="navigateToQuestion(reqId)" 
@@ -3042,28 +3042,28 @@
 
                         <!-- Empty state questions -->
                         <div x-show="filteredQuestions.length === 0" 
-                             class="text-center py-16 bg-white rounded-3xl border border-slate-200 border-dashed">
-                            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H13.01" /></svg>
+                             class="text-center py-16 bg-white rounded-3xl border border-neutral-200 border-dashed">
+                            <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H13.01" /></svg>
                             </div>
-                            <h3 class="text-lg font-bold text-slate-900 mb-2 font-display">No matches found</h3>
-                            <p class="text-slate-500 font-body max-w-md mx-auto">We couldn't find any questions matching your query. Try searching for other tags, or check other categories.</p>
+                            <h3 class="text-lg font-bold text-neutral-900 mb-2 font-display">No matches found</h3>
+                            <p class="text-neutral-500 font-body max-w-md mx-auto">We couldn't find any questions matching your query. Try searching for other tags, or check other categories.</p>
                             <button @click="searchQuery = ''; activeSubcategory = 'All'; currentPage = 1" class="mt-6 text-sm font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-4 py-2 rounded-full transition-colors cursor-pointer">Reset Explorer</button>
                         </div>
                     </div>
 
                     <!-- Pagination Navigation footer block -->
                     <div x-show="totalPages > 1" 
-                         class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200 select-none">
+                         class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-neutral-200 select-none">
                         <!-- Left indicator -->
-                        <span class="text-xs text-slate-500 font-body"
+                        <span class="text-xs text-neutral-500 font-body"
                               x-text="'Page ' + currentPage + ' of ' + totalPages"></span>
                         
                         <!-- Nav buttons -->
                         <div class="flex items-center gap-1">
                             <!-- Prev -->
                             <button @click="currentPage = Math.max(currentPage - 1, 1)"
-                                    class="w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                                    class="w-10 h-10 rounded-xl border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
                                     :disabled="currentPage === 1">
                                 &larr;
                             </button>
@@ -3073,21 +3073,21 @@
                                     <button @click="currentPage = pIdx"
                                             class="w-10 h-10 rounded-xl text-xs font-bold font-mono transition-all cursor-pointer border"
                                             :class="currentPage === pIdx
-                                                ? 'bg-slate-900 text-white border-slate-900 shadow-md scale-105'
-                                                : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'"
+                                                ? 'bg-neutral-900 text-white border-neutral-900 shadow-md scale-105'
+                                                : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50'"
                                             x-text="pIdx">
                                     </button>
                                 </template>
                             </div>
                             
                             <!-- Page Mobile Status -->
-                            <div class="flex sm:hidden items-center justify-center px-4 h-10 rounded-xl border border-slate-200 bg-white text-xs font-bold font-mono text-slate-600"
+                            <div class="flex sm:hidden items-center justify-center px-4 h-10 rounded-xl border border-neutral-200 bg-white text-xs font-bold font-mono text-neutral-600"
                                  x-text="currentPage + ' / ' + totalPages">
                             </div>
 
                             <!-- Next -->
                             <button @click="currentPage = Math.min(currentPage + 1, totalPages)"
-                                    class="w-10 h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                                    class="w-10 h-10 rounded-xl border border-neutral-200 bg-white hover:bg-neutral-50 text-neutral-600 flex items-center justify-center cursor-pointer transition-colors disabled:opacity-30 disabled:pointer-events-none"
                                     :disabled="currentPage === totalPages">
                                 &rarr;
                             </button>
@@ -3102,7 +3102,7 @@
     </section>
 
     {{-- Section 11: Enterprise CTA (Workforce Operating System) --}}
-    <section class="bg-black relative overflow-hidden py-16 sm:py-20 lg:py-24 border-y border-slate-900">
+    <section class="bg-black relative overflow-hidden py-16 sm:py-20 lg:py-24 border-y border-neutral-900">
         
         {{-- Concentric Gold Rings in Background --}}
         <div class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] w-auto opacity-10 pointer-events-none hidden lg:block">
@@ -3138,7 +3138,7 @@
                     </h2>
 
                     {{-- Description --}}
-                    <p class="text-slate-400 text-sm sm:text-base max-w-xl leading-relaxed font-body">
+                    <p class="text-neutral-400 text-sm sm:text-base max-w-xl leading-relaxed font-body">
                         Book a personalized demo and discover how TimeNest can streamline your workforce operations, boost productivity, and drive growth.
                     </p>
                 </div>
@@ -3147,75 +3147,75 @@
                 <div class="lg:col-span-5 flex flex-col items-stretch lg:items-start w-full">
                     {{-- Action Buttons --}}
                     <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full justify-start">
-                        <a href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-amber-500/10 shrink-0 group">
-                            <svg class="w-4 h-4 shrink-0 text-slate-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <a href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-sm transition-all shadow-lg shadow-amber-500/10 shrink-0 group">
+                            <svg class="w-4 h-4 shrink-0 text-neutral-950" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                             </svg>
                             <span>Book a Personalized Demo</span>
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-neutral-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
                         </a>
-                        <a href="{{ route('frontend.contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl border border-amber-500/30 hover:border-amber-400 text-slate-200 hover:text-white font-semibold text-sm transition-all bg-transparent hover:bg-white/5 shrink-0 group">
+                        <a href="{{ route('frontend.contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-12 rounded-xl border border-amber-500/30 hover:border-amber-400 text-neutral-200 hover:text-white font-semibold text-sm transition-all bg-transparent hover:bg-white/5 shrink-0 group">
                             <svg class="w-4 h-4 shrink-0 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M2 12a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm18 0a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H20a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H21a1 1 0 01-1-1v-5z"/>
                             </svg>
                             <span>Talk to Solutions Team</span>
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0 text-neutral-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
                         </a>
                     </div>
 
                     {{-- Trust Grid --}}
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 items-center border-t border-slate-900/80 pt-8 mt-8 w-full">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4 items-center border-t border-neutral-900/80 pt-8 mt-8 w-full">
                         <!-- Indicator 1: Enterprise Security -->
                         <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-neutral-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                             </svg>
                             <div class="flex flex-col text-left">
                                 <span class="text-xs font-semibold text-white leading-tight font-display">Enterprise</span>
-                                <span class="text-[10px] text-slate-400 font-body">Security</span>
+                                <span class="text-[10px] text-neutral-400 font-body">Security</span>
                             </div>
                         </div>
                         
                         <!-- Indicator 2: Dedicated Onboarding -->
-                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
-                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <div class="flex items-center gap-2 md:border-l md:border-neutral-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-neutral-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
                             <div class="flex flex-col text-left">
                                 <span class="text-xs font-semibold text-white leading-tight font-display">Dedicated</span>
-                                <span class="text-[10px] text-slate-400 font-body">Onboarding</span>
+                                <span class="text-[10px] text-neutral-400 font-body">Onboarding</span>
                             </div>
                         </div>
 
                         <!-- Indicator 3: Expert Support -->
-                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
-                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <div class="flex items-center gap-2 md:border-l md:border-neutral-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-neutral-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M2 12a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm18 0a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H20a1 1 0 011-1h1.5a1 1 0 011 1v5a1 1 0 01-1 1H21a1 1 0 01-1-1v-5z"/>
                             </svg>
                             <div class="flex flex-col text-left">
                                 <span class="text-xs font-semibold text-white leading-tight font-display">Expert</span>
-                                <span class="text-[10px] text-slate-400 font-body">Support</span>
+                                <span class="text-[10px] text-neutral-400 font-body">Support</span>
                             </div>
                         </div>
 
                         <!-- Indicator 4: Global Scale -->
-                        <div class="flex items-center gap-2 md:border-l md:border-slate-900/80 md:pl-4">
-                            <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <div class="flex items-center gap-2 md:border-l md:border-neutral-900/80 md:pl-4">
+                            <svg class="w-5 h-5 text-neutral-400 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
                             </svg>
                             <div class="flex flex-col text-left">
                                 <span class="text-xs font-semibold text-white leading-tight font-display">Global</span>
-                                <span class="text-[10px] text-slate-400 font-body">Scale</span>
+                                <span class="text-[10px] text-neutral-400 font-body">Scale</span>
                             </div>
                         </div>
                     </div>
 
                     {{-- Star Line --}}
-                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 mt-6 pt-4 border-t border-slate-900/40">
+                    <div class="flex items-center gap-2 text-xs font-semibold text-neutral-500 mt-6 pt-4 border-t border-neutral-900/40">
                         <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                         </svg>
@@ -3230,7 +3230,7 @@
     <section class="py-20 md:py-28 bg-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <!-- Light Themed Trust & Support Panel -->
-            <div class="bg-gradient-to-br from-white to-slate-50 border border-slate-200/60 rounded-3xl p-8 lg:p-12 shadow-xl shadow-slate-200/20 relative overflow-hidden group">
+            <div class="bg-gradient-to-br from-white to-neutral-50 border border-neutral-200/60 rounded-3xl p-8 lg:p-12 shadow-xl shadow-neutral-200/20 relative overflow-hidden group">
                 <!-- Grid background -->
                 <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
                 
@@ -3241,27 +3241,27 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
                     <!-- Left: Text content -->
                     <div class="lg:col-span-8 text-left">
-                        <p class="text-slate-600 text-lg sm:text-xl font-body leading-relaxed max-w-3xl">
-                            Stop guessing how to map your attendance rules, approval chains, and contractor invoices. Our product architects will design a <span class="font-semibold text-slate-900 underline decoration-indigo-500/40 decoration-2 underline-offset-4">tailored deployment plan</span> specifically for your organization's operational needs.
+                        <p class="text-neutral-600 text-lg sm:text-xl font-body leading-relaxed max-w-3xl">
+                            Stop guessing how to map your attendance rules, approval chains, and contractor invoices. Our product architects will design a <span class="font-semibold text-neutral-900 underline decoration-indigo-500/40 decoration-2 underline-offset-4">tailored deployment plan</span> specifically for your organization's operational needs.
                         </p>
                     </div>
 
                     <!-- Right: Stack of Buttons -->
                     <div class="lg:col-span-4 flex flex-col gap-3 w-full sm:max-w-xs lg:max-w-none lg:ml-auto">
-                        <a href="{{ route('frontend.faqs.index') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
+                        <a href="{{ route('frontend.faqs.index') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:bg-neutral-50 hover:border-neutral-300 hover:text-neutral-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
                             Explore Documentation
                         </a>
-                        <a href="{{ route('frontend.book-demo') }}" class="flex items-center justify-center h-12 px-6 rounded-xl bg-slate-950 text-white font-semibold text-sm hover:bg-black transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] duration-200">
+                        <a href="{{ route('frontend.book-demo') }}" class="flex items-center justify-center h-12 px-6 rounded-xl bg-black text-white font-semibold text-sm hover:bg-black transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] duration-200">
                             Schedule Demo
                         </a>
-                        <a href="{{ route('frontend.contact') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-700 font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
+                        <a href="{{ route('frontend.contact') }}" class="flex items-center justify-center h-12 px-6 rounded-xl border border-neutral-200 bg-white text-neutral-700 font-semibold text-sm hover:bg-neutral-50 hover:border-neutral-300 hover:text-neutral-900 transition-all shadow-sm hover:shadow active:scale-[0.98]">
                             Contact Team
                         </a>
                     </div>
                 </div>
 
                 <!-- Bottom: Divider & 3 Stats columns -->
-                <div class="border-t border-slate-200/80 mt-10 pt-8">
+                <div class="border-t border-neutral-200/80 mt-10 pt-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 items-center justify-between text-left">
                         <!-- Stat 1 -->
                         <div class="md:pr-8 flex items-start gap-4">
@@ -3271,34 +3271,34 @@
                                 </svg>
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">AVERAGE RESPONSE</span>
-                                <span class="text-lg font-bold text-slate-900 font-display">&lt; 2 Hours</span>
+                                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-0.5 font-body">AVERAGE RESPONSE</span>
+                                <span class="text-lg font-bold text-neutral-900 font-display">&lt; 2 Hours</span>
                             </div>
                         </div>
                         
                         <!-- Stat 2 -->
-                        <div class="md:px-8 md:border-l md:border-slate-200 flex items-start gap-4">
+                        <div class="md:px-8 md:border-l md:border-neutral-200 flex items-start gap-4">
                             <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                                 </svg>
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">IMPLEMENTATION</span>
-                                <span class="text-lg font-bold text-slate-900 font-display">Guided Support</span>
+                                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-0.5 font-body">IMPLEMENTATION</span>
+                                <span class="text-lg font-bold text-neutral-900 font-display">Guided Support</span>
                             </div>
                         </div>
 
                         <!-- Stat 3 -->
-                        <div class="md:pl-8 md:border-l md:border-slate-200 flex items-start gap-4">
+                        <div class="md:pl-8 md:border-l md:border-neutral-200 flex items-start gap-4">
                             <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
                             </div>
                             <div class="flex flex-col">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5 font-body">ENTERPRISE</span>
-                                <span class="text-lg font-bold text-slate-900 font-display">Dedicated CSM</span>
+                                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-0.5 font-body">ENTERPRISE</span>
+                                <span class="text-lg font-bold text-neutral-900 font-display">Dedicated CSM</span>
                             </div>
                         </div>
                     </div>
@@ -3307,3 +3307,5 @@
         </div>
     </section>
 </x-frontend-layout.app>
+
+

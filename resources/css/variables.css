@@ -1,0 +1,25 @@
+:root {
+  /* Brand Colors - #50164a */
+  --color-brand-50: 246 237 245;
+  --color-brand-100: 234 210 230;
+  --color-brand-200: 214 161 208;
+  --color-brand-300: 189 106 180;
+  --color-brand-400: 147 56 138;
+  --color-brand-500: 80 22 74;
+  --color-brand-600: 66 17 60;
+  --color-brand-700: 51 12 46;
+  --color-brand-800: 36 7 32;
+  --color-brand-900: 22 2 19;
+
+  /* Accent Colors - #50164a */
+  --color-accent-50: 246 237 245;
+  --color-accent-100: 234 210 230;
+  --color-accent-200: 214 161 208;
+  --color-accent-300: 189 106 180;
+  --color-accent-400: 147 56 138;
+  --color-accent-500: 80 22 74;
+  --color-accent-600: 66 17 60;
+  --color-accent-700: 51 12 46;
+  --color-accent-800: 36 7 32;
+  --color-accent-900: 22 2 19;
+}
