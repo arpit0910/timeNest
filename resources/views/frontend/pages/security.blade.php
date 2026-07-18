@@ -1,11 +1,11 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 
 @section('content')
     <x-marketing.header />
     
     <main class="marketing-responsive-sections">
         {{-- 1. Hero Section --}}
-        <section class="relative pt-32 pb-20 px-30 md:pt-40 md:pb-28 overflow-hidden bg-black">
+        <section class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-20 px-30 md:pt-40 md:pb-28 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6 text-center animate-fade-up">
@@ -22,7 +22,7 @@
                 </h1>
                 
                 <p class="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-12">
-                    TimeNest keeps every organization's data isolated, every login verified, and every action logged — so security isn't something you have to take on faith.
+                    TimeNest keeps every organization's data isolated, every login verified, and every action logged â€” so security isn't something you have to take on faith.
                 </p>
                 
                 <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-neutral-300 font-bold text-sm md:text-base border-t border-neutral-700/50 pt-8 mt-4 max-w-4xl mx-auto">
@@ -54,9 +54,9 @@
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         JWT & TOTP
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Every login is verified — every time</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Every login is verified â€” every time</h2>
                     <p class="text-lg text-neutral-400 mb-6 leading-relaxed">
-                        When someone signs in to TimeNest, we don't just check a password. Every session is issued a secure, time-limited token, and organizations can require a second verification step — a rotating code from an authenticator app — before access is granted. Lost or stolen passwords alone are never enough to get in.
+                        When someone signs in to TimeNest, we don't just check a password. Every session is issued a secure, time-limited token, and organizations can require a second verification step â€” a rotating code from an authenticator app â€” before access is granted. Lost or stolen passwords alone are never enough to get in.
                     </p>
                     
                     <ul class="space-y-8">
@@ -117,7 +117,7 @@
                 </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Your organization's data never mixes with anyone else's</h2>
                 <p class="text-lg text-neutral-600 max-w-3xl mx-auto mb-16 leading-relaxed">
-                    TimeNest runs many organizations on one platform, but every one of them operates inside its own walled-off space. Attendance records, leave requests, chat messages, employee data — none of it is ever visible or reachable from another organization, even by accident. This isn't a setting you turn on. It's checked on every single request.
+                    TimeNest runs many organizations on one platform, but every one of them operates inside its own walled-off space. Attendance records, leave requests, chat messages, employee data â€” none of it is ever visible or reachable from another organization, even by accident. This isn't a setting you turn on. It's checked on every single request.
                 </p>
                 
                 {{-- Isolation Diagram --}}
@@ -338,7 +338,7 @@
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Control exactly who sees what</h2>
                     <p class="text-lg text-neutral-400 mb-6 leading-relaxed">
-                        Not everyone in your organization needs to see everything. TimeNest lets admins decide precisely what each role can view, edit, or approve — attendance, leave, worklogs, member management — down to the individual permission. No hardcoded assumptions about who "should" have access.
+                        Not everyone in your organization needs to see everything. TimeNest lets admins decide precisely what each role can view, edit, or approve â€” attendance, leave, worklogs, member management â€” down to the individual permission. No hardcoded assumptions about who "should" have access.
                     </p>
                 </div>
             </div>
@@ -393,7 +393,7 @@
                 </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Know exactly who did what, and when</h2>
                 <p class="text-lg text-neutral-600 max-w-3xl mx-auto mb-16 leading-relaxed">
-                    Every meaningful action in TimeNest — logins, permission changes, attendance edits, approvals — is recorded automatically. If something needs to be reviewed later, the record is already there. Nothing relies on memory or manual tracking.
+                    Every meaningful action in TimeNest â€” logins, permission changes, attendance edits, approvals â€” is recorded automatically. If something needs to be reviewed later, the record is already there. Nothing relies on memory or manual tracking.
                 </p>
                 
                 <div class="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl shadow-neutral-200/50 border border-neutral-100 overflow-hidden text-left">
@@ -485,7 +485,7 @@
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                No. Every request is checked against your organization's identity before any data is returned. There's no shared view across organizations — isolation is enforced at the system level, not just the interface.
+                                No. Every request is checked against your organization's identity before any data is returned. There's no shared view across organizations â€” isolation is enforced at the system level, not just the interface.
                             </div>
                         </div>
                     </div>
@@ -498,7 +498,7 @@
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                That's entirely up to your admins. TimeNest's role and permission system lets you decide exactly who can view attendance, approve leave, manage members, or access reports — nothing is visible by default beyond what a role is explicitly given.
+                                That's entirely up to your admins. TimeNest's role and permission system lets you decide exactly who can view attendance, approve leave, manage members, or access reports â€” nothing is visible by default beyond what a role is explicitly given.
                             </div>
                         </div>
                     </div>
@@ -511,7 +511,7 @@
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Yes — messages are encrypted in transit between your team and our servers, and access to any conversation is restricted to members who share the same organization.
+                                Yes â€” messages are encrypted in transit between your team and our servers, and access to any conversation is restricted to members who share the same organization.
                             </div>
                         </div>
                     </div>
@@ -537,7 +537,7 @@
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Logins, permission changes, and key workforce actions are automatically logged with who, what, and when. Unusual activity — like a login from a new device — is recorded and visible to your admins.
+                                Logins, permission changes, and key workforce actions are automatically logged with who, what, and when. Unusual activity â€” like a login from a new device â€” is recorded and visible to your admins.
                             </div>
                         </div>
                     </div>
@@ -629,6 +629,7 @@
     {{-- Footer --}}
     <x-marketing.footer />
 @endsection
+
 
 
 

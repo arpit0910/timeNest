@@ -1,4 +1,4 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 @section('title', 'Book a Demo | TimeNest')
 @section('content')
 
@@ -6,7 +6,7 @@
 
     <main class="marketing-responsive-sections">
         {{-- Section 1: Hero with Interactive Scheduler --}}
-        <section id="booking-calendar-hero" class="relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-black">
+        <section id="booking-calendar-hero" class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-16 lg:pt-40 lg:pb-28 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6">
@@ -27,7 +27,7 @@
                         </h1>
                         
                         <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
-                            A real walkthrough, not a canned video — we'll show you attendance, leave, and chat set up the way your team would actually use them.
+                            A real walkthrough, not a canned video â€” we'll show you attendance, leave, and chat set up the way your team would actually use them.
                         </p>
 
                         <div class="space-y-4 border-t border-neutral-700/50 pt-8 w-full max-w-lg">
@@ -322,9 +322,9 @@
                                         <div>
                                             <label class="block text-xs font-bold text-neutral-700 mb-1.5">Team Size</label>
                                             <select x-model="size" class="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-2 focus:ring-accent-500 focus:border-accent-500 block p-3 transition-colors hover:border-neutral-350">
-                                                <option value="1-10">1–10 members</option>
-                                                <option value="11-50">11–50 members</option>
-                                                <option value="51-200">51–200 members</option>
+                                                <option value="1-10">1â€“10 members</option>
+                                                <option value="11-50">11â€“50 members</option>
+                                                <option value="51-200">51â€“200 members</option>
                                                 <option value="200+">200+ members</option>
                                             </select>
                                         </div>
@@ -451,7 +451,7 @@
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-6">Not Just a Feature List</h2>
                     <p class="text-lg text-neutral-600 leading-relaxed">
-                        We'll run through actual situations — a leave request that needs multi-level approval, a check-in outside a branch's geo-fence getting blocked, a manager reassigning an approval when they're unavailable. Seeing the logic in action tells you more than a slide ever could.
+                        We'll run through actual situations â€” a leave request that needs multi-level approval, a check-in outside a branch's geo-fence getting blocked, a manager reassigning an approval when they're unavailable. Seeing the logic in action tells you more than a slide ever could.
                     </p>
                 </div>
             </div>
@@ -528,7 +528,7 @@
                                 Prefer to just talk it through first?
                             </h2>
                             <p class="text-base md:text-lg text-neutral-300 mb-8 max-w-lg leading-relaxed">
-                                No pressure, no sales script — just a conversation about whether TimeNest fits.
+                                No pressure, no sales script â€” just a conversation about whether TimeNest fits.
                             </p>
                             
                             <div class="flex">
@@ -569,7 +569,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-neutral-750 mt-1">20–30 minutes, over a video call</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">20â€“30 minutes, over a video call</span>
                     </div>
 
                     <div class="flex items-start gap-4">
@@ -587,7 +587,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-.447.894L15 19l-6-3-6 3V6l6 3 6-3z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-neutral-750 mt-1">Live walkthrough with a real person — not a recorded video</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">Live walkthrough with a real person â€” not a recorded video</span>
                     </div>
 
                     <div class="flex items-start gap-4">
@@ -596,7 +596,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                         </div>
-                        <span class="text-base font-semibold text-neutral-750 mt-1">Bring your team — multiple people can join</span>
+                        <span class="text-base font-semibold text-neutral-750 mt-1">Bring your team â€” multiple people can join</span>
                     </div>
                 </div>
             </div>
@@ -616,7 +616,7 @@
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-6">Why Not Just Sign Up and Explore?</h2>
                     <p class="text-lg text-neutral-400 leading-relaxed mb-8">
-                        You can absolutely do that. But if your team has a specific approval structure, multiple branches, or questions about how something maps to your setup, a demo means we configure it together and you leave with real answers — not just a trial account and guesswork.
+                        You can absolutely do that. But if your team has a specific approval structure, multiple branches, or questions about how something maps to your setup, a demo means we configure it together and you leave with real answers â€” not just a trial account and guesswork.
                     </p>
                     <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-400 hover:text-accent-400 transition-colors">
                         Prefer to explore on your own? Get started free
@@ -652,7 +652,7 @@
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Yes — no cost, no credit card required, no obligation to buy anything afterward.
+                                Yes â€” no cost, no credit card required, no obligation to buy anything afterward.
                             </div>
                         </div>
                     </div>
@@ -665,7 +665,7 @@
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Usually 20–30 minutes, depending on how many questions you bring.
+                                Usually 20â€“30 minutes, depending on how many questions you bring.
                             </div>
                         </div>
                     </div>
@@ -691,7 +691,7 @@
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Yes — bring whoever's actually making the decision.
+                                Yes â€” bring whoever's actually making the decision.
                             </div>
                         </div>
                     </div>
@@ -717,7 +717,7 @@
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Live, with a real person, over video with screen-share — not a pre-recorded walkthrough.
+                                Live, with a real person, over video with screen-share â€” not a pre-recorded walkthrough.
                             </div>
                         </div>
                     </div>
@@ -742,7 +742,7 @@
                             Ready when you are
                         </h2>
                         <p class="text-lg md:text-xl text-neutral-300 mb-10 leading-relaxed">
-                            Book a time that works for you — takes less than a minute to schedule.
+                            Book a time that works for you â€” takes less than a minute to schedule.
                         </p>
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <x-ui.button href="#booking-calendar-hero" class="w-full sm:w-auto">Book Your Demo</x-ui.button>
@@ -756,6 +756,7 @@
 
     <x-marketing.footer />
 @endsection
+
 
 
 

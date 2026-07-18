@@ -1,4 +1,4 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 @section('title', 'Pricing | TimeNest')
 @section('content')
 
@@ -6,7 +6,7 @@
 
     <main class="marketing-responsive-sections" x-data="{ isAnnual: false }">
         {{-- Section 1: Hero --}}
-        <section class="relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden bg-black">
+        <section class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-16 lg:pt-44 lg:pb-20 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-7xl mx-auto px-6 text-center animate-fade-up">
@@ -23,7 +23,7 @@
                 </h1>
                 
                 <p class="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-10">
-                    Free to start as an individual. Pay per person once you're a team — with the rate going down, not up, as you grow.
+                    Free to start as an individual. Pay per person once you're a team â€” with the rate going down, not up, as you grow.
                 </p>
 
                 {{-- Billing Toggle --}}
@@ -177,7 +177,7 @@
                                 </svg>
                                 Growing Teams
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-2">Team — Priced Per Person</h2>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight mb-2">Team â€” Priced Per Person</h2>
                             <p class="text-sm font-bold text-neutral-400 uppercase tracking-wider mb-6">Minimum 2 members</p>
                             
                             {{-- Pricing Table --}}
@@ -191,23 +191,23 @@
                                     </thead>
                                     <tbody class="divide-y divide-neutral-150">
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">2–20</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">2â€“20</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$3.20' : '$4.00'">$4.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">21–100</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">21â€“100</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.80' : '$3.50'">$3.50</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">101–1,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">101â€“1,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.40' : '$3.00'">$3.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">1,001–10,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">1,001â€“10,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$2.00' : '$2.50'">$2.50</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">10,001–200,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-700">10,001â€“200,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-neutral-900 text-right" x-text="isAnnual ? '$1.60' : '$2.00'">$2.00</td>
                                         </tr>
                                     </tbody>
@@ -216,7 +216,7 @@
                         </div>
 
                         <p class="text-sm font-semibold text-neutral-400 bg-neutral-50 border border-neutral-100 rounded-xl p-3 w-fit mb-6">
-                            💡 Your rate automatically drops as your team grows — no renegotiation needed.
+                            ðŸ’¡ Your rate automatically drops as your team grows â€” no renegotiation needed.
                         </p>
                     </div>
 
@@ -253,7 +253,7 @@
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                                     </div>
-                                    <span class="text-sm font-semibold text-neutral-700">Basic roles — Admin, Manager, Employee</span>
+                                    <span class="text-sm font-semibold text-neutral-700">Basic roles â€” Admin, Manager, Employee</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <div class="mt-0.5 w-5 h-5 rounded-full bg-accent-50 text-indigo-650 flex items-center justify-center shrink-0">
@@ -287,7 +287,7 @@
                                 </svg>
                                 Large Organizations
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">Organization — Built for Real Structure</h2>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">Organization â€” Built for Real Structure</h2>
                             <p class="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-6">Minimum 2 members</p>
                             
                             {{-- Pricing Table --}}
@@ -301,23 +301,23 @@
                                     </thead>
                                     <tbody class="divide-y divide-white/10">
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">2–20</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">2â€“20</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$5.60' : '$7.00'">$7.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">21–100</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">21â€“100</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$4.80' : '$6.00'">$6.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">101–1,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">101â€“1,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$4.00' : '$5.00'">$5.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">1,001–10,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">1,001â€“10,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$3.20' : '$4.00'">$4.00</td>
                                         </tr>
                                         <tr>
-                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">10,001–200,000</td>
+                                            <td class="py-3.5 px-6 text-sm font-semibold text-neutral-400">10,001â€“200,000</td>
                                             <td class="py-3.5 px-6 text-sm font-extrabold text-white text-right" x-text="isAnnual ? '$2.40' : '$3.00'">$3.00</td>
                                         </tr>
                                     </tbody>
@@ -326,7 +326,7 @@
                         </div>
 
                         <p class="text-sm font-semibold text-neutral-400 bg-white/5 border border-white/10 rounded-xl p-3 w-fit mb-6 shadow-sm">
-                            💡 Your rate automatically drops as your team grows — no renegotiation needed.
+                            ðŸ’¡ Your rate automatically drops as your team grows â€” no renegotiation needed.
                         </p>
                     </div>
 
@@ -423,63 +423,63 @@
                         <tbody class="divide-y divide-neutral-200 text-sm font-medium text-neutral-700">
                             <tr>
                                 <td class="py-4 px-6">Time & project tracking</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Daily worklogs</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Excel export & invoicing</td>
                                 <td class="py-4 px-6 text-center text-accent-600 font-bold">Add-on</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Client chat</td>
                                 <td class="py-4 px-6 text-center text-accent-600 font-bold">Add-on</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Team attendance & leave</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Approval workflow</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
                                 <td class="py-4 px-6 text-center text-neutral-700">Single-step</td>
                                 <td class="py-4 px-6 text-center text-neutral-700">Multi-level</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Team chat</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Departments & hierarchy</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Custom roles & permissions</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
                                 <td class="py-4 px-6 text-center text-neutral-700">Basic</td>
                                 <td class="py-4 px-6 text-center text-neutral-700">Granular</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Branch-level policies</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-neutral-350">—</td>
-                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">✓</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-neutral-350">â€”</td>
+                                <td class="py-4 px-6 text-center text-emerald-600 font-bold">âœ“</td>
                             </tr>
                             <tr>
                                 <td class="py-4 px-6">Minimum users</td>
@@ -523,7 +523,7 @@
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Your rate automatically adjusts to the new bracket at your next billing cycle — no manual upgrade, no renegotiation, no surprise jump.
+                                Your rate automatically adjusts to the new bracket at your next billing cycle â€” no manual upgrade, no renegotiation, no surprise jump.
                             </div>
                         </div>
                     </div>
@@ -562,7 +562,7 @@
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Excel/data export, invoice creation, and client chat — all disabled on the free plan, all available immediately once you subscribe.
+                                Excel/data export, invoice creation, and client chat â€” all disabled on the free plan, all available immediately once you subscribe.
                             </div>
                         </div>
                     </div>
@@ -575,7 +575,7 @@
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Yes — paying annually saves 20% compared to monthly billing, on both Team and Organization plans.
+                                Yes â€” paying annually saves 20% compared to monthly billing, on both Team and Organization plans.
                             </div>
                         </div>
                     </div>
@@ -588,7 +588,7 @@
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-400 leading-relaxed text-sm">
-                                Yes — 14 days, no credit card required, full access to the plan's features during the trial.
+                                Yes â€” 14 days, no credit card required, full access to the plan's features during the trial.
                             </div>
                         </div>
                     </div>
@@ -627,5 +627,6 @@
 
     <x-marketing.footer />
 @endsection
+
 
 

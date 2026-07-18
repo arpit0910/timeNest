@@ -8,7 +8,7 @@
 
 <main class="marketing-responsive-sections min-h-screen relative overflow-hidden">
     {{-- Hero Section --}}
-    <section class="relative pt-44 lg:pt-56 pb-16 px-6 z-10 bg-black">
+    <section class="min-h-[85vh] flex flex-col justify-center relative pt-44 lg:pt-56 pb-16 px-6 z-10 bg-black">
         <x-marketing.hero-background />
         <div class="relative max-w-4xl mx-auto flex flex-col items-center text-center z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">

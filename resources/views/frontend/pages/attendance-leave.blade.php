@@ -1,4 +1,4 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 @section('title', 'Attendance & Leave | TimeNest')
 @section('content')
 
@@ -7,7 +7,7 @@
 <main class="marketing-responsive-sections">
 
 {{-- Hero Section --}}
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-black">
+<section class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-black">
     <x-marketing.hero-background />
     <div class="relative max-w-7xl mx-auto px-6 text-center z-10">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
@@ -21,7 +21,7 @@
         </h1>
         
         <p class="text-xl md:text-2xl text-neutral-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Set the rules once — geo-fenced check-ins, approval chains, leave types — and TimeNest applies them consistently, every time, without manual follow-up.
+            Set the rules once â€” geo-fenced check-ins, approval chains, leave types â€” and TimeNest applies them consistently, every time, without manual follow-up.
         </p>
     </div>
 </section>
@@ -33,7 +33,7 @@
             <div class="order-2 lg:order-1">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Set the boundaries, per location</h2>
                 <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
-                    Every branch or office can have its own attendance policy. Define the geo-fence radius around a location, and TimeNest only accepts a check-in if the employee is actually within range — no location, no check-in. Multiple branches, multiple policies, no manual cross-checking.
+                    Every branch or office can have its own attendance policy. Define the geo-fence radius around a location, and TimeNest only accepts a check-in if the employee is actually within range â€” no location, no check-in. Multiple branches, multiple policies, no manual cross-checking.
                 </p>
                 
                 <ul class="space-y-4">
@@ -74,7 +74,7 @@
             <div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Leave rules that match how your company actually works</h2>
                 <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
-                    Define the leave types your organization actually offers — casual, sick, earned, or anything custom — along with balances and eligibility. When a policy changes, past leave records stay exactly as they were approved under; only new requests follow the updated rule.
+                    Define the leave types your organization actually offers â€” casual, sick, earned, or anything custom â€” along with balances and eligibility. When a policy changes, past leave records stay exactly as they were approved under; only new requests follow the updated rule.
                 </p>
                 
                 <ul class="space-y-4">
@@ -109,7 +109,7 @@
             <div class="order-2 lg:order-1">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Choose how strict approval needs to be</h2>
                 <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
-                    Not every request needs the same level of scrutiny. TimeNest supports three approval modes per policy — automatic approval for routine cases, a single sign-off for standard requests, or a multi-level chain for anything that needs more oversight. You decide which applies where.
+                    Not every request needs the same level of scrutiny. TimeNest supports three approval modes per policy â€” automatic approval for routine cases, a single sign-off for standard requests, or a multi-level chain for anything that needs more oversight. You decide which applies where.
                 </p>
                 
                 <ul class="space-y-4">
@@ -150,7 +150,7 @@
             <div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Approvals follow your real chain of command</h2>
                 <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
-                    Requests route to the person an employee actually reports to. If that manager is unavailable or the role is empty, TimeNest falls back to the department head automatically — nothing gets stuck waiting on one person. And no one, at any level, can approve their own request.
+                    Requests route to the person an employee actually reports to. If that manager is unavailable or the role is empty, TimeNest falls back to the department head automatically â€” nothing gets stuck waiting on one person. And no one, at any level, can approve their own request.
                 </p>
                 
                 <ul class="space-y-4">
@@ -185,7 +185,7 @@
             <div class="order-2 lg:order-1">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">See what was actually worked on, not just when someone clocked in</h2>
                 <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
-                    Attendance tells you someone was present. Worklogs tell you what they worked on. TimeNest ties daily worklogs to attendance records, so hours logged connect to real project or task context — not just a timestamp.
+                    Attendance tells you someone was present. Worklogs tell you what they worked on. TimeNest ties daily worklogs to attendance records, so hours logged connect to real project or task context â€” not just a timestamp.
                 </p>
                 
                 <ul class="space-y-4">
@@ -214,7 +214,7 @@
 <x-marketing.cta-interruption 
     heading="Want to see how this"
     headingHighlight="fits your policy?"
-    subtext="Talk to our team — we'll walk through your specific approval and attendance rules."
+    subtext="Talk to our team â€” we'll walk through your specific approval and attendance rules."
 >
     <x-slot name="buttons">
         <x-ui.button href="/contact" class="w-full sm:w-auto">Contact Us</x-ui.button>
@@ -225,14 +225,14 @@
 <section class="py-20 lg:py-32 bg-neutral-50 border-y border-neutral-100">
     <div class="max-w-4xl mx-auto px-6">
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight">Attendance & Leave — Common Questions</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 tracking-tight">Attendance & Leave â€” Common Questions</h2>
         </div>
         
         <div class="space-y-4" x-data="{ active: null }">
             <x-marketing.faq-accordion 
                 id="1"
                 question="Can different branches have different attendance policies?"
-                answer="Yes. Each branch can have its own geo-fence radius and attendance rules — you're not locked into one policy across your entire organization."
+                answer="Yes. Each branch can have its own geo-fence radius and attendance rules â€” you're not locked into one policy across your entire organization."
             />
             <x-marketing.faq-accordion 
                 id="2"
@@ -247,7 +247,7 @@
             <x-marketing.faq-accordion 
                 id="4"
                 question="Can I choose how strict approval is for different types of requests?"
-                answer="Yes. You can set a policy to auto-approve, require a single approval, or require a multi-level chain of approvals — this is configurable per policy, not fixed platform-wide."
+                answer="Yes. You can set a policy to auto-approve, require a single approval, or require a multi-level chain of approvals â€” this is configurable per policy, not fixed platform-wide."
             />
             <x-marketing.faq-accordion 
                 id="5"
@@ -261,12 +261,13 @@
 {{-- Footer CTA --}}
 <x-marketing.cta-newsletter 
     heading="Ready to set your own policies?"
-    subtext="Set up your organization in minutes — no credit card required."
+    subtext="Set up your organization in minutes â€” no credit card required."
 />
 
 </main>
 
 <x-marketing.footer />
 @endsection
+
 
 

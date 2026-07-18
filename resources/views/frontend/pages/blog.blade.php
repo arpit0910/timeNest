@@ -1,11 +1,11 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 @section('title', 'Blog | TimeNest')
 @section('content')
     <x-marketing.header />
 
     <main x-data="{ searchQuery: '', activeCategory: 'All' }" class="flex-grow pb-20 bg-black relative overflow-hidden">
         {{-- Section 1: Hero --}}
-        <section class="relative z-10 px-6 pt-32 pb-20 mb-0 bg-black overflow-hidden">
+        <section class="min-h-[85vh] flex flex-col justify-center relative z-10 px-6 pt-32 pb-20 mb-0 bg-black overflow-hidden">
             <x-marketing.hero-background />
             <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-up relative z-10">
                 <x-ui.pill-badge class="mb-6 !bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">Blog</x-ui.pill-badge>
@@ -254,7 +254,7 @@
         <div class="mb-24 px-6 max-w-7xl mx-auto">
             <x-marketing.cta-newsletter 
                 heading="Get New Posts in Your Inbox"
-                subtext="No spam — just new posts, whenever we publish something worth reading."
+                subtext="No spam â€” just new posts, whenever we publish something worth reading."
                 buttonText="Subscribe"
             />
         </div>
@@ -386,7 +386,7 @@
     {{-- CTA 2: Footer CTA --}}
     <x-marketing.cta-dynamic 
         heading="Ready to see TimeNest in action?"
-        subtext="Set up your organization in minutes — no credit card required."
+        subtext="Set up your organization in minutes â€” no credit card required."
     >
         <x-slot:buttons>
             <x-ui.button href="/register" class="w-full sm:w-auto">Get Started</x-ui.button>
@@ -396,6 +396,7 @@
 
     <x-marketing.footer />
 @endsection
+
 
 
 

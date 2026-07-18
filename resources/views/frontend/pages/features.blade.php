@@ -1,4 +1,4 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 @section('title', 'Features | TimeNest')
 @section('content')
 
@@ -6,7 +6,7 @@
 
 <main class="marketing-responsive-sections">
     {{-- Section 1: Hero --}}
-    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-black">
+    <section class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden bg-black">
         <x-marketing.hero-background />
         <div class="relative max-w-7xl mx-auto px-6 text-center z-10">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 text-sm font-semibold tracking-wide uppercase mb-8 shadow-sm">
@@ -209,7 +209,7 @@
                                         <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></span>
                                     </div>
                                     <div class="text-sm font-bold text-neutral-900 relative z-10">Alice Smith</div>
-                                    <div class="text-[10px] font-medium text-emerald-600 uppercase tracking-wider mt-1 relative z-10">In Zone • 08:45 AM</div>
+                                    <div class="text-[10px] font-medium text-emerald-600 uppercase tracking-wider mt-1 relative z-10">In Zone â€¢ 08:45 AM</div>
                                 </div>
                                 <div class="bg-neutral-50 border border-neutral-100 rounded-xl p-4 hover:shadow-md transition-shadow relative overflow-hidden">
                                     <div class="absolute top-0 right-0 w-8 h-8 bg-rose-50 transform rotate-45 translate-x-4 -translate-y-4"></div>
@@ -583,7 +583,7 @@
                                         <h3 class="text-2xl font-bold text-neutral-900">Time & Project Tracking</h3>
                                     </div>
                                     <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
-                                        Log hours against specific projects, whether you're working solo or as part of a full team. It's the same tracking foundation across every tier — nothing changes as you grow, only what's built on top of it does.
+                                        Log hours against specific projects, whether you're working solo or as part of a full team. It's the same tracking foundation across every tier â€” nothing changes as you grow, only what's built on top of it does.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
@@ -712,7 +712,7 @@
                                         <h3 class="text-2xl font-bold text-neutral-900">Leave Management</h3>
                                     </div>
                                     <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
-                                        Define the leave types and balances your organization actually offers, with full policy versioning underneath. When a policy changes, past approvals stay exactly as they were — only new requests follow the update.
+                                        Define the leave types and balances your organization actually offers, with full policy versioning underneath. When a policy changes, past approvals stay exactly as they were â€” only new requests follow the update.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Talk to Sales</x-ui.button>
@@ -755,7 +755,7 @@
                                         <h3 class="text-2xl font-bold text-neutral-900">Approval Workflows</h3>
                                     </div>
                                     <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
-                                        Choose auto-approval, a single sign-off, or a full multi-level chain — per policy, not platform-wide. Requests route to the person someone actually reports to, with a department-head fallback if needed.
+                                        Choose auto-approval, a single sign-off, or a full multi-level chain â€” per policy, not platform-wide. Requests route to the person someone actually reports to, with a department-head fallback if needed.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Reach out</x-ui.button>
@@ -798,7 +798,7 @@
                                         <h3 class="text-2xl font-bold text-neutral-900">Departments & Hierarchy</h3>
                                     </div>
                                     <p class="text-neutral-500 text-sm leading-relaxed font-medium mb-6">
-                                        Model departments, sub-departments, designations, and real reporting lines — the structure your organization actually has, not a flattened version of it. Every approval and permission check respects this hierarchy.
+                                        Model departments, sub-departments, designations, and real reporting lines â€” the structure your organization actually has, not a flattened version of it. Every approval and permission check respects this hierarchy.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
@@ -1064,7 +1064,7 @@
     <section class="py-20 lg:py-32 bg-black border-y border-neutral-800">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Features Deep Dive — FAQ</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Features Deep Dive â€” FAQ</h2>
             </div>
             
             <div class="space-y-4" x-data="{ active: null }">
@@ -1105,12 +1105,13 @@
     {{-- Footer CTA --}}
     <x-marketing.cta-newsletter 
         heading="Ready to optimize your workflow?"
-        subtext="Start today — no credit card required."
+        subtext="Start today â€” no credit card required."
     />
 
 </main>
 
 <x-marketing.footer />
 @endsection
+
 
 

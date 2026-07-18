@@ -3,13 +3,19 @@
     "file": "assets/module.esm-DdaDH_LP.js",
     "name": "module.esm"
   },
+  "node_modules/three/build/three.module.js": {
+    "file": "assets/three.module-DL1GCKva.js",
+    "name": "three.module",
+    "src": "node_modules/three/build/three.module.js",
+    "isDynamicEntry": true
+  },
   "resources/css/frontend.css": {
-    "file": "assets/frontend-BOcHoCQR.css",
+    "file": "assets/frontend-ChEiLBhG.css",
     "src": "resources/css/frontend.css",
     "isEntry": true
   },
   "resources/css/marketing.css": {
-    "file": "assets/marketing-CyppR6G1.css",
+    "file": "assets/marketing-C9hRFcRJ.css",
     "src": "resources/css/marketing.css",
     "isEntry": true
   },
@@ -23,15 +29,18 @@
     ]
   },
   "resources/js/marketing.js": {
-    "file": "assets/marketing-r-vfaWLP.js",
+    "file": "assets/marketing-DpDG1RuP.js",
     "name": "marketing",
     "src": "resources/js/marketing.js",
     "isEntry": true,
     "imports": [
       "_module.esm-DdaDH_LP.js"
     ],
+    "dynamicImports": [
+      "node_modules/three/build/three.module.js"
+    ],
     "css": [
-      "assets/marketing-CyppR6G1.css"
+      "assets/marketing-C9hRFcRJ.css"
     ]
   }
 }

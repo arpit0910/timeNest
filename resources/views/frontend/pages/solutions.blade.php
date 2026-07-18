@@ -1,11 +1,11 @@
-@extends('layouts.marketing')
+﻿@extends('layouts.marketing')
 
 @section('content')
     <x-marketing.header />
     
     <main class="marketing-responsive-sections">
         {{-- 1. Hero Section --}}
-        <section class="relative pt-32 pb-20 px-6 md:pt-40 md:pb-28 overflow-hidden bg-black">
+        <section class="min-h-[85vh] flex flex-col justify-center relative pt-32 pb-20 px-6 md:pt-40 md:pb-28 overflow-hidden bg-black">
             <x-marketing.hero-background />
             
             <div class="relative z-10 max-w-4xl mx-auto text-center animate-fade-up">
@@ -21,7 +21,7 @@
                 </h1>
                 
                 <p class="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-12">
-                    Whether you're working solo, growing a team, or running a multi-department organization, TimeNest scales with you — without forcing you into structure you don't need yet.
+                    Whether you're working solo, growing a team, or running a multi-department organization, TimeNest scales with you â€” without forcing you into structure you don't need yet.
                 </p>
                 
             <div class="inline-flex flex-wrap p-1.5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 gap-1.5 shadow-sm max-w-2xl mx-auto mt-4">
@@ -58,7 +58,7 @@
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Track your own work, your own way</h2>
                         <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
-                            You don't need a company set up to use TimeNest. Log in, start tracking your time and projects immediately — no organization, no team setup, no forced structure. When you're ready to bring people on, creating an organization takes minutes.
+                            You don't need a company set up to use TimeNest. Log in, start tracking your time and projects immediately â€” no organization, no team setup, no forced structure. When you're ready to bring people on, creating an organization takes minutes.
                         </p>
                         
                         <ul class="space-y-4">
@@ -78,7 +78,7 @@
                                 <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
-                                <span class="text-neutral-300 font-medium">Upgrade to a team whenever you're ready — same account, same data</span>
+                                <span class="text-neutral-300 font-medium">Upgrade to a team whenever you're ready â€” same account, same data</span>
                             </li>
                         </ul>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="order-1">
                         <div class="bg-white rounded-3xl p-6 border border-neutral-200 shadow-xl shadow-neutral-200/50 relative">
                             <div class="absolute -top-4 -right-4 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-md rotate-3 z-10 border border-amber-200">
-                                ⏳ Pending Approval
+                                â³ Pending Approval
                             </div>
                             <div class="p-4 border border-neutral-100 rounded-xl bg-neutral-50 mb-4">
                                 <div class="flex justify-between items-start mb-2">
@@ -164,7 +164,7 @@
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Replace the group chat and the spreadsheet</h2>
                         <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
-                            Once you're coordinating a team, WhatsApp groups and manual attendance sheets stop working. TimeNest gives you a simple structure — invite your team, assign basic roles, and let attendance and leave approvals happen without anyone chasing anyone down.
+                            Once you're coordinating a team, WhatsApp groups and manual attendance sheets stop working. TimeNest gives you a simple structure â€” invite your team, assign basic roles, and let attendance and leave approvals happen without anyone chasing anyone down.
                         </p>
                         
                         <ul class="space-y-4">
@@ -172,7 +172,7 @@
                                 <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                 </div>
-                                <span class="text-neutral-700 font-medium">Invite your team with a link — no manual account creation</span>
+                                <span class="text-neutral-700 font-medium">Invite your team with a link â€” no manual account creation</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
@@ -203,7 +203,7 @@
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Structure that matches how you actually operate</h2>
                         <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
-                            Multiple departments, multiple branches, formal reporting lines — TimeNest models your real hierarchy instead of forcing a flat team structure. Approvals follow your actual chain of command, access is controlled down to the permission, and every change is recorded.
+                            Multiple departments, multiple branches, formal reporting lines â€” TimeNest models your real hierarchy instead of forcing a flat team structure. Approvals follow your actual chain of command, access is controlled down to the permission, and every change is recorded.
                         </p>
                         
                         <ul class="space-y-4">
@@ -291,7 +291,7 @@
         <x-marketing.cta-interruption 
             heading="Not sure which stage"
             headingHighlight="fits your team?"
-            subtext="Whether you're a solo freelancer testing the waters or a 500-person company replacing legacy tools, our team can walk you through the best setup — no commitment, no sales pitch."
+            subtext="Whether you're a solo freelancer testing the waters or a 500-person company replacing legacy tools, our team can walk you through the best setup â€” no commitment, no sales pitch."
         >
             <x-slot name="buttons">
                 <x-ui.button href="{{ route('frontend.book-demo') }}" class="w-full sm:w-auto">Book a demo</x-ui.button>
@@ -308,13 +308,13 @@
                 </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Stop switching apps just to talk to your team</h2>
                 <p class="text-lg text-neutral-600 mb-12 leading-relaxed">
-                    Freelancer or enterprise, you still need to talk to your team and your clients. TimeNest includes secure, organization-scoped team chat by default — no separate app, no separate login, no data leaving the platform your workforce records already live in.
+                    Freelancer or enterprise, you still need to talk to your team and your clients. TimeNest includes secure, organization-scoped team chat by default â€” no separate app, no separate login, no data leaving the platform your workforce records already live in.
                 </p>
                 
                 <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-neutral-700 font-bold text-sm md:text-base border-t border-neutral-200 pt-8 mt-4">
                     <div class="flex items-center gap-2">
                         <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        Built in at every plan — not an add-on
+                        Built in at every plan â€” not an add-on
                     </div>
                     <div class="flex items-center gap-2">
                         <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -459,7 +459,7 @@
                                         <h3 class="text-2xl font-bold text-white">Personal Time Tracking</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Start tracking your own hours and projects the moment you sign up — no organization, no setup, no waiting on anyone else. Whether you're freelancing full-time or juggling a side project, your time log is yours from day one.
+                                        Start tracking your own hours and projects the moment you sign up â€” no organization, no setup, no waiting on anyone else. Whether you're freelancing full-time or juggling a side project, your time log is yours from day one.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
@@ -502,7 +502,7 @@
                                         <h3 class="text-2xl font-bold text-white">Daily Worklogs</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Go beyond a simple clock in and clock out — log what you actually worked on each day, tied to the project it belonged to. It's a running record you can look back on, without any extra tooling to configure first.
+                                        Go beyond a simple clock in and clock out â€” log what you actually worked on each day, tied to the project it belonged to. It's a running record you can look back on, without any extra tooling to configure first.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Let's Talk</x-ui.button>
@@ -545,7 +545,7 @@
                                         <h3 class="text-2xl font-bold text-white">Invite Your Team</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Bring your team onto TimeNest with a single invite link — no manual account creation, no back-and-forth setup. People accept, land inside your organization, and are ready to go the same day.
+                                        Bring your team onto TimeNest with a single invite link â€” no manual account creation, no back-and-forth setup. People accept, land inside your organization, and are ready to go the same day.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Contact us</x-ui.button>
@@ -588,7 +588,7 @@
                                         <h3 class="text-2xl font-bold text-white">Location-Verified Attendance</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Check-ins are matched against your office or branch's geo-fence automatically, so attendance reflects where people actually were — not just what they typed in. No manual cross-checking required on your end.
+                                        Check-ins are matched against your office or branch's geo-fence automatically, so attendance reflects where people actually were â€” not just what they typed in. No manual cross-checking required on your end.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
@@ -631,7 +631,7 @@
                                         <h3 class="text-2xl font-bold text-white">Leave, Approved Fast</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Leave requests route straight to the right approver — the person someone actually reports to — instead of sitting in an inbox. Nobody has to chase anybody down just to find out if a request went through.
+                                        Leave requests route straight to the right approver â€” the person someone actually reports to â€” instead of sitting in an inbox. Nobody has to chase anybody down just to find out if a request went through.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Contact us</x-ui.button>
@@ -717,7 +717,7 @@
                                         <h3 class="text-2xl font-bold text-white">Departments & Hierarchy</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Model your organization the way it actually runs — departments, sub-departments, designations, and real reporting lines. Approvals and structure follow your org chart instead of forcing a flat, one-size-fits-all setup.
+                                        Model your organization the way it actually runs â€” departments, sub-departments, designations, and real reporting lines. Approvals and structure follow your org chart instead of forcing a flat, one-size-fits-all setup.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="/contact">Contact us</x-ui.button>
@@ -760,7 +760,7 @@
                                         <h3 class="text-2xl font-bold text-white">Custom Roles & Permissions</h3>
                                     </div>
                                     <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-6">
-                                        Decide exactly who can view, edit, or approve what — down to the individual permission. Nothing is hardcoded, so your admins can shape access to match how your organization is actually structured.
+                                        Decide exactly who can view, edit, or approve what â€” down to the individual permission. Nothing is hardcoded, so your admins can shape access to match how your organization is actually structured.
                                     </p>
                                     <div class="mt-auto pt-2">
                                         <x-ui.button href="{{ route('frontend.book-demo') }}">Book a demo</x-ui.button>
@@ -869,7 +869,7 @@
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                No. You can use TimeNest as an individual — tracking your own time and projects — without ever creating an organization.
+                                No. You can use TimeNest as an individual â€” tracking your own time and projects â€” without ever creating an organization.
                             </div>
                         </div>
                     </div>
@@ -895,7 +895,7 @@
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Yes. The same TimeNest account can be part of multiple organizations — for example, running your own freelance work while also being part of a client's team — and you can switch between them.
+                                Yes. The same TimeNest account can be part of multiple organizations â€” for example, running your own freelance work while also being part of a client's team â€” and you can switch between them.
                             </div>
                         </div>
                     </div>
@@ -908,7 +908,7 @@
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Nothing breaks. Departments, hierarchy, multi-level approvals, and custom roles are available whenever you need them — you're not forced to redo your setup as you grow from a handful of people to a full company.
+                                Nothing breaks. Departments, hierarchy, multi-level approvals, and custom roles are available whenever you need them â€” you're not forced to redo your setup as you grow from a handful of people to a full company.
                             </div>
                         </div>
                     </div>
@@ -921,7 +921,7 @@
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
                             <div class="px-6 pb-6 text-neutral-500 leading-relaxed text-sm">
-                                Chat is included as part of TimeNest at every stage — it's not a separate purchase or a separate login.
+                                Chat is included as part of TimeNest at every stage â€” it's not a separate purchase or a separate login.
                             </div>
                         </div>
                     </div>
@@ -933,7 +933,7 @@
         {{-- Footer CTA --}}
         <x-marketing.cta-dynamic 
             heading="Ready to find your fit?"
-            subtext="Whether you're tracking hours as a solo freelancer or managing attendance across a 500-person organization, TimeNest scales with you. Start free today — upgrade whenever your team needs it."
+            subtext="Whether you're tracking hours as a solo freelancer or managing attendance across a 500-person organization, TimeNest scales with you. Start free today â€” upgrade whenever your team needs it."
         >
             <x-slot name="buttons">
                 <x-ui.button href="#" class="w-full sm:w-auto">Start free trial</x-ui.button>
@@ -946,6 +946,7 @@
     {{-- Footer --}}
     <x-marketing.footer />
 @endsection
+
 
 
 
