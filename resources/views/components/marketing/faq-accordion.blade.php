@@ -1,12 +1,16 @@
-@props(['question', 'answer', 'id'])
+@props(['question', 'answer', 'id', 'theme' => 'light'])
 
-<div class="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-colors" :class="active === {{ $id }} ? 'border-accent-200 shadow-md' : ''">
-    <button @click="active = active === {{ $id }} ? null : {{ $id }}" class="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:bg-slate-50/50 transition-colors">
-        <span class="text-base font-bold text-slate-900">{{ $question }}</span>
-        <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === {{ $id }} ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+@php
+    $isDark = $theme === 'dark';
+@endphp
+
+<div class="border {{ $isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white' }} rounded-2xl overflow-hidden transition-colors" :class="active === {{ $id }} ? '{{ $isDark ? 'border-accent-500/50 bg-slate-900 shadow-xl' : 'border-accent-200 shadow-md' }}' : ''">
+    <button @click="active = active === {{ $id }} ? null : {{ $id }}" class="w-full flex items-center justify-between p-6 text-left focus:outline-none hover:{{ $isDark ? 'bg-white/10' : 'bg-slate-50/50' }} transition-colors">
+        <span class="text-base font-bold {{ $isDark ? 'text-white' : 'text-slate-900' }}">{{ $question }}</span>
+        <svg class="w-5 h-5 {{ $isDark ? 'text-slate-400' : 'text-slate-400' }} transform transition-transform" :class="active === {{ $id }} ? 'rotate-180 {{ $isDark ? 'text-accent-400' : 'text-accent-500' }}' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
     </button>
     <div x-show="active === {{ $id }}" x-collapse x-cloak>
-        <div class="px-6 pb-6 text-slate-600 leading-relaxed text-sm">
+        <div class="px-6 pb-6 {{ $isDark ? 'text-slate-400' : 'text-slate-600' }} leading-relaxed text-sm">
             {{ $answer }}
         </div>
     </div>

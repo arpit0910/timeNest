@@ -25,7 +25,7 @@
     </section>
 
     {{-- Section 2: Common Reasons to Reach Out --}}
-    <section class="relative py-16 lg:py-20 bg-white z-10 overflow-hidden">
+    <section class="relative py-16 lg:py-20 bg-slate-950 z-10 overflow-hidden">
         <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -37,41 +37,41 @@
                         </svg>
                         Get In Touch
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">What Can We Help With?</h2>
-                    <p class="text-lg text-slate-500 max-w-2xl mx-auto">A quick starting point, so your message lands with the right context.</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">What Can We Help With?</h2>
+                    <p class="text-lg text-slate-400 max-w-2xl mx-auto">A quick starting point, so your message lands with the right context.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {{-- Reason 1 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all cursor-pointer group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Pricing & Plans</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Figuring out what fits your team size and needs.</p>
+                        <h3 class="font-bold text-white mb-2">Pricing & Plans</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Figuring out what fits your team size and needs.</p>
                     </div>
                     {{-- Reason 2 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all cursor-pointer group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Product Demo</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Want to see TimeNest in action before signing up.</p>
+                        <h3 class="font-bold text-white mb-2">Product Demo</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Want to see TimeNest in action before signing up.</p>
                     </div>
                     {{-- Reason 3 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all cursor-pointer group">
                         <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Technical Support</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Already using TimeNest and running into an issue.</p>
+                        <h3 class="font-bold text-white mb-2">Technical Support</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Already using TimeNest and running into an issue.</p>
                     </div>
                     {{-- Reason 4 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all cursor-pointer group">
                         <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Partnerships</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Interested in working with TimeNest in some other way.</p>
+                        <h3 class="font-bold text-white mb-2">Partnerships</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Interested in working with TimeNest in some other way.</p>
                     </div>
                 </div>
             </div>
@@ -291,7 +291,7 @@
     </section>
 
     {{-- Section 5: Quick Answers Before You Wait --}}
-    <section class="relative py-16 lg:py-24 bg-white z-10 overflow-hidden">
+    <section class="relative py-16 lg:py-24 bg-slate-950 z-10 overflow-hidden">
         <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-emerald-50/40 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
             <div class="max-w-4xl mx-auto text-center mb-12">
@@ -299,33 +299,33 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Self Serve
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Might Already Be Answered</h2>
-                <p class="text-lg text-slate-600 leading-relaxed">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Might Already Be Answered</h2>
+                <p class="text-lg text-slate-400 leading-relaxed">
                     If your question is about how TimeNest handles security, which plan fits your team, or what's actually included, these pages usually have the answer faster than waiting on a reply.
                 </p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <a href="{{ route('frontend.security') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all text-center">
+                <a href="{{ route('frontend.security') }}" class="group p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all text-center">
                     <div class="w-12 h-12 bg-accent-50 text-accent-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-accent-600 transition-colors">Security</h3>
-                    <p class="text-sm text-slate-500 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
+                    <h3 class="font-bold text-white mb-1 group-hover:text-accent-400 transition-colors">Security</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
                 </a>
-                <a href="{{ route('frontend.solutions') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-center">
+                <a href="{{ route('frontend.solutions') }}" class="group p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all text-center">
                     <div class="w-12 h-12 bg-accent-50 text-accent-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-accent-600 transition-colors">Solutions</h3>
-                    <p class="text-sm text-slate-500 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
+                    <h3 class="font-bold text-white mb-1 group-hover:text-accent-400 transition-colors">Solutions</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
                 </a>
-                <a href="{{ route('frontend.features') }}" class="group p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all text-center">
+                <a href="{{ route('frontend.features') }}" class="group p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all text-center">
                     <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 mb-1 group-hover:text-emerald-600 transition-colors">Features</h3>
-                    <p class="text-sm text-slate-500 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
+                    <h3 class="font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">Features</h3>
+                    <p class="text-sm text-slate-400 font-medium flex items-center justify-center gap-1">Read more <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></p>
                 </a>
             </div>
         </div>
@@ -423,3 +423,4 @@
 
 <x-marketing.footer />
 @endsection
+

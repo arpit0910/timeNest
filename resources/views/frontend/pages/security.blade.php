@@ -47,62 +47,62 @@
         </section>
 
         {{-- 2. Authentication & Account Protection --}}
-        <section class="py-16 lg:py-20 bg-slate-50 border-t border-slate-100">
+        <section class="py-16 lg:py-20 bg-slate-950 border-y border-slate-800">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/20 text-accent-400 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-500/30">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         JWT & TOTP
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Every login is verified — every time</h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Every login is verified — every time</h2>
+                    <p class="text-lg text-slate-400 mb-6 leading-relaxed">
                         When someone signs in to TimeNest, we don't just check a password. Every session is issued a secure, time-limited token, and organizations can require a second verification step — a rotating code from an authenticator app — before access is granted. Lost or stolen passwords alone are never enough to get in.
                     </p>
                     
                     <ul class="space-y-8">
                         <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-accent-500/20 text-accent-400 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
-                            <span class="text-slate-700 font-semibold mt-1">Session tokens expire automatically</span>
+                            <span class="text-slate-300 font-semibold mt-1">Session tokens expire automatically</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             </div>
-                            <span class="text-slate-700 font-semibold mt-1">Optional two-factor authentication per account</span>
+                            <span class="text-slate-300 font-semibold mt-1">Optional two-factor authentication per account</span>
                         </li>
                         <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                            <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                             </div>
-                            <span class="text-slate-700 font-semibold mt-1">Every device that logs in is tracked and can be revoked</span>
+                            <span class="text-slate-300 font-semibold mt-1">Every device that logs in is tracked and can be revoked</span>
                         </li>
                     </ul>
                 </div>
                 
                 {{-- Mockup of 2FA Input --}}
                 <div class="relative w-full max-w-md mx-auto">
-                    <div class="absolute inset-0 bg-accent-600/5 rounded-full filter blur-3xl transform translate-y-10 scale-90"></div>
-                    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 relative z-10">
-                        <div class="w-12 h-12 bg-accent-50 border border-accent-100 rounded-xl flex items-center justify-center mb-6 shadow-sm">
-                            <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                    <div class="absolute inset-0 bg-accent-600/10 rounded-full filter blur-3xl transform translate-y-10 scale-90"></div>
+                    <div class="bg-white/5 rounded-3xl shadow-none border border-white/10 p-8 relative z-10 backdrop-blur-sm">
+                        <div class="w-12 h-12 bg-accent-500/20 border border-accent-500/30 rounded-xl flex items-center justify-center mb-6 shadow-sm">
+                            <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-extrabold text-slate-900 mb-2">Two-Factor Authentication</h3>
-                        <p class="text-slate-500 text-sm mb-6">Enter the 6-digit code from your authenticator app.</p>
+                        <h3 class="text-xl font-extrabold text-white mb-2">Two-Factor Authentication</h3>
+                        <p class="text-slate-400 text-sm mb-6">Enter the 6-digit code from your authenticator app.</p>
                         
                         <div class="flex gap-2 justify-between mb-8">
-                            <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">4</div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">8</div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-2xl font-bold text-slate-700 shadow-inner">1</div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border-accent-500 border-2 bg-white flex items-center justify-center text-2xl font-bold text-slate-900 shadow-sm shadow-indigo-100 relative">
+                            <div class="w-10 md:w-12 h-14 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-2xl font-bold text-slate-300 shadow-inner">4</div>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-2xl font-bold text-slate-300 shadow-inner">8</div>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-2xl font-bold text-slate-300 shadow-inner">1</div>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border-accent-500 border-2 bg-white/10 flex items-center justify-center text-2xl font-bold text-white shadow-none relative">
                                 <span class="animate-pulse block w-px h-6 bg-accent-500"></span>
                             </div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center shadow-inner"></div>
-                            <div class="w-10 md:w-12 h-14 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center shadow-inner"></div>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center shadow-inner"></div>
+                            <div class="w-10 md:w-12 h-14 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center shadow-inner"></div>
                         </div>
                         
-                        <button class="w-full bg-slate-900 text-white rounded-xl py-3.5 font-bold hover:bg-black transition-colors shadow-lg">Verify & Sign In</button>
+                        <button class="w-full bg-accent-600 text-white rounded-xl py-3.5 font-bold hover:bg-accent-500 transition-colors shadow-lg">Verify & Sign In</button>
                     </div>
                 </div>
             </div>
@@ -184,19 +184,19 @@
         </section>
 
         {{-- 4. Roles & Permissions --}}
-        <section class="py-16 lg:py-20 bg-slate-50 border-y border-slate-100">
+        <section class="py-16 lg:py-20 bg-slate-950 border-y border-slate-800">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 {{-- Right side goes first on mobile --}}
                 <div class="order-2 lg:order-1">
                     {{-- Mock Permissions Table (Revamped) --}}
-                    <div class="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/40 border border-slate-100 overflow-hidden relative">
+                    <div class="bg-slate-900 rounded-[2rem] shadow-none border border-white/10 overflow-hidden relative">
                         {{-- Header --}}
-                        <div class="p-8 border-b border-slate-100 bg-slate-50/80 flex items-center justify-between">
+                        <div class="p-8 border-b border-white/10 bg-white/5 flex items-center justify-between">
                             <div>
-                                <h3 class="font-bold text-slate-900 text-lg">Default Roles</h3>
-                                <p class="text-sm text-slate-500 mt-1">Can be customized per workspace</p>
+                                <h3 class="font-bold text-white text-lg">Default Roles</h3>
+                                <p class="text-sm text-slate-400 mt-1">Can be customized per workspace</p>
                             </div>
-                            <div class="h-8 w-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center">
+                            <div class="h-8 w-8 rounded-full bg-accent-500/20 text-accent-400 flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                             </div>
                         </div>
@@ -228,32 +228,32 @@
                                 </thead>
                                 <tbody>
                                     {{-- Admin --}}
-                                    <tr class="group bg-slate-50/50 hover:bg-slate-50 transition-colors shadow-sm border border-slate-100">
-                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-slate-200/60 bg-white">
+                                    <tr class="group bg-white/5 hover:bg-white/10 transition-colors shadow-sm border border-white/10">
+                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-white/10 bg-transparent">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-accent-50 border border-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                                <div class="w-12 h-12 rounded-xl bg-accent-500/20 border border-accent-500/30 text-accent-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                 </div>
                                                 <div>
-                                                    <div class="font-extrabold text-slate-900 text-base mb-0.5">Admin</div>
-                                                    <div class="text-xs text-slate-500 font-medium">Full system access</div>
+                                                    <div class="font-extrabold text-white text-base mb-0.5">Admin</div>
+                                                    <div class="text-xs text-slate-400 font-medium">Full system access</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold border border-emerald-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 All
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold border border-emerald-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 All
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold border border-emerald-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 All
                                             </div>
@@ -261,32 +261,32 @@
                                     </tr>
 
                                     {{-- Manager --}}
-                                    <tr class="group bg-slate-50/50 hover:bg-slate-50 transition-colors shadow-sm relative border border-slate-100">
-                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-slate-200/60 bg-white">
+                                    <tr class="group bg-white/5 hover:bg-white/10 transition-colors shadow-sm relative border border-white/10">
+                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-white/10 bg-transparent">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-accent-50 border border-accent-100 text-accent-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                                <div class="w-12 h-12 rounded-xl bg-accent-500/20 border border-accent-500/30 text-accent-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                                 </div>
                                                 <div>
-                                                    <div class="font-extrabold text-slate-900 text-base mb-0.5">Manager</div>
-                                                    <div class="text-xs text-slate-500 font-medium">Department level</div>
+                                                    <div class="font-extrabold text-white text-base mb-0.5">Manager</div>
+                                                    <div class="text-xs text-slate-400 font-medium">Department level</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-500/20 text-accent-400 text-xs font-bold border border-accent-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Team
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-500/20 text-accent-400 text-xs font-bold border border-accent-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Team
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-xs font-bold border border-slate-200 w-[84px] justify-center">
+                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-slate-400 text-xs font-bold border border-white/20 w-[84px] justify-center">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                                                 None
                                             </div>
@@ -294,32 +294,32 @@
                                     </tr>
 
                                     {{-- Employee --}}
-                                    <tr class="group bg-slate-50/50 hover:bg-slate-50 transition-colors shadow-sm border border-slate-100">
-                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-slate-200/60 bg-white">
+                                    <tr class="group bg-white/5 hover:bg-white/10 transition-colors shadow-sm border border-white/10">
+                                        <td class="py-4 px-6 rounded-l-2xl border-y border-l border-white/10 bg-transparent">
                                             <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                                <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/20 text-slate-300 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                                 </div>
                                                 <div>
-                                                    <div class="font-extrabold text-slate-900 text-base mb-0.5">Employee</div>
-                                                    <div class="text-xs text-slate-500 font-medium">Personal data only</div>
+                                                    <div class="font-extrabold text-white text-base mb-0.5">Employee</div>
+                                                    <div class="text-xs text-slate-400 font-medium">Personal data only</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-bold border border-accent-100 w-[84px] justify-center shadow-sm">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-500/20 text-accent-400 text-xs font-bold border border-accent-500/30 w-[84px] justify-center shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 Self
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center border-y border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-xs font-bold border border-slate-200 w-[84px] justify-center">
+                                        <td class="py-4 px-2 text-center border-y border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-slate-400 text-xs font-bold border border-white/20 w-[84px] justify-center">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                                                 None
                                             </div>
                                         </td>
-                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-slate-200/60 bg-white">
-                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 text-slate-400 text-xs font-bold border border-slate-200 w-[84px] justify-center">
+                                        <td class="py-4 px-2 text-center rounded-r-2xl border-y border-r border-white/10 bg-transparent">
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-slate-400 text-xs font-bold border border-white/20 w-[84px] justify-center">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                                                 None
                                             </div>
@@ -332,12 +332,12 @@
                 </div>
                 
                 <div class="order-1 lg:order-2">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-500/20 text-accent-400 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-500/30">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                         Access Control
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Control exactly who sees what</h2>
-                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Control exactly who sees what</h2>
+                    <p class="text-lg text-slate-400 mb-6 leading-relaxed">
                         Not everyone in your organization needs to see everything. TimeNest lets admins decide precisely what each role can view, edit, or approve — attendance, leave, worklogs, member management — down to the individual permission. No hardcoded assumptions about who "should" have access.
                     </p>
                 </div>
@@ -345,7 +345,7 @@
         </section>
 
         {{-- Mid-page Interruption CTA --}}
-        <section class="py-12 md:py-16 bg-white relative">
+        <section class="py-12 md:py-16 bg-slate-950 relative">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="bg-black rounded-[2rem] overflow-hidden relative flex flex-col md:flex-row items-center justify-between p-6 md:p-8 border-[1.5px] border-[#2ad4a3]/80 shadow-[0_0_30px_rgba(42,212,163,0.15)]">
                     
@@ -454,10 +454,10 @@
         </section>
 
         {{-- 6. FAQ --}}
-        <section class="py-16 lg:py-20 bg-white relative">
+        <section class="py-16 lg:py-20 bg-slate-950 border-y border-slate-800 relative">
             <div class="max-w-4xl mx-auto px-6 relative z-10">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
                         Security Questions, Answered
                     </h2>
                 </div>
@@ -465,78 +465,78 @@
                 <div x-data="{ active: null }" class="space-y-4">
                     
                     {{-- Q1 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 1 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 1 ? null : 1" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Is my organization's data encrypted?</span>
+                            <span class="text-base font-bold text-white">Is my organization's data encrypted?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 1 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 1" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 Yes. Data is encrypted in transit, and sensitive fields such as passwords and authentication tokens are encrypted at rest. We don't store passwords in a readable form anywhere.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q2 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 2 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 2 ? null : 2" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Can another organization on TimeNest see our data?</span>
+                            <span class="text-base font-bold text-white">Can another organization on TimeNest see our data?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 2 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 2" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 No. Every request is checked against your organization's identity before any data is returned. There's no shared view across organizations — isolation is enforced at the system level, not just the interface.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q3 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 3 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 3 ? null : 3" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Who inside our organization can see employee data?</span>
+                            <span class="text-base font-bold text-white">Who inside our organization can see employee data?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 3 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 3" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 That's entirely up to your admins. TimeNest's role and permission system lets you decide exactly who can view attendance, approve leave, manage members, or access reports — nothing is visible by default beyond what a role is explicitly given.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q4 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 4 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 4 ? null : 4" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">Is team chat encrypted?</span>
+                            <span class="text-base font-bold text-white">Is team chat encrypted?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 4 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 4" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 Yes — messages are encrypted in transit between your team and our servers, and access to any conversation is restricted to members who share the same organization.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q5 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 5 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 5 ? null : 5" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">What happens to our data if we stop using TimeNest?</span>
+                            <span class="text-base font-bold text-white">What happens to our data if we stop using TimeNest?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 5 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 5" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 Your organization's data remains yours. You can export your records, and on request we'll remove your data from our systems in line with your agreement with us.
                             </div>
                         </div>
                     </div>
 
                     {{-- Q6 --}}
-                    <div class="border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-200 bg-white shadow-md' : ''">
+                    <div class="border border-white/10 rounded-2xl bg-white/5 overflow-hidden transition-colors" :class="active === 6 ? 'border-accent-500/30 bg-white/10 shadow-md' : ''">
                         <button @click="active = active === 6 ? null : 6" class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
-                            <span class="text-base font-bold text-slate-900">How do you track suspicious activity?</span>
+                            <span class="text-base font-bold text-white">How do you track suspicious activity?</span>
                             <svg class="w-5 h-5 text-slate-400 transform transition-transform" :class="active === 6 ? 'rotate-180 text-accent-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
                         </button>
                         <div x-show="active === 6" x-collapse x-cloak>
-                            <div class="px-6 pb-6 text-slate-500 leading-relaxed text-sm">
+                            <div class="px-6 pb-6 text-slate-400 leading-relaxed text-sm">
                                 Logins, permission changes, and key workforce actions are automatically logged with who, what, and when. Unusual activity — like a login from a new device — is recorded and visible to your admins.
                             </div>
                         </div>
@@ -547,7 +547,7 @@
         </section>
 
         {{-- Footer CTA (matching homepage final CTA style, but unique content) --}}
-        <section class="py-16 bg-white relative px-6">
+        <section class="py-16 bg-slate-950 relative px-6">
             <div class="max-w-7xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
                     
@@ -629,3 +629,4 @@
     {{-- Footer --}}
     <x-marketing.footer />
 @endsection
+

@@ -2,7 +2,7 @@
     'heading' => 'Ready to run your team on a secure platform?',
     'subtext' => 'Set up your organization in minutes. Rest easy knowing your attendance and payroll data is locked down.',
 ])
-<section class="py-16 bg-white relative px-6">
+<section class="py-16 bg-slate-950 relative px-6">
     <div class="max-w-7xl mx-auto">
         <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
             

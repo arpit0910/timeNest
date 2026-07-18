@@ -3,9 +3,9 @@
     <div class="absolute top-0 left-0 w-full flex justify-center -mt-3.5">
         <div class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-slate-900 via-accent-500/50 to-slate-900 -translate-y-1/2"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[2px] bg-gradient-to-r from-transparent via-accent-400/40 to-transparent blur-sm -translate-y-1/2"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-accent-400/80 to-transparent shadow-[0_0_15px_rgba(99,102,241,0.5)] -translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-1/2 max-w-lg h-[1px] bg-gradient-to-r from-transparent via-accent-400/80 to-transparent shadow-[0_0_15px_rgba(124,106,187,0.5)] -translate-y-1/2"></div>
         
-        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-accent-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(99,102,241,0.15)] flex items-center gap-2">
+        <div class="relative z-10 px-4 py-1.5 rounded-full border border-slate-800 bg-slate-950 text-accent-300 text-[10px] font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(124,106,187,0.15)] flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
             Built for the future of work
             <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>

@@ -27,33 +27,33 @@
 </section>
 
 {{-- 1. Attendance Policies --}}
-<section class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+<section class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="order-2 lg:order-1">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Set the boundaries, per location</h2>
-                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Set the boundaries, per location</h2>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                     Every branch or office can have its own attendance policy. Define the geo-fence radius around a location, and TimeNest only accepts a check-in if the employee is actually within range — no location, no check-in. Multiple branches, multiple policies, no manual cross-checking.
                 </p>
                 
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Configurable geo-fence radius, set per branch</span>
+                        <span class="text-slate-300 font-medium">Configurable geo-fence radius, set per branch</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Check-ins verified against real-time location, not self-reported</span>
+                        <span class="text-slate-300 font-medium">Check-ins verified against real-time location, not self-reported</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Multiple branches can run different attendance rules at once</span>
+                        <span class="text-slate-300 font-medium">Multiple branches can run different attendance rules at once</span>
                     </li>
                 </ul>
             </div>
@@ -103,33 +103,33 @@
 </section>
 
 {{-- 3. Approval Workflows --}}
-<section class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+<section class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="order-2 lg:order-1">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Choose how strict approval needs to be</h2>
-                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Choose how strict approval needs to be</h2>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                     Not every request needs the same level of scrutiny. TimeNest supports three approval modes per policy — automatic approval for routine cases, a single sign-off for standard requests, or a multi-level chain for anything that needs more oversight. You decide which applies where.
                 </p>
                 
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Auto-approval for policies that don't need manual review</span>
+                        <span class="text-slate-300 font-medium">Auto-approval for policies that don't need manual review</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Single-approval for straightforward requests</span>
+                        <span class="text-slate-300 font-medium">Single-approval for straightforward requests</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Multi-level approval for requests that need a chain of sign-offs</span>
+                        <span class="text-slate-300 font-medium">Multi-level approval for requests that need a chain of sign-offs</span>
                     </li>
                 </ul>
             </div>
@@ -179,27 +179,27 @@
 </section>
 
 {{-- 5. Worklogs --}}
-<section class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+<section class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="order-2 lg:order-1">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">See what was actually worked on, not just when someone clocked in</h2>
-                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">See what was actually worked on, not just when someone clocked in</h2>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                     Attendance tells you someone was present. Worklogs tell you what they worked on. TimeNest ties daily worklogs to attendance records, so hours logged connect to real project or task context — not just a timestamp.
                 </p>
                 
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Daily worklogs tied to attendance, not tracked separately</span>
+                        <span class="text-slate-300 font-medium">Daily worklogs tied to attendance, not tracked separately</span>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <span class="text-slate-700 font-medium">Gives managers real context, not just presence data</span>
+                        <span class="text-slate-300 font-medium">Gives managers real context, not just presence data</span>
                     </li>
                 </ul>
             </div>
@@ -268,3 +268,4 @@
 
 <x-marketing.footer />
 @endsection
+

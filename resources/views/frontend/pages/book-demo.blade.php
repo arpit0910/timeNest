@@ -372,7 +372,7 @@
         </section>
 
         {{-- Section 2: What You'll See --}}
-        <section class="relative py-16 lg:py-24 bg-slate-50 border-y border-slate-100 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 border-y border-slate-800 overflow-hidden">
             <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
@@ -385,60 +385,60 @@
                         </svg>
                         Walkthrough Overview
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">What We'll Walk Through</h2>
-                    <p class="text-lg text-slate-500 max-w-2xl mx-auto">A focused session, not a generic feature tour.</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">What We'll Walk Through</h2>
+                    <p class="text-lg text-slate-400 max-w-2xl mx-auto">A focused session, not a generic feature tour.</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {{-- Card 1 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Attendance Setup</h3>
-                        <p class="text-sm text-slate-650 leading-relaxed">Geo-fenced check-ins, configured for a branch like yours.</p>
+                        <h3 class="font-bold text-white mb-2">Attendance Setup</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Geo-fenced check-ins, configured for a branch like yours.</p>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Leave & Approvals</h3>
-                        <p class="text-sm text-slate-650 leading-relaxed">How requests route through your actual reporting structure.</p>
+                        <h3 class="font-bold text-white mb-2">Leave & Approvals</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">How requests route through your actual reporting structure.</p>
                     </div>
 
                     {{-- Card 3 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Worklogs</h3>
-                        <p class="text-sm text-slate-650 leading-relaxed">Daily work tied to attendance, not just clock in and out.</p>
+                        <h3 class="font-bold text-white mb-2">Worklogs</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Daily work tied to attendance, not just clock in and out.</p>
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-purple-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Team Chat</h3>
-                        <p class="text-sm text-slate-650 leading-relaxed">Secure, organization-scoped conversations, live in the demo.</p>
+                        <h3 class="font-bold text-white mb-2">Team Chat</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Secure, organization-scoped conversations, live in the demo.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- Section 3: Real Scenarios --}}
-        <section class="relative py-16 lg:py-24 bg-white z-10 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 z-10 overflow-hidden">
             <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -458,7 +458,7 @@
         </section>
 
         {{-- Section 4: Who Should Book This --}}
-        <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -469,48 +469,48 @@
                         </svg>
                         Target Audience
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Built for Someone Making a Real Decision</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Built for Someone Making a Real Decision</h2>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     {{-- Card 1 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-accent-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">Founders & Team Leads</h3>
-                        <p class="text-sm text-slate-655 leading-relaxed">Evaluating whether TimeNest replaces your current setup.</p>
+                        <h3 class="font-bold text-white mb-2">Founders & Team Leads</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Evaluating whether TimeNest replaces your current setup.</p>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">HR & Operations</h3>
-                        <p class="text-sm text-slate-655 leading-relaxed">Want to see approval flows and policies before rolling out.</p>
+                        <h3 class="font-bold text-white mb-2">HR & Operations</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Want to see approval flows and policies before rolling out.</p>
                     </div>
 
                     {{-- Card 3 --}}
-                    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10 shadow-none hover:border-white/20 transition-all group">
                         <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
                         </div>
-                        <h3 class="font-bold text-slate-900 mb-2">IT & Admins</h3>
-                        <p class="text-sm text-slate-655 leading-relaxed">Curious about roles, permissions, and how access actually works.</p>
+                        <h3 class="font-bold text-white mb-2">IT & Admins</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Curious about roles, permissions, and how access actually works.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         {{-- Mid-Page CTA (Contained Panel) --}}
-        <section class="py-16 bg-white relative px-6">
+        <section class="py-16 bg-slate-950 relative px-6">
             <div class="max-w-5xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
                     
@@ -548,7 +548,7 @@
         </section>
 
         {{-- Section 5: What to Expect --}}
-        <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
             <div class="absolute top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -603,7 +603,7 @@
         </section>
 
         {{-- Section 6: Why a Demo --}}
-        <section class="relative py-16 lg:py-24 bg-white z-10 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 z-10 overflow-hidden">
             <div class="absolute -bottom-1/3 -right-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -614,11 +614,11 @@
                         </svg>
                         Why Book a Demo?
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-6">Why Not Just Sign Up and Explore?</h2>
-                    <p class="text-lg text-slate-650 leading-relaxed mb-8">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-6">Why Not Just Sign Up and Explore?</h2>
+                    <p class="text-lg text-slate-400 leading-relaxed mb-8">
                         You can absolutely do that. But if your team has a specific approval structure, multiple branches, or questions about how something maps to your setup, a demo means we configure it together and you leave with real answers — not just a trial account and guesswork.
                     </p>
-                    <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-650 hover:text-accent-700 transition-colors">
+                    <a href="#" class="inline-flex items-center gap-1 text-sm font-bold text-indigo-400 hover:text-accent-400 transition-colors">
                         Prefer to explore on your own? Get started free
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -629,7 +629,7 @@
         </section>
 
         {{-- Section 7: FAQ --}}
-        <section class="relative py-16 lg:py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-slate-950 border-t border-slate-800 overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -726,7 +726,7 @@
         </section>
 
         {{-- Footer CTA (Contained Panel styling matching homepage final CTA) --}}
-        <section class="py-16 bg-white relative px-6 z-10 border-t border-slate-100">
+        <section class="py-16 bg-slate-950 relative px-6 z-10 border-t border-slate-800">
             <div class="max-w-7xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
                     
@@ -756,3 +756,4 @@
 
     <x-marketing.footer />
 @endsection
+

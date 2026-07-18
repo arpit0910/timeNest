@@ -25,17 +25,17 @@
     </section>
 
     {{-- Why We're Building TimeNest --}}
-    <section class="py-16 lg:py-24 bg-slate-50 relative overflow-hidden">
+    <section class="py-16 lg:py-24 bg-slate-950 relative overflow-hidden border-y border-slate-800">
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px]">
             <div class="max-w-3xl mx-auto flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/20 text-amber-400 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Why We're Building TimeNest
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-6 text-center">We kept seeing the same gap</h2>
-                <div class="prose prose-lg text-slate-600 mx-auto">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-6 text-center">We kept seeing the same gap</h2>
+                <div class="prose prose-lg text-slate-400 mx-auto">
                     <p class="mb-6 leading-relaxed text-lg">
                         Freelancers track time in notebooks or spreadsheets. Small teams run attendance off a WhatsApp group and a shared Excel sheet. By the time a company is large enough to afford "proper" enterprise software, they've already spent years duct-taping tools together — and migrating years of scattered data is its own project.
                     </p>
@@ -90,20 +90,20 @@
     </section>
 
     {{-- Built for Every Stage --}}
-    <section class="py-16 lg:py-24 bg-slate-50 relative overflow-hidden">
+    <section class="py-16 lg:py-24 bg-slate-950 relative overflow-hidden border-y border-slate-800">
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px]">
             <div class="max-w-3xl mx-auto flex flex-col items-center text-center">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-100 text-accent-700 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-500/20 text-accent-400 text-sm font-bold rounded-lg w-fit tracking-wide mb-6 mx-auto">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                     Built for Every Stage
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-6">From one person to a full organization</h2>
-                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-6">From one person to a full organization</h2>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                     TimeNest is designed to work the same way for a solo freelancer, a growing startup, and a multi-department organization — the difference is what unlocks as you grow, not a different product entirely.
                 </p>
-                <a href="{{ route('frontend.solutions') }}" class="inline-flex items-center text-accent-600 font-semibold hover:text-accent-700 transition-colors">
+                <a href="{{ route('frontend.solutions') }}" class="inline-flex items-center text-accent-400 font-semibold hover:text-accent-300 transition-colors">
                     See how TimeNest fits your team
                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -130,16 +130,16 @@
     </section>
 
     {{-- Footer CTA --}}
-    <section class="py-20 lg:py-28 relative overflow-hidden bg-slate-900">
+    <section class="py-20 lg:py-28 relative overflow-hidden bg-slate-950">
         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
-        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-accent-500/20 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-accent-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-accent-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-accent-500/10 rounded-full blur-3xl"></div>
         
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10 text-center">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">
                 See TimeNest for yourself
             </h2>
-            <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
                 Set up your organization in minutes — no credit card required.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">

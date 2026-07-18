@@ -47,65 +47,65 @@
     </section>
 
     {{-- Section 2: Freelancers & Independents --}}
-    <section id="freelancers" class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden scroll-mt-20">
+    <section id="freelancers" class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                         Freelancers
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Freelancers & Independents</h2>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Freelancers & Independents</h2>
+                    <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                         Track your time cleanly without the bloat of enterprise systems. Stay focused on your work.
                     </p>
                     
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-600 hover:underline">explore security</a>).</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-400 hover:underline">explore security</a>).</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
                         </li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-200 to-purple-100 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
-                        <div class="bg-white border border-slate-100 shadow-2xl rounded-3xl p-6 relative z-10 flex flex-col gap-6">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-slate-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
+                        <div class="bg-slate-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6">
                             
                             {{-- Header Stats --}}
-                            <div class="flex items-end justify-between border-b border-slate-100 pb-4">
+                            <div class="flex items-end justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Weekly Summary</div>
-                                    <div class="text-3xl font-extrabold text-slate-900 tracking-tight">38<span class="text-xl text-slate-400 font-medium">h</span> 15<span class="text-xl text-slate-400 font-medium">m</span></div>
+                                    <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Weekly Summary</div>
+                                    <div class="text-3xl font-extrabold text-white tracking-tight">38<span class="text-xl text-slate-500 font-medium">h</span> 15<span class="text-xl text-slate-500 font-medium">m</span></div>
                                 </div>
                                 <div class="text-right">
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-md">
                                         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
                                         12% vs last week
                                     </span>
@@ -114,43 +114,43 @@
                             
                             {{-- Mini Bar Chart --}}
                             <div class="flex items-end justify-between h-24 gap-2 pt-2">
-                                <div class="w-full bg-accent-50 rounded-t-sm h-[40%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-700 bg-white shadow-sm border border-slate-100 py-1 rounded">4h</div></div>
-                                <div class="w-full bg-accent-50 rounded-t-sm h-[70%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-700 bg-white shadow-sm border border-slate-100 py-1 rounded">7h</div></div>
-                                <div class="w-full bg-accent-500 rounded-t-sm h-[85%] relative shadow-[0_0_15px_rgba(99,102,241,0.4)]"><div class="absolute inset-x-0 bottom-full mb-2 text-center text-xs font-bold text-accent-700 bg-accent-50 py-1 rounded">8.5h</div></div>
-                                <div class="w-full bg-accent-50 rounded-t-sm h-[60%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-700 bg-white shadow-sm border border-slate-100 py-1 rounded">6h</div></div>
-                                <div class="w-full bg-accent-50 rounded-t-sm h-[90%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-700 bg-white shadow-sm border border-slate-100 py-1 rounded">9h</div></div>
-                                <div class="w-full bg-slate-50 rounded-t-sm h-[10%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-700 bg-white shadow-sm border border-slate-100 py-1 rounded">1h</div></div>
-                                <div class="w-full bg-slate-50 rounded-t-sm h-[0%]"></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[40%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">4h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[70%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">7h</div></div>
+                                <div class="w-full bg-accent-500 rounded-t-sm h-[85%] relative shadow-[0_0_15px_rgba(99,102,241,0.4)]"><div class="absolute inset-x-0 bottom-full mb-2 text-center text-xs font-bold text-accent-400 bg-accent-500/20 py-1 rounded">8.5h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[60%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">6h</div></div>
+                                <div class="w-full bg-accent-500/10 rounded-t-sm h-[90%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">9h</div></div>
+                                <div class="w-full bg-white/5 rounded-t-sm h-[10%] relative group"><div class="absolute inset-x-0 bottom-full mb-2 hidden group-hover:block text-center text-xs font-bold text-slate-300 bg-slate-800 shadow-sm border border-slate-700 py-1 rounded">1h</div></div>
+                                <div class="w-full bg-white/5 rounded-t-sm h-[0%]"></div>
                             </div>
-                            <div class="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 px-1">
-                                <span>M</span><span>T</span><span class="text-accent-600">W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                            <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 px-1">
+                                <span>M</span><span>T</span><span class="text-accent-400">W</span><span>T</span><span>F</span><span>S</span><span>S</span>
                             </div>
                             
                             {{-- Detailed Log List --}}
                             <div class="space-y-3 mt-2">
-                                <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white hover:shadow-md transition-all cursor-pointer">
+                                <div class="flex items-center gap-4 p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
                                     <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between mb-1">
-                                            <span class="text-sm font-bold text-slate-900">Frontend Architecture</span>
-                                            <span class="text-sm font-mono font-bold text-slate-700">03:45:00</span>
+                                            <span class="text-sm font-bold text-white">Frontend Architecture</span>
+                                            <span class="text-sm font-mono font-bold text-slate-400">03:45:00</span>
                                         </div>
                                         <div class="flex items-center gap-2">
-                                            <span class="px-2 py-0.5 bg-accent-100 text-accent-700 text-[10px] font-bold uppercase tracking-wider rounded">TimeNest App</span>
-                                            <span class="text-xs text-slate-500">Billable</span>
+                                            <span class="px-2 py-0.5 bg-accent-500/20 text-accent-400 text-[10px] font-bold uppercase tracking-wider rounded">TimeNest App</span>
+                                            <span class="text-xs text-slate-400">Billable</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white hover:shadow-md transition-all cursor-pointer">
+                                <div class="flex items-center gap-4 p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
                                     <div class="w-2 h-2 rounded-full bg-amber-500"></div>
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between mb-1">
-                                            <span class="text-sm font-bold text-slate-900">Client Sync - Q3 Goals</span>
-                                            <span class="text-sm font-mono font-bold text-slate-700">01:30:00</span>
+                                            <span class="text-sm font-bold text-white">Client Sync - Q3 Goals</span>
+                                            <span class="text-sm font-mono font-bold text-slate-400">01:30:00</span>
                                         </div>
                                         <div class="flex items-center gap-2">
-                                            <span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-bold uppercase tracking-wider rounded">Consulting</span>
-                                            <span class="text-xs text-slate-500">Billable</span>
+                                            <span class="px-2 py-0.5 bg-rose-500/20 text-rose-400 text-[10px] font-bold uppercase tracking-wider rounded">Consulting</span>
+                                            <span class="text-xs text-slate-400">Billable</span>
                                         </div>
                                     </div>
                                 </div>
@@ -300,126 +300,126 @@
     </section>
 
     {{-- Section 4: Established Organizations & Enterprises --}}
-    <section id="organizations" class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden scroll-mt-20">
+    <section id="organizations" class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800 relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         Organizations
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Established Organizations & Enterprises</h2>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Established Organizations & Enterprises</h2>
+                    <p class="text-lg text-slate-400 mb-8 leading-relaxed">
                         Scale efficiently with multi-level hierarchies, atomic permission syncing, and deep audit logs tailored for large-scale operations.
                     </p>
                     
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Departments & Designations:</strong> Full hierarchy, sub-departments, department heads.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Departments & Designations:</strong> Full hierarchy, sub-departments, department heads.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center text-accent-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Multi-Level Approvals:</strong> Reports-to first, department-head fallback, self-approval blocked.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Multi-Level Approvals:</strong> Reports-to first, department-head fallback, self-approval blocked.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Branch-Level Attendance:</strong> Independent geo-fence radius and rules per branch/location.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Branch-Level Attendance:</strong> Independent geo-fence radius and rules per branch/location.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Custom Roles & Permissions:</strong> Admin-configurable, atomic permission sync, no hardcoded limits.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Custom Roles & Permissions:</strong> Admin-configurable, atomic permission sync, no hardcoded limits.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Worklogs:</strong> Tied to projects and approvals for real work context.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Worklogs:</strong> Tied to projects and approvals for real work context.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Org-Wide Secure Chat:</strong> Scoped strictly within your org, encrypted in transit.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Org-Wide Secure Chat:</strong> Scoped strictly within your org, encrypted in transit.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                             </div>
-                            <span class="text-slate-700 font-medium"><strong class="text-slate-900">Account Security & Audit:</strong> 2FA, session/device tracking, activity logging.</span>
+                            <span class="text-slate-400 font-medium"><strong class="text-white">Account Security & Audit:</strong> 2FA, session/device tracking, activity logging.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 flex-shrink-0">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-slate-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                             </div>
-                            <span class="text-slate-500 font-medium italic"><strong class="text-slate-500">Shift Management & Advanced Reporting:</strong> Coming Soon.</span>
+                            <span class="text-slate-400 font-medium italic"><strong class="text-slate-500">Shift Management & Advanced Reporting:</strong> Coming Soon.</span>
                         </li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-slate-200 to-indigo-100 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
-                        <div class="bg-white border border-slate-100 shadow-2xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-slate-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
+                        <div class="bg-slate-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6 overflow-hidden">
                             
                             {{-- Global Sync Header --}}
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-4">
                                 <div>
-                                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                        <svg class="w-3 h-3 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                        <svg class="w-3 h-3 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                                         Global Policy Sync
                                     </div>
-                                    <div class="text-lg font-bold text-slate-900">Enterprise Propagation</div>
+                                    <div class="text-lg font-bold text-white">Enterprise Propagation</div>
                                 </div>
-                                <div class="w-24 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                                <div class="w-24 bg-white/5 rounded-full h-1.5 overflow-hidden">
                                     <div class="bg-accent-500 h-1.5 rounded-full w-2/3 shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-pulse"></div>
                                 </div>
                             </div>
                             
                             {{-- Data Matrix --}}
-                            <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                                <div class="grid grid-cols-3 bg-slate-100/50 p-2 border-b border-slate-200">
-                                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Branch</div>
-                                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Nodes</div>
-                                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-right">Status</div>
+                            <div class="bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-sm">
+                                <div class="grid grid-cols-3 bg-black/20 p-2 border-b border-white/10">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Branch</div>
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Nodes</div>
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Status</div>
                                 </div>
-                                <div class="grid grid-cols-3 p-3 items-center border-b border-slate-100 hover:bg-white transition-colors">
-                                    <div class="text-xs font-bold text-slate-900">North America</div>
-                                    <div class="text-xs font-mono text-slate-500 text-center">4,205</div>
-                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded">Synced</span></div>
+                                <div class="grid grid-cols-3 p-3 items-center border-b border-white/10 hover:bg-white/10 transition-colors">
+                                    <div class="text-xs font-bold text-white">North America</div>
+                                    <div class="text-xs font-mono text-slate-400 text-center">4,205</div>
+                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded">Synced</span></div>
                                 </div>
-                                <div class="grid grid-cols-3 p-3 items-center border-b border-slate-100 hover:bg-white transition-colors">
-                                    <div class="text-xs font-bold text-slate-900">Europe (EMEA)</div>
-                                    <div class="text-xs font-mono text-slate-500 text-center">2,810</div>
-                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded">Synced</span></div>
+                                <div class="grid grid-cols-3 p-3 items-center border-b border-white/10 hover:bg-white/10 transition-colors">
+                                    <div class="text-xs font-bold text-white">Europe (EMEA)</div>
+                                    <div class="text-xs font-mono text-slate-400 text-center">2,810</div>
+                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded">Synced</span></div>
                                 </div>
-                                <div class="grid grid-cols-3 p-3 items-center hover:bg-white transition-colors bg-accent-50/30">
-                                    <div class="text-xs font-bold text-indigo-900">Asia Pacific</div>
-                                    <div class="text-xs font-mono text-accent-600 text-center flex items-center justify-center gap-1">
+                                <div class="grid grid-cols-3 p-3 items-center hover:bg-white/10 transition-colors bg-accent-500/10">
+                                    <div class="text-xs font-bold text-accent-300">Asia Pacific</div>
+                                    <div class="text-xs font-mono text-accent-400 text-center flex items-center justify-center gap-1">
                                         <svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                                         1,950
                                     </div>
-                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-accent-100 text-accent-700 text-[10px] font-bold rounded animate-pulse">Syncing...</span></div>
+                                    <div class="text-right"><span class="inline-flex px-1.5 py-0.5 bg-accent-500/20 text-accent-400 text-[10px] font-bold rounded animate-pulse">Syncing...</span></div>
                                 </div>
                             </div>
                             
                             {{-- Live Audit Stream --}}
                             <div class="pt-2">
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Live Audit Stream</div>
-                                <div class="space-y-3 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Live Audit Stream</div>
+                                <div class="space-y-3 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-700 before:to-transparent">
                                     <div class="relative flex items-center justify-between group">
                                         <div class="flex items-center gap-3 w-full">
-                                            <div class="w-4 h-4 rounded-full bg-slate-800 border-2 border-white shadow-sm flex items-center justify-center z-10"><div class="w-1.5 h-1.5 bg-white rounded-full"></div></div>
-                                            <div class="flex-1 bg-slate-50 border border-slate-100 rounded-lg p-2 flex items-center justify-between hover:bg-white transition-colors cursor-pointer">
-                                                <div class="text-[11px] font-medium text-slate-600"><span class="font-bold text-slate-900">SysAdmin</span> updated role <span class="font-mono text-accent-600 bg-accent-50 px-1 rounded font-bold">Floor_Mgr</span></div>
-                                                <div class="text-[9px] text-slate-400 font-bold uppercase">2m ago</div>
+                                            <div class="w-4 h-4 rounded-full bg-slate-800 border-2 border-slate-600 shadow-sm flex items-center justify-center z-10"><div class="w-1.5 h-1.5 bg-slate-400 rounded-full"></div></div>
+                                            <div class="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer">
+                                                <div class="text-[11px] font-medium text-slate-400"><span class="font-bold text-white">SysAdmin</span> updated role <span class="font-mono text-accent-400 bg-accent-500/20 px-1 rounded font-bold">Floor_Mgr</span></div>
+                                                <div class="text-[9px] text-slate-500 font-bold uppercase">2m ago</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1061,35 +1061,40 @@
             </section>
 
     {{-- Section 6: FAQ --}}
-    <section class="py-20 lg:py-32 bg-slate-50 border-y border-slate-100">
+    <section class="py-20 lg:py-32 bg-slate-950 border-y border-slate-800">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Features Deep Dive — FAQ</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Features Deep Dive — FAQ</h2>
             </div>
             
             <div class="space-y-4" x-data="{ active: null }">
                 <x-marketing.faq-accordion 
                     id="1"
+                    theme="dark"
                     question="Can permissions go beyond the default roles?"
                     answer="Yes. In the Organizations tier, roles and permissions are entirely unlinked from hardcoded defaults. Administrators can create custom roles with granular atomic permissions tailored exactly to their internal hierarchy."
                 />
                 <x-marketing.faq-accordion 
                     id="2"
+                    theme="dark"
                     question="Is chat encrypted?"
                     answer="Absolutely. All internal team and organizational chat is strictly scoped within your workspace and is fully encrypted in transit."
                 />
                 <x-marketing.faq-accordion 
                     id="3"
+                    theme="dark"
                     question="Can different branches run different attendance rules?"
                     answer="Yes, Enterprise and Organization tiers allow branch-level policies, meaning one location can enforce a strict 50-meter geo-fence while another can operate with entirely different parameters."
                 />
                 <x-marketing.faq-accordion 
                     id="4"
+                    theme="dark"
                     question="What's coming next (shift management, reporting)?"
                     answer="We are actively rolling out advanced shift scheduling and deep reporting analytics across all tiers. Stay tuned to our Changelog for exact launch dates."
                 />
                 <x-marketing.faq-accordion 
                     id="5"
+                    theme="dark"
                     question="Does upgrading from Team to Organization require migration?"
                     answer="No. Because TimeNest scales with your account seamlessly, upgrading from Team to Organization requires no data migration. Your existing history remains perfectly intact while new hierarchical features are immediately unlocked."
                 />
