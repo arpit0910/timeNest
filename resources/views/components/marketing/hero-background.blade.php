@@ -1,24 +1,6 @@
-<div class="absolute inset-0 z-0 overflow-hidden bg-black">
-    
-    {{-- Fading Grid Pattern (subtle on dark) --}}
-    <div class="absolute inset-0" 
-         style="background-image: linear-gradient(to right, rgba(124,106,187,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(124,106,187,0.08) 1px, transparent 1px); 
-                background-size: 80px 80px; 
-                mask-image: radial-gradient(ellipse at 50% 30%, black 10%, transparent 60%); 
-                -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 10%, transparent 60%); 
-                opacity: 0.6;">
-    </div>
+﻿<div class="absolute inset-0 z-0 overflow-hidden bg-black" id="dotted-surface-container">
+    {{-- Three.js Canvas will be appended here by marketing.js --}}
 
-    {{-- Clean, Professional Spotlight (Lavender on dark) --}}
-    
-    {{-- Primary Massive Top Glow (Dark Lavender) --}}
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-         style="width: 1200px; height: 700px; background-color: rgba(124, 106, 187, 0.12); filter: blur(120px);"></div>
-    
-    {{-- Secondary Core Glow (Lighter Lavender) --}}
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-         style="width: 600px; height: 400px; background-color: rgba(155, 125, 208, 0.10); filter: blur(100px);"></div>
-
+    {{-- Subtle Center Radial Glow to highlight hero text --}}
+    <div class="absolute top-[10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-accent-600/10 rounded-full filter blur-[150px] pointer-events-none z-10"></div>
 </div>
-
-

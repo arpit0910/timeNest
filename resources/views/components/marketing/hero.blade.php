@@ -9,14 +9,6 @@
         {{-- Headline & Text (Highest z-index) --}}
         <div class="text-center max-w-3xl mx-auto flex flex-col items-center relative z-40">
             <div class="animate-fade-up">
-                <x-ui.pill-badge class="mb-6 !bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">
-                    <x-slot:icon>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                        </svg>
-                    </x-slot:icon>
-                    Trusted by growing teams
-                </x-ui.pill-badge>
             </div>
             
             <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 animate-fade-up delay-100">
@@ -48,7 +40,7 @@
             </div>
 
             {{-- Security Badge (Upper Right on Desktop) --}}
-            <div class="relative md:absolute md:-top-4 md:right-4 lg:right-12 z-30">
+            <div class="relative md:absolute md:-top-4 md:right-4 lg:right-12 z-30 animate-float-alt">
                 <x-marketing.hero-security-badge />
             </div>
             

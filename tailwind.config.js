@@ -100,15 +100,16 @@ export default {
         },
         'float-gentle': {
           '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
-          '50%':      { transform: 'translate3d(0, -12px, 0)' },
+          '50%':      { transform: 'translate3d(0, -60px, 0)' },
         },
         'float-gentle-reverse': {
           '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
-          '50%':      { transform: 'translate3d(0, 10px, 0)' },
+          '50%':      { transform: 'translate3d(0, 50px, 0)' },
         },
         'pulse-ring': {
-          '0%':   { transform: 'scale(0.8)', opacity: '0.6' },
-          '100%': { transform: 'scale(2.2)', opacity: '0' },
+          '0%':   { transform: 'scale(0.8)', opacity: '0.4' },
+          '50%':  { transform: 'scale(1.2)', opacity: '0.8' },
+          '100%': { transform: 'scale(0.8)', opacity: '0.4' },
         },
         'bar-grow': {
           from: { transform: 'scaleY(0)' },
