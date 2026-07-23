@@ -1,4 +1,4 @@
-<section class="py-32 bg-black relative">
+<section class="py-32 bg-black relative marketing-cta">
     <div class="max-w-7xl mx-auto px-6">
         
         <div class="w-full bg-black rounded-3xl py-24 px-6 flex flex-col items-center justify-center text-center shadow-2xl">
@@ -10,7 +10,7 @@
             </div>
             
             {{-- Headline --}}
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-tight max-w-4xl leading-tight">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 tracking-tight max-w-4xl leading-tight marketing-heading">
                 Tired of manual timesheets?
             </h2>
             
@@ -29,4 +29,3 @@
         
     </div>
 </section>
-

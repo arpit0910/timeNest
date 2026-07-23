@@ -120,3 +120,137 @@
         padding-bottom: 4.5rem !important;
     }
 }
+
+/* ── Shared marketing surface, CTA and accessibility rules ── */
+:root {
+    --marketing-dark: #030712;
+    --marketing-light: #ffffff;
+    --marketing-ink: #111827;
+    --marketing-muted: #64748b;
+    --marketing-line: rgba(148, 163, 184, 0.26);
+}
+
+/* Public sections use fills and shadows—not white outline boxes. */
+.marketing-responsive-sections [class*="border-white/"],
+.marketing-cta [class*="border-white/"],
+main [class*="border-white/"] {
+    border-color: transparent !important;
+}
+
+.marketing-hero-glow {
+    background:
+        radial-gradient(circle at 50% 35%, rgba(104, 83, 164, .22), transparent 38%),
+        radial-gradient(circle at 80% 75%, rgba(45, 212, 163, .09), transparent 34%);
+}
+
+/* Every CTA gets the same readable line/grid background and cannot leave text selected. */
+.marketing-cta {
+    isolation: isolate;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.marketing-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .22;
+    background-image:
+        linear-gradient(to right, var(--marketing-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--marketing-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, #000 20%, transparent 76%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 76%);
+}
+
+.marketing-cta :is(a, button, input, textarea) {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.marketing-heading {
+    max-width: 18ch;
+    margin-inline: auto;
+    text-wrap: balance;
+}
+
+/* Dark surfaces must retain bright, high-contrast hover states for copy and icons. */
+.bg-black :is(a, button, .group) {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bg-black :is(a, button):hover,
+.bg-black .group:hover {
+    color: #f8fafc;
+}
+
+.bg-black .group:hover svg {
+    color: #a5b4fc;
+}
+
+.bg-black :is(a, button):focus-visible {
+    outline: 2px solid #a5b4fc;
+    outline-offset: 3px;
+}
+
+/* The copy column on the dark Features section keeps every label readable. */
+.feature-dark-copy > .inline-flex {
+    background: rgba(255, 255, 255, .1);
+    color: #e2e8f0;
+}
+
+.feature-dark-copy :is(h2, strong) { color: #fff; }
+.feature-dark-copy :is(p, li > span) { color: #cbd5e1; }
+.feature-dark-copy li:last-child > span,
+.feature-dark-copy li:last-child strong { color: #94a3b8; }
+
+.feature-light-copy > .inline-flex {
+    background: #f5f3ff;
+    color: #5b21b6;
+    border-color: transparent;
+}
+
+.feature-light-copy :is(h2, strong) { color: #111827; }
+.feature-light-copy :is(p, li > span) { color: #475569; }
+.feature-light-copy li:last-child > span,
+.feature-light-copy li:last-child strong { color: #64748b; }
+
+/* Book-demo alternates without sacrificing readable card copy. */
+.demo-light :is(h2, h3) { color: #111827 !important; }
+.demo-light :is(p, .text-neutral-400) { color: #475569 !important; }
+.demo-light [class*="bg-white/5"] { background-color: #fff !important; }
+.demo-light [class*="border-white/"] { border-color: transparent !important; }
+.demo-dark :is(h2, h3) { color: #fff !important; }
+.demo-dark :is(p, .text-neutral-600) { color: #cbd5e1 !important; }
+
+.home-attendance-dark > div > .grid > div:last-child :is(h2, strong) {
+    color: #fff;
+}
+
+.home-attendance-dark > div > .grid > div:last-child p {
+    color: #cbd5e1;
+}
+
+/* Bootstrap's responsive container is constrained to the site's wider design grid. */
+.marketing-responsive-sections .container,
+.marketing-cta .container {
+    width: min(100% - 2rem, 90rem);
+}
+
+@media (max-width: 575.98px) {
+    .marketing-heading { max-width: 14ch; }
+    .marketing-cta .rounded-\[2\.5rem\] { border-radius: 1.5rem; }
+    .marketing-cta .rounded-\[2rem\] { border-radius: 1.25rem; }
+    .marketing-responsive-sections section { overflow-x: clip; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}

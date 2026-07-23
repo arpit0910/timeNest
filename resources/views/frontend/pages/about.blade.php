@@ -130,16 +130,16 @@
     </section>
 
     {{-- Footer CTA --}}
-    <section class="py-20 lg:py-28 relative overflow-hidden bg-black">
+    <section class="py-20 lg:py-28 relative overflow-hidden bg-white">
         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
         <div class="absolute -top-1/2 -right-1/4 w-[1000px] h-[1000px] bg-accent-500/10 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-1/2 -left-1/4 w-[800px] h-[800px] bg-accent-500/10 rounded-full blur-3xl"></div>
         
         <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10 text-center">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-900 tracking-tight mb-6 marketing-heading">
                 See TimeNest for yourself
             </h2>
-            <p class="text-xl text-neutral-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="text-xl text-neutral-600 max-w-2xl mx-auto mb-10 leading-relaxed">
                 Set up your organization in minutes â€” no credit card required.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -152,5 +152,3 @@
 
 <x-marketing.footer />
 @endsection
-
-

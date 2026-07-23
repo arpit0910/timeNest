@@ -547,7 +547,7 @@
         </section>
 
         {{-- Footer CTA (matching homepage final CTA style, but unique content) --}}
-        <section class="py-16 bg-black relative px-6">
+        <section class="py-16 bg-white relative px-6 marketing-cta">
             <div class="max-w-7xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
@@ -629,7 +629,6 @@
     {{-- Footer --}}
     <x-marketing.footer />
 @endsection
-
 
 
 

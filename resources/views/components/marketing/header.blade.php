@@ -7,8 +7,8 @@
     ></div>
 
     <header 
-        :class="{ 'shadow-xl shadow-black/50 bg-black/80 backdrop-blur-md border-white/10 top-4 w-[95%] max-w-6xl rounded-full': scrolled, 'bg-transparent border-transparent top-0 w-full rounded-none': !scrolled }"
-        class="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 border"
+        :class="{ 'shadow-xl shadow-black/50 bg-black/80 backdrop-blur-md top-4 w-[95%] max-w-6xl rounded-full': scrolled, 'bg-transparent top-0 w-full rounded-none': !scrolled }"
+        class="fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
     >
     <div class="px-6 py-3 mx-auto max-w-7xl flex items-center justify-between">
         
@@ -80,5 +80,4 @@
     </div>
 </header>
 </div>
-
 

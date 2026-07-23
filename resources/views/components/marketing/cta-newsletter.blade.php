@@ -3,7 +3,7 @@
     'subtext' => 'Join 10,000+ companies using TimeNest to manage shifts, process leave, and handle complex payroll effortlessly.',
     'buttonText' => 'Book a demo'
 ])
-<section class="py-16 bg-black relative px-6">
+<section class="py-16 bg-white relative px-6 marketing-cta">
     <div class="max-w-7xl mx-auto">
         <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
             
@@ -18,7 +18,7 @@
                 
                 {{-- Text --}}
                 <div class="marketing-section-copy">
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4 marketing-heading">
                         {{ $heading }}
                     </h2>
                     <p class="text-lg text-white mb-8 max-w-lg">
@@ -85,5 +85,3 @@
         </div>
     </div>
 </section>
-
-

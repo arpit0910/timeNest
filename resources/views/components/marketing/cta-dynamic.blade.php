@@ -2,7 +2,7 @@
     'heading' => 'Ready to run your team on a secure platform?',
     'subtext' => 'Set up your organization in minutes. Rest easy knowing your attendance and payroll data is locked down.',
 ])
-<section class="py-16 bg-black relative px-6">
+<section class="py-16 bg-white relative px-6 marketing-cta">
     <div class="max-w-7xl mx-auto">
         <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
             
@@ -17,7 +17,7 @@
                 
                 {{-- Text --}}
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4 marketing-heading">
                         {{ $heading }}
                     </h2>
                     <p class="text-lg text-white mb-8 max-w-lg">
@@ -79,5 +79,3 @@
         </div>
     </div>
 </section>
-
-

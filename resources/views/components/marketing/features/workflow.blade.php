@@ -1,20 +1,19 @@
-<section class="py-32 bg-black relative overflow-hidden">
+<section class="py-32 bg-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
             {{-- Text Content --}}
             <div class="max-w-xl marketing-section-copy">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-700 text-xs font-semibold tracking-wide uppercase mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                     Workflow Policies
                 </div>
                 
-                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
-                    Strict when you need it, <br class="hidden md:block"/>
-                    <span class="text-accent-400">flexible when you don't.</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6 marketing-heading">
+                    Strict when you need it, <span class="text-accent-700">flexible when you don't.</span>
                 </h2>
                 
-                <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
+                <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
                     TimeNest gives you the power to define exact workflows for every team. Enforce strict check-in rules for hourly workers, or enable flexible, outcome-based tracking for salaried teams. It adapts to your business logic, not the other way around.
                 </p>
                 
@@ -24,8 +23,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-white mb-1">Strict Compliance</h3>
-                            <p class="text-sm text-neutral-400">Lock down check-ins by IP address, device, or precise location coordinates.</p>
+                            <h3 class="text-base font-bold text-neutral-900 mb-1">Strict Compliance</h3>
+                            <p class="text-sm text-neutral-600">Lock down check-ins by IP address, device, or precise location coordinates.</p>
                         </div>
                     </div>
                     
@@ -34,8 +33,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-white mb-1">Flexible Tracking</h3>
-                            <p class="text-sm text-neutral-400">Allow self-reported hours and trust-based tracking for remote knowledge workers.</p>
+                            <h3 class="text-base font-bold text-neutral-900 mb-1">Flexible Tracking</h3>
+                            <p class="text-sm text-neutral-600">Allow self-reported hours and trust-based tracking for remote knowledge workers.</p>
                         </div>
                     </div>
                 </div>
@@ -43,7 +42,7 @@
 
             {{-- Visual Content --}}
             <div class="relative">
-                <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-neutral-900 rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-accent-200 to-violet-100 rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
                 <div class="bg-neutral-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-8 relative z-10 flex flex-col gap-6">
                     
                     {{-- UI Mockup: Policy Selector --}}
@@ -78,4 +77,3 @@
         </div>
     </div>
 </section>
-

@@ -21,9 +21,8 @@
                             Book a Demo
                         </div>
                         
-                        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                            See TimeNest <br />
-                            Running Your Way
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 marketing-heading">
+                            See TimeNest Running Your Way
                         </h1>
                         
                         <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10 leading-relaxed">
@@ -354,10 +353,8 @@
                                     </svg>
                                 </div>
                                 <h3 class="text-2xl font-extrabold text-neutral-900 mb-3">Walkthrough Scheduled!</h3>
-                                <p class="text-neutral-500 text-sm leading-relaxed mb-6">
-                                    We've sent a calendar invite and video link to <br />
-                                    <span class="font-bold text-neutral-900" x-text="email"></span> for <br />
-                                    <span class="font-bold text-neutral-900" x-text="date"></span> at <span class="font-bold text-neutral-900" x-text="time"></span>.
+                                <p class="text-neutral-500 text-sm leading-relaxed mb-6 max-w-sm">
+                                    We've sent a calendar invite and video link to <span class="font-bold text-neutral-900" x-text="email"></span> for <span class="font-bold text-neutral-900" x-text="date"></span> at <span class="font-bold text-neutral-900" x-text="time"></span>.
                                 </p>
                                 <div class="text-[11px] font-semibold text-neutral-400 bg-neutral-50 border border-neutral-100 rounded-lg p-2.5 w-full">
                                     If you need to reschedule, you can do so directly using the link in the calendar invite.
@@ -372,7 +369,7 @@
         </section>
 
         {{-- Section 2: What You'll See --}}
-        <section class="relative py-16 lg:py-24 bg-black border-y border-neutral-800 overflow-hidden">
+        <section class="demo-light relative py-16 lg:py-24 bg-white overflow-hidden">
             <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] bg-accent-50/60 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-1/3 -left-1/4 w-[500px] h-[500px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
@@ -438,7 +435,7 @@
         </section>
 
         {{-- Section 3: Real Scenarios --}}
-        <section class="relative py-16 lg:py-24 bg-black z-10 overflow-hidden">
+        <section class="demo-dark relative py-16 lg:py-24 bg-black z-10 overflow-hidden">
             <div class="absolute -top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -458,7 +455,7 @@
         </section>
 
         {{-- Section 4: Who Should Book This --}}
-        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
+        <section class="demo-light relative py-16 lg:py-24 bg-white overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -510,7 +507,7 @@
         </section>
 
         {{-- Mid-Page CTA (Contained Panel) --}}
-        <section class="py-16 bg-black relative px-6">
+        <section class="py-16 bg-black relative px-6 marketing-cta">
             <div class="max-w-5xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
@@ -548,7 +545,7 @@
         </section>
 
         {{-- Section 5: What to Expect --}}
-        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
+        <section class="relative py-16 lg:py-24 bg-white overflow-hidden">
             <div class="absolute top-1/3 -left-1/4 w-[600px] h-[600px] bg-accent-50/40 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -629,7 +626,7 @@
         </section>
 
         {{-- Section 7: FAQ --}}
-        <section class="relative py-16 lg:py-24 bg-black border-t border-neutral-800 overflow-hidden">
+        <section class="demo-light relative py-16 lg:py-24 bg-white overflow-hidden">
             <div class="absolute top-1/4 -right-1/4 w-[500px] h-[500px] bg-accent-50/30 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="container mx-auto px-6 lg:px-8 xl:px-12 2xl:max-w-[1440px] relative z-10">
@@ -726,7 +723,7 @@
         </section>
 
         {{-- Footer CTA (Contained Panel styling matching homepage final CTA) --}}
-        <section class="py-16 bg-black relative px-6 z-10 border-t border-neutral-800">
+        <section class="py-16 bg-white relative px-6 z-10 border-t border-neutral-100 marketing-cta">
             <div class="max-w-7xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
@@ -756,7 +753,3 @@
 
     <x-marketing.footer />
 @endsection
-
-
-
-

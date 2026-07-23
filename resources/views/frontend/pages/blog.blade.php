@@ -9,8 +9,8 @@
             <x-marketing.hero-background />
             <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-up relative z-10">
                 <x-ui.pill-badge class="mb-6 !bg-white/10 !border-white/20 !text-white/80 backdrop-blur-sm">Blog</x-ui.pill-badge>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                    Ideas on Running<br/>Teams Better
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 marketing-heading">
+                    Ideas on Running Teams Better
                 </h1>
                 <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-8">
                     Thoughts on workforce management, security, and building teams that don't run on spreadsheets and group chats.
@@ -396,7 +396,6 @@
 
     <x-marketing.footer />
 @endsection
-
 
 
 

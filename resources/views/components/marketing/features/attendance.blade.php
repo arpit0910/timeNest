@@ -1,4 +1,4 @@
-<section class="py-32 bg-neutral-50 relative overflow-hidden border-y border-neutral-200/50">
+<section class="home-attendance-dark py-32 bg-black relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
@@ -102,4 +102,3 @@
         </div>
     </div>
 </section>
-

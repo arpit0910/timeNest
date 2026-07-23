@@ -11,9 +11,8 @@
             <div class="animate-fade-up">
             </div>
             
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 animate-fade-up delay-100">
-                The Workforce Platform <br />
-                Built for Trust & Speed
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 animate-fade-up delay-100 marketing-heading">
+                The Workforce Platform Built for Trust & Speed
             </h1>
             
             <p class="text-lg md:text-xl text-neutral-400 max-w-[600px] leading-relaxed mb-10 animate-fade-up delay-200">
@@ -50,5 +49,4 @@
         
     </div>
 </section>
-
 

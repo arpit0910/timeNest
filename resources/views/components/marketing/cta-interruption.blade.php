@@ -4,19 +4,16 @@
     'subtext' => '',
 ])
 
-<section class="py-12 md:py-16 bg-black relative">
+<section class="py-12 md:py-16 bg-black relative marketing-cta">
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="bg-black rounded-[2rem] overflow-hidden relative flex flex-col md:flex-row items-center justify-between p-6 md:p-8 border-[1.5px] border-[#2ad4a3]/80 shadow-[0_0_30px_rgba(42,212,163,0.15)]">
             
             {{-- Left Content --}}
             <div class="relative z-10 max-w-xl">
-                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+                <h3 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight marketing-heading">
                     {{ $heading }}
                     @if($headingHighlight)
-                    <span class="relative inline-block text-white mt-1">
-                        <span class="relative z-10 px-2 py-0.5">{{ $headingHighlight }}</span>
-                        <span class="absolute bottom-1 left-0 w-full h-[60%] bg-[#215fe5] -z-0 rounded-sm"></span>
-                    </span>
+                    <span class="inline text-accent-300">{{ $headingHighlight }}</span>
                     @endif
                 </h3>
                 
@@ -43,4 +40,3 @@
         </div>
     </div>
 </section>
-

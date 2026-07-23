@@ -17,9 +17,8 @@
                     Pricing Models
                 </div>
                 
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                    Simple, Fair Pricing <br />
-                    That Scales With You
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 marketing-heading">
+                    Simple, Fair Pricing That Scales With You
                 </h1>
                 
                 <p class="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-10">
@@ -597,7 +596,7 @@
         </section>
 
         {{-- Footer CTA --}}
-        <section class="py-16 bg-white relative px-6 z-10 border-t border-neutral-100">
+        <section class="py-16 bg-white relative px-6 z-10 border-t border-neutral-100 marketing-cta">
             <div class="max-w-7xl mx-auto">
                 <div class="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-neutral-800 shadow-2xl">
                     
@@ -627,6 +626,4 @@
 
     <x-marketing.footer />
 @endsection
-
-
 

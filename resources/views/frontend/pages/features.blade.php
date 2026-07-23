@@ -47,16 +47,16 @@
     </section>
 
     {{-- Section 2: Freelancers & Independents --}}
-    <section id="freelancers" class="py-20 lg:py-32 bg-black border-y border-neutral-800 relative overflow-hidden scroll-mt-20">
+    <section id="freelancers" class="py-20 lg:py-32 bg-white relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-700 text-xs font-semibold tracking-wide uppercase mb-6">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                         Freelancers
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight">Freelancers & Independents</h2>
-                    <p class="text-lg text-neutral-400 mb-8 leading-relaxed">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-6 tracking-tight">Freelancers & Independents</h2>
+                    <p class="text-lg text-neutral-600 mb-8 leading-relaxed">
                         Track your time cleanly without the bloat of enterprise systems. Stay focused on your work.
                     </p>
                     
@@ -65,37 +65,37 @@
                             <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <span class="text-neutral-400 font-medium"><strong class="text-white">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
+                            <span class="text-neutral-600 font-medium"><strong class="text-neutral-900">Personal Time & Project Tracking:</strong> Log hours against projects, no team required.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                             </div>
-                            <span class="text-neutral-400 font-medium"><strong class="text-white">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
+                            <span class="text-neutral-600 font-medium"><strong class="text-neutral-900">Daily Worklogs:</strong> Task-level detail, not just clock in/out.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                             </div>
-                            <span class="text-neutral-400 font-medium"><strong class="text-white">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-400 hover:underline">explore security</a>).</span>
+                            <span class="text-neutral-600 font-medium"><strong class="text-neutral-900">Account Security:</strong> JWT-based sessions, optional 2FA (<a href="/security" class="text-accent-700 hover:underline">explore security</a>).</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                             </div>
-                            <span class="text-neutral-400 font-medium"><strong class="text-white">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
+                            <span class="text-neutral-600 font-medium"><strong class="text-neutral-900">No Forced Structure:</strong> No org, no roles, no approval chains until you want them.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                             </div>
-                            <span class="text-neutral-400 font-medium"><strong class="text-white">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
+                            <span class="text-neutral-600 font-medium"><strong class="text-neutral-900">Seamless Upgrade Path:</strong> Same login, same history, when you add people.</span>
                         </li>
                     </ul>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-neutral-900 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-200 to-violet-100 rounded-3xl transform -rotate-2 scale-105 opacity-60"></div>
                         <div class="bg-neutral-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-6 relative z-10 flex flex-col gap-6">
                             
                             {{-- Header Stats --}}
@@ -164,7 +164,7 @@
     </section>
 
     {{-- Section 3: Growing Teams & Startups --}}
-    <section id="teams" class="py-20 lg:py-32 bg-white relative overflow-hidden scroll-mt-20">
+    <section id="teams" class="py-20 lg:py-32 bg-black relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
@@ -234,8 +234,8 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-600 text-xs font-semibold tracking-wide uppercase mb-6 border border-accent-100">
+                <div class="feature-dark-copy">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                         Teams
                     </div>
@@ -300,11 +300,11 @@
     </section>
 
     {{-- Section 4: Established Organizations & Enterprises --}}
-    <section id="organizations" class="py-20 lg:py-32 bg-black border-y border-neutral-800 relative overflow-hidden scroll-mt-20">
+    <section id="organizations" class="py-20 lg:py-32 bg-white relative overflow-hidden scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-semibold tracking-wide uppercase mb-6 border border-white/20">
+                <div class="order-2 lg:order-1 feature-light-copy">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-semibold tracking-wide uppercase mb-6">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         Organizations
                     </div>
@@ -1112,6 +1112,3 @@
 
 <x-marketing.footer />
 @endsection
-
-
-
