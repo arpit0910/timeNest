@@ -11,9 +11,6 @@
         <x-marketing.features.workflow />
         <x-marketing.features.attendance />
         
-        {{-- Interstitial CTA --}}
-        <x-marketing.cta-mini />
-        
         <x-marketing.features.shifts />
         <x-marketing.features.leaves />
         <x-marketing.features.chat />

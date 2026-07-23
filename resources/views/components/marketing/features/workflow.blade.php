@@ -43,17 +43,17 @@
             {{-- Visual Content --}}
             <div class="relative">
                 <div class="absolute inset-0 bg-gradient-to-tr from-accent-200 to-violet-100 rounded-3xl transform rotate-3 scale-105 opacity-50"></div>
-                <div class="bg-neutral-900/50 backdrop-blur-md border border-white/10 shadow-xl rounded-3xl p-8 relative z-10 flex flex-col gap-6">
+                <div class="bg-neutral-950 shadow-xl rounded-3xl p-8 relative z-10 flex flex-col gap-6">
                     
                     {{-- UI Mockup: Policy Selector --}}
-                    <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
+                    <div class="bg-neutral-900 rounded-2xl p-6">
                         <div class="flex items-center justify-between mb-4">
                             <div class="text-sm font-bold text-white">Support Team Policy</div>
-                            <span class="px-2 py-1 bg-accent-500/20 text-accent-400 text-xs font-semibold rounded-md border border-accent-500/30">Active</span>
+                            <span class="px-2 py-1 bg-accent-500/20 text-accent-300 text-xs font-semibold rounded-md">Active</span>
                         </div>
                         
                         <div class="space-y-3">
-                            <label class="flex items-start gap-3 p-3 bg-white/10 rounded-xl border-2 border-accent-500 cursor-pointer shadow-sm">
+                            <label class="flex items-start gap-3 p-3 bg-white/10 rounded-xl cursor-pointer shadow-sm">
                                 <input type="radio" name="policy" checked class="mt-1 w-4 h-4 text-accent-500 border-white/20 bg-transparent focus:ring-accent-500 focus:ring-offset-neutral-900">
                                 <div>
                                     <div class="text-sm font-bold text-white">Strict Enforcement</div>
@@ -61,7 +61,7 @@
                                 </div>
                             </label>
                             
-                            <label class="flex items-start gap-3 p-3 bg-white/5 rounded-xl border border-white/10 cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
+                            <label class="flex items-start gap-3 p-3 bg-white/5 rounded-xl cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
                                 <input type="radio" name="policy" class="mt-1 w-4 h-4 text-accent-500 border-white/20 bg-transparent focus:ring-accent-500 focus:ring-offset-neutral-900">
                                 <div>
                                     <div class="text-sm font-bold text-neutral-300">Flexible Trust</div>

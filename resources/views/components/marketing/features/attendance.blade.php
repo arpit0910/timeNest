@@ -62,12 +62,11 @@
                     Bulletproof Attendance
                 </div>
                 
-                <h2 class="text-4xl md:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight mb-6">
-                    Eliminate buddy punching. <br class="hidden md:block"/>
-                    <span class="text-accent-600">Zero exceptions.</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6 marketing-heading">
+                    Eliminate buddy punching. <span class="text-accent-400">Zero exceptions.</span>
                 </h2>
                 
-                <p class="text-lg text-neutral-500 mb-8 leading-relaxed">
+                <p class="text-lg text-neutral-300 mb-8 leading-relaxed">
                     Built for the realities of modern business. We combine multi-factor identity verification with strict business logic to ensure the people checking in are exactly who they say they are, exactly where they're supposed to be.
                 </p>
                 
@@ -76,24 +75,24 @@
                         <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <div>
-                            <strong class="text-neutral-900">Precision Geofencing:</strong> Restrict check-ins to specific coordinates with adjustable radius buffers.
+                        <div class="text-neutral-300">
+                            <strong class="text-white">Precision Geofencing:</strong> Restrict check-ins to specific coordinates with adjustable radius buffers.
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
                         <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <div>
-                            <strong class="text-neutral-900">AI Face Detection:</strong> Compare live camera captures against employee master photos in real-time.
+                        <div class="text-neutral-300">
+                            <strong class="text-white">AI Face Detection:</strong> Compare live camera captures against employee master photos in real-time.
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
                         <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-accent-50 text-accent-600 flex items-center justify-center">
                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <div>
-                            <strong class="text-neutral-900">Automated Fraud Flags:</strong> Instantly notify managers of device spoofing, location masking, or suspicious patterns.
+                        <div class="text-neutral-300">
+                            <strong class="text-white">Automated Fraud Flags:</strong> Instantly notify managers of device spoofing, location masking, or suspicious patterns.
                         </div>
                     </li>
                 </ul>
