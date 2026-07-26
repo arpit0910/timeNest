@@ -1,59 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <h1 align="center">TimeNest</h1>
+  <p align="center"><strong>Enterprise-grade Workforce Management SaaS Platform</strong></p>
 </p>
 
-## About Laravel
+<p align="center">
+  Built for freelancers, freelance teams, startups, and organizations to manage attendance,
+  leave, worklogs, roles, and internal communication — from one multi-tenant platform.
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## What is TimeNest?
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+TimeNest is a multi-tenant SaaS platform built to manage workforce operations for
+businesses of any size — a solo freelancer, a small team, or a large organization
+with thousands of employees.
 
-## Learning Laravel
+The current MVP focuses on **workforce and attendance management**, but this is
+intentionally just the first module. TimeNest is architected as a modular business
+operating platform — the same tenant/permission/data model is designed to support
+future modules like projects, invoicing, payroll, and integrations without requiring
+a rewrite.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**Every user runs on the same codebase, isolated by organization** — no per-client
+deployments, no forked code paths. A freelancer and a 5,000-person company both run
+on the same platform, just with different roles, permissions, and enabled features.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Core Modules (Live)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Module | Description |
+|---|---|
+| **Attendance Tracking** | Geo-fenced clock-in/clock-out with strict, flexible, and hybrid enforcement modes |
+| **Leave Management** | Configurable, multi-level approval workflows |
+| **Daily Worklogs** | Structured work reporting per employee |
+| **Role-Based Access Control** | Granular, permission-driven — not hardcoded department roles |
+| **Multi-Tenant Data Isolation** | Every record scoped strictly to its organization |
+| **Authentication** | JWT-based, with optional 2FA |
+| **Chat** | Real-time inter-employee and client chat (WebSocket-based) |
 
-### Premium Partners
+## Roadmap (Not Yet Live)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+These are actively planned but **not available in production yet** — do not treat
+as shipped features in any client-facing communication:
+
+- Shift management
+- Advanced reporting & analytics
+- Facial recognition / biometric verification
+- Third-party API integrations
+- Payroll
+- Project management tooling
+
+---
+
+## Architecture Principles
+
+TimeNest is engineered as a real SaaS product, not a CRUD app. Some core decisions
+baked into the codebase:
+
+- **Permission-driven authorization, not hardcoded roles** — organization admins can
+  reassign permissions freely without any code deployment. Roles are generic tiers,
+  not fixed department labels.
+- **Manual tenant scoping** — there is no global Eloquent scope. Every Policy class
+  explicitly checks `organization_id` against the active tenant context. This is a
+  deliberate tradeoff: more boilerplate, but zero risk of a global scope silently
+  leaking cross-tenant data.
+- **Hybrid approval hierarchy** — approvals (leave, attendance adjustments, worklogs)
+  follow `reports_to` first, falling back to department head.
+- **Version snapshot isolation** — policy snapshots are stamped onto records at
+  submission time. Once submitted, a record is evaluated against the snapshot it was
+  created under, not whatever the live policy has since changed to.
+- **API-first design** — flat route structures, UUIDs (not raw IDs) in every API
+  response, built to serve web, mobile, and future integrations equally.
+
+---
+
+## Tech Stack
+
+**Backend**
+- Laravel 12, PHP 8.1+
+- MySQL
+- JWT Authentication (`tymon/jwt-auth`) with optional 2FA (`pragmarx/google2fa-laravel`)
+- Spatie Laravel Permission (roles/permissions)
+
+**Frontend**
+- Blade templating
+- Alpine.js
+- Tailwind CSS
+- Vite
+
+**Real-time Chat Microservice**
+- FastAPI (Python) — separate service, shares the same MySQL database and JWT
+  secret as the Laravel backend
+- SQLAlchemy (async) + Alembic for chat-specific tables only
+- Redis for typing indicators and future pub/sub at scale
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repository
+git clone <repo-url>
+cd timenest
+
+# Install PHP dependencies
+composer install
+
+# Install frontend dependencies
+npm install
+
+# Environment setup
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+
+# Configure your database in .env, then run migrations
+php artisan migrate
+
+# Build frontend assets
+npm run dev
+
+# Serve the application
+php artisan serve
+```
+
+> The chat microservice (FastAPI) is a separate service with its own setup —
+> see `/chat-service` for its README once available.
+
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+TimeNest is under active development. Architectural decisions are made
+deliberately with long-term multi-tenant scalability in mind — before
+proposing a change, consider whether it holds up for a single freelancer,
+a 10-person team, and a 10,000-employee organization alike.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Proprietary — All rights reserved.
