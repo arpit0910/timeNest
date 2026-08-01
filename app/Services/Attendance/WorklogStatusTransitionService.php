@@ -148,7 +148,7 @@ class WorklogStatusTransitionService
         try {
             // Check platform bypass
             $platformRole = resolve_platform_role($actor);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+            $isAppOwner = $actor->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
             if ($isAppOwner) {
                 return;

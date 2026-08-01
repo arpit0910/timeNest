@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models\Auth;
 
+use App\Enums\AccountType;
 use App\Enums\UserStatus;
 use App\Models\Organization\Organization;
 use App\Models\Geo\Country;
@@ -97,6 +98,7 @@ class User extends Authenticatable implements JWTSubject
         'postal_code',
         'timezone',
         'locale',
+        'account_type',
         'profile_completed_at',
         'two_factor_secret',
         'two_factor_enabled_at',
@@ -145,6 +147,7 @@ class User extends Authenticatable implements JWTSubject
             'two_factor_recovery_codes' => 'encrypted:array',
             'is_active' => 'boolean',
             'status' => UserStatus::class,
+            'account_type' => AccountType::class,
             'token_version' => 'integer',
             'last_login_at' => 'datetime',
         ];

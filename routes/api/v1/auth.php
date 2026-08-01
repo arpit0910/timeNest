@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\V1\Auth\GoogleOAuthController;
 use App\Http\Controllers\Api\V1\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('account-types', [AuthController::class, 'accountTypes'])->name('account-types');
+
 // Public auth routes (throttled)
 Route::middleware(['throttle:auth'])->group(function (): void {
     Route::controller(AuthController::class)->group(function (): void {

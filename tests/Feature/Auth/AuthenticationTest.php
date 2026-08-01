@@ -66,7 +66,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $role = Role::firstOrCreate([
-            'name' => SystemRole::DIRECTOR->value,
+            'name' => SystemRole::SUPER_ADMIN->value,
             'guard_name' => 'api',
             'organization_id' => null,
         ]);
@@ -92,6 +92,6 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('success', true)
             ->assertJsonPath('data.status', 'authenticated')
             ->assertJsonPath('data.guard', 'organization')
-            ->assertJsonPath('data.role', SystemRole::DIRECTOR->value);
+            ->assertJsonPath('data.role', SystemRole::SUPER_ADMIN->value);
     }
 }

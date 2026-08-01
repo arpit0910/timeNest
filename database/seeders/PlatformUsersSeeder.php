@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\AccountType;
 use App\Models\Auth\User;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
@@ -32,9 +33,9 @@ class PlatformUsersSeeder extends Seeder
 
         $platformUsers = [
             [
-                'name' => 'TimeNest Owner',
+                'name' => 'TimeNest Platform Super Admin',
                 'email' => 'app.owner@timenest.internal',
-                'role' => 'app_director',
+                'role' => 'app_super_admin',
             ],
             [
                 'name' => 'TimeNest Super Admin',
@@ -65,6 +66,7 @@ class PlatformUsersSeeder extends Seeder
                     'email_verified_at' => now(),
                     'timezone' => 'UTC',
                     'locale' => 'en',
+                    'account_type' => AccountType::FREELANCER,
                     'is_active' => true,
                     'token_version' => 1,
                 ]

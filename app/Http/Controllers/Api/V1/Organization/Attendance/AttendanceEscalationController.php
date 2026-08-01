@@ -38,7 +38,7 @@ class AttendanceEscalationController extends BaseApiController
 
         try {
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+            $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
             $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value) 
                 || $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value);

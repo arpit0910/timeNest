@@ -90,10 +90,7 @@ class RoleController extends Controller
         $role = $this->roleService->findByUuid($uuid, $organizationId);
 
         // Determine if actor is a platform admin
-        $isPlatformAdmin = $actor->hasAnyRole([
-            'app_director',
-            'app_super_admin',
-        ]);
+        $isPlatformAdmin = $actor->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
         $updated = $this->roleService->syncPermissions(
             role: $role,
@@ -110,10 +107,7 @@ class RoleController extends Controller
     {
         $actor = auth()->user();
 
-        $isPlatformAdmin = $actor->hasAnyRole([
-            'app_director',
-            'app_super_admin',
-        ]);
+        $isPlatformAdmin = $actor->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
         $permissions = $this->roleService->listPermissions($isPlatformAdmin);
 

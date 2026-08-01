@@ -137,7 +137,7 @@ class InvitationTest extends TestCase
     public function test_cannot_create_invitation_for_invalid_role(): void
     {
         // Try creating with a platform-only role (e.g. AppOwner)
-        $platformRole = Role::where('name', SystemRole::APP_DIRECTOR->value)->firstOrFail();
+        $platformRole = Role::where('name', SystemRole::APP_SUPER_ADMIN->value)->firstOrFail();
 
         $response = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->postJson('/api/v1/organization/invitations', [

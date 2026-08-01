@@ -30,7 +30,7 @@ class RealisticOrganizationsSeeder extends Seeder
         $password = Hash::make('Password@123');
 
         $orgRoles = [
-            SystemRole::DIRECTOR->value,
+            SystemRole::SUPER_ADMIN->value,
             SystemRole::ADMIN->value,
             SystemRole::HEAD->value,
             SystemRole::MANAGER->value,
@@ -79,6 +79,7 @@ class RealisticOrganizationsSeeder extends Seeder
                         'email' => $emailPrefix . '@' . $domain,
                         'password' => $password,
                         'password_set' => true,
+                        'account_type' => \App\Enums\AccountType::ORGANIZATION,
                         'email_verified_at' => now(),
                         'phone' => substr($faker->e164PhoneNumber, 0, 15),
                         'timezone' => 'America/New_York',

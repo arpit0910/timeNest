@@ -39,13 +39,9 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceAdjustmentRequest::class, \App\Policies\AttendanceAdjustmentPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceEscalation::class, \App\Policies\AttendanceEscalationPolicy::class);
 
-        // Centralized AppOwner root bypass
+        // Centralized platform root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
-            $platformRole = resolve_platform_role($user);
-            if ($platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value) {
-                return true;
-            }
-            return null;
+            return $user->hasPermissionTo(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value) ? true : null;
         });
 
         // Event Listeners

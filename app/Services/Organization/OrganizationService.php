@@ -18,6 +18,10 @@ class OrganizationService
 {
     use HasAuditLog;
 
+    public function __construct(
+        private readonly MembershipService $membershipService,
+    ) {}
+
     /**
      * Create a new organization (e.g., during self-serve signup or platform admin creation).
      *
@@ -25,7 +29,7 @@ class OrganizationService
      */
     public function createOrganization(array $data, User $creator): Organization
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data, $creator) {
             $slug = generate_unique_slug($data['trading_name'] ?? $data['legal_name'], Organization::class);
 
             $organization = Organization::create([
@@ -42,6 +46,7 @@ class OrganizationService
                 'currency_code' => $data['currency_code'] ?? 'USD',
                 'plan' => $data['plan'] ?? 'free',
                 'max_users' => $data['max_users'] ?? 5,
+                'type' => $data['type'] ?? \App\Enums\Organization\OrganizationType::ORGANIZATION,
                 'country_id' => isset($data['country_uuid']) 
                     ? \App\Models\System\Country::where('uuid', $data['country_uuid'])->value('id') 
                     : null,
@@ -63,6 +68,8 @@ class OrganizationService
                     'is_active' => true,
                 ]);
             }
+
+            $this->membershipService->assignOwner($organization, $creator);
 
             $this->logAction('organization.created', $organization, [], $organization->toArray());
 

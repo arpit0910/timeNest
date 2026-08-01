@@ -93,7 +93,7 @@ class DemoOrganizationSeeder extends Seeder
 
             // Create demo users with memberships
             // Use platform roles (organization_id = null), scope via team permissions
-            $ownerRole = Role::where('name', SystemRole::DIRECTOR->value)->whereNull('organization_id')->first();
+            $ownerRole = Role::where('name', SystemRole::SUPER_ADMIN->value)->whereNull('organization_id')->first();
             $employeeRole = Role::where('name', SystemRole::EMPLOYEE->value)->whereNull('organization_id')->first();
 
             $password = Hash::make('Demo@1234');
@@ -105,6 +105,7 @@ class DemoOrganizationSeeder extends Seeder
                 'email' => 'rajesh@acmetech.example.com',
                 'password' => $password,
                 'password_set' => true,
+                'account_type' => \App\Enums\AccountType::ORGANIZATION,
                 'email_verified_at' => now(),
                 'phone' => '+919876543211',
                 'timezone' => 'Asia/Kolkata',
@@ -142,6 +143,7 @@ class DemoOrganizationSeeder extends Seeder
                 'email' => 'priya@acmetech.example.com',
                 'password' => $password,
                 'password_set' => true,
+                'account_type' => \App\Enums\AccountType::ORGANIZATION,
                 'email_verified_at' => now(),
                 'timezone' => 'Asia/Kolkata',
                 'is_active' => true,

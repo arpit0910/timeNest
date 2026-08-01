@@ -17,6 +17,9 @@ namespace App\Enums;
  */
 enum SystemPermission: string
 {
+    // ─── Platform ────────────────────────────────────────────────
+    case PLATFORM_FULL_ACCESS = 'platform.full_access';
+
     // ─── Organizations (Platform-level) ───────────────────────────
     case ORGANIZATIONS_MANAGE = 'organizations.manage';
 

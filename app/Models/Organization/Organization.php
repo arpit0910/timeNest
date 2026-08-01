@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Organization;
 
 use App\Enums\OrganizationPlan;
+use App\Enums\Organization\OrganizationType;
 use App\Models\Auth\User;
 use App\Models\Geo\Country;
 use App\Models\Geo\State;
@@ -59,6 +60,7 @@ class Organization extends Model
     {
         return [
             'plan' => OrganizationPlan::class,
+            'type' => OrganizationType::class,
             'legal_identifiers' => 'array',
             'settings' => 'array',
             'feature_flags' => 'array',

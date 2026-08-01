@@ -29,8 +29,9 @@ class PlatformRolePermissionsSeeder extends Seeder
     {
         return [
             // ─── Platform roles ─────────────────────────────────────
-            SystemRole::APP_DIRECTOR->value    => null, // ALL permissions
-            SystemRole::APP_SUPER_ADMIN->value => null, // ALL permissions
+            SystemRole::APP_SUPER_ADMIN->value => [
+                SystemPermission::PLATFORM_FULL_ACCESS,
+            ],
             SystemRole::APP_ADMIN->value       => [
                 SystemPermission::ORGANIZATIONS_MANAGE,
                 SystemPermission::USERS_VIEW,
@@ -66,7 +67,6 @@ class PlatformRolePermissionsSeeder extends Seeder
             ],
 
             // ─── Organization roles ─────────────────────────────────
-            SystemRole::DIRECTOR->value    => null, // ALL permissions
             SystemRole::SUPER_ADMIN->value => null, // ALL permissions (billing excluded at app layer)
             SystemRole::ADMIN->value       => [
                 SystemPermission::USERS_VIEW,

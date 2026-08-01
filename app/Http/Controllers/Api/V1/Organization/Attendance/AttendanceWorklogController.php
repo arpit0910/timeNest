@@ -49,7 +49,7 @@ class AttendanceWorklogController extends BaseApiController
 
         try {
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+            $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
             // Check if manager or app owner
             $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
@@ -88,7 +88,7 @@ class AttendanceWorklogController extends BaseApiController
                 ->firstOrFail();
 
             $platformRole = resolve_platform_role($user);
-            $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+            $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
             $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
                 || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value)

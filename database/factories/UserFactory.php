@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
+use App\Enums\AccountType;
 use App\Models\Auth\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +36,7 @@ class UserFactory extends Factory
             'password_set' => true,
             'is_active' => true,
             'token_version' => 1,
+            'account_type' => AccountType::FREELANCER,
         ];
     }
 

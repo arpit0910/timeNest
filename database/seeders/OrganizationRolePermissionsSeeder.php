@@ -31,8 +31,22 @@ class OrganizationRolePermissionsSeeder extends Seeder
     {
         return [
             // Org-wide administration
-            SystemRole::DIRECTOR->value    => null, // ALL permissions
             SystemRole::SUPER_ADMIN->value => null, // ALL permissions (billing excluded at app layer)
+            SystemRole::FREELANCE_TEAM_OWNER->value => [
+                SystemPermission::INVITATIONS_CREATE,
+                SystemPermission::INVITATIONS_VIEW,
+                SystemPermission::INVITATIONS_REVOKE,
+                SystemPermission::INVITATIONS_RESEND,
+                SystemPermission::USERS_INVITE,
+                SystemPermission::USERS_VIEW,
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_APPROVE,
+            ],
+            SystemRole::FREELANCE_MEMBER->value => [
+                SystemPermission::ATTENDANCE_VIEW,
+                SystemPermission::ATTENDANCE_CREATE,
+            ],
+            SystemRole::FREELANCER->value => [],
             SystemRole::ADMIN->value       => [
                 SystemPermission::USERS_VIEW,
                 SystemPermission::USERS_INVITE,

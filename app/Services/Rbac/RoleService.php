@@ -85,8 +85,8 @@ class RoleService
      */
     public function createGlobal(array $data, User $actor): Role
     {
-        if (!$actor->hasAnyRole(['app_director', 'app_super_admin'])) {
-            throw new \RuntimeException('Only platform directors and super admins can create global roles.');
+        if (! $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            throw new \RuntimeException('Only platform super admins can create global roles.');
         }
 
         return DB::transaction(function () use ($data): Role {
@@ -185,8 +185,8 @@ class RoleService
         }
 
         // SECURITY RULE: Only platform directors and super admins can assign permissions to global roles
-        if ($role->organization_id === null && !$actor->hasAnyRole(['app_director', 'app_super_admin'])) {
-            throw new \RuntimeException('Only platform directors and super admins can assign permissions to global roles.');
+        if ($role->organization_id === null && ! $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            throw new \RuntimeException('Only platform super admins can assign permissions to global roles.');
         }
 
         if (!$isPlatformAdmin) {

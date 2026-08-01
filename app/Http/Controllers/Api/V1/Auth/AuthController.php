@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Enums\AccountType;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
@@ -72,6 +73,21 @@ class AuthController extends BaseApiController
         return $this->created(
             data: new AuthTokenResource($result),
             message: $result['message'],
+        );
+    }
+
+    /**
+     * Return the public account types available during registration.
+     */
+    public function accountTypes(): JsonResponse
+    {
+        return $this->success(
+            data: array_map(static fn (AccountType $type): array => [
+                'value' => $type->value,
+                'label' => $type->label(),
+                'description' => $type->description(),
+            ], AccountType::cases()),
+            message: 'Account types retrieved',
         );
     }
 

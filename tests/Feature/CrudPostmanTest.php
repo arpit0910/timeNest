@@ -14,7 +14,7 @@ class CrudPostmanTest extends TestCase
     public function test_postman_simulation()
     {
         $user = User::whereHas('roles', function($q) {
-            $q->where('name', 'super_admin')->orWhere('name', 'director');
+            $q->where('name', \App\Enums\SystemRole::SUPER_ADMIN->value);
         })->first() ?? User::whereHas('organizations')->first();
         
         $this->actingAs($user, 'api');

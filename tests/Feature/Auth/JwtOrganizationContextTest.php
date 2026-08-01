@@ -39,10 +39,10 @@ class JwtOrganizationContextTest extends TestCase
         parent::setUp();
 
         // Roles
-        $ownerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::DIRECTOR->value, 'guard_name' => 'api']);
+        $ownerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::SUPER_ADMIN->value, 'guard_name' => 'api']);
         $managerRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::MANAGER->value, 'guard_name' => 'api']);
         $memberRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::EMPLOYEE->value, 'guard_name' => 'api']);
-        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::APP_DIRECTOR->value, 'guard_name' => 'api']);
+        $platformRole = Role::firstOrCreate(['name' => \App\Enums\SystemRole::APP_SUPER_ADMIN->value, 'guard_name' => 'api']);
 
         // Organizations
         $this->orgA = Organization::create(['legal_name' => 'Org A', 'slug' => 'org-a', 'is_active' => true]);
@@ -900,7 +900,7 @@ class JwtOrganizationContextTest extends TestCase
     public function test_7_2_jwt_scoped_to_org_a_cannot_access_org_b_data()
     {
         $permission = \App\Models\Rbac\Permission::firstOrCreate(['name' => \App\Enums\SystemPermission::BRANCHES_VIEW->value, 'guard_name' => 'api']);
-        $role = \App\Models\Rbac\Role::where('name', \App\Enums\SystemRole::DIRECTOR->value)->first();
+        $role = \App\Models\Rbac\Role::where('name', \App\Enums\SystemRole::SUPER_ADMIN->value)->first();
         $role->givePermissionTo($permission);
 
         $res = $this->loginUser($this->singleOrgUser);

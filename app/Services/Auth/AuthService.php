@@ -6,7 +6,11 @@ namespace App\Services\Auth;
 
 use App\Actions\Auth\SendEmailVerificationAction;
 use App\Actions\IssueJwtAction;
+use App\Enums\AccountType;
 use App\Enums\Guard;
+use App\Enums\Organization\OrganizationType;
+use App\Enums\SystemPermission;
+use App\Enums\SystemRole;
 use App\Exceptions\Auth\AccountInactiveException;
 use App\Exceptions\Auth\EmailNotVerifiedException;
 use App\Exceptions\Auth\InvalidCredentialsException;
@@ -23,6 +27,8 @@ use App\Models\Logging\ActivityLog;
 use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\PlatformMembership;
 use App\Models\Rbac\Role;
+use App\Services\Organization\MembershipService;
+use App\Services\Organization\OrganizationService;
 use App\Services\Auth\TempTokenService;
 use App\Exceptions\Auth\UnauthorizedException;
 use Illuminate\Auth\AuthenticationException;
@@ -52,6 +58,8 @@ class AuthService
         private readonly SendEmailVerificationAction $sendEmailVerificationAction,
         private readonly IssueJwtAction $issueJwtAction,
         private readonly TempTokenService $tempTokenService,
+        private readonly OrganizationService $organizationService,
+        private readonly MembershipService $membershipService,
     ) {}
 
     /**
@@ -118,7 +126,9 @@ class AuthService
         $verificationToken = Str::random(64);
 
         $user = DB::transaction(function () use ($data, $verificationToken) {
-            return User::create([
+            $accountType = AccountType::from($data['account_type']);
+
+            $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => $data['password'],
@@ -128,6 +138,7 @@ class AuthService
                 'phone' => $data['phone'] ?? null,
                 'timezone' => $data['timezone'] ?? 'UTC',
                 'locale' => $data['locale'] ?? 'en',
+                'account_type' => $accountType,
                 'email_verification_token' => hash('sha256', $verificationToken),
                 'email_verification_token_expires_at' => now()->addMinutes(
                     (int) config('timenest.verification.expire', 60)
@@ -136,6 +147,35 @@ class AuthService
                 'status' => UserStatus::PENDING_VERIFICATION,
                 'token_version' => 1,
             ]);
+
+            if ($accountType === AccountType::FREELANCER) {
+                return $user;
+            }
+
+            $organization = $this->organizationService->createOrganization([
+                'legal_name' => $data['organization_name'],
+                'trading_name' => $data['organization_name'],
+                'email' => $user->email,
+                'timezone' => $user->timezone,
+                'locale' => $user->locale,
+                'type' => $accountType === AccountType::ORGANIZATION
+                    ? OrganizationType::ORGANIZATION
+                    : OrganizationType::TEAM,
+            ], $user);
+
+            if ($accountType === AccountType::FREELANCE_TEAM) {
+                $ownerRole = Role::where('name', SystemRole::FREELANCE_TEAM_OWNER->value)
+                    ->where('guard_name', 'api')
+                    ->whereNull('organization_id')
+                    ->firstOrFail();
+                $membership = OrganizationMembership::where('user_id', $user->id)
+                    ->where('organization_id', $organization->id)
+                    ->firstOrFail();
+
+                $this->membershipService->changeRole($membership, $ownerRole);
+            }
+
+            return $user;
         });
 
         // Dispatch verification email AFTER transaction commit
@@ -310,8 +350,7 @@ class AuthService
             ->active()
             ->firstOrFail();
 
-        $platformRole = resolve_platform_role($user);
-        $isAppOwner = $platformRole && $platformRole->name === \App\Enums\SystemRole::APP_DIRECTOR->value;
+        $isAppOwner = $user->can(SystemPermission::PLATFORM_FULL_ACCESS->value);
 
         if (! $isAppOwner) {
             $membership = OrganizationMembership::active()
@@ -335,7 +374,7 @@ class AuthService
 
             $roleName = $role->name;
         } else {
-            $roleName = \App\Enums\SystemRole::APP_DIRECTOR->value;
+            $roleName = SystemRole::APP_SUPER_ADMIN->value;
         }
 
         // If switching, invalidate current JWT
@@ -439,6 +478,7 @@ class AuthService
                     'email' => $socialiteUser->getEmail(),
                     'password' => null,
                     'password_set' => false,
+                    'account_type' => AccountType::FREELANCER,
                     'email_verified_at' => now(), // Google email is pre-verified
                     'avatar_url' => $socialiteUser->getAvatar(),
                     'is_active' => true,
@@ -504,6 +544,13 @@ class AuthService
             'is_active' => true,
             'status' => UserStatus::ACTIVE,
         ]);
+
+        if ($user->account_type === AccountType::FREELANCER) {
+            $user->assignRole(Role::where('name', SystemRole::FREELANCER->value)
+                ->where('guard_name', 'api')
+                ->whereNull('organization_id')
+                ->firstOrFail());
+        }
 
         $this->logActivity($user, 'email_verified', 'Email address verified');
 

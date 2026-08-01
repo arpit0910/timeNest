@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
+use App\Enums\AccountType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
 
 /**
@@ -31,6 +33,8 @@ class RegisterRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20', 'regex:/^\+[1-9][0-9]{6,14}$/'],
             'timezone' => ['nullable', 'string', 'max:64', 'timezone:all'],
             'locale' => ['nullable', 'string', 'max:10'],
+            'account_type' => ['required', new Enum(AccountType::class)],
+            'organization_name' => ['required_if:account_type,organization,freelance_team', 'string', 'max:150'],
         ];
     }
 

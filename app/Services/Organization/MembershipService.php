@@ -79,6 +79,19 @@ class MembershipService
     }
 
     /**
+     * Create the creator's membership and grant the organization owner role.
+     */
+    public function assignOwner(Organization $organization, User $user, ?Role $role = null): OrganizationMembership
+    {
+        $role ??= Role::where('name', SystemRole::SUPER_ADMIN->value)
+            ->where('guard_name', 'api')
+            ->whereNull('organization_id')
+            ->firstOrFail();
+
+        return $this->addMember($organization, $user, $role);
+    }
+
+    /**
      * Change a member's role.
      */
     public function changeRole(OrganizationMembership $membership, Role $newRole): OrganizationMembership

@@ -20,15 +20,15 @@ namespace App\Enums;
 enum SystemRole: string
 {
     // ─── Platform Roles ──────────────────────────────────────────
-    case APP_DIRECTOR    = 'app_director';    // Product owner / TimeNest founder
     case APP_SUPER_ADMIN = 'app_super_admin'; // Trusted internal staff
     case APP_ADMIN       = 'app_admin';       // Internal operations/admin team
     case APP_SUPPORT     = 'app_support';     // Customer support agents
     case APP_AUDITOR     = 'app_auditor';     // Internal compliance/audit observer
 
     // ─── Organization Roles: Org-wide administration ─────────────
-    case DIRECTOR    = 'director';     // Org creator. Full control. Billing access.
     case SUPER_ADMIN = 'super_admin';  // Full org management. No billing.
+    case FREELANCE_TEAM_OWNER = 'freelance_team_owner';
+    case FREELANCE_MEMBER = 'freelance_member';
     case ADMIN       = 'admin';        // General administration. Settings, members, policies.
 
     // ─── Organization Roles: Department-scoped authority ──────────
@@ -46,6 +46,7 @@ enum SystemRole: string
 
     // ─── Organization Roles: Observers ───────────────────────────
     case VIEWER = 'viewer'; // Read-only. Auditors, board observers.
+    case FREELANCER = 'freelancer'; // Solo user without an organization membership.
 
     /**
      * Returns true if this role is a platform-level (app) role.
@@ -88,13 +89,13 @@ enum SystemRole: string
     public function label(): string
     {
         return match($this) {
-            self::APP_DIRECTOR     => 'App Director',
             self::APP_SUPER_ADMIN  => 'App Super Admin',
             self::APP_ADMIN        => 'App Admin',
             self::APP_SUPPORT      => 'Support Agent',
             self::APP_AUDITOR      => 'App Auditor',
-            self::DIRECTOR         => 'Director',
             self::SUPER_ADMIN      => 'Super Administrator',
+            self::FREELANCE_TEAM_OWNER => 'Freelance Team Owner',
+            self::FREELANCE_MEMBER => 'Freelance Member',
             self::ADMIN            => 'Administrator',
             self::HEAD             => 'Department Head',
             self::DEPARTMENT_ADMIN => 'Department Administrator',
@@ -104,6 +105,7 @@ enum SystemRole: string
             self::INTERN           => 'Intern',
             self::CONTRACTOR       => 'Contractor',
             self::VIEWER           => 'Viewer',
+            self::FREELANCER       => 'Freelancer',
         };
     }
 
@@ -115,7 +117,6 @@ enum SystemRole: string
     public static function platformRoles(): array
     {
         return [
-            self::APP_DIRECTOR,
             self::APP_SUPER_ADMIN,
             self::APP_ADMIN,
             self::APP_SUPPORT,
@@ -131,8 +132,9 @@ enum SystemRole: string
     public static function organizationRoles(): array
     {
         return [
-            self::DIRECTOR,
             self::SUPER_ADMIN,
+            self::FREELANCE_TEAM_OWNER,
+            self::FREELANCE_MEMBER,
             self::ADMIN,
             self::HEAD,
             self::DEPARTMENT_ADMIN,
@@ -142,6 +144,7 @@ enum SystemRole: string
             self::INTERN,
             self::CONTRACTOR,
             self::VIEWER,
+            self::FREELANCER,
         ];
     }
 
@@ -151,13 +154,13 @@ enum SystemRole: string
     public function description(): string
     {
         return match ($this) {
-            self::APP_DIRECTOR    => 'Absolute platform owner. No restrictions.',
             self::APP_SUPER_ADMIN => 'Platform super admin. Manages organizations, billing, platform config.',
             self::APP_ADMIN       => 'Platform admin. Daily operations, support escalations.',
             self::APP_SUPPORT     => 'Read-only access to organization data for support.',
             self::APP_AUDITOR     => 'Read-only audit access across platform.',
-            self::DIRECTOR        => 'Absolute owner of the organization. Full control incl. billing.',
             self::SUPER_ADMIN     => 'Full org access. Can manage all settings, users. No billing.',
+            self::FREELANCE_TEAM_OWNER => 'Owns a freelance team and manages invitations and attendance.',
+            self::FREELANCE_MEMBER => 'Freelance team member with attendance access.',
             self::ADMIN           => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
             self::HEAD            => 'Leads a department. Manages its people and workflows.',
             self::DEPARTMENT_ADMIN => 'Admin-level operations within a department only.',
@@ -167,6 +170,7 @@ enum SystemRole: string
             self::INTERN          => 'Temporary member with restricted access.',
             self::CONTRACTOR      => 'Project-scoped, limited access.',
             self::VIEWER          => 'Read-only observer. Auditors, board observers.',
+            self::FREELANCER      => 'Independent freelancer without a team workspace.',
         };
     }
 
@@ -177,23 +181,24 @@ enum SystemRole: string
     {
         return match ($this) {
             // Platform
-            self::APP_DIRECTOR    => 1,
-            self::APP_SUPER_ADMIN => 2,
-            self::APP_ADMIN       => 3,
-            self::APP_SUPPORT     => 4,
-            self::APP_AUDITOR     => 5,
+            self::APP_SUPER_ADMIN => 1,
+            self::APP_ADMIN       => 2,
+            self::APP_SUPPORT     => 3,
+            self::APP_AUDITOR     => 4,
             // Organization
-            self::DIRECTOR        => 1,
-            self::SUPER_ADMIN     => 2,
-            self::ADMIN           => 3,
-            self::HEAD            => 4,
-            self::DEPARTMENT_ADMIN => 5,
-            self::MANAGER         => 6,
-            self::TEAM_LEAD       => 7,
-            self::EMPLOYEE        => 8,
-            self::INTERN          => 9,
-            self::CONTRACTOR      => 10,
-            self::VIEWER          => 11,
+            self::SUPER_ADMIN     => 1,
+            self::FREELANCE_TEAM_OWNER => 2,
+            self::FREELANCE_MEMBER => 3,
+            self::ADMIN           => 4,
+            self::HEAD            => 5,
+            self::DEPARTMENT_ADMIN => 6,
+            self::MANAGER         => 7,
+            self::TEAM_LEAD       => 8,
+            self::EMPLOYEE        => 9,
+            self::INTERN          => 10,
+            self::CONTRACTOR      => 11,
+            self::VIEWER          => 12,
+            self::FREELANCER      => 13,
         };
     }
 }
