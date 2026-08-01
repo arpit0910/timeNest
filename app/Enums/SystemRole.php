@@ -27,7 +27,7 @@ enum SystemRole: string
 
     // ─── Organization Roles: Org-wide administration ─────────────
     case SUPER_ADMIN = 'super_admin';  // Full org management. No billing.
-    case FREELANCE_TEAM_OWNER = 'freelance_team_owner';
+    case FREELANCE_SUPER_ADMIN = 'freelance_super_admin';
     case FREELANCE_MEMBER = 'freelance_member';
     case ADMIN       = 'admin';        // General administration. Settings, members, policies.
 
@@ -94,7 +94,7 @@ enum SystemRole: string
             self::APP_SUPPORT      => 'Support Agent',
             self::APP_AUDITOR      => 'App Auditor',
             self::SUPER_ADMIN      => 'Super Administrator',
-            self::FREELANCE_TEAM_OWNER => 'Freelance Team Owner',
+            self::FREELANCE_SUPER_ADMIN => 'Freelance Super Admin',
             self::FREELANCE_MEMBER => 'Freelance Member',
             self::ADMIN            => 'Administrator',
             self::HEAD             => 'Department Head',
@@ -133,7 +133,7 @@ enum SystemRole: string
     {
         return [
             self::SUPER_ADMIN,
-            self::FREELANCE_TEAM_OWNER,
+            self::FREELANCE_SUPER_ADMIN,
             self::FREELANCE_MEMBER,
             self::ADMIN,
             self::HEAD,
@@ -159,7 +159,7 @@ enum SystemRole: string
             self::APP_SUPPORT     => 'Read-only access to organization data for support.',
             self::APP_AUDITOR     => 'Read-only audit access across platform.',
             self::SUPER_ADMIN     => 'Full org access. Can manage all settings, users. No billing.',
-            self::FREELANCE_TEAM_OWNER => 'Owns a freelance team and manages invitations and attendance.',
+            self::FREELANCE_SUPER_ADMIN => 'Owns a freelance team and manages invitations and attendance.',
             self::FREELANCE_MEMBER => 'Freelance team member with attendance access.',
             self::ADMIN           => 'Operational admin. Users, attendance, reports. Cannot touch billing.',
             self::HEAD            => 'Leads a department. Manages its people and workflows.',
@@ -187,7 +187,7 @@ enum SystemRole: string
             self::APP_AUDITOR     => 4,
             // Organization
             self::SUPER_ADMIN     => 1,
-            self::FREELANCE_TEAM_OWNER => 2,
+            self::FREELANCE_SUPER_ADMIN => 2,
             self::FREELANCE_MEMBER => 3,
             self::ADMIN           => 4,
             self::HEAD            => 5,

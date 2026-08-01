@@ -164,7 +164,7 @@ class AuthService
             ], $user);
 
             if ($accountType === AccountType::FREELANCE_TEAM) {
-                $ownerRole = Role::where('name', SystemRole::FREELANCE_TEAM_OWNER->value)
+                $ownerRole = Role::where('name', SystemRole::FREELANCE_SUPER_ADMIN->value)
                     ->where('guard_name', 'api')
                     ->whereNull('organization_id')
                     ->firstOrFail();
