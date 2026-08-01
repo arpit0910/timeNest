@@ -314,8 +314,10 @@ class OrganizationRolePermissionsSeeder extends Seeder
             ]);
 
             if ($permissions === null) {
-                // Wildcard: assign ALL permissions for this guard
-                $perms = Permission::where('guard_name', $role->guard_name)->get();
+                // Organization roles must never receive platform.* permissions.
+                $perms = Permission::where('guard_name', $role->guard_name)
+                    ->where('name', 'not like', 'platform.%')
+                    ->get();
             } else {
                 // Map enum cases to permission name strings
                 $permissionNames = array_map(fn (SystemPermission $p) => $p->value, $permissions);

@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceWorklog::class, \App\Policies\AttendanceWorklogPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceAdjustmentRequest::class, \App\Policies\AttendanceAdjustmentPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceEscalation::class, \App\Policies\AttendanceEscalationPolicy::class);
+        \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceDay::class, \App\Policies\AttendanceDayPolicy::class);
 
         // Centralized platform root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {

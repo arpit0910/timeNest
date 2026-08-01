@@ -87,6 +87,8 @@ class AttendanceWorklogController extends BaseApiController
                 ->where('organization_id', $this->getOrganization()->id)
                 ->firstOrFail();
 
+            $this->authorize('view', $day);
+
             $platformRole = resolve_platform_role($user);
             $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
