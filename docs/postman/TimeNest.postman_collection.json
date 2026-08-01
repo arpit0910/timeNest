@@ -117,7 +117,34 @@
             "description": "Authentication endpoints for user registration, multi-factor validation, token rotation, and workspace context selection.",
             "item": [
                 {
-                    "name": "Register",
+                    "name": "Get Account Types",
+                    "request": {
+                        "method": "GET",
+                        "header": [{"key": "Accept", "value": "application/json"}],
+                        "url": {"raw": "{{base_url}}/auth/account-types", "host": ["{{base_url}}"], "path": ["auth", "account-types"], "query": []},
+                        "description": "Public registration account types with labels and descriptions."
+                    }
+                },
+                {
+                    "name": "Register - Freelance Team",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Accept", "value": "application/json"}, {"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "urlencoded", "urlencoded": [{"key": "name", "value": "Ava Patel"}, {"key": "email", "value": "ava.patel@example.com"}, {"key": "password", "value": "TimeNest@Owner#1"}, {"key": "password_confirmation", "value": "TimeNest@Owner#1"}, {"key": "account_type", "value": "freelance_team"}, {"key": "organization_name", "value": "Ava Creative Collective"}, {"key": "timezone", "value": "Asia/Kolkata"}, {"key": "locale", "value": "en"}]},
+                        "url": {"raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"], "query": []}
+                    }
+                },
+                {
+                    "name": "Register - Freelancer",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Accept", "value": "application/json"}, {"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "urlencoded", "urlencoded": [{"key": "name", "value": "Sam Lee"}, {"key": "email", "value": "sam.lee@example.com"}, {"key": "password", "value": "TimeNest@Owner#1"}, {"key": "password_confirmation", "value": "TimeNest@Owner#1"}, {"key": "account_type", "value": "freelancer"}, {"key": "timezone", "value": "UTC"}, {"key": "locale", "value": "en"}]},
+                        "url": {"raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"], "query": []}
+                    }
+                },
+                {
+                    "name": "Register - Organization",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -150,7 +177,7 @@
                             ],
                             "query": []
                         },
-                        "description": "Create a new user account."
+                        "description": "Create an organization account. Required: account_type=organization and organization_name."
                     }
                 },
                 {
