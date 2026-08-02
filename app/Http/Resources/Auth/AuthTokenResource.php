@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Auth;
 
+use App\Enums\SystemRole;
+use App\Http\Resources\Organization\OrganizationSummaryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -42,6 +44,13 @@ class AuthTokenResource extends JsonResource
         }
         if (isset($this->resource['role'])) {
             $data['role'] = $this->resource['role'];
+            $data['role_label'] = SystemRole::tryFrom($this->resource['role'])?->label();
+        }
+
+        // Effective permissions for the active organization (or platform/none),
+        // computed by AuthService::getEffectivePermissions() — never derived here.
+        if (isset($this->resource['permissions'])) {
+            $data['permissions'] = $this->resource['permissions'];
         }
 
         // User data
@@ -51,16 +60,7 @@ class AuthTokenResource extends JsonResource
 
         // Organization data
         if (isset($this->resource['organization'])) {
-            $organization = $this->resource['organization'];
-            $data['organization'] = [
-                'uuid' => $organization->uuid,
-                'legal_name' => $organization->legal_name,
-                'trading_name' => $organization->trading_name,
-                'slug' => $organization->slug,
-                'logo_url' => $organization->logo_url,
-                'type' => $organization->type?->value,
-                'type_label' => $organization->type?->label(),
-            ];
+            $data['organization'] = new OrganizationSummaryResource($this->resource['organization']);
         }
 
         // Workspace list for selection

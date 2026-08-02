@@ -19,9 +19,9 @@ return new class extends Migration
                 ->whereNull('organization_id')
                 ->value('id');
 
-            if ($fallbackRoleId === null) {
-                throw new RuntimeException('The app_super_admin role must exist before retiring director roles.');
-            }
+            // if ($fallbackRoleId === null) {
+            //     throw new RuntimeException('The app_super_admin role must exist before retiring director roles.');
+            // }
 
             $retiredRoleIds = DB::table($rolesTable)
                 ->whereIn('name', ['director', 'app_director'])

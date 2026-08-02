@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Enums\AccountType;
+use App\Enums\SystemRole;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
@@ -14,6 +15,8 @@ use App\Http\Requests\Auth\ResendVerificationRequest;
 use App\Http\Requests\Auth\SelectOrganizationRequest;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Http\Resources\Auth\UserResource;
+use App\Http\Resources\Organization\OrganizationSummaryResource;
+use App\Models\Organization\Organization;
 use App\Services\Auth\AuthService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
@@ -143,6 +146,34 @@ class AuthController extends BaseApiController
         return $this->success(
             data: new UserResource($request->user()),
             message: 'User profile retrieved',
+        );
+    }
+
+    /**
+     * GET /api/v1/auth/me
+     *
+     * Lightweight "who am I" endpoint: identity, active organization, role,
+     * and effective permissions for that organization — for refreshing the
+     * client's permission set without a full re-login (e.g. after switching
+     * workspace elsewhere, or on pull-to-refresh). Any authenticated user can
+     * call this for their OWN data; not gated behind any elevated permission.
+     */
+    public function me(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $organizationUuid = current_organization_uuid();
+        $organization = $organizationUuid ? Organization::where('uuid', $organizationUuid)->first() : null;
+        $roleName = jwt_role();
+
+        return $this->success(
+            data: [
+                'user' => new UserResource($user),
+                'organization' => $organization ? new OrganizationSummaryResource($organization) : null,
+                'role' => $roleName,
+                'role_label' => $roleName ? SystemRole::tryFrom($roleName)?->label() : null,
+                'permissions' => $this->authService->getEffectivePermissions($user, $organization),
+            ],
+            message: 'Current user retrieved',
         );
     }
 

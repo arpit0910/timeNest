@@ -34,6 +34,7 @@ Route::middleware(['throttle:auth'])->group(function (): void {
 // Full JWT authenticated routes
 Route::middleware(['tm.jwt.auth', 'jwt.full'])->controller(AuthController::class)->group(function (): void {
     Route::get('user/profile', 'profile')->name('user.profile');
+    Route::get('me', 'me')->name('me');
     Route::post('change-password', 'changePassword')->name('change-password');
     Route::post('logout', 'logout')->name('logout');
     Route::post('logout-all', 'logoutAll')->name('logout-all');

@@ -402,7 +402,36 @@ class AuthService
             'expires_in' => config('jwt.ttl') * 60,
             'organization' => $organization,
             'role' => $roleName,
+            'permissions' => $this->getEffectivePermissions($user, $organization),
         ];
+    }
+
+    /**
+     * Resolve a user's effective permission names, scoped to the given
+     * organization (or platform/no scope when $organization is null).
+     *
+     * Single source of truth for this scoping — used by login,
+     * selectOrganization, and the GET /auth/me endpoint, so the client
+     * never sees a permission set computed a different way in different
+     * places. Spatie permissions are team-scoped by organization_id
+     * (config/permission.php: teams => true, team_foreign_key =>
+     * 'organization_id'); the team context is set immediately before
+     * reading, then reset to null in a finally block so no scoped state
+     * leaks into whatever runs next in the same process (matches the
+     * reset-after-use pattern already used elsewhere, e.g.
+     * AttendanceWorklogController).
+     *
+     * @return string[]
+     */
+    public function getEffectivePermissions(User $user, ?Organization $organization): array
+    {
+        setPermissionsTeamId($organization?->id);
+
+        try {
+            return $user->getAllPermissions()->pluck('name')->values()->all();
+        } finally {
+            setPermissionsTeamId(null);
+        }
     }
 
     /**
@@ -674,6 +703,7 @@ class AuthService
                 'guard' => Guard::PLATFORM->value,
                 'role' => $roleName,
                 'user' => $user,
+                'permissions' => $this->getEffectivePermissions($user, null),
             ];
         }
 
@@ -688,6 +718,7 @@ class AuthService
                 'status' => 'no_workspace',
                 'message' => 'No active workspace found. You may need an invitation to join an organization.',
                 'user' => $user,
+                'permissions' => $this->getEffectivePermissions($user, null),
             ];
         }
 
@@ -720,6 +751,7 @@ class AuthService
                 'role' => $roleName,
                 'organization' => $organization,
                 'user' => $user,
+                'permissions' => $this->getEffectivePermissions($user, $organization),
             ];
         }
 
