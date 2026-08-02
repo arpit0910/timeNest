@@ -51,12 +51,15 @@ class AuthTokenResource extends JsonResource
 
         // Organization data
         if (isset($this->resource['organization'])) {
+            $organization = $this->resource['organization'];
             $data['organization'] = [
-                'uuid' => $this->resource['organization']->uuid,
-                'legal_name' => $this->resource['organization']->legal_name,
-                'trading_name' => $this->resource['organization']->trading_name,
-                'slug' => $this->resource['organization']->slug,
-                'logo_url' => $this->resource['organization']->logo_url,
+                'uuid' => $organization->uuid,
+                'legal_name' => $organization->legal_name,
+                'trading_name' => $organization->trading_name,
+                'slug' => $organization->slug,
+                'logo_url' => $organization->logo_url,
+                'type' => $organization->type?->value,
+                'type_label' => $organization->type?->label(),
             ];
         }
 

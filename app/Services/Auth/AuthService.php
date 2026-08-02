@@ -412,7 +412,7 @@ class AuthService
     {
         $orgMemberships = OrganizationMembership::active()
             ->where('user_id', $user->id)
-            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url'])
+            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url,type'])
             ->get();
 
         $platformMembership = PlatformMembership::active()
@@ -431,6 +431,8 @@ class AuthService
                     'trading_name' => $m->organization->trading_name,
                     'slug' => $m->organization->slug,
                     'logo_url' => $m->organization->logo_url,
+                    'type' => $m->organization->type?->value,
+                    'type_label' => $m->organization->type?->label(),
                     'role' => $role?->name,
                     'joined_at' => $m->joined_at?->toISOString(),
                 ];
@@ -678,7 +680,7 @@ class AuthService
         // Check org memberships
         $orgMemberships = OrganizationMembership::active()
             ->where('user_id', $user->id)
-            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url'])
+            ->with(['organization:id,uuid,legal_name,trading_name,slug,logo_url,type'])
             ->get();
 
         if ($orgMemberships->isEmpty()) {
@@ -733,6 +735,8 @@ class AuthService
                 'trading_name' => $m->organization->trading_name,
                 'slug' => $m->organization->slug,
                 'logo_url' => $m->organization->logo_url,
+                'type' => $m->organization->type?->value,
+                'type_label' => $m->organization->type?->label(),
                 'role' => $role?->name,
             ];
         })->toArray();
