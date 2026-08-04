@@ -11,6 +11,7 @@ use App\Models\Organization\Organization;
 use App\Models\Organization\OrganizationMembership;
 use App\Models\Membership\EmployeeProfile;
 use App\Models\Rbac\Role;
+use App\Services\Attendance\AttendancePolicyService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -65,6 +66,8 @@ class RealisticOrganizationsSeeder extends Seeder
                 // Set team id for Spatie permissions to scope roles to this org
                 setPermissionsTeamId($org->id);
 
+                $orgOwner = null;
+
                 foreach ($orgRoles as $roleName) {
                     $role = Role::where('name', $roleName)->whereNull('organization_id')->first();
                     if (!$role) continue;
@@ -106,7 +109,13 @@ class RealisticOrganizationsSeeder extends Seeder
                     ]);
 
                     $user->assignRole($role);
+
+                    if ($roleName === SystemRole::SUPER_ADMIN->value) {
+                        $orgOwner = $user;
+                    }
                 }
+
+                app(AttendancePolicyService::class)->createDefaultPolicy($org, $orgOwner);
             }
         });
 

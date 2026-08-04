@@ -56,7 +56,7 @@ class AttendanceWorklogController extends BaseApiController
                 || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value);
 
             $query = AttendanceWorklog::where('organization_id', $this->getOrganization()->id)
-                ->with(['project', 'milestone', 'task', 'statusHistories']);
+                ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
             if (! $canViewAll) {
                 $query->where('user_id', $user->id);

@@ -186,7 +186,10 @@ class AttendanceCalculationService
         if ($worklogPolicy && $totalSessions > 0) {
             $hasOpenSession = $sessions->whereNull('clock_out_at')->isNotEmpty();
             if (! $hasOpenSession) {
-                if ($worklogPolicy->strict_mode_enabled || $worklogPolicy->require_worklog_on_clockout) {
+                // strict_mode_enabled was replaced by the worklog_mode enum column
+                // in the 2026_06_09_220002_recreate_worklog_policy_tables migration;
+                // this call site was never updated to match.
+                if ((int) $worklogPolicy->worklog_mode === \App\Enums\Worklog\WorklogMode::STRICT->value || $worklogPolicy->require_worklog_on_clockout) {
                     // Check if there is at least one submitted or approved worklog
                     $hasSubmittedWorklog = $attendanceDay->worklogs()
                         ->whereIn('worklog_status', [

@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Enums\MembershipStatus;
 use App\Enums\SystemRole;
 use App\Models\Auth\User;
+use App\Services\Attendance\AttendancePolicyService;
 use App\Models\Organization\Branch;
 use App\Models\Organization\Organization;
 use App\Models\Organization\Department;
@@ -135,6 +136,8 @@ class DemoOrganizationSeeder extends Seeder
                 'joining_date' => '2024-01-01',
                 'is_active' => true,
             ]);
+
+            app(AttendancePolicyService::class)->createDefaultPolicy($org, $owner);
 
             // Demo employee
             $emp = User::create([

@@ -31,10 +31,16 @@ class AttendanceController extends BaseApiController
     public function clockIn(ClockInRequest $request): JsonResponse
     {
         $user = auth()->user();
-        $data = array_merge($request->validated(), [
+        $validated = $request->validated();
+        $data = [
+            'source' => $validated['clock_in_source'],
+            'device_id' => $validated['clock_in_device_id'] ?? null,
+            'latitude' => $validated['clock_in_latitude'],
+            'longitude' => $validated['clock_in_longitude'],
+            'accuracy' => $validated['clock_in_accuracy'] ?? null,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-        ]);
+        ];
 
         $session = $this->attendanceService->clockIn($user, $this->getOrganization(), $data);
 
@@ -50,10 +56,16 @@ class AttendanceController extends BaseApiController
     public function clockOut(ClockOutRequest $request): JsonResponse
     {
         $user = auth()->user();
-        $data = array_merge($request->validated(), [
+        $validated = $request->validated();
+        $data = [
+            'source' => $validated['clock_out_source'],
+            'device_id' => $validated['clock_out_device_id'] ?? null,
+            'latitude' => $validated['clock_out_latitude'],
+            'longitude' => $validated['clock_out_longitude'],
+            'accuracy' => $validated['clock_out_accuracy'] ?? null,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
-        ]);
+        ];
 
         $session = $this->attendanceService->clockOut($user, $this->getOrganization(), $data);
 

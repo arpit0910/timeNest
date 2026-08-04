@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attendance;
 
+use App\Enums\Attendance\AttendanceMode;
 use App\Enums\AttendanceAdjustmentStatusEnum;
 use App\Enums\AttendanceAdjustmentTypeEnum;
 use App\Enums\AttendanceComplianceStatusEnum;

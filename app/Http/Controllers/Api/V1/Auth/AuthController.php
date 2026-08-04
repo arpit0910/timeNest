@@ -13,6 +13,7 @@ use App\Http\Requests\Auth\RefreshTokenRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResendVerificationRequest;
 use App\Http\Requests\Auth\SelectOrganizationRequest;
+use App\Http\Requests\Auth\UpdateProfileRequest;
 use App\Http\Resources\Auth\AuthTokenResource;
 use App\Http\Resources\Auth\UserResource;
 use App\Http\Resources\Organization\OrganizationSummaryResource;
@@ -146,6 +147,27 @@ class AuthController extends BaseApiController
         return $this->success(
             data: new UserResource($request->user()),
             message: 'User profile retrieved',
+        );
+    }
+
+    /**
+     * PATCH /api/v1/auth/user/profile
+     *
+     * Self-service update of the caller's own identity fields. No elevated
+     * permission required — a user editing their own name/phone/timezone/
+     * locale/avatar is not an authorization concern, unlike
+     * EmployeeProfileController (employment metadata, gated behind
+     * employee_profile.manage). Email and password are deliberately excluded
+     * here — those go through their own dedicated, more sensitive flows.
+     */
+    public function updateProfile(UpdateProfileRequest $request): JsonResponse
+    {
+        $user = $request->user();
+        $user->update($request->validated());
+
+        return $this->success(
+            data: new UserResource($user->fresh()),
+            message: 'Profile updated successfully.',
         );
     }
 
