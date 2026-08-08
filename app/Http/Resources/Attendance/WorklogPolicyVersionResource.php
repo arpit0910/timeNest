@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Worklog;
+namespace App\Http\Resources\Attendance;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

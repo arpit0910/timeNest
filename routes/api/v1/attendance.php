@@ -46,6 +46,7 @@ Route::prefix('policy')->name('policy.')->controller(AttendancePolicyController:
 Route::prefix('worklog-policy')->name('worklog-policy.')->controller(WorklogPolicyController::class)->group(function () {
     Route::get('/', 'show')->middleware('permission:' . SystemPermission::WORKLOG_POLICY_VIEW->value)->name('show');
     Route::patch('/', 'update')->middleware('permission:' . SystemPermission::WORKLOG_POLICY_MANAGE->value)->name('update');
+    Route::get('versions', 'versions')->middleware('permission:' . SystemPermission::WORKLOG_POLICY_VIEW->value)->name('versions');
 });
 
 // 🔹 Attendance Worklogs (AttendanceWorklogController) 🔹

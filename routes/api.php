@@ -73,18 +73,6 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
             Route::delete('leave/types/{uuid}', 'destroy');
         });
 
-    // Worklog Policy Routes
-    Route::prefix('worklog/policy')
-        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
-        ->controller(\App\Http\Controllers\Api\Worklog\WorklogPolicyController::class)
-        ->group(function (): void {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::get('/{uuid}', 'show');
-            Route::put('/{uuid}', 'update');
-            Route::get('/{uuid}/versions', 'versions');
-        });
-
     // Attendance Clock Routes
     // Route::prefix('attendance')
     //     ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])

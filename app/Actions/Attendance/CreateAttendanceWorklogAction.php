@@ -28,7 +28,7 @@ class CreateAttendanceWorklogAction
     {
         return DB::transaction(function () use ($user, $day, $data) {
             // 1. Get worklog policy
-            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization);
+            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization, $user);
 
             // 2. Validate payload details
             $this->validationService->validate($user, $day, $worklogPolicy, $data);
