@@ -10,15 +10,19 @@ use App\Enums\AttendanceAdjustmentTypeEnum;
 use App\Enums\AttendanceComplianceStatusEnum;
 use App\Enums\AttendanceSessionSourceEnum;
 use App\Enums\AttendanceStatusEnum;
+use App\Enums\Leave\LeaveStatus;
+use App\Enums\Leave\LeaveType as LeaveTypeEnum;
 use App\Enums\SystemPermission;
 use App\Exceptions\Business\AuthorizationException;
 use App\Exceptions\Business\BusinessRuleViolationException;
+use App\Exceptions\Leave\LeaveAttendanceConflictException;
 use App\Models\Attendance\AttendanceAdjustmentRequest;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceActivityLog;
 use App\Models\Attendance\AttendanceEscalation;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Auth\User;
+use App\Models\Leave\EmployeeLeave;
 use App\Models\Organization\Organization;
 use App\Models\Membership\EmployeeProfile;
 use App\Policies\Concerns\ResolvesApprovalHierarchy;
@@ -292,6 +296,21 @@ class AttendanceService
      */
     public function submitAdjustment(User $user, AttendanceDay $day, array $data): AttendanceAdjustmentRequest
     {
+        // Reverse check: Block adjustment submission if an approved leave exists for the target date (excluding WFH / EWD)
+        $hasApprovedLeave = EmployeeLeave::where('user_id', $day->user_id)
+            ->whereNotIn('leave_type', [
+                LeaveTypeEnum::WORK_FROM_HOME->value,
+                LeaveTypeEnum::EXTRA_WORKING_DAY->value,
+            ])
+            ->whereIn('leave_status', [LeaveStatus::APPROVED->value, LeaveStatus::AUTO_APPROVED->value])
+            ->where('start_date', '<=', $day->attendance_date)
+            ->where('end_date', '>=', $day->attendance_date)
+            ->exists();
+
+        if ($hasApprovedLeave) {
+            throw new LeaveAttendanceConflictException("Cannot submit attendance adjustment: an approved leave request exists for date {$day->attendance_date}.");
+        }
+
         return DB::transaction(function () use ($user, $day, $data) {
             $sessionUuid = $data['attendance_session_uuid'] ?? null;
             $sessionId = null;

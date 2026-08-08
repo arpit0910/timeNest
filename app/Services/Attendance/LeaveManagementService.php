@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Attendance;
 
+use App\Enums\AttendanceAdjustmentStatusEnum;
 use App\Enums\Leave\LeaveStatus;
 use App\Enums\Leave\LeaveType;
 use App\Exceptions\Business\BusinessRuleViolationException;
+use App\Exceptions\Leave\LeaveAttendanceConflictException;
+use App\Models\Attendance\AttendanceAdjustmentRequest;
+use App\Models\Attendance\AttendanceDay;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Auth\User;
 use App\Models\Organization\Organization;
@@ -29,6 +33,35 @@ class LeaveManagementService
 
         // Overlap detection
         $this->detectOverlap($user->id, $startDate, $endDate);
+
+        $leaveType = LeaveType::from((int) $data['leave_type']);
+
+        // Leave ↔ Attendance Adjustment / Activity Overlap Block
+        if (! in_array($leaveType, [LeaveType::WORK_FROM_HOME, LeaveType::EXTRA_WORKING_DAY], true)) {
+            $conflictingAdjustment = AttendanceAdjustmentRequest::where('status', AttendanceAdjustmentStatusEnum::APPROVED->value)
+                ->whereHas('attendanceDay', function ($q) use ($user, $startDate, $endDate) {
+                    $q->where('user_id', $user->id)
+                      ->whereBetween('attendance_date', [$startDate, $endDate]);
+                })
+                ->with('attendanceDay')
+                ->first();
+
+            if ($conflictingAdjustment && $conflictingAdjustment->attendanceDay) {
+                $dateStr = $conflictingAdjustment->attendanceDay->attendance_date;
+                throw new LeaveAttendanceConflictException("Cannot submit leave: an approved attendance adjustment already exists for date {$dateStr}.");
+            }
+
+            $conflictingDay = AttendanceDay::where('user_id', $user->id)
+                ->where('organization_id', $organization->id)
+                ->whereBetween('attendance_date', [$startDate, $endDate])
+                ->where('total_sessions', '>', 0)
+                ->first();
+
+            if ($conflictingDay) {
+                $dateStr = $conflictingDay->attendance_date;
+                throw new LeaveAttendanceConflictException("Cannot submit leave: attendance activity already recorded for date {$dateStr}.");
+            }
+        }
 
         // Calculate total days
         $start = Carbon::parse($startDate);

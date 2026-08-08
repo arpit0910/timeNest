@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\Leave;
 
+use App\Enums\AttendanceAdjustmentStatusEnum;
 use App\Enums\Leave\ApprovalFlow;
 use App\Enums\Leave\LeaveStatus;
 use App\Enums\Leave\LeaveType as LeaveTypeEnum;
+use App\Enums\SystemPermission;
 use App\Exceptions\Leave\InsufficientLeaveBalanceException;
 use App\Exceptions\Leave\LeaveAdvanceNoticeException;
+use App\Exceptions\Leave\LeaveAttendanceConflictException;
 use App\Exceptions\Leave\LeaveCancellationNotAllowedException;
 use App\Exceptions\Leave\LeaveDocumentRequiredException;
 use App\Exceptions\Leave\LeaveOverlapException;
@@ -16,6 +19,8 @@ use App\Exceptions\Leave\LeaveRequestAlreadyProcessedException;
 use App\Exceptions\Leave\LeaveRequestNotFoundException;
 use App\Exceptions\Leave\LeaveTypeNotActiveException;
 use App\Exceptions\Leave\UnauthorizedLeaveActionException;
+use App\Models\Attendance\AttendanceAdjustmentRequest;
+use App\Models\Attendance\AttendanceDay;
 use App\Models\Auth\User;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Leave\LeaveBalance;
@@ -24,6 +29,7 @@ use App\Models\Leave\LeaveStatusHistory;
 use App\Models\Leave\LeaveType;
 use App\Models\Organization\Organization;
 use App\Models\Attendance\OrganizationHoliday;
+use App\Policies\Concerns\ResolvesApprovalHierarchy;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -32,6 +38,7 @@ use Illuminate\Validation\ValidationException;
 
 class LeaveRequestService
 {
+    use ResolvesApprovalHierarchy;
     public function __construct(
         private LeavePolicyService $leavePolicyService,
         private LeaveTypeService $leaveTypeService
@@ -284,52 +291,102 @@ class LeaveRequestService
 
     public function getLeaveRequests(Organization $organization, User $viewer, array $filters): LengthAwarePaginator
     {
-        $query = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy'])
-            ->where('organization_id', $organization->id);
+        setPermissionsTeamId($organization->id);
 
-        if (!$viewer->can('leave.request.view_all')) {
-            $query->where('user_id', $viewer->id);
-        } else if (isset($filters['user_id'])) {
-            $user = User::where('uuid', $filters['user_id'])->first();
-            if ($user) {
-                $query->where('user_id', $user->id);
+        try {
+            $canApproveAny = $viewer->hasPermissionTo(SystemPermission::LEAVES_APPROVE_ANY->value)
+                || $viewer->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)
+                || $viewer->can(SystemPermission::LEAVES_APPROVE_ANY->value);
+
+            $canApprove = $viewer->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value)
+                || $viewer->hasPermissionTo(SystemPermission::LEAVES_VIEW->value)
+                || $viewer->can(SystemPermission::LEAVES_APPROVE->value)
+                || $viewer->can(SystemPermission::LEAVES_VIEW->value);
+
+            $query = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy'])
+                ->where('organization_id', $organization->id);
+
+            $userParam = $filters['user_id'] ?? $filters['user_uuid'] ?? null;
+
+            if ($canApproveAny) {
+                if ($userParam !== null) {
+                    $targetUser = User::where('uuid', $userParam)->orWhere('id', $userParam)->first();
+                    if ($targetUser) {
+                        $query->where('user_id', $targetUser->id);
+                    }
+                }
+            } elseif ($canApprove) {
+                $subordinateUserIds = $this->getSubordinateUserIds($viewer, $organization->id);
+                $allowedUserIds = array_merge([$viewer->id], $subordinateUserIds);
+
+                if ($userParam !== null) {
+                    $targetUser = User::where('uuid', $userParam)->orWhere('id', $userParam)->first();
+                    if ($targetUser) {
+                        if (! in_array($targetUser->id, $allowedUserIds, true)) {
+                            throw new UnauthorizedLeaveActionException('You are not authorized to view leave requests for this user.');
+                        }
+                        $query->where('user_id', $targetUser->id);
+                    }
+                } else {
+                    $query->whereIn('user_id', $allowedUserIds);
+                }
+            } else {
+                if ($userParam !== null) {
+                    $targetUser = User::where('uuid', $userParam)->orWhere('id', $userParam)->first();
+                    if ($targetUser && $targetUser->id !== $viewer->id) {
+                        throw new UnauthorizedLeaveActionException('Insufficient scope to view leave requests for other users.');
+                    }
+                }
+                $query->where('user_id', $viewer->id);
             }
-        }
 
-        if (isset($filters['start_date'])) {
-            $query->where('start_date', '>=', $filters['start_date']);
-        }
-
-        if (isset($filters['end_date'])) {
-            $query->where('end_date', '<=', $filters['end_date']);
-        }
-
-        if (isset($filters['leave_status'])) {
-            $query->where('leave_status', $filters['leave_status']);
-        }
-
-        if (isset($filters['leave_type_id'])) {
-            $leaveType = LeaveType::where('uuid', $filters['leave_type_id'])->first();
-            if ($leaveType) {
-                $query->where('leave_type_id', $leaveType->id);
+            if (isset($filters['start_date'])) {
+                $query->where('start_date', '>=', $filters['start_date']);
             }
-        }
 
-        return $query->orderBy('created_at', 'desc')->paginate($filters['per_page'] ?? 20);
+            if (isset($filters['end_date'])) {
+                $query->where('end_date', '<=', $filters['end_date']);
+            }
+
+            if (isset($filters['leave_status'])) {
+                $query->where('leave_status', $filters['leave_status']);
+            }
+
+            if (isset($filters['leave_type_id'])) {
+                $leaveType = LeaveType::where('uuid', $filters['leave_type_id'])->first();
+                if ($leaveType) {
+                    $query->where('leave_type_id', $leaveType->id);
+                }
+            }
+
+            return $query->orderBy('created_at', 'desc')->paginate((int) ($filters['per_page'] ?? 20));
+        } finally {
+            setPermissionsTeamId(null);
+        }
     }
 
     public function getLeaveRequest(string $uuid, Organization $organization, User $viewer): EmployeeLeave
     {
-        $leave = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy', 'statusHistories'])
-            ->where('uuid', $uuid)
-            ->where('organization_id', $organization->id)
-            ->firstOrFail();
+        setPermissionsTeamId($organization->id);
 
-        if ($leave->user_id !== $viewer->id && !$viewer->can('leave.request.view_all')) {
-            throw new UnauthorizedLeaveActionException();
+        try {
+            $leave = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy', 'statusHistories'])
+                ->where('uuid', $uuid)
+                ->where('organization_id', $organization->id)
+                ->firstOrFail();
+
+            $canView = $leave->user_id === $viewer->id
+                || $this->canViewUser($viewer, $leave->user_id, $organization->id, SystemPermission::LEAVES_VIEW, SystemPermission::LEAVES_APPROVE_ANY)
+                || $this->canViewUser($viewer, $leave->user_id, $organization->id, SystemPermission::LEAVES_APPROVE, SystemPermission::LEAVES_APPROVE_ANY);
+
+            if (! $canView) {
+                throw new UnauthorizedLeaveActionException();
+            }
+
+            return $leave;
+        } finally {
+            setPermissionsTeamId(null);
         }
-
-        return $leave;
     }
 
     public function getLeaveBalance(Organization $organization, User $user, int $year): Collection
@@ -495,6 +552,38 @@ class LeaveRequestService
 
         if ($overlapQuery->exists()) {
             throw new LeaveOverlapException();
+        }
+
+        // Leave ↔ Attendance Adjustment / Activity Overlap Block
+        $isExcludedLeaveType = in_array((int) $leaveType->code, [
+            LeaveTypeEnum::WORK_FROM_HOME->value,
+            LeaveTypeEnum::EXTRA_WORKING_DAY->value,
+        ], true) || in_array(strtoupper((string) $leaveType->code), ['WORK_FROM_HOME', 'EXTRA_WORKING_DAY', 'WFH', 'EWD'], true);
+
+        if (! $isExcludedLeaveType) {
+            $conflictingAdjustment = AttendanceAdjustmentRequest::where('status', AttendanceAdjustmentStatusEnum::APPROVED->value)
+                ->whereHas('attendanceDay', function ($q) use ($user, $start, $end) {
+                    $q->where('user_id', $user->id)
+                      ->whereBetween('attendance_date', [$start->toDateString(), $end->toDateString()]);
+                })
+                ->with('attendanceDay')
+                ->first();
+
+            if ($conflictingAdjustment && $conflictingAdjustment->attendanceDay) {
+                $dateStr = $conflictingAdjustment->attendanceDay->attendance_date;
+                throw new LeaveAttendanceConflictException("Cannot submit leave: an approved attendance adjustment already exists for date {$dateStr}.");
+            }
+
+            $conflictingDay = AttendanceDay::where('user_id', $user->id)
+                ->where('organization_id', $organization->id)
+                ->whereBetween('attendance_date', [$start->toDateString(), $end->toDateString()])
+                ->where('total_sessions', '>', 0)
+                ->first();
+
+            if ($conflictingDay) {
+                $dateStr = $conflictingDay->attendance_date;
+                throw new LeaveAttendanceConflictException("Cannot submit leave: attendance activity already recorded for date {$dateStr}.");
+            }
         }
     }
 

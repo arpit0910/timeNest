@@ -36,7 +36,7 @@ class UserFactory extends Factory
             'password_set' => true,
             'is_active' => true,
             'token_version' => 1,
-            'account_type' => AccountType::FREELANCER,
+            'account_type' => \App\Enums\AccountType::FREELANCER->value,
         ];
     }
 
