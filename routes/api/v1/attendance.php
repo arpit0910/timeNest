@@ -54,6 +54,8 @@ Route::controller(AttendanceWorklogController::class)->group(function () {
     Route::get('days/{dayUuid}/worklogs', 'forDay')->middleware('permission:' . SystemPermission::WORKLOG_VIEW->value)->name('days.worklogs.index');
     Route::get('worklogs', 'index')->middleware('permission:' . SystemPermission::WORKLOG_VIEW->value)->name('worklogs.index');
     Route::get('worklogs/{uuid}', 'show')->middleware('permission:' . SystemPermission::WORKLOG_VIEW->value)->name('worklogs.show');
+    Route::put('worklogs/{uuid}', 'update')->middleware('permission:' . SystemPermission::WORKLOG_CREATE->value)->name('worklogs.update');
+    Route::delete('worklogs/{uuid}', 'destroy')->middleware('permission:' . SystemPermission::WORKLOG_CREATE->value)->name('worklogs.destroy');
     Route::post('worklogs/{uuid}/approve', 'approve')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value)->name('worklogs.approve');
     Route::post('worklogs/{uuid}/reject', 'reject')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value)->name('worklogs.reject');
 });

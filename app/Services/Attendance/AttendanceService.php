@@ -10,20 +10,27 @@ use App\Enums\AttendanceAdjustmentTypeEnum;
 use App\Enums\AttendanceComplianceStatusEnum;
 use App\Enums\AttendanceSessionSourceEnum;
 use App\Enums\AttendanceStatusEnum;
+use App\Enums\SystemPermission;
+use App\Exceptions\Business\AuthorizationException;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Attendance\AttendanceAdjustmentRequest;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceActivityLog;
+use App\Models\Attendance\AttendanceEscalation;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Auth\User;
 use App\Models\Organization\Organization;
 use App\Models\Membership\EmployeeProfile;
+use App\Policies\Concerns\ResolvesApprovalHierarchy;
 use Carbon\Carbon;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class AttendanceService
 {
+    use ResolvesApprovalHierarchy;
+
     public function __construct(
         private readonly GeofenceService $geofenceService,
         private readonly AttendancePolicyService $policyService,
@@ -32,13 +39,29 @@ class AttendanceService
     ) {}
 
     /**
+     * The calendar date (Y-m-d) "today" resolves to for this user, in their
+     * branch/user timezone rather than the app's own (UTC) — shared by
+     * clockOut() and AttendanceController::today() so a day boundary is
+     * drawn consistently everywhere it's checked.
+     */
+    public function resolveTodayDate(User $user, Organization $organization): string
+    {
+        $profile = EmployeeProfile::where('user_id', $user->id)
+            ->where('organization_id', $organization->id)
+            ->with('branch')
+            ->first();
+
+        $timezone = $profile?->branch?->timezone ?? $user->timezone ?? 'UTC';
+
+        return now($timezone)->toDateString();
+    }
+
+    /**
      * Clock-In Employee.
      */
     public function clockIn(User $user, Organization $organization, array $data): AttendanceSession
     {
         return DB::transaction(function () use ($user, $organization, $data) {
-            $todayDate = now()->toDateString();
-
             // Fetch profile for branch timezone & branch assignment
             $profile = EmployeeProfile::where('user_id', $user->id)
                 ->where('organization_id', $organization->id)
@@ -50,6 +73,10 @@ class AttendanceService
             }
 
             $timezone = $profile->branch?->timezone ?? $user->timezone ?? 'UTC';
+            // Resolved in this timezone, not the app's own (UTC) — otherwise a
+            // clock-in between midnight and (UTC offset) AM local time gets
+            // filed under the previous UTC calendar day instead of today.
+            $todayDate = now($timezone)->toDateString();
 
             // Get policy
             $policy = $this->policyService->getPolicy($organization);
@@ -181,7 +208,7 @@ class AttendanceService
     public function clockOut(User $user, Organization $organization, array $data): AttendanceSession
     {
         return DB::transaction(function () use ($user, $organization, $data) {
-            $todayDate = now()->toDateString();
+            $todayDate = $this->resolveTodayDate($user, $organization);
 
             // Find current AttendanceDay
             $day = AttendanceDay::where('user_id', $user->id)
@@ -387,6 +414,215 @@ class AttendanceService
 
             return $request;
         });
+    }
+
+    /**
+     * Get paginated attendance history for a user (or targeted user if authorized).
+     */
+    public function getHistory(User $authUser, Organization $organization, array $filters): LengthAwarePaginator
+    {
+        setPermissionsTeamId($organization->id);
+
+        try {
+            $userUuid = $filters['user_uuid'] ?? null;
+            $targetUser = $authUser;
+
+            if ($userUuid !== null) {
+                $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                if (! $this->canViewUser($authUser, $targetUser->id, $organization->id, SystemPermission::ATTENDANCE_VIEW)) {
+                    throw new AuthorizationException('You are not authorized to view attendance for this user.', 'CANNOT_VIEW_USER_ATTENDANCE');
+                }
+            }
+
+            $query = AttendanceDay::where('organization_id', $organization->id)
+                ->where('user_id', $targetUser->id)
+                ->with(['user.employeeProfiles' => fn ($q) => $q->where('organization_id', $organization->id), 'attendanceSessions', 'policyVersion']);
+
+            $startDate = $filters['start_date'] ?? $filters['from'] ?? null;
+            $endDate = $filters['end_date'] ?? $filters['to'] ?? null;
+
+            if ($startDate !== null) {
+                $query->where('attendance_date', '>=', $startDate);
+            }
+            if ($endDate !== null) {
+                $query->where('attendance_date', '<=', $endDate);
+            }
+            if (isset($filters['status'])) {
+                $query->where('attendance_status', (int) $filters['status']);
+            }
+
+            $perPage = (int) ($filters['per_page'] ?? 30);
+
+            return $query->orderBy('attendance_date', 'desc')->paginate($perPage);
+        } finally {
+            setPermissionsTeamId(null);
+        }
+    }
+
+    /**
+     * Get today's attendance summary for a user (or targeted user if authorized).
+     */
+    public function getToday(User $authUser, Organization $organization, ?string $userUuid = null): ?AttendanceDay
+    {
+        setPermissionsTeamId($organization->id);
+
+        try {
+            $targetUser = $authUser;
+
+            if ($userUuid !== null) {
+                $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                if (! $this->canViewUser($authUser, $targetUser->id, $organization->id, SystemPermission::ATTENDANCE_VIEW)) {
+                    throw new AuthorizationException('You are not authorized to view attendance for this user.', 'CANNOT_VIEW_USER_ATTENDANCE');
+                }
+            }
+
+            $today = $this->resolveTodayDate($targetUser, $organization);
+
+            return AttendanceDay::where('organization_id', $organization->id)
+                ->where('user_id', $targetUser->id)
+                ->where('attendance_date', $today)
+                ->with(['user.employeeProfiles' => fn ($q) => $q->where('organization_id', $organization->id), 'attendanceSessions', 'policyVersion'])
+                ->first();
+        } finally {
+            setPermissionsTeamId(null);
+        }
+    }
+
+    /**
+     * Get paginated adjustment requests with hierarchy scoping and filtering.
+     */
+    public function getAdjustments(User $requester, Organization $organization, array $filters): LengthAwarePaginator
+    {
+        setPermissionsTeamId($organization->id);
+
+        try {
+            $canApproveAny = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)
+                || $requester->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value);
+            $canApprove = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE->value);
+
+            $query = AttendanceAdjustmentRequest::whereHas('attendanceDay', function ($q) use ($organization) {
+                $q->where('organization_id', $organization->id);
+            })->with(['attendanceDay.user.employeeProfiles', 'attendanceSession', 'requestedBy', 'resolvedBy']);
+
+            $userUuid = $filters['user_uuid'] ?? null;
+
+            if ($canApproveAny) {
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    $query->where('requested_by', $targetUser->id);
+                }
+            } elseif ($canApprove) {
+                $subordinateUserIds = $this->getSubordinateUserIds($requester, $organization->id);
+                $allowedUserIds = array_merge([$requester->id], $subordinateUserIds);
+
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    if (! in_array($targetUser->id, $allowedUserIds, true)) {
+                        throw new AuthorizationException('You are not authorized to view adjustments for this user.', 'CANNOT_VIEW_USER_ATTENDANCE');
+                    }
+                    $query->where('requested_by', $targetUser->id);
+                } else {
+                    $query->whereIn('requested_by', $allowedUserIds);
+                }
+            } else {
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    if ($targetUser->id !== $requester->id) {
+                        throw new AuthorizationException('Insufficient scope to view adjustments for other users.', 'INSUFFICIENT_SCOPE');
+                    }
+                }
+                $query->where('requested_by', $requester->id);
+            }
+
+            if (isset($filters['status'])) {
+                $query->where('status', (int) $filters['status']);
+            }
+
+            if (isset($filters['adjustment_type'])) {
+                $query->where('adjustment_type', (int) $filters['adjustment_type']);
+            }
+
+            $startDate = $filters['start_date'] ?? $filters['from'] ?? null;
+            $endDate = $filters['end_date'] ?? $filters['to'] ?? null;
+
+            if ($startDate !== null || $endDate !== null) {
+                $query->whereHas('attendanceDay', function ($q) use ($startDate, $endDate) {
+                    if ($startDate !== null) {
+                        $q->where('attendance_date', '>=', $startDate);
+                    }
+                    if ($endDate !== null) {
+                        $q->where('attendance_date', '<=', $endDate);
+                    }
+                });
+            }
+
+            $perPage = (int) ($filters['per_page'] ?? 30);
+
+            return $query->orderBy('created_at', 'desc')->paginate($perPage);
+        } finally {
+            setPermissionsTeamId(null);
+        }
+    }
+
+    /**
+     * Get paginated escalations with hierarchy scoping and filtering.
+     */
+    public function getEscalations(User $requester, Organization $organization, array $filters): LengthAwarePaginator
+    {
+        setPermissionsTeamId($organization->id);
+
+        try {
+            $canResolve = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value)
+                || $requester->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value);
+            $canView = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value);
+
+            $query = AttendanceEscalation::where('organization_id', $organization->id)
+                ->with(['user.employeeProfiles', 'attendanceDay', 'attendanceWorklog', 'resolvedBy']);
+
+            $userUuid = $filters['user_uuid'] ?? null;
+
+            if ($canResolve) {
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    $query->where('user_id', $targetUser->id);
+                }
+            } elseif ($canView) {
+                $subordinateUserIds = $this->getSubordinateUserIds($requester, $organization->id);
+                $allowedUserIds = array_merge([$requester->id], $subordinateUserIds);
+
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    if (! in_array($targetUser->id, $allowedUserIds, true)) {
+                        throw new AuthorizationException('You are not authorized to view escalations for this user.', 'CANNOT_VIEW_USER_ATTENDANCE');
+                    }
+                    $query->where('user_id', $targetUser->id);
+                } else {
+                    $query->whereIn('user_id', $allowedUserIds);
+                }
+            } else {
+                if ($userUuid !== null) {
+                    $targetUser = User::where('uuid', $userUuid)->firstOrFail();
+                    if ($targetUser->id !== $requester->id) {
+                        throw new AuthorizationException('Insufficient scope to view escalations for other users.', 'INSUFFICIENT_SCOPE');
+                    }
+                }
+                $query->where('user_id', $requester->id);
+            }
+
+            if (isset($filters['status'])) {
+                $query->where('escalation_status', (int) $filters['status']);
+            }
+
+            if (isset($filters['escalation_type'])) {
+                $query->where('escalation_type', (int) $filters['escalation_type']);
+            }
+
+            $perPage = (int) ($filters['per_page'] ?? 30);
+
+            return $query->orderBy('created_at', 'desc')->paginate($perPage);
+        } finally {
+            setPermissionsTeamId(null);
+        }
     }
 
     /**

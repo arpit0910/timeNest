@@ -54,7 +54,7 @@ class AuthController extends BaseApiController
             return response()->json([
                 'status' => '2fa_required',
                 'message' => $result['message'],
-                'token' => $result['temp_token'],
+                'temp_token' => $result['temp_token'],
             ]);
         }
 

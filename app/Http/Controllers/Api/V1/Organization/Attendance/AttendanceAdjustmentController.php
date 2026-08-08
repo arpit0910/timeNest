@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Organization\Attendance;
 
 use App\Http\Controllers\BaseApiController;
+use App\Http\Requests\Attendance\AdjustmentListRequest;
 use App\Http\Requests\Attendance\AdjustmentRequest;
 use App\Http\Resources\Attendance\AttendanceAdjustmentRequestResource;
 use App\Models\Attendance\AttendanceAdjustmentRequest;
@@ -28,20 +29,13 @@ class AttendanceAdjustmentController extends BaseApiController
     /**
      * List adjustments.
      */
-    public function index(): JsonResponse
+    public function index(AdjustmentListRequest $request): JsonResponse
     {
-        $user = auth()->user();
-
-        // Standard users see only their requests, admins see all for the organization
-        // Let's filter for user in this basic implementation, or based on permissions.
-        // We will list all adjustments where the attendance day belongs to this organization.
-        $organization = $this->getOrganization();
-
-        $adjustments = AttendanceAdjustmentRequest::whereHas('attendanceDay', function ($query) use ($organization) {
-                $query->where('organization_id', $organization->id);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $adjustments = $this->attendanceService->getAdjustments(
+            auth()->user(),
+            $this->getOrganization(),
+            $request->validated()
+        );
 
         return $this->success(AttendanceAdjustmentRequestResource::collection($adjustments));
     }

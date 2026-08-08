@@ -8,10 +8,12 @@ use App\Actions\Attendance\ResolveAttendanceEscalationAction;
 use App\Enums\EscalationStatusEnum;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Http\Controllers\BaseApiController;
+use App\Http\Requests\Attendance\EscalationListRequest;
 use App\Http\Requests\Attendance\UpdateAttendanceEscalationStatusRequest;
 use App\Http\Resources\Attendance\AttendanceEscalationResource;
 use App\Models\Attendance\AttendanceEscalation;
 use App\Models\Organization\Organization;
+use App\Services\Attendance\AttendanceService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\Permission\Exceptions\UnauthorizedException;
@@ -19,7 +21,8 @@ use Spatie\Permission\Exceptions\UnauthorizedException;
 class AttendanceEscalationController extends BaseApiController
 {
     public function __construct(
-        private readonly ResolveAttendanceEscalationAction $resolveAction
+        private readonly ResolveAttendanceEscalationAction $resolveAction,
+        private readonly AttendanceService $attendanceService,
     ) {}
 
     private function getOrganization(): Organization
@@ -30,31 +33,15 @@ class AttendanceEscalationController extends BaseApiController
     /**
      * List all escalations.
      */
-    public function index(Request $request): JsonResponse
+    public function index(EscalationListRequest $request): JsonResponse
     {
-        $user = auth()->user();
-        $organization = $this->getOrganization();
-        setPermissionsTeamId($organization->id);
+        $escalations = $this->attendanceService->getEscalations(
+            auth()->user(),
+            $this->getOrganization(),
+            $request->validated()
+        );
 
-        try {
-            $platformRole = resolve_platform_role($user);
-            $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
-
-            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value) 
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value);
-
-            $query = AttendanceEscalation::where('organization_id', $organization->id);
-
-            if (! $canViewAll) {
-                $query->where('user_id', $user->id);
-            }
-
-            $escalations = $query->orderBy('created_at', 'desc')->get();
-
-            return $this->success(AttendanceEscalationResource::collection($escalations));
-        } finally {
-            setPermissionsTeamId(null);
-        }
+        return $this->success(AttendanceEscalationResource::collection($escalations));
     }
 
     /**

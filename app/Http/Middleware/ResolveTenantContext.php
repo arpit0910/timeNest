@@ -105,6 +105,9 @@ class ResolveTenantContext
         // Set Spatie team ID for permission resolution
         setPermissionsTeamId($organization->id);
 
+        //TODO: Check this line's requirement here.
+        $request->user()->unsetRelation('roles')->unsetRelation('permissions');
+
         return $next($request);
     }
 }

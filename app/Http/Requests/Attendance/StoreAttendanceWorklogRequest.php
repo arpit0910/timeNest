@@ -26,9 +26,15 @@ class StoreAttendanceWorklogRequest extends FormRequest
     {
         // Worklogs may only be logged for today or within the last 15 days —
         // never for a future date. Computed per-request (not a constant) so
-        // "today" is always evaluated at the moment of submission.
-        $earliestAllowed = now()->subDays(15)->startOfDay()->format('Y-m-d H:i:s');
-        $latestAllowed = now()->endOfDay()->format('Y-m-d H:i:s');
+        // "today" is always evaluated at the moment of submission, and in the
+        // organization's own timezone rather than the app's (UTC) — otherwise
+        // a legitimate "today" submission in a timezone ahead of UTC (e.g.
+        // IST, in the small-hours window) gets rejected as "in the future".
+        $organization = app()->bound('tenant.organization') ? app('tenant.organization') : null;
+        $timezone = $organization?->timezone ?? 'UTC';
+
+        $earliestAllowed = now($timezone)->subDays(15)->startOfDay()->format('Y-m-d H:i:s');
+        $latestAllowed = now($timezone)->endOfDay()->format('Y-m-d H:i:s');
 
         return [
             'attendance_day_uuid' => 'required|string|exists:attendance_days,uuid',

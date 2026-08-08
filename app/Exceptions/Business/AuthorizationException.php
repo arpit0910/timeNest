@@ -14,8 +14,8 @@ class AuthorizationException extends BaseApiException
 {
     protected int $statusCode = 403;
 
-    public function __construct(string $message = 'Access denied')
+    public function __construct(string $message = 'Access denied', ?string $errorCode = null)
     {
-        parent::__construct($message);
+        parent::__construct($message, 403, $errorCode);
     }
 }

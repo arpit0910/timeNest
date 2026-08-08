@@ -13,10 +13,12 @@ use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Attendance\StoreAttendanceWorklogRequest;
 use App\Http\Requests\Attendance\UpdateAttendanceWorklogRequest;
 use App\Http\Requests\Attendance\UpdateAttendanceWorklogStatusRequest;
+use App\Http\Requests\Attendance\WorklogListRequest;
 use App\Http\Resources\Attendance\AttendanceWorklogResource;
 use App\Models\Attendance\AttendanceDay;
 use App\Models\Attendance\AttendanceSession;
 use App\Models\Attendance\AttendanceWorklog;
+use App\Models\Auth\User;
 use App\Models\Organization\Organization;
 use App\Models\Project\Project;
 use App\Models\Project\Milestone;
@@ -42,31 +44,54 @@ class AttendanceWorklogController extends BaseApiController
     /**
      * List worklogs for the current organization.
      */
-    public function index(Request $request): JsonResponse
+    public function index(WorklogListRequest $request): JsonResponse
     {
         $user = auth()->user();
-        setPermissionsTeamId($this->getOrganization()->id);
+        $organization = $this->getOrganization();
+        setPermissionsTeamId($organization->id);
 
         try {
-            $platformRole = resolve_platform_role($user);
-            $isAppOwner = $user->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
-
-            // Check if manager or app owner
             $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value);
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value)
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE_ANY->value)
+                || $user->hasPermissionTo(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
 
-            $query = AttendanceWorklog::where('organization_id', $this->getOrganization()->id)
+            $query = AttendanceWorklog::where('organization_id', $organization->id)
                 ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
             if (! $canViewAll) {
+                if ($request->filled('user_uuid')) {
+                    $targetUser = User::where('uuid', $request->input('user_uuid'))->firstOrFail();
+                    if ($targetUser->id !== $user->id) {
+                        throw new \App\Exceptions\Business\AuthorizationException('Insufficient scope to view worklogs for other users.', 'INSUFFICIENT_SCOPE');
+                    }
+                }
                 $query->where('user_id', $user->id);
+            } elseif ($request->filled('user_uuid')) {
+                $targetUser = User::where('uuid', $request->input('user_uuid'))->firstOrFail();
+                $query->where('user_id', $targetUser->id);
             }
 
-            if ($request->has('user_uuid') && $canViewAll) {
-                $query->whereHas('user', fn($q) => $q->where('uuid', $request->input('user_uuid')));
+            if ($request->filled('status')) {
+                $query->where('worklog_status', (int) $request->input('status'));
             }
 
-            $worklogs = $query->orderBy('created_at', 'desc')->get();
+            $startDate = $request->input('start_date') ?? $request->input('from');
+            $endDate = $request->input('end_date') ?? $request->input('to');
+
+            if ($startDate !== null || $endDate !== null) {
+                $query->whereHas('attendanceDay', function ($q) use ($startDate, $endDate) {
+                    if ($startDate !== null) {
+                        $q->where('attendance_date', '>=', $startDate);
+                    }
+                    if ($endDate !== null) {
+                        $q->where('attendance_date', '<=', $endDate);
+                    }
+                });
+            }
+
+            $perPage = (int) ($request->input('per_page', 30));
+            $worklogs = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
             return $this->success(AttendanceWorklogResource::collection($worklogs));
         } finally {

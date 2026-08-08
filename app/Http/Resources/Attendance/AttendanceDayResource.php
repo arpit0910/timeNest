@@ -26,8 +26,28 @@ class AttendanceDayResource extends JsonResource
         // Policy version info
         $policyVersion = $this->policyVersion;
 
+        $user = $this->user;
+        $employeeCode = null;
+        if ($user) {
+            if ($user->relationLoaded('employeeProfiles')) {
+                $employeeCode = $user->employeeProfiles
+                    ->where('organization_id', $this->organization_id)
+                    ->first()?->employee_code;
+            } else {
+                $employeeCode = $user->employeeProfiles()
+                    ->where('organization_id', $this->organization_id)
+                    ->first()?->employee_code;
+            }
+        }
+
         return [
             'uuid' => $this->uuid,
+            'user' => $user ? [
+                'uuid' => $user->uuid,
+                'name' => $user->name,
+                'employee_code' => $employeeCode,
+                'avatar_url' => $user->avatar_url,
+            ] : null,
             'attendance_date' => $this->attendance_date?->format('Y-m-d'),
             'attendance_status' => $attendanceStatus ? [
                 'value' => $attendanceStatus->value,
