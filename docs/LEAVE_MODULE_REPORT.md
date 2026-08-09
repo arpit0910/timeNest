@@ -197,16 +197,17 @@ The codebase currently contains **TWO PARALLEL LEAVE ROUTE STRUCTURES**:
 | | `REJECTED` | 3 | Rejected | ✅ IMPLEMENTED |
 | | `CANCELLED` | 4 | Cancelled | ✅ IMPLEMENTED |
 | | `AUTO_APPROVED` | 5 | Auto Approved | ✅ IMPLEMENTED |
-| `LeaveType` (Legacy) | `CASUAL_LEAVE` | 1 | Casual Leave | ✅ IMPLEMENTED (`app/Enums/Leave/LeaveType.php:12`) |
-| | `SICK_LEAVE` | 2 | Sick Leave | ✅ IMPLEMENTED |
-| | `EARNED_LEAVE` | 3 | Earned Leave | ✅ IMPLEMENTED |
-| | `MATERNITY_LEAVE` | 4 | Maternity Leave | ✅ IMPLEMENTED |
-| | `PATERNITY_LEAVE` | 5 | Paternity Leave | ✅ IMPLEMENTED |
-| | `UNPAID_LEAVE` | 6 | Unpaid Leave | ✅ IMPLEMENTED |
-| | `COMPENSATORY_OFF` | 7 | Compensatory Off | ✅ IMPLEMENTED |
-| | `WORK_FROM_HOME` | 8 | Work From Home | ✅ IMPLEMENTED |
-| | `EXTRA_WORKING_DAY` | 9 | Extra Working Day | ✅ IMPLEMENTED |
-| | `HALF_DAY` | 10 | Half Day | ✅ IMPLEMENTED |
+| `LeaveType` | `CASUAL` | 1 | Casual Leave | ✅ IMPLEMENTED (`app/Enums/Leave/LeaveType.php:9`) |
+| | `SICK` | 2 | Sick Leave | ✅ IMPLEMENTED |
+| | `PAID` | 3 | Paid Leave | ✅ IMPLEMENTED |
+| | `UNPAID` | 4 | Unpaid Leave | ✅ IMPLEMENTED |
+| | `WORK_FROM_HOME` | 5 | Work From Home | ✅ IMPLEMENTED |
+| | `EXTRA_WORKING_DAY` | 6 | Extra Working Day | ✅ IMPLEMENTED |
+| | `HALF_DAY` | 7 | Half Day Leave | ✅ IMPLEMENTED |
+| | `EMERGENCY` | 8 | Emergency Leave | ✅ IMPLEMENTED |
+| | `MATERNITY` | 9 | Maternity Leave | ✅ IMPLEMENTED |
+| | `PATERNITY` | 10 | Paternity Leave | ✅ IMPLEMENTED |
+| | `BEREAVEMENT` | 11 | Bereavement Leave | ✅ IMPLEMENTED |
 
 ---
 
