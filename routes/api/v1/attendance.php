@@ -40,6 +40,7 @@ Route::prefix('adjustments')->name('adjustments.')->controller(AttendanceAdjustm
 Route::prefix('policy')->name('policy.')->controller(AttendancePolicyController::class)->group(function () {
     Route::get('/', 'show')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_VIEW->value)->name('show');
     Route::put('/', 'update')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_MANAGE->value)->name('update');
+    Route::get('versions', 'versions')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_VIEW->value)->name('versions');
 });
 
 // ─── Worklog Compliance Policy (WorklogPolicyController) ───

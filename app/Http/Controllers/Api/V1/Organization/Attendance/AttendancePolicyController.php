@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1\Organization\Attendance;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Attendance\UpdateAttendancePolicyRequest;
 use App\Http\Resources\Attendance\AttendancePolicyResource;
+use App\Http\Resources\Attendance\AttendancePolicyVersionResource;
 use App\Models\Organization\Organization;
 use App\Services\Attendance\AttendancePolicyService;
 use Illuminate\Http\JsonResponse;
@@ -55,5 +56,22 @@ class AttendancePolicyController extends BaseApiController
             new AttendancePolicyResource($updatedPolicy),
             'Attendance policy updated successfully.'
         );
+    }
+
+    /**
+     * Get versions of the active policy.
+     */
+    public function versions(): JsonResponse
+    {
+        $policy = $this->policyService->findPolicy($this->getOrganization());
+
+        if (! $policy) {
+            $policy = $this->policyService->createDefaultPolicy($this->getOrganization(), auth()->user());
+        }
+
+        $versions = $this->policyService->getPolicyVersions($policy);
+        $versions->load(['policy', 'createdBy']);
+
+        return $this->success(AttendancePolicyVersionResource::collection($versions));
     }
 }
