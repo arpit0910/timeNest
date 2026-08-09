@@ -4,33 +4,38 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Attendance;
 
+use App\Enums\SystemPermission;
 use App\Models\Attendance\AttendancePolicy;
 use App\Models\Attendance\AttendancePolicyVersion;
 use App\Models\Auth\User;
 use App\Models\Organization\Organization;
+use App\Models\Rbac\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
 
 class AttendancePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
+    protected function grantAttendancePolicyManage(User $user, Organization $org): void
     {
-        parent::setUp();
-
-        // Mock authorization gates to simplify testing without full Spatie setup
-        Gate::define('attendance.policy.create', fn (User $user) => true);
-        Gate::define('attendance.policy.update', fn (User $user) => true);
+        setPermissionsTeamId($org->id);
+        $permission = Permission::where('name', SystemPermission::ATTENDANCE_POLICY_MANAGE->value)
+            ->where('guard_name', 'api')
+            ->first();
+        if ($permission) {
+            $user->givePermissionTo($permission);
+        }
+        setPermissionsTeamId(null);
     }
 
-    protected function createOrgWithPolicy(array $overrides = [], bool $createPolicy = true): array
+    protected function createOrgWithPolicy(array $overrides = [], bool $createPolicy = true, bool $grantManage = true): array
     {
         $user = User::create([
             'name' => 'Test User',
             'email' => 'test' . uniqid() . '@example.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
 
         $org = Organization::create([
@@ -43,9 +48,13 @@ class AttendancePolicyTest extends TestCase
         // Connect user to organization (assuming standard BelongsToMany pivot)
         $org->users()->attach($user->id, [
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
-            'status' => 'active', 
+            'status' => 'active',
             'joined_at' => now()
         ]);
+
+        if ($grantManage) {
+            $this->grantAttendancePolicyManage($user, $org);
+        }
 
         $policy = null;
 
@@ -257,11 +266,8 @@ class AttendancePolicyTest extends TestCase
      */
     public function test_member_without_permission_cannot_create_policy(): void
     {
-        [$user, $org] = $this->createOrgWithPolicy([], false);
+        [$user, $org] = $this->createOrgWithPolicy([], false, grantManage: false);
         $this->actingAsTenant($user, $org);
-
-        // Explicitly deny the gate for this test
-        Gate::define('attendance.policy.create', fn () => false);
 
         $response = $this->postJson('/api/v1/attendance/policy', $this->getValidPayload());
         $response->assertStatus(403);

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Leave;
 
-use App\Enums\SystemPermission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubmitLeaveRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can(SystemPermission::LEAVES_CREATE->value);
+        // Handled by route 'permission:leaves.create' middleware.
+        return true;
     }
 
     public function rules(): array

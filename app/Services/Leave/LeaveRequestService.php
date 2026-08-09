@@ -45,22 +45,9 @@ class LeaveRequestService
     ) {
     }
 
-    /**
-     * Gate for approve/reject: actor must hold LEAVES_APPROVE or
-     * LEAVES_APPROVE_ANY, and (unless holding the ANY bypass) must be within
-     * the target's approval hierarchy (reports_to -> department head fallback).
-     * Mirrors EmployeeLeavePolicy::approve(), the equivalent gate on the
-     * Attendance\LeaveController path — this class already `use`s the same
-     * ResolvesApprovalHierarchy trait for view-scoping in getLeaveRequests(),
-     * just never applied it here for the approval decision itself.
-     */
+    // Hierarchy gate for approve/reject; permission is already checked by route middleware.
     private function assertCanApprove(User $actor, EmployeeLeave $leave): void
     {
-        if (! $actor->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value)
-            && ! $actor->hasPermissionTo(SystemPermission::LEAVES_APPROVE_ANY->value)) {
-            throw new UnauthorizedLeaveActionException();
-        }
-
         if (! $this->withinApprovalHierarchy($actor, $leave->user_id, $leave->organization_id, SystemPermission::LEAVES_APPROVE_ANY)) {
             throw new UnauthorizedLeaveActionException();
         }

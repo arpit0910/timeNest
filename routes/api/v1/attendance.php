@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceController;
-use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceAdjustmentController;
-use App\Http\Controllers\Api\V1\Organization\Attendance\AttendancePolicyController;
-use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceEscalationController;
 use App\Enums\SystemPermission;
+use App\Http\Controllers\Api\Attendance\AttendancePolicyController as LegacyAttendancePolicyController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceAdjustmentController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceEscalationController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendancePolicyController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('organization/attendance')
@@ -26,8 +27,8 @@ Route::prefix('organization/attendance')
         Route::prefix('adjustments')->name('adjustments.')->controller(AttendanceAdjustmentController::class)->group(function () {
             Route::get('/', 'index')->middleware('permission:' . SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW->value)->name('index');
             Route::post('/', 'store')->middleware('permission:' . SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE->value)->name('store');
-            Route::put('{uuid}/approve', 'approve')->middleware('permission:' . SystemPermission::ATTENDANCE_APPROVE->value)->name('approve');
-            Route::put('{uuid}/reject', 'reject')->middleware('permission:' . SystemPermission::ATTENDANCE_APPROVE->value)->name('reject');
+            Route::put('{uuid}/approve', 'approve')->middleware('permission:' . SystemPermission::ATTENDANCE_APPROVE->value . '|' . SystemPermission::ATTENDANCE_APPROVE_ANY->value)->name('approve');
+            Route::put('{uuid}/reject', 'reject')->middleware('permission:' . SystemPermission::ATTENDANCE_APPROVE->value . '|' . SystemPermission::ATTENDANCE_APPROVE_ANY->value)->name('reject');
         });
 
         // ─── Attendance Policy (AttendancePolicyController) ───────────────────
@@ -48,11 +49,11 @@ Route::prefix('organization/attendance')
 // ─── Attendance Policy (legacy, standalone, non-org-scoped) ────────────────
 Route::prefix('attendance/policy')
     ->middleware(['api.organization'])
-    ->controller(\App\Http\Controllers\Api\Attendance\AttendancePolicyController::class)
+    ->controller(LegacyAttendancePolicyController::class)
     ->group(function (): void {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::get('/{uuid}', 'show');
-        Route::put('/{uuid}', 'update');
-        Route::get('/{uuid}/versions', 'versions');
+        Route::get('/', 'index')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_VIEW->value);
+        Route::post('/', 'store')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_MANAGE->value);
+        Route::get('/{uuid}', 'show')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_VIEW->value);
+        Route::put('/{uuid}', 'update')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_MANAGE->value);
+        Route::get('/{uuid}/versions', 'versions')->middleware('permission:' . SystemPermission::ATTENDANCE_POLICY_VIEW->value);
     });

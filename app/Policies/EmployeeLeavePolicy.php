@@ -25,10 +25,7 @@ final class EmployeeLeavePolicy
             return true;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::LEAVES_VIEW->value)) {
-            return false;
-        }
-
+        // Permission already enforced by route middleware; here we only scope hierarchy.
         return $this->withinApprovalHierarchy(
             $user,
             $leave->user_id,
@@ -43,11 +40,7 @@ final class EmployeeLeavePolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value)
-            && ! $user->hasPermissionTo(SystemPermission::LEAVES_APPROVE_ANY->value)) {
-            return false;
-        }
-
+        // Permission already enforced by route middleware; here we only scope hierarchy.
         return $this->withinApprovalHierarchy(
             $user,
             $leave->user_id,

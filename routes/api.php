@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\Invitation\PublicInvitationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         ->group(base_path('routes/api/v1/organization.php'));
 
     // Public Invitation Flow Endpoints
-    Route::controller(\App\Http\Controllers\Api\V1\Invitation\PublicInvitationController::class)->group(function (): void {
+    Route::controller(PublicInvitationController::class)->group(function (): void {
         Route::get('invitations/validate/{token}', 'validateToken')->name('invitations.validate');
         Route::post('invitations/accept', 'accept')->name('invitations.accept');
     });

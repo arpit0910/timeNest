@@ -10,7 +10,8 @@ class CreateLeaveTypeRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('leave.type.create');
+        // Handled by route 'permission:leave_policy.manage' middleware.
+        return true;
     }
 
     public function rules(): array

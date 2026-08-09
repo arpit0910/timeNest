@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Api\V1\Organization\Attendance\WorklogPolicyController;
-use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceWorklogController;
 use App\Enums\SystemPermission;
+use App\Http\Controllers\Api\V1\Organization\Attendance\AttendanceWorklogController;
+use App\Http\Controllers\Api\V1\Organization\Attendance\WorklogPolicyController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('organization/attendance')
@@ -27,7 +27,7 @@ Route::prefix('organization/attendance')
             Route::get('worklogs/{uuid}', 'show')->middleware('permission:' . SystemPermission::WORKLOG_VIEW->value)->name('worklogs.show');
             Route::put('worklogs/{uuid}', 'update')->middleware('permission:' . SystemPermission::WORKLOG_CREATE->value)->name('worklogs.update');
             Route::delete('worklogs/{uuid}', 'destroy')->middleware('permission:' . SystemPermission::WORKLOG_CREATE->value)->name('worklogs.destroy');
-            Route::post('worklogs/{uuid}/approve', 'approve')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value)->name('worklogs.approve');
-            Route::post('worklogs/{uuid}/reject', 'reject')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value)->name('worklogs.reject');
+            Route::post('worklogs/{uuid}/approve', 'approve')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value . '|' . SystemPermission::WORKLOG_APPROVE_ANY->value)->name('worklogs.approve');
+            Route::post('worklogs/{uuid}/reject', 'reject')->middleware('permission:' . SystemPermission::WORKLOG_APPROVE->value . '|' . SystemPermission::WORKLOG_APPROVE_ANY->value)->name('worklogs.reject');
         });
     });

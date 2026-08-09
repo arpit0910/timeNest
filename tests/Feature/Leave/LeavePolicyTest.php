@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Leave;
 
+use App\Enums\SystemPermission;
 use App\Models\Auth\User;
 use App\Models\Leave\LeavePolicy;
 use App\Models\Leave\LeavePolicyVersion;
 use App\Models\Organization\Organization;
+use App\Models\Rbac\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -17,12 +18,16 @@ class LeavePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
+    protected function grantLeavePolicyManage(User $user, Organization $org): void
     {
-        parent::setUp();
-
-        Gate::define('leave.policy.create', fn (User $user) => true);
-        Gate::define('leave.policy.update', fn (User $user) => true);
+        setPermissionsTeamId($org->id);
+        $permission = Permission::where('name', SystemPermission::LEAVE_POLICY_MANAGE->value)
+            ->where('guard_name', 'api')
+            ->first();
+        if ($permission) {
+            $user->givePermissionTo($permission);
+        }
+        setPermissionsTeamId(null);
     }
 
     protected function actingAsTenant(User $user, Organization $org)
@@ -39,6 +44,7 @@ class LeavePolicyTest extends TestCase
             'name' => 'Test User',
             'email' => 'test' . uniqid() . '@example.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
 
         $org = Organization::create([
@@ -50,9 +56,11 @@ class LeavePolicyTest extends TestCase
 
         $org->users()->attach($user->id, [
             'uuid' => (string) Str::uuid(),
-            'status' => 'active', 
+            'status' => 'active',
             'joined_at' => now()
         ]);
+
+        $this->grantLeavePolicyManage($user, $org);
 
         $policy = null;
 

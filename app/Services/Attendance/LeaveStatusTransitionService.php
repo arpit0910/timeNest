@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Attendance;
 
 use App\Enums\Leave\LeaveStatus;
-use App\Enums\SystemPermission;
 use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Exceptions\Leave\UnauthorizedLeaveActionException;
 use App\Models\Leave\EmployeeLeave;
@@ -96,9 +95,7 @@ class LeaveStatusTransitionService
         });
     }
 
-    /**
-     * Check if the actor has permission to trigger the state transition.
-     */
+    // Enforces self-action state machine rules; permission is already checked upstream.
     private function validatePermissions(EmployeeLeave $leave, LeaveStatus $newStatus, User $actor): void
     {
         // 1. Employee Self-cancellation Check
@@ -119,18 +116,6 @@ class LeaveStatusTransitionService
         // reject $actor->id === $leave->user_id for these same two transitions)
         if (in_array($newStatus, [LeaveStatus::APPROVED, LeaveStatus::REJECTED], true) && $leave->user_id === $actor->id) {
             throw new UnauthorizedLeaveActionException();
-        }
-
-        // 4. Managerial/HR transitions require permission check scoped to tenant organization
-        setPermissionsTeamId($leave->organization_id);
-        $hasPermission = $actor->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value);
-        setPermissionsTeamId(null);
-
-        if (! $hasPermission) {
-            throw new BusinessRuleViolationException(
-                'You are not authorized to transition this leave request to the target status.',
-                'UNAUTHORIZED_TRANSITION'
-            );
         }
     }
 }

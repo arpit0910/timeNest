@@ -25,10 +25,7 @@ final class AttendanceWorklogPolicy
             return true;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::WORKLOG_VIEW->value)) {
-            return false;
-        }
-
+        // Permission already enforced by route middleware; here we only scope hierarchy.
         return $this->withinApprovalHierarchy(
             $user,
             $worklog->user_id,
@@ -43,11 +40,7 @@ final class AttendanceWorklogPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE->value)
-            && ! $user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE_ANY->value)) {
-            return false;
-        }
-
+        // Permission already enforced by route middleware; here we only scope hierarchy.
         return $this->withinApprovalHierarchy(
             $user,
             $worklog->user_id,

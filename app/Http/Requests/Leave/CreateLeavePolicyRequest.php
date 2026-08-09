@@ -13,7 +13,8 @@ class CreateLeavePolicyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('leave.policy.create');
+        // Handled by route 'permission:leave_policy.manage' middleware.
+        return true;
     }
 
     public function rules(): array

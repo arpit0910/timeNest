@@ -49,11 +49,7 @@ final class AttendanceAdjustmentPolicy
             return false;
         }
 
-        if (! $user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE->value)
-            && ! $user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)) {
-            return false;
-        }
-
+        // Permission already enforced by route middleware; here we only scope hierarchy.
         return $this->withinApprovalHierarchy(
             $user,
             $targetUserId,

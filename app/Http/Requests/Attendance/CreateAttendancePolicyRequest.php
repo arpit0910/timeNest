@@ -10,17 +10,8 @@ class CreateAttendancePolicyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Assuming user has a method to check permissions.
-        // We will return true here and rely on middleware or gate.
-        // But prompt says: "User must have permission 'attendance.policy.create' on the current organization. Use Gate or a policy check."
-        
-        $user = $this->user();
-        if (!$user) {
-            return false;
-        }
-
-        // Ideally checking via Spatie permissions or Gate
-        return $user->can('attendance.policy.create');
+        // Handled by route 'permission:attendance_policy.manage' middleware.
+        return true;
     }
 
     public function rules(): array
