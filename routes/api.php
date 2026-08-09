@@ -37,67 +37,9 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         Route::post('invitations/accept', 'accept')->name('invitations.accept');
     });
 
-    // Attendance Policy Routes
-    Route::prefix('attendance/policy')
-        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
-        ->controller(\App\Http\Controllers\Api\Attendance\AttendancePolicyController::class)
-        ->group(function (): void {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::get('/{uuid}', 'show');
-            Route::put('/{uuid}', 'update');
-            Route::get('/{uuid}/versions', 'versions');
-        });
-
-    // Leave Policy Routes
-    Route::prefix('leave/policy')
-        ->middleware(['api.organization'])
-        ->controller(\App\Http\Controllers\Api\Leave\LeavePolicyController::class)
-        ->group(function (): void {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::get('/{uuid}', 'show');
-            Route::put('/{uuid}', 'update');
-            Route::get('/{uuid}/versions', 'versions');
-        });
-
-    // Leave Type Routes
-    Route::middleware(['api.organization'])
-        ->controller(\App\Http\Controllers\Api\Leave\LeaveTypeController::class)
-        ->group(function (): void {
-            Route::get('leave/policy/{policyUuid}/types', 'index');
-            Route::post('leave/policy/{policyUuid}/types', 'store');
-            Route::get('leave/types/{uuid}', 'show');
-            Route::put('leave/types/{uuid}', 'update');
-            Route::patch('leave/types/{uuid}/deactivate', 'deactivate');
-            Route::delete('leave/types/{uuid}', 'destroy');
-        });
-
-    // Attendance Clock Routes
-    // Route::prefix('attendance')
-    //     ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
-    //     ->controller(\App\Http\Controllers\Api\Attendance\AttendanceController::class)
-    //     ->group(function (): void {
-    //         Route::post('/clock-in', 'clockIn');
-    //         Route::post('/clock-out', 'clockOut');
-    //         Route::get('/today', 'today');
-    //         Route::get('/history', 'history');
-    //     });
-
-    // Leave Request Routes
-    Route::prefix('leave-requests')
-        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
-        ->controller(\App\Http\Controllers\Api\V1\Organization\Leave\LeaveRequestController::class)
-        ->group(function (): void {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::get('/balances', 'balances');
-            Route::get('/{uuid}', 'show');
-            Route::post('/{uuid}/approve', 'approve');
-            Route::post('/{uuid}/reject', 'reject');
-            Route::post('/{uuid}/cancel', 'cancel');
-        });
-
+    require __DIR__ . '/api/v1/attendance.php';
+    require __DIR__ . '/api/v1/leaves.php';
+    require __DIR__ . '/api/v1/worklogs.php';
     require __DIR__ . '/api/v1/roles.php';
     require __DIR__ . '/api/v1/platform-roles.php';
 });
