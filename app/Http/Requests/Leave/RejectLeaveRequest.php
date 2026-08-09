@@ -10,7 +10,11 @@ class RejectLeaveRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('leave.request.approve');
+        // Authorization handled by LeaveRequestService::assertCanApprove()
+        // (permission + hierarchy check against the resolved leave record) —
+        // not duplicated here. This previously checked a 'leave.request.approve'
+        // string that didn't exist anywhere as a real permission or Gate.
+        return true;
     }
 
     public function rules(): array
