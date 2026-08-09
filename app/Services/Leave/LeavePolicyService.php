@@ -51,22 +51,25 @@ class LeavePolicyService
 
     /**
      * Default leave types created alongside an auto-provisioned policy.
-     * Codes map to the legacy App\Enums\Leave\LeaveType values (1/2/3/6) since
-     * LeaveRequestService::submitLeave() resolves that enum via (int) $leaveType->code.
+     * Codes map to App\Enums\Leave\LeaveType (CASUAL=1, SICK=2, PAID=3, UNPAID=4)
+     * since LeaveRequestService::submitLeave() resolves that enum via
+     * (int) $leaveType->code. Verified directly against the enum source —
+     * an earlier version of this list used a stale doc's mapping and got
+     * Unpaid Leave's code wrong (had it as 6, which is actually EXTRA_WORKING_DAY).
      *
      * Allocation days (12/12/15/0) are a standard-practice placeholder, not an
      * org-specific HR decision — flagged for review, not verified against any
-     * real policy. Note: with the policy default negative_balance_allowed=false,
-     * a 0-day allocation makes Unpaid Leave unusable as submitted (any request
-     * immediately fails the balance check) — worth a look before relying on this.
+     * real policy. Unpaid Leave is exempted from balance tracking entirely
+     * (counts_towards_balance = false) since it isn't a balance concept — it
+     * should always be submittable regardless of allocation/negative_balance_allowed.
      */
     private function seedDefaultLeaveTypes(LeavePolicy $policy, User $createdBy): void
     {
         $defaults = [
-            ['code' => '1', 'name' => 'Casual Leave', 'annual_allocation_days' => 12],
-            ['code' => '2', 'name' => 'Sick Leave', 'annual_allocation_days' => 12],
-            ['code' => '3', 'name' => 'Earned Leave', 'annual_allocation_days' => 15],
-            ['code' => '6', 'name' => 'Unpaid Leave', 'annual_allocation_days' => 0],
+            ['code' => '1', 'name' => 'Casual Leave', 'annual_allocation_days' => 12, 'counts_towards_balance' => true],
+            ['code' => '2', 'name' => 'Sick Leave', 'annual_allocation_days' => 12, 'counts_towards_balance' => true],
+            ['code' => '3', 'name' => 'Paid Leave', 'annual_allocation_days' => 15, 'counts_towards_balance' => true],
+            ['code' => '4', 'name' => 'Unpaid Leave', 'annual_allocation_days' => 0, 'counts_towards_balance' => false],
         ];
 
         foreach ($defaults as $default) {
@@ -76,6 +79,7 @@ class LeavePolicyService
                 'name' => $default['name'],
                 'code' => $default['code'],
                 'annual_allocation_days' => $default['annual_allocation_days'],
+                'counts_towards_balance' => $default['counts_towards_balance'],
                 'is_system_type' => true,
                 'created_by' => $createdBy->id,
                 'updated_by' => $createdBy->id,

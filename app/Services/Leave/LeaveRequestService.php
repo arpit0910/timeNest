@@ -88,7 +88,11 @@ class LeaveRequestService
         $year = (int) $start->format('Y');
         $balance = $this->findOrCreateBalance($organization, $user, $leaveType, $year);
 
-        if (!$policy->negative_balance_allowed && ($balance->remaining_days - $totalDays) < 0) {
+        // Types like Unpaid Leave aren't a balance concept at all -- this overrides
+        // negative_balance_allowed, it doesn't relax it. Skip the check entirely.
+        if ($leaveType->counts_towards_balance
+            && !$policy->negative_balance_allowed
+            && ($balance->remaining_days - $totalDays) < 0) {
             throw new InsufficientLeaveBalanceException();
         }
 

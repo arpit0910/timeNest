@@ -171,8 +171,10 @@ class LeavePolicyAutoProvisionTest extends TestCase
     {
         [$user, $org] = $this->createOrgWithUser();
 
-        // Auto-provision via the same trigger, then use the 0-allocation Unpaid Leave
-        // type to force an immediate InsufficientLeaveBalanceException (negative_balance_allowed=false).
+        // Auto-provision via the same trigger, then submit Casual Leave (12-day
+        // allocation) for 13 days to exceed it (negative_balance_allowed=false).
+        // attachment_path included to isolate the balance check from the
+        // document-required-after-3-days check, which would otherwise fire first.
         $this->actingAsTenant($user, $org)->postJson('/api/v1/organization/attendance/leaves', [
             'leave_type_id' => (string) Str::uuid(),
             'start_date' => now()->addDays(5)->toDateString(),
@@ -180,19 +182,49 @@ class LeavePolicyAutoProvisionTest extends TestCase
             'reason' => 'Trigger provisioning',
         ]);
 
-        $unpaid = LeaveType::where('organization_id', $org->id)->where('code', '6')->firstOrFail();
-        $this->assertSame('0.00', (string) $unpaid->annual_allocation_days);
+        $casual = LeaveType::where('organization_id', $org->id)->where('code', '1')->firstOrFail();
+        $this->assertSame('12.00', (string) $casual->annual_allocation_days);
 
         $response = $this->actingAsTenant($user, $org)->postJson('/api/v1/organization/attendance/leaves', [
-            'leave_type_id' => $unpaid->uuid,
-            'start_date' => now()->addDays(10)->toDateString(),
-            'end_date' => now()->addDays(11)->toDateString(),
-            'reason' => 'Should fail balance check (0 allocation, negative not allowed)',
+            'leave_type_id' => $casual->uuid,
+            'start_date' => now()->addDays(20)->toDateString(),
+            'end_date' => now()->addDays(32)->toDateString(), // 13 days, exceeds 12-day allocation
+            'reason' => 'Should fail balance check (13 days requested, 12 allocated, negative not allowed)',
+            'attachment_path' => 'https://example.com/doc.pdf',
         ]);
 
         echo "\n=== BALANCE CHECK ===\nStatus: {$response->status()}\nBody: {$response->getContent()}\n";
 
         $response->assertStatus(422);
+        $response->assertJsonPath('error_code', 'INSUFFICIENT_LEAVE_BALANCE');
+    }
+
+    public function test_unpaid_leave_exempt_from_balance_check(): void
+    {
+        [$user, $org] = $this->createOrgWithUser();
+
+        $this->actingAsTenant($user, $org)->postJson('/api/v1/organization/attendance/leaves', [
+            'leave_type_id' => (string) Str::uuid(),
+            'start_date' => now()->addDays(5)->toDateString(),
+            'end_date' => now()->addDays(6)->toDateString(),
+            'reason' => 'Trigger provisioning',
+        ]);
+
+        $unpaid = LeaveType::where('organization_id', $org->id)->where('code', '4')->firstOrFail();
+        $this->assertSame('Unpaid Leave', $unpaid->name);
+        $this->assertSame('0.00', (string) $unpaid->annual_allocation_days);
+        $this->assertFalse((bool) $unpaid->counts_towards_balance);
+
+        $response = $this->actingAsTenant($user, $org)->postJson('/api/v1/organization/attendance/leaves', [
+            'leave_type_id' => $unpaid->uuid,
+            'start_date' => now()->addDays(10)->toDateString(),
+            'end_date' => now()->addDays(11)->toDateString(),
+            'reason' => 'Zero allocation, but balance-exempt, so this must succeed',
+        ]);
+
+        echo "\n=== UNPAID LEAVE (balance-exempt) ===\nStatus: {$response->status()}\nBody: {$response->getContent()}\n";
+
+        $response->assertStatus(201);
     }
 
     public function test_advance_notice_check_now_enforced(): void
