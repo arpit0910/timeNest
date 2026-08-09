@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\V1\Rbac\RoleController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['jwt.auth', 'organization.access', 'tenant.resolve'])->group(function () {
+Route::middleware(['api.organization'])->group(function () {
 
     Route::get('roles', [RoleController::class, 'index'])
         ->middleware('permission:roles.view');

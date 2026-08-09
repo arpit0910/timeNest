@@ -51,7 +51,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
 
     // Leave Policy Routes
     Route::prefix('leave/policy')
-        ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+        ->middleware(['api.organization'])
         ->controller(\App\Http\Controllers\Api\Leave\LeavePolicyController::class)
         ->group(function (): void {
             Route::get('/', 'index');
@@ -62,7 +62,7 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         });
 
     // Leave Type Routes
-    Route::middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+    Route::middleware(['api.organization'])
         ->controller(\App\Http\Controllers\Api\Leave\LeaveTypeController::class)
         ->group(function (): void {
             Route::get('leave/policy/{policyUuid}/types', 'index');
