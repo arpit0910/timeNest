@@ -4,17 +4,85 @@ declare(strict_types=1);
 
 namespace App\Services\Leave;
 
+use App\Enums\Leave\ApprovalFlow;
 use App\Exceptions\Leave\LeavePolicyAlreadyExistsException;
 use App\Exceptions\Leave\LeavePolicyNotFoundException;
 use App\Models\Auth\User;
 use App\Models\Leave\LeavePolicy;
 use App\Models\Leave\LeavePolicyVersion;
+use App\Models\Leave\LeaveType;
 use App\Models\Organization\Organization;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class LeavePolicyService
 {
+    /**
+     * Get the org's leave policy, auto-provisioning a default policy + a
+     * minimal default LeaveType set on first-ever use if none exists yet.
+     * Defaults per docs/LEAVE_MODULE_REPORT.md section 7.
+     */
+    public function getOrCreatePolicy(Organization $organization, User $createdBy): LeavePolicy
+    {
+        return DB::transaction(function () use ($organization, $createdBy) {
+            $policy = LeavePolicy::firstOrCreate([
+                'organization_id' => $organization->id,
+            ], [
+                'approval_flow' => ApprovalFlow::SINGLE_APPROVAL->value,
+                'allow_leave_cancellation' => true,
+                'cancellation_before_hours' => 24,
+                'negative_balance_allowed' => false,
+                'advance_notice_required_days' => 1,
+                'max_advance_application_days' => 90,
+                'document_required_after_days' => 3,
+                'created_by' => $createdBy->id,
+                'updated_by' => $createdBy->id,
+            ]);
+
+            if ($policy->wasRecentlyCreated) {
+                $policy->refresh();
+                $this->createVersionSnapshot($policy, 1, $createdBy);
+                $this->seedDefaultLeaveTypes($policy, $createdBy);
+            }
+
+            return $policy;
+        });
+    }
+
+    /**
+     * Default leave types created alongside an auto-provisioned policy.
+     * Codes map to the legacy App\Enums\Leave\LeaveType values (1/2/3/6) since
+     * LeaveRequestService::submitLeave() resolves that enum via (int) $leaveType->code.
+     *
+     * Allocation days (12/12/15/0) are a standard-practice placeholder, not an
+     * org-specific HR decision — flagged for review, not verified against any
+     * real policy. Note: with the policy default negative_balance_allowed=false,
+     * a 0-day allocation makes Unpaid Leave unusable as submitted (any request
+     * immediately fails the balance check) — worth a look before relying on this.
+     */
+    private function seedDefaultLeaveTypes(LeavePolicy $policy, User $createdBy): void
+    {
+        $defaults = [
+            ['code' => '1', 'name' => 'Casual Leave', 'annual_allocation_days' => 12],
+            ['code' => '2', 'name' => 'Sick Leave', 'annual_allocation_days' => 12],
+            ['code' => '3', 'name' => 'Earned Leave', 'annual_allocation_days' => 15],
+            ['code' => '6', 'name' => 'Unpaid Leave', 'annual_allocation_days' => 0],
+        ];
+
+        foreach ($defaults as $default) {
+            LeaveType::create([
+                'organization_id' => $policy->organization_id,
+                'leave_policy_id' => $policy->id,
+                'name' => $default['name'],
+                'code' => $default['code'],
+                'annual_allocation_days' => $default['annual_allocation_days'],
+                'is_system_type' => true,
+                'created_by' => $createdBy->id,
+                'updated_by' => $createdBy->id,
+            ]);
+        }
+    }
+
     /**
      * Create a new leave policy for the given organization.
      *

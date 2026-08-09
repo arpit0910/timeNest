@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Organization\Attendance;
 
 use App\Http\Controllers\BaseApiController;
-use App\Http\Requests\Attendance\LeaveRequest;
 use App\Http\Requests\Attendance\UpdateLeaveStatusRequest;
+use App\Http\Requests\Leave\SubmitLeaveRequest;
 use App\Http\Resources\Attendance\EmployeeLeaveResource;
+use App\Http\Resources\Leave\LeaveRequestResource;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Organization\Organization;
-use App\Services\Attendance\LeaveManagementService;
 use App\Services\Attendance\LeaveStatusTransitionService;
+use App\Services\Leave\LeaveRequestService;
 use App\Enums\Leave\LeaveStatus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ use Illuminate\Http\Request;
 class LeaveController extends BaseApiController
 {
     public function __construct(
-        private readonly LeaveManagementService $leaveService,
+        private readonly LeaveRequestService $leaveRequestService,
         private readonly LeaveStatusTransitionService $transitionService,
     ) {}
 
@@ -46,13 +47,13 @@ class LeaveController extends BaseApiController
     /**
      * Apply for leave.
      */
-    public function store(LeaveRequest $request): JsonResponse
+    public function store(SubmitLeaveRequest $request): JsonResponse
     {
         $user = auth()->user();
-        $leave = $this->leaveService->applyForLeave($user, $this->getOrganization(), $request->validated());
+        $leave = $this->leaveRequestService->submitLeave($this->getOrganization(), $user, $request->validated());
 
         return $this->created(
-            new EmployeeLeaveResource($leave),
+            new LeaveRequestResource($leave),
             'Leave request submitted successfully.'
         );
     }

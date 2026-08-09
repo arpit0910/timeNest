@@ -7,6 +7,7 @@ namespace App\Services\Attendance;
 use App\Enums\Leave\LeaveStatus;
 use App\Enums\SystemPermission;
 use App\Exceptions\Business\BusinessRuleViolationException;
+use App\Exceptions\Leave\UnauthorizedLeaveActionException;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Leave\LeaveStatusHistory;
 use App\Models\Auth\User;
@@ -113,7 +114,14 @@ class LeaveStatusTransitionService
             return;
         }
 
-        // 3. Managerial/HR transitions require permission check scoped to tenant organization
+        // 3. Block self-approval / self-rejection regardless of permission level
+        // (mirrors LeaveRequestService::approveLeave()/rejectLeave(), which both
+        // reject $actor->id === $leave->user_id for these same two transitions)
+        if (in_array($newStatus, [LeaveStatus::APPROVED, LeaveStatus::REJECTED], true) && $leave->user_id === $actor->id) {
+            throw new UnauthorizedLeaveActionException();
+        }
+
+        // 4. Managerial/HR transitions require permission check scoped to tenant organization
         setPermissionsTeamId($leave->organization_id);
         $hasPermission = $actor->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value);
         setPermissionsTeamId(null);

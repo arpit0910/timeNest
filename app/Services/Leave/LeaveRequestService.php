@@ -47,6 +47,12 @@ class LeaveRequestService
 
     public function submitLeave(Organization $organization, User $user, array $data): EmployeeLeave
     {
+        // Resolve (and auto-provision, if this org has never had a policy) before
+        // the leave-type lookup below, so a brand-new org's default LeaveType rows
+        // exist by the time we look for the client-supplied leave_type_id.
+        $policy = $this->leavePolicyService->getOrCreatePolicy($organization, $user);
+        $policyVersion = $this->leavePolicyService->resolveCurrentVersion($policy);
+
         $leaveType = LeaveType::where('organization_id', $organization->id)
             ->where('uuid', $data['leave_type_id'])
             ->firstOrFail();
@@ -54,9 +60,6 @@ class LeaveRequestService
         if (!$leaveType->is_active) {
             throw new LeaveTypeNotActiveException();
         }
-
-        $policy = $this->leavePolicyService->getPolicy($organization);
-        $policyVersion = $this->leavePolicyService->resolveCurrentVersion($policy);
 
         $start = Carbon::parse($data['start_date']);
         $end = Carbon::parse($data['end_date']);

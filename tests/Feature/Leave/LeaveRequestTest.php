@@ -73,9 +73,21 @@ class LeaveRequestTest extends TestCase
         $this->organization->users()->attach($this->manager->id, $attachData());
         $this->organization->users()->attach($this->hr->id, $attachData());
 
-        \Illuminate\Support\Facades\Gate::define('leave.request.create', fn ($u) => true);
         \Illuminate\Support\Facades\Gate::define('leave.request.approve', fn ($u) => in_array($u->id, [$this->manager->id, $this->hr->id]));
         \Illuminate\Support\Facades\Gate::define('leave.request.view_all', fn ($u) => in_array($u->id, [$this->manager->id, $this->hr->id]));
+
+        // SubmitLeaveRequest::authorize() checks the real LEAVES_CREATE permission
+        // (previously checked a 'leave.request.create' string that didn't exist
+        // anywhere outside this test's now-removed Gate::define) — grant it for
+        // real so this suite exercises actual production authorization.
+        setPermissionsTeamId($this->organization->id);
+        $createPermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::LEAVES_CREATE->value)->where('guard_name', 'api')->first();
+        foreach ([$this->owner, $this->employee, $this->manager, $this->hr] as $u) {
+            if ($createPermission) {
+                $u->givePermissionTo($createPermission);
+            }
+        }
+        setPermissionsTeamId(null);
 
         $this->policy = LeavePolicy::create([
             'organization_id' => $this->organization->id,
