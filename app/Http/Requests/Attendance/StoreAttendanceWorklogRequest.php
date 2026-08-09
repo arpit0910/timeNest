@@ -42,6 +42,13 @@ class StoreAttendanceWorklogRequest extends FormRequest
             'project_uuid' => 'nullable|string|exists:projects,uuid',
             'milestone_uuid' => 'nullable|string|exists:milestones,uuid',
             'task_uuid' => 'nullable|string|exists:tasks,uuid',
+            // Deprecated raw-id fields: reject explicitly rather than silently
+            // dropping them, which used to create a worklog with a missing
+            // association instead of telling the client what went wrong.
+            'attendance_session_id' => 'prohibited',
+            'project_id' => 'prohibited',
+            'milestone_id' => 'prohibited',
+            'task_id' => 'prohibited',
             'start_time' => [
                 'nullable',
                 'date_format:Y-m-d H:i:s',
@@ -58,6 +65,16 @@ class StoreAttendanceWorklogRequest extends FormRequest
             'description' => 'nullable|string',
             'justification' => 'nullable|string',
             'metadata' => 'nullable|array',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'attendance_session_id.prohibited' => 'attendance_session_id is deprecated; use attendance_session_uuid instead.',
+            'project_id.prohibited' => 'project_id is deprecated; use project_uuid instead.',
+            'milestone_id.prohibited' => 'milestone_id is deprecated; use milestone_uuid instead.',
+            'task_id.prohibited' => 'task_id is deprecated; use task_uuid instead.',
         ];
     }
 }

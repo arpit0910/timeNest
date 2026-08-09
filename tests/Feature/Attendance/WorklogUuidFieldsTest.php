@@ -100,7 +100,7 @@ class WorklogUuidFieldsTest extends TestCase
         $this->assertDatabaseHas('attendance_worklogs', ['uuid' => $response->json('data.uuid'), 'project_id' => $project->id]);
     }
 
-    public function test_submit_with_old_raw_project_id_is_silently_ignored_not_422(): void
+    public function test_submit_with_old_raw_project_id_now_returns_422(): void
     {
         [$user, $org, $day] = $this->setup_org_day();
         $project = Project::create([
@@ -113,12 +113,33 @@ class WorklogUuidFieldsTest extends TestCase
             'project_id' => $project->id,
         ]);
 
-        echo "\n=== SUBMIT WITH legacy project_id (unvalidated field) ===\nStatus: {$response->status()}\nBody: {$response->getContent()}\n";
+        echo "\n=== SUBMIT WITH legacy project_id (now prohibited) ===\nStatus: {$response->status()}\nBody: {$response->getContent()}\n";
 
-        // project_id isn't a validated field on StoreAttendanceWorklogRequest, so
-        // Laravel's validator silently ignores it -- the request succeeds, but
-        // WITHOUT a project mapping (not a 422). Documenting actual behavior.
+        // project_id is now explicitly prohibited -- a clear 422 telling the
+        // client to use project_uuid, instead of silently dropping the field
+        // and creating a worklog with a missing association.
+        $response->assertStatus(422);
+        $response->assertJsonPath('errors.project_id.0', 'project_id is deprecated; use project_uuid instead.');
+        $this->assertDatabaseMissing('attendance_worklogs', ['description' => 'Sending legacy project_id field']);
+    }
+
+    public function test_submit_with_project_uuid_unaffected_by_prohibited_rule(): void
+    {
+        [$user, $org, $day] = $this->setup_org_day();
+        $project = Project::create([
+            'organization_id' => $org->id, 'name' => 'Test Project 3', 'uuid' => (string) Str::uuid(), 'is_active' => true,
+        ]);
+        $project->users()->attach($user->id);
+
+        $response = $this->actingAsTenant($user, $org)->postJson("/api/v1/organization/attendance/days/{$day->uuid}/worklogs", [
+            'logged_minutes' => 30,
+            'description' => 'Still works via project_uuid',
+            'project_uuid' => $project->uuid,
+        ]);
+
+        echo "\n=== SUBMIT WITH project_uuid (should be unaffected) ===\nStatus: {$response->status()}\nBody: {$response->getContent()}\n";
+
         $response->assertStatus(201);
-        $this->assertDatabaseHas('attendance_worklogs', ['uuid' => $response->json('data.uuid'), 'project_id' => null]);
+        $this->assertDatabaseHas('attendance_worklogs', ['uuid' => $response->json('data.uuid'), 'project_id' => $project->id]);
     }
 }
