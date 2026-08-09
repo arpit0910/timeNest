@@ -471,17 +471,19 @@ class InvitationTest extends TestCase
             'expires_at' => now()->addDays(7),
         ]);
 
-        // Admin A (of organization A) tries to view organization B invite
+        // Admin A (of organization A) tries to view organization B invite —
+        // InvitationController::show() org-scopes the query then firstOrFail(),
+        // so a cross-org uuid is indistinguishable from a nonexistent one: 404.
         $responseShow = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->getJson("/api/v1/organization/invitations/{$inviteB->uuid}");
 
-        $responseShow->assertStatus(403);
+        $responseShow->assertStatus(404);
 
-        // Admin A tries to revoke organization B invite
+        // Admin A tries to revoke organization B invite — same org-scoped firstOrFail() pattern.
         $responseRevoke = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))
             ->postJson("/api/v1/organization/invitations/{$inviteB->uuid}/revoke");
 
-        $responseRevoke->assertStatus(403);
+        $responseRevoke->assertStatus(404);
 
         // Admin A tries to resend organization B invite
         $responseResend = $this->withHeaders($this->headers($this->tokenA, $this->organizationA))

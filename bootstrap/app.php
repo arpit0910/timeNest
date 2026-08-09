@@ -174,15 +174,6 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 404);
         });
 
-        // ========== RUNTIME EXCEPTIONS (403) ==========
-        $exceptions->render(function (\RuntimeException $e, Request $request) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                ], 403);
-            }
-        });
-
         // ========== RATE LIMITING (429) ==========
         $exceptions->render(function (ThrottleRequestsException $e, Request $request): JsonResponse {
             if ($request->routeIs('*2fa.verify')) {
@@ -284,6 +275,19 @@ return Application::configure(basePath: dirname(__DIR__))
                 'errors' => null,
                 'meta' => null,
             ], $e->getStatusCode());
+        });
+
+        // ========== RUNTIME EXCEPTIONS (403) ==========
+        $exceptions->render(function (\RuntimeException $e, Request $request) {
+            if ($e instanceof HttpException) {
+                return null;
+            }
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 403);
+            }
         });
 
         // ========== GLOBAL FALLBACK — CATCH ANY THROWABLE (FINAL SAFETY NET) ==========
