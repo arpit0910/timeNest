@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 // ─── Leave Requests (consolidated) ──────────────────────────────────────
 Route::prefix('leave-requests')
-    ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+    ->middleware(['api.organization'])
     ->controller(\App\Http\Controllers\Api\V1\Organization\Leave\LeaveRequestController::class)
     ->group(function (): void {
         Route::get('/', 'index');

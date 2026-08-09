@@ -47,7 +47,7 @@ Route::prefix('organization/attendance')
 
 // ─── Attendance Policy (legacy, standalone, non-org-scoped) ────────────────
 Route::prefix('attendance/policy')
-    ->middleware(['auth:api', 'verified', \App\Http\Middleware\EnsureOrganizationAccess::class])
+    ->middleware(['api.organization'])
     ->controller(\App\Http\Controllers\Api\Attendance\AttendancePolicyController::class)
     ->group(function (): void {
         Route::get('/', 'index');
