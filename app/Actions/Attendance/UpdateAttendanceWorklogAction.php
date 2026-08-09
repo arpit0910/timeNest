@@ -33,7 +33,7 @@ class UpdateAttendanceWorklogAction
 
             // 2. Validate details
             $day = $worklog->attendanceDay;
-            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization);
+            $worklogPolicy = $this->policyService->getWorklogPolicyForOrganization($day->organization, $actor);
 
             $this->validationService->validate($actor, $day, $worklogPolicy, $data, $worklog);
 
