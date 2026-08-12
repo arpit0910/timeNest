@@ -48,4 +48,16 @@ final class AttendanceWorklogPolicy
             SystemPermission::WORKLOG_APPROVE_ANY,
         );
     }
+
+    public function viewableUserIds(User $user, int $organizationId): ?array
+    {
+        if ($user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE_ANY->value)
+            || $user->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            return null;
+        }
+
+        $subordinateIds = $this->getSubordinateUserIds($user, $organizationId);
+
+        return array_values(array_unique(array_merge([$user->id], $subordinateIds)));
+    }
 }

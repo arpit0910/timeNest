@@ -51,25 +51,19 @@ class AttendanceWorklogController extends BaseApiController
         setPermissionsTeamId($organization->id);
 
         try {
-            $canViewAll = $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_VIEW->value) 
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE->value)
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::WORKLOG_APPROVE_ANY->value)
-                || $user->hasPermissionTo(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
+            $allowedUserIds = app(\App\Policies\AttendanceWorklogPolicy::class)->viewableUserIds($user, $organization->id);
 
             $query = AttendanceWorklog::where('organization_id', $organization->id)
                 ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
-            if (! $canViewAll) {
-                if ($request->filled('user_uuid')) {
-                    $targetUser = User::where('uuid', $request->input('user_uuid'))->firstOrFail();
-                    if ($targetUser->id !== $user->id) {
-                        throw new \App\Exceptions\Business\AuthorizationException('Insufficient scope to view worklogs for other users.', 'INSUFFICIENT_SCOPE');
-                    }
-                }
-                $query->where('user_id', $user->id);
-            } elseif ($request->filled('user_uuid')) {
+            if ($request->filled('user_uuid')) {
                 $targetUser = User::where('uuid', $request->input('user_uuid'))->firstOrFail();
+                if ($allowedUserIds !== null && ! in_array($targetUser->id, $allowedUserIds, true)) {
+                    throw new \App\Exceptions\Business\AuthorizationException('Insufficient scope to view worklogs for other users.', 'INSUFFICIENT_SCOPE');
+                }
                 $query->where('user_id', $targetUser->id);
+            } elseif ($allowedUserIds !== null) {
+                $query->whereIn('user_id', $allowedUserIds);
             }
 
             if ($request->filled('status')) {

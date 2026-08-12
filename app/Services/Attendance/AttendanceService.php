@@ -296,6 +296,13 @@ class AttendanceService
      */
     public function submitAdjustment(User $user, AttendanceDay $day, array $data): AttendanceAdjustmentRequest
     {
+        if ($day->user_id !== $user->id) {
+            throw new BusinessRuleViolationException(
+                'You can only submit an adjustment for your own attendance record.',
+                'INVALID_ATTENDANCE_OWNER'
+            );
+        }
+
         // Reverse check: Block adjustment submission if an approved leave exists for the target date (excluding WFH / EWD)
         $hasApprovedLeave = EmployeeLeave::where('user_id', $day->user_id)
             ->whereNotIn('leave_type', [
