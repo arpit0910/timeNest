@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Leave;
 
+use App\Enums\Leave\LeaveType as LeaveTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateLeaveTypeRequest extends FormRequest
 {
@@ -18,7 +20,11 @@ class UpdateLeaveTypeRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:100',
-            'code' => 'sometimes|required|string|max:50|alpha_dash',
+            // See CreateLeaveTypeRequest for why this is constrained to the enum.
+            'code' => ['sometimes', 'required', 'string', Rule::in(array_map(
+                static fn (LeaveTypeEnum $case): string => (string) $case->value,
+                LeaveTypeEnum::cases()
+            ))],
             'color_hex' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'is_paid' => 'sometimes|required|boolean',
             'requires_document' => 'sometimes|required|boolean',

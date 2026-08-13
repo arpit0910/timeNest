@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Attendance;
 
+use App\Actions\IssueJwtAction;
+use App\Enums\Guard;
 use App\Enums\SystemPermission;
 use App\Models\Attendance\AttendancePolicy;
 use App\Models\Attendance\AttendancePolicyVersion;
@@ -17,15 +19,20 @@ class AttendancePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Grants both view and manage — every real seeded role that holds
+     * attendance_policy.manage also holds attendance_policy.view (see
+     * OrganizationRolePermissionsSeeder's ADMIN entry); granting manage
+     * alone would 403 on the view-gated GET routes (show/versions).
+     */
     protected function grantAttendancePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
-        $permission = Permission::where('name', SystemPermission::ATTENDANCE_POLICY_MANAGE->value)
-            ->where('guard_name', 'api')
-            ->first();
-        if ($permission) {
-            $user->givePermissionTo($permission);
-        }
+        $permissions = Permission::whereIn('name', [
+            SystemPermission::ATTENDANCE_POLICY_VIEW->value,
+            SystemPermission::ATTENDANCE_POLICY_MANAGE->value,
+        ])->where('guard_name', 'api')->get();
+        $user->givePermissionTo($permissions);
         setPermissionsTeamId(null);
     }
 
@@ -127,13 +134,12 @@ class AttendancePolicyTest extends TestCase
         ];
     }
 
-    protected function actingAsTenant(User $user, Organization $org)
+    /** See Leave\LeaveTypeTest::actingAsTenant() for why a real token is required. */
+    protected function actingAsTenant(User $user, Organization $org): void
     {
         $this->actingAs($user, 'api');
-        $this->app->instance('tenant.organization', $org);
-        
-        // Disable the real middleware since we are mocking the context
-        $this->withoutMiddleware([\App\Http\Middleware\EnsureOrganizationAccess::class]);
+        $token = app(IssueJwtAction::class)->issueAccessToken($user, $org, Guard::ORGANIZATION);
+        $this->withToken($token);
     }
 
     /**

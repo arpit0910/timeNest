@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Leave;
 
+use App\Actions\IssueJwtAction;
+use App\Enums\Guard;
 use App\Enums\SystemPermission;
 use App\Models\Auth\User;
 use App\Models\Leave\LeavePolicy;
@@ -18,24 +20,30 @@ class LeavePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Grants both view and manage — every real seeded role that holds
+     * leave_policy.manage also holds leave_policy.view (see
+     * OrganizationRolePermissionsSeeder's ADMIN/HEAD/DEPARTMENT_ADMIN
+     * entries); granting manage alone here would 403 on every GET route
+     * (index/show/versions), which are view-gated.
+     */
     protected function grantLeavePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
-        $permission = Permission::where('name', SystemPermission::LEAVE_POLICY_MANAGE->value)
-            ->where('guard_name', 'api')
-            ->first();
-        if ($permission) {
-            $user->givePermissionTo($permission);
-        }
+        $permissions = Permission::whereIn('name', [
+            SystemPermission::LEAVE_POLICY_VIEW->value,
+            SystemPermission::LEAVE_POLICY_MANAGE->value,
+        ])->where('guard_name', 'api')->get();
+        $user->givePermissionTo($permissions);
         setPermissionsTeamId(null);
     }
 
-    protected function actingAsTenant(User $user, Organization $org)
+    /** See LeaveTypeTest::actingAsTenant() for why a real token is required. */
+    protected function actingAsTenant(User $user, Organization $org): void
     {
         $this->actingAs($user, 'api');
-        $this->app->instance('tenant.organization', $org);
-        
-        $this->withoutMiddleware([\App\Http\Middleware\EnsureOrganizationAccess::class]);
+        $token = app(IssueJwtAction::class)->issueAccessToken($user, $org, Guard::ORGANIZATION);
+        $this->withToken($token);
     }
 
     protected function createOrgWithPolicy(array $overrides = [], bool $createPolicy = true): array

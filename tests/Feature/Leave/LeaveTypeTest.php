@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Leave;
 
+use App\Actions\IssueJwtAction;
+use App\Enums\Guard;
 use App\Enums\SystemPermission;
 use App\Models\Auth\User;
 use App\Models\Leave\LeavePolicy;
@@ -18,24 +20,30 @@ class LeaveTypeTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** See LeavePolicyTest::grantLeavePolicyManage() for why this grants both view and manage. */
     protected function grantLeavePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
-        $permission = Permission::where('name', SystemPermission::LEAVE_POLICY_MANAGE->value)
-            ->where('guard_name', 'api')
-            ->first();
-        if ($permission) {
-            $user->givePermissionTo($permission);
-        }
+        $permissions = Permission::whereIn('name', [
+            SystemPermission::LEAVE_POLICY_VIEW->value,
+            SystemPermission::LEAVE_POLICY_MANAGE->value,
+        ])->where('guard_name', 'api')->get();
+        $user->givePermissionTo($permissions);
         setPermissionsTeamId(null);
     }
 
-    protected function actingAsTenant(User $user, Organization $org)
+    /**
+     * Issues a real JWT and attaches it as a Bearer token — the app's
+     * JwtAuthenticate middleware parses the request's own Authorization
+     * header regardless of Laravel's guard-level auth state, so plain
+     * actingAs() alone (without a real token) 401s under the real
+     * api.organization middleware stack. See LegacyMiddlewareFixTest.php.
+     */
+    protected function actingAsTenant(User $user, Organization $org): void
     {
         $this->actingAs($user, 'api');
-        $this->app->instance('tenant.organization', $org);
-        
-        $this->withoutMiddleware([\App\Http\Middleware\EnsureOrganizationAccess::class]);
+        $token = app(IssueJwtAction::class)->issueAccessToken($user, $org, Guard::ORGANIZATION);
+        $this->withToken($token);
     }
 
     protected function createOrgWithPolicyAndType(): array
@@ -83,7 +91,7 @@ class LeaveTypeTest extends TestCase
             'organization_id' => $org->id,
             'leave_policy_id' => $policy->id,
             'name' => 'Casual Leave',
-            'code' => 'CASUAL',
+            'code' => '1', // App\Enums\Leave\LeaveType::CASUAL
             'color_hex' => '#FF0000',
             'is_paid' => true,
             'is_system_type' => false,
@@ -102,7 +110,7 @@ class LeaveTypeTest extends TestCase
     {
         return [
             'name' => 'Sick Leave',
-            'code' => 'SICK',
+            'code' => '2', // App\Enums\Leave\LeaveType::SICK
             'color_hex' => '#00FF00',
             'is_paid' => true,
             'requires_document' => true,
@@ -121,29 +129,32 @@ class LeaveTypeTest extends TestCase
         $response = $this->postJson("/api/v1/leave/policy/{$policy->uuid}/types", $this->getValidPayload());
 
         $response->assertStatus(201)
-            ->assertJsonPath('data.code', 'SICK');
+            ->assertJsonPath('data.code', '2');
 
         $this->assertDatabaseHas('leave_types', [
             'leave_policy_id' => $policy->id,
-            'code' => 'SICK',
+            'code' => '2',
         ]);
     }
 
-    public function test_code_is_forced_to_uppercase(): void
+    /**
+     * `code` must be one of App\Enums\Leave\LeaveType's values — anything
+     * else used to pass this free-text `alpha_dash` validation and then
+     * throw an uncaught ValueError the first time anyone submitted leave
+     * against it (LeaveTypeEnum::from((int) $leaveType->code)).
+     */
+    public function test_out_of_range_code_is_rejected(): void
     {
         [$user, $org, $policy, $type] = $this->createOrgWithPolicyAndType();
         $this->actingAsTenant($user, $org);
 
         $payload = $this->getValidPayload();
-        $payload['code'] = 'sick';
+        $payload['code'] = 'SICK';
 
         $response = $this->postJson("/api/v1/leave/policy/{$policy->uuid}/types", $payload);
 
-        $response->assertStatus(201);
-        $this->assertDatabaseHas('leave_types', [
-            'leave_policy_id' => $policy->id,
-            'code' => 'SICK', // Stored in uppercase
-        ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors('code');
     }
 
     public function test_duplicate_code_is_rejected(): void
@@ -152,7 +163,7 @@ class LeaveTypeTest extends TestCase
         $this->actingAsTenant($user, $org);
 
         $payload = $this->getValidPayload();
-        $payload['code'] = 'CASUAL'; // CASUAL already created in setUp
+        $payload['code'] = '1'; // already used by CASUAL, created in setUp
 
         $response = $this->postJson("/api/v1/leave/policy/{$policy->uuid}/types", $payload);
 

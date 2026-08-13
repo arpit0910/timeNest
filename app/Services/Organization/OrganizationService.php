@@ -7,6 +7,9 @@ namespace App\Services\Organization;
 use App\Models\Auth\User;
 use App\Models\Organization\Branch;
 use App\Models\Organization\Organization;
+use App\Services\Attendance\AttendancePolicyService;
+use App\Services\Attendance\WorklogPolicyService;
+use App\Services\Leave\LeavePolicyService;
 use App\Traits\HasAuditLog;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -20,6 +23,9 @@ class OrganizationService
 
     public function __construct(
         private readonly MembershipService $membershipService,
+        private readonly AttendancePolicyService $attendancePolicyService,
+        private readonly WorklogPolicyService $worklogPolicyService,
+        private readonly LeavePolicyService $leavePolicyService,
     ) {}
 
     /**
@@ -70,6 +76,18 @@ class OrganizationService
             }
 
             $this->membershipService->assignOwner($organization, $creator);
+
+            // Provision default Attendance/Worklog/Leave policies up front so a
+            // brand-new organization is immediately usable (clock-in, worklogs,
+            // leave applications) without an admin having to configure anything
+            // first. Worklog policy depends on the attendance policy existing,
+            // so it must run after. Each call is itself idempotent
+            // (firstOrCreate/exists-check), so this is safe to also run via the
+            // `policies:backfill-defaults` command for organizations created
+            // before this existed.
+            $attendancePolicy = $this->attendancePolicyService->createDefaultPolicy($organization, $creator);
+            $this->worklogPolicyService->getOrCreateWorklogPolicy($attendancePolicy, $creator);
+            $this->leavePolicyService->getOrCreatePolicy($organization, $creator);
 
             $this->logAction('organization.created', $organization, [], $organization->toArray());
 

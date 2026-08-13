@@ -39,7 +39,11 @@ class LeaveTypeService
         $data['created_by'] = $createdBy->id;
         $data['updated_by'] = $createdBy->id;
 
-        return LeaveType::create($data);
+        $leaveType = LeaveType::create($data);
+
+        // LeaveTypeResource reads ->organization and ->policy directly —
+        // neither is populated on a freshly-created model instance.
+        return $leaveType->load(['organization', 'policy']);
     }
 
     /**
@@ -70,7 +74,7 @@ class LeaveTypeService
         $data['updated_by'] = $updatedBy->id;
         $leaveType->update($data);
 
-        return $leaveType->fresh();
+        return $leaveType->fresh(['organization', 'policy']);
     }
 
     /**
@@ -115,6 +119,7 @@ class LeaveTypeService
     public function getTypesForPolicy(LeavePolicy $policy, bool $includeInactive = false): Collection
     {
         $query = LeaveType::where('leave_policy_id', $policy->id)
+            ->with(['organization', 'policy'])
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc');
 
@@ -136,6 +141,7 @@ class LeaveTypeService
     {
         $leaveType = LeaveType::where('uuid', $uuid)
             ->where('organization_id', $organization->id)
+            ->with(['organization', 'policy'])
             ->first();
 
         if (!$leaveType) {

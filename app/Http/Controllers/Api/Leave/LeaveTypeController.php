@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Leave;
 
+use App\Enums\Leave\LeaveType as LeaveTypeEnum;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Leave\CreateLeaveTypeRequest;
 use App\Http\Requests\Leave\UpdateLeaveTypeRequest;
@@ -24,6 +25,26 @@ class LeaveTypeController extends BaseApiController
     private function getOrganization(): Organization
     {
         return app('tenant.organization');
+    }
+
+    /**
+     * The fixed set of canonical leave-type codes (App\Enums\Leave\LeaveType).
+     *
+     * A custom LeaveType row's `code` must resolve to one of these values —
+     * LeaveRequestService::submitLeave() does `LeaveTypeEnum::from((int)
+     * $leaveType->code)`, which throws an uncaught ValueError for anything
+     * outside this set. Exposed here so the create/edit form can offer a
+     * picker instead of free text.
+     */
+    public function codes(): JsonResponse
+    {
+        $codes = collect(LeaveTypeEnum::cases())->map(fn (LeaveTypeEnum $case) => [
+            'code' => (string) $case->value,
+            'label' => $case->label(),
+            'color' => $case->color(),
+        ])->values();
+
+        return $this->success($codes);
     }
 
     /**

@@ -111,7 +111,7 @@ class LeavePolicyService
 
             $this->createVersionSnapshot($policy, 1, $createdBy);
 
-            return $policy->load(['versions', 'leaveTypes']);
+            return $policy->load(['versions', 'leaveTypes.organization', 'leaveTypes.policy']);
         });
     }
 
@@ -138,7 +138,7 @@ class LeavePolicyService
 
             $this->createVersionSnapshot($policy, $nextVersion, $updatedBy);
 
-            return $policy->fresh(['versions', 'leaveTypes']);
+            return $policy->fresh(['versions', 'leaveTypes.organization', 'leaveTypes.policy']);
         });
     }
 
@@ -151,7 +151,7 @@ class LeavePolicyService
     public function getPolicy(Organization $organization): LeavePolicy
     {
         $policy = LeavePolicy::where('organization_id', $organization->id)
-            ->with(['versions', 'leaveTypes'])
+            ->with(['versions', 'leaveTypes.organization', 'leaveTypes.policy'])
             ->first();
 
         if (!$policy) {
@@ -172,7 +172,7 @@ class LeavePolicyService
     {
         $policy = LeavePolicy::where('uuid', $uuid)
             ->where('organization_id', $organization->id)
-            ->with(['versions', 'leaveTypes'])
+            ->with(['versions', 'leaveTypes.organization', 'leaveTypes.policy'])
             ->first();
 
         if (!$policy) {

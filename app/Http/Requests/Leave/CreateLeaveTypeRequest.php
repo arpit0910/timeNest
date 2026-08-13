@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Leave;
 
+use App\Enums\Leave\LeaveType as LeaveTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateLeaveTypeRequest extends FormRequest
 {
@@ -18,7 +20,16 @@ class CreateLeaveTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'code' => 'required|string|max:50|alpha_dash',
+            // Must be one of App\Enums\Leave\LeaveType's values (as a string) —
+            // LeaveRequestService::submitLeave() resolves this via
+            // LeaveTypeEnum::from((int) $leaveType->code), which throws an
+            // uncaught ValueError for anything outside that set. `alpha_dash`
+            // free text used to pass validation here and crash on first
+            // submission; see GET /api/v1/leave/type-codes for the picker list.
+            'code' => ['required', 'string', Rule::in(array_map(
+                static fn (LeaveTypeEnum $case): string => (string) $case->value,
+                LeaveTypeEnum::cases()
+            ))],
             'color_hex' => ['nullable', 'string', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'is_paid' => 'required|boolean',
             'requires_document' => 'required|boolean',
