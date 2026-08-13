@@ -20,13 +20,7 @@ class LeavePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Grants both view and manage — every real seeded role that holds
-     * leave_policy.manage also holds leave_policy.view (see
-     * OrganizationRolePermissionsSeeder's ADMIN/HEAD/DEPARTMENT_ADMIN
-     * entries); granting manage alone here would 403 on every GET route
-     * (index/show/versions), which are view-gated.
-     */
+    /** Grants view alongside manage, matching how the seeded roles bundle them. */
     protected function grantLeavePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
@@ -38,7 +32,7 @@ class LeavePolicyTest extends TestCase
         setPermissionsTeamId(null);
     }
 
-    /** See LeaveTypeTest::actingAsTenant() for why a real token is required. */
+    /** JwtAuthenticate reads the Authorization header, so a real token is required. */
     protected function actingAsTenant(User $user, Organization $org): void
     {
         $this->actingAs($user, 'api');

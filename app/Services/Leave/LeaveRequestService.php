@@ -30,6 +30,7 @@ use App\Models\Leave\LeaveType;
 use App\Models\Organization\Organization;
 use App\Models\Attendance\OrganizationHoliday;
 use App\Policies\Concerns\ResolvesApprovalHierarchy;
+use App\Services\Attendance\AttendancePolicyService;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -41,7 +42,8 @@ class LeaveRequestService
     use ResolvesApprovalHierarchy;
     public function __construct(
         private LeavePolicyService $leavePolicyService,
-        private LeaveTypeService $leaveTypeService
+        private LeaveTypeService $leaveTypeService,
+        private AttendancePolicyService $attendancePolicyService
     ) {
     }
 
@@ -467,7 +469,10 @@ class LeaveRequestService
         $totalDays = 0.0;
         $current = $start->copy();
 
-        $weekendDays = $policyVersion->weekend_days ?? [];
+        // Weekend days are defined on the attendance policy; the leave policy only
+        // carries the allow_leave_on_weekends toggle.
+        $attendancePolicy = $this->attendancePolicyService->findPolicy($organization);
+        $weekendDays = $attendancePolicy?->weekend_days ?? [];
         $allowWeekends = $policyVersion->allow_leave_on_weekends ?? false;
         $allowHolidays = $policyVersion->allow_leave_on_holidays ?? false;
 

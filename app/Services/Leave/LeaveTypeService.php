@@ -41,8 +41,7 @@ class LeaveTypeService
 
         $leaveType = LeaveType::create($data);
 
-        // LeaveTypeResource reads ->organization and ->policy directly —
-        // neither is populated on a freshly-created model instance.
+        // LeaveTypeResource reads ->organization and ->policy directly.
         return $leaveType->load(['organization', 'policy']);
     }
 

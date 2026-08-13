@@ -20,7 +20,7 @@ class LeaveTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** See LeavePolicyTest::grantLeavePolicyManage() for why this grants both view and manage. */
+    /** Grants view alongside manage, matching how the seeded roles bundle them. */
     protected function grantLeavePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
@@ -33,11 +33,8 @@ class LeaveTypeTest extends TestCase
     }
 
     /**
-     * Issues a real JWT and attaches it as a Bearer token — the app's
-     * JwtAuthenticate middleware parses the request's own Authorization
-     * header regardless of Laravel's guard-level auth state, so plain
-     * actingAs() alone (without a real token) 401s under the real
-     * api.organization middleware stack. See LegacyMiddlewareFixTest.php.
+     * JwtAuthenticate reads the request's own Authorization header, so a real
+     * Bearer token is required on top of actingAs().
      */
     protected function actingAsTenant(User $user, Organization $org): void
     {
@@ -137,12 +134,7 @@ class LeaveTypeTest extends TestCase
         ]);
     }
 
-    /**
-     * `code` must be one of App\Enums\Leave\LeaveType's values — anything
-     * else used to pass this free-text `alpha_dash` validation and then
-     * throw an uncaught ValueError the first time anyone submitted leave
-     * against it (LeaveTypeEnum::from((int) $leaveType->code)).
-     */
+    /** `code` must be one of App\Enums\Leave\LeaveType's values. */
     public function test_out_of_range_code_is_rejected(): void
     {
         [$user, $org, $policy, $type] = $this->createOrgWithPolicyAndType();

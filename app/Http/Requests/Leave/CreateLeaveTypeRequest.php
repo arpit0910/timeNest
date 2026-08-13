@@ -20,12 +20,10 @@ class CreateLeaveTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            // Must be one of App\Enums\Leave\LeaveType's values (as a string) —
-            // LeaveRequestService::submitLeave() resolves this via
-            // LeaveTypeEnum::from((int) $leaveType->code), which throws an
-            // uncaught ValueError for anything outside that set. `alpha_dash`
-            // free text used to pass validation here and crash on first
-            // submission; see GET /api/v1/leave/type-codes for the picker list.
+            // Must be an App\Enums\Leave\LeaveType value as a string:
+            // LeaveRequestService::submitLeave() resolves it via
+            // LeaveTypeEnum::from((int) $leaveType->code). See
+            // GET /api/v1/leave/type-codes for the selectable list.
             'code' => ['required', 'string', Rule::in(array_map(
                 static fn (LeaveTypeEnum $case): string => (string) $case->value,
                 LeaveTypeEnum::cases()

@@ -13,12 +13,8 @@ class UpdateAttendancePolicyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Authorization handled by route 'permission:attendance_policy.manage'
-        // middleware -- not duplicated here. This previously checked
-        // 'attendance.policy.update', a string that doesn't match the real
-        // permission and doesn't exist anywhere else in the app (same bug
-        // already fixed this session on SubmitLeaveRequest, ApproveLeaveRequest,
-        // RejectLeaveRequest).
+        // Authorization handled by the route's
+        // 'permission:attendance_policy.manage' middleware.
         return true;
     }
 

@@ -14,10 +14,8 @@ use Illuminate\Support\Str;
 use Tests\TestCase;
 
 /**
- * Confirms roles.php, leave/policy, leave/types now work with real, unmocked
- * middleware after swapping their JWT stack for api.organization -- these
- * previously 401'd unconditionally regardless of user/permission/org state
- * (see TenantContextGapReproTest.php for the prior-state reproduction).
+ * Confirms roles.php, leave/policy and leave/types resolve correctly under the
+ * real, unmocked api.organization middleware stack.
  */
 class LegacyMiddlewareFixTest extends TestCase
 {

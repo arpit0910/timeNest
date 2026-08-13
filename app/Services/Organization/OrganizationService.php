@@ -77,14 +77,9 @@ class OrganizationService
 
             $this->membershipService->assignOwner($organization, $creator);
 
-            // Provision default Attendance/Worklog/Leave policies up front so a
-            // brand-new organization is immediately usable (clock-in, worklogs,
-            // leave applications) without an admin having to configure anything
-            // first. Worklog policy depends on the attendance policy existing,
-            // so it must run after. Each call is itself idempotent
-            // (firstOrCreate/exists-check), so this is safe to also run via the
-            // `policies:backfill-defaults` command for organizations created
-            // before this existed.
+            // Default policies so the org is usable (clock-in, worklogs, leave)
+            // without any admin setup. Worklog policy requires the attendance
+            // policy, so it runs after. Each call is idempotent.
             $attendancePolicy = $this->attendancePolicyService->createDefaultPolicy($organization, $creator);
             $this->worklogPolicyService->getOrCreateWorklogPolicy($attendancePolicy, $creator);
             $this->leavePolicyService->getOrCreatePolicy($organization, $creator);

@@ -51,17 +51,12 @@ class LeavePolicyService
 
     /**
      * Default leave types created alongside an auto-provisioned policy.
-     * Codes map to App\Enums\Leave\LeaveType (CASUAL=1, SICK=2, PAID=3, UNPAID=4)
-     * since LeaveRequestService::submitLeave() resolves that enum via
-     * (int) $leaveType->code. Verified directly against the enum source —
-     * an earlier version of this list used a stale doc's mapping and got
-     * Unpaid Leave's code wrong (had it as 6, which is actually EXTRA_WORKING_DAY).
+     * Codes map to App\Enums\Leave\LeaveType (CASUAL=1, SICK=2, PAID=3, UNPAID=4),
+     * which LeaveRequestService::submitLeave() resolves via (int) $leaveType->code.
      *
-     * Allocation days (12/12/15/0) are a standard-practice placeholder, not an
-     * org-specific HR decision — flagged for review, not verified against any
-     * real policy. Unpaid Leave is exempted from balance tracking entirely
-     * (counts_towards_balance = false) since it isn't a balance concept — it
-     * should always be submittable regardless of allocation/negative_balance_allowed.
+     * Allocation days are a standard-practice placeholder, not an org-specific HR
+     * decision. Unpaid Leave sets counts_towards_balance = false so it stays
+     * submittable regardless of allocation or negative_balance_allowed.
      */
     private function seedDefaultLeaveTypes(LeavePolicy $policy, User $createdBy): void
     {

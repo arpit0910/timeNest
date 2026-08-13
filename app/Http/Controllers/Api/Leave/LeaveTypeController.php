@@ -28,13 +28,9 @@ class LeaveTypeController extends BaseApiController
     }
 
     /**
-     * The fixed set of canonical leave-type codes (App\Enums\Leave\LeaveType).
-     *
-     * A custom LeaveType row's `code` must resolve to one of these values —
-     * LeaveRequestService::submitLeave() does `LeaveTypeEnum::from((int)
-     * $leaveType->code)`, which throws an uncaught ValueError for anything
-     * outside this set. Exposed here so the create/edit form can offer a
-     * picker instead of free text.
+     * The canonical leave-type codes (App\Enums\Leave\LeaveType), for the
+     * create/edit form's category picker. A LeaveType's `code` must be one
+     * of these values.
      */
     public function codes(): JsonResponse
     {

@@ -20,7 +20,7 @@ class UpdateLeaveTypeRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|string|max:100',
-            // See CreateLeaveTypeRequest for why this is constrained to the enum.
+            // Constrained to the enum — see CreateLeaveTypeRequest.
             'code' => ['sometimes', 'required', 'string', Rule::in(array_map(
                 static fn (LeaveTypeEnum $case): string => (string) $case->value,
                 LeaveTypeEnum::cases()

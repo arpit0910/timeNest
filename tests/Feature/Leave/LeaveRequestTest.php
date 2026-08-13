@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Leave;
 
+use App\Actions\IssueJwtAction;
+use App\Enums\Guard;
 use App\Enums\Leave\ApprovalFlow;
 use App\Enums\Leave\LeaveStatus;
 use App\Models\Auth\User;
@@ -38,21 +40,25 @@ class LeaveRequestTest extends TestCase
             'name' => 'Owner',
             'email' => 'owner' . uniqid() . '@test.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
         $this->employee = User::create([
             'name' => 'Employee',
             'email' => 'employee' . uniqid() . '@test.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
         $this->manager = User::create([
             'name' => 'Manager',
             'email' => 'manager' . uniqid() . '@test.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
         $this->hr = User::create([
             'name' => 'HR',
             'email' => 'hr' . uniqid() . '@test.com',
             'password' => bcrypt('password'),
+            'account_type' => \App\Enums\AccountType::ORGANIZATION->value,
         ]);
 
         $this->organization = Organization::create([
@@ -76,10 +82,7 @@ class LeaveRequestTest extends TestCase
         \Illuminate\Support\Facades\Gate::define('leave.request.approve', fn ($u) => in_array($u->id, [$this->manager->id, $this->hr->id]));
         \Illuminate\Support\Facades\Gate::define('leave.request.view_all', fn ($u) => in_array($u->id, [$this->manager->id, $this->hr->id]));
 
-        // SubmitLeaveRequest::authorize() checks the real LEAVES_CREATE permission
-        // (previously checked a 'leave.request.create' string that didn't exist
-        // anywhere outside this test's now-removed Gate::define) — grant it for
-        // real so this suite exercises actual production authorization.
+        // SubmitLeaveRequest::authorize() checks the real LEAVES_CREATE permission.
         setPermissionsTeamId($this->organization->id);
         $createPermission = \App\Models\Rbac\Permission::where('name', \App\Enums\SystemPermission::LEAVES_CREATE->value)->where('guard_name', 'api')->first();
         foreach ([$this->owner, $this->employee, $this->manager, $this->hr] as $u) {
@@ -135,11 +138,12 @@ class LeaveRequestTest extends TestCase
         ]);
     }
 
+    /** JwtAuthenticate reads the Authorization header, so a real token is required. */
     protected function actingAsTenant(User $user, Organization $org)
     {
         $this->actingAs($user, 'api');
-        $this->app->instance('tenant.organization', $org);
-        $this->withoutMiddleware([\App\Http\Middleware\EnsureOrganizationAccess::class]);
+        $token = app(IssueJwtAction::class)->issueAccessToken($user, $org, Guard::ORGANIZATION);
+        $this->withToken($token);
         return $this;
     }
 
@@ -425,5 +429,73 @@ class LeaveRequestTest extends TestCase
 
         $this->assertEquals(1, $count);
         $this->assertEquals(LeaveStatus::APPROVED, $leave->fresh()->leave_status);
+    }
+
+    /**
+     * With allow_leave_on_weekends = false, days matching the attendance
+     * policy's weekend_days are excluded from the leave day count.
+     */
+    public function test_21_weekend_days_are_excluded_from_leave_day_count(): void
+    {
+        \App\Models\Attendance\AttendancePolicy::create([
+            'organization_id' => $this->organization->id,
+            'attendance_mode' => 2,
+            'approval_flow' => 1,
+            'shift_start_time' => '09:00:00',
+            'shift_end_time' => '18:00:00',
+            'required_daily_minutes' => 480,
+            'minimum_session_minutes' => 15,
+            'grace_late_minutes' => 15,
+            'allowed_monthly_late_count' => 3,
+            'default_break_minutes' => 60,
+            'max_break_minutes' => 60,
+            'weekend_days' => ['Saturday', 'Sunday'],
+            'created_by' => $this->owner->id,
+        ]);
+
+        $friday = Carbon::parse('next friday');
+        $monday = $friday->copy()->addDays(3);
+
+        $service = app(\App\Services\Leave\LeaveRequestService::class);
+        $leave = $service->submitLeave($this->organization, $this->employee, [
+            'leave_type_id' => $this->leaveType->uuid,
+            'start_date' => $friday->toDateString(),
+            'end_date' => $monday->toDateString(),
+            'reason' => 'Long weekend trip',
+        ]);
+
+        // Fri + Mon = 2 leave days; Sat + Sun excluded, not 4.
+        $this->assertEquals(2.0, $leave->total_days);
+    }
+
+    public function test_22_leave_request_entirely_on_a_weekend_is_rejected(): void
+    {
+        \App\Models\Attendance\AttendancePolicy::create([
+            'organization_id' => $this->organization->id,
+            'attendance_mode' => 2,
+            'approval_flow' => 1,
+            'shift_start_time' => '09:00:00',
+            'shift_end_time' => '18:00:00',
+            'required_daily_minutes' => 480,
+            'minimum_session_minutes' => 15,
+            'grace_late_minutes' => 15,
+            'allowed_monthly_late_count' => 3,
+            'default_break_minutes' => 60,
+            'max_break_minutes' => 60,
+            'weekend_days' => ['Saturday', 'Sunday'],
+            'created_by' => $this->owner->id,
+        ]);
+
+        $sunday = Carbon::parse('next sunday');
+
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $service = app(\App\Services\Leave\LeaveRequestService::class);
+        $service->submitLeave($this->organization, $this->employee, [
+            'leave_type_id' => $this->leaveType->uuid,
+            'start_date' => $sunday->toDateString(),
+            'end_date' => $sunday->toDateString(),
+            'reason' => 'Should not be submittable — zero countable days',
+        ]);
     }
 }

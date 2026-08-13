@@ -19,9 +19,8 @@ class UpdateAttendanceWorklogRequest extends FormRequest
             'project_uuid' => 'sometimes|nullable|string|exists:projects,uuid',
             'milestone_uuid' => 'sometimes|nullable|string|exists:milestones,uuid',
             'task_uuid' => 'sometimes|nullable|string|exists:tasks,uuid',
-            // Deprecated raw-id fields: reject explicitly rather than silently
-            // dropping them, which used to update a worklog with a missing
-            // association instead of telling the client what went wrong.
+            // Deprecated raw-id fields: rejected explicitly so a stale client
+            // gets a clear error rather than a worklog with a dropped association.
             'project_id' => 'prohibited',
             'milestone_id' => 'prohibited',
             'task_id' => 'prohibited',

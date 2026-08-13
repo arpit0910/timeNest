@@ -29,10 +29,9 @@ Route::prefix('leave/policy')
     ->middleware(['api.organization'])
     ->controller(LeavePolicyController::class)
     ->group(function (): void {
-        // Also reachable by leaves.create: applying for leave needs the policy's
-        // half-day/advance-notice rules and the type list below, and neither role
-        // typically holds leave_policy.view (see OrganizationRolePermissionsSeeder,
-        // e.g. SystemRole::EMPLOYEE) — this is read-only, non-sensitive org config.
+        // leaves.create also grants read: applying for leave needs the policy's
+        // half-day and advance-notice rules, and most non-admin roles do not hold
+        // leave_policy.view. Read-only, non-sensitive org config.
         Route::get('/', 'index')->middleware('permission:' . SystemPermission::LEAVE_POLICY_VIEW->value . '|' . SystemPermission::LEAVES_CREATE->value);
         Route::post('/', 'store')->middleware('permission:' . SystemPermission::LEAVE_POLICY_MANAGE->value);
         Route::get('/{uuid}', 'show')->middleware('permission:' . SystemPermission::LEAVE_POLICY_VIEW->value);
@@ -46,7 +45,7 @@ Route::middleware(['api.organization'])
     ->controller(LeaveTypeController::class)
     ->group(function (): void {
         Route::get('leave/type-codes', 'codes')->middleware('permission:' . SystemPermission::LEAVE_POLICY_VIEW->value);
-        // Also reachable by leaves.create — see the matching note on GET leave/policy above.
+        // leaves.create also grants read — see GET leave/policy above.
         Route::get('leave/policy/{policyUuid}/types', 'index')->middleware('permission:' . SystemPermission::LEAVE_POLICY_VIEW->value . '|' . SystemPermission::LEAVES_CREATE->value);
         Route::post('leave/policy/{policyUuid}/types', 'store')->middleware('permission:' . SystemPermission::LEAVE_POLICY_MANAGE->value);
         Route::get('leave/types/{uuid}', 'show')->middleware('permission:' . SystemPermission::LEAVE_POLICY_VIEW->value);

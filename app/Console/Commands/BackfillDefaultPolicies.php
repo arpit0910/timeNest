@@ -12,10 +12,8 @@ use App\Services\Leave\LeavePolicyService;
 use Illuminate\Console\Command;
 
 /**
- * One-off/rerunnable backfill for organizations created before default
- * Attendance/Worklog/Leave policy provisioning was wired into
- * OrganizationService::createOrganization(). Safe to run repeatedly —
- * every underlying call is itself idempotent (firstOrCreate / exists-check).
+ * Provisions default Attendance/Worklog/Leave policies for organizations
+ * missing them. Idempotent — safe to run repeatedly.
  */
 class BackfillDefaultPolicies extends Command
 {

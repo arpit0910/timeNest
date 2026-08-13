@@ -42,9 +42,8 @@ class StoreAttendanceWorklogRequest extends FormRequest
             'project_uuid' => 'nullable|string|exists:projects,uuid',
             'milestone_uuid' => 'nullable|string|exists:milestones,uuid',
             'task_uuid' => 'nullable|string|exists:tasks,uuid',
-            // Deprecated raw-id fields: reject explicitly rather than silently
-            // dropping them, which used to create a worklog with a missing
-            // association instead of telling the client what went wrong.
+            // Deprecated raw-id fields: rejected explicitly so a stale client
+            // gets a clear error rather than a worklog with a dropped association.
             'attendance_session_id' => 'prohibited',
             'project_id' => 'prohibited',
             'milestone_id' => 'prohibited',

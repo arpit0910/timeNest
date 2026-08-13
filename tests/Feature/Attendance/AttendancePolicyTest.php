@@ -19,12 +19,7 @@ class AttendancePolicyTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Grants both view and manage — every real seeded role that holds
-     * attendance_policy.manage also holds attendance_policy.view (see
-     * OrganizationRolePermissionsSeeder's ADMIN entry); granting manage
-     * alone would 403 on the view-gated GET routes (show/versions).
-     */
+    /** Grants view alongside manage, matching how the seeded roles bundle them. */
     protected function grantAttendancePolicyManage(User $user, Organization $org): void
     {
         setPermissionsTeamId($org->id);
@@ -134,7 +129,7 @@ class AttendancePolicyTest extends TestCase
         ];
     }
 
-    /** See Leave\LeaveTypeTest::actingAsTenant() for why a real token is required. */
+    /** JwtAuthenticate reads the Authorization header, so a real token is required. */
     protected function actingAsTenant(User $user, Organization $org): void
     {
         $this->actingAs($user, 'api');
