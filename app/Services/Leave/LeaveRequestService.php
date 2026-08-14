@@ -144,7 +144,7 @@ class LeaveRequestService
 
             $this->recordStatusChange($leave, LeaveStatus::DRAFT, $leaveStatus, $user, 'Initial submission');
 
-            $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
+            $leave->load(['user.employeeProfiles', 'leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
         });
     }
@@ -200,7 +200,7 @@ class LeaveRequestService
                 $this->recordStatusChange($leave, $oldStatus, LeaveStatus::APPROVED, $approver, $remarks);
             }
 
-            $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
+            $leave->load(['user.employeeProfiles', 'leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
         });
     }
@@ -243,7 +243,7 @@ class LeaveRequestService
 
             $this->recordStatusChange($leave, $oldStatus, LeaveStatus::REJECTED, $rejector, $rejectionReason);
 
-            $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
+            $leave->load(['user.employeeProfiles', 'leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
         });
     }
@@ -297,7 +297,7 @@ class LeaveRequestService
 
             $this->recordStatusChange($leave, $oldStatus, LeaveStatus::CANCELLED, $canceller, $reason);
 
-            $leave->load(['leaveType', 'policyVersion', 'statusHistories']);
+            $leave->load(['user.employeeProfiles', 'leaveType', 'policyVersion', 'statusHistories']);
             return $leave;
         });
     }
@@ -316,7 +316,7 @@ class LeaveRequestService
                 || $viewer->can(SystemPermission::LEAVES_APPROVE->value)
                 || $viewer->can(SystemPermission::LEAVES_VIEW->value);
 
-            $query = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy'])
+            $query = EmployeeLeave::with(['user.employeeProfiles', 'leaveType', 'approvedBy', 'rejectedBy'])
                 ->where('organization_id', $organization->id);
 
             $userParam = $filters['user_id'] ?? $filters['user_uuid'] ?? null;
@@ -383,7 +383,7 @@ class LeaveRequestService
         setPermissionsTeamId($organization->id);
 
         try {
-            $leave = EmployeeLeave::with(['user', 'leaveType', 'approvedBy', 'rejectedBy', 'statusHistories'])
+            $leave = EmployeeLeave::with(['user.employeeProfiles', 'leaveType', 'approvedBy', 'rejectedBy', 'statusHistories'])
                 ->where('uuid', $uuid)
                 ->where('organization_id', $organization->id)
                 ->firstOrFail();

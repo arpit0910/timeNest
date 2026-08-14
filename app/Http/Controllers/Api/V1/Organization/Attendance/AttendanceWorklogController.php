@@ -54,7 +54,7 @@ class AttendanceWorklogController extends BaseApiController
             $allowedUserIds = app(\App\Policies\AttendanceWorklogPolicy::class)->viewableUserIds($user, $organization->id);
 
             $query = AttendanceWorklog::where('organization_id', $organization->id)
-                ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
+                ->with(['organization', 'user.employeeProfiles', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
             if ($request->filled('user_uuid')) {
                 $targetUser = User::where('uuid', $request->input('user_uuid'))->firstOrFail();
@@ -120,7 +120,7 @@ class AttendanceWorklogController extends BaseApiController
             }
 
             $worklogs = AttendanceWorklog::where('attendance_day_id', $day->id)
-                ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
+                ->with(['organization', 'user.employeeProfiles', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
                 ->orderBy('created_at', 'asc')
                 ->get();
 
@@ -137,7 +137,7 @@ class AttendanceWorklogController extends BaseApiController
     {
         $worklog = AttendanceWorklog::where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
-            ->with(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
+            ->with(['organization', 'user.employeeProfiles', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories'])
             ->firstOrFail();
 
         // Check authorization
@@ -238,7 +238,7 @@ class AttendanceWorklogController extends BaseApiController
     public function approve(Request $request, string $uuid): JsonResponse
     {
         $user = auth()->user();
-        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user'])
+        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user.employeeProfiles'])
             ->where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
@@ -258,7 +258,7 @@ class AttendanceWorklogController extends BaseApiController
         );
 
         // Reload eager loads for resource representation to prevent lazy loading errors
-        $updated->loadMissing(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
+        $updated->loadMissing(['organization', 'user.employeeProfiles', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
         return $this->success(
             new AttendanceWorklogResource($updated),
@@ -272,7 +272,7 @@ class AttendanceWorklogController extends BaseApiController
     public function reject(Request $request, string $uuid): JsonResponse
     {
         $user = auth()->user();
-        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user'])
+        $worklog = AttendanceWorklog::with(['attendanceDay', 'worklogPolicyVersion', 'organization', 'user.employeeProfiles'])
             ->where('uuid', $uuid)
             ->where('organization_id', $this->getOrganization()->id)
             ->firstOrFail();
@@ -292,7 +292,7 @@ class AttendanceWorklogController extends BaseApiController
         );
 
         // Reload eager loads for resource representation to prevent lazy loading errors
-        $updated->loadMissing(['organization', 'user', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
+        $updated->loadMissing(['organization', 'user.employeeProfiles', 'attendanceDay', 'attendanceSession', 'project', 'milestone', 'task', 'statusHistories']);
 
         return $this->success(
             new AttendanceWorklogResource($updated),

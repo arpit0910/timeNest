@@ -334,7 +334,7 @@ class AttendanceService
                 $sessionId = $sessionExists->id;
             }
 
-            return AttendanceAdjustmentRequest::create([
+            $adjustment = AttendanceAdjustmentRequest::create([
                 'attendance_day_id' => $day->id,
                 'attendance_session_id' => $sessionId,
                 'requested_by' => $user->id,
@@ -346,6 +346,8 @@ class AttendanceService
                     'reason' => $data['reason'],
                 ],
             ]);
+
+            return $adjustment->load('requestedBy.employeeProfiles', 'attendanceDay');
         });
     }
 
@@ -412,7 +414,7 @@ class AttendanceService
             // Audit activity log
             $this->logActivity($day->organization_id, $day->user_id, $resolver->id, 'adjustment_approved', $oldDayValues, $day->fresh()->toArray());
 
-            return $request;
+            return $request->load('requestedBy.employeeProfiles', 'attendanceDay');
         });
     }
 
@@ -438,7 +440,7 @@ class AttendanceService
             $day = $request->attendanceDay;
             $this->logActivity($day->organization_id, $day->user_id, $resolver->id, 'adjustment_rejected', null, $request->toArray());
 
-            return $request;
+            return $request->load('requestedBy.employeeProfiles', 'attendanceDay');
         });
     }
 
@@ -528,7 +530,7 @@ class AttendanceService
 
             $query = AttendanceAdjustmentRequest::whereHas('attendanceDay', function ($q) use ($organization) {
                 $q->where('organization_id', $organization->id);
-            })->with(['attendanceDay.user.employeeProfiles', 'attendanceSession', 'requestedBy', 'resolvedBy']);
+            })->with(['attendanceDay.user.employeeProfiles', 'attendanceSession', 'requestedBy.employeeProfiles', 'resolvedBy']);
 
             $userUuid = $filters['user_uuid'] ?? null;
 

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Resources\Leave;
 
 use App\Enums\Leave\ApprovalFlow;
+use App\Http\Resources\Concerns\ResolvesEmployeeCode;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LeaveRequestResource extends JsonResource
 {
+    use ResolvesEmployeeCode;
+
     public function toArray(Request $request): array
     {
         return [
@@ -19,6 +22,7 @@ class LeaveRequestResource extends JsonResource
                 'uuid' => $this->user->uuid,
                 'name' => $this->user->name,
                 'email' => $this->user->email,
+                'employee_code' => $this->employeeCodeFor($this->user, $this->organization_id),
             ]),
             'leave_type' => $this->whenLoaded('leaveType', fn() => [
                 'uuid' => $this->leaveType->uuid,
