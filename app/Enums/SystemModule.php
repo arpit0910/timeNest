@@ -24,6 +24,7 @@ enum SystemModule: string
     case SETTINGS = 'settings';
     case INVOICING = 'invoicing';
     case WORKFLOWS = 'workflows';
+    case NOTIFICATIONS = 'notifications';
 
     /**
      * Get human-readable label.
@@ -43,6 +44,7 @@ enum SystemModule: string
             self::SETTINGS => 'System Settings',
             self::INVOICING => 'Invoicing & Billing',
             self::WORKFLOWS => 'Workflow Automation',
+            self::NOTIFICATIONS => 'Notifications',
         };
     }
 }

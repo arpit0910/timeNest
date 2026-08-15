@@ -57,6 +57,11 @@ class TwoFactorService
         ]);
         
         $user->notify(new \App\Notifications\Auth\TwoFactorEnabledNotification($user));
+
+        notify_user($user, \App\Enums\NotificationTypeEnum::AUTH_TWO_FACTOR_ENABLED, [
+            'body' => 'Two-factor authentication is now protecting your account.',
+            'action_url' => '/two-factor',
+        ]);
         
         Cache::forget("2fa_setup_secret_{$user->id}");
         
@@ -91,6 +96,11 @@ class TwoFactorService
             request()->ip() ?? '',
             request()->userAgent() ?? ''
         ));
+
+        notify_user($user, \App\Enums\NotificationTypeEnum::AUTH_TWO_FACTOR_DISABLED, [
+            'body' => 'Two-factor authentication was turned off for your account.',
+            'action_url' => '/two-factor',
+        ]);
     }
 
     public function generateRecoveryCodes(): array

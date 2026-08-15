@@ -112,6 +112,14 @@ class AuthService
             now()
         ));
 
+        // In-app counterpart to the email above. No organization_id: security
+        // events follow the account, not a workspace.
+        notify_user($user, \App\Enums\NotificationTypeEnum::AUTH_NEW_LOGIN, [
+            'body' => trim('A new sign-in was recorded'.($ip ? " from {$ip}" : '').'.'),
+            'action_url' => '/(tabs)/settings',
+            'data' => ['ip' => $ip, 'user_agent' => $userAgent],
+        ]);
+
         return $this->resolveWorkspaceAndIssueTokens($user, $ip, $userAgent);
     }
 
@@ -642,6 +650,11 @@ class AuthService
         });
 
         $user->notify(new \App\Notifications\Auth\PasswordChangedNotification($user));
+
+        notify_user($user, \App\Enums\NotificationTypeEnum::AUTH_PASSWORD_CHANGED, [
+            'body' => 'Your password was changed and all other sessions were signed out.',
+            'action_url' => '/change-password',
+        ]);
 
         $this->logActivity($user, 'password_changed', 'Password changed — all tokens invalidated');
     }

@@ -36,6 +36,9 @@ class DatabaseSeeder extends Seeder
             DemoOrganizationSeeder::class,
             OrganizationRolePermissionsSeeder::class,
             RealisticOrganizationsSeeder::class,
+
+            // 5. Additive backfills — safe to re-run against a live database.
+            NotificationPermissionsSeeder::class,
         ]);
     }
 }

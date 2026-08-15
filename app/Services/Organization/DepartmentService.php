@@ -109,6 +109,16 @@ class DepartmentService
 
             $department->update(['head_user_id' => $headUserId]);
 
+            if ($headUserId !== null) {
+                notify_user($headUserId, \App\Enums\NotificationTypeEnum::DEPARTMENT_HEAD_ASSIGNED, [
+                    'body' => "You are now the head of {$department->name}.",
+                    'organization_id' => $organizationId,
+                    'action_url' => "/departments/{$department->uuid}",
+                    'subject' => $department,
+                    'actor' => auth()->id(),
+                ]);
+            }
+
             return $department->refresh()->load('head');
         });
     }

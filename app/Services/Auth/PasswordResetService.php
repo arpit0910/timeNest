@@ -93,6 +93,11 @@ class PasswordResetService
 
         $user->notify(new PasswordChangedNotification($user));
 
+        notify_user($user, \App\Enums\NotificationTypeEnum::AUTH_PASSWORD_CHANGED, [
+            'body' => 'Your password was reset. If this wasn\'t you, contact your administrator.',
+            'action_url' => '/(tabs)/settings',
+        ]);
+
         return true;
     }
 }

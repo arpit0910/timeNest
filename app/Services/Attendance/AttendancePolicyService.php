@@ -99,6 +99,15 @@ class AttendancePolicyService
                 }
             }
 
+            notify_organization($policy->organization_id, \App\Enums\NotificationTypeEnum::POLICY_UPDATED, [
+                'title' => 'Attendance policy updated',
+                'body' => 'The attendance policy changed. Check your shift timings and grace periods.',
+                'action_url' => '/attendance/policy',
+                'subject' => $policy,
+                'actor' => $updatedBy,
+                'data' => ['policy' => 'attendance', 'version' => $nextVersion],
+            ]);
+
             return $policy->fresh(['versions', 'latePenaltySlabs', 'workDurationPenaltySlabs']);
         });
     }

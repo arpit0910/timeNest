@@ -133,6 +133,17 @@ class LeavePolicyService
 
             $this->createVersionSnapshot($policy, $nextVersion, $updatedBy);
 
+            // Policy changes alter what everyone is held to, so the whole
+            // organization is told rather than just the approvers.
+            notify_organization($policy->organization_id, \App\Enums\NotificationTypeEnum::POLICY_UPDATED, [
+                'title' => 'Leave policy updated',
+                'body' => 'The leave policy changed. Check how it affects your entitlements.',
+                'action_url' => '/leave/policy',
+                'subject' => $policy,
+                'actor' => $updatedBy,
+                'data' => ['policy' => 'leave', 'version' => $nextVersion],
+            ]);
+
             return $policy->fresh(['versions', 'leaveTypes.organization', 'leaveTypes.policy']);
         });
     }

@@ -106,6 +106,14 @@ class MembershipService
         // Sync Spatie roles for this team
         $user->syncRoles([$newRole]);
 
+        notify_user($user, \App\Enums\NotificationTypeEnum::ROLE_ASSIGNED, [
+            'body' => 'Your role is now '.\Illuminate\Support\Str::headline($newRole->name).'.',
+            'organization_id' => $organization->id,
+            'subject' => $membership,
+            'actor' => auth()->id(),
+            'data' => ['role' => $newRole->name],
+        ]);
+
         $this->logAction('membership.role_changed', $membership, [], ['new_role' => $newRole->name]);
 
         return $membership;

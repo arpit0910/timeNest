@@ -41,10 +41,14 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::USERS_VIEW,
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_APPROVE,
+                SystemPermission::NOTIFICATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_SEND,
+                SystemPermission::NOTIFICATIONS_MANAGE,
             ],
             SystemRole::FREELANCE_MEMBER->value => [
                 SystemPermission::ATTENDANCE_VIEW,
                 SystemPermission::ATTENDANCE_CREATE,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
             SystemRole::FREELANCER->value => [],
             SystemRole::ADMIN->value       => [
@@ -115,6 +119,9 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::LEAVES_APPROVE_ANY,
                 SystemPermission::LEAVE_POLICY_VIEW,
                 SystemPermission::LEAVE_POLICY_MANAGE,
+                SystemPermission::NOTIFICATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_SEND,
+                SystemPermission::NOTIFICATIONS_MANAGE,
             ],
             // Department-scoped authority
             SystemRole::HEAD->value => [
@@ -167,6 +174,9 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_APPROVE_ANY,
                 SystemPermission::WORKLOG_POLICY_VIEW,
                 SystemPermission::LEAVE_POLICY_VIEW,
+                SystemPermission::NOTIFICATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_SEND,
+                SystemPermission::NOTIFICATIONS_MANAGE,
             ],
             SystemRole::DEPARTMENT_ADMIN->value => [
                 SystemPermission::ATTENDANCE_VIEW,
@@ -202,6 +212,9 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::USERS_VIEW,
                 SystemPermission::EMPLOYEE_PROFILE_VIEW,
                 SystemPermission::EMPLOYEE_PROFILE_MANAGE,
+                SystemPermission::NOTIFICATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_SEND,
+                SystemPermission::NOTIFICATIONS_MANAGE,
             ],
             // Generic management
             SystemRole::MANAGER->value => [
@@ -224,6 +237,8 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE,
+                SystemPermission::NOTIFICATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_MANAGE,
             ],
             SystemRole::TEAM_LEAD->value => [
                 SystemPermission::ATTENDANCE_VIEW,
@@ -240,6 +255,7 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ESCALATIONS_VIEW,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
             // Workers
             SystemRole::EMPLOYEE->value => [
@@ -255,6 +271,7 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
             SystemRole::INTERN->value => [
                 SystemPermission::ATTENDANCE_VIEW,
@@ -266,6 +283,7 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
             SystemRole::CONTRACTOR->value => [
                 SystemPermission::ATTENDANCE_VIEW,
@@ -277,6 +295,7 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::WORKLOG_CREATE,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_VIEW,
                 SystemPermission::ATTENDANCE_ADJUSTMENTS_CREATE,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
             // Observers
             SystemRole::VIEWER->value => [
@@ -293,6 +312,7 @@ class OrganizationRolePermissionsSeeder extends Seeder
                 SystemPermission::ATTENDANCE_POLICY_VIEW,
                 SystemPermission::LEAVE_POLICY_VIEW,
                 SystemPermission::WORKLOG_POLICY_VIEW,
+                SystemPermission::NOTIFICATIONS_VIEW,
             ],
         ];
     }

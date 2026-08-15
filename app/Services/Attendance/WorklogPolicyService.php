@@ -81,6 +81,15 @@ class WorklogPolicyService
 
             $this->createVersionSnapshot($worklogPolicy, $nextVersion, $updatedBy);
 
+            notify_organization($policy->organization_id, \App\Enums\NotificationTypeEnum::POLICY_UPDATED, [
+                'title' => 'Worklog policy updated',
+                'body' => 'The worklog policy changed. Check the logging window and approval rules.',
+                'action_url' => '/worklogs/policy',
+                'subject' => $worklogPolicy,
+                'actor' => $updatedBy,
+                'data' => ['policy' => 'worklog', 'version' => $nextVersion],
+            ]);
+
             return $worklogPolicy->fresh();
         });
     }

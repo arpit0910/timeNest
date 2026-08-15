@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Enums\NotificationTypeEnum;
+use App\Enums\SystemPermission;
+use App\Enums\WorkflowStatusEnum;
 use App\Models\Attendance\AttendanceWorklog;
 use App\Models\Attendance\AttendanceActivityLog;
 
@@ -42,6 +45,8 @@ class AttendanceWorklogObserver
         $actorId = auth()->id() ?? $worklog->user_id;
 
         if ($worklog->isDirty('worklog_status')) {
+            $this->notifyStatusChanged($worklog, $actorId);
+
             $oldStatus = $worklog->getOriginal('worklog_status');
             $newStatus = $worklog->worklog_status;
 
@@ -81,6 +86,66 @@ class AttendanceWorklogObserver
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
             'created_at' => now(),
+        ]);
+    }
+
+    /**
+     * Submission notifies the approvers; a decision notifies the author.
+     * Auto-approval on submit produces both, in that order, which is correct —
+     * the author still wants to know it cleared.
+     */
+    private function notifyStatusChanged(AttendanceWorklog $worklog, ?int $actorId): void
+    {
+        $status = $worklog->worklog_status instanceof \BackedEnum
+            ? (int) $worklog->worklog_status->value
+            : (int) $worklog->worklog_status;
+
+        $hours = $worklog->logged_minutes !== null
+            ? round($worklog->logged_minutes / 60, 1).'h'
+            : null;
+
+        if ($status === WorkflowStatusEnum::SUBMITTED->value) {
+            $author = $worklog->user?->name ?? 'A team member';
+
+            notify_approvers(
+                $worklog->user_id,
+                $worklog->organization_id,
+                SystemPermission::WORKLOG_APPROVE_ANY,
+                NotificationTypeEnum::WORKLOG_SUBMITTED,
+                [
+                    'title' => 'Worklog submitted for approval',
+                    'body' => $hours
+                        ? "{$author} submitted {$hours} of work for approval."
+                        : "{$author} submitted a worklog for approval.",
+                    'action_url' => "/worklogs/{$worklog->uuid}",
+                    'subject' => $worklog,
+                    'actor' => $worklog->user_id,
+                    'data' => ['worklog_uuid' => $worklog->uuid],
+                ],
+            );
+
+            return;
+        }
+
+        $type = match ($status) {
+            WorkflowStatusEnum::APPROVED->value => NotificationTypeEnum::WORKLOG_APPROVED,
+            WorkflowStatusEnum::REJECTED->value => NotificationTypeEnum::WORKLOG_REJECTED,
+            default => null,
+        };
+
+        if ($type === null) {
+            return;
+        }
+
+        notify_user($worklog->user_id, $type, [
+            'body' => $type === NotificationTypeEnum::WORKLOG_APPROVED
+                ? ($hours ? "Your {$hours} worklog was approved." : 'Your worklog was approved.')
+                : ($hours ? "Your {$hours} worklog was rejected." : 'Your worklog was rejected.'),
+            'organization_id' => $worklog->organization_id,
+            'action_url' => "/worklogs/{$worklog->uuid}",
+            'subject' => $worklog,
+            'actor' => $actorId,
+            'data' => ['worklog_uuid' => $worklog->uuid],
         ]);
     }
 }

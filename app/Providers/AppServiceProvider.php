@@ -34,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Leave\EmployeeLeave::observe(\App\Observers\EmployeeLeaveObserver::class);
         \App\Models\Attendance\AttendanceWorklog::observe(\App\Observers\AttendanceWorklogObserver::class);
 
+        // In-app notification triggers — see App\Services\Notification\NotificationService.
+        \App\Models\Attendance\AttendanceAdjustmentRequest::observe(\App\Observers\AttendanceAdjustmentRequestObserver::class);
+        \App\Models\Attendance\AttendanceEscalation::observe(\App\Observers\AttendanceEscalationObserver::class);
+        \App\Models\Organization\OrganizationMembership::observe(\App\Observers\OrganizationMembershipObserver::class);
+        \App\Models\Membership\EmployeeProfile::observe(\App\Observers\EmployeeProfileObserver::class);
+
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Leave\EmployeeLeave::class, \App\Policies\EmployeeLeavePolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceWorklog::class, \App\Policies\AttendanceWorklogPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceAdjustmentRequest::class, \App\Policies\AttendanceAdjustmentPolicy::class);
@@ -49,6 +55,16 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Event::listen(
             \App\Events\InvitationCreated::class,
             \App\Listeners\SendInvitationNotification::class
+        );
+
+        // In-app notifications for the invitation outcome, addressed to the inviter.
+        \Illuminate\Support\Facades\Event::listen(
+            \App\Events\InvitationAccepted::class,
+            [\App\Listeners\SendInvitationInAppNotification::class, 'handleAccepted']
+        );
+        \Illuminate\Support\Facades\Event::listen(
+            \App\Events\InvitationRevoked::class,
+            [\App\Listeners\SendInvitationInAppNotification::class, 'handleRevoked']
         );
     }
 

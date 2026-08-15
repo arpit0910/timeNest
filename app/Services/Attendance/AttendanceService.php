@@ -25,6 +25,7 @@ use App\Models\Auth\User;
 use App\Models\Leave\EmployeeLeave;
 use App\Models\Organization\Organization;
 use App\Models\Membership\EmployeeProfile;
+use App\Policies\AttendanceDayPolicy;
 use App\Policies\Concerns\ResolvesApprovalHierarchy;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -453,18 +454,27 @@ class AttendanceService
 
         try {
             $userUuid = $filters['user_uuid'] ?? null;
-            $targetUser = $authUser;
+
+            $query = AttendanceDay::where('organization_id', $organization->id)
+                ->with(['user.employeeProfiles' => fn ($q) => $q->where('organization_id', $organization->id), 'attendanceSessions', 'policyVersion']);
 
             if ($userUuid !== null) {
                 $targetUser = User::where('uuid', $userUuid)->firstOrFail();
                 if (! $this->canViewUser($authUser, $targetUser->id, $organization->id, SystemPermission::ATTENDANCE_VIEW)) {
                     throw new AuthorizationException('You are not authorized to view attendance for this user.', 'CANNOT_VIEW_USER_ATTENDANCE');
                 }
-            }
 
-            $query = AttendanceDay::where('organization_id', $organization->id)
-                ->where('user_id', $targetUser->id)
-                ->with(['user.employeeProfiles' => fn ($q) => $q->where('organization_id', $organization->id), 'attendanceSessions', 'policyVersion']);
+                $query->where('user_id', $targetUser->id);
+            } else {
+                // Unfiltered means "everyone in my scope", not "just me" — an
+                // approver's team view depends on it. A plain employee's scope
+                // is [self], so their result is unchanged.
+                $allowedUserIds = app(AttendanceDayPolicy::class)->viewableUserIds($authUser, $organization->id);
+
+                if ($allowedUserIds !== null) {
+                    $query->whereIn('user_id', $allowedUserIds);
+                }
+            }
 
             $startDate = $filters['start_date'] ?? $filters['from'] ?? null;
             $endDate = $filters['end_date'] ?? $filters['to'] ?? null;

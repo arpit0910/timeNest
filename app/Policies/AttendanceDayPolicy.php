@@ -54,4 +54,24 @@ final class AttendanceDayPolicy
             SystemPermission::ATTENDANCE_APPROVE,
         );
     }
+
+    /**
+     * Every user whose attendance this user may list, for an unfiltered query.
+     *
+     * Null means "no restriction" (org-wide). Otherwise the caller themselves
+     * plus their subordinates — the same shape AttendanceWorklogPolicy uses.
+     *
+     * @return array<int>|null
+     */
+    public function viewableUserIds(User $user, int $organizationId): ?array
+    {
+        if ($user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)
+            || $user->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            return null;
+        }
+
+        $subordinateIds = $this->getSubordinateUserIds($user, $organizationId);
+
+        return array_values(array_unique(array_merge([$user->id], $subordinateIds)));
+    }
 }

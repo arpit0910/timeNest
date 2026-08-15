@@ -39,11 +39,29 @@ if (! function_exists('jwt_user_uuid')) {
 
 if (! function_exists('current_organization_id')) {
     /**
-     * Get the active organization ID from the JWT claims.
+     * Get the active organization's internal ID.
+     *
+     * The JWT only carries the organization *uuid* — internal ids are never
+     * exposed in a token — so this reads the Organization that
+     * ResolveTenantContext bound to the container, and only falls back to a
+     * uuid lookup when that middleware hasn't run (e.g. a FormRequest resolved
+     * outside the organization stack).
      */
     function current_organization_id(): ?int
     {
-        return jwt_context()?->organizationId;
+        $organization = tenant_organization();
+
+        if ($organization !== null) {
+            return (int) $organization->id;
+        }
+
+        $uuid = jwt_context()?->organizationUuid;
+
+        if ($uuid === null) {
+            return null;
+        }
+
+        return \App\Models\Organization\Organization::where('uuid', $uuid)->value('id');
     }
 }
 

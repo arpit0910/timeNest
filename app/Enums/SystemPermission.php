@@ -135,6 +135,15 @@ enum SystemPermission: string
     case REPORTS_EXPORT = 'reports.export';
     case REPORTS_SCHEDULE = 'reports.schedule';
 
+    // ─── Notifications ───────────────────────────────────────────
+    // `view` covers a user's own feed only — it is granted to every role, since
+    // notifications are always addressed to a specific recipient.
+    case NOTIFICATIONS_VIEW = 'notifications.view';
+    // Broadcast an announcement to the whole organization.
+    case NOTIFICATIONS_SEND = 'notifications.send';
+    // Send to hand-picked recipients rather than the whole organization.
+    case NOTIFICATIONS_MANAGE = 'notifications.manage';
+
     // ─── Settings ────────────────────────────────────────────────
     case SETTINGS_MANAGE = 'settings.manage';
 

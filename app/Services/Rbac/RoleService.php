@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Services\Rbac;
 
 use App\Enums\SystemPermission;
+use App\Models\Organization\OrganizationMembership;
 use App\Models\Rbac\Role;
-use App\Models\User;
+use App\Models\Auth\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +70,6 @@ class RoleService
     {
         return DB::transaction(function () use ($data, $organizationId): Role {
             return Role::create([
-                'uuid'            => (string) Str::uuid(),
                 'name'            => $data['name'],
                 'organization_id' => $organizationId,
                 'guard_name'      => 'api',
@@ -91,7 +91,6 @@ class RoleService
 
         return DB::transaction(function () use ($data): Role {
             return Role::create([
-                'uuid'            => (string) Str::uuid(),
                 'name'            => $data['name'],
                 'organization_id' => null,
                 'guard_name'      => 'api',
@@ -220,9 +219,11 @@ class RoleService
             }
         }
 
-        return DB::transaction(function () use ($role, $permissionNames): Role {
+        return DB::transaction(function () use ($role, $permissionNames, $actor, $organizationId): Role {
             // SECURITY RULE 5: atomic sync — removes old, adds new
             $role->syncPermissions($permissionNames);
+
+            $this->notifyRoleHolders($role, $actor, $organizationId);
 
             return $role->refresh()->load('permissions');
         });
@@ -258,5 +259,47 @@ class RoleService
                 ])->values(),
             ];
         })->values();
+    }
+
+    /**
+     * Tell everyone holding this role that what they can do has changed.
+     *
+     * Scoped to the acting organization so a global role's permission change
+     * doesn't fan out to every tenant on the platform at once.
+     */
+    private function notifyRoleHolders(Role $role, User $actor, ?int $organizationId): void
+    {
+        if ($organizationId === null) {
+            return;
+        }
+
+        $holderIds = OrganizationMembership::query()
+            ->where('organization_id', $organizationId)
+            ->pluck('user_id')
+            ->all();
+
+        if ($holderIds === []) {
+            return;
+        }
+
+        setPermissionsTeamId($organizationId);
+
+        try {
+            $recipients = User::whereIn('id', $holderIds)
+                ->get()
+                ->filter(fn (User $user) => $user->hasRole($role->name));
+        } catch (\Throwable) {
+            return;
+        } finally {
+            setPermissionsTeamId(null);
+        }
+
+        notify_users($recipients, \App\Enums\NotificationTypeEnum::ROLE_PERMISSIONS_CHANGED, [
+            'body' => 'Permissions for your '.\Illuminate\Support\Str::headline($role->name).' role were updated.',
+            'organization_id' => $organizationId,
+            'subject' => $role,
+            'actor' => $actor,
+            'data' => ['role' => $role->name],
+        ]);
     }
 }

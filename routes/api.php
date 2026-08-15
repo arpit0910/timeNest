@@ -32,6 +32,11 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         ->middleware(['api.organization'])
         ->group(base_path('routes/api/v1/organization.php'));
 
+    // Notification Feed
+    Route::prefix('notifications')->name('notifications.')
+        ->middleware(['api.organization'])
+        ->group(base_path('routes/api/v1/notifications.php'));
+
     // Public Invitation Flow Endpoints
     Route::controller(PublicInvitationController::class)->group(function (): void {
         Route::get('invitations/validate/{token}', 'validateToken')->name('invitations.validate');

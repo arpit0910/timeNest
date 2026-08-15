@@ -6,7 +6,7 @@ namespace App\Services\Organization;
 
 use App\Models\Organization\Department;
 use App\Models\Organization\SubDepartment;
-use App\Models\User;
+use App\Models\Auth\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -145,6 +145,16 @@ class SubDepartmentService
             }
 
             $subDepartment->update(['head_user_id' => $headUserId]);
+
+            if ($headUserId !== null) {
+                notify_user($headUserId, \App\Enums\NotificationTypeEnum::SUB_DEPARTMENT_HEAD_ASSIGNED, [
+                    'body' => "You are now the head of {$subDepartment->name}.",
+                    'organization_id' => $organizationId,
+                    'action_url' => "/sub-departments/{$subDepartment->uuid}",
+                    'subject' => $subDepartment,
+                    'actor' => auth()->id(),
+                ]);
+            }
 
             return $subDepartment->refresh()->load(['head', 'department']);
         });
