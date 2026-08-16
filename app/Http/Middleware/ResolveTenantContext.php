@@ -51,7 +51,7 @@ class ResolveTenantContext
         $context = jwt_context();
 
         $platformRole = resolve_platform_role($request->user());
-        $isAppOwner = $request->user()->can(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value);
+        $isAppOwner = has_platform_full_access($request->user());
 
         // Resolve organization UUID, allowing AppOwner header/request overrides
         $organizationUuid = $context->organizationUuid;

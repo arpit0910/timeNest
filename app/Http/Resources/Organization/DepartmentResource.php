@@ -19,7 +19,9 @@ class DepartmentResource extends JsonResource
             'sub_departments' => SubDepartmentResource::collection(
                 $this->whenLoaded('subDepartments')
             ),
-            'head_user_uuid' => $this->headUser?->uuid,
+            // The relation on Department is head(), not headUser() — under
+            // Model::shouldBeStrict() the wrong name threw on every request.
+            'head_user_uuid' => $this->whenLoaded('head', fn () => $this->head?->uuid),
             'is_active' => $this->is_active,
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),

@@ -436,7 +436,19 @@ class AuthService
         setPermissionsTeamId($organization?->id);
 
         try {
-            return $user->getAllPermissions()->pluck('name')->values()->all();
+            $permissions = $user->getAllPermissions()->pluck('name')->values()->all();
+
+            // platform.full_access is a wildcard enforced by the Gate::before
+            // hook in AppServiceProvider, so the API authorises everything for
+            // its holders. Without expanding it here the client would receive
+            // the single literal permission and hide every screen it can
+            // actually use — the projection has to agree with the gate.
+            if (in_array(SystemPermission::PLATFORM_FULL_ACCESS->value, $permissions, true)
+                || has_platform_full_access($user)) {
+                return SystemPermission::allValues();
+            }
+
+            return $permissions;
         } finally {
             setPermissionsTeamId(null);
         }

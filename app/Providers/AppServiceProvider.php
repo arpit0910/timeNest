@@ -48,7 +48,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Centralized platform root bypass
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
-            return $user->hasPermissionTo(\App\Enums\SystemPermission::PLATFORM_FULL_ACCESS->value) ? true : null;
+            // Team-independent on purpose: ResolveTenantContext scopes Spatie to
+            // the active organization, which hides a platform account's
+            // NULL-team role and would otherwise revoke this bypass mid-request.
+            return has_platform_full_access($user) ? true : null;
         });
 
         // Event Listeners

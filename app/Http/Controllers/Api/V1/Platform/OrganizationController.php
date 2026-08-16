@@ -31,7 +31,10 @@ class OrganizationController extends BaseApiController
      */
     public function index(): JsonResponse
     {
-        $organizations = Organization::with('owner')->paginate(50);
+        // No `owner` relationship exists on Organization and OrganizationResource
+        // renders no owner field — eager-loading one threw on every request.
+        $organizations = Organization::with('country')->orderBy('legal_name')->paginate(50);
+
         return OrganizationResource::collection($organizations)->response();
     }
 

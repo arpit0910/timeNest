@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 use App\Auth\JwtContext;
 use App\Enums\Guard;
+use App\Enums\SystemPermission;
 use App\Models\Auth\User;
 use App\Models\Rbac\Role;
+use Illuminate\Support\Facades\DB;
 
 if (! function_exists('jwt_context')) {
     /**
@@ -34,6 +36,58 @@ if (! function_exists('jwt_user_uuid')) {
     function jwt_user_uuid(): ?string
     {
         return jwt_context()?->userUuid;
+    }
+}
+
+if (! function_exists('has_platform_full_access')) {
+    /**
+     * Whether this user holds the platform wildcard, independent of team scope.
+     *
+     * Spatie scopes role assignments by team (organization_id). A platform
+     * account's role is assigned with a NULL team, so the moment
+     * ResolveTenantContext sets the team to a specific organization, that role
+     * stops resolving and the user momentarily looks unprivileged — which is
+     * how a platform super admin ended up 403ing on every org-scoped route.
+     *
+     * Being a platform root is a property of the account, not of whichever
+     * tenant is currently loaded, so this reads the platform role directly
+     * (resolve_platform_role queries the pivot with a NULL team) and never
+     * consults the ambient team id.
+     */
+    function has_platform_full_access(User $user): bool
+    {
+        $cacheKey = 'platform_full_access_'.$user->getKey();
+
+        if (app()->bound($cacheKey)) {
+            return app($cacheKey);
+        }
+
+        $permission = SystemPermission::PLATFORM_FULL_ACCESS->value;
+        $role = resolve_platform_role($user);
+
+        $granted = $role !== null
+            && $role->permissions()->where('name', $permission)->exists();
+
+        // Also honour the permission granted straight to the user with no team.
+        if (! $granted) {
+            $modelHasPermissions = config('permission.table_names.model_has_permissions', 'model_has_permissions');
+            $permissionsTable = config('permission.table_names.permissions', 'permissions');
+            $pivotPermission = config('permission.column_names.permission_pivot_key') ?? 'permission_id';
+            $teamColumn = config('permission.column_names.team_foreign_key', 'organization_id');
+            $modelKey = config('permission.column_names.model_morph_key', 'model_id');
+
+            $granted = DB::table($modelHasPermissions)
+                ->join($permissionsTable, "{$permissionsTable}.id", '=', "{$modelHasPermissions}.{$pivotPermission}")
+                ->where("{$modelHasPermissions}.{$modelKey}", $user->getKey())
+                ->where("{$modelHasPermissions}.model_type", $user->getMorphClass())
+                ->whereNull("{$modelHasPermissions}.{$teamColumn}")
+                ->where("{$permissionsTable}.name", $permission)
+                ->exists();
+        }
+
+        app()->instance($cacheKey, $granted);
+
+        return $granted;
     }
 }
 

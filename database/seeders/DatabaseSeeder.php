@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
 
             // 5. Additive backfills — safe to re-run against a live database.
             NotificationPermissionsSeeder::class,
+            PlatformSuperAdminPermissionsSeeder::class,
         ]);
     }
 }
