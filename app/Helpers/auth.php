@@ -56,13 +56,28 @@ if (! function_exists('has_platform_full_access')) {
      */
     function has_platform_full_access(User $user): bool
     {
-        $cacheKey = 'platform_full_access_'.$user->getKey();
+        return has_platform_permission($user, SystemPermission::PLATFORM_FULL_ACCESS->value);
+    }
+}
+
+if (! function_exists('has_platform_permission')) {
+    /**
+     * Whether this user holds a given permission on the *platform* plane,
+     * independent of team scope.
+     *
+     * Generalises has_platform_full_access(): the same team-independent
+     * resolution, for any permission name. Spatie scopes assignments by team,
+     * and a platform account's role has a NULL team, so once
+     * ResolveTenantContext sets a tenant the normal path stops resolving it.
+     */
+    function has_platform_permission(User $user, string $permission): bool
+    {
+        $cacheKey = 'platform_permission_'.$user->getKey().'_'.$permission;
 
         if (app()->bound($cacheKey)) {
             return app($cacheKey);
         }
 
-        $permission = SystemPermission::PLATFORM_FULL_ACCESS->value;
         $role = resolve_platform_role($user);
 
         $granted = $role !== null

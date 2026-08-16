@@ -29,6 +29,7 @@ class Role extends SpatieRole
         'name',
         'guard_name',
         'organization_id',
+        'tier',
         'description',
         'is_system_role',
         'sort_order',

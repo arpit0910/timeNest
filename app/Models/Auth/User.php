@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models\Auth;
 
 use App\Enums\AccountType;
+use App\Enums\PlatformTenantAccess;
+use App\Enums\SystemRole;
 use App\Enums\UserStatus;
 use App\Models\Organization\Organization;
 use App\Models\Geo\Country;
@@ -290,5 +292,50 @@ class User extends Authenticatable implements JWTSubject
     public function isPlatformUser(): bool
     {
         return $this->platformMembership()->exists();
+    }
+
+    /**
+     * Whether this account administers the platform rather than a tenant.
+     *
+     * Keyed on the roles.tier column, not a name prefix — a renamed or
+     * newly added platform role is classified by its data, not a convention.
+     * Deliberately team-independent: a platform role is assigned with a NULL
+     * team, so Spatie's scoped path stops resolving it once a tenant is loaded.
+     */
+    public function isPlatformAccount(): bool
+    {
+        $cacheKey = 'is_platform_account_'.$this->getKey();
+
+        if (app()->bound($cacheKey)) {
+            return app($cacheKey);
+        }
+
+        $role = resolve_platform_role($this);
+        $result = $role !== null && $role->tier === 'platform';
+
+        app()->instance($cacheKey, $result);
+
+        return $result;
+    }
+
+    /**
+     * What this platform account may do inside a tenant.
+     *
+     * Null for ordinary organization users, and for a platform account whose
+     * role has no mapping — both fall through to the normal Spatie path.
+     */
+    public function platformTenantAccess(): ?PlatformTenantAccess
+    {
+        if (! $this->isPlatformAccount()) {
+            return null;
+        }
+
+        return match (resolve_platform_role($this)?->name) {
+            SystemRole::APP_SUPER_ADMIN->value => PlatformTenantAccess::FULL,
+            SystemRole::APP_ADMIN->value => PlatformTenantAccess::PROVISION,
+            SystemRole::APP_AUDITOR->value => PlatformTenantAccess::AUDIT,
+            SystemRole::APP_SUPPORT->value => PlatformTenantAccess::READ,
+            default => null,
+        };
     }
 }

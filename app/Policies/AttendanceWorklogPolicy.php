@@ -52,7 +52,7 @@ final class AttendanceWorklogPolicy
     public function viewableUserIds(User $user, int $organizationId): ?array
     {
         if ($user->hasPermissionTo(SystemPermission::WORKLOG_APPROVE_ANY->value)
-            || $user->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            || $user->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
             return null;
         }
 

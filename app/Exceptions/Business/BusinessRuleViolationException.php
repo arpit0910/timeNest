@@ -8,7 +8,7 @@ use App\Exceptions\BaseApiException;
 
 /**
  * BusinessRuleViolationException — thrown when business logic constraint is violated.
- * HTTP 409 Conflict.
+ * HTTP 422 Unprocessable Entity.
  *
  * Use this for: duplicate entries, invalid state transitions, constraint violations, etc.
  */

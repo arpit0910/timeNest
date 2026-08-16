@@ -50,8 +50,7 @@ class ResolveTenantContext
 
         $context = jwt_context();
 
-        $platformRole = resolve_platform_role($request->user());
-        $isAppOwner = has_platform_full_access($request->user());
+        $isAppOwner = $request->user()->isPlatformAccount();
 
         // Resolve organization UUID, allowing AppOwner header/request overrides
         $organizationUuid = $context->organizationUuid;
@@ -105,7 +104,8 @@ class ResolveTenantContext
         // Set Spatie team ID for permission resolution
         setPermissionsTeamId($organization->id);
 
-        //TODO: Check this line's requirement here.
+        // Required: the permission/role relations may already be loaded from a
+        // previous team scope, and Spatie caches them per model instance.
         $request->user()->unsetRelation('roles')->unsetRelation('permissions');
 
         return $next($request);

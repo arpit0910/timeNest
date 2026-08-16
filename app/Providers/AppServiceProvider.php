@@ -46,12 +46,26 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceEscalation::class, \App\Policies\AttendanceEscalationPolicy::class);
         \Illuminate\Support\Facades\Gate::policy(\App\Models\Attendance\AttendanceDay::class, \App\Policies\AttendanceDayPolicy::class);
 
-        // Centralized platform root bypass
-        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
-            // Team-independent on purpose: ResolveTenantContext scopes Spatie to
-            // the active organization, which hides a platform account's
-            // NULL-team role and would otherwise revoke this bypass mid-request.
-            return has_platform_full_access($user) ? true : null;
+        // Platform accounts resolve against a capability map rather than a
+        // blanket wildcard, so app_support (read) and app_auditor (read+export)
+        // are expressible and a new policy method is not auto-granted to every
+        // platform tier before anyone reviews it.
+        \Illuminate\Support\Facades\Gate::before(function ($user, string $ability) {
+            if (! $user->isPlatformAccount()) {
+                return null; // ordinary user — fall through to Spatie and policies
+            }
+
+            // Platform-plane abilities are answered from the real assignment,
+            // team-independently; a tier never manufactures them.
+            if (str_starts_with($ability, 'platform.')
+                || $ability === \App\Enums\SystemPermission::ORGANIZATIONS_MANAGE->value) {
+                return has_platform_permission($user, $ability) ? true : null;
+            }
+
+            // Returning null rather than false on a miss matters: false
+            // short-circuits into a special-cased denial, null falls through to
+            // the normal path and yields a consistent 403.
+            return $user->platformTenantAccess()?->grants($ability) ? true : null;
         });
 
         // Event Listeners

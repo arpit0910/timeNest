@@ -66,7 +66,7 @@ final class AttendanceDayPolicy
     public function viewableUserIds(User $user, int $organizationId): ?array
     {
         if ($user->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)
-            || $user->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            || $user->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
             return null;
         }
 

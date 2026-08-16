@@ -438,14 +438,30 @@ class AuthService
         try {
             $permissions = $user->getAllPermissions()->pluck('name')->values()->all();
 
-            // platform.full_access is a wildcard enforced by the Gate::before
-            // hook in AppServiceProvider, so the API authorises everything for
-            // its holders. Without expanding it here the client would receive
-            // the single literal permission and hide every screen it can
-            // actually use — the projection has to agree with the gate.
-            if (in_array(SystemPermission::PLATFORM_FULL_ACCESS->value, $permissions, true)
-                || has_platform_full_access($user)) {
-                return SystemPermission::allValues();
+            // This array is the sole input to the mobile client's UI gating, so
+            // it has to agree with what Gate::before will actually authorise —
+            // otherwise a platform account sees an empty app while the API would
+            // happily serve every request.
+            if ($user->isPlatformAccount()) {
+                // Platform-plane permissions come from the real assignment and
+                // are read team-independently, since a tenant may be loaded.
+                $platformPermissions = array_values(array_filter(
+                    SystemPermission::allValues(),
+                    fn (string $name) => has_platform_permission($user, $name),
+                ));
+
+                // Org-plane permissions only mean something once a tenant is
+                // selected; without one there is nothing for them to apply to.
+                if ($organization === null) {
+                    return array_values(array_unique($platformPermissions));
+                }
+
+                $tenantPermissions = array_map(
+                    fn (SystemPermission $p) => $p->value,
+                    $user->platformTenantAccess()?->orgPermissions() ?? [],
+                );
+
+                return array_values(array_unique(array_merge($platformPermissions, $tenantPermissions)));
             }
 
             return $permissions;

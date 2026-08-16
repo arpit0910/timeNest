@@ -26,6 +26,12 @@ class RoleService
                 $q->whereNull('organization_id')         // global roles
                   ->orWhere('organization_id', $organizationId); // org roles
             })
+            // Platform roles are inherited by nobody and administer the platform
+            // itself — a tenant must never see or assign them. guard_name is a
+            // second lock: today every role is 'api', but that is an accident of
+            // seeding rather than an invariant the schema enforces.
+            ->where('tier', 'organization')
+            ->where('guard_name', 'api')
             ->with('permissions')
             ->orderBy('sort_order')
             ->orderBy('name')
@@ -33,12 +39,22 @@ class RoleService
     }
 
     /**
-     * List ALL roles across the platform.
+     * List every role of one tier, unscoped by organization.
      * Platform admin use only.
+     *
+     * Caller-aware for the same reason as findByUuid(): this backs
+     * GET /platform/roles, whose entire purpose is managing platform-tier
+     * roles, so a hard-coded 'organization' filter would empty it. The tenant
+     * -facing lister is list(), which is the one that must never return
+     * platform roles.
+     *
+     * @param string $tier  'platform' or 'organization'
      */
-    public function listAll(int $perPage = 20): LengthAwarePaginator
+    public function listAll(int $perPage = 20, string $tier = 'platform'): LengthAwarePaginator
     {
         return Role::with(['permissions'])
+            ->where('tier', $tier)
+            ->where('guard_name', 'api')
             ->orderByRaw('organization_id IS NOT NULL')
             ->orderBy('sort_order')
             ->paginate($perPage);
@@ -47,11 +63,21 @@ class RoleService
     /**
      * Find a single role by UUID.
      * For org context: must be global or belong to this org.
-     * For platform context: any role.
+     * For platform context: any role of the requested tier.
+     *
+     * The tier is caller-declared rather than inferred: PlatformRoleController
+     * legitimately manages platform roles and passes 'platform', while every
+     * organization-facing caller takes the default. Without it a tenant admin
+     * who knew a platform role's uuid could read it here even though list()
+     * no longer discloses one.
+     *
+     * @param string $tier  'organization' or 'platform'
      */
-    public function findByUuid(string $uuid, ?int $organizationId = null): Role
+    public function findByUuid(string $uuid, ?int $organizationId, string $tier = 'organization'): Role
     {
-        $query = Role::with('permissions')->where('uuid', $uuid);
+        $query = Role::with('permissions')
+            ->where('uuid', $uuid)
+            ->where('tier', $tier);
 
         if ($organizationId !== null) {
             $query->where(function ($q) use ($organizationId) {
@@ -94,8 +120,16 @@ class RoleService
             return Role::create([
                 'name'            => $data['name'],
                 'organization_id' => null,
+                // Explicit: the column defaults to 'organization', so without this
+                // a newly created platform role would be invisible to
+                // findByUuid(..., 'platform') and would leak into every tenant's
+                // role list. create() below correctly relies on that default.
+                'tier'            => 'platform',
                 'guard_name'      => 'api',
-                'is_system_role'  => $data['is_system_role'] ?? false,
+                // Never taken from input: a system role can never be deleted, so
+                // accepting this let a platform admin mint an undeletable role.
+                // Matches create(), which also hard-codes false.
+                'is_system_role'  => false,
                 'sort_order'      => $data['sort_order'] ?? 99,
             ]);
         });
@@ -247,7 +281,9 @@ class RoleService
             // SECURITY RULE 6: prevent self-lockout
             // If the actor holds this role, ensure roles.view and roles.manage
             // are not being removed
-            $actorHoldsThisRole = $actor->hasRole($role->name);
+            // Matched on id, not name: hasRole('admin') resolves against the
+            // ambient team, so a same-named role in another tenant false-positived.
+            $actorHoldsThisRole = $actor->roles()->whereKey($role->getKey())->exists();
             if ($actorHoldsThisRole) {
                 $criticalPermissions = [
                     SystemPermission::ROLES_VIEW->value,

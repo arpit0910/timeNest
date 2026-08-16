@@ -215,4 +215,78 @@ enum SystemPermission: string
     {
         return array_map(fn (self $p) => $p->value, self::cases());
     }
+
+    /**
+     * Everything on the organization plane — i.e. not platform-tier authority.
+     *
+     * Excludes `platform.*` and `organizations.manage`, which govern the
+     * platform itself rather than anything inside a tenant.
+     *
+     * @return self[]
+     */
+    public static function organizationCases(): array
+    {
+        return array_values(array_filter(
+            self::cases(),
+            fn (self $p) => ! str_starts_with($p->value, 'platform.')
+                && $p !== self::ORGANIZATIONS_MANAGE,
+        ));
+    }
+
+    /**
+     * Read-only organization permissions.
+     *
+     * Matched on the `_VIEW` case-name suffix rather than a hand-written list,
+     * so a permission added later is classified without touching this method.
+     *
+     * @return self[]
+     */
+    public static function viewCases(): array
+    {
+        return array_values(array_filter(
+            self::organizationCases(),
+            fn (self $p) => str_ends_with($p->name, '_VIEW'),
+        ));
+    }
+
+    /**
+     * Read plus export — the compliance/audit surface.
+     *
+     * @return self[]
+     */
+    public static function viewAndExportCases(): array
+    {
+        return array_values(array_filter(
+            self::organizationCases(),
+            fn (self $p) => str_ends_with($p->name, '_VIEW') || str_ends_with($p->name, '_EXPORT'),
+        ));
+    }
+
+    /**
+     * Everything needed to stand up a tenant and manage who is in it:
+     * org structure (branches, departments, sub-departments, designations),
+     * members, invitations and roles — plus the read surface those imply.
+     *
+     * @return self[]
+     */
+    public static function structureAndMemberCases(): array
+    {
+        $modules = [
+            'branches',
+            'departments',
+            'sub_departments',
+            'designations',
+            'members',
+            'users',
+            'employee_profile',
+            'invitations',
+            'roles',
+        ];
+
+        return array_values(array_filter(
+            self::organizationCases(),
+            fn (self $p) => in_array($p->module(), $modules, true)
+                || str_ends_with($p->name, '_VIEW'),
+        ));
+    }
 }

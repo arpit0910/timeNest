@@ -25,6 +25,7 @@ class PlatformRoleController extends Controller
     {
         $roles = $this->roleService->listAll(
             perPage: (int) $request->query('per_page', 20),
+            tier: 'platform',
         );
 
         return RoleResource::collection($roles);
@@ -33,7 +34,7 @@ class PlatformRoleController extends Controller
     public function show(string $uuid): RoleResource
     {
         // No org scoping — platform admin sees everything
-        $role = $this->roleService->findByUuid($uuid, null);
+        $role = $this->roleService->findByUuid($uuid, null, 'platform');
 
         return new RoleResource($role);
     }
@@ -49,7 +50,7 @@ class PlatformRoleController extends Controller
 
     public function update(UpdateRoleRequest $request, string $uuid): RoleResource
     {
-        $role = $this->roleService->findByUuid($uuid, null);
+        $role = $this->roleService->findByUuid($uuid, null, 'platform');
 
         // Platform admin — no org restriction
         $updated = $this->roleService->update($role, $request->validated(), auth()->user(), null);
@@ -59,7 +60,7 @@ class PlatformRoleController extends Controller
 
     public function destroy(DeleteRoleRequest $request, string $uuid): JsonResponse
     {
-        $role = $this->roleService->findByUuid($uuid, null);
+        $role = $this->roleService->findByUuid($uuid, null, 'platform');
 
         $this->roleService->delete(
             role: $role,
@@ -73,7 +74,7 @@ class PlatformRoleController extends Controller
 
     public function syncPermissions(SyncPermissionsRequest $request, string $uuid): RoleResource
     {
-        $role = $this->roleService->findByUuid($uuid, null);
+        $role = $this->roleService->findByUuid($uuid, null, 'platform');
 
         $updated = $this->roleService->syncPermissions(
             role: $role,

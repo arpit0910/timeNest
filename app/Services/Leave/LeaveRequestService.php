@@ -308,7 +308,7 @@ class LeaveRequestService
 
         try {
             $canApproveAny = $viewer->hasPermissionTo(SystemPermission::LEAVES_APPROVE_ANY->value)
-                || $viewer->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)
+                || $viewer->can(SystemPermission::PLATFORM_FULL_ACCESS->value)
                 || $viewer->can(SystemPermission::LEAVES_APPROVE_ANY->value);
 
             $canApprove = $viewer->hasPermissionTo(SystemPermission::LEAVES_APPROVE->value)

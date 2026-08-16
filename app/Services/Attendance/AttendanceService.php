@@ -535,7 +535,7 @@ class AttendanceService
 
         try {
             $canApproveAny = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE_ANY->value)
-                || $requester->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value);
+                || $requester->can(SystemPermission::PLATFORM_FULL_ACCESS->value);
             $canApprove = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_APPROVE->value);
 
             $query = AttendanceAdjustmentRequest::whereHas('attendanceDay', function ($q) use ($organization) {
@@ -611,7 +611,7 @@ class AttendanceService
 
         try {
             $canResolve = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_RESOLVE->value)
-                || $requester->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value);
+                || $requester->can(SystemPermission::PLATFORM_FULL_ACCESS->value);
             $canView = $requester->hasPermissionTo(SystemPermission::ATTENDANCE_ESCALATIONS_VIEW->value);
 
             $query = AttendanceEscalation::where('organization_id', $organization->id)

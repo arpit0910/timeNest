@@ -19,9 +19,14 @@ return new class extends Migration
                 ->whereNull('organization_id')
                 ->value('id');
 
-            // if ($fallbackRoleId === null) {
-            //     throw new RuntimeException('The app_super_admin role must exist before retiring director roles.');
-            // }
+            // NOTE: intentionally NOT a hard throw. This migration runs before any
+            // seeder, so on a fresh database (and in every RefreshDatabase test)
+            // app_super_admin does not exist yet and a throw here aborts the whole
+            // migration run. The guard below achieves the same protection — it skips
+            // reassignment rather than writing role_id = NULL.
+            if ($fallbackRoleId === null) {
+                return;
+            }
 
             $retiredRoleIds = DB::table($rolesTable)
                 ->whereIn('name', ['director', 'app_director'])

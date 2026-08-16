@@ -28,7 +28,7 @@ trait ResolvesApprovalHierarchy
             return true;
         }
 
-        if ($actor->hasPermissionTo($approveAnyPermission->value) || $actor->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+        if ($actor->hasPermissionTo($approveAnyPermission->value) || $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
             return true;
         }
 
@@ -125,7 +125,7 @@ trait ResolvesApprovalHierarchy
             return false;
         }
 
-        if ($actor->hasPermissionTo($approveAnyPermission->value) || $actor->hasPermissionTo(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+        if ($actor->hasPermissionTo($approveAnyPermission->value) || $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
             return true;
         }
 
