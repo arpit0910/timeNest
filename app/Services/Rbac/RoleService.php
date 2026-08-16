@@ -99,6 +99,11 @@ class RoleService
             return Role::create([
                 'name'            => $data['name'],
                 'organization_id' => $organizationId,
+                // Explicit rather than relying on the column default: tier is a
+                // security boundary, and the default has already been missed twice.
+                // A custom role is named by the caller, so there is no SystemRole
+                // case to derive from — an org-scoped role is always org-tier.
+                'tier'            => 'organization',
                 'guard_name'      => 'api',
                 'is_system_role'  => false,
                 'sort_order'      => $data['sort_order'] ?? 99,

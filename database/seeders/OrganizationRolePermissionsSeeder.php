@@ -324,16 +324,27 @@ class OrganizationRolePermissionsSeeder extends Seeder
 
         foreach ($map as $roleName => $permissions) {
             // Find or create the global role
-            $role = Role::firstOrCreate([
-                'name' => $roleName,
-                'guard_name' => 'api',
-                'organization_id' => null,
-            ]);
+            // Every role this seeder defines is organization-tier; state it rather
+            // than inheriting the column default.
+            $role = Role::firstOrCreate(
+                [
+                    'name' => $roleName,
+                    'guard_name' => 'api',
+                    'organization_id' => null,
+                ],
+                ['tier' => 'organization'],
+            );
 
             if ($permissions === null) {
-                // Organization roles must never receive platform.* permissions.
+                // Organization roles must never receive platform-plane permissions.
+                // `organizations.manage` is excluded by name rather than prefix: it
+                // guards /api/v1/platform/organizations (tenant provisioning), not an
+                // organization editing itself — that is settings.manage. The
+                // remove_platform_permissions_from_super_admin migration strips by
+                // the `platform.%` prefix and so never caught this one.
                 $perms = Permission::where('guard_name', $role->guard_name)
                     ->where('name', 'not like', 'platform.%')
+                    ->where('name', '!=', SystemPermission::ORGANIZATIONS_MANAGE->value)
                     ->get();
             } else {
                 // Map enum cases to permission name strings

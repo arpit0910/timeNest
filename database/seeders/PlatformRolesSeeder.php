@@ -41,6 +41,13 @@ class PlatformRolesSeeder extends Seeder
                 [
                     'uuid' => (string) Str::uuid(),
                     'organization_id' => null,
+                    // Derived from the enum, not hand-listed. The tier migration
+                    // backfills rows that already exist, but on a fresh install it
+                    // runs before this seeder and matches nothing — without this the
+                    // app_* roles would take the column default ('organization'),
+                    // leak into every tenant's role listing, and make
+                    // isPlatformAccount() false for every platform account.
+                    'tier' => $systemRole->isPlatformRole() ? 'platform' : 'organization',
                     'description' => $systemRole->description(),
                     'is_system_role' => true,
                     'sort_order' => $systemRole->sortOrder(),
