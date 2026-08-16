@@ -52,7 +52,7 @@ class PlatformRoleController extends Controller
         $role = $this->roleService->findByUuid($uuid, null);
 
         // Platform admin — no org restriction
-        $updated = $this->roleService->update($role, $request->validated(), null);
+        $updated = $this->roleService->update($role, $request->validated(), auth()->user(), null);
 
         return new RoleResource($updated);
     }
@@ -63,6 +63,7 @@ class PlatformRoleController extends Controller
 
         $this->roleService->delete(
             role: $role,
+            actor: auth()->user(),
             organizationId: null,
             fallbackRoleUuid: $request->validated('fallback_role_uuid'),
         );

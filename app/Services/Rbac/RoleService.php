@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Rbac;
 
 use App\Enums\SystemPermission;
+use App\Exceptions\Business\BusinessRuleViolationException;
 use App\Models\Organization\OrganizationMembership;
 use App\Models\Rbac\Role;
 use App\Models\Auth\User;
@@ -103,8 +104,10 @@ class RoleService
     /**
      * Update a role's metadata (name, sort_order).
      * Org users cannot update global roles.
+     *
+     * @param User $actor  The user performing this action
      */
-    public function update(Role $role, array $data, ?int $organizationId = null): Role
+    public function update(Role $role, array $data, User $actor, ?int $organizationId = null): Role
     {
         // SECURITY RULE 1: org users cannot touch global roles
         if ($organizationId !== null && $role->organization_id === null) {
@@ -115,6 +118,13 @@ class RoleService
         if ($organizationId !== null && $role->organization_id !== null
             && $role->organization_id !== $organizationId) {
             throw new \RuntimeException('Access denied to this role.');
+        }
+
+        // SECURITY RULE 7: a global role is inherited by every organization, so
+        // renaming one is a platform-wide mutation — it requires the wildcard,
+        // not merely platform.roles.manage.
+        if ($role->organization_id === null && ! $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            throw new \RuntimeException('Only platform super admins can modify global roles.');
         }
 
         return DB::transaction(function () use ($role, $data): Role {
@@ -132,8 +142,10 @@ class RoleService
      * System roles and global roles cannot be deleted by org users.
      * Before deleting, reassign members holding this role if
      * a fallback_role_uuid is provided.
+     *
+     * @param User $actor  The user performing this action
      */
-    public function delete(Role $role, ?int $organizationId = null, ?string $fallbackRoleUuid = null): void
+    public function delete(Role $role, User $actor, ?int $organizationId = null, ?string $fallbackRoleUuid = null): void
     {
         // SECURITY RULE 2: system roles cannot be deleted
         if ($role->is_system_role) {
@@ -145,15 +157,47 @@ class RoleService
             throw new \RuntimeException('Global roles cannot be deleted by organizations.');
         }
 
+        // SECURITY RULE 7: a global role is a platform-wide mutation — deleting
+        // one requires the wildcard, not merely platform.roles.manage.
+        if ($role->organization_id === null && ! $actor->can(SystemPermission::PLATFORM_FULL_ACCESS->value)) {
+            throw new \RuntimeException('Only platform super admins can delete global roles.');
+        }
+
         DB::transaction(function () use ($role, $fallbackRoleUuid): void {
             // If a fallback role is provided, reassign all users holding this role
             if ($fallbackRoleUuid !== null) {
+                // Reassignment is scoped to the role's own tenant. A global role's
+                // assignments span every organization, so there is no correct
+                // scope to move them to.
+                if ($role->organization_id === null) {
+                    throw new BusinessRuleViolationException(
+                        'Members of a global role cannot be reassigned — the role spans every organization.',
+                        'GLOBAL_ROLE_REASSIGNMENT_FORBIDDEN'
+                    );
+                }
+
                 $fallbackRole = Role::where('uuid', $fallbackRoleUuid)->firstOrFail();
 
-                // Reassign via Spatie's model_has_roles table
+                // The fallback must be usable by the same tenant: either its own
+                // org role, or a global role every organization inherits.
+                if ($fallbackRole->organization_id !== null
+                    && $fallbackRole->organization_id !== $role->organization_id) {
+                    throw new BusinessRuleViolationException(
+                        'The fallback role belongs to a different organization.',
+                        'INVALID_FALLBACK_ROLE_SCOPE'
+                    );
+                }
+
+                // Reassign via Spatie's model_has_roles table, constrained to the
+                // role's own tenant so no other organization's rows are touched.
                 DB::table('model_has_roles')
                     ->where('role_id', $role->id)
+                    ->where('organization_id', $role->organization_id)
                     ->update(['role_id' => $fallbackRole->id]);
+
+                // A raw DB write bypasses Spatie's cache invalidation; without
+                // this the old mapping is served until the 24h TTL expires.
+                app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
             }
 
             $role->delete();

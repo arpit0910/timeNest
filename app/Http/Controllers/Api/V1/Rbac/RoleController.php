@@ -62,7 +62,7 @@ class RoleController extends Controller
 
         $role = $this->roleService->findByUuid($uuid, $organizationId);
 
-        $updated = $this->roleService->update($role, $request->validated(), $organizationId);
+        $updated = $this->roleService->update($role, $request->validated(), auth()->user(), $organizationId);
 
         return new RoleResource($updated);
     }
@@ -75,6 +75,7 @@ class RoleController extends Controller
 
         $this->roleService->delete(
             role: $role,
+            actor: auth()->user(),
             organizationId: $organizationId,
             fallbackRoleUuid: $request->validated('fallback_role_uuid'),
         );
