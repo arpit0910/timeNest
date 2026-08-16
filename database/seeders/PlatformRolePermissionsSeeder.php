@@ -66,17 +66,18 @@ class PlatformRolePermissionsSeeder extends Seeder
                 SystemPermission::REPORTS_EXPORT,
             ],
 
-            // ─── Organization roles ─────────────────────────────────
-            // super_admin is intentionally duplicated: both seeders map it to the
-            // full permission set, so the definitions are identical and the
-            // DatabaseSeeder ordering cannot change the outcome.
+            // No organization-tier role is defined here. Both seeders call the
+            // destructive syncPermissions(), so any role declared in both had its
+            // final permissions decided by whichever ran last.
             //
-            // Every OTHER organization-tier role (admin, head, department_admin,
-            // manager, team_lead, viewer, employee, intern, contractor) is defined
-            // solely by OrganizationRolePermissionsSeeder. Both seeders call the
-            // destructive syncPermissions(), so duplicating them here made the
-            // result depend on which seeder ran last.
-            SystemRole::SUPER_ADMIN->value => null, // ALL permissions (billing excluded at app layer)
+            // super_admin was the last such duplicate. Both mapped it to null, but
+            // the wildcards resolve differently — this seeder's grants every
+            // permission for the guard (101, including platform.*), while
+            // OrganizationRolePermissionsSeeder excludes the platform plane (98).
+            // Identical declarations, different results.
+            //
+            // OrganizationRolePermissionsSeeder is now the sole definition for
+            // every organization-tier role.
         ];
     }
 
